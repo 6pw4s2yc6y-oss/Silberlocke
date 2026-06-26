@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SILBERLOCKER</title>
+    <title>SILBERLOCKE</title>
     <style>
         * {
             box-sizing: border-box;
@@ -24,7 +24,7 @@
             padding: 0 14px;
         }
 
-        /* HEADER & MASTER HEADLINE */
+        /* HEADER */
         header {
             background: linear-gradient(180deg, #111128 0%, #08090d 100%);
             padding: 24px 16px 14px;
@@ -42,22 +42,13 @@
         }
 
         .brand-sub {
-            font-size: 11px;
-            letter-spacing: 0.25em;
-            color: #7c3aed;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        h1 {
-            font-size: clamp(20px, 5vw, 26px);
-            font-weight: 900;
-            margin: 4px 0 0;
+            font-size: 20px;
+            letter-spacing: 0.15em;
             background: linear-gradient(90deg, #a78bfa, #60a5fa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .tab-bar {
@@ -147,7 +138,7 @@
         .why-text { font-size: 11px; color: #94a3b8; line-height: 1.6; }
 
         .item-list { display: flex; flex-direction: column; gap: 8px; }
-        .sub-product-card { background: #1a2035; border: 1px solid #1e293b; border-radius: 99px; border-radius: 9px; padding: 10px 12px; }
+        .sub-product-card { background: #1a2035; border: 1px solid #1e293b; border-radius: 9px; padding: 10px 12px; }
         .sub-product-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
         .sub-product-title { display: flex; align-items: center; gap: 6px; flex: 1; font-size: 12px; font-weight: 700; color: #e2e8f0; }
         .prio-badge { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
@@ -207,7 +198,6 @@
             <div class="header-top">
                 <div>
                     <div class="brand-sub">SILBERLOCKER</div>
-                    <h1>FATPACK NASER FATSACK</h1>
                 </div>
             </div>
             <div class="tab-bar">
@@ -227,12 +217,12 @@
             <div class="panel panel-protein" id="panelProtein">
                 <div class="panel-title protein-title">💪 Proteinsynthese – alle 3–4h stimulieren!</div>
                 <p style="font-size: 11px; color: #6ee7b7; margin-bottom: 10px; line-height: 1.5;">
-                    MPS (Muskelproteinsynthese) läuft ~3–4h nach jeder Dosis. Danach MUSS neu stimuliert werden. Kohlenhydrat-Basis: 500g Nudeln am Tag.
+                    MPS (Muskelproteinsynthese) läuft ~3–4h nach jeder Dosis. Nudel-Menge: 500g aufgeteilt in 5 Dosen à 100g ab 13:00 Uhr.
                 </p>
                 <div id="proteinDosesList" class="protein-grid"></div>
                 <div class="protein-total">
                     <span>Gesamt täglich Ziel:</span>
-                    <span>~175–210g Protein | 375g Carbs (Nudeln)</span>
+                    <span>~175–210g Protein | 500g Carbs (Nudeln) + Haferflocken</span>
                 </div>
             </div>
         </div>
@@ -269,7 +259,6 @@
     </div>
 
     <script>
-        // DATA SOURCES
         const PRODUCTS = [
           { id:"p1",  cat:"Protein",           name:"ZEC+ Almost Whey",                  icon:"🟢", serving:"~30g",  protein:22, carbs:3,  fat:2,  kcal:118, absorption:"Mittel-schnell (~2–3h)",    function:"Muskelaufbau & -erhalt, Regeneration", takeWith:"Post-Workout mit Wasser oder Milch, mit Kohlenhydraten für Insulinausschüttung", competes:"Nicht mit Casein mischen; zeitversetzt zu Zink/Mg" },
           { id:"p2",  cat:"Protein",           name:"ZEC+ Whey Hydrolysat",               icon:"🟢", serving:"~25g",  protein:22, carbs:1,  fat:0.5,kcal:97,  absorption:"Sehr schnell (~30–60 min) – vorverdaute Peptide", function:"Schnellste Proteinversorgung post-workout, max. MPS", takeWith:"Direkt nach Training + Dextrose für anabolen Effekt", competes:"Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig" },
@@ -303,7 +292,7 @@
           { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",          icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfügbar", function:"ATP-Produktion, Ausdauer & VO2max, Testosteron, Lungenkapazität", takeWith:"Pre-workout oder morgens. Mit CoQ10 für mitochondriale Gesundheit.", competes:"Leicht blutverdünnend. Autoimmunerkrankungen vorsichtig." },
           { id:"p31", cat:"Adaptogene",        name:"HEALTH+ Reishi",                     icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Triterpene besser mit Mahlzeit", function:"Immunmodulation, Beta-Glucane, Leberschutz, Stress↓, Schlaf", takeWith:"Abends. Mit Vitamin C synergistisch.", competes:"Blutverdünnend. Blutdruck senkend. Vor OPs absetzen." },
           { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                       icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserlösliche Bestandteile gut verfügbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Frühstück. Mit Ashwagandha kombinierbar.", competes:"Vorsicht bei hormonabhängigen Erkrankungen. Schilddrüseneinfluss möglich." },
-          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"🌿", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Moleküle, hohe Bioverfügbarkeit", function:"Stärkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefäße, Anti-Aging", takeWith:"Morgens nüchtern. Mit Vitamin C synergistisch. Mit Kollagen für Anti-Aging.", competes:"Leicht blutverdünnend. Kann Eisenaufnahme hemmen – zeitversetzt." },
+          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"🌿", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Moleküle, hohe Bioverfügbarkeit", function:"Stärkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefäße, Anti-Aging", takeWith:"Morgens nüchtern. Mit Vitamin C synergistisch. Mit Kollagen for Anti-Aging.", competes:"Leicht blutverdünnend. Kann Eisenaufnahme hemmen – zeitversetzt." },
           { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",               icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzündungshemmung, Regeneration, Schlaf (Melatonin), Harnsäure↓", takeWith:"Abends (Melatonin-Gehalt fördert Schlaf). Post-workout für Regeneration.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten." },
           { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",              icon:"🦠", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstützung, Nährstoffaufnahme↑, Blähungen↓", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme." },
           { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ Probio-Tect",               icon:"🦠", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Magensäureresistente Kapseln – Bakterien erreichen Darm lebend", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung", takeWith:"Morgens nüchtern. Nicht mit heißen Getränken. Mit Ballaststoffen.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Rücksprache." },
@@ -323,16 +312,16 @@
         ];
 
         const TIMELINE = [
-          { id:"t1", label:"Aufwachen & Nüchtern", time:"10:00 – 10:30", icon:"🌅", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:"💧 WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nüchternmagen = maximale Nährstoffaufnahme. Cortisol morgens hoch → Mikronährstoffe & R-ALA jetzt am effektivsten absorbierbar.", productIds:["p22","p17","p33","p36"], notes:{ p22:"MIT Fett (Olivenöl, Nussbutter) – D3 fettlöslich, sonst nur ~30% Absorption!", p17:"MUSS nüchtern sein – Fett/Protein reduziert Aufnahme um 40%", p33:"Nüchtern für maximale Bioverfügbarkeit", p36:"Magensäure nach dem Aufwachen am niedrigsten → Bakterien überleben besser" }, priority:{ p22:"MUSS", p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
-          { id:"t2", label:"Frühstück / Erste Mahlzeit", time:"10:45 – 11:30", icon:"🍳", color:"#10b981", bg:"#001a0f", border:"#065f46", why:"💧 WASSER: Volles großes Glas (350ml – 500ml) zu den Kapseln.<br><br>Fettreiche Mahlzeit für fettlösliche Vitamine (Omega 3). Insulin transportiert Nährstoffe in Zellen. Energie für den Tag aktivieren.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettlöslichen Anteile (A, E, K)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Frühstück – B-Vitamine aktivieren den Energiestoffwechsel", p29:"Mit Fett – Withanolide fettlöslich; Erste Dosis für Cortisolreduktion über den Tag", p32:"Morgens für Energie & Libido über den Tag", p19:"In Wasser oder Saft – Säure-Basen-Ausgleich", p30:"Morgens für ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
-          { id:"t3", label:"Vormittag / Zwischenshake", time:"13:00 – 13:30", icon:"⚗️", color:"#06b6d4", bg:"#001420", border:"#0e7490", why:"💧 WASSER: 300ml – 450ml (mit Shaker angerührt).<br><br>Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein für kontinuierliche Muskelproteinsynthese (MPS) (alle 3–4h neu stimulieren!).", productIds:["p23","p21","p2","p3"], notes:{ p23:"2h NACH Frühstück & OHNE Ca/Zn/Mg! Mit Vitamin C → Absorption ×2", p21:"Zusammen mit Eisen für max. Eisenabsorption", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative zu Hydrolysat für einen leichten Vormittags-Shake" }, priority:{ p23:"MUSS", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
+          { id:"t1", label:"Aufwachen & Nüchtern", time:"10:00 – 10:30", icon:"🌅", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:"💧 WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nüchternmagen = maximale Nährstoffaufnahme. Cortisol morgens hoch → Mikronährstoffe & R-ALA jetzt am effektivsten absorbierbar.", productIds:["p22","p17","p33","p36"], notes:{ p22:"MIT Fett (Olivenöl, Nussbutter) – D3 fettlöslich, sonst nur ~30% Absorption!", p17:"MUSS nüchtern sein – Fett/Protein reduziert Aufnahme um 40%", p33:"Nüchtern for maximale Bioverfügbarkeit", p36:"Magensäure nach dem Aufwachen am niedrigsten → Bakterien überleben besser" }, priority:{ p22:"MUSS", p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
+          { id:"t2", label:"Frühstück (Haferflocken)", time:"10:45 – 11:30", icon:"🥣", color:"#10b981", bg:"#001a0f", border:"#065f46", why:"💧 WASSER: Volles großes Glas (350ml – 500ml) zu den Kapseln.<br><br><strong>🌾 HAFERFLOCKEN-BASIS: 100g Haferflocken mit 250ml Milch.</strong> Fettreiche Mahlzeit (Milchfett/Flocken) optimiert fettlösliche Vitamine (Omega 3). Insulin transportiert Nährstoffe in Zellen.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettlöslichen Anteile (A, E, K)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Frühstück – B-Vitamine aktivieren den Energiestoffwechsel", p29:"Mit Fett – Withanolide fettlöslich; Erste Dosis für Cortisolreduktion über den Tag", p32:"Morgens für Energie & Libido über den Tag", p19:"In Wasser oder Saft – Säure-Basen-Ausgleich", p30:"Morgens für ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
+          { id:"t3", label:"Vormittag / 1. Nudel-Dosis", time:"13:00 – 13:30", icon:"🍝", color:"#06b6d4", bg:"#001420", border:"#0e7490", why:"💧 WASSER: 300ml – 450ml (mit Shaker angerührt).<br><br><strong>🍝 NUDEL-DOSIS 1: Erstes Paket (100g Rohgewicht)</strong> startet die Kohlenhydrat-Versorgung ab 13:00 Uhr. Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein für kontinuierliche Muskelproteinsynthese (MPS) aktivieren.", productIds:["p23","p21","p2","p3"], notes:{ p23:"2h NACH Frühstück & OHNE Ca/Zn/Mg! Mit Vitamin C → Absorption ×2", p21:"Zusammen mit Eisen für max. Eisenabsorption", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative to Hydrolysat für einen leichten Vormittags-Shake" }, priority:{ p23:"MUSS", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
           { id:"t4", label:"Pre-Workout", time:"30–45 min vor Training", icon:"⚡", color:"#ef4444", bg:"#1a0000", border:"#991b1b", why:"💧 WASSER: Exakt 400ml – 500ml zum Anmischen der Pulver.<br><br>Citrullin braucht 45 min für die NO-Wandlung im Körper. Koffein Peak liegt bei 60 min. Zu viel Flüssigkeit direkt im Training vermeiden.", productIds:["p14","p45","p44","p13","p11"], notes:{ p14:"ZUERST einnehmen – braucht 45 min für vollen NO-Effekt", p45:"NUR EINEN Booster wählen! Nicht kombinieren.", p44:"Koffeinfrei – als Alternative oder Ergänzung zum Booster", p13:"Pre ODER post – Konsistenz wichtiger als Timing", p11:"Für Einheiten >60 min als gleichmäßige Energiequelle" }, priority:{ p14:"MUSS", p45:"MUSS", p44:"OPTIONAL", p13:"WICHTIG", p11:"OPTIONAL" } },
           { id:"t5", label:"Intra-Workout", time:"Während Training", icon:"🏋️", color:"#8b5cf6", bg:"#0f0020", border:"#5b21b6", why:"💧 WASSER: Konstantes Trinken von 600ml – 800ml schluckweise.<br><br>Muskelabbau im harten Training verhindern, Hydration der Muskelzellen sichern, Ermüdung verzögern. Nur Flüssiges – kein Festfood.", productIds:["p15","p10"], notes:{ p15:"Slowly über die gesamte Einheit trinken – EAAs + Elektrolyte + Carbs in einem", p10:"Nur bei Einheiten >90 min zum Glykogennachfüllen" }, priority:{ p15:"WICHTIG", p10:"OPTIONAL" } },
           { id:"t6", label:"Post-Workout", time:"Sofort nach Training (0–30 min)", icon:"🔥", color:"#f97316", bg:"#1a0800", border:"#9a3412", why:"💧 WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Das anabole Fenster: Muskeln maximal insulinsensitiv, Glykogenspeicher leer, MPS-Rezeptoren weit offen. Jetzt den größten Hebel ansetzen.", productIds:["p2","p10","p13","p35"], notes:{ p2:"SOFORT – vorverdaut, in 30 min in der Muskelzelle", p10:"MIT Hydrolysat – Insulin transportiert Protein + Creatin in die Zelle (Ratio 1:1 bis 2:1)", p13:"Post-workout mit Carbs = bester Transportzeitpunkt wegen Insulin", p35:"Wenn direkt danach eine feste Mahlzeit folgt – optimiert Proteinverdauung" }, priority:{ p2:"MUSS", p10:"MUSS", p13:"WICHTIG", p35:"OPTIONAL" } },
-          { id:"t7", label:"Mittagessen (Hauptmahlzeit)", time:"16:00 – 17:00", icon:"🍽️", color:"#22c55e", bg:"#001a08", border:"#166534", why:"💧 WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>🍝 Nudel-Dosis 1: Erste Hälfte (250g Rohgewicht)</strong> für massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein für Muskel-MPS.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell für Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme für echten Knorpel-Effekt.", p37:"ZU jeder Mahlzeit mit Supplements – steigert Absorption aller Nährstoffe +20–40%", p48:"Mit Fett – Q10 fettlöslich. Mittagessen ideal.", p24:"2h NACH Eisenbisglycinat! Nicht zusammen einnehmen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
-          { id:"t8", label:"Nachmittag / Zwischenmahlzeit", time:"19:00 – 19:30", icon:"🥤", color:"#60a5fa", bg:"#000d1a", border:"#1d4ed8", why:"💧 WASSER: 300ml – 350ml.<br><br>MPS-Fenster beachten: alle 3–4h Protein zuführen! Adaptogene 2. Dosis nehmen. Entzündungshemmung und Regeneration nach dem harten Training einleiten.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schließt sich nach ~3–4h! Mind. 2–3g Leucin für volle MPS-Aktivierung", p34:"Entzündungshemmung post-workout. Abends zusätzlich für Schlaf.", p49:"Mit Snack. Nährstoff Optimizer für maximale Quercetin-Absorption.", p26:"Nach Training: Säure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
-          { id:"t9", label:"Abendessen (2. Mahlzeit)", time:"21:30 – 22:30", icon:"🌆", color:"#a78bfa", bg:"#0d001a", border:"#6d28d9", why:"💧 WASSER: 300ml – 400ml zum Essen.<br><br><strong>🍝 Nudel-Dosis 2: Zweite Hälfte (250g Rohgewicht)</strong> für die Regeneration im Schlaf. Letzte Nährstoff-Hauptversorgung. Cortisol senken. Testosteron-Protokoll starten.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert für langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol↓ vor Schlaf, Testosteron↑ während Schlaf", p25:"Mit Abendessen. Schilddrüsenenzyme abends hochgradig aktiv.", p18:"Mit fetthaltiger Mahlzeit – fettlösliche Anteile (A, E)", p31:"Abends: Schlafqualität, Entspannung, Leberschutz über Nacht", p24:"BESTER Zeitpunkt: nüchtern 2h nach Abendessen – Testosteronproduktion läuft nachts" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"WICHTIG" } },
-          { id:"t10", label:"Vor dem Schlafen", time:"01:00 – 01:30", icon:"🌙", color:"#818cf8", bg:"#05001a", border:"#4338ca", why:"💧 WASSER: Exakt 250ml – maximal 300ml (um nächtliches Aufwachen zu verhindern).<br><br>Wachstumshormon-Ausschüttung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung während GH-Ausschüttung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian + 5-HTP zusammen wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium für Knochen im Schlaf.", p16:"Direkt vor Schlaf: Körpertemperatur↓ → tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmäßigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzündung über Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
+          { id:"t7", label:"Mittagessen / 2. Nudel-Dosis", time:"16:00 – 17:00", icon:"🍽️", color:"#22c55e", bg:"#001a08", border:"#166534", why:"💧 WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>🍝 NUDEL-DOSIS 2: Zweites Paket (100g Rohgewicht)</strong> für massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein für Muskel-MPS.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell für Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme für echten Knorpel-Effekt.", p37:"ZU jeder Mahlzeit mit Supplements – steigert Absorption aller Nährstoffe +20–40%", p48:"Mit Fett – Q10 fettlöslich. Mittagessen ideal.", p24:"2h NACH Eisenbisglycinat! Nicht zusammen einnehmen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
+          { id:"t8", label:"Nachmittag / 3. Nudel-Dosis", time:"19:00 – 19:30", icon:"🥤", color:"#60a5fa", bg:"#000d1a", border:"#1d4ed8", why:"💧 WASSER: 300ml – 350ml.<br><br><strong>🍝 NUDEL-DOSIS 3: Drittes Paket (100g Rohgewicht).</strong> MPS-Fenster beachten: alle 3–4h Protein zuführen! Adaptogene 2. Dosis nehmen. Entzündungshemmung und Regeneration nach dem harten Training einleiten.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schließt sich nach ~3–4h! Mind. 2–3g Leucin für volle MPS-Aktivierung", p34:"Entzündungshemmung post-workout. Abends zusätzlich für Schlaf.", p49:"Mit Snack. Nährstoff Optimizer für maximale Quercetin-Absorption.", p26:"Nach Training: Säure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
+          { id:"t9", label:"Abendessen / 4. Nudel-Dosis", time:"21:30 – 22:30", icon:"🌆", color:"#a78bfa", bg:"#0d001a", border:"#6d28d9", why:"💧 WASSER: 300ml – 400ml zum Essen.<br><br><strong>🍝 NUDEL-DOSIS 4: Viertes Paket (100g Rohgewicht)</strong> für die Regeneration im Schlaf. Letzte Nährstoff-Hauptversorgung. Cortisol senken. Testosteron-Protokoll starten.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert für langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol↓ vor Schlaf, Testosteron↑ während Schlaf", p25:"Mit Abendessen. Schilddrüsenenzyme abends hochgradig aktiv.", p18:"Mit fetthaltiger Mahlzeit – fettlösliche Anteile (A, E)", p31:"Abends: Schlafqualität, Entspannung, Leberschutz über Nacht", p24:"BESTER Zeitpunkt: nüchtern 2h nach Abendessen – Testosteronproduktion läuft nachts" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"WICHTIG" } },
+          { id:"t10", label:"Vor dem Schlafen / 5. Nudel-Dosis", time:"01:00 – 01:30", icon:"🌙", color:"#818cf8", bg:"#05001a", border:"#4338ca", why:"💧 WASSER: Exakt 250ml – maximal 300ml (um nächtliches Aufwachen zu verhindern).<br><br><strong>🍝 NUDEL-DOSIS 5: Fünftes und letztes Paket (100g Rohgewicht).</strong> Wachstumshormon-Ausschüttung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung während GH-Ausschüttung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian + 5-HTP zusammen wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium für Knochen im Schlaf.", p16:"Direkt vor Schlaf: Körpertemperatur↓ → tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmäßigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzündung über Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
         ];
 
         const CRITICAL = [
@@ -348,13 +337,13 @@
         ];
 
         const PROTEIN_DOSES = [
-          { time:"10:45 Frühstück",       type:"Feste Mahlzeit",         g:"35–40g" },
-          { time:"13:00 Vormittag",       type:"Hydrolysat / Shake",     g:"25g" },
+          { time:"10:45 Frühstück",       type:"100g Haferflocken + Milch",g:"~25g" },
+          { time:"13:00 Vormittag",       type:"100g Nudeln + Shake",    g:"~45g" },
           { time:"Post-Workout",          type:"Hydrolysat + Carbs",     g:"25–30g" },
-          { time:"16:00 Mittagessen",     type:"250g Nudeln + Protein",  g:"55g" },
-          { time:"19:00 Nachmittag",      type:"Whey / Clear Whey",      g:"25g" },
-          { time:"21:30 Abendessen",      type:"250g Nudeln + Pudding",  g:"55g" },
-          { time:"01:00 Vor Schlaf",      type:"Micellar Casein",        g:"30–40g" }
+          { time:"16:00 Mittagessen",     type:"100g Nudeln + Protein",  g:"~35g" },
+          { time:"19:00 Nachmittag",      type:"100g Nudeln + Whey",     g:"~45g" },
+          { time:"21:30 Abendessen",      type:"100g Nudeln + Pudding",  g:"~35g" },
+          { time:"01:00 Vor Schlaf",      type:"100g Nudeln + Casein",   g:"~50g" }
         ];
 
         const PRIO_STYLE = {
