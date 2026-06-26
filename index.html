@@ -152,6 +152,17 @@
             text-transform: uppercase;
         }
 
+        .header-time-info {
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: right;
+        }
+
+        .header-time-info span {
+            color: #a78bfa;
+            font-weight: 700;
+        }
+
         .tab-bar {
             display: flex;
             gap: 10px;
@@ -205,12 +216,12 @@
             align-items: center;
         }
 
-        .panel-title { 
-            font-size: 14px; 
-            font-weight: 800; 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
+        .panel-title {
+            font-size: 14px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .rules-title { color: #fca5a5; }
         .protein-title { color: #4ade80; }
@@ -339,12 +350,16 @@
     <div id="setupScreen">
         <div class="setup-card">
             <div class="setup-title">SILBERLOCKE</div>
-            <div class="setup-desc">Gib deine Aufwachzeit an, um deinen Tagesplan und die Proteinsynthese-Phasen perfekt darauf abzutakten.</div>
+            <div class="setup-desc">Gib deine Aufwachzeit und Schlafenszeit an, um deinen Tagesplan und die Proteinsynthese-Phasen perfekt darauf abzutakten.</div>
             <div class="form-group">
                 <label for="wakeTimeInput">Wann wachst du auf?</label>
-                <input type="time" id="wakeTimeInput" class="time-input" value="10:00">
+                <input type="time" id="wakeTimeInput" class="time-input" value="07:00">
             </div>
-            <button class="start-btn" onclick="startApp()">Plan generieren 🚀</button>
+            <div class="form-group">
+                <label for="sleepTimeInput">Wann gehst du schlafen?</label>
+                <input type="time" id="sleepTimeInput" class="time-input" value="23:00">
+            </div>
+            <button class="start-btn" onclick="startApp()">Plan generieren</button>
         </div>
     </div>
 
@@ -355,11 +370,14 @@
                     <div>
                         <div class="brand-sub">SILBERLOCKE</div>
                     </div>
+                    <div class="header-time-info">
+                        Aufwachen: <span id="displayWakeTime">07:00</span> | Schlafen: <span id="displaySleepTime">23:00</span>
+                    </div>
                 </div>
                 <div class="tab-bar">
-                    <button class="tab-btn active" id="tabTimeline">⏱ Tagesplan</button>
-                    <button class="tab-btn" id="tabDatabase">📦 Produkte (A-Z)</button>
-                    <button class="tab-btn" id="tabFood">🍏 Nahrung</button>
+                    <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
+                    <button class="tab-btn" id="tabDatabase">Produkte (A-Z)</button>
+                    <button class="tab-btn" id="tabFood">Nahrung</button>
                 </div>
             </div>
         </header>
@@ -368,8 +386,8 @@
             <div class="top-panels-container">
                 <div class="panel panel-rules" id="panelRules">
                     <button class="panel-trigger" onclick="toggleTopPanel('panelRules', 'rulesContent')">
-                        <div class="panel-title rules-title">⚠️ Kritische Regeln – niemals brechen</div>
-                        <span class="panel-arrow">▼</span>
+                        <div class="panel-title rules-title">Kritische Regeln – niemals brechen</div>
+                        <span class="panel-arrow"></span>
                     </button>
                     <div id="rulesContent" class="panel-content">
                         <div id="rulesList"></div>
@@ -378,16 +396,16 @@
 
                 <div class="panel panel-protein" id="panelProtein">
                     <button class="panel-trigger" onclick="toggleTopPanel('panelProtein', 'proteinContent')">
-                        <div class="panel-title protein-title">💪 Proteinsynthese – alle 3–4h stimulieren!</div>
-                        <span class="panel-arrow">▼</span>
+                        <div class="panel-title protein-title">Proteinsynthese – alle 3–4h stimulieren!</div>
+                        <span class="panel-arrow"></span>
                     </button>
                     <div id="proteinContent" class="panel-content">
                         <p style="font-size: 11px; color: #6ee7b7; margin-bottom: 10px; line-height: 1.5;">
-                            MPS (Muskelproteinsynthese) läuft ~3–4h nach jeder Dosis. Nudel-Menge: 500g aufgeteilt in 5 Dosen à 100g.
+                            MPS (Muskelproteinsynthese) laeuft ~3–4h nach jeder Dosis. Nudel-Menge: 500g aufgeteilt in 5 Dosen a 100g.
                         </p>
                         <div id="proteinDosesList" class="protein-grid"></div>
                         <div class="protein-total">
-                            <span>Gesamt täglich Ziel:</span>
+                            <span>Gesamt taeglich Ziel:</span>
                             <span>~175–210g Protein | 500g Carbs (Nudeln) + Haferflocken</span>
                         </div>
                     </div>
@@ -398,23 +416,23 @@
 
             <div class="view-section" id="viewDatabase">
                 <div class="db-search-box">
-                    <span class="db-search-icon">🔍</span>
+                    <span class="db-search-icon"></span>
                     <input type="text" class="db-input" id="dbSearchInput" placeholder="Produkt oder Funktion suchen...">
                 </div>
                 <div class="db-categories" id="dbCategoriesBox"></div>
                 <div class="db-counter" id="dbProductCount">0 Produkte</div>
                 <div id="dbCardList"></div>
                 <div class="no-results" id="dbNoResults">
-                    <div class="no-results-icon">🔍</div>
+                    <div class="no-results-icon"></div>
                     <div>Kein Produkt gefunden</div>
                 </div>
             </div>
 
             <div class="view-section" id="viewFood">
                 <div class="food-container">
-                    <h2>🍏 Ernährungsplan &amp; Lebensmittel</h2>
+                    <h2>Ernaehrungsplan & Lebensmittel</h2>
                     <p style="margin-top: 12px; font-size: 13px; line-height: 1.6;">
-                        Hier ist Platz für deine festen Mahlzeiten (z.B. Nudelgerichte, Haferflocken-Rezepte, Einkaufslisten und Makros von echten Lebensmitteln).
+                        Hier ist Platz fuer deine festen Mahlzeiten (z.B. Nudelgerichte, Haferflocken-Rezepte, Einkaufslisten und Makros von echten Lebensmitteln).
                     </p>
                 </div>
             </div>
@@ -437,93 +455,94 @@
 
     <script>
         const PRODUCTS = [
-          { id:"p1",  cat:"Protein",           name:"ZEC+ Almost Whey",                  icon:"🟢", serving:"~30g",  protein:22, carbs:3,  fat:2,  kcal:118, absorption:"Mittel-schnell (~2–3h)",    function:"Muskelaufbau & -erhalt, Regeneration", takeWith:"Post-Workout mit Wasser oder Milch, mit Kohlenhydraten für Insulinausschüttung", competes:"Nicht mit Casein mischen; zeitversetzt zu Zink/Mg" },
-          { id:"p2",  cat:"Protein",           name:"ZEC+ Whey Hydrolysat",               icon:"🟢", serving:"~25g",  protein:22, carbs:1,  fat:0.5,kcal:97,  absorption:"Sehr schnell (~30–60 min) – vorverdaute Peptide", function:"Schnellste Proteinversorgung post-workout, max. MPS", takeWith:"Direkt nach Training + Dextrose für anabolen Effekt", competes:"Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig" },
-          { id:"p3",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Kirsche",     icon:"🟢", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min) – hochreines Isolat", function:"Fettarme Proteinversorgung, magenfreundlich, Laktosefrei", takeWith:"Post-workout oder als Snack mit Wasser", competes:"Nicht gleichzeitig mit Calcium-/Eisenreichen Mahlzeiten" },
-          { id:"p4",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Süßer Apfel", icon:"🟢", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min)", function:"Wie Kirsche – leichte, klare Proteinquelle, ideal bei Diät", takeWith:"Post-workout oder tagsüber als leichte Quelle", competes:"Siehe Clear Whey Kirsche" },
-          { id:"p5",  cat:"Protein",           name:"ZEC+ Ladies Vegan Connection",       icon:"🟢", serving:"~30g",  protein:20, carbs:4,  fat:3,  kcal:123, absorption:"Mittel (~2–3h) – Erbsen- & Reisprotein", function:"Pflanzliche Versorgung, Muskelerhalt, hormonell ausgewogen", takeWith:"Mit Vitamin C (verbessert Eisenaufnahme). Post-workout oder Mahlzeitenersatz", competes:"Phytate hemmen Zink/Eisen – zeitversetzt einnehmen" },
-          { id:"p6",  cat:"Protein",           name:"ZEC+ Micellar Casein",               icon:"🔵", serving:"~30g",  protein:24, carbs:2,  fat:1.5,kcal:118, absorption:"Sehr langsam (~5–7h) – bildet Gel im Magen", function:"Nächtliche Versorgung, Anti-Katabolismus im Schlaf", takeWith:"30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.", competes:"Nicht direkt mit Whey mischen; nicht als Post-Workout-Hauptprotein" },
-          { id:"p7",  cat:"Protein",           name:"ZEC+ Protein Pudding Stracciatella", icon:"🔵", serving:"~35g",  protein:20, carbs:5,  fat:3,  kcal:128, absorption:"Langsam (~4–6h) – Casein-Basis", function:"Sättigende Proteinmahlzeit, Anti-Heißhunger, abendliche Versorgung", takeWith:"Abends als Dessert oder zwischen Mahlzeiten", competes:"Nicht unmittelbar post-workout als schnelle Proteinquelle" },
-          { id:"p8",  cat:"Gainer & Carbs",    name:"ZEC+ Bullgainer",                    icon:"🟠", serving:"~150g", protein:30, carbs:90, fat:5,  kcal:530, absorption:"Schnell-mittel – Whey + Maltodextrin/Dextrose", function:"Maximale Kalorienaufnahme für Hardgainer, Muskelaufbau-Phase", takeWith:"Post-workout oder als zusätzliche Mahlzeit mit Milch", competes:"Nicht mit anderen hochkalorischen Mahlzeiten – Überschuss beachten" },
-          { id:"p9",  cat:"Gainer & Carbs",    name:"ZEC+ Maltodextrin",                  icon:"🟠", serving:"~30g",  protein:0,  carbs:29, fat:0,  kcal:116, absorption:"Sehr schnell – GI ~110, sofortiger Blutzuckeranstieg", function:"Glykogen-Replenishment, Insulinspike für Nährstofftransport", takeWith:"Post-workout mit Hydrolysat oder Creatin", competes:"Nicht bei Insulinresistenz. Nicht in Ruhezeiten." },
-          { id:"p10", cat:"Gainer & Carbs",    name:"ZEC+ Dextrose",                      icon:"🟠", serving:"~30g",  protein:0,  carbs:30, fat:0,  kcal:120, absorption:"Instantan – direkte Aufnahme, GI 100", function:"Sofortiger Energieschub, Glykogen, Nährstofftransport via Insulin", takeWith:"Post-workout mit Protein & Creatin", competes:"Nicht vor dem Schlafen; nicht bei Low-Carb" },
-          { id:"p11", cat:"Gainer & Carbs",    name:"ZEC+ Designer Carbs",                icon:"🟠", serving:"~50g",  protein:0,  carbs:47, fat:0,  kcal:188, absorption:"Mittel-schnell – Wachsmaisstärke, kein Insulinspike", function:"Gleichmäßige Energie, osmotisch günstig, kein Magendrücken", takeWith:"Pre- oder Intra-Workout für Einheiten >60 min", competes:"Weniger geeignet wenn schnelle Glykogenresynthese nötig" },
-          { id:"p12", cat:"Gainer & Carbs",    name:"Instant Rice Pudding",               icon:"🟠", serving:"~60g",  protein:8,  carbs:40, fat:2,  kcal:212, absorption:"Schnell-mittel – Reisstärke", function:"Magenfreundliche Energie, leicht verdaulich, post-workout oder Mahlzeit", takeWith:"Post-workout oder morgens. Mit Casein für langsame Ergänzung.", competes:"Kein vollständiges Aminosäureprofil allein" },
-          { id:"p13", cat:"Performance",       name:"ZEC+ Creatin Monohydrat",            icon:"💪", serving:"5g",    protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wird über 1–2h aufgenommen, Spiegel baut sich über Wochen auf", function:"Kraftsteigerung, ATP-Resynthese, Zellvoluminisierung, Kognition", takeWith:"Post-workout mit Carbs & Protein (Insulin-Transport). Täglich konsistent.", competes:"Koffein theoretisch konkurrierend. Viel Wasser (3L+). Nicht mit Diuretika." },
-          { id:"p14", cat:"Performance",       name:"ZEC+ Citrullin Malat",               icon:"💪", serving:"~8g",   protein:0,  carbs:0,  fat:0,  kcal:16,  absorption:"Schnell – wird in Niere zu Arginin umgewandelt", function:"NO-Boost, Pump & Durchblutung, Laktatpufferung, weniger Ermüdung", takeWith:"30–45 min pre-workout auf nüchternem Magen", competes:"Nicht mit PDE5-Hemmern. Hohe Dosen → Magenprobleme möglich." },
-          { id:"p15", cat:"Performance",       name:"ZEC+ Intra Evolution",               icon:"💪", serving:"~25g",  protein:8,  carbs:12, fat:0,  kcal:90,  absorption:"Sehr schnell – freie Aminosäuren direkt verfügbar", function:"Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus", takeWith:"Während Training in 500–750ml Wasser. Mit Natrium für Hydration.", competes:"Kein extra Protein-Shake nötig – Aminosäuren enthalten" },
-          { id:"p16", cat:"Aminosäuren",       name:"HEALTH+ L-Glycin",                   icon:"🔬", serving:"3g",    protein:0,  carbs:0,  fat:0,  kcal:12,  absorption:"Schnell – passive Diffusion, einfachste Aminosäure", function:"Kollagensynthese, Schlafqualität, Glutathion-Vorstufe, Verdauung", takeWith:"Abends vor Schlaf (schlaffördernd). Morgens nüchtern for Kollagen. Mit Kollagen-Präparaten.", competes:"Hohe Dosen (>10g) können schläfrig machen" },
-          { id:"p17", cat:"Aminosäuren",       name:"HEALTH+ R-ALA",                      icon:"🔬", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Schnell nüchtern – Mahlzeiten –40% Bioverfügbarkeit", function:"Universelles Antioxidans (fett- & wasserlöslich), Insulinsensitivität, Nerven", takeWith:"30 min vor Mahlzeiten, nüchtern. Mit Biotin kombinieren.", competes:"Nicht mit Chemo ohne Rücksprache. Blutzucker ↓ bei Diabetes. Nicht mit Chelatoren." },
-          { id:"p18", cat:"Vitamine",          name:"ZEC+ All In One Antioxidant",        icon:"🟡", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Fettlösliche Anteile (A, E) mit Fett aufnehmen", function:"Freie Radikale bekämpfen, Immunsystem, Zellschutz, Entzündungshemmung", takeWith:"Mit fettreicher Mahlzeit", competes:"Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K." },
-          { id:"p19", cat:"Vitamine",          name:"ZEC+ Greens Mikronährstoffe",        icon:"🟡", serving:"~10g",  protein:2,  carbs:3,  fat:0,  kcal:20,  absorption:"Mittel – pflanzliche Nährstoffe variieren", function:"Säure-Basen-Balance, Entgiftung, Mikronährstoffe, Energie", takeWith:"Morgens nüchtern mit Wasser. Vitamin C verbessert Eisenaufnahme.", competes:"Chlorella bindet Schwermetalle – nicht gleichzeitig mit Medis. Spirulina bei Autoimmun vorsichtig." },
-          { id:"p20", cat:"Vitamine",          name:"ZEC+ Vitamin B25",                   icon:"🟡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wasserlöslich – B12 benötigt Intrinsic Factor", function:"Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion", takeWith:"Morgens mit Frühstück für Energie-Boost", competes:"B6 >50mg/Tag → Neuropathie. Antazida reduzieren B12-Aufnahme." },
-          { id:"p21", cat:"Vitamine",          name:"ZEC+ Vitamin C + Hagebutte",         icon:"🟡", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wasserlöslich – >200mg sinkt % Aufnahme; 2x täglich besser", function:"Immunsystem, Kollagensynthese, Eisenaufnahme ×2, Antioxidans", takeWith:"Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen.", competes:"Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsäure + viel Vit C." },
-          { id:"p22", cat:"Vitamine",          name:"Vitamin D3 + K2",                    icon:"🟡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – +50% besser mit Fett", function:"Calcium-Regulierung, Knochen, Immunsystem, Muskelkraft, Hormone", takeWith:"MIT Fett (Olive, Nuss). K2 lenkt Calcium in Knochen, nicht Arterien.", competes:"D3 OHNE K2 → Arterienverkalkung! Nicht mit Warfarin. Magnesium aktiviert D3." },
-          { id:"p23", cat:"Mineralien",        name:"Eisenbisglycinat",                   icon:"⚡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat", function:"Sauerstofftransport, Blutbildung, Energie, Kognition", takeWith:"Nüchtern oder mit Vitamin C (Aufnahme ×2). 2h Abstand zu Tee/Kaffee/Milch.", competes:"Calcium, Zink, Magnesium hemmen Fe! Kaffee/Tee stark hemmend." },
-          { id:"p24", cat:"Mineralien",        name:"Zink",                               icon:"⚡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nüchtern for Testosteron (ZMA-Protokoll). Mit Casein.", competes:"Hemmt Kupfer bei Langzeit (10:1 Ratio). Eisen & Kalzium hemmen Aufnahme." },
-          { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                      icon:"⚡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – Selenomethionin >90% bioverfügbar", function:"Schilddrüse (T4→T3), Antioxidans (Glutathionperoxidase), Immunsystem, Fruchtbarkeit", takeWith:"Mit Mahlzeit. Synergie mit Vitamin E.", competes:"Max 400µg/Tag (toxisch). Hohe Vit-C-Dosen können Bioverfügbarkeit senken." },
-          { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",        icon:"⚡", serving:"~5g",   protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut löslich", function:"Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf. In Wasser auflösen.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig." },
-          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin",    icon:"⚡", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettlösliche Vitamine besser mit Fett", function:"Grundversorgung aller Mikronährstoffe, Prävention von Mangelzuständen", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"Nicht mit hochdosierten Einzelvitaminen kombinieren. Ca hemmt Fe-Absorption." },
-          { id:"p28", cat:"Omega & Öle",       name:"HEALTH+ Super Omega 3",              icon:"🐟", serving:"2 Kap", protein:0,  carbs:0,  fat:4,  kcal:36,  absorption:"Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit", function:"Herzgesundheit, Entzündungshemmung, Gehirnfunktion, Gelenke", takeWith:"Mit fettreicher Mahlzeit. Synergie mit D3+K2.", competes:"Blutverdünnend – Vorsicht mit Aspirin/Warfarin. Vor Operationen absetzen." },
-          { id:"p29", cat:"Adaptogene",        name:"HEALTH+ Ashwagandha KSM-66",         icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Withanolide besser mit Mahlzeit", function:"Cortisol↓, Stressresistenz, Testosteron↑, Schlaf, Ausdauer", takeWith:"Abends (cortisol-senkend). 2x täglich mit Mahlzeit. Piperin verbessert Absorption.", competes:"Nicht mit Schilddrüsen-Medi ohne Rücksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI." },
-          { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",          icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfügbar", function:"ATP-Produktion, Ausdauer & VO2max, Testosteron, Lungenkapazität", takeWith:"Pre-workout oder morgens. Mit CoQ10 für mitochondriale Gesundheit.", competes:"Leicht blutverdünnend. Autoimmunerkrankungen vorsichtig." },
-          { id:"p31", cat:"Adaptogene",        name:"HEALTH+ Reishi",                     icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Triterpene besser mit Mahlzeit", function:"Immunmodulation, Beta-Glucane, Leberschutz, Stress↓, Schlaf", takeWith:"Abends. Mit Vitamin C synergistisch.", competes:"Blutverdünnend. Blutdruck senkend. Vor OPs absetzen." },
-          { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                       icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserlösliche Bestandteile gut verfügbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Frühstück. Mit Ashwagandha kombinierbar.", competes:"Vorsicht bei hormonabhängigen Erkrankungen. Schilddrüseneinfluss möglich." },
-          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"🌿", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Moleküle, hohe Bioverfügbarkeit", function:"Stärkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefäße, Anti-Aging", takeWith:"Morgens nüchtern. Mit Vitamin C synergistisch. Mit Kollagen for Anti-Aging.", competes:"Leicht blutverdünnend. Kann Eisenaufnahme hemmen – zeitversetzt." },
-          { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",               icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzündungshemmung, Regeneration, Schlaf (Melatonin), Harnsäure↓", takeWith:"Abends (Melatonin-Gehalt fördert Schlaf). Post-workout für Regeneration.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten." },
-          { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",              icon:"🦠", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstützung, Nährstoffaufnahme↑, Blähungen↓", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme." },
-          { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ Probio-Tect",               icon:"🦠", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Magensäureresistente Kapseln – Bakterien erreichen Darm lebend", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung", takeWith:"Morgens nüchtern. Nicht mit heißen Getränken. Mit Ballaststoffen.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Rücksprache." },
-          { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Nährstoff Optimizer",        icon:"🦠", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme → mehr Nährstoffe ins Blut", function:"Bioverfügbarkeit aller Nährstoffe ↑ 20–40%, Entzündungshemmung", takeWith:"Zu jeder Supplement-Einnahme. Curcumin +2000%, Q10, Vitamine.", competes:"Erhöht Medikamentenspiegel! Vorsicht mit Rx-Medi (hemmt CYP3A4)." },
-          { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",        icon:"💎", serving:"~15g",  protein:13, carbs:0,  fat:0,  kcal:52,  absorption:"Hydrolysierte Peptide (~2000 Da) bis zu 90% bioverfügbar", function:"Haut, Haare, Nägel, Knorpel, Gelenke, Darm, Knochen, Sehnen", takeWith:"Morgens nüchtern + Vitamin C (essenziell für Kollagensynthese!). L-Glycin ergänzt.", competes:"Kein vollständiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle." },
-          { id:"p39", cat:"Kollagen & Gelenke",name:"ZEC+ Arthro Essential",              icon:"💎", serving:"~10g",  protein:5,  carbs:2,  fat:0,  kcal:28,  absorption:"Mittel – Glucosamin oral ~30%; Wirkung erst nach 4–8 Wochen", function:"Knorpelschutz/-aufbau, Gelenkschmierung, Entzündungshemmung, Bindegewebe", takeWith:"Mit Mahlzeiten. Mind. 3 Monate einnehmen.", competes:"Glucosamin kann Blutzucker leicht erhöhen. Chondroitin leicht blutverdünnend." },
-          { id:"p40", cat:"Schlaf & Erholung", name:"ZEC+ Sleep",                         icon:"😴", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Schnell – Melatonin wirkt in 20–30 min", function:"Einschlafförderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschüttung", takeWith:"30 min vor Schlaf. Mit ZEC+ Casein für nächtliche Muskelversorgung.", competes:"Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg)." },
-          { id:"p41", cat:"Schlaf & Erholung", name:"ZEC+ Schatten der Liebe",            icon:"😴", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – pflanzliche Extrakte variieren", function:"Entspannung, Stimmung, Schlafförderung, Stressabbau", takeWith:"Abends 30–60 min vor Schlaf", competes:"Vorsicht mit Antidepressiva/Psychopharmaka." },
-          { id:"p42", cat:"Schlaf & Erholung", name:"Baldrian",                           icon:"😴", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Valerensäure gut resorbiert; Wirkung nach 2–4 Wochen regelmäßig besser", function:"Einschlaufunterstützung, Angstlösung, Muskelentspannung, Nervosität↓", takeWith:"30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.", competes:"Nicht mit Alkohol oder Benzodiazepinen. Tagesmüdigkeit möglich." },
-          { id:"p43", cat:"Pre-Workout",       name:"ZEC+ Re-Act 2.0",                    icon:"🔥", serving:"~20g",  protein:0,  carbs:5,  fat:0,  kcal:20,  absorption:"Schnell – Koffein Peak bei 60 min", function:"Energie & Fokus, Reaktionszeit, Ausdauer, Pre-Workout-Aktivierung", takeWith:"30–45 min pre-workout. Nüchtern oder leichte Mahlzeit.", competes:"Nicht mit anderen Koffeinquellen. Nicht abends. Beta-Alanin-Kribbeln ist normal." },
-          { id:"p44", cat:"Pre-Workout",       name:"ZEC+ Pumpdown Pump-Booster",         icon:"🔥", serving:"~15g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell – 30–45 min vor Training", function:"Maximaler Pump, Durchblutung, Gefäßweitung – koffeinfrei", takeWith:"Pre-workout. Kombinierbar mit Koffein-Booster.", competes:"Nicht mit PDE5-Hemmern. Blutdruck senkend → Vorsicht bei Hypotonie." },
-          { id:"p45", cat:"Pre-Workout",       name:"ZEC+ Kickdown Evolution",            icon:"🔥", serving:"~10g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell – 30–45 min vor Training", function:"Extremer Fokus, Energie, Kraft-Gefühl, mentale Schärfe", takeWith:"Nüchtern oder leichte Mahlzeit. Nicht nach 14 Uhr.", competes:"Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off)." },
-          { id:"p46", cat:"Pre-Workout",       name:"ZEC+ Kickdown Nitro",                icon:"🔥", serving:"~10g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell", function:"Max. Trainingsintensität, Ausdauer, Pump + Energie kombiniert", takeWith:"30–45 min pre-workout. Für erfahrene Nutzer.", competes:"Alle Koffein-Warnungen verschärft. Nicht täglich – HF beachten." },
-          { id:"p47", cat:"Pre-Workout",       name:"FIGHT+ Pre Fight",                   icon:"🔥", serving:"~15g",  protein:0,  carbs:5,  fat:0,  kcal:20,  absorption:"Schnell – 30–45 min vor Kampf/Training", function:"Kampfsport-Performance, Reaktion, Ausdauer, Fokus, explosive Kraft", takeWith:"Pre-Fight oder Pre-Training. Nicht mit anderen Boostern.", competes:"Alle Pre-Workout-Warnungen. Manche Verbände testen auf Stimulanzien." },
-          { id:"p48", cat:"Herz & Lunge",      name:"Protect Heart",                      icon:"❤️", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Q10 fettlöslich – Ubiquinol-Form 8× besser als Ubiquinon; mit Fett", function:"Herzmuskel-Energie (Q10), Herzrhythmus, Blutdruck, Gefäßschutz", takeWith:"Mit fettreicher Mahlzeit. Abends für Herzregeneration im Schlaf.", competes:"Statine + Q10 – Arzt konsultieren. Blutverdünnende Effekte beachten." },
-          { id:"p49", cat:"Herz & Lunge",      name:"Protect Lunge",                      icon:"❤️", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"NAC gut bioverfügbar; Quercetin mit Piperin ×20 besser", function:"Lungengesundheit, Schleimhautschutz, Atemwege, Entzündungshemmung", takeWith:"Morgens mit Frühstück. Mit Vitamin C. Nährstoff Optimizer for Quercetin.", competes:"NAC verlängert Gerinnungszeit. Vorsicht mit Nitroglycerin." }
+          { id:"p1",  cat:"Protein",           name:"ZEC+ Almost Whey",                  icon:"", serving:"~30g",  protein:22, carbs:3,  fat:2,  kcal:118, absorption:"Mittel-schnell (~2–3h)",    function:"Muskelaufbau & -erhalt, Regeneration", takeWith:"Post-Workout mit Wasser oder Milch, mit Kohlenhydraten fuer Insulinausschuettung", competes:"Nicht mit Casein mischen; zeitversetzt zu Zink/Mg" },
+          { id:"p2",  cat:"Protein",           name:"ZEC+ Whey Hydrolysat",               icon:"", serving:"~25g",  protein:22, carbs:1,  fat:0.5,kcal:97,  absorption:"Sehr schnell (~30–60 min) – vorverdaute Peptide", function:"Schnellste Proteinversorgung post-workout, max. MPS", takeWith:"Direkt nach Training + Dextrose fuer anabolen Effekt", competes:"Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig" },
+          { id:"p3",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Kirsche",     icon:"", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min) – hochreines Isolat", function:"Fettarme Proteinversorgung, magenfreundlich, LaktoseFrei", takeWith:"Post-workout oder als Snack mit Wasser", competes:"Nicht gleichzeitig mit Calcium-/Eisenreichen Mahlzeiten" },
+          { id:"p4",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Sueszer Apfel", icon:"", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min)", function:"Wie Kirsche – leichte, klare Proteinquelle, ideal bei Diaet", takeWith:"Post-workout oder tagsueber als leichte Quelle", competes:"Siehe Clear Whey Kirsche" },
+          { id:"p5",  cat:"Protein",           name:"ZEC+ Ladies Vegan Connection",       icon:"", serving:"~30g",  protein:20, carbs:4,  fat:3,  kcal:123, absorption:"Mittel (~2–3h) – Erbsen- & Reisprotein", function:"Pflanzliche Versorgung, Muskelerhalt, hormonell ausgewogen", takeWith:"Mit Vitamin C (verbessert Eisenaufnahme). Post-workout oder MahlzeitenErsatz", competes:"Phytate hemmen Zink/Eisen – zeitversetzt einnehmen" },
+          { id:"p6",  cat:"Protein",           name:"ZEC+ Micellar Casein",               icon:"", serving:"~30g",  protein:24, carbs:2,  fat:1.5,kcal:118, absorption:"Sehr langsam (~5–7h) – bildet Gel im Magen", function:"Naechtliche Versorgung, Anti-Katabolismus im Schlaf", takeWith:"30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.", competes:"Nicht direkt mit Whey mischen; nicht als Post-Workout-Hauptprotein" },
+          { id:"p7",  cat:"Protein",           name:"ZEC+ Protein Pudding Stracciatella", icon:"", serving:"~35g",  protein:20, carbs:5,  fat:3,  kcal:128, absorption:"Langsam (~4–6h) – Casein-Basis", function:"Saettigende Proteinmahlzeit, Anti-Heisshunger, abendliche Versorgung", takeWith:"Abends als Dessert oder zwischen Mahlzeiten", competes:"Nicht unmittelbar post-workout als schnelle Proteinquelle" },
+          { id:"p8",  cat:"Gainer & Carbs",    name:"ZEC+ Bullgainer",                    icon:"", serving:"~150g", protein:30, carbs:90, fat:5,  kcal:530, absorption:"Schnell-mittel – Whey + Maltodextrin/Dextrose", function:"Maximale Kalorienaufnahme fuer Hardgainer, Muskelaufbau-Phase", takeWith:"Post-workout oder als zusaetzliche Mahlzeit mit Milch", competes:"Nicht mit anderen hochkalorischen Mahlzeiten – Ueberschuss beachten" },
+          { id:"p9",  cat:"Gainer & Carbs",    name:"ZEC+ Maltodextrin",                  icon:"", serving:"~30g",  protein:0,  carbs:29, fat:0,  kcal:116, absorption:"Sehr schnell – GI ~110, sofortiger Blutzuckeranstieg", function:"Glykogen-Replenishment, Insulinspike fuer Naehrstofftransport", takeWith:"Post-workout mit Hydrolysat oder Creatin", competes:"Nicht bei Insulinresistenz. Nicht in Ruhezeiten." },
+          { id:"p10", cat:"Gainer & Carbs",    name:"ZEC+ Dextrose",                      icon:"", serving:"~30g",  protein:0,  carbs:30, fat:0,  kcal:120, absorption:"Instantan – direkte Aufnahme, GI 100", function:"Sofortiger Energieschub, Glykogen, Nährstofftransport via Insulin", takeWith:"Post-workout mit Protein & Creatin", competes:"Nicht vor dem Schlafen; nicht bei Low-Carb" },
+          { id:"p11", cat:"Gainer & Carbs",    name:"ZEC+ Designer Carbs",                icon:"", serving:"~50g",  protein:0,  carbs:47, fat:0,  kcal:188, absorption:"Mittel-schnell – Wachsmaisstaerke, kein Insulinspike", function:"Gleichmaessige Energie, osmotisch guenstig, kein Magendraengen", takeWith:"Pre- oder Intra-Workout fuer Einheiten >60 min", competes:"Weniger geeignet wenn schnelle Glykogenresynthese noetig" },
+          { id:"p12", cat:"Gainer & Carbs",    name:"Instant Rice Pudding",               icon:"", serving:"~60g",  protein:8,  carbs:40, fat:2,  kcal:212, absorption:"Schnell-mittel – Reisstaerke", function:"Magenfreundliche Energie, leicht verdaulich, post-workout oder Mahlzeit", takeWith:"Post-workout oder morgens. Mit Casein fuer langsame Ergaenzung.", competes:"Kein vollstaendiges Aminosaeureprofil allein" },
+          { id:"p13", cat:"Performance",       name:"ZEC+ Creatin Monohydrat",            icon:"", serving:"5g",    protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wird ueber 1–2h aufgenommen, Spiegel baut sich ueber Wochen auf", function:"Kraftsteigerung, ATP-Resynthese, Zellvoluminisierung, Kognition", takeWith:"Post-workout mit Carbs & Protein (Insulin-Transport). Taeglich konsistent.", competes:"Koffein theoretisch konkurrierend. Viel Wasser (3L+). Nicht mit Diuretika." },
+          { id:"p14", cat:"Performance",       name:"ZEC+ Citrullin Malat",               icon:"", serving:"~8g",   protein:0,  carbs:0,  fat:0,  kcal:16,  absorption:"Schnell – wird in Niere zu Arginin umgewandelt", function:"NO-Boost, Pump & Durchblutung, Laktatpufferung, weniger Ermuedung", takeWith:"30–45 min pre-workout auf nuechternem Magen", competes:"Nicht mit PDE5-Hemmern. Hohe Dosen -> Magenprobleme moeglich." },
+          { id:"p15", cat:"Performance",       name:"ZEC+ Intra Evolution",               icon:"", serving:"~25g",  protein:8,  carbs:12, fat:0,  kcal:90,  absorption:"Sehr schnell – freie Aminosaeuren direkt verfuegbar", function:"Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus", takeWith:"Waehrend Training in 500–750ml Wasser. Mit Natrium fuer Hydration.", competes:"Kein extra Protein-Shake noetig – Aminosaeuren enthalten" },
+          { id:"p16", cat:"Aminosaeuren",       name:"HEALTH+ L-Glycin",                   icon:"", serving:"3g",    protein:0,  carbs:0,  fat:0,  kcal:12,  absorption:"Schnell – passive Diffusion, einfachste Aminosaeure", function:"Kollagensynthese, Schlafqualitaet, Glutathion-Vorstufe, Verdauung", takeWith:"Abends vor Schlaf (schlaffoerdernd). Morgens nuechtern for Kollagen. Mit Kollagen-Praeparaten.", competes:"Hohe Dosen (>10g) koennen schlaefrig machen" },
+          { id:"p17", cat:"Aminosaeuren",       name:"HEALTH+ R-ALA",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Schnell nuechtern – Mahlzeiten –40% Bioverfuegbarkeit", function:"Universelles Antioxidans (fett- & wasserloeslich), Insulinsensitivitaet, Nerven", takeWith:"30 min vor Mahlzeiten, nuechtern. Mit Biotin kombinieren.", competes:"Nicht mit Chemo ohne Ruecksprache. Blutzucker bei Diabetes. Nicht mit Chelatoren." },
+          { id:"p18", cat:"Vitamine",          name:"ZEC+ All In One Antioxidant",        icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Fettloesliche Anteile (A, E) mit Fett aufnehmen", function:"Freie Radikale bekaempfen, Immunsystem, Zellschutz, Entzuendungshemmung", takeWith:"Mit fettreicher Mahlzeit", competes:"Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K." },
+          { id:"p19", cat:"Vitamine",          name:"ZEC+ Greens Mikronaehrstoffe",        icon:"", serving:"~10g",  protein:2,  carbs:3,  fat:0,  kcal:20,  absorption:"Mittel – pflanzliche Naehrstoffe variieren", function:"Saeure-Basen-Balance, Entgiftung, Mikronaehrstoffe, Energie", takeWith:"Morgens nuechtern mit Wasser. Vitamin C verbessert Eisenaufnahme.", competes:"Chlorella bindet Schwermetalle – nicht gleichzeitig mit Medis. Spirulina bei Autoimmun vorsichtig." },
+          { id:"p20", cat:"Vitamine",          name:"ZEC+ Vitamin B25",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – B12 benoetigt Intrinsic Factor", function:"Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion", takeWith:"Morgens mit Fruehstueck fuer Energie-Boost", competes:"B6 >50mg/Tag -> Neuropathie. Antazida reduzieren B12-Aufnahme." },
+          { id:"p21", cat:"Vitamine",          name:"ZEC+ Vitamin C + Hagebutte",         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – >200mg sinkt % Aufnahme; 2x taeglich besser", function:"Immunsystem, Kollagensynthese, Eisenaufnahme x2, Antioxidans", takeWith:"Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen.", competes:"Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsaeure + viel Vit C." },
+          { id:"p22", cat:"Vitamine",          name:"Vitamin D3 + K2",                    icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettloeslich – +50% besser mit Fett", function:"Calcium-Regulierung, Knochen, Immunsystem, Muskelkraft, Hormone", takeWith:"MIT Fett (Olive, Nuss). K2 lenkt Calcium in Knochen, nicht Arterien.", competes:"D3 OHNE K2 -> Arterienverkalkung! Nicht mit Warfarin. Magnesium aktiviert D3." },
+          { id:"p23", cat:"Mineralien",        name:"Eisenbisglycinat",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat", function:"Sauerstofftransport, Blutbildung, Energie, Kognition", takeWith:"Nuechtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch.", competes:"Calcium, Zink, Magnesium hemmen Fe! Kaffee/Tee stark hemmend." },
+          { id:"p24", cat:"Mineralien",        name:"Zink",                               icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nuechtern for Testosteron (ZMA-Protokoll). Mit Casein.", competes:"Hemmt Kupfer bei Langzeit (10:1 Ratio). Eisen & Kalzium hemmen Aufnahme." },
+          { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – Selenomethionin >90% bioverfuegbar", function:"Schilddruese (T4->T3), Antioxidans (Glutathionperoxidase), Immunsystem, Fruchtbarkeit", takeWith:"Mit Mahlzeit. Synergie mit Vitamin E.", competes:"Max 400mcg/Tag (toxisch). Hohe Vit-C-Dosen koennen Bioverfuegbarkeit senken." },
+          { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",        icon:"", serving:"~5g",   protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut loeslich", function:"Saeure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf. In Wasser aufloesen.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig." },
+          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin",    icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettloesliche Vitamine besser mit Fett", function:"Grundversorgung aller Mikronaehrstoffe, Praevention von Mangelzustaenden", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"Nicht mit hochdosierten Einzelvitaminen kombinieren. Ca hemmt Fe-Absorption." },
+          { id:"p28", cat:"Omega & Oele",       name:"HEALTH+ Super Omega 3",              icon:"", serving:"2 Kap", protein:0,  carbs:0,  fat:4,  kcal:36,  absorption:"Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit", function:"Herzgesundheit, Entzuendungshemmung, Gehirnfunktion, Gelenke", takeWith:"Mit fettreicher Mahlzeit. Synergie mit D3+K2.", competes:"Blutverduennend – Vorsicht mit Aspirin/Warfarin. Vor Operationen absetzen." },
+          { id:"p29", cat:"Adaptogene",        name:"HEALTH+ Ashwagandha KSM-66",         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettloesliche Withanolide besser mit Mahlzeit", function:"Cortisol, Stressresistenz, Testosteron, Schlaf, Ausdauer", takeWith:"Abends (cortisol-senkend). 2x taeglich mit Mahlzeit. Piperin verbessert Absorption.", competes:"Nicht mit Schilddruesen-Medi ohne Ruecksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI." },
+          { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",          icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfuegbar", function:"ATP-Produktion, Ausdauer & VO2max, Testosteron, Lungenkapazitaet", takeWith:"Pre-workout oder morgens. Mit CoQ10 fuer mitochondriale Gesundheit.", competes:"Leicht blutverduennend. Autoimmunerkrankungen vorsichtig." },
+          { id:"p31", cat:"Adaptogene",        name:"HEALTH+ Reishi",                     icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettloesliche Triterpene besser mit Mahlzeit", function:"Immunmodulation, Beta-Glucane, Leberschutz, Stress, Schlaf", takeWith:"Abends. Mit Vitamin C synergistisch.", competes:"Blutverduennend. Blutdruck senkend. Vor OPs absetzen." },
+          { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                       icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserloesliche Bestandteile gut verfuegbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Fruehstueck. Mit Ashwagandha kombinierbar.", competes:"Vorsicht bei hormonabhaengigen Erkrankungen. Schilddrueseneinfluss moeglich." },
+          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Molekuele, hohe Bioverfuegbarkeit", function:"Staerkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefaeße, Anti-Aging", takeWith:"Morgens nuechtern. Mit Vitamin C synergistisch. Mit Kollagen for Anti-Aging.", competes:"Leicht blutverduennend. Kann Eisenaufnahme hemmen – zeitversetzt." },
+          { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",               icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzuendungshemmung, Regeneration, Schlaf (Melatonin), Harnsaeure", takeWith:"Abends (Melatonin-Gehalt foerdert Schlaf). Post-workout fuer Regeneration.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten." },
+          { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",              icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstuetzung, Naehrstoffaufnahme, Blaehungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40 C denaturiert Enzyme." },
+          { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ Probio-Tect",               icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Magsaeureresistente Kapseln – Bakterien erreichen Darm lebend", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung", takeWith:"Morgens nuechtern. Nicht mit heissen Getraenken. Mit Ballaststoffen.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Ruecksprache." },
+          { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Naehrstoff Optimizer",        icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme -> mehr Naehrstoffe ins Blut", function:"Bioverfuegbarkeit aller Naehrstoffe + 20–40%, Entzuendungshemmung", takeWith:"Zu jeder Supplement-Einnahme. Curcumin +2000%, Q10, Vitamine.", competes:"Erhoeht Medikamentenspiegel! Vorsicht mit Rx-Medi (hemmt CYP3A4)." },
+          { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",        icon:"", serving:"~15g",  protein:13, carbs:0,  fat:0,  kcal:52,  absorption:"Hydrolysierte Peptide (~2000 Da) bis zu 90% bioverfuegbar", function:"Haut, Haare, Naegel, Knorpel, Gelenke, Darm, Knochen, Sehnen", takeWith:"Morgens nuechtern + Vitamin C (essenziell fuer Kollagensynthese!). L-Glycin ergaenzt.", competes:"Kein vollstaendiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle." },
+          { id:"p39", cat:"Kollagen & Gelenke",name:"ZEC+ Arthro Essential",              icon:"", serving:"~10g",  protein:5,  carbs:2,  fat:0,  kcal:28,  absorption:"Mittel – Glucosamin oral ~30%; Wirkung erst nach 4–8 Wochen", function:"Knorpelschutz/-aufbau, Gelenkschmierung, Entzuendungshemmung, Bindegewebe", takeWith:"Mit Mahlzeiten. Mind. 3 Monate einnehmen.", competes:"Glucosamin kann Blutzucker leicht erhoehen. Chondroitin leicht blutverduennend." },
+          { id:"p40", cat:"Schlaf & Erholung", name:"ZEC+ Sleep",                         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Schnell – Melatonin wirkt in 20–30 min", function:"Einschlaffoerderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschuettung", takeWith:"30 min vor Schlaf. Mit ZEC+ Casein fuer naechtliche Muskelversorgung.", competes:"Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg)." },
+          { id:"p41", cat:"Schlaf & Erholung", name:"ZEC+ Schatten der Liebe",            icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – pflanzliche Extrakte variieren", function:"Entspannung, Stimmung, Schaffoerderung, Stressabbau", takeWith:"Abends 30–60 min vor Schlaf", competes:"Vorsicht mit Antidepressiva/Psychopharmaka." },
+          { id:"p42", cat:"Schlaf & Erholung", name:"Baldrian",                           icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Valerensaeure gut resorbiert; Wirkung nach 2–4 Wochen regelmaessig besser", function:"Einschlafunterstuetzung, Angstloesung, Muskelentspannung, Nervositaet", takeWith:"30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.", competes:"Nicht mit Alkohol oder Benzodiazepinen. Tagesmuedigkeit moeglich." },
+          { id:"p43", cat:"Pre-Workout",       name:"ZEC+ Re-Act 2.0",                    icon:"", serving:"~20g",  protein:0,  carbs:5,  fat:0,  kcal:20,  absorption:"Schnell – Koffein Peak bei 60 min", function:"Energie & Fokus, Reaktionszeit, Ausdauer, Pre-Workout-Aktivierung", takeWith:"30–45 min pre-workout. Nuechtern oder leichte Mahlzeit.", competes:"Nicht mit anderen Koffeinquellen. Nicht abends. Beta-Alanin-Kribbeln ist normal." },
+          { id:"p44", cat:"Pre-Workout",       name:"ZEC+ Pumpdown Pump-Booster",         icon:"", serving:"~15g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell – 30–45 min vor Training", function:"Maximaler Pump, Durchblutung, Gefaeßerweiterung – koffeinfrei", takeWith:"Pre-workout. Kombinierbar mit Koffein-Booster.", competes:"Nicht mit PDE5-Hemmern. Blutdruck senkend -> Vorsicht bei Hypotonie." },
+          { id:"p45", cat:"Pre-Workout",       name:"ZEC+ Kickdown Evolution",            icon:"", serving:"~10g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell – 30–45 min vor Training", function:"Extremer Fokus, Energie, Kraft-Gefuehl, mentale Schaerfe", takeWith:"Nuechtern oder leichte Mahlzeit. Nicht nach 14 Uhr.", competes:"Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off)." },
+          { id:"p46", cat:"Pre-Workout",       name:"ZEC+ Kickdown Nitro",                icon:"", serving:"~10g",  protein:0,  carbs:3,  fat:0,  kcal:12,  absorption:"Schnell", function:"Max. Trainingsintensitaet, Ausdauer, Pump + Energie kombiniert", takeWith:"30–45 min pre-workout. Fuer erfahrene Nutzer.", competes:"Alle Koffein-Warnungen verschaerft. Nicht taeglich – HF beachten." },
+          { id:"p47", cat:"Pre-Workout",       name:"FIGHT+ Pre Fight",                   icon:"", serving:"~15g",  protein:0,  carbs:5,  fat:0,  kcal:20,  absorption:"Schnell – 30–45 min vor Kampf/Training", function:"Kampfsport-Performance, Reaktion, Ausdauer, Fokus, explosive Kraft", takeWith:"Pre-Fight oder Pre-Training. Nicht mit anderen Boostern.", competes:"Alle Pre-Workout-Warnungen. Manche Verbaende testen auf Stimulanzien." },
+          { id:"p48", cat:"Herz & Lunge",      name:"Protect Heart",                      icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Q10 fettloeslich – Ubiquinol-Form 8x besser als Ubiquinon; mit Fett", function:"Herzmuskel-Energie (Q10), Herzrhythmus, Blutdruck, Gefäßschutz", takeWith:"Mit fettreicher Mahlzeit. Abends fuer Herzregeneration im Schlaf.", competes:"Statine + Q10 – Arzt konsultieren. Blutverduennende Effekte beachten." },
+          { id:"p49", cat:"Herz & Lunge",      name:"Protect Lunge",                      icon: "", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"NAC gut bioverfuegbar; Quercetin mit Piperin x20 besser", function:"Lungengesundheit, Schleimhautschutz, Atemwege, Entzuendungshemmung", takeWith:"Morgens mit Fruehstueck. Mit Vitamin C. Naehrstoff Optimizer for Quercetin.", competes:"NAC verlaengert Gerinnungszeit. Vorsicht mit Nitroglycerin." }
         ];
 
-        // DATENSTRUKTUR FÜR DIE TIMELINE (Die Uhrzeiten werden jetzt dynamisch berechnet)
+        // DATENSTRUKTUR FUER DIE TIMELINE (Die Uhrzeiten werden jetzt dynamisch berechnet)
         // offsetMinutes bestimmt den Abstand zur eingegebenen Aufwachzeit
+        // isRelativeTosleep: true bedeutet, dass offsetMinutes VOR der Schlafzeit berechnet wird
         const TIMELINE_CONFIG = [
-          { id:"t1", label:"Aufwachen & Nüchtern", offsetMinutes: 0, duration: 30, icon:"🌅", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:"💧 WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nüchternmagen = maximale Nährstoffaufnahme. Cortisol morgens hoch → Mikronährstoffe & R-ALA jetzt am effektivsten absorbierbar.", productIds:["p22","p17","p33","p36"], notes:{ p22:"MIT Fett (Olivenöl, Nussbutter) – D3 fettlöslich, sonst nur ~30% Absorption!", p17:"MUSS nüchtern sein – Fett/Protein reduziert Aufnahme um 40%", p33:"Nüchtern for maximale Bioverfügbarkeit", p36:"Magensäure nach dem Aufwachen am niedrigsten → Bakterien überleben besser" }, priority:{ p22:"MUSS", p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
-          { id:"t2", label:"Frühstück (Haferflocken)", offsetMinutes: 45, duration: 45, icon:"🥣", color:"#10b981", bg:"#001a0f", border:"#065f46", why:"💧 WASSER: Volles großes Glas (350ml – 500ml) zu den Kapseln.<br><br><strong>🌾 HAFERFLOCKEN-BASIS: 100g Haferflocken mit 250ml Milch.</strong> Fettreiche Mahlzeit (Milchfett/Flocken) optimiert fettlösliche Vitamine (Omega 3). Insulin transportiert Nährstoffe in Zellen.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettlöslichen Anteile (A, E, K)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Frühstück – B-Vitamine aktivieren den Energiestoffwechsel", p29:"Mit Fett – Withanolide fettlöslich; Erste Dosis für Cortisolreduktion über den Tag", p32:"Morgens für Energie & Libido über den Tag", p19:"In Wasser or Saft – Säure-Basen-Ausgleich", p30:"Morgens für ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
-          { id:"t3", label:"Vormittag / 1. Nudel-Dosis", offsetMinutes: 180, duration: 30, icon:"🍝", color:"#06b6d4", bg:"#001420", border:"#0e7490", why:"💧 WASSER: 300ml – 450ml (mit Shaker angerührt).<br><br><strong>🍝 NUDEL-DOSIS 1: Erstes Paket (100g Rohgewicht)</strong> startet die Kohlenhydrat-Versorgung ab 13:00 Uhr. Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein für kontinuierliche Muskelproteinsynthese (MPS) aktivieren.", productIds:["p23","p21","p2","p3"], notes:{ p23:"2h NACH Frühstück & OHNE Ca/Zn/Mg! Mit Vitamin C → Absorption ×2", p21:"Zusammen mit Eisen für max. Eisenabsorption", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative to Hydrolysat für einen leichten Vormittags-Shake" }, priority:{ p23:"MUSS", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
-          { id:"t4", label:"Pre-Workout", offsetMinutes: 300, duration: 15, icon:"⚡", color:"#ef4444", bg:"#1a0000", border:"#991b1b", why:"💧 WASSER: Exakt 400ml – 500ml zum Anmischen der Pulver.<br><br>Citrullin braucht 45 min für die NO-Wandlung im Körper. Koffein Peak liegt bei 60 min. Zu viel Flüssigkeit direkt im Training vermeiden.", productIds:["p14","p45","p44","p13","p11"], notes:{ p14:"ZUERST einnehmen – braucht 45 min für vollen NO-Effekt", p45:"NUR EINEN Booster wählen! Nicht kombinieren.", p44:"Koffeinfrei – als Alternative oder Ergänzung zum Booster", p13:"Pre ODER post – Konsistenz wichtiger als Timing", p11:"Für Einheiten >60 min als gleichmäßige Energiequelle" }, priority:{ p14:"MUSS", p45:"MUSS", p44:"OPTIONAL", p13:"WICHTIG", p11:"OPTIONAL" } },
-          { id:"t5", label:"Intra-Workout", offsetMinutes: 345, duration: 60, icon:"🏋️", color:"#8b5cf6", bg:"#0f0020", border:"#5b21b6", why:"💧 WASSER: Konstantes Trinken von 600ml – 800ml schluckweise.<br><br>Muskelabbau im harten Training verhindern, Hydration der Muskelzellen sichern, Ermüdung verzögern. Nur Flüssiges – kein Festfood.", productIds:["p15","p10"], notes:{ p15:"Slowly über die gesamte Einheit trinken – EAAs + Elektrolyte + Carbs in einem", p10:"Nur bei Einheiten >90 min zum Glykogennachfüllen" }, priority:{ p15:"WICHTIG", p10:"OPTIONAL" } },
-          { id:"t6", label:"Post-Workout", offsetMinutes: 405, duration: 30, icon:"🔥", color:"#f97316", bg:"#1a0800", border:"#9a3412", why:"💧 WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Das anabole Fenster: Muskeln maximal insulinsensitiv, Glykogenspeicher leer, MPS-Rezeptoren weit offen. Jetzt den größten Hebel ansetzen.", productIds:["p2","p10","p13","p35"], notes:{ p2:"SOFORT – vorverdaut, in 30 min in der Muskelzelle", p10:"MIT Hydrolysat – Insulin transportiert Protein + Creatin in die Zelle (Ratio 1:1 bis 2:1)", p13:"Post-workout mit Carbs = bester Transportzeitpunkt wegen Insulin", p35:"Wenn direkt danach eine feste Mahlzeit folgt – optimiert Proteinverdauung" }, priority:{ p2:"MUSS", p10:"MUSS", p13:"WICHTIG", p35:"OPTIONAL" } },
-          { id:"t7", label:"Mittagessen / 2. Nudel-Dosis", offsetMinutes: 450, duration: 60, icon:"🍽️", color:"#22c55e", bg:"#001a08", border:"#166534", why:"💧 WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>🍝 NUDEL-DOSIS 2: Zweites Paket (100g Rohgewicht)</strong> für massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein für Muskel-MPS.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell für Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme für echten Knorpel-Effekt.", p37:"ZU jeder Mahlzeit mit Supplements – steigert Absorption aller Nährstoffe +20–40%", p48:"Mit Fett – Q10 fettlöslich. Mittagessen ideal.", p24:"2h NACH Eisenbisglycinat! Nicht zusammen einnehmen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
-          { id:"t8", label:"Nachmittag / 3. Nudel-Dosis", offsetMinutes: 630, duration: 30, icon:"🥤", color:"#60a5fa", bg:"#000d1a", border:"#1d4ed8", why:"💧 WASSER: 300ml – 350ml.<br><br><strong>🍝 NUDEL-DOSIS 3: Drittes Paket (100g Rohgewicht).</strong> MPS-Fenster beachten: alle 3–4h Protein zuführen! Adaptogene 2. Dosis nehmen. Entzündungshemmung und Regeneration nach dem harten Training einleiten.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schließt sich nach ~3–4h! Mind. 2–3g Leucin für volle MPS-Aktivierung", p34:"Entzündungshemmung post-workout. Abends zusätzlich für Schlaf.", p49:"Mit Snack. Nährstoff Optimizer für maximale Quercetin-Absorption.", p26:"Nach Training: Säure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
-          { id:"t9", label:"Abendessen / 4. Nudel-Dosis", offsetMinutes: 780, duration: 60, icon:"🌆", color:"#a78bfa", bg:"#0d001a", border:"#6d28d9", why:"💧 WASSER: 300ml – 400ml zum Essen.<br><br><strong>🍝 NUDEL-DOSIS 4: Viertes Paket (100g Rohgewicht)</strong> für die Regeneration im Schlaf. Letzte Nährstoff-Hauptversorgung. Cortisol senken. Testosteron-Protokoll starten.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert für langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol↓ vor Schlaf, Testosteron↑ während Schlaf", p25:"Mit Abendessen. Schilddrüsenenzyme abends hochgradig aktiv.", p18:"Mit fetthaltiger Mahlzeit – fettlösliche Anteile (A, E)", p31:"Abends: Schlafqualität, Entspannung, Leberschutz über Nacht", p24:"BESTER Zeitpunkt: nüchtern 2h nach Abendessen – Testosteronproduktion läuft nachts" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"WICHTIG" } },
-          { id:"t10", label:"Vor dem Schlafen / 5. Nudel-Dosis", offsetMinutes: 1110, duration: 30, icon:"🌙", color:"#818cf8", bg:"#05001a", border:"#4338ca", why:"💧 WASSER: Exakt 250ml – maximal 300ml (um nächtliches Aufwachen zu verhindern).<br><br><strong>🍝 NUDEL-DOSIS 5: Fünftes und letztes Paket (100g Rohgewicht).</strong> Wachstumshormon-Ausschüttung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung während GH-Ausschüttung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian + 5-HTP zusammen wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium für Knochen im Schlaf.", p16:"Direkt vor Schlaf: Körpertemperatur↓ → tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmäßigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzündung über Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
+          { id:"t1", label:"Aufwachen & Nuechtern", offsetMinutes: 0, duration: 30, icon:"", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:": WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nuechternmagen = maximale Naehrstoffaufnahme. Cortisol morgens hoch -> Mikronaehrstoffe & R-ALA jetzt am effektivsten absorbierbar.", productIds:["p22","p17","p33","p36"], notes:{ p22:"MIT Fett (Olivenoel, Nussbutter) – D3 fettloeslich, sonst nur ~30% Absorption!", p17:"MUSS nuechtern sein – Fett/Protein reduziert Aufnahme um 40%", p33:"Nuechtern for maximale Bioverfuegbarkeit", p36:"Magsaeure nach dem Aufwachen am niedrigsten -> Bakterien ueberleben besser" }, priority:{ p22:"MUSS", p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
+          { id:"t2", label:"Fruehstueck (Haferflocken)", offsetMinutes: 45, duration: 45, icon:"", color:"#10b981", bg: "#001a0f", border: "#065f46", why:": WASSER: Volles grosses Glas (350ml – 500ml) zu den Kapseln.<br><br><strong>: HAFERFLOCKEN-BASIS: 100g Haferflocken mit 250ml Milch.</strong> Fettreiche Mahlzeit (Milchfett/Flocken) optimiert fettloesliche Vitamine (Omega 3). Insulin transportiert Naehrstoffe in Zellen.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettloeslichen Anteile (A, E, K)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Fruehstueck – B-Vitamine aktivieren den Energiestoffwechsel", p29:"Mit Fett – Withanolide fettloeslich; Erste Dosis fuer Cortisolreduktion ueber den Tag", p32:"Morgens fuer Energie & Libido ueber den Tag", p19:"In Wasser or Saft – Saeure-Basen-Ausgleich", p30:"Morgens fuer ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
+          { id:"t3", label:"Vormittag / 1. Nudel-Dosis", offsetMinutes: 180, duration: 30, icon:"", color:"#06b6d4", bg: "#001420", border: "#0e7490", why:": WASSER: 300ml – 450ml (mit Shaker angeruehrt).<br><br><strong>: NUDEL-DOSIS 1: Erstes Paket (100g Rohgewicht)</strong> startet die Kohlenhydrat-Versorgung ab 13:00 Uhr. Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein fuer kontinuierliche Muskelproteinsynthese (MPS) aktivieren.", productIds:["p23","p21","p2","p3"], notes:{ p23:"2h NACH Fruehstueck & OHNE Ca/Zn/Mg! Mit Vitamin C -> Absorption x2", p21:"Zusammen mit Eisen fuer max. Eisenabsorption", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative to Hydrolysat fuer einen leichten Vormittags-Shake" }, priority:{ p23:"MUSS", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
+          { id:"t4", label:"Pre-Workout", offsetMinutes: 300, duration: 15, icon:"", color:"#ef4444", bg: "#1a0000", border: "#991b1b", why:": WASSER: Exakt 400ml – 500ml zum Anmischen der Pulver.<br><br>Citrullin braucht 45 min fuer die NO-Wandlung im Koerper. Koffein Peak liegt bei 60 min. Zu viel Fluessigkeit direkt im Training vermeiden.", productIds:["p14","p45","p44","p13","p11"], notes:{ p14:"ZUERST einnehmen – braucht 45 min fuer vollen NO-Effekt", p45:"NUR EINEN Booster waehlen! Nicht kombinieren.", p44:"Koffeinfrei – als Alternative oder Ergaenzung zum Booster", p13:"Pre ODER post – Konsistenz wichtiger als Timing", p11:"Fuer Einheiten >60 min als gleichmaessige Energiequelle" }, priority:{ p14:"MUSS", p45:"MUSS", p44:"OPTIONAL", p13:"WICHTIG", p11:"OPTIONAL" } },
+          { id:"t5", label:"Intra-Workout", offsetMinutes: 345, duration: 60, icon: "", color: "#8b5cf6", bg: "#0f0020", border: "#5b21b6", why:": WASSER: Konstantes Trinken von 600ml – 800ml schluckweise.<br><br>Muskelabbau im harten Training verhindern, Hydration der Muskelzellen sichern, Ermuedung verzoegern. Nur Fluessiges – kein Festfood.", productIds:["p15","p10"], notes:{ p15:"Slowly ueber die gesamte Einheit trinken – EAAs + Elektrolyte + Carbs in einem", p10:"Nur bei Einheiten >90 min zum Glykogennachfuellen" }, priority:{ p15:"WICHTIG", p10:"OPTIONAL" } },
+          { id:"t6", label:"Post-Workout", offsetMinutes: 405, duration: 30, icon:"", color:"#f97316", bg: "#1a0800", border: "#9a3412", why:": WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Das anabole Fenster: Muskeln maximal insulinsensitiv, Glykogenspeicher leer, MPS-Rezeptoren weit offen. Jetzt den groessten Hebel ansetzen.", productIds:["p2","p10","p13","p35"], notes:{ p2:"SOFORT – vorverdaut, in 30 min in der Muskelzelle", p10:"MIT Hydrolysat – Insulin transportiert Protein + Creatin in die Zelle (Ratio 1:1 bis 2:1)", p13:"Post-workout mit Carbs = bester Transportzeitpunkt wegen Insulin", p35:"Wenn direkt danach eine feste Mahlzeit folgt – optimiert Proteinverdauung" }, priority:{ p2:"MUSS", p10:"MUSS", p13:"WICHTIG", p35:"OPTIONAL" } },
+          { id:"t7", label:"Mittagessen / 2. Nudel-Dosis", offsetMinutes: 450, duration: 60, icon:"", color: "#22c55e", bg: "#001a08", border: "#166534", why:": WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>: NUDEL-DOSIS 2: Zweites Paket (100g Rohgewicht)</strong> fuer massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein fuer Muskel-MPS.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell fuer Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme fuer echten Knorpel-Effekt.", p37:"ZU jeder Mahlzeit mit Supplements – steigert Absorption aller Naehrstoffe +20–40%", p48:"Mit Fett – Q10 fettloeslich. Mittagessen ideal.", p24:"2h NACH Eisenbisglycinat! Nicht zusammen einnehmen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
+          { id:"t8", label:"Nachmittag / 3. Nudel-Dosis", offsetMinutes: 630, duration: 30, icon:"", color: "#60a5fa", bg: "#000d1a", border: "#1d4ed8", why:": WASSER: 300ml – 350ml.<br><br><strong>: NUDEL-DOSIS 3: Drittes Paket (100g Rohgewicht).</strong> MPS-Fenster beachten: alle 3–4h Protein zufuehren! Adaptogene 2. Dosis nehmen. Entzuendungshemmung und Regeneration nach dem harten Training einleiten.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schliesst sich nach ~3–4h! Mind. 2–3g Leucin fuer volle MPS-Aktivierung", p34:"Entzuendungshemmung post-workout. Abends zusaetzlich fuer Schlaf.", p49:"Mit Snack. Naehrstoff Optimizer fuer maximale Quercetin-Absorption.", p26:"Nach Training: Saeure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
+          { id:"t9", label:"Abendessen / 4. Nudel-Dosis", offsetMinutes: 780, duration: 60, icon:"", color: "#a78bfa", bg: "#0d001a", border: "#6d28d9", why:": WASSER: 300ml – 400ml zum Essen.<br><br><strong>: NUDEL-DOSIS 4: Viertes Paket (100g Rohgewicht)</strong> fuer die Regeneration im Schlaf. Letzte Naehrstoff-Hauptversorgung. Cortisol senken. Testosteron-Protokoll starten.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert fuer langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol vor Schlaf, Testosteron waehrend Schlaf", p25:"Mit Abendessen. Schilddruesenenzyme abends hochgradig aktiv.", p18:"Mit fetthaltiger Mahlzeit – fettloesliche Anteile (A, E)", p31:"Abends: Schlafqualitaet, Entspannung, Leberschutz ueber Nacht", p24:"BESTER Zeitpunkt: nuechtern 2h nach Abendessen – Testosteronproduktion laeuft nachts" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"WICHTIG" } },
+          { id:"t10", label:"Vor dem Schlafen / 5. Nudel-Dosis", offsetMinutes: 60, duration: 30, icon:"", color:"#818cf8", bg: "#05001a", border: "#4338ca", isRelativeTosleep: true, why:": WASSER: Exakt 250ml – maximal 300ml (um naechtliches Aufwachen zu verhindern).<br><br><strong>: NUDEL-DOSIS 5: Fuenftes und letztes Paket (100g Rohgewicht).</strong> Wachstumshormon-Ausschuettung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung waehrend GH-Ausschuettung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian + 5-HTP zusammen wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium fuer Knochen im Schlaf.", p16:"Direkt vor Schlaf: Koerpertemperatur -> tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmaessigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzuendung ueber Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
         ];
 
         const CRITICAL = [
-          { bad:true,  text:"Eisen + Calcium/Zink/Magnesium → NIEMALS zusammen (hemmen sich um bis zu 80%)" },
-          { bad:true,  text:"D3 OHNE K2 → Calcium lagert sich in Arterien statt Knochen" },
-          { bad:true,  text:"Whey + Casein mischen → Casein bremst schnelle Whey-Absorption aus" },
-          { bad:true,  text:"Koffein-Booster nach 16 Uhr → ruiniert den tiefen Schlaf & GH-Ausschüttung" },
-          { bad:true,  text:"R-ALA mit Mahlzeit → 40% weniger Absorption im Magen" },
+          { bad:true,  text:"Eisen + Calcium/Zink/Magnesium -> NIEMALS zusammen (hemmen sich um bis zu 80%)" },
+          { bad:true,  text:"D3 OHNE K2 -> Calcium lagert sich in Arterien statt Knochen" },
+          { bad:true,  text:"Whey + Casein mischen -> Casein bremst schnelle Whey-Absorption aus" },
+          { bad:true,  text:"Koffein-Booster nach 16 Uhr -> ruiniert den tiefen Schlaf & GH-Ausschuettung" },
+          { bad:true,  text:"R-ALA mit Mahlzeit -> 40% weniger Absorption im Magen" },
           { bad:false, text:"Vitamin C immer wenn Eisen oder Kollagen genommen wird" },
-          { bad:false, text:"Nährstoff Optimizer (Piperin) zu jeder Supplement-Mahlzeit" },
-          { bad:false, text:"Fettlösliche Vitamine (D3, A, E, K2, Q10) immer zu fettreicher Mahlzeit" },
-          { bad:false, text:"Protein alle 3–4h für kontinuierliche Proteinsynthese (MPS)" }
+          { bad:false, text:"Naehrstoff Optimizer (Piperin) zu jeder Supplement-Mahlzeit" },
+          { bad:false, text:"Fettloesliche Vitamine (D3, A, E, K2, Q10) immer zu fettreicher Mahlzeit" },
+          { bad:false, text:"Protein alle 3–4h fuer kontinuierliche Proteinsynthese (MPS)" }
         ];
 
         // PROTEIN DOSES KONFIGURATION (wird ebenfalls dynamisch berechnet)
         const PROTEIN_DOSES_CONFIG = [
-          { label:"Frühstück", offsetMinutes: 45, type:"100g Haferflocken + Milch", g:"~25g" },
+          { label:"Fruehstueck", offsetMinutes: 45, type:"100g Haferflocken + Milch", g:"~25g" },
           { label:"Vormittag", offsetMinutes: 180, type:"100g Nudeln + Shake", g:"~45g" },
           { label:"Post-Workout", offsetMinutes: 405, type:"Hydrolysat + Carbs", g:"25–30g" },
           { label:"Mittagessen", offsetMinutes: 450, type:"100g Nudeln + Protein", g:"~35g" },
           { label:"Nachmittag", offsetMinutes: 630, type:"100g Nudeln + Whey", g:"~45g" },
           { label:"Abendessen", offsetMinutes: 780, type:"100g Nudeln + Pudding", g:"~35g" },
-          { label:"Vor Schlaf", offsetMinutes: 1110, type:"100g Nudeln + Casein", g:"~50g" }
+          { label:"Vor Schlaf", offsetMinutes: 60, type:"100g Nudeln + Casein", g:"~50g", isRelativeTosleep: true }
         ];
 
         const PRIO_STYLE = {
@@ -533,24 +552,36 @@
         };
 
         const CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
-        
+
         let currentCatFilter = "Alle";
         let currentSearchQuery = "";
-        let globalWakeTimeStr = "10:00"; // Globale Variable für die Aufwachzeit
+        let globalWakeTimeStr = "07:00";
+        let globalSleepTimeStr = "23:00";
 
         const getProductById = (id) => PRODUCTS.find(p => p.id === id);
 
         // HILFSFUNKTION: Rechnet "HH:MM" + Minuten-Offset in ein neues Zeitfenster "HH:MM – HH:MM" um
-        function calculateTimeWindow(baseTimeStr, offsetMinutes, durationMinutes) {
+        function calculateTimeWindow(baseTimeStr, offsetMinutes, durationMinutes, isRelativeTosleep = false) {
             const parts = baseTimeStr.split(':');
             let hours = parseInt(parts[0], 10);
             let minutes = parseInt(parts[1], 10);
 
-            // Startzeit berechnen
-            let startTotalMinutes = hours * 60 + minutes + offsetMinutes;
+            let startTotalMinutes;
+            if (isRelativeTosleep) {
+                // Berechne rückwarts von der Schlafzeit
+                startTotalMinutes = hours * 60 + minutes - offsetMinutes;
+                // Korrigiere wenn negative Minuten
+                while (startTotalMinutes < 0) {
+                    startTotalMinutes += 24 * 60;
+                }
+            } else {
+                // Berechne vorwaerts von der Aufwachzeit
+                startTotalMinutes = hours * 60 + minutes + offsetMinutes;
+            }
+
             let startHours = Math.floor(startTotalMinutes / 60) % 24;
             let startMins = startTotalMinutes % 60;
-            
+
             // Endzeit berechnen
             let endTotalMinutes = startTotalMinutes + durationMinutes;
             let endHours = Math.floor(endTotalMinutes / 60) % 24;
@@ -560,13 +591,25 @@
             return `${pad(startHours)}:${pad(startMins)} – ${pad(endHours)}:${pad(endMins)}`;
         }
 
-        // HILFSFUNKTION: Rechnet nur eine einzige Uhrzeit aus (für die Proteindosen-Liste)
-        function calculateSingleTime(baseTimeStr, offsetMinutes) {
+        // HILFSFUNKTION: Rechnet nur eine einzige Uhrzeit aus (fuer die Proteindosen-Liste)
+        function calculateSingleTime(baseTimeStr, offsetMinutes, isRelativeTosleep = false) {
             const parts = baseTimeStr.split(':');
             let hours = parseInt(parts[0], 10);
             let minutes = parseInt(parts[1], 10);
 
-            let totalMinutes = hours * 60 + minutes + offsetMinutes;
+            let totalMinutes;
+            if (isRelativeTosleep) {
+                // Berechne rückwarts von der Schlafzeit
+                totalMinutes = hours * 60 + minutes - offsetMinutes;
+                // Korrigiere wenn negative Minuten
+                while (totalMinutes < 0) {
+                    totalMinutes += 24 * 60;
+                }
+            } else {
+                // Berechne vorwaerts von der Aufwachzeit
+                totalMinutes = hours * 60 + minutes + offsetMinutes;
+            }
+
             let finalHours = Math.floor(totalMinutes / 60) % 24;
             let finalMins = totalMinutes % 60;
 
@@ -575,10 +618,20 @@
 
         // APP INITIALISIEREN NACH KLICK AUF GENERIEREN
         function startApp() {
-            const inputVal = document.getElementById("wakeTimeInput").value;
-            if(!inputVal) return;
-            
-            globalWakeTimeStr = inputVal; // Aufwachzeit speichern
+            const wakeInput = document.getElementById("wakeTimeInput").value;
+            const sleepInput = document.getElementById("sleepTimeInput").value;
+
+            if(!wakeInput || !sleepInput) {
+                alert("Bitte beide Zeiten eingeben!");
+                return;
+            }
+
+            globalWakeTimeStr = wakeInput;
+            globalSleepTimeStr = sleepInput;
+
+            // Display im Header aktualisieren
+            document.getElementById("displayWakeTime").innerText = wakeInput;
+            document.getElementById("displaySleepTime").innerText = sleepInput;
 
             // Setup Screen ausblenden, Hauptapp einblenden
             document.getElementById("setupScreen").style.display = "none";
@@ -594,7 +647,7 @@
             const rulesBox = document.getElementById("rulesList");
             rulesBox.innerHTML = CRITICAL.map(r => `
                 <div class="rule-item">
-                    <span>${r.bad ? "🚫" : "✅"}</span>
+                    <span>${r.bad ? "" : ""}</span>
                     <span class="${r.bad ? 'rule-bad' : 'rule-good'}">${r.text}</span>
                 </div>
             `).join('');
@@ -602,7 +655,8 @@
             // Hier werden die Proteindosen dynamisch basierend auf der Uhrzeit getaktet!
             const proteinBox = document.getElementById("proteinDosesList");
             proteinBox.innerHTML = PROTEIN_DOSES_CONFIG.map(d => {
-                const calculatedTimeStr = calculateSingleTime(globalWakeTimeStr, d.offsetMinutes);
+                const baseTime = d.isRelativeTosleep ? globalSleepTimeStr : globalWakeTimeStr;
+                const calculatedTimeStr = calculateSingleTime(baseTime, d.offsetMinutes, d.isRelativeTosleep);
                 return `
                     <div class="protein-row">
                         <div>
@@ -619,7 +673,7 @@
             const panel = document.getElementById(panelId);
             const content = document.getElementById(contentId);
             const isOpen = panel.classList.contains("open");
-            
+
             if (isOpen) {
                 panel.classList.remove("open");
                 content.style.display = "none";
@@ -631,22 +685,23 @@
 
         function renderTimeline() {
             const container = document.getElementById("viewTimeline");
-            
-            // Schleife über die Config der Timeline – Zeiten werden hier live erzeugt!
+
+            // Schleife ueber die Config der Timeline – Zeiten werden hier live erzeugt!
             container.innerHTML = TIMELINE_CONFIG.map((block, idx) => {
                 const isLast = idx === TIMELINE_CONFIG.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
-                
+
                 // Live-Kalkulation der getakteten Uhrzeit
-                const finalTimeWindow = calculateTimeWindow(globalWakeTimeStr, block.offsetMinutes, block.duration);
+                const baseTime = block.isRelativeTosleep ? globalSleepTimeStr : globalWakeTimeStr;
+                const finalTimeWindow = calculateTimeWindow(baseTime, block.offsetMinutes, block.duration, block.isRelativeTosleep);
 
                 let pListHtml = block.productIds.map(pid => {
                     const p = getProductById(pid);
                     if (!p) return "";
                     const prio = block.priority[pid] || "OPTIONAL";
                     const style = PRIO_STYLE[prio];
-                    const noteHtml = block.notes[pid] ? `<div class="sub-product-note">💡 ${block.notes[pid]}</div>` : "";
-                    
+                    const noteHtml = block.notes[pid] ? `<div class="sub-product-note">${block.notes[pid]}</div>` : "";
+
                     return `
                         <div class="sub-product-card">
                             <div class="sub-product-top">
@@ -656,7 +711,7 @@
                                 </div>
                                 <div style="display:flex; gap:5px; align-items:center;">
                                     <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${prio}</span>
-                                    <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">Info ▸</button>
+                                    <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">Info</button>
                                 </div>
                             </div>
                             ${noteHtml}
@@ -678,12 +733,12 @@
                                 </div>
                                 <div class="card-badge-box">
                                     <span class="card-count">${block.productIds.length}</span>
-                                    <span class="card-arrow">▾</span>
+                                    <span class="card-arrow"></span>
                                 </div>
                             </button>
                             <div class="card-content" id="tcc-${block.id}">
                                 <div class="why-box" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
-                                    <div class="why-title" style="--color:${block.color}">Anweisungen &amp; Wasserzufuhr</div>
+                                    <div class="why-title" style="--color:${block.color}">Anweisungen & Wasserzufuhr</div>
                                     <div class="why-text">${block.why}</div>
                                 </div>
                                 <div class="item-list">
@@ -707,7 +762,7 @@
         function renderFilteredProducts() {
             const listContainer = document.getElementById("dbCardList");
             const q = currentSearchQuery.toLowerCase();
-            
+
             const filtered = PRODUCTS.filter(p => {
                 const matchesCat = currentCatFilter === "Alle" || p.cat === currentCatFilter;
                 const matchesSearch = !q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.function.toLowerCase().includes(q);
@@ -715,12 +770,12 @@
             });
 
             document.getElementById("dbProductCount").innerText = `${filtered.length} Produkte`;
-            document.getElementById("dbNoResults").style.display = filtered.length === 0 ? "block" : "none";
+            document.getElementById("dbNoResults").style.display = filtered.length === 0 ? 'block' : 'none';
 
             listContainer.innerHTML = filtered.map(p => {
                 let macroHtml = `
                     <div class="macros-box">
-                        <div class="macros-title">📊 PRO PORTION (${p.serving})</div>
+                        <div class="macros-title">PRO PORTION (${p.serving})</div>
                         ${p.protein > 0 ? `<span class="macro-p">Protein <strong>${p.protein}g</strong></span>` : ''}
                         ${p.carbs > 0 ? `<span class="macro-c">Carbs <strong>${p.carbs}g</strong></span>` : ''}
                         ${p.fat > 0 ? `<span class="macro-f">Fett <strong>${p.fat}g</strong></span>` : ''}
@@ -729,10 +784,10 @@
                 `;
 
                 const rows = [
-                    { icon:"⚙️", label:"Funktion im Körper", val:p.function, col:"#22c55e" },
-                    { icon:"🔄", label:"Absorption", val:p.absorption, col:"#60a5fa" },
-                    { icon:"✅", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
-                    { icon:"⚠️", label:"Womit konkurriert", val:p.competes, col:"#f97316" }
+                    { icon:"", label:"Funktion im Koerper", val:p.function, col:"#22c55e" },
+                    { icon:"", label:"Absorption", val:p.absorption, col:"#60a5fa" },
+                    { icon:"", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
+                    { icon:"", label:"Womit konkurriert", val:p.competes, col:"#f97316" }
                 ];
 
                 const detailsRowsHtml = rows.map(r => `
@@ -750,7 +805,7 @@
                                 <div class="db-card-name">${p.name}</div>
                                 <div class="db-card-cat">${p.cat}</div>
                             </div>
-                            <span class="db-card-arrow">▾</span>
+                            <span class="db-card-arrow"></span>
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
                             ${macroHtml}
@@ -765,7 +820,7 @@
             const card = document.getElementById(`tc-${id}`);
             const content = document.getElementById(`tcc-${id}`);
             const isOpen = card.classList.contains("open");
-            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; } 
+            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; }
             else { card.classList.add("open"); content.style.display = "block"; }
         }
 
@@ -773,7 +828,7 @@
             const card = document.getElementById(`dbc-${id}`);
             const content = document.getElementById(`dbcc-${id}`);
             const isOpen = card.classList.contains("open");
-            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; } 
+            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; }
             else { card.classList.add("open"); content.style.display = "block"; }
         }
 
@@ -794,7 +849,7 @@
 
             let macroHtml = `
                 <div class="macros-box">
-                    <div class="macros-title">📊 PRO PORTION (${p.serving})</div>
+                    <div class="macros-title">PRO PORTION (${p.serving})</div>
                     ${p.protein > 0 ? `<span class="macro-p">Protein <strong>${p.protein}g</strong></span>` : ''}
                     ${p.carbs > 0 ? `<span class="macro-c">Carbs <strong>${p.carbs}g</strong></span>` : ''}
                     ${p.fat > 0 ? `<span class="macro-f">Fett <strong>${p.fat}g</strong></span>` : ''}
@@ -803,10 +858,10 @@
             `;
 
             const rows = [
-                { icon:"⚙️", label:"Funktion im Körper", val:p.function, col:"#22c55e" },
-                { icon:"🔄", label:"Absorption", val:p.absorption, col:"#60a5fa" },
-                { icon:"✅", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
-                { icon:"⚠️", label:"Womit konkurriert", val:p.competes, col:"#f97316" }
+                { icon:"", label:"Funktion im Koerper", val:p.function, col:"#22c55e" },
+                { icon:"", label:"Absorption", val:p.absorption, col:"#60a5fa" },
+                { icon:"", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
+                { icon:"", label:"Womit konkurriert", val:p.competes, col:"#f97316" }
             ];
 
             const rowsHtml = rows.map(r => `
@@ -834,7 +889,7 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Die Initialisierung der Layouts wird nun erst beim Auslösen von `startApp()` durchgeführt.
+            // Die Initialisierung der Layouts wird nun erst beim Ausloesen von `startApp()` durchgefuehrt.
 
             document.getElementById("tabTimeline").addEventListener("click", function() {
                 activeSection("tabTimeline", "viewTimeline");
