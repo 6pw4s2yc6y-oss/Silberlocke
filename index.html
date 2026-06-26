@@ -123,7 +123,7 @@
         /* HEADER */
         header {
             background: linear-gradient(180deg, #111128 0%, #08090d 100%);
-            padding: 24px 166px 14px;
+            padding: 16px 0 14px;
             border-bottom: 1px solid #1e293b;
             position: sticky;
             top: 0;
@@ -132,7 +132,7 @@
 
         /* Adjustment for sticky header dynamic padding replacement */
         header .max-container {
-            padding: 0;
+            padding: 0 14px;
         }
 
         .header-top {
@@ -335,6 +335,213 @@
             color: #94a3b8;
         }
 
+        /* TAB BAR – 5 tabs equal */
+        .tab-bar { flex-wrap: nowrap; gap: 5px; }
+        .tab-btn { flex: 1; font-size: 11px; padding: 9px 2px; min-width: 0; }
+
+        /* BODY ATLAS */
+        .body-atlas-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+        .body-figure-box {
+            position: relative;
+            width: 220px;
+            height: 480px;
+            flex-shrink: 0;
+        }
+        .body-svg { width: 100%; height: 100%; }
+
+        .body-hotspot {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .body-hotspot:hover ellipse,
+        .body-hotspot:hover circle,
+        .body-hotspot:hover rect {
+            opacity: 0.85;
+        }
+        .body-hotspot.active ellipse,
+        .body-hotspot.active circle,
+        .body-hotspot.active rect {
+            filter: drop-shadow(0 0 6px rgba(239,68,68,0.9));
+        }
+
+        .body-legend {
+            display: flex;
+            gap: 12px;
+            font-size: 10px;
+            color: #94a3b8;
+            justify-content: center;
+        }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .atlas-detail-box {
+            width: 100%;
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 18px 16px;
+            min-height: 120px;
+        }
+        .atlas-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #475569;
+            font-size: 13px;
+            padding: 30px 0;
+        }
+        .atlas-placeholder-icon { font-size: 32px; }
+
+        .atlas-zone-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #f1f5f9;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .atlas-zone-icon { font-size: 20px; }
+        .atlas-zone-sub {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-bottom: 14px;
+        }
+
+        .deficiency-list { display: flex; flex-direction: column; gap: 8px; }
+        .deficiency-card {
+            background: #0f172a;
+            border-radius: 10px;
+            border-left: 3px solid var(--def-color);
+            padding: 10px 12px;
+        }
+        .deficiency-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+        .deficiency-name {
+            font-size: 12px;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+        .deficiency-tag {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 8px;
+            white-space: nowrap;
+            background: var(--def-bg);
+            color: var(--def-color);
+        }
+        .deficiency-text {
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .deficiency-fix {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #4ade80;
+            background: #052e16;
+            border-radius: 6px;
+            padding: 5px 8px;
+            line-height: 1.5;
+        }
+
+
+        /* SPORT TAB */
+        .sport-wrap { display:flex; flex-direction:column; gap:10px; }
+        .sport-mode-bar { display:flex; gap:6px; }
+        .sport-mode-btn { flex:1; padding:10px 4px; font-size:11px; font-weight:700; border-radius:9px;
+            background:#111827; border:1px solid #1e293b; color:#94a3b8; cursor:pointer; transition:0.2s; }
+        .sport-mode-btn.active { background:#7c3aed; border-color:#a78bfa; color:#fff; }
+        .sport-plan-box { display:none; flex-direction:column; gap:8px; }
+        .sport-plan-box.active { display:flex; }
+        .sport-info-card { background:#111827; border:1px solid #1e293b; border-radius:12px; overflow:hidden; }
+        .sport-info-trigger { width:100%; text-align:left; background:transparent; border:none; cursor:pointer;
+            padding:13px 14px; display:flex; align-items:center; gap:10px; }
+        .sport-info-icon { font-size:20px; min-width:28px; }
+        .sport-info-title { font-size:13px; font-weight:700; color:#e2e8f0; flex:1; }
+        .sport-info-arrow { color:#475569; font-size:14px; transition:0.2s; }
+        .sport-info-card.open .sport-info-arrow { transform:rotate(180deg); }
+        .sport-info-content { display:none; padding:0 14px 14px; border-top:1px solid #1e293b33; }
+        .sport-tag { display:inline-block; font-size:9px; font-weight:700; padding:2px 7px;
+            border-radius:8px; margin-right:4px; margin-bottom:4px; }
+        .sport-row { background:#0f172a; border-radius:8px; padding:9px 11px; margin-top:8px;
+            border-left:3px solid var(--sc); }
+        .sport-row-title { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+            color:var(--sc); margin-bottom:3px; }
+        .sport-row-val { font-size:11px; color:#cbd5e1; line-height:1.6; }
+        .sport-hero-banner { border-radius:12px; padding:14px 16px; margin-bottom:2px; }
+
+        /* BODY ATLAS – extended */
+        .body-zone-tabs { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:10px; }
+        .bzt-btn { padding:5px 10px; border-radius:20px; font-size:10px; font-weight:600;
+            background:transparent; border:1px solid #334155; color:#94a3b8; cursor:pointer; white-space:nowrap; }
+        .bzt-btn.active { background:#ef4444; border-color:#ef4444; color:#fff; }
+
+        /* NAHRUNG – extended */
+        .nutr-section-header { font-size:10px; font-weight:700; text-transform:uppercase;
+            letter-spacing:.08em; color:#475569; padding:10px 0 4px; border-bottom:1px solid #1e293b;
+            margin-bottom:6px; }
+        /* SPORT TAB – legacy placeholder removed */
+        .sport-hero {
+            background: linear-gradient(135deg, #1a0a00 0%, #2a0d00 100%);
+            border: 1px solid #9a3412;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            color: #fb923c;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        /* NAHRUNG – Vitamin/Mineral cards */
+        .nutr-search-box { position: relative; margin-bottom: 10px; }
+        .nutr-input { width: 100%; padding: 10px 14px; background: #1e293b; border: 1px solid #334155; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
+        .nutr-cats { overflow-x: auto; margin-bottom: 10px; padding-bottom: 4px; display: flex; gap: 6px; }
+        .nutr-cat-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; background: transparent; border: 1px solid #334155; color: #94a3b8; cursor: pointer; white-space: nowrap; }
+        .nutr-cat-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
+
+        .nutr-card { background: #111827; border: 1px solid #1e293b; border-radius: 11px; overflow: hidden; margin-bottom: 7px; transition: border-color 0.15s; }
+        .nutr-card.open { border-color: #7c3aed; }
+        .nutr-trigger { width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+        .nutr-icon { font-size: 20px; min-width: 28px; }
+        .nutr-title-box { flex: 1; }
+        .nutr-name { font-size: 13px; font-weight: 700; color: #e2e8f0; }
+        .nutr-cat-label { font-size: 10px; font-weight: 600; color: #7c3aed; }
+        .nutr-arrow { color: #475569; font-size: 14px; transition: 0.2s; }
+        .nutr-card.open .nutr-arrow { transform: rotate(180deg); }
+
+        .nutr-content { display: none; padding: 0 14px 14px; border-top: 1px solid #1e293b33; }
+
+        .nutr-row { background: #0f172a; border-radius: 8px; padding: 9px 11px; margin-top: 8px; border-left: 3px solid var(--nr-color); }
+        .nutr-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--nr-color); margin-bottom: 3px; }
+        .nutr-row-val { font-size: 11px; color: #cbd5e1; line-height: 1.6; }
+
+        .dose-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .dose-box { flex: 1; min-width: 100px; background: #1a2035; border-radius: 8px; padding: 8px 10px; text-align: center; }
+        .dose-box-label { font-size: 9px; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; }
+        .dose-box-val { font-size: 14px; font-weight: 800; margin-top: 2px; }
+        .dose-ok { color: #4ade80; }
+        .dose-warn { color: #f97316; }
+        .dose-toxic { color: #ef4444; }
+
         /* OVERLAY DIALOG */
         .overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
         .overlay-sheet { background: #111827; border-radius: 18px 18px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 700px; max-height: 80vh; overflow-y: auto; }
@@ -376,13 +583,16 @@
                 </div>
                 <div class="tab-bar">
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
-                    <button class="tab-btn" id="tabDatabase">Produkte (A-Z)</button>
+                    <button class="tab-btn" id="tabDatabase">Produkte</button>
                     <button class="tab-btn" id="tabFood">Nahrung</button>
+                    <button class="tab-btn" id="tabBody">Körper</button>
+                    <button class="tab-btn" id="tabSport">Sport</button>
                 </div>
             </div>
         </header>
 
         <div class="max-container">
+            <div id="timelinePanels">
             <div class="top-panels-container">
                 <div class="panel panel-rules" id="panelRules">
                     <button class="panel-trigger" onclick="toggleTopPanel('panelRules', 'rulesContent')">
@@ -411,6 +621,7 @@
                     </div>
                 </div>
             </div>
+            </div>
 
             <div class="view-section active" id="viewTimeline"></div>
 
@@ -428,12 +639,158 @@
                 </div>
             </div>
 
+            <!-- NAHRUNG – Vitamine & Mineralien Lexikon -->
             <div class="view-section" id="viewFood">
-                <div class="food-container">
-                    <h2>Ernaehrungsplan & Lebensmittel</h2>
-                    <p style="margin-top: 12px; font-size: 13px; line-height: 1.6;">
-                        Hier ist Platz fuer deine festen Mahlzeiten (z.B. Nudelgerichte, Haferflocken-Rezepte, Einkaufslisten und Makros von echten Lebensmitteln).
-                    </p>
+                <div class="nutr-search-box">
+                    <input type="text" class="nutr-input" id="nutrSearchInput" placeholder="Vitamin oder Mineral suchen...">
+                </div>
+                <div class="nutr-cats" id="nutrCatsBox"></div>
+                <div id="nutrCardList"></div>
+            </div>
+
+            <!-- SPORT TAB -->
+            <div class="view-section" id="viewSport">
+                <div class="sport-wrap">
+                    <div class="sport-mode-bar">
+                        <button class="sport-mode-btn active" id="smMaxkraft" onclick="selectSportMode('maxkraft')">&#128170; Maximalkraft</button>
+                        <button class="sport-mode-btn" id="smHyper" onclick="selectSportMode('hyper')">&#128293; Hypertrophie</button>
+                        <button class="sport-mode-btn" id="smKausd" onclick="selectSportMode('kausd')">&#9889; Kraftausdauer</button>
+                    </div>
+                    <div class="sport-plan-box active" id="spMaxkraft"></div>
+                    <div class="sport-plan-box" id="spHyper"></div>
+                    <div class="sport-plan-box" id="spKausd"></div>
+                </div>
+            </div>
+
+            <!-- KÖRPER ATLAS TAB -->
+            <div class="view-section" id="viewBody">
+                <div class="body-atlas-wrap">
+                    <div style="text-align:center;">
+                        <div style="font-size:13px; color:#94a3b8; margin-bottom:8px;">Zone antippen &rarr; Mängel & Ursachen sehen</div>
+                        <div class="body-legend">
+                            <span><span class="legend-dot" style="background:#ef4444;"></span>Schmerz / Symptom</span>
+                            <span><span class="legend-dot" style="background:#f97316;"></span>Mangelzeichen</span>
+                            <span><span class="legend-dot" style="background:#eab308;"></span>Leistung / Funktion</span>
+                        </div>
+                    </div>
+
+                    <!-- SVG BODY FIGURE -->
+                    <div class="body-figure-box">
+                      <svg class="body-svg" viewBox="0 0 220 480" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Base body silhouette -->
+                        <defs>
+                          <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#1e293b"/>
+                            <stop offset="100%" style="stop-color:#0f172a"/>
+                          </radialGradient>
+                        </defs>
+
+                        <!-- Neck -->
+                        <rect x="97" y="68" width="26" height="22" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Torso -->
+                        <rect x="68" y="88" width="84" height="120" rx="12" fill="url(#bodyGrad)" stroke="#334155" stroke-width="1"/>
+                        <!-- Left upper arm -->
+                        <rect x="40" y="90" width="26" height="80" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right upper arm -->
+                        <rect x="154" y="90" width="26" height="80" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left forearm -->
+                        <rect x="38" y="173" width="22" height="65" rx="9" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right forearm -->
+                        <rect x="160" y="173" width="22" height="65" rx="9" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left hand -->
+                        <ellipse cx="49" cy="248" rx="12" ry="15" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right hand -->
+                        <ellipse cx="171" cy="248" rx="12" ry="15" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Hips -->
+                        <rect x="62" y="205" width="96" height="38" rx="10" fill="url(#bodyGrad)" stroke="#334155" stroke-width="1"/>
+                        <!-- Left thigh -->
+                        <rect x="66" y="240" width="40" height="90" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right thigh -->
+                        <rect x="114" y="240" width="40" height="90" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left shin -->
+                        <rect x="68" y="332" width="34" height="90" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right shin -->
+                        <rect x="118" y="332" width="34" height="90" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left foot -->
+                        <ellipse cx="85" cy="430" rx="20" ry="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right foot -->
+                        <ellipse cx="135" cy="430" rx="20" ry="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+                        <!-- HEAD hotspot -->
+                        <g class="body-hotspot" id="hs-head" onclick="selectZone('head')">
+                          <circle cx="110" cy="38" r="30" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                          <ellipse cx="110" cy="38" r="28" ry="26" fill="#ef4444" fill-opacity="0.22" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="43" text-anchor="middle" font-size="18" fill="#fff">&#129504;</text>
+                        </g>
+
+                        <!-- EYES hotspot -->
+                        <g class="body-hotspot" id="hs-eyes" onclick="selectZone('eyes')">
+                          <ellipse cx="110" cy="27" rx="22" ry="8" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- SHOULDER hotspot -->
+                        <g class="body-hotspot" id="hs-shoulder" onclick="selectZone('shoulder')">
+                          <ellipse cx="57" cy="95" rx="18" ry="12" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="163" cy="95" rx="18" ry="12" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="57" y="99" text-anchor="middle" font-size="11" fill="#fca5a5">&#x2022;</text>
+                          <text x="163" y="99" text-anchor="middle" font-size="11" fill="#fca5a5">&#x2022;</text>
+                        </g>
+
+                        <!-- CHEST/HEART hotspot -->
+                        <g class="body-hotspot" id="hs-chest" onclick="selectZone('chest')">
+                          <ellipse cx="110" cy="120" rx="30" ry="22" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="125" text-anchor="middle" font-size="16" fill="#fbbf24">&#10084;</text>
+                        </g>
+
+                        <!-- GUT hotspot -->
+                        <g class="body-hotspot" id="hs-gut" onclick="selectZone('gut')">
+                          <ellipse cx="110" cy="168" rx="28" ry="20" fill="#f97316" fill-opacity="0.25" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="173" text-anchor="middle" font-size="14" fill="#fb923c">&#128167;</text>
+                        </g>
+
+                        <!-- JOINTS / KNEES hotspot -->
+                        <g class="body-hotspot" id="hs-joints" onclick="selectZone('joints')">
+                          <ellipse cx="86" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- MUSCLES / ARMS hotspot -->
+                        <g class="body-hotspot" id="hs-muscles" onclick="selectZone('muscles')">
+                          <ellipse cx="53" cy="135" rx="14" ry="28" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="167" cy="135" rx="14" ry="28" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- HANDS / NAILS hotspot -->
+                        <g class="body-hotspot" id="hs-hands" onclick="selectZone('hands')">
+                          <ellipse cx="49" cy="248" rx="13" ry="16" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="171" cy="248" rx="13" ry="16" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- LEGS / CALVES hotspot -->
+                        <g class="body-hotspot" id="hs-legs" onclick="selectZone('legs')">
+                          <ellipse cx="85" cy="375" rx="17" ry="30" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="375" rx="17" ry="30" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+
+                        <!-- Zone labels -->
+                        <text x="148" y="38" font-size="8" fill="#94a3b8">Kopf</text>
+                        <text x="148" y="97" font-size="8" fill="#94a3b8">Schulter</text>
+                        <text x="148" y="125" font-size="8" fill="#94a3b8">Herz</text>
+                        <text x="148" y="172" font-size="8" fill="#94a3b8">Darm</text>
+                        <text x="148" y="240" font-size="8" fill="#94a3b8">Hände</text>
+                        <text x="148" y="330" font-size="8" fill="#94a3b8">Knie</text>
+                        <text x="148" y="380" font-size="8" fill="#94a3b8">Waden</text>
+                        <text x="2" y="140" font-size="8" fill="#94a3b8">Muskeln</text>
+                      </svg>
+                    </div>
+
+                    <!-- DETAIL PANEL -->
+                    <div class="atlas-detail-box" id="atlasDetail">
+                        <div class="atlas-placeholder">
+                            <span class="atlas-placeholder-icon">&#128073;</span>
+                            <span>Zone am Körper antippen</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -460,38 +817,38 @@
           { id:"p3",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Kirsche",     icon:"", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min) – hochreines Isolat", function:"Fettarme Proteinversorgung, magenfreundlich, LaktoseFrei", takeWith:"Post-workout oder als Snack mit Wasser", competes:"Nicht gleichzeitig mit Calcium-/Eisenreichen Mahlzeiten" },
           { id:"p4",  cat:"Protein",           name:"ZEC+ Clear Whey Isolat Sueszer Apfel", icon:"", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min)", function:"Wie Kirsche – leichte, klare Proteinquelle, ideal bei Diaet", takeWith:"Post-workout oder tagsueber als leichte Quelle", competes:"Siehe Clear Whey Kirsche" },
           { id:"p5",  cat:"Protein",           name:"ZEC+ Ladies Vegan Connection",       icon:"", serving:"~30g",  protein:20, carbs:4,  fat:3,  kcal:123, absorption:"Mittel (~2–3h) – Erbsen- & Reisprotein", function:"Pflanzliche Versorgung, Muskelerhalt, hormonell ausgewogen", takeWith:"Mit Vitamin C (verbessert Eisenaufnahme). Post-workout oder MahlzeitenErsatz", competes:"Phytate hemmen Zink/Eisen – zeitversetzt einnehmen" },
-          { id:"p6",  cat:"Protein",           name:"ZEC+ Micellar Casein",               icon:"", serving:"~30g",  protein:24, carbs:2,  fat:1.5,kcal:118, absorption:"Sehr langsam (~5–7h) – bildet Gel im Magen", function:"Naechtliche Versorgung, Anti-Katabolismus im Schlaf", takeWith:"30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.", competes:"Nicht direkt mit Whey mischen; nicht als Post-Workout-Hauptprotein" },
+          { id:"p6",  cat:"Protein",           name:"ZEC+ Micellar Casein",               icon:"", serving:"~30g",  protein:24, carbs:2,  fat:1.5,kcal:118, absorption:"Sehr langsam (~5–7h) – bildet Gel im Magen", function:"Naechtliche Versorgung, Anti-Katabolismus im Schlaf", takeWith:"30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.", competes:"Als Post-Workout-Hauptprotein zu langsam. Blends mit Whey sind unproblematisch (jede Mahlzeit ist ein Proteinmix)." },
           { id:"p7",  cat:"Protein",           name:"ZEC+ Protein Pudding Stracciatella", icon:"", serving:"~35g",  protein:20, carbs:5,  fat:3,  kcal:128, absorption:"Langsam (~4–6h) – Casein-Basis", function:"Saettigende Proteinmahlzeit, Anti-Heisshunger, abendliche Versorgung", takeWith:"Abends als Dessert oder zwischen Mahlzeiten", competes:"Nicht unmittelbar post-workout als schnelle Proteinquelle" },
           { id:"p8",  cat:"Gainer & Carbs",    name:"ZEC+ Bullgainer",                    icon:"", serving:"~150g", protein:30, carbs:90, fat:5,  kcal:530, absorption:"Schnell-mittel – Whey + Maltodextrin/Dextrose", function:"Maximale Kalorienaufnahme fuer Hardgainer, Muskelaufbau-Phase", takeWith:"Post-workout oder als zusaetzliche Mahlzeit mit Milch", competes:"Nicht mit anderen hochkalorischen Mahlzeiten – Ueberschuss beachten" },
           { id:"p9",  cat:"Gainer & Carbs",    name:"ZEC+ Maltodextrin",                  icon:"", serving:"~30g",  protein:0,  carbs:29, fat:0,  kcal:116, absorption:"Sehr schnell – GI ~110, sofortiger Blutzuckeranstieg", function:"Glykogen-Replenishment, Insulinspike fuer Naehrstofftransport", takeWith:"Post-workout mit Hydrolysat oder Creatin", competes:"Nicht bei Insulinresistenz. Nicht in Ruhezeiten." },
           { id:"p10", cat:"Gainer & Carbs",    name:"ZEC+ Dextrose",                      icon:"", serving:"~30g",  protein:0,  carbs:30, fat:0,  kcal:120, absorption:"Instantan – direkte Aufnahme, GI 100", function:"Sofortiger Energieschub, Glykogen, Nährstofftransport via Insulin", takeWith:"Post-workout mit Protein & Creatin", competes:"Nicht vor dem Schlafen; nicht bei Low-Carb" },
           { id:"p11", cat:"Gainer & Carbs",    name:"ZEC+ Designer Carbs",                icon:"", serving:"~50g",  protein:0,  carbs:47, fat:0,  kcal:188, absorption:"Mittel-schnell – Wachsmaisstaerke, kein Insulinspike", function:"Gleichmaessige Energie, osmotisch guenstig, kein Magendraengen", takeWith:"Pre- oder Intra-Workout fuer Einheiten >60 min", competes:"Weniger geeignet wenn schnelle Glykogenresynthese noetig" },
           { id:"p12", cat:"Gainer & Carbs",    name:"Instant Rice Pudding",               icon:"", serving:"~60g",  protein:8,  carbs:40, fat:2,  kcal:212, absorption:"Schnell-mittel – Reisstaerke", function:"Magenfreundliche Energie, leicht verdaulich, post-workout oder Mahlzeit", takeWith:"Post-workout oder morgens. Mit Casein fuer langsame Ergaenzung.", competes:"Kein vollstaendiges Aminosaeureprofil allein" },
-          { id:"p13", cat:"Performance",       name:"ZEC+ Creatin Monohydrat",            icon:"", serving:"5g",    protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wird ueber 1–2h aufgenommen, Spiegel baut sich ueber Wochen auf", function:"Kraftsteigerung, ATP-Resynthese, Zellvoluminisierung, Kognition", takeWith:"Post-workout mit Carbs & Protein (Insulin-Transport). Taeglich konsistent.", competes:"Koffein theoretisch konkurrierend. Viel Wasser (3L+). Nicht mit Diuretika." },
+          { id:"p13", cat:"Performance",       name:"ZEC+ Creatin Monohydrat",            icon:"", serving:"5g",    protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wird ueber 1–2h aufgenommen, Spiegel baut sich ueber Wochen auf", function:"Kraftsteigerung, ATP-Resynthese, Zellvoluminisierung, Kognition", takeWith:"Post-workout mit Carbs & Protein (Insulin-Transport). Taeglich konsistent.", competes:"Viel Wasser (3L+). Nicht mit Diuretika. Koffein-Konflikt gilt als ueberholt (Mythos aus 1 alter Studie)." },
           { id:"p14", cat:"Performance",       name:"ZEC+ Citrullin Malat",               icon:"", serving:"~8g",   protein:0,  carbs:0,  fat:0,  kcal:16,  absorption:"Schnell – wird in Niere zu Arginin umgewandelt", function:"NO-Boost, Pump & Durchblutung, Laktatpufferung, weniger Ermuedung", takeWith:"30–45 min pre-workout auf nuechternem Magen", competes:"Nicht mit PDE5-Hemmern. Hohe Dosen -> Magenprobleme moeglich." },
-          { id:"p15", cat:"Performance",       name:"ZEC+ Intra Evolution",               icon:"", serving:"~25g",  protein:8,  carbs:12, fat:0,  kcal:90,  absorption:"Sehr schnell – freie Aminosaeuren direkt verfuegbar", function:"Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus", takeWith:"Waehrend Training in 500–750ml Wasser. Mit Natrium fuer Hydration.", competes:"Kein extra Protein-Shake noetig – Aminosaeuren enthalten" },
+          { id:"p15", cat:"Performance",       name:"ZEC+ Intra Evolution",               icon:"", serving:"~25g",  protein:8,  carbs:12, fat:0,  kcal:90,  absorption:"Sehr schnell – freie Aminosaeuren direkt verfuegbar", function:"Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus", takeWith:"Waehrend Training in 500–750ml Wasser. Mit Natrium fuer Hydration.", competes:"Bei ausreichender Tagesprotein-Zufuhr weitgehend redundant – kein echter Hebel, aber unschaedlich." },
           { id:"p16", cat:"Aminosaeuren",       name:"HEALTH+ L-Glycin",                   icon:"", serving:"3g",    protein:0,  carbs:0,  fat:0,  kcal:12,  absorption:"Schnell – passive Diffusion, einfachste Aminosaeure", function:"Kollagensynthese, Schlafqualitaet, Glutathion-Vorstufe, Verdauung", takeWith:"Abends vor Schlaf (schlaffoerdernd). Morgens nuechtern for Kollagen. Mit Kollagen-Praeparaten.", competes:"Hohe Dosen (>10g) koennen schlaefrig machen" },
-          { id:"p17", cat:"Aminosaeuren",       name:"HEALTH+ R-ALA",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Schnell nuechtern – Mahlzeiten –40% Bioverfuegbarkeit", function:"Universelles Antioxidans (fett- & wasserloeslich), Insulinsensitivitaet, Nerven", takeWith:"30 min vor Mahlzeiten, nuechtern. Mit Biotin kombinieren.", competes:"Nicht mit Chemo ohne Ruecksprache. Blutzucker bei Diabetes. Nicht mit Chelatoren." },
-          { id:"p18", cat:"Vitamine",          name:"ZEC+ All In One Antioxidant",        icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Fettloesliche Anteile (A, E) mit Fett aufnehmen", function:"Freie Radikale bekaempfen, Immunsystem, Zellschutz, Entzuendungshemmung", takeWith:"Mit fettreicher Mahlzeit", competes:"Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K." },
+          { id:"p17", cat:"Aminosaeuren",       name:"HEALTH+ R-ALA",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Schnell nuechtern – Mahlzeiten –40% Bioverfuegbarkeit", function:"Universelles Antioxidans (fett- & wasserloeslich), Insulinsensitivitaet, Nerven", takeWith:"30 min vor Mahlzeiten, nuechtern. NICHT direkt ums Training (Antioxidans dämpft Trainings-Signal). Mit Biotin kombinieren.", competes:"Nicht mit Chemo ohne Ruecksprache. Blutzucker bei Diabetes. Nicht mit Chelatoren." },
+          { id:"p18", cat:"Vitamine",          name:"ZEC+ All In One Antioxidant",        icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Fettloesliche Anteile (A, E) mit Fett aufnehmen", function:"Freie Radikale bekaempfen, Immunsystem, Zellschutz, Entzuendungshemmung", takeWith:"Mit fettreicher Mahlzeit. NICHT direkt ums Training – peri-workout dämpfen Megadosen die Hypertrophie-Anpassung.", competes:"Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K." },
           { id:"p19", cat:"Vitamine",          name:"ZEC+ Greens Mikronaehrstoffe",        icon:"", serving:"~10g",  protein:2,  carbs:3,  fat:0,  kcal:20,  absorption:"Mittel – pflanzliche Naehrstoffe variieren", function:"Saeure-Basen-Balance, Entgiftung, Mikronaehrstoffe, Energie", takeWith:"Morgens nuechtern mit Wasser. Vitamin C verbessert Eisenaufnahme.", competes:"Chlorella bindet Schwermetalle – nicht gleichzeitig mit Medis. Spirulina bei Autoimmun vorsichtig." },
-          { id:"p20", cat:"Vitamine",          name:"ZEC+ Vitamin B25",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – B12 benoetigt Intrinsic Factor", function:"Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion", takeWith:"Morgens mit Fruehstueck fuer Energie-Boost", competes:"B6 >50mg/Tag -> Neuropathie. Antazida reduzieren B12-Aufnahme." },
-          { id:"p21", cat:"Vitamine",          name:"ZEC+ Vitamin C + Hagebutte",         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – >200mg sinkt % Aufnahme; 2x taeglich besser", function:"Immunsystem, Kollagensynthese, Eisenaufnahme x2, Antioxidans", takeWith:"Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen.", competes:"Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsaeure + viel Vit C." },
-          { id:"p22", cat:"Vitamine",          name:"Vitamin D3 + K2",                    icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettloeslich – +50% besser mit Fett", function:"Calcium-Regulierung, Knochen, Immunsystem, Muskelkraft, Hormone", takeWith:"MIT Fett (Olive, Nuss). K2 lenkt Calcium in Knochen, nicht Arterien.", competes:"D3 OHNE K2 -> Arterienverkalkung! Nicht mit Warfarin. Magnesium aktiviert D3." },
-          { id:"p23", cat:"Mineralien",        name:"Eisenbisglycinat",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat", function:"Sauerstofftransport, Blutbildung, Energie, Kognition", takeWith:"Nuechtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch.", competes:"Calcium, Zink, Magnesium hemmen Fe! Kaffee/Tee stark hemmend." },
-          { id:"p24", cat:"Mineralien",        name:"Zink",                               icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nuechtern for Testosteron (ZMA-Protokoll). Mit Casein.", competes:"Hemmt Kupfer bei Langzeit (10:1 Ratio). Eisen & Kalzium hemmen Aufnahme." },
-          { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – Selenomethionin >90% bioverfuegbar", function:"Schilddruese (T4->T3), Antioxidans (Glutathionperoxidase), Immunsystem, Fruchtbarkeit", takeWith:"Mit Mahlzeit. Synergie mit Vitamin E.", competes:"Max 400mcg/Tag (toxisch). Hohe Vit-C-Dosen koennen Bioverfuegbarkeit senken." },
+          { id:"p20", cat:"Vitamine",          name:"ZEC+ Vitamin B25",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – B12 benoetigt Intrinsic Factor", function:"Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion", takeWith:"Morgens mit Fruehstueck fuer Energie-Boost", competes:"B6 >50mg/Tag -> Neuropathie. Antazida reduzieren B12-Aufnahme. Achtung: ueberlappt mit Multivitamin (Stacking)." },
+          { id:"p21", cat:"Vitamine",          name:"ZEC+ Vitamin C + Hagebutte",         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wasserloeslich – >200mg sinkt % Aufnahme; 2x taeglich besser", function:"Immunsystem, Kollagensynthese, Eisenaufnahme x2, Antioxidans", takeWith:"Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen. Hochdosiert NICHT direkt ums Training.", competes:"Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsaeure + viel Vit C. Peri-workout dämpft Anpassung." },
+          { id:"p22", cat:"Vitamine",          name:"Vitamin D3 + K2",                    icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettloeslich – +50% besser mit Fett", function:"Calcium-Regulierung, Knochen, Immunsystem, Muskelkraft, Hormone", takeWith:"MIT Fett (Olive, Nuss). K2 lenkt Calcium in Knochen, nicht Arterien.", competes:"Sinnvoll als Kombi D3+K2. Nicht mit Warfarin. Magnesium aktiviert D3." },
+          { id:"p23", cat:"Mineralien",        name:"Eisenbisglycinat",                   icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat", function:"Sauerstofftransport, Blutbildung, Energie, Kognition", takeWith:"Nuechtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch.", competes:"NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Ueberladungsrisiko (organschaedigend)! Calcium, Zink, Magnesium hemmen Fe. Kaffee/Tee stark hemmend." },
+          { id:"p24", cat:"Mineralien",        name:"Zink",                               icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nuechtern. Mit Casein.", competes:"Testosteron-Effekt NUR bei nachgewiesenem Zinkmangel (bei guter Versorgung kein T-Anstieg). Hemmt Kupfer bei Langzeit (10:1). Eisen & Kalzium hemmen Aufnahme." },
+          { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                      icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – Selenomethionin >90% bioverfuegbar", function:"Schilddruese (T4->T3), Antioxidans (Glutathionperoxidase), Immunsystem, Fruchtbarkeit", takeWith:"Mit Mahlzeit. Synergie mit Vitamin E.", competes:"Max 400mcg/Tag (toxisch) – auf Stacking mit Multi achten. Hohe Vit-C-Dosen koennen Bioverfuegbarkeit senken." },
           { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",        icon:"", serving:"~5g",   protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut loeslich", function:"Saeure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf. In Wasser aufloesen.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig." },
-          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin",    icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettloesliche Vitamine besser mit Fett", function:"Grundversorgung aller Mikronaehrstoffe, Praevention von Mangelzustaenden", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"Nicht mit hochdosierten Einzelvitaminen kombinieren. Ca hemmt Fe-Absorption." },
+          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin",    icon:"", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettloesliche Vitamine besser mit Fett", function:"Grundversorgung aller Mikronaehrstoffe, Praevention von Mangelzustaenden", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"NICHT zusaetzlich mit hochdosierten Einzelvitaminen (B25, Vit A, Selen) – Obergrenzen schnell ueberschritten. Ca hemmt Fe-Absorption." },
           { id:"p28", cat:"Omega & Oele",       name:"HEALTH+ Super Omega 3",              icon:"", serving:"2 Kap", protein:0,  carbs:0,  fat:4,  kcal:36,  absorption:"Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit", function:"Herzgesundheit, Entzuendungshemmung, Gehirnfunktion, Gelenke", takeWith:"Mit fettreicher Mahlzeit. Synergie mit D3+K2.", competes:"Blutverduennend – Vorsicht mit Aspirin/Warfarin. Vor Operationen absetzen." },
           { id:"p29", cat:"Adaptogene",        name:"HEALTH+ Ashwagandha KSM-66",         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettloesliche Withanolide besser mit Mahlzeit", function:"Cortisol, Stressresistenz, Testosteron, Schlaf, Ausdauer", takeWith:"Abends (cortisol-senkend). 2x taeglich mit Mahlzeit. Piperin verbessert Absorption.", competes:"Nicht mit Schilddruesen-Medi ohne Ruecksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI." },
-          { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",          icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfuegbar", function:"ATP-Produktion, Ausdauer & VO2max, Testosteron, Lungenkapazitaet", takeWith:"Pre-workout oder morgens. Mit CoQ10 fuer mitochondriale Gesundheit.", competes:"Leicht blutverduennend. Autoimmunerkrankungen vorsichtig." },
+          { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",          icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfuegbar", function:"ATP-Produktion, Ausdauer & VO2max, Testosteron, Lungenkapazitaet", takeWith:"Pre-workout oder morgens. Mit CoQ10 fuer mitochondriale Gesundheit.", competes:"Fuer Hypertrophie evidenzschwach (eher Ausdauer). Leicht blutverduennend. Autoimmun vorsichtig." },
           { id:"p31", cat:"Adaptogene",        name:"HEALTH+ Reishi",                     icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettloesliche Triterpene besser mit Mahlzeit", function:"Immunmodulation, Beta-Glucane, Leberschutz, Stress, Schlaf", takeWith:"Abends. Mit Vitamin C synergistisch.", competes:"Blutverduennend. Blutdruck senkend. Vor OPs absetzen." },
-          { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                       icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserloesliche Bestandteile gut verfuegbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Fruehstueck. Mit Ashwagandha kombinierbar.", competes:"Vorsicht bei hormonabhaengigen Erkrankungen. Schilddrueseneinfluss moeglich." },
-          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Molekuele, hohe Bioverfuegbarkeit", function:"Staerkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefaeße, Anti-Aging", takeWith:"Morgens nuechtern. Mit Vitamin C synergistisch. Mit Kollagen for Anti-Aging.", competes:"Leicht blutverduennend. Kann Eisenaufnahme hemmen – zeitversetzt." },
-          { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",               icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzuendungshemmung, Regeneration, Schlaf (Melatonin), Harnsaeure", takeWith:"Abends (Melatonin-Gehalt foerdert Schlaf). Post-workout fuer Regeneration.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten." },
+          { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                       icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserloesliche Bestandteile gut verfuegbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Fruehstueck. Mit Ashwagandha kombinierbar.", competes:"Fuer Hypertrophie evidenzschwach. Vorsicht bei hormonabhaengigen Erkrankungen." },
+          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",     icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Molekuele, hohe Bioverfuegbarkeit", function:"Staerkstes pflanzliches Antioxidans, Kollagen-Stabilisierung, Gefaeße, Anti-Aging", takeWith:"Morgens nuechtern. NICHT direkt ums Training (Antioxidans). Mit Vitamin C synergistisch. Mit Kollagen.", competes:"Leicht blutverduennend. Kann Eisenaufnahme hemmen – zeitversetzt." },
+          { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",               icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzuendungshemmung, Regeneration, Schlaf (Melatonin), Harnsaeure", takeWith:"Abends (Melatonin foerdert Schlaf). NICHT im engen Trainingsfenster – kann Anpassung dämpfen.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten." },
           { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",              icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstuetzung, Naehrstoffaufnahme, Blaehungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40 C denaturiert Enzyme." },
           { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ Probio-Tect",               icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Magsaeureresistente Kapseln – Bakterien erreichen Darm lebend", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung", takeWith:"Morgens nuechtern. Nicht mit heissen Getraenken. Mit Ballaststoffen.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Ruecksprache." },
-          { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Naehrstoff Optimizer",        icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme -> mehr Naehrstoffe ins Blut", function:"Bioverfuegbarkeit aller Naehrstoffe + 20–40%, Entzuendungshemmung", takeWith:"Zu jeder Supplement-Einnahme. Curcumin +2000%, Q10, Vitamine.", competes:"Erhoeht Medikamentenspiegel! Vorsicht mit Rx-Medi (hemmt CYP3A4)." },
+          { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Naehrstoff Optimizer",        icon:"", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme -> mehr Naehrstoffe ins Blut", function:"Bioverfuegbarkeit aller Naehrstoffe + 20–40%, Entzuendungshemmung", takeWith:"Zu Supplement-Mahlzeiten. Curcumin +2000%, Q10, Vitamine.", competes:"WICHTIG: Erhoeht auch Medikamentenspiegel (hemmt CYP3A4)! Bei jeder Rx-Medikation kritisch." },
           { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",        icon:"", serving:"~15g",  protein:13, carbs:0,  fat:0,  kcal:52,  absorption:"Hydrolysierte Peptide (~2000 Da) bis zu 90% bioverfuegbar", function:"Haut, Haare, Naegel, Knorpel, Gelenke, Darm, Knochen, Sehnen", takeWith:"Morgens nuechtern + Vitamin C (essenziell fuer Kollagensynthese!). L-Glycin ergaenzt.", competes:"Kein vollstaendiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle." },
           { id:"p39", cat:"Kollagen & Gelenke",name:"ZEC+ Arthro Essential",              icon:"", serving:"~10g",  protein:5,  carbs:2,  fat:0,  kcal:28,  absorption:"Mittel – Glucosamin oral ~30%; Wirkung erst nach 4–8 Wochen", function:"Knorpelschutz/-aufbau, Gelenkschmierung, Entzuendungshemmung, Bindegewebe", takeWith:"Mit Mahlzeiten. Mind. 3 Monate einnehmen.", competes:"Glucosamin kann Blutzucker leicht erhoehen. Chondroitin leicht blutverduennend." },
           { id:"p40", cat:"Schlaf & Erholung", name:"ZEC+ Sleep",                         icon:"", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Schnell – Melatonin wirkt in 20–30 min", function:"Einschlaffoerderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschuettung", takeWith:"30 min vor Schlaf. Mit ZEC+ Casein fuer naechtliche Muskelversorgung.", competes:"Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg)." },
@@ -511,27 +868,28 @@
         // isRelativeTosleep: true bedeutet, dass offsetMinutes VOR der Schlafzeit berechnet wird
         const TIMELINE_CONFIG = [
           { id:"t1", label:"Aufwachen & Nuechtern", offsetMinutes: 0, duration: 30, icon:"", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:": WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nuechternmagen = maximale Naehrstoffaufnahme. Cortisol morgens hoch -> Mikronaehrstoffe & R-ALA jetzt am effektivsten absorbierbar.", productIds:["p22","p17","p33","p36"], notes:{ p22:"MIT Fett (Olivenoel, Nussbutter) – D3 fettloeslich, sonst nur ~30% Absorption!", p17:"MUSS nuechtern sein – Fett/Protein reduziert Aufnahme um 40%", p33:"Nuechtern for maximale Bioverfuegbarkeit", p36:"Magsaeure nach dem Aufwachen am niedrigsten -> Bakterien ueberleben besser" }, priority:{ p22:"MUSS", p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
-          { id:"t2", label:"Fruehstueck (Haferflocken)", offsetMinutes: 45, duration: 45, icon:"", color:"#10b981", bg: "#001a0f", border: "#065f46", why:": WASSER: Volles grosses Glas (350ml – 500ml) zu den Kapseln.<br><br><strong>: HAFERFLOCKEN-BASIS: 100g Haferflocken mit 250ml Milch.</strong> Fettreiche Mahlzeit (Milchfett/Flocken) optimiert fettloesliche Vitamine (Omega 3). Insulin transportiert Naehrstoffe in Zellen.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettloeslichen Anteile (A, E, K)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Fruehstueck – B-Vitamine aktivieren den Energiestoffwechsel", p29:"Mit Fett – Withanolide fettloeslich; Erste Dosis fuer Cortisolreduktion ueber den Tag", p32:"Morgens fuer Energie & Libido ueber den Tag", p19:"In Wasser or Saft – Saeure-Basen-Ausgleich", p30:"Morgens fuer ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
-          { id:"t3", label:"Vormittag / 1. Nudel-Dosis", offsetMinutes: 180, duration: 30, icon:"", color:"#06b6d4", bg: "#001420", border: "#0e7490", why:": WASSER: 300ml – 450ml (mit Shaker angeruehrt).<br><br><strong>: NUDEL-DOSIS 1: Erstes Paket (100g Rohgewicht)</strong> startet die Kohlenhydrat-Versorgung ab 13:00 Uhr. Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein fuer kontinuierliche Muskelproteinsynthese (MPS) aktivieren.", productIds:["p23","p21","p2","p3"], notes:{ p23:"2h NACH Fruehstueck & OHNE Ca/Zn/Mg! Mit Vitamin C -> Absorption x2", p21:"Zusammen mit Eisen fuer max. Eisenabsorption", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative to Hydrolysat fuer einen leichten Vormittags-Shake" }, priority:{ p23:"MUSS", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
-          { id:"t4", label:"Pre-Workout", offsetMinutes: 300, duration: 15, icon:"", color:"#ef4444", bg: "#1a0000", border: "#991b1b", why:": WASSER: Exakt 400ml – 500ml zum Anmischen der Pulver.<br><br>Citrullin braucht 45 min fuer die NO-Wandlung im Koerper. Koffein Peak liegt bei 60 min. Zu viel Fluessigkeit direkt im Training vermeiden.", productIds:["p14","p45","p44","p13","p11"], notes:{ p14:"ZUERST einnehmen – braucht 45 min fuer vollen NO-Effekt", p45:"NUR EINEN Booster waehlen! Nicht kombinieren.", p44:"Koffeinfrei – als Alternative oder Ergaenzung zum Booster", p13:"Pre ODER post – Konsistenz wichtiger als Timing", p11:"Fuer Einheiten >60 min als gleichmaessige Energiequelle" }, priority:{ p14:"MUSS", p45:"MUSS", p44:"OPTIONAL", p13:"WICHTIG", p11:"OPTIONAL" } },
-          { id:"t5", label:"Intra-Workout", offsetMinutes: 345, duration: 60, icon: "", color: "#8b5cf6", bg: "#0f0020", border: "#5b21b6", why:": WASSER: Konstantes Trinken von 600ml – 800ml schluckweise.<br><br>Muskelabbau im harten Training verhindern, Hydration der Muskelzellen sichern, Ermuedung verzoegern. Nur Fluessiges – kein Festfood.", productIds:["p15","p10"], notes:{ p15:"Slowly ueber die gesamte Einheit trinken – EAAs + Elektrolyte + Carbs in einem", p10:"Nur bei Einheiten >90 min zum Glykogennachfuellen" }, priority:{ p15:"WICHTIG", p10:"OPTIONAL" } },
-          { id:"t6", label:"Post-Workout", offsetMinutes: 405, duration: 30, icon:"", color:"#f97316", bg: "#1a0800", border: "#9a3412", why:": WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Das anabole Fenster: Muskeln maximal insulinsensitiv, Glykogenspeicher leer, MPS-Rezeptoren weit offen. Jetzt den groessten Hebel ansetzen.", productIds:["p2","p10","p13","p35"], notes:{ p2:"SOFORT – vorverdaut, in 30 min in der Muskelzelle", p10:"MIT Hydrolysat – Insulin transportiert Protein + Creatin in die Zelle (Ratio 1:1 bis 2:1)", p13:"Post-workout mit Carbs = bester Transportzeitpunkt wegen Insulin", p35:"Wenn direkt danach eine feste Mahlzeit folgt – optimiert Proteinverdauung" }, priority:{ p2:"MUSS", p10:"MUSS", p13:"WICHTIG", p35:"OPTIONAL" } },
-          { id:"t7", label:"Mittagessen / 2. Nudel-Dosis", offsetMinutes: 450, duration: 60, icon:"", color: "#22c55e", bg: "#001a08", border: "#166534", why:": WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>: NUDEL-DOSIS 2: Zweites Paket (100g Rohgewicht)</strong> fuer massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein fuer Muskel-MPS.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell fuer Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme fuer echten Knorpel-Effekt.", p37:"ZU jeder Mahlzeit mit Supplements – steigert Absorption aller Naehrstoffe +20–40%", p48:"Mit Fett – Q10 fettloeslich. Mittagessen ideal.", p24:"2h NACH Eisenbisglycinat! Nicht zusammen einnehmen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
-          { id:"t8", label:"Nachmittag / 3. Nudel-Dosis", offsetMinutes: 630, duration: 30, icon:"", color: "#60a5fa", bg: "#000d1a", border: "#1d4ed8", why:": WASSER: 300ml – 350ml.<br><br><strong>: NUDEL-DOSIS 3: Drittes Paket (100g Rohgewicht).</strong> MPS-Fenster beachten: alle 3–4h Protein zufuehren! Adaptogene 2. Dosis nehmen. Entzuendungshemmung und Regeneration nach dem harten Training einleiten.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schliesst sich nach ~3–4h! Mind. 2–3g Leucin fuer volle MPS-Aktivierung", p34:"Entzuendungshemmung post-workout. Abends zusaetzlich fuer Schlaf.", p49:"Mit Snack. Naehrstoff Optimizer fuer maximale Quercetin-Absorption.", p26:"Nach Training: Saeure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
-          { id:"t9", label:"Abendessen / 4. Nudel-Dosis", offsetMinutes: 780, duration: 60, icon:"", color: "#a78bfa", bg: "#0d001a", border: "#6d28d9", why:": WASSER: 300ml – 400ml zum Essen.<br><br><strong>: NUDEL-DOSIS 4: Viertes Paket (100g Rohgewicht)</strong> fuer die Regeneration im Schlaf. Letzte Naehrstoff-Hauptversorgung. Cortisol senken. Testosteron-Protokoll starten.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert fuer langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol vor Schlaf, Testosteron waehrend Schlaf", p25:"Mit Abendessen. Schilddruesenenzyme abends hochgradig aktiv.", p18:"Mit fetthaltiger Mahlzeit – fettloesliche Anteile (A, E)", p31:"Abends: Schlafqualitaet, Entspannung, Leberschutz ueber Nacht", p24:"BESTER Zeitpunkt: nuechtern 2h nach Abendessen – Testosteronproduktion laeuft nachts" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"WICHTIG" } },
-          { id:"t10", label:"Vor dem Schlafen / 5. Nudel-Dosis", offsetMinutes: 60, duration: 30, icon:"", color:"#818cf8", bg: "#05001a", border: "#4338ca", isRelativeTosleep: true, why:": WASSER: Exakt 250ml – maximal 300ml (um naechtliches Aufwachen zu verhindern).<br><br><strong>: NUDEL-DOSIS 5: Fuenftes und letztes Paket (100g Rohgewicht).</strong> Wachstumshormon-Ausschuettung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung waehrend GH-Ausschuettung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian + 5-HTP zusammen wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium fuer Knochen im Schlaf.", p16:"Direkt vor Schlaf: Koerpertemperatur -> tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmaessigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzuendung ueber Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
+          { id:"t2", label:"Fruehstueck (Haferflocken)", offsetMinutes: 45, duration: 45, icon:"", color:"#10b981", bg: "#001a0f", border: "#065f46", why:": WASSER: Volles grosses Glas (350ml – 500ml) zu den Kapseln.<br><br><strong>: HAFERFLOCKEN-BASIS: 100g Haferflocken mit 250ml Milch.</strong> Fettreiche Mahlzeit (Milchfett/Flocken) optimiert fettloesliche Vitamine (Omega 3). Insulin transportiert Naehrstoffe in Zellen.", productIds:["p27","p28","p20","p29","p32","p19","p30"], notes:{ p27:"MIT Fett – sonst keine Aufnahme der fettloeslichen Anteile (A, E, K). Nicht zusaetzlich mit B25/Einzelvitaminen kombinieren (Stacking)", p28:"Immer mit der fettreichsten Mahlzeit des Tages – Triglyceridform +70% Absorption", p20:"Mit Fruehstueck – B-Vitamine aktivieren den Energiestoffwechsel. Ueberlappt mit Multi!", p29:"Mit Fett – Withanolide fettloeslich; Erste Dosis fuer Cortisolreduktion ueber den Tag", p32:"Morgens fuer Energie & Libido. Hypertrophie-Nutzen evidenzschwach", p19:"In Wasser or Saft – Saeure-Basen-Ausgleich", p30:"Morgens fuer ATP-Produktion & Ausdauer" }, priority:{ p27:"MUSS", p28:"MUSS", p20:"WICHTIG", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
+          { id:"t3", label:"Vormittag / 1. Nudel-Dosis", offsetMinutes: 180, duration: 30, icon:"", color:"#06b6d4", bg: "#001420", border: "#0e7490", why:": WASSER: 300ml – 450ml (mit Shaker angeruehrt).<br><br><strong>: NUDEL-DOSIS 1: Erstes Paket (100g Rohgewicht)</strong> startet die Kohlenhydrat-Versorgung. Zwischen Mahlzeiten: Eisen ohne Konkurrenz absorbieren. Protein fuer kontinuierliche Muskelproteinsynthese (MPS) aktivieren.", productIds:["p23","p21","p2","p3"], notes:{ p23:"NUR bei per Bluttest belegtem Mangel! 2h NACH Fruehstueck & OHNE Ca/Zn/Mg. Mit Vitamin C -> Absorption x2", p21:"Zusammen mit Eisen fuer max. Eisenabsorption. Hochdosiert NICHT direkt vor dem Training", p2:"MPS-Fenster alle 3–4h neu stimulieren – mind. 2–3g Leucin pro Einnahme!", p3:"Alternative to Hydrolysat fuer einen leichten Vormittags-Shake" }, priority:{ p23:"OPTIONAL", p21:"WICHTIG", p2:"WICHTIG", p3:"OPTIONAL" } },
+          { id:"t4", label:"Pre-Workout", offsetMinutes: 300, duration: 15, icon:"", color:"#ef4444", bg: "#1a0000", border: "#991b1b", why:": WASSER: Exakt 400ml – 500ml zum Anmischen der Pulver.<br><br>Citrullin braucht 45 min fuer die NO-Wandlung im Koerper. Koffein Peak liegt bei 60 min. KEINE hochdosierten Antioxidantien jetzt – Trainings-ROS sind Wachstumssignale.", productIds:["p14","p45","p44","p13","p11"], notes:{ p14:"ZUERST einnehmen – braucht 45 min fuer vollen NO-Effekt", p45:"NUR EINEN Booster waehlen! Nicht kombinieren.", p44:"Koffeinfrei – als Alternative oder Ergaenzung zum Booster", p13:"Pre ODER post – Konsistenz wichtiger als Timing", p11:"Fuer Einheiten >60 min als gleichmaessige Energiequelle" }, priority:{ p14:"MUSS", p45:"MUSS", p44:"OPTIONAL", p13:"WICHTIG", p11:"OPTIONAL" } },
+          { id:"t5", label:"Intra-Workout", offsetMinutes: 345, duration: 60, icon: "", color: "#8b5cf6", bg: "#0f0020", border: "#5b21b6", why:": WASSER: Konstantes Trinken von 600ml – 800ml schluckweise.<br><br>Muskelabbau im harten Training verhindern, Hydration der Muskelzellen sichern, Ermuedung verzoegern. Nur Fluessiges – kein Festfood.", productIds:["p15","p10"], notes:{ p15:"Slowly ueber die gesamte Einheit trinken – EAAs + Elektrolyte + Carbs. Bei genug Tagesprotein eher optional", p10:"Nur bei Einheiten >90 min zum Glykogennachfuellen" }, priority:{ p15:"OPTIONAL", p10:"OPTIONAL" } },
+          { id:"t6", label:"Post-Workout", offsetMinutes: 405, duration: 30, icon:"", color:"#f97316", bg: "#1a0800", border: "#9a3412", why:": WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Das anabole Fenster: Muskeln maximal insulinsensitiv, Glykogenspeicher leer, MPS-Rezeptoren weit offen. KEINE Antioxidantien jetzt – sie wuerden das Wachstumssignal abschwaechen.", productIds:["p2","p10","p13","p35"], notes:{ p2:"SOFORT – vorverdaut, in 30 min in der Muskelzelle", p10:"MIT Hydrolysat – Insulin transportiert Protein + Creatin in die Zelle (Ratio 1:1 bis 2:1)", p13:"Post-workout mit Carbs = bester Transportzeitpunkt wegen Insulin", p35:"Wenn direkt danach eine feste Mahlzeit folgt – optimiert Proteinverdauung" }, priority:{ p2:"MUSS", p10:"MUSS", p13:"WICHTIG", p35:"OPTIONAL" } },
+          { id:"t7", label:"Mittagessen / 2. Nudel-Dosis", offsetMinutes: 450, duration: 60, icon:"", color: "#22c55e", bg: "#001a08", border: "#166534", why:": WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br><strong>: NUDEL-DOSIS 2: Zweites Paket (100g Rohgewicht)</strong> fuer massig Glykogen. Hauptmahlzeit: Kollagen & Gelenkschutz, Herzgesundheit, Protein fuer Muskel-MPS. Mind. 2h Abstand zum Trainingsende fuer die Antioxidantien.", productIds:["p38","p39","p37","p48","p24"], notes:{ p38:"VOR dem Essen mit Vit C – Vit C essenziell fuer Kollagensynthese!", p39:"Mit Mahlzeit. Mind. 3 Monate Einnahme fuer echten Knorpel-Effekt.", p37:"Steigert Absorption aller Naehrstoffe +20–40%. ACHTUNG: erhoeht auch Medikamentenspiegel!", p48:"Mit Fett – Q10 fettloeslich. Mittagessen ideal.", p24:"Testosteron-Effekt nur bei Zinkmangel. 2h NACH Eisen (konkurrieren um Transporter)" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p48:"OPTIONAL", p24:"OPTIONAL" } },
+          { id:"t8", label:"Nachmittag / 3. Nudel-Dosis", offsetMinutes: 630, duration: 30, icon:"", color: "#60a5fa", bg: "#000d1a", border: "#1d4ed8", why:": WASSER: 300ml – 350ml.<br><br><strong>: NUDEL-DOSIS 3: Drittes Paket (100g Rohgewicht).</strong> MPS-Fenster beachten: alle 3–4h Protein zufuehren! Adaptogene 2. Dosis nehmen. Jetzt (mehrere Stunden nach Training) ist Zeitpunkt fuer Entzuendungshemmung/Antioxidantien gut.", productIds:["p1","p34","p49","p26"], notes:{ p1:"MPS-Fenster schliesst sich nach ~3–4h! Mind. 2–3g Leucin fuer volle MPS-Aktivierung", p34:"Jetzt unproblematisch (genug Abstand zum Training). Abends zusaetzlich fuer Schlaf.", p49:"Mit Snack. Naehrstoff Optimizer fuer maximale Quercetin-Absorption.", p26:"Nach Training: Saeure-Basen-Ausgleich nach intensiver Belastung" }, priority:{ p1:"MUSS", p34:"OPTIONAL", p49:"OPTIONAL", p26:"OPTIONAL" } },
+          { id:"t9", label:"Abendessen / 4. Nudel-Dosis", offsetMinutes: 780, duration: 60, icon:"", color: "#a78bfa", bg: "#0d001a", border: "#6d28d9", why:": WASSER: 300ml – 400ml zum Essen.<br><br><strong>: NUDEL-DOSIS 4: Viertes Paket (100g Rohgewicht)</strong> fuer die Regeneration im Schlaf. Letzte Naehrstoff-Hauptversorgung. Cortisol senken.", productIds:["p7","p29","p25","p18","p31","p24"], notes:{ p7:"Casein-basiert fuer langsame Freisetzung; 8h Schlaf ohne Protein = Katabolismus verhindern!", p29:"Abendsdosis: Cortisol vor Schlaf, Testosteron waehrend Schlaf", p25:"Mit Abendessen. Schilddruesenenzyme abends aktiv. Auf Selen-Stacking (max 400mcg) achten.", p18:"Mit fetthaltiger Mahlzeit. Antioxidans jetzt ok (weit weg vom Training)", p31:"Abends: Schlafqualitaet, Entspannung, Leberschutz ueber Nacht", p24:"Nuechtern 2h nach Abendessen. T-Effekt nur bei nachgewiesenem Zinkmangel" }, priority:{ p7:"MUSS", p29:"WICHTIG", p25:"WICHTIG", p18:"OPTIONAL", p31:"OPTIONAL", p24:"OPTIONAL" } },
+          { id:"t10", label:"Vor dem Schlafen / 5. Nudel-Dosis", offsetMinutes: 60, duration: 30, icon:"", color:"#818cf8", bg: "#05001a", border: "#4338ca", isRelativeTosleep: true, why:": WASSER: Exakt 250ml – maximal 300ml (um naechtliches Aufwachen zu verhindern).<br><br><strong>: NUDEL-DOSIS 5: Fuenftes und letztes Paket (100g Rohgewicht).</strong> Wachstumshormon-Ausschuettung (GH) beginnt 90 min nach Einschlafen. Casein + Schlafhormone + Regenerationsstoffe jetzt aktivieren.", productIds:["p6","p40","p26","p16","p42","p34"], notes:{ p6:"30 min vor Schlaf – 5–7h Versorgung waehrend GH-Ausschuettung. KEIN Whey!", p40:"30 min vor Schlaf. Melatonin + Mg + Baldrian wirken synergistisch.", p26:"Magnesium entspannt Muskeln. Calcium fuer Knochen im Schlaf.", p16:"Direkt vor Schlaf: Koerpertemperatur -> tieferen Schlaf. Kollagensynthese im Schlaf.", p42:"Alternative wenn kein ZEC+ Sleep. Wirkt nach 2–4 Wochen Regelmaessigkeit besser.", p34:"Melatonin in Sauerkirsche + Anti-Entzuendung ueber Nacht" }, priority:{ p6:"MUSS", p40:"MUSS", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
         ];
 
         const CRITICAL = [
-          { bad:true,  text:"Eisen + Calcium/Zink/Magnesium -> NIEMALS zusammen (hemmen sich um bis zu 80%)" },
-          { bad:true,  text:"D3 OHNE K2 -> Calcium lagert sich in Arterien statt Knochen" },
-          { bad:true,  text:"Whey + Casein mischen -> Casein bremst schnelle Whey-Absorption aus" },
+          { bad:true,  text:"Eisen + Calcium/Zink/Magnesium -> NIEMALS zusammen (hemmen sich gegenseitig stark)" },
+          { bad:true,  text:"Eisen NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Ueberladungsrisiko (organschaedigend)" },
+          { bad:true,  text:"Hochdosierte Antioxidantien (Vit C, OPC, R-ALA, Cherry, Antioxidant-Komplex) NICHT direkt ums Training – Trainings-ROS sind Wachstumssignale" },
           { bad:true,  text:"Koffein-Booster nach 16 Uhr -> ruiniert den tiefen Schlaf & GH-Ausschuettung" },
-          { bad:true,  text:"R-ALA mit Mahlzeit -> 40% weniger Absorption im Magen" },
+          { bad:true,  text:"R-ALA mit Mahlzeit -> ~40% weniger Absorption im Magen" },
+          { bad:true,  text:"Vitamin-Stacking pruefen: Multi + Einzelvitamine + Antioxidant ueberlappen (Obergrenzen B6/Selen/Vit A beachten)" },
+          { bad:false, text:"D3 zusammen mit K2 – lenkt Calcium in Knochen statt Gefaesse (sinnvolle Kombi)" },
           { bad:false, text:"Vitamin C immer wenn Eisen oder Kollagen genommen wird" },
-          { bad:false, text:"Naehrstoff Optimizer (Piperin) zu jeder Supplement-Mahlzeit" },
           { bad:false, text:"Fettloesliche Vitamine (D3, A, E, K2, Q10) immer zu fettreicher Mahlzeit" },
-          { bad:false, text:"Protein alle 3–4h fuer kontinuierliche Proteinsynthese (MPS)" }
+          { bad:false, text:"Protein alle 3–4h fuer kontinuierliche Proteinsynthese (MPS) – der wichtigste Hebel" }
         ];
 
         // PROTEIN DOSES KONFIGURATION (wird ebenfalls dynamisch berechnet)
@@ -641,6 +999,8 @@
             initStaticPanels();
             renderTimeline();
             initDatabaseView();
+            initNutrView();
+            renderSportPlans();
         }
 
         function initStaticPanels() {
@@ -876,38 +1236,857 @@
         }
 
         function activeSection(tabId, viewId) {
-            document.getElementById("tabTimeline").classList.remove("active");
-            document.getElementById("tabDatabase").classList.remove("active");
-            document.getElementById("tabFood").classList.remove("active");
-
-            document.getElementById("viewTimeline").classList.remove("active");
-            document.getElementById("viewDatabase").classList.remove("active");
-            document.getElementById("viewFood").classList.remove("active");
-
+            ["tabTimeline","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            ["viewTimeline","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
             document.getElementById(tabId).classList.add("active");
             document.getElementById(viewId).classList.add("active");
+            // Show panels only on Tagesplan
+            document.getElementById("timelinePanels").style.display =
+                (tabId === "tabTimeline") ? "block" : "none";
+        }
+
+
+        // ─── SPORT DATA ───────────────────────────────────────────────────
+        const SPORT_DATA = {
+            maxkraft: {
+                color:"#ef4444", bg:"#1a0000", border:"#991b1b",
+                title:"Maximalkraft", icon:"🏋️",
+                desc:"1–5 Wdh., 85–100% 1RM, Pause 3–5 min. Ziel: Nervale Ansteuerung & maximale Kraftentwicklung.",
+                supplements:"Kreatin 5g täglich · Citrullin 8g pre · Whey + Dextrose post · Koffein-Booster",
+                days:[
+                    { day:"Tag A – Unterkörper Kraft", exercises:[
+                        { name:"Kniebeuge", sets:"5×3", load:"87–92% 1RM", rest:"4 min", tip:"Tief sitzen, Knie über Zehe, Brustkorb hoch" },
+                        { name:"Rumänisches Kreuzheben", sets:"4×4", load:"80–85% 1RM", rest:"3 min", tip:"Rücken neutral, Hüfte zurück, keine Kniebeuge" },
+                        { name:"Beinpresse", sets:"3×5", load:"82% 1RM", rest:"3 min", tip:"Füße schulterbreit, volle Streckung oben" },
+                        { name:"Wadenheben stehend", sets:"4×6", load:"Schwer", rest:"2 min", tip:"Volle ROM, oben 1 sek halten" }
+                    ]},
+                    { day:"Tag B – Oberkörper Drücken", exercises:[
+                        { name:"Langhantel Bankdrücken", sets:"5×3", load:"87–92% 1RM", rest:"4 min", tip:"Schulterblätter zusammen, Bogen, Ellbogen 45°" },
+                        { name:"Schrägbank Bankdrücken", sets:"4×4", load:"80% 1RM", rest:"3 min", tip:"30° Neigung, volle Streckung oben" },
+                        { name:"Schulterdrücken sitzend", sets:"4×4", load:"78% 1RM", rest:"3 min", tip:"Kern anspannen, keine Ausweichbewegung" },
+                        { name:"Trizeps Dips (Gewicht)", sets:"4×5", load:"Zusatzgewicht", rest:"2 min", tip:"Rumpf leicht vorne, Ellbogen nah am Körper" }
+                    ]},
+                    { day:"Tag C – Oberkörper Ziehen", exercises:[
+                        { name:"Klimmzüge (Gewicht)", sets:"5×3", load:"Zusatzgewicht", rest:"4 min", tip:"Schulterblätter unten, volle Streckung unten" },
+                        { name:"Langhantel Rudern vorgebeugt", sets:"4×4", load:"82% 1RM", rest:"3 min", tip:"45° Rumpf, Ellbogen nah, Stange zur Hüfte" },
+                        { name:"Hammer Curls", sets:"4×5", load:"Schwer", rest:"2 min", tip:"Daumen oben, kein Schwung" },
+                        { name:"Gesichtszug (Face Pull)", sets:"3×8", load:"Mittel", rest:"90 sek", tip:"Außenrotation am Ende, Schultergesundheit" }
+                    ]},
+                    { day:"Tag D – Ganzkörper Kraft", exercises:[
+                        { name:"Kreuzheben", sets:"5×2", load:"90–95% 1RM", rest:"5 min", tip:"Größter Kraft-Stimulus – Rücken neutral, Luft holen" },
+                        { name:"Power Clean", sets:"4×3", load:"75% 1RM", rest:"3 min", tip:"Explosiv aus den Beinen, Ellbogen schnell durch" },
+                        { name:"Farmer's Walk", sets:"4×20m", load:"Schwer", rest:"2 min", tip:"Schultern zurück, kurze schnelle Schritte" },
+                        { name:"Bauchpresse / Kabelzug", sets:"3×8", load:"Schwer", rest:"90 sek", tip:"Kern maximal anspannen" }
+                    ]}
+                ]
+            },
+            hyper: {
+                color:"#a78bfa", bg:"#0d001a", border:"#6d28d9",
+                title:"Hypertrophie", icon:"💪",
+                desc:"8–12 Wdh., 65–80% 1RM, Pause 60–120 sek. Ziel: Maximales Muskelvolumen & metabolischer Stress.",
+                supplements:"Kreatin 5g · Whey alle 3–4h · Casein vor Schlaf · Citrullin pre · Intra-EAAs optional",
+                days:[
+                    { day:"Tag A – Brust & Trizeps", exercises:[
+                        { name:"Schrägbank Kurzhantel", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Volle Dehnung unten, explosiv drücken, 3-0-1 Tempo" },
+                        { name:"Kabelzug Fliegende", sets:"3×12", load:"60% 1RM", rest:"60 sek", tip:"Maximale Dehnung, Kontraktion oben halten" },
+                        { name:"Dips (KG)", sets:"4×10", load:"Körpergewicht+", rest:"75 sek", tip:"Rumpf leicht vorne für Brust-Fokus" },
+                        { name:"Skull Crusher", sets:"3×12", load:"Moderat", rest:"60 sek", tip:"Ellbogen eng, nur Unterarm bewegt" },
+                        { name:"Kabel Trizeps Pushdown", sets:"3×15", load:"Leicht-Mittel", rest:"45 sek", tip:"Kontraktion ganz unten halten 1 sek" }
+                    ]},
+                    { day:"Tag B – Rücken & Bizeps", exercises:[
+                        { name:"Kabel Rudern eng", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Schulterblätter zusammenziehen, Brust raus" },
+                        { name:"Latzug breit vorne", sets:"4×12", load:"65% 1RM", rest:"75 sek", tip:"Ellbogen zur Hüfte führen, kein Schwung" },
+                        { name:"Kurzhantel Rudern", sets:"3×12", load:"70% 1RM", rest:"60 sek", tip:"Volle Streckung, Ellbogen über Rücken" },
+                        { name:"SZ-Curls", sets:"4×10", load:"Moderat", rest:"75 sek", tip:"Langsam ablassen (3 sek), explosiv hoch" },
+                        { name:"Konzentrations Curls", sets:"3×12", load:"Leicht", rest:"45 sek", tip:"Volle Kontraktion, kein Oberkörper-Schwung" }
+                    ]},
+                    { day:"Tag C – Schultern", exercises:[
+                        { name:"Kurzhantel Schulterdrücken", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Keine Hohlkreuz, Kern fest" },
+                        { name:"Kurzhantel Seitheben", sets:"4×15", load:"Leicht", rest:"45 sek", tip:"Daumen leicht unten, Ellbogen führen, 30° vorbeugen" },
+                        { name:"Kabel Seitheben", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Konstante Spannung durch Kabel besser als KH" },
+                        { name:"Face Pull Kabel", sets:"4×15", load:"Leicht", rest:"45 sek", tip:"Außenrotation = gesunde Schulter" },
+                        { name:"Vorgebeugtes Seitheben", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Hinterer Deltamuskel oft vernachlässigt" }
+                    ]},
+                    { day:"Tag D – Beine", exercises:[
+                        { name:"Kniebeuge", sets:"4×10", load:"70% 1RM", rest:"90 sek", tip:"Kontrolliert runter (3 sek), explosiv hoch" },
+                        { name:"Beinpresse", sets:"4×12", load:"65% 1RM", rest:"75 sek", tip:"Füße hoch = mehr Oberschenkel, eng = mehr Außen" },
+                        { name:"Beinstrecker", sets:"3×15", load:"Moderat", rest:"60 sek", tip:"Oben 2 sek halten für maximale Kontraktion" },
+                        { name:"Beinbeuger liegend", sets:"3×12", load:"Moderat", rest:"60 sek", tip:"Keine Hüfte abheben, volle Dehnung" },
+                        { name:"Wadenheben (Sitzend)", sets:"4×15", load:"Moderat", rest:"45 sek", tip:"Soleus-Fokus, tiefes Absenken" }
+                    ]},
+                    { day:"Tag E – Arme & Bauch", exercises:[
+                        { name:"Kurzhantel Curls abwechselnd", sets:"4×12", load:"Moderat", rest:"60 sek", tip:"Supination am Ende für Bizepskontraktion" },
+                        { name:"Kabel Curls", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Konstante Spannung ganz oben und unten" },
+                        { name:"Trizeps Kabelzug", sets:"4×12", load:"Moderat", rest:"60 sek", tip:"Ellbogen fest am Körper, volle Streckung" },
+                        { name:"Kabelzug Bauchpresse", sets:"4×15", load:"Moderat", rest:"45 sek", tip:"Crunch-Bewegung, Nabel zur Hüfte" },
+                        { name:"Hängendes Knieheben", sets:"3×15", load:"KG", rest:"45 sek", tip:"Langsam absenken, kein Schwung" }
+                    ]}
+                ]
+            },
+            kausd: {
+                color:"#22c55e", bg:"#001a08", border:"#166534",
+                title:"Kraftausdauer", icon:"⚡",
+                desc:"15–25 Wdh., 50–65% 1RM, Pause 30–60 sek. Ziel: Muskuläre Ausdauer, Laktatpufferung, Kondition.",
+                supplements:"Citrullin Malat 8g pre (Laktatpufferung!) · Intra EAAs · Beta-Alanin (Kribbeln normal) · leichtes Protein post",
+                days:[
+                    { day:"Tag A – Oberkörper Zirkel", exercises:[
+                        { name:"Liegestütze", sets:"3×20", load:"KG / Weste", rest:"30 sek", tip:"Volle ROM, konstantes Tempo 1-0-1" },
+                        { name:"TRX / Kabelrudern", sets:"3×20", load:"Leicht", rest:"30 sek", tip:"Schulterblätter zusammen am Ende" },
+                        { name:"Schulterdrücken Kurzhanteln", sets:"3×18", load:"Leicht", rest:"30 sek", tip:"Ohne Pause durchdrücken" },
+                        { name:"Klimmzug-Jumping Negatives", sets:"3×15", load:"KG", rest:"45 sek", tip:"5 sek negativ runterlassen" },
+                        { name:"Trizeps Dips", sets:"3×20", load:"KG", rest:"30 sek", tip:"Nur Trizeps, Rumpf aufrecht" }
+                    ]},
+                    { day:"Tag B – Unterkörper Ausdauer", exercises:[
+                        { name:"Goblet Squat", sets:"4×20", load:"Kettle/KH", rest:"45 sek", tip:"Tief, aufrecht, Knie nach außen" },
+                        { name:"Ausfallschritte alternierend", sets:"3×20", load:"KH", rest:"45 sek", tip:"90° beide Knie, Rumpf aufrecht" },
+                        { name:"Rumänisches KH Kreuzheben", sets:"3×18", load:"Leicht-Mittel", rest:"45 sek", tip:"Kontrollierte Bewegung, Spannung halten" },
+                        { name:"Sumo Kniebeuge", sets:"3×20", load:"KH mittig", rest:"30 sek", tip:"Weite Hüfte, Knie stabil" },
+                        { name:"Wadenheben 1-beinig", sets:"3×20", load:"KG", rest:"30 sek", tip:"Volle ROM, Gleichgewicht" }
+                    ]},
+                    { day:"Tag C – Ganzkörper Ausdauer", exercises:[
+                        { name:"Burpees", sets:"4×15", load:"KG", rest:"30 sek", tip:"Tempo halten, Hüfte voll strecken" },
+                        { name:"Kettlebell Swing", sets:"4×20", load:"Mittel", rest:"30 sek", tip:"Hüftstoß, kein Rücken!" },
+                        { name:"Push-Pull Supersatz", sets:"4×15+15", load:"KG/Kabel", rest:"45 sek", tip:"Direkt ohne Pause zwischen Push & Pull" },
+                        { name:"Seitstütz", sets:"3×30 sek", load:"KG", rest:"20 sek", tip:"Hüfte oben, Körper gerade" },
+                        { name:"Mountain Climbers", sets:"3×30", load:"KG", rest:"30 sek", tip:"Hüfte tief, Tempo konstant" }
+                    ]},
+                    { day:"Tag D – HIIT Zirkel", exercises:[
+                        { name:"Box Jumps", sets:"4×10", load:"KG", rest:"30 sek", tip:"Weich landen, Knie leicht gebeugt" },
+                        { name:"Medizinball Slam", sets:"4×15", load:"Med. Ball", rest:"30 sek", tip:"Volle Streckung oben, maximale Kraft" },
+                        { name:"Kabelzug Rotation", sets:"3×15", load:"Leicht", rest:"30 sek", tip:"Kern rotiert, Hüfte stabil" },
+                        { name:"Seil springen", sets:"3×60 sek", load:"KG", rest:"30 sek", tip:"Leichter Zehensprung, Handgelenke rotieren" },
+                        { name:"Plank Variationen", sets:"3×45 sek", load:"KG", rest:"20 sek", tip:"Gesäß nicht hochschieben, atmen" }
+                    ]}
+                ]
+            }
+        };
+
+        function selectSportMode(mode) {
+            ['maxkraft','hyper','kausd'].forEach(m => {
+                document.getElementById('sm' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
+                if (m === 'maxkraft') document.getElementById('smMaxkraft').classList.remove('active');
+                document.getElementById('sp' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
+            });
+            // fix IDs
+            ['Maxkraft','Hyper','Kausd'].forEach(id => {
+                document.getElementById('sm'+id).classList.remove('active');
+                document.getElementById('sp'+id).classList.remove('active');
+            });
+            const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
+            document.getElementById('sm' + modeMap[mode]).classList.add('active');
+            document.getElementById('sp' + modeMap[mode]).classList.add('active');
+        }
+
+        function renderSportPlans() {
+            Object.entries(SPORT_DATA).forEach(([key, plan]) => {
+                const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
+                const box = document.getElementById('sp' + modeMap[key]);
+                if (!box) return;
+
+                const suppHtml = `<div class="sport-row" style="--sc:${plan.color}">
+                    <div class="sport-row-title">Supplements für diesen Modus</div>
+                    <div class="sport-row-val">${plan.supplements}</div>
+                </div>`;
+
+                const bannerHtml = `<div class="sport-hero-banner" style="background:${plan.bg}; border:1px solid ${plan.border}; color:${plan.color};">
+                    <div style="font-size:22px; margin-bottom:4px;">${plan.icon} ${plan.title}</div>
+                    <div style="font-size:11px; color:#cbd5e1; line-height:1.5;">${plan.desc}</div>
+                    ${suppHtml}
+                </div>`;
+
+                const daysHtml = plan.days.map((day, di) => {
+                    const exHtml = day.exercises.map((ex, ei) => `
+                        <div style="background:#0f172a; border-radius:8px; padding:9px 11px; margin-bottom:6px; border-left:3px solid ${plan.color};">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
+                                <div style="font-size:12px; font-weight:700; color:#e2e8f0;">${ex.name}</div>
+                                <div style="display:flex; gap:4px; flex-shrink:0;">
+                                    <span class="sport-tag" style="background:${plan.bg}; color:${plan.color};">${ex.sets}</span>
+                                    <span class="sport-tag" style="background:#1a1a2e; color:#a78bfa;">${ex.load}</span>
+                                </div>
+                            </div>
+                            <div style="font-size:10px; color:#60a5fa; margin-top:3px;">⏱ Pause: ${ex.rest}</div>
+                            <div style="font-size:11px; color:#94a3b8; margin-top:3px; line-height:1.5;">💡 ${ex.tip}</div>
+                        </div>
+                    `).join('');
+
+                    return `<div class="sport-info-card" id="sc-${key}-${di}" style="--sc:${plan.color}">
+                        <button class="sport-info-trigger" onclick="toggleSportCard('${key}','${di}')">
+                            <span class="sport-info-icon">${plan.icon}</span>
+                            <span class="sport-info-title">${day.day}</span>
+                            <span class="sport-info-arrow">⌄</span>
+                        </button>
+                        <div class="sport-info-content" id="scc-${key}-${di}">
+                            ${exHtml}
+                        </div>
+                    </div>`;
+                }).join('');
+
+                box.innerHTML = bannerHtml + daysHtml;
+            });
+        }
+
+        function toggleSportCard(mode, idx) {
+            const card = document.getElementById('sc-' + mode + '-' + idx);
+            const content = document.getElementById('scc-' + mode + '-' + idx);
+            const open = card.classList.contains('open');
+            card.classList.toggle('open', !open);
+            content.style.display = open ? 'none' : 'block';
+        }
+
+
+        // ─── BODY ATLAS DATA ───────────────────────────────────────────────
+        const BODY_ZONES = {
+            head: {
+                icon:"🧠", label:"Kopf & Gehirn", sub:"Kopfschmerzen, Konzentration, Stimmung, Gedächtnis",
+                deficiencies:[
+                    { name:"Wassermangel", tag:"Häufigste Ursache", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Schon 1–2% Dehydration senken kognitive Leistung messbar. Dumpfe Nachmittagskopfschmerzen = klassisches Erstsymptom.",
+                      fix:"3+ Liter Wasser täglich. Morgens sofort 300–400 ml. Elektrolyte bei Schwitzen." },
+                    { name:"Magnesium-Mangel", tag:"Kopfschmerz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Häufigste Nährstoffursache von Spannungskopfschmerzen und Migräne. Muskelverspannung im Nacken verstärkt.",
+                      fix:"Basische Mineralien abends. Dunkle Schokolade, Nüsse." },
+                    { name:"Vitamin B-Komplex", tag:"Gehirnnebel", color:"#fbbf24", bg:"#2a1a00",
+                      text:"B1, B6, B12 sind essenziell für Neurotransmitter. Mangel → Vergesslichkeit, Stimmungsschwankungen, Konzentrationsprobleme.",
+                      fix:"ZEC+ Vitamin B25 morgens mit Frühstück." },
+                    { name:"Omega-3 Mangel", tag:"Kognition", color:"#34d399", bg:"#022a18",
+                      text:"DHA ist Baustein der Gehirnzellmembran. Mangel verschlechtert Konzentration und Reaktionszeit langfristig.",
+                      fix:"HEALTH+ Super Omega-3 täglich mit fettreicher Mahlzeit." },
+                    { name:"Eisen-Mangel", tag:"Sauerstoff", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert O2-Transport ins Gehirn → anhaltende Müdigkeit, Konzentrationsprobleme. NUR bei Bluttest behandeln!",
+                      fix:"Eisenbisglycinat nüchtern + Vitamin C. Ferritin-Bluttest zuerst!" }
+                ]
+            },
+            eyes: {
+                icon:"👁️", label:"Augen & Sehkraft", sub:"Trockenheit, Nachtblindheit, Lichtempfindlichkeit, Sehverschlechterung",
+                deficiencies:[
+                    { name:"Vitamin A Mangel", tag:"Nachtblindheit", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin A ist direkt für Rhodopsin-Produktion zuständig. Mangel → Nachtblindheit, trockene Augen (Xerophthalmie).",
+                      fix:"All In One Antioxidant mit fettreicher Mahlzeit (Beta-Carotin)." },
+                    { name:"Omega-3 Mangel", tag:"Trockene Augen", color:"#34d399", bg:"#022a18",
+                      text:"DHA ist in der Netzhaut hoch konzentriert. EPA/DHA reduzieren Entzündung der Tränendrüse.",
+                      fix:"Super Omega-3 täglich." },
+                    { name:"Vitamin C Mangel", tag:"Linsen-Schutz", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Vitamin C im Kammerwasser schützt die Linse vor oxidativem Stress (Katarakt-Prävention).",
+                      fix:"Vitamin C + Hagebutte zu Mahlzeiten, 2x täglich." },
+                    { name:"Lutein & Zeaxanthin", tag:"Makulaschutz", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Schützen die Makula vor blauem Licht (Bildschirm). Mangel → erhöhtes Makuladegeneration-Risiko.",
+                      fix:"Grünes Blattgemüse (Spinat, Grünkohl), Eier. Als Supplement in Antioxidans-Komplexen." },
+                    { name:"Zink-Mangel", tag:"Netzhaut", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Zink ist im Auge in hoher Konzentration vorhanden und wichtig für Vitamin-A-Transport zur Netzhaut.",
+                      fix:"Zink abends nüchtern. Nicht mit Eisen/Calcium kombinieren." }
+                ]
+            },
+            shoulder: {
+                icon:"💪", label:"Schulter & Nacken", sub:"Verspannungen, Schmerzen, eingeschränkte Beweglichkeit, Sehnenentzündung",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Verspannung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesiummangel erhöht neuromuskuläre Erregbarkeit – Muskeln können nicht entspannen. Chronische Schulter-/Nackenverspannungen.",
+                      fix:"Basische Mineralien abends vor dem Schlafen." },
+                    { name:"Vitamin D3 Mangel", tag:"Muskelkraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Mangel senkt Muskelkraft systemisch und erhöht Verletzungsrisiko. Schulterschmerzen ohne klare Ursache oft D3-Signal.",
+                      fix:"D3 + K2 morgens mit Fett." },
+                    { name:"Kollagen-Mangel", tag:"Sehnen", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kollagen macht >70% der Sehnenmasse aus. Mangel → Verschleiß, Rissrisiko bei Überlastung.",
+                      fix:"All In One Collagen morgens nüchtern + Vitamin C zwingend!" },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt entzündliche Prostaglandine (Tendinitis-Ursache).",
+                      fix:"Super Omega-3 täglich. Synergie mit Arthro Essential." }
+                ]
+            },
+            chest: {
+                icon:"❤️", label:"Herz & Kreislauf", sub:"Herzrhythmus, Blutdruck, Durchblutung, Kurzatmigkeit",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Herzrhythmus", color:"#ef4444", bg:"#2a0505",
+                      text:"Magnesium ist essenziell für Na/K-ATPase → stabilen Herzrhythmus. Mangel → Herzrasen, Arrhythmien, hoher Blutdruck.",
+                      fix:"Basische Mineralien abends. Blattgemüse." },
+                    { name:"CoQ10 Mangel", tag:"Herzenergie", color:"#f97316", bg:"#2a0d00",
+                      text:"CoQ10 für ATP-Produktion in Herzmuskelzellen. Statine blockieren CoQ10-Synthese zusätzlich.",
+                      fix:"Protect Heart mit fettreicher Mahlzeit (Ubiquinol-Form)." },
+                    { name:"Omega-3 Mangel", tag:"Blutfette", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA senken Triglyzeride, reduzieren Blutplättchenaggregation und CRP. Direkt kardioprotektiv.",
+                      fix:"Super Omega-3 täglich. Synergie mit D3+K2." },
+                    { name:"Vitamin D3 Mangel", tag:"Blutdruck", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren steuern Renin-Angiotensin-System mit. Mangel erhöht Risiko für Bluthochdruck.",
+                      fix:"D3 + K2 morgens. K2 verhindert Calciumablagerungen in Arterien." },
+                    { name:"Kalium-Mangel", tag:"Herzrhythmus", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kalium reguliert mit Natrium Herzmuskelrhythmus. Mangel durch Schwitzen → Herzstolpern.",
+                      fix:"Bananen, Kartoffeln, Hülsenfrüchte. Bei viel Sport: Elektrolyte." }
+                ]
+            },
+            gut: {
+                icon:"🫁", label:"Darm & Verdauung", sub:"Blähungen, Krämpfe, Unverträglichkeiten, Verstopfung",
+                deficiencies:[
+                    { name:"Probiotika-Mangel", tag:"Darmflora", color:"#4ade80", bg:"#052e16",
+                      text:"Dysbiose → Blähungen, Unverträglichkeiten, schlechte Nährstoffaufnahme, schlechte Stimmung (Darm-Hirn-Achse).",
+                      fix:"HEALTH+ Probio-Tect morgens nüchtern. 2h Abstand zu Antibiotika." },
+                    { name:"Wassermangel", tag:"Verstopfung", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Häufigste Ursache von Verstopfung. Darm entzieht dem Stuhl Wasser bei Dehydration.",
+                      fix:"3+ Liter täglich. Morgens nüchtern warmes Wasser." },
+                    { name:"Enzym-Mangel", tag:"Verdauung", color:"#f97316", bg:"#2a0d00",
+                      text:"Bei hoher Proteinzufuhr können körpereigene Enzyme nicht ausreichen. Unvollständige Verdauung → Blähungen.",
+                      fix:"HEALTH+ Enzym Komplex direkt vor der Mahlzeit." },
+                    { name:"Magnesium-Mangel", tag:"Peristaltik", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium reguliert glatte Darmmuskulatur. Mangel → verlangsamte Peristaltik, Verstopfung.",
+                      fix:"Basische Mineralien abends. Hohe Dosen wirken abführend." },
+                    { name:"Ballaststoffmangel", tag:"Mikrobiom", color:"#34d399", bg:"#022a18",
+                      text:"Ballaststoffe ernähren Darmbakterien (Präbiotika) und fördern Stuhlgang.",
+                      fix:"Vollkorn, Gemüse, Hülsenfrüchte. Haferflocken täglich." }
+                ]
+            },
+            liver: {
+                icon:"🔴", label:"Leber & Gallenblase", sub:"Müdigkeit, schlechte Entgiftung, Blähbauch nach Fettmahlzeiten",
+                deficiencies:[
+                    { name:"Vitamin E Mangel", tag:"Leberschutz", color:"#f97316", bg:"#2a0d00",
+                      text:"Fettlösliches Antioxidans schützt Leberzellen vor oxidativem Stress (nicht-alkoholische Fettleber).",
+                      fix:"All In One Antioxidant mit fettreicher Mahlzeit." },
+                    { name:"NAC (N-Acetylcystein) Mangel", tag:"Glutathion", color:"#34d399", bg:"#022a18",
+                      text:"NAC ist Vorstufe von Glutathion – stärkstes körpereigenes Antioxidans. Leberregeneration und Entgiftung.",
+                      fix:"Protect Lunge enthält NAC. Mit Vitamin C für maximale Glutathion-Produktion." },
+                    { name:"Cholin-Mangel", tag:"Fettstoffwechsel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Cholin ist essenziell für Lipoproteintransport. Mangel → Verfettung der Leber (NAFLD).",
+                      fix:"Eier (reichhaltigste Quelle), Leber, Soja. In Deutschland oft unterschätzt." },
+                    { name:"Reishi-Pilz", tag:"Leberschutz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Beta-Glucane und Triterpene im Reishi schützen Leberzellen und fördern Regeneration.",
+                      fix:"HEALTH+ Reishi abends. Mit Vitamin C synergistisch." }
+                ]
+            },
+            kidney: {
+                icon:"🫘", label:"Nieren & Harnwege", sub:"Häufiges Urinieren, Rückenschmerzen, Wassereinlagerungen",
+                deficiencies:[
+                    { name:"Vitamin D3 Mangel", tag:"Nierenfunktion", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calcium-Phosphor-Balance in der Niere. Chronischer Mangel erhöht Nierenstein-Risiko.",
+                      fix:"D3 + K2 morgens. K2 leitet Calcium weg von der Niere!" },
+                    { name:"Kalium-Mangel", tag:"Steinrisiko", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Ausreichend Kalium reduziert Calcium-Ausscheidung im Urin → weniger Nierensteine.",
+                      fix:"Kaliumreiche Ernährung. Bananen, Kartoffeln, Hülsenfrüchte." },
+                    { name:"Zu viel Vitamin C hochdosiert", tag:"Oxalat-Steine", color:"#ef4444", bg:"#2a0505",
+                      text:">2g Vit C täglich erhöht Oxalat-Ausscheidung → Nierensteine bei Neigung. Vorsicht!",
+                      fix:"Max 500–1000 mg/Tag. Viel Wasser (3L+) bei Supplementierung." },
+                    { name:"Dehydration", tag:"Häufigste Ursache", color:"#94a3b8", bg:"#1a1a2e",
+                      text:"Zu wenig Wasser → konzentrierter Urin → Mineral-Kristallisation → Nierensteine.",
+                      fix:"Mindestens 2,5–3 Liter täglich. Helle Urinfarbe als Ziel." }
+                ]
+            },
+            thyroid: {
+                icon:"🦋", label:"Schilddrüse", sub:"Müdigkeit, Gewichtszunahme, Haarverlust, Kältegefühl",
+                deficiencies:[
+                    { name:"Jod-Mangel", tag:"T3/T4 Produktion", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Jod ist direkt Baustein der Schilddrüsenhormone T3 und T4. Mangel → Kropf, Hypothyreose, Gewichtszunahme.",
+                      fix:"Jodsalz täglich. Meeresfrüchte, Milchprodukte. Supplement: 150 mcg/Tag." },
+                    { name:"Selen-Mangel", tag:"T4→T3 Konversion", color:"#34d399", bg:"#022a18",
+                      text:"Selen ist essenziell für Deiodinase-Enzyme (T4→T3-Umwandlung). Mangel → inaktives Hormon bleibt aktiv.",
+                      fix:"HEALTH+ Selen mit Mahlzeit. Selenomethionin-Form. Max 200 mcg." },
+                    { name:"Zink-Mangel", tag:"Hormon-Rezeptoren", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Zink ist nötig für TSH-Rezeptor-Funktion und T3-Bindung an Zellen.",
+                      fix:"Zink abends nüchtern. Mit Selenium synergistisch." },
+                    { name:"Eisenmangel", tag:"Peroxidase", color:"#ef4444", bg:"#2a0505",
+                      text:"Thyroid-Peroxidase (TPO) braucht Eisen für Hormonproduktion. Mangel hemmt TPO direkt.",
+                      fix:"NUR bei Bluttest-belegtem Mangel. Eisenbisglycinat nüchtern + Vit C." }
+                ]
+            },
+            joints: {
+                icon:"🦵", label:"Knie & Gelenke", sub:"Gelenkschmerzen, Knorpelverschleiß, Steifheit, Arthrose",
+                deficiencies:[
+                    { name:"Kollagen-Mangel", tag:"Knorpel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Gelenkknorpel besteht zu ~65% aus Kollagen Typ II. Mangel → Knorpelabbau unter Trainingsbelastung.",
+                      fix:"All In One Collagen morgens nüchtern + Vitamin C ZWINGEND. Mind. 3 Monate." },
+                    { name:"Glucosamin-Mangel", tag:"Gelenkflüssigkeit", color:"#34d399", bg:"#022a18",
+                      text:"Glucosamin ist Baustein der Synovialflüssigkeit. Mangel → erhöhte Reibung, Entzündungsneigung.",
+                      fix:"ZEC+ Arthro Essential mit Mahlzeiten. 4–8 Wochen bis zur Wirkung." },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#f97316", bg:"#2a0d00",
+                      text:"EPA hemmt COX-Enzyme (ähnlich Ibuprofen, ohne Nebenwirkungen). Wirksam bei Gelenkentzündung.",
+                      fix:"Super Omega-3 täglich. Mind. 4 Wochen für messbare Wirkung." },
+                    { name:"Vitamin D3 Mangel", tag:"Knochendichte", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calciumaufnahme für Knochenmineralisation. Mangel → Osteoporose, höhere Gelenkbelastung.",
+                      fix:"D3 + K2 morgens mit Fett." },
+                    { name:"Bor-Mangel", tag:"Knorpel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Bor fördert Kollagensynthese und Calciumeinlagerung in Knochen. In westlicher Ernährung oft mangelhaft.",
+                      fix:"Nüsse, Avocado, Getreide. Im Arthro-Komplex oft enthalten." }
+                ]
+            },
+            muscles: {
+                icon:"💪", label:"Muskeln & Kraft", sub:"Muskelkrämpfe, Kraftverlust, langsame Erholung, Abbau",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"MPS blockiert", color:"#ef4444", bg:"#2a0505",
+                      text:"Ohne mind. 2g/kg KG/Tag und ohne alle 3–4h neue Proteindosis ist MPS dauerhaft unter Maximum.",
+                      fix:"Alle 3–4h mind. 20–40g Protein mit 2–3g Leucin. Nie über 5h Pause." },
+                    { name:"Kreatin-Mangel", tag:"ATP & Kraft", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Kreatin füllt Phosphokreatin-Speicher für explosive Kraft. Ohne Supplement nur ~60% des Maximums.",
+                      fix:"Kreatin Monohydrat 5g täglich. Konsistenz wichtiger als Timing." },
+                    { name:"Magnesium-Mangel", tag:"Krämpfe", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Magnesium reguliert Muskelrelaxation. Krämpfe sind klassisches Erstsymptom.",
+                      fix:"Basische Mineralien abends. Besonders nach intensivem Training." },
+                    { name:"Vitamin D3 Mangel", tag:"Kraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Muskelzellen regulieren Proteinsynthese. Mangel = messbare Kraftverluste.",
+                      fix:"D3 + K2 morgens. Ziel: 40–60 ng/ml im Blut." },
+                    { name:"BCAAs / Leucin Mangel", tag:"MPS Signal", color:"#34d399", bg:"#022a18",
+                      text:"Leucin ist direkter mTOR-Aktivator. Ohne mind. 2–3g Leucin pro Dosis wird MPS nicht maximal stimuliert.",
+                      fix:"Whey-Protein enthält ausreichend. ZEC+ Intra für Training." }
+                ]
+            },
+            hands: {
+                icon:"🖐️", label:"Hände, Nägel & Haut", sub:"Brüchige Nägel, trockene Haut, Haarausfall, langsame Wundheilung",
+                deficiencies:[
+                    { name:"Kollagen-Mangel", tag:"Haut & Nägel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kollagen macht 80% der Hautstruktur aus. Mangel → Faltenbildung, dünne Haut, brüchige Nägel.",
+                      fix:"All In One Collagen morgens nüchtern + Vitamin C. OPC synergistisch." },
+                    { name:"Biotin (B7) Mangel", tag:"Keratin", color:"#f97316", bg:"#2a0d00",
+                      text:"Biotin ist essenziell für Keratin-Produktion. Mangel → brüchige Nägel, Haarausfall.",
+                      fix:"Im Multivitamin. Bei starken Symptomen: 2500–5000 mcg separat." },
+                    { name:"Zink-Mangel", tag:"Wundheilung", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist Co-Faktor für Kollagensynthese. Mangel → weiße Flecken auf Nägeln, schlechte Heilung.",
+                      fix:"Zink abends nüchtern." },
+                    { name:"Omega-3 Mangel", tag:"Hautfeuchtigkeit", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA sind Bestandteil der Hautzell-Membran. Mangel → trockene, schuppige Haut.",
+                      fix:"Super Omega-3 täglich mit Mahlzeit." },
+                    { name:"Silizium-Mangel", tag:"Haut/Haare/Nägel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Silizium stärkt Haarstruktur, Nagelhärte und Hautstraffheit. In westlicher Ernährung oft niedrig.",
+                      fix:"Brennnessel-Extrakt, Bambus-Extrakt (in manchen Haarkomplexen). Vollkorn." }
+                ]
+            },
+            legs: {
+                icon:"🦵", label:"Waden & Unterschenkel", sub:"Krämpfe, Taubheit, Kribbeln, Schwere Beine",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Krämpfe #1", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Nächtliche Wadenkrämpfe = Paradebeispiel Magnesiummangel. Elektrolyt-Ungleichgewicht verhindert Muskelrelaxation.",
+                      fix:"Basische Mineralien abends. Sofortwirkung bei Krämpfen." },
+                    { name:"Kalium-Mangel", tag:"Elektrolyte", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Kalium reguliert mit Natrium Wasserhaushalt in der Muskelzelle. Mangel durch starkes Schwitzen.",
+                      fix:"Bananen, Kartoffeln. Bei viel Sport extra Elektrolyte." },
+                    { name:"Vitamin B12 Mangel", tag:"Kribbeln", color:"#f97316", bg:"#2a0d00",
+                      text:"B12-Mangel schädigt Myelinscheiden der Nerven → Kribbeln/Taubheit in Beinen (periphere Neuropathie).",
+                      fix:"ZEC+ Vitamin B25. Antazida blockieren B12-Aufnahme!" },
+                    { name:"Eisen-Mangel", tag:"Schwere Beine", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert O2-Transport in arbeitende Muskeln → schwere Beine schon bei leichter Belastung.",
+                      fix:"Nur bei Bluttest-belegtem Mangel! Ferritin-Wert prüfen." },
+                    { name:"Restless-Legs Syndrom", tag:"Nervensystem", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"RLS korreliert mit Eisenmangel, Folsäure- und Magnesium-Mangel. Auch Dialyse-Patienten betroffen.",
+                      fix:"Bluttest: Ferritin, Folat, Magnesium prüfen. Arztabklärung." }
+                ]
+            },
+            skin: {
+                icon:"🧴", label:"Haut & Schleimhäute", sub:"Akne, Ekzeme, trockene Haut, Wundheilung, Psoriasis",
+                deficiencies:[
+                    { name:"Vitamin A Mangel", tag:"Verhornung", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin A reguliert Zellwachstum und Verhornung. Mangel → Akne, Follikelverhornung, trockene Schleimhäute.",
+                      fix:"All In One Antioxidant mit fettreicher Mahlzeit. Beta-Carotin sicherer als Retinol direkt." },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt Entzündungskaskaden in der Haut. Mangel → chronische Hautentzündungen, Ekzeme, Psoriasis.",
+                      fix:"Super Omega-3 täglich. Synergie mit Zink bei Akne." },
+                    { name:"Zink-Mangel", tag:"Akne", color:"#4ade80", bg:"#052e16",
+                      text:"Zink hemmt 5-Alpha-Reduktase (DHT) und reguliert Talgproduktion. Klinisch belegt für Akne.",
+                      fix:"Zink abends nüchtern. Studien: 30 mg täglich gegen Akne wirksam." },
+                    { name:"Vitamin D3 Mangel", tag:"Immunhaut", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 moduliert Haut-Immunantwort. Mangel korreliert mit Psoriasis und Ekzem-Schüben.",
+                      fix:"D3 + K2 morgens mit Fett. Sonne (UV) direkt auf Haut." },
+                    { name:"Silizium-Mangel", tag:"Hautstraffheit", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Silizium ist Co-Faktor für Kollagen- und Elastin-Synthese in der Haut.",
+                      fix:"Kieselsäure-Supplement, Bambusextrakt, Brennnessel." }
+                ]
+            },
+            immune: {
+                icon:"🛡️", label:"Immunsystem", sub:"Häufige Infekte, langsame Heilung, chronische Entzündungen",
+                deficiencies:[
+                    { name:"Vitamin D3 Mangel", tag:"Immunmodulator #1", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 aktiviert über 200 Gene des Immunsystems. Mangel korreliert stark mit häufigen Atemwegsinfekten.",
+                      fix:"D3 + K2 morgens. Wintermonate: 2000–4000 IE täglich." },
+                    { name:"Vitamin C Mangel", tag:"Immunschutz", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin C unterstützt Leukozyten-Funktion und Interferon-Produktion. Mangel → geschwächtes angeborenes Immunsystem.",
+                      fix:"500–1000 mg täglich bei Erkältungsrisiko. 2x täglich für bessere Absorption." },
+                    { name:"Zink-Mangel", tag:"T-Zellen", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist essenziell für T-Zell-Reifung und NK-Zell-Aktivität. Auch kurzer Mangel → Immunsuppression.",
+                      fix:"Zink täglich. Lozenges bei akuter Erkältung (innerhalb 24h nach Symptombeginn)." },
+                    { name:"Selen-Mangel", tag:"Viren", color:"#34d399", bg:"#022a18",
+                      text:"Selen ist nötig für Glutathionperoxidase und Interferon. Mangel → Viren können schneller mutieren.",
+                      fix:"HEALTH+ Selen mit Mahlzeit. Max 200 mcg/Tag." },
+                    { name:"Probiotika-Mangel", tag:"Darm-Immunität", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"70% des Immunsystems sitzt im Darm. Dysbiose → geschwächte mukosale Immunantwort.",
+                      fix:"HEALTH+ Probio-Tect morgens nüchtern. Mit Ballaststoffen." }
+                ]
+            },
+            nerves: {
+                icon:"⚡", label:"Nervensystem", sub:"Kribbeln, Taubheit, schlechter Schlaf, Anspannung, Zittern",
+                deficiencies:[
+                    { name:"Vitamin B12 Mangel", tag:"Myelinscheide", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"B12 ist für Myelinsynthese essenziell. Mangel → periphere Neuropathie (Kribbeln), Rückenmarkschäden.",
+                      fix:"ZEC+ Vitamin B25. Bei Magenerkrankungen: sublinguales B12 besser." },
+                    { name:"Magnesium-Mangel", tag:"Nervenerregung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium blockiert NMDA-Rezeptoren (Nervenschutz). Mangel → Übererregbarkeit, Angst, Schlafprobleme.",
+                      fix:"Basische Mineralien abends. Glycinat-Form am besten für Nerven." },
+                    { name:"Vitamin B6 Mangel", tag:"Neurotransmitter", color:"#f97316", bg:"#2a0d00",
+                      text:"B6 ist Cofaktor für Serotonin, Dopamin, GABA. Mangel → Reizbarkeit, Depression, Krampfanfälle.",
+                      fix:"ZEC+ Vitamin B25. Cave: >50 mg/Tag → paradox Neuropathie!" },
+                    { name:"Omega-3 Mangel", tag:"Nervenmembran", color:"#34d399", bg:"#022a18",
+                      text:"DHA ist Hauptkomponente der neuronalen Zellmembran. Mangel → verlangsamte Nervenleitung.",
+                      fix:"Super Omega-3 täglich. DHA-reiche Formen bevorzugen." },
+                    { name:"Thiamin (B1) Mangel", tag:"Nervenenergie", color:"#fbbf24", bg:"#2a1a00",
+                      text:"B1 ist essenziell für Glukosestoffwechsel in Neuronen. Schwerer Mangel → Wernicke-Enzephalopathie.",
+                      fix:"Im B-Komplex enthalten. Alkohol erhöht B1-Bedarf stark." }
+                ]
+            },
+            sleep: {
+                icon:"🌙", label:"Schlaf & Regeneration", sub:"Einschlafprobleme, schlechte Schlafqualität, früh aufwachen",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Einschlafen", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium aktiviert GABA-System und Parasympathikus → Einschlafen. Mangel = häufigste Schlafursache.",
+                      fix:"Basische Mineralien 30–60 min vor Schlaf. Glycinat-Form optimal." },
+                    { name:"Melatonin-Mangel", tag:"Einschlafhormon", color:"#818cf8", bg:"#05001a",
+                      text:"Lichtexposition abends hemmt Melatonin-Ausschüttung. Supplement bei Jetlag oder Schichtarbeit.",
+                      fix:"ZEC+ Sleep (0,5–1 mg Melatonin). Nicht überdosieren! Blaulicht-Filter abends." },
+                    { name:"Vitamin D3 Mangel", tag:"Schlafqualität", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 beeinflusst Schlaf-Wach-Rhythmus (zirkadiane Gene). Mangel → schlechte Schlaftiefe.",
+                      fix:"D3 morgens (nicht abends!) – kann sonst Schlaf stören. K2 dazu." },
+                    { name:"L-Tryptophan Mangel", tag:"Serotonin/Melatonin", color:"#34d399", bg:"#022a18",
+                      text:"Tryptophan ist Vorstufe von Serotonin und Melatonin. Abends mit Kohlenhydraten: bessere Aufnahme ins Gehirn.",
+                      fix:"Casein vor Schlaf (enthält Tryptophan). Bananenmilch, Quark." },
+                    { name:"Cortisol-Stress", tag:"Einschlafen", color:"#ef4444", bg:"#2a0505",
+                      text:"Chronisch erhöhtes Cortisol abends blockiert Melatonin. Hauptursache bei Einschlafproblemen.",
+                      fix:"Ashwagandha abends (Cortisol↓). Cherry Power (Melatonin). Abendrituale." }
+                ]
+            }
+        };
+
+        function selectZone(zoneId) {
+            // Remove active from all hotspots
+            document.querySelectorAll('.body-hotspot').forEach(h => h.classList.remove('active'));
+            const hs = document.getElementById('hs-' + zoneId);
+            if (hs) hs.classList.add('active');
+
+            const z = BODY_ZONES[zoneId];
+            if (!z) return;
+
+            const defHtml = z.deficiencies.map(d => `
+                <div class="deficiency-card" style="--def-color:${d.color}; --def-bg:${d.bg};">
+                    <div class="deficiency-card-top">
+                        <span class="deficiency-name">${d.name}</span>
+                        <span class="deficiency-tag">${d.tag}</span>
+                    </div>
+                    <div class="deficiency-text">${d.text}</div>
+                    <div class="deficiency-fix">&#10003; ${d.fix}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('atlasDetail').innerHTML = `
+                <div class="atlas-zone-title">
+                    <span class="atlas-zone-icon">${z.icon}</span>
+                    ${z.label}
+                </div>
+                <div class="atlas-zone-sub">${z.sub}</div>
+                <div class="deficiency-list">${defHtml}</div>
+            `;
+
+            // Scroll detail into view
+            document.getElementById('atlasDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // ─── VITAMIN & MINERAL DATABASE ───────────────────────────────────
+
+        const NUTR_DATA = [
+          // VITAMINE A–K
+          { id:"n_va", cat:"Vitamin", icon:"🔴", name:"Vitamin A (Retinol)",
+            bodyFunction:"Sehkraft (Rhodopsin), Haut- & Schleimhautschutz, Immunsystem, Zellwachstum, Knochen",
+            takeWith:"Fettreiche Mahlzeit (fettlöslich). Beta-Carotin sicherer als Retinol direkt.",
+            competes:"Bei Rauchern erhöht Beta-Carotin-Supplement Lungenkrebsrisiko! Hohe Dosen antagonisieren Vit K.",
+            dose:"700–900 mcg RE täglich", optimal:"Serum-Retinol 1,05–3,50 µmol/L",
+            toxic:">3000 mcg RE/Tag: Leberschäden, Knochenschwund, teratogen in Schwangerschaft!" },
+
+          { id:"n_b1", cat:"Vitamin", icon:"⚡", name:"Vitamin B1 (Thiamin)",
+            bodyFunction:"Glukose-Energie in Neuronen, Nervenfunktion, Herzmuskel, Kohlenhydrat-Stoffwechsel",
+            takeWith:"Morgens mit Frühstück. Im B-Komplex. Kaffee/Schwarztee hemmen Aufnahme.",
+            competes:"Alkohol blockiert B1-Resorption massiv. Roher Fisch (Thiaminase) zerstört B1.",
+            dose:"1,1–1,3 mg täglich", optimal:"Erythrozyten-Transketolase-Aktivität normal",
+            toxic:"Kein bekanntes Toxizitätslimit – wasserlöslich" },
+
+          { id:"n_b2", cat:"Vitamin", icon:"🟡", name:"Vitamin B2 (Riboflavin)",
+            bodyFunction:"Energiestoffwechsel (FAD/FMN), Antioxidans, Eisenstoffwechsel, Sehkraft, Haut",
+            takeWith:"Mit Mahlzeit. Licht zerstört Riboflavin – dunkle Verpackung.",
+            competes:"Tri- und tetrazyklische Antidepressiva hemmen Aufnahme.",
+            dose:"1,1–1,6 mg täglich", optimal:"Urin-Riboflavin erhöht nach Sättigung",
+            toxic:"Kein bekanntes Limit – überschuss wird im Urin gelb ausgeschieden" },
+
+          { id:"n_b3", cat:"Vitamin", icon:"🔥", name:"Vitamin B3 (Niacin)",
+            bodyFunction:"NAD+/NADH-Cofaktor (Energiestoffwechsel), DNA-Reparatur, Cholesterin-Regulation, Haut",
+            takeWith:"Mit Mahlzeit (verhindert Flush). Tryptophan wird zu Niacin umgewandelt (60:1).",
+            competes:"Nikotinsäure-Form: Flush (Rötung) normal bei >50 mg. Statine + Niacin: Muskelrisiko.",
+            dose:"14–18 mg NE täglich", optimal:"Serum-Niacin, Urin-N1-Methylnicotinamid",
+            toxic:">35 mg/Tag (UL) Niacinsäure: Flush, Leberschäden bei Langzeit-Hochdosierung" },
+
+          { id:"n_b5", cat:"Vitamin", icon:"🌀", name:"Vitamin B5 (Pantothensäure)",
+            bodyFunction:"Coenzym A (Fettsäure-Metabolismus), Stresshormon-Synthese, Wundheilung, Haarpigment",
+            takeWith:"Mit Mahlzeit. Weit verbreitet in Lebensmitteln – Mangel selten.",
+            competes:"Biotin konkurriert um gleichen Transporter bei extremen Dosen.",
+            dose:"5 mg täglich", optimal:"Plasma-Pantothensäure > 1,57 µmol/L",
+            toxic:"Kein bekanntes Limit bei normaler Dosierung; >10g/Tag: Durchfall möglich" },
+
+          { id:"n_b6", cat:"Vitamin", icon:"⚡", name:"Vitamin B6 (Pyridoxin)",
+            bodyFunction:"Aminosäure-Stoffwechsel, Neurotransmitter (Serotonin, Dopamin, GABA), Immunfunktion",
+            takeWith:"Morgens mit Frühstück. Synergistisch mit B12 und Folat.",
+            competes:"Hohe Einzeldosen (>50 mg/Tag dauerhaft) → periphere Neuropathie!",
+            dose:"1,3–1,7 mg täglich", optimal:"Plasma-Pyridoxal-5-Phosphat > 20 nmol/L",
+            toxic:">50 mg/Tag Dauereinnahme: sensorische Neuropathie (reversibel bei Absetzen)" },
+
+          { id:"n_b7", cat:"Vitamin", icon:"🦋", name:"Vitamin B7 (Biotin)",
+            bodyFunction:"Keratin-Synthese (Haare, Nägel), Fettsäure-Synthese, Gluconeogenese",
+            takeWith:"Morgens mit Frühstück. Mit R-ALA zusammen (R-ALA hemmt Biotin-Transport).",
+            competes:"Rohe Eier binden Biotin (Avidin). Hohe Dosen verfälschen Laborwerte (Troponin, TSH)!",
+            dose:"30–100 mcg täglich", optimal:"Serum-Biotinidase-Aktivität normal",
+            toxic:"Kein bekanntes Toxizitätslimit" },
+
+          { id:"n_b9", cat:"Vitamin", icon:"🌿", name:"Vitamin B9 (Folat)",
+            bodyFunction:"DNA-Synthese, Zellteilung, Neuralrohr-Entwicklung, Homocystein-Abbau, Blutbildung",
+            takeWith:"Mit B12 und B6. MTHFR-Träger: Methylfolat (5-MTHF) statt Folsäure.",
+            competes:"Hohe Dosen (>1000 mcg) maskieren B12-Mangel. Methotrexat blockiert Folat.",
+            dose:"400 mcg täglich (800 mcg Schwangerschaft)", optimal:"Serum-Folat > 6,8 nmol/L",
+            toxic:">1000 mcg/Tag Folsäure: maskiert B12-Mangel, neurologische Schäden möglich" },
+
+          { id:"n_b12", cat:"Vitamin", icon:"🧬", name:"Vitamin B12 (Cobalamin)",
+            bodyFunction:"Nervensystem (Myelinscheide), Blutbildung, DNA-Synthese, Energiestoffwechsel",
+            takeWith:"Morgens mit Frühstück. Braucht Intrinsic Factor – bei Magenproblemen sublinguale Form.",
+            competes:"Antazida, Metformin, PPIs blockieren Aufnahme massiv.",
+            dose:"2,4 mcg täglich (bei Mangel 500–1000 mcg)", optimal:"Serum B12 > 300 pg/ml (besser >400)",
+            toxic:"Kein bekanntes Toxizitätslimit – wasserlöslich" },
+
+          { id:"n_vc", cat:"Vitamin", icon:"🍊", name:"Vitamin C (Ascorbinsäure)",
+            bodyFunction:"Kollagensynthese, Immunsystem, Eisenaufnahme x2, Antioxidans, Wundheilung",
+            takeWith:"Zu Mahlzeiten. Mit Eisen gleichzeitig (Fe-Aufnahme x2). 2x täglich besser.",
+            competes:"Hochdosiert NICHT ums Training – dämpft ROS-Signale. Hohe Dosen hemmen Kupfer.",
+            dose:"100–200 mg täglich", optimal:"Plasma-Spiegel >50 µmol/L",
+            toxic:">2000 mg/Tag: Nierensteine (Oxalat), Durchfall, Kupfermangel" },
+
+          { id:"n_vd", cat:"Vitamin", icon:"☀️", name:"Vitamin D3 (Cholecalciferol)",
+            bodyFunction:"Calcium-Regulation, Knochen, Muskelkraft, Immunsystem, Testosteron, Stimmung",
+            takeWith:"Immer mit Fett + K2. K2 leitet Calcium in Knochen statt Arterien.",
+            competes:"Ohne K2 → Arterienverkalkung! Nicht mit Warfarin. Magnesium aktiviert D3.",
+            dose:"600–2000 IE täglich", optimal:"40–60 ng/ml im Blut (25-OH-D3)",
+            toxic:"Dauerhaft >10.000 IE/Tag: Hyperkalzämie (Nierenversagen)" },
+
+          { id:"n_ve", cat:"Vitamin", icon:"🛡️", name:"Vitamin E (Tocopherol)",
+            bodyFunction:"Fettlösliches Antioxidans, Zellmembranschutz, Immunsystem, Thrombozytenaggregation",
+            takeWith:"Mit fettreicher Mahlzeit. Synergie mit Selen. Natürliches d-Alpha bevorzugen.",
+            competes:"Antagonisiert Vitamin K – erhöht Blutungsrisiko bei Warfarin.",
+            dose:"15 mg (22,4 IE) täglich", optimal:"Plasma-Alpha-Tocopherol > 12 µmol/L",
+            toxic:">1000 mg/Tag: erhöhtes Blutungsrisiko" },
+
+          { id:"n_vk", cat:"Vitamin", icon:"🟢", name:"Vitamin K2 (MK-7)",
+            bodyFunction:"Calcium in Knochen statt Arterien, Osteocalcin-Aktivierung, Gefäßschutz, Blutgerinnung",
+            takeWith:"Mit D3 und fettreicher Mahlzeit.",
+            competes:"Antagonisiert Warfarin/Marcumar – bei Blutverdünner Arzt fragen!",
+            dose:"90–200 mcg täglich (MK-7)", optimal:"Kein etablierter Blutwert",
+            toxic:"Kein bekanntes Limit für K2; K1 hochdosiert kann Gerinnungsprobleme machen" },
+
+          // MINERALIEN A–Z
+          { id:"n_bor", cat:"Mineral", icon:"🔮", name:"Bor",
+            bodyFunction:"Knochen- & Knorpelstoffwechsel, Testosteron, Östrogen, Vitamin D-Aktivierung, Kognition",
+            takeWith:"Mit Mahlzeit. Natürlich in Nüssen, Avocado, Trockenfrüchten vorhanden.",
+            competes:"Keine bekannten kritischen Interaktionen in normaler Dosierung.",
+            dose:"1–3 mg täglich", optimal:"Kein etablierter Normwert",
+            toxic:">20 mg/Tag: Übelkeit, Durchfall. >100 mg: toxisch" },
+
+          { id:"n_ca", cat:"Mineral", icon:"🦴", name:"Calcium",
+            bodyFunction:"Knochenmineralisation (99% im Knochen), Muskelkontraktion, Nervensignale, Blutgerinnung",
+            takeWith:"Mit D3 + K2. Aufgeteilt auf 2 Dosen (max 500 mg pro Einnahme).",
+            competes:"Hemmt Eisenaufnahme stark (2h Abstand!). Zu viel ohne K2 → Gefäßverkalkung.",
+            dose:"1000–1200 mg täglich", optimal:"Serum-Calcium 2,2–2,6 mmol/L",
+            toxic:">2500 mg/Tag: Nierensteine, Verstopfung, Herzrhythmusstörungen" },
+
+          { id:"n_chr", cat:"Mineral", icon:"🔷", name:"Chrom",
+            bodyFunction:"Insulinsensitivität, Blutzucker-Regulation, Fettstoffwechsel, Hunger-Kontrolle",
+            takeWith:"Mit kohlenhydratreicher Mahlzeit für maximale Insulinwirkung.",
+            competes:"Antazida reduzieren Absorption. Hohe Vit-C-Dosen erhöhen Absorption.",
+            dose:"25–45 mcg täglich", optimal:"Serum-Chrom 0,1–0,2 µg/L",
+            toxic:">1000 mcg/Tag (Picolinat): mögliche DNA-Schäden, Lebertoxizität" },
+
+          { id:"n_fe", cat:"Mineral", icon:"🩸", name:"Eisen",
+            bodyFunction:"Hämoglobin (O2-Transport), Myoglobin, ATP-Produktion, Immunsystem, Kognition",
+            takeWith:"Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Kaffee, Tee, Milch.",
+            competes:"NUR bei Bluttest-belegtem Mangel (Ferritin <30)! Calcium, Zink, Magnesium hemmen.",
+            dose:"10–18 mg täglich (Nahrung)", optimal:"Ferritin 30–150 ng/ml",
+            toxic:">45 mg/Tag: Leberschäden. Akute Vergiftung >60 mg/kg KG: lebensbedrohlich!" },
+
+          { id:"n_jod", cat:"Mineral", icon:"🧠", name:"Jod",
+            bodyFunction:"Schilddrüsenhormone T3/T4 (Stoffwechsel, Wärme, Wachstum, Gehirnentwicklung)",
+            takeWith:"Mit Mahlzeit. In Deutschland: Jodsalz nutzen (häufige Unterversorgung).",
+            competes:"Hashimoto: Jod kann Entzündung verstärken – Arzt fragen. Selen schützt vor Jod-Peroxidation.",
+            dose:"150 mcg täglich", optimal:"Urin-Jod 100–200 µg/L",
+            toxic:">1100 mcg/Tag dauerhaft: Schilddrüsendysfunktion" },
+
+          { id:"n_kal", cat:"Mineral", icon:"🫀", name:"Kalium",
+            bodyFunction:"Elektrolyt-Balance, Blutdruck senken, Herzrhythmus, Muskelkontraktion, Nervenleitung",
+            takeWith:"Über Nahrung (Bananen, Kartoffeln, Hülsenfrüchte). Supplement bei viel Sport.",
+            competes:"Bei Niereninsuffizienz gefährlich! ACE-Hemmer erhöhen K-Spiegel.",
+            dose:"3500–4700 mg täglich (Nahrung)", optimal:"Serum-Kalium 3,5–5,0 mmol/L",
+            toxic:">18g/Tag Supplement: Herzstillstand möglich" },
+
+          { id:"n_kup", cat:"Mineral", icon:"🔩", name:"Kupfer",
+            bodyFunction:"Kollagensynthese, Eisenstoffwechsel, Antioxidans (SOD), Nervenmyelinisierung, Immunsystem",
+            takeWith:"Mit Mahlzeit. Bei >25 mg Zink täglich auf Kupfer achten (Zink verdrängt Kupfer).",
+            competes:"Zink hemmt Kupfer (max 10:1 Ratio). Hohe Vit-C-Dosen reduzieren Kupferverfügbarkeit.",
+            dose:"0,9 mg täglich", optimal:"Serum-Kupfer 70–140 µg/dl",
+            toxic:">10 mg/Tag: Leberschäden. Wilson-Krankheit: genetische Kupfer-Akkumulation" },
+
+          { id:"n_mg", cat:"Mineral", icon:"⚡", name:"Magnesium",
+            bodyFunction:"300+ Enzymreaktionen, Muskelrelaxation, Herzrhythmus, Schlaf, ATP-Produktion, Proteinsynthese",
+            takeWith:"Abends (schlaffördernd). Citrat/Glycinat besser als Oxid. Mit B6 synergistisch.",
+            competes:"Konkurriert mit Calcium (zeitversetzt). Bei Niereninsuffizienz gefährlich.",
+            dose:"310–420 mg täglich", optimal:"Serum-Magnesium 0,75–0,95 mmol/L",
+            toxic:">350 mg/Tag Supplement: Durchfall. Bei Nierenproblemen: Herzstillstand möglich" },
+
+          { id:"n_man", cat:"Mineral", icon:"🟤", name:"Mangan",
+            bodyFunction:"Antioxidans (MnSOD), Knochenbildung, Kollagensynthese, Glukose-Stoffwechsel, Schilddrüse",
+            takeWith:"Mit Mahlzeit. In Vollkorn, Nüssen, Hülsenfrüchten reichlich vorhanden.",
+            competes:"Eisen hemmt Mangan-Absorption (bei gleichzeitiger Einnahme). Calcium ebenfalls.",
+            dose:"1,8–2,3 mg täglich", optimal:"Serum-Mangan 7,7–12,1 µg/L",
+            toxic:">11 mg/Tag: Neurotoxizität (Mangan-Parkinson). Berufliche Exposition gefährlich." },
+
+          { id:"n_mo", cat:"Mineral", icon:"🔸", name:"Molybdän",
+            bodyFunction:"Entgiftungs-Enzyme (Sulfit-Oxidase, Xanthin-Oxidase), Harnsäure-Metabolismus",
+            takeWith:"In Hülsenfrüchten, Getreide reichlich vorhanden. Supplementierung selten nötig.",
+            competes:"Hohe Kupfer-Zufuhr senkt Molybdän-Absorption.",
+            dose:"45 mcg täglich", optimal:"Urin-Molybdän-Ausscheidung",
+            toxic:">2000 mcg/Tag: Gicht-ähnliche Symptome (Harnsäure ↑)" },
+
+          { id:"n_nat", cat:"Mineral", icon:"🧂", name:"Natrium",
+            bodyFunction:"Elektrolyt-Balance, Nervenleitung, Muskelkontraktion, Blutvolumen, Blutdruck",
+            takeWith:"Über Nahrung (Salz). Bei viel Sport/Schwitzen: Elektrolyt-Drinks.",
+            competes:"Zu viel Natrium erhöht Blutdruck und Calciumausscheidung über Niere.",
+            dose:"1500–2300 mg täglich (weniger bei Hypertonie)", optimal:"Serum-Natrium 135–145 mmol/L",
+            toxic:">5g/Tag: Hypertonie, Nierenschäden. Hypernatriämie akut: neurologische Schäden" },
+
+          { id:"n_phos", cat:"Mineral", icon:"🦷", name:"Phosphor",
+            bodyFunction:"Knochen & Zähne (85% im Skelett), ATP-Synthese, DNA/RNA-Rückgrat, Säure-Basen-Balance",
+            takeWith:"In Fleisch, Milch, Nüssen reichlich. Supplementierung selten nötig.",
+            competes:"Zu viel Phosphor (Fertigfood) hemmt Calcium-Absorption und fördert Knochenabbau.",
+            dose:"700 mg täglich", optimal:"Serum-Phosphat 0,87–1,45 mmol/L",
+            toxic:">4000 mg/Tag: Nierenschäden, Gefäßverkalkung (besonders bei Nierenerkrankung)" },
+
+          { id:"n_sel", cat:"Mineral", icon:"🟤", name:"Selen",
+            bodyFunction:"Schilddrüse (T4→T3), Glutathionperoxidase (Antioxidans), Immunsystem, Fruchtbarkeit",
+            takeWith:"Mit Mahlzeit. Selenomethionin >90% bioverfügbar. Synergie mit Vitamin E.",
+            competes:"Strenge Obergrenze! Multi-Stacking beachten. Hohe Vit-C-Dosen können senken.",
+            dose:"55 mcg täglich (max 200 mcg Supplement)", optimal:"Serum-Selen 100–140 µg/L",
+            toxic:">400 mcg/Tag: Selenosis – Haarausfall, Nagelbrüchigkeit, Nervenschäden" },
+
+          { id:"n_sil", cat:"Mineral", icon:"💎", name:"Silizium",
+            bodyFunction:"Kollagen & Elastin-Synthese, Haut/Haare/Nägel, Knochenmineralisation, Gefäßelastizität",
+            takeWith:"Morgens nüchtern (bessere Aufnahme). Kieselsäure-Form am bioverfügbarsten.",
+            competes:"Antazida und hohe Aluminiumzufuhr hemmen Silizium-Absorption.",
+            dose:"10–30 mg täglich (kein offizielles RDA)", optimal:"Kein etablierter Normwert",
+            toxic:"Kein bekanntes Toxizitätslimit für lösliches Silizium; Siliziumdioxid (Staub) lungsschädlich" },
+
+          { id:"n_zink", cat:"Mineral", icon:"🔵", name:"Zink",
+            bodyFunction:"Immunsystem, Wundheilung, Testosteron (bei Mangel), Proteinsynthese, Kollagen, 300+ Enzyme",
+            takeWith:"Abends nüchtern. Picolinat/Bisglycinat am besten verfügbar.",
+            competes:"Hemmt Kupfer (max 10:1). Eisen & Calcium hemmen Aufnahme. T-Anstieg nur bei Mangel!",
+            dose:"11 mg täglich (Supplement 15–25 mg)", optimal:"Serum-Zink 70–120 µg/dl",
+            toxic:">40 mg/Tag dauerhaft: Kupfermangel, geschwächtes Immunsystem" },
+
+          // WASSER
+          { id:"n_wasser", cat:"Wasser", icon:"💧", name:"Wasser (H₂O)",
+            bodyFunction:"Alle Stoffwechselreaktionen, Nährstofftransport, Temperaturregulation, Gelenk-Schmiere, Zellvolumen, Nierenentgiftung, Konzentration",
+            takeWith:"Morgens sofort 300–400 ml nüchtern. Zu jedem Supplement-Block 300–500 ml. Intra-Workout 600–800 ml. Vor Schlaf max 250 ml.",
+            competes:"Zu viel auf einmal (>1L in kurzer Zeit) → Hyponatriämie (Natriummangel durch Verdünnung). Creatin braucht mind. 3L/Tag.",
+            dose:"2,5–3,5 Liter täglich (mehr bei Sport, Hitze, Schwitzen)", optimal:"Urin hell-gelb bis klar",
+            toxic:"Hyponatriämie: >10 Liter kurzzeitig akut lebensgefährlich (Hirnödem)" }
+        ];
+
+
+        let nutrFilter = "Alle";
+        let nutrSearch = "";
+        const NUTR_CATS = ["Alle", "Vitamin", "Mineral", "Wasser"];
+
+        function initNutrView() {
+            const catBox = document.getElementById("nutrCatsBox");
+            catBox.innerHTML = NUTR_CATS.map(c => `
+                <button class="nutr-cat-btn ${c === nutrFilter ? 'active' : ''}" id="nutr-cat-${c}" onclick="nutrFilterCat('${c}')">${c}</button>
+            `).join('');
+            renderNutrCards();
+        }
+
+        function nutrFilterCat(cat) {
+            nutrFilter = cat;
+            NUTR_CATS.forEach(c => {
+                const el = document.getElementById('nutr-cat-' + c);
+                if (el) el.classList.toggle('active', c === cat);
+            });
+            renderNutrCards();
+        }
+
+        function renderNutrCards() {
+            const q = nutrSearch.toLowerCase();
+            const filtered = NUTR_DATA.filter(n => {
+                const matchCat = nutrFilter === "Alle" || n.cat === nutrFilter;
+                const matchSearch = !q || n.name.toLowerCase().includes(q) || n.bodyFunction.toLowerCase().includes(q);
+                return matchCat && matchSearch;
+            });
+
+            document.getElementById("nutrCardList").innerHTML = filtered.map(n => `
+                <div class="nutr-card" id="nc-${n.id}">
+                    <button class="nutr-trigger" onclick="toggleNutrCard('${n.id}')">
+                        <span class="nutr-icon">${n.icon}</span>
+                        <div class="nutr-title-box">
+                            <div class="nutr-name">${n.name}</div>
+                            <div class="nutr-cat-label">${n.cat}</div>
+                        </div>
+                        <span class="nutr-arrow">&#8964;</span>
+                    </button>
+                    <div class="nutr-content" id="ncc-${n.id}">
+                        <div class="dose-grid">
+                            <div class="dose-box">
+                                <div class="dose-box-label">Tagesdosis</div>
+                                <div class="dose-box-val dose-ok" style="font-size:11px;">${n.dose}</div>
+                            </div>
+                            <div class="dose-box">
+                                <div class="dose-box-label">Optimaler Wert</div>
+                                <div class="dose-box-val dose-warn" style="font-size:10px;">${n.optimal}</div>
+                            </div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#22c55e">
+                            <div class="nutr-row-title">Funktion im Körper</div>
+                            <div class="nutr-row-val">${n.bodyFunction}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#a78bfa">
+                            <div class="nutr-row-title">Womit einnehmen / Synergie</div>
+                            <div class="nutr-row-val">${n.takeWith}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#f97316">
+                            <div class="nutr-row-title">Konkurrenz / Wechselwirkung</div>
+                            <div class="nutr-row-val">${n.competes}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#ef4444">
+                            <div class="nutr-row-title">&#9888; Toxische Grenze</div>
+                            <div class="nutr-row-val">${n.toxic}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNutrCard(id) {
+            const card = document.getElementById('nc-' + id);
+            const content = document.getElementById('ncc-' + id);
+            const open = card.classList.contains('open');
+            card.classList.toggle('open', !open);
+            content.style.display = open ? 'none' : 'block';
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // Die Initialisierung der Layouts wird nun erst beim Ausloesen von `startApp()` durchgefuehrt.
-
-            document.getElementById("tabTimeline").addEventListener("click", function() {
-                activeSection("tabTimeline", "viewTimeline");
-            });
-
-            document.getElementById("tabDatabase").addEventListener("click", function() {
-                activeSection("tabDatabase", "viewDatabase");
-            });
-
-            document.getElementById("tabFood").addEventListener("click", function() {
-                activeSection("tabFood", "viewFood");
-            });
-
+            document.getElementById("tabTimeline").addEventListener("click", () => activeSection("tabTimeline", "viewTimeline"));
+            document.getElementById("tabDatabase").addEventListener("click", () => activeSection("tabDatabase", "viewDatabase"));
+            document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
+            document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
+            document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
             document.getElementById("dbSearchInput").addEventListener("input", function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
             });
-
+            document.getElementById("nutrSearchInput").addEventListener("input", function(e) {
+                nutrSearch = e.target.value;
+                renderNutrCards();
+            });
             document.getElementById("productOverlay").addEventListener("click", function() {
                 this.style.display = "none";
             });
