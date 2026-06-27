@@ -389,6 +389,20 @@
             flex-shrink: 0;
         }
         .body-svg { width: 100%; height: 100%; }
+        .body-view { display: none; width: 100%; height: 100%; }
+        .body-view.active { display: block; }
+        .body-flip-btn {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 7px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.3px;
+        }
+        .body-flip-btn:hover { background: #334155; color: #e2e8f0; border-color: #60a5fa; }
 
         .body-hotspot {
             cursor: pointer;
@@ -708,9 +722,10 @@
                 <div class="body-atlas-wrap">
                     <div style="text-align:center;">
                         <div style="font-size:13px; color:#94a3b8; margin-bottom:6px;">Zone antippen &rarr; Mängel & Ursachen sehen</div>
-                        <div style="font-size:10px; color:#f97316; background:#1a0800; border:1px solid #9a3412; border-radius:8px; padding:6px 10px; margin-bottom:8px; line-height:1.5; text-align:left;">
+                        <div id="bodyDisclaimer" style="font-size:10px; color:#f97316; background:#1a0800; border:1px solid #9a3412; border-radius:8px; padding:6px 10px; margin-bottom:8px; line-height:1.5; text-align:left; overflow:hidden; transition: max-height 0.4s ease, padding 0.4s ease;">
                             ⚠️ <strong>Medizinischer Hinweis:</strong> Symptome hier sind <strong>Hypothesen, keine Diagnosen!</strong> Viele Symptome haben mehrere Ursachen (z.B. Muskelkrämpfe = meist neuromuskuläre Ermüdung oder Natriumverlust, nicht zwingend Magnesiummangel). Nährstoffmängel müssen durch <strong>Laborwerte (Bluttest)</strong> bestätigt werden – Ferritin (Eisen), Holo-TC (B12), 25-OH-D3 (Vit D), Serum-Mg. Eigentherapie ohne Blutbild birgt Überdosierungsrisiko!
                         </div>
+                        <div id="bodyDisclaimerCollapsed" style="display:none; font-size:10px; color:#f97316; margin-bottom:8px; cursor:pointer;" onclick="expandBodyDisclaimer()">⚠️ Medizinischer Hinweis <span style="color:#94a3b8;">(antippen zum Lesen)</span></div>
                         <div class="body-legend">
                             <span><span class="legend-dot" style="background:#ef4444;"></span>Schmerz / Symptom</span>
                             <span><span class="legend-dot" style="background:#f97316;"></span>Mangelzeichen</span>
@@ -718,17 +733,23 @@
                         </div>
                     </div>
 
-                    <!-- SVG BODY FIGURE -->
+                    <!-- FLIP BUTTON -->
+                    <div style="text-align:center; margin-bottom:8px;">
+                        <button class="body-flip-btn" id="bodyFlipBtn" onclick="flipBody()">&#128260; Rücken ansehen</button>
+                    </div>
+
+                    <!-- SVG BODY FIGURE (Front + Back) -->
                     <div class="body-figure-box">
+
+                      <!-- ═══ FRONT VIEW ═══ -->
+                      <div id="bodyFront" class="body-view active">
                       <svg class="body-svg" viewBox="0 0 220 480" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Base body silhouette -->
                         <defs>
                           <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
                             <stop offset="0%" style="stop-color:#1e293b"/>
                             <stop offset="100%" style="stop-color:#04040d"/>
                           </radialGradient>
                         </defs>
-
                         <!-- Neck -->
                         <rect x="97" y="68" width="26" height="22" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
                         <!-- Torso -->
@@ -763,70 +784,180 @@
                         <!-- HEAD hotspot -->
                         <g class="body-hotspot" id="hs-head" onclick="selectZone('head')">
                           <circle cx="110" cy="38" r="30" fill="#1e293b" stroke="#334155" stroke-width="1"/>
-                          <ellipse cx="110" cy="38" r="28" ry="26" fill="#ef4444" fill-opacity="0.22" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="110" cy="38" rx="28" ry="26" fill="#ef4444" fill-opacity="0.22" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <text x="110" y="43" text-anchor="middle" font-size="18" fill="#fff">&#129504;</text>
                         </g>
-
                         <!-- EYES hotspot -->
                         <g class="body-hotspot" id="hs-eyes" onclick="selectZone('eyes')">
-                          <ellipse cx="110" cy="27" rx="22" ry="8" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="100" cy="31" rx="8" ry="5" fill="#f97316" fill-opacity="0.45" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="120" cy="31" rx="8" ry="5" fill="#f97316" fill-opacity="0.45" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
                         </g>
-
+                        <!-- EARS hotspot -->
+                        <g class="body-hotspot" id="hs-ears" onclick="selectZone('ears')">
+                          <ellipse cx="80" cy="38" rx="6" ry="9" fill="#60a5fa" fill-opacity="0.45" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="140" cy="38" rx="6" ry="9" fill="#60a5fa" fill-opacity="0.45" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+                        <!-- MOUTH hotspot -->
+                        <g class="body-hotspot" id="hs-mouth" onclick="selectZone('mouth')">
+                          <ellipse cx="110" cy="54" rx="13" ry="6" fill="#4ade80" fill-opacity="0.45" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="57" text-anchor="middle" font-size="8" fill="#4ade80">&#9679;</text>
+                        </g>
                         <!-- SHOULDER hotspot -->
                         <g class="body-hotspot" id="hs-shoulder" onclick="selectZone('shoulder')">
                           <ellipse cx="57" cy="95" rx="18" ry="12" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <ellipse cx="163" cy="95" rx="18" ry="12" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
-                          <text x="57" y="99" text-anchor="middle" font-size="11" fill="#fca5a5">&#x2022;</text>
-                          <text x="163" y="99" text-anchor="middle" font-size="11" fill="#fca5a5">&#x2022;</text>
                         </g>
-
                         <!-- CHEST/HEART hotspot -->
                         <g class="body-hotspot" id="hs-chest" onclick="selectZone('chest')">
                           <ellipse cx="110" cy="120" rx="30" ry="22" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <text x="110" y="125" text-anchor="middle" font-size="16" fill="#fbbf24">&#10084;</text>
                         </g>
-
                         <!-- GUT hotspot -->
                         <g class="body-hotspot" id="hs-gut" onclick="selectZone('gut')">
                           <ellipse cx="110" cy="168" rx="28" ry="20" fill="#f97316" fill-opacity="0.25" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <text x="110" y="173" text-anchor="middle" font-size="14" fill="#fb923c">&#128167;</text>
                         </g>
-
-                        <!-- JOINTS / KNEES hotspot -->
-                        <g class="body-hotspot" id="hs-joints" onclick="selectZone('joints')">
-                          <ellipse cx="86" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
-                          <ellipse cx="135" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        <!-- BONES / HIPS hotspot -->
+                        <g class="body-hotspot" id="hs-bones" onclick="selectZone('bones')">
+                          <ellipse cx="110" cy="218" rx="32" ry="14" fill="#a78bfa" fill-opacity="0.32" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="222" text-anchor="middle" font-size="11" fill="#c4b5fd">&#129460;</text>
                         </g>
-
                         <!-- MUSCLES / ARMS hotspot -->
                         <g class="body-hotspot" id="hs-muscles" onclick="selectZone('muscles')">
                           <ellipse cx="53" cy="135" rx="14" ry="28" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <ellipse cx="167" cy="135" rx="14" ry="28" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
                         </g>
-
                         <!-- HANDS / NAILS hotspot -->
                         <g class="body-hotspot" id="hs-hands" onclick="selectZone('hands')">
                           <ellipse cx="49" cy="248" rx="13" ry="16" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <ellipse cx="171" cy="248" rx="13" ry="16" fill="#f97316" fill-opacity="0.3" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
                         </g>
-
+                        <!-- JOINTS / KNEES hotspot -->
+                        <g class="body-hotspot" id="hs-joints" onclick="selectZone('joints')">
+                          <ellipse cx="86" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="328" rx="17" ry="13" fill="#ef4444" fill-opacity="0.28" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+                        <!-- TENDONS / ACHILLES hotspot -->
+                        <g class="body-hotspot" id="hs-tendons" onclick="selectZone('tendons')">
+                          <ellipse cx="85" cy="415" rx="12" ry="10" fill="#34d399" fill-opacity="0.4" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="415" rx="12" ry="10" fill="#34d399" fill-opacity="0.4" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
                         <!-- LEGS / CALVES hotspot -->
                         <g class="body-hotspot" id="hs-legs" onclick="selectZone('legs')">
-                          <ellipse cx="85" cy="375" rx="17" ry="30" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
-                          <ellipse cx="135" cy="375" rx="17" ry="30" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="85" cy="375" rx="17" ry="28" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="375" rx="17" ry="28" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
                         </g>
-
                         <!-- Zone labels -->
-                        <text x="148" y="38" font-size="8" fill="#94a3b8">Kopf</text>
-                        <text x="148" y="97" font-size="8" fill="#94a3b8">Schulter</text>
-                        <text x="148" y="125" font-size="8" fill="#94a3b8">Herz</text>
-                        <text x="148" y="172" font-size="8" fill="#94a3b8">Darm</text>
-                        <text x="148" y="240" font-size="8" fill="#94a3b8">Hände</text>
-                        <text x="148" y="330" font-size="8" fill="#94a3b8">Knie</text>
-                        <text x="148" y="380" font-size="8" fill="#94a3b8">Waden</text>
-                        <text x="2" y="140" font-size="8" fill="#94a3b8">Muskeln</text>
+                        <text x="148" y="20" font-size="7" fill="#60a5fa">Augen</text>
+                        <text x="148" y="30" font-size="7" fill="#60a5fa">Ohren</text>
+                        <text x="148" y="55" font-size="7" fill="#4ade80">Mund</text>
+                        <text x="148" y="40" font-size="7" fill="#ef4444">Kopf</text>
+                        <text x="148" y="97" font-size="7" fill="#94a3b8">Schulter</text>
+                        <text x="148" y="122" font-size="7" fill="#94a3b8">Herz</text>
+                        <text x="148" y="170" font-size="7" fill="#94a3b8">Darm</text>
+                        <text x="148" y="220" font-size="7" fill="#a78bfa">Knochen</text>
+                        <text x="148" y="250" font-size="7" fill="#94a3b8">Hände</text>
+                        <text x="148" y="330" font-size="7" fill="#94a3b8">Knie</text>
+                        <text x="148" y="378" font-size="7" fill="#94a3b8">Waden</text>
+                        <text x="148" y="417" font-size="7" fill="#34d399">Sehnen</text>
+                        <text x="2" y="140" font-size="7" fill="#94a3b8">Muskeln</text>
                       </svg>
-                    </div>
+                      </div>
+
+                      <!-- ═══ BACK VIEW ═══ -->
+                      <div id="bodyBack" class="body-view">
+                      <svg class="body-svg" viewBox="0 0 220 480" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <radialGradient id="bodyGradB" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" style="stop-color:#1e293b"/>
+                            <stop offset="100%" style="stop-color:#04040d"/>
+                          </radialGradient>
+                        </defs>
+                        <!-- Head (back) -->
+                        <circle cx="110" cy="38" r="30" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Neck -->
+                        <rect x="97" y="68" width="26" height="22" rx="5" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Torso back -->
+                        <rect x="68" y="88" width="84" height="120" rx="12" fill="url(#bodyGradB)" stroke="#334155" stroke-width="1"/>
+                        <!-- Shoulder blades (scapula hints) -->
+                        <ellipse cx="90" cy="115" rx="13" ry="17" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+                        <ellipse cx="130" cy="115" rx="13" ry="17" fill="#0f172a" stroke="#334155" stroke-width="0.8"/>
+                        <!-- Spine line -->
+                        <line x1="110" y1="92" x2="110" y2="205" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,3"/>
+                        <!-- Left upper arm -->
+                        <rect x="40" y="90" width="26" height="80" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right upper arm -->
+                        <rect x="154" y="90" width="26" height="80" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left forearm -->
+                        <rect x="38" y="173" width="22" height="65" rx="9" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right forearm -->
+                        <rect x="160" y="173" width="22" height="65" rx="9" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left hand -->
+                        <ellipse cx="49" cy="248" rx="12" ry="15" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right hand -->
+                        <ellipse cx="171" cy="248" rx="12" ry="15" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Hips/Glutes -->
+                        <rect x="62" y="205" width="96" height="42" rx="10" fill="url(#bodyGradB)" stroke="#334155" stroke-width="1"/>
+                        <!-- Left thigh -->
+                        <rect x="66" y="244" width="40" height="88" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right thigh -->
+                        <rect x="114" y="244" width="40" height="88" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left shin -->
+                        <rect x="68" y="334" width="34" height="88" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right shin -->
+                        <rect x="118" y="334" width="34" height="88" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Left foot -->
+                        <ellipse cx="85" cy="430" rx="20" ry="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+                        <!-- Right foot -->
+                        <ellipse cx="135" cy="430" rx="20" ry="10" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+
+                        <!-- NECK BACK hotspot -->
+                        <g class="body-hotspot" id="hs-neck_back" onclick="selectZone('neck_back')">
+                          <ellipse cx="110" cy="78" rx="20" ry="11" fill="#f97316" fill-opacity="0.35" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="82" text-anchor="middle" font-size="10" fill="#fb923c">&#x2022;</text>
+                        </g>
+                        <!-- UPPER BACK hotspot (Schulterblätter) -->
+                        <g class="body-hotspot" id="hs-upper_back" onclick="selectZone('upper_back')">
+                          <ellipse cx="110" cy="114" rx="36" ry="24" fill="#60a5fa" fill-opacity="0.22" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="119" text-anchor="middle" font-size="13" fill="#93c5fd">&#129495;</text>
+                        </g>
+                        <!-- SPINE hotspot -->
+                        <g class="body-hotspot" id="hs-spine" onclick="selectZone('spine')">
+                          <ellipse cx="110" cy="158" rx="9" ry="30" fill="#a78bfa" fill-opacity="0.45" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="162" text-anchor="middle" font-size="9" fill="#c4b5fd">&#x25AE;</text>
+                        </g>
+                        <!-- LOWER BACK hotspot -->
+                        <g class="body-hotspot" id="hs-lower_back" onclick="selectZone('lower_back')">
+                          <ellipse cx="110" cy="196" rx="28" ry="12" fill="#ef4444" fill-opacity="0.32" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="200" text-anchor="middle" font-size="10" fill="#fca5a5">&#9650;</text>
+                        </g>
+                        <!-- GLUTES hotspot -->
+                        <g class="body-hotspot" id="hs-glutes" onclick="selectZone('glutes')">
+                          <ellipse cx="86" cy="228" rx="18" ry="14" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="134" cy="228" rx="18" ry="14" fill="#eab308" fill-opacity="0.28" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+                        <!-- HAMSTRINGS hotspot -->
+                        <g class="body-hotspot" id="hs-hamstrings" onclick="selectZone('hamstrings')">
+                          <ellipse cx="86" cy="290" rx="18" ry="32" fill="#34d399" fill-opacity="0.22" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="134" cy="290" rx="18" ry="32" fill="#34d399" fill-opacity="0.22" stroke="#34d399" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+                        <!-- CALVES BACK hotspot -->
+                        <g class="body-hotspot" id="hs-calves_back" onclick="selectZone('calves_back')">
+                          <ellipse cx="85" cy="375" rx="16" ry="26" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <ellipse cx="135" cy="375" rx="16" ry="26" fill="#eab308" fill-opacity="0.22" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        </g>
+                        <!-- Zone labels back -->
+                        <text x="2" y="80" font-size="7" fill="#f97316">Nacken</text>
+                        <text x="148" y="115" font-size="7" fill="#60a5fa">Ob. Rücken</text>
+                        <text x="148" y="158" font-size="7" fill="#a78bfa">Wirbelsäule</text>
+                        <text x="148" y="198" font-size="7" fill="#ef4444">LWS</text>
+                        <text x="2" y="230" font-size="7" fill="#eab308">Gesäß</text>
+                        <text x="148" y="292" font-size="7" fill="#34d399">Oberschenkel</text>
+                        <text x="148" y="378" font-size="7" fill="#94a3b8">Waden</text>
+                      </svg>
+                      </div>
+
+                    </div><!-- end body-figure-box -->
 
                     <!-- DETAIL PANEL -->
                     <div class="atlas-detail-box" id="atlasDetail">
@@ -1833,6 +1964,236 @@
                       text:"Chronisch erhöhtes Cortisol abends blockiert Melatonin. Hauptursache bei Einschlafproblemen.",
                       fix:"Ashwagandha abends (Cortisol↓). Cherry Power (Melatonin). Abendrituale." }
                 ]
+            },
+            // ── NEUE FRONTZONEN ──────────────────────────────────────────
+            eyes: {
+                icon:"👁️", label:"Augen & Sehkraft", sub:"Nachtblindheit, trockene Augen, Makulaschäden, Lichtempfindlichkeit",
+                deficiencies:[
+                    { name:"Vitamin A Mangel", tag:"Nachtblindheit", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin A ist Baustein von Rhodopsin (Sehpurpur in Stäbchen). Mangel → Nachtblindheit, trockene Bindehaut (Xerophthalmie). Erstes klinisches Zeichen: schlechtes Sehen im Dunkeln. BETA-CAROTIN sicherer als Retinol direkt!",
+                      fix:"All In One Antioxidant & Vitamin mit Fett. Nahrung: Karotten, Leber, Süßkartoffel. Max 900 mcg RE/Tag." },
+                    { name:"Lutein & Zeaxanthin Mangel", tag:"Makula / AMD", color:"#eab308", bg:"#2a1a00",
+                      text:"Lutein/Zeaxanthin sind Makulapigmente – filtern blaues Licht (Bildschirme!) und schützen Fovea vor oxidativem Stress. Mangel → erhöhtes AMD-Risiko (Altersbedingte Makuladegeneration) und Katarakt. Nicht im typischen ZEC+-Stack!",
+                      fix:"Grünkohl, Spinat, Eigelb, Erbsen täglich. Bei Risiko: 10–20 mg Lutein-Supplement (nicht im Sortiment – separat)." },
+                    { name:"Omega-3 DHA Mangel", tag:"Trockene Augen", color:"#34d399", bg:"#022a18",
+                      text:"DHA macht ~50% der Fettsäuren in der Netzhaut (Photorezeptoren) aus. Mangel → trockene Augen (Meibomdrüsen-Dysfunktion), schlechtere Signalverarbeitung der Retina, entzündliche Augenerkrankungen.",
+                      fix:"Super Omega-3 täglich mit Mahlzeit. DHA-betonte Formen für Augengesundheit bevorzugen." },
+                    { name:"Zink Mangel", tag:"Vitamin-A-Transport", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Zink transportiert Vitamin A aus der Leber zur Netzhaut (Retinol-bindendes Protein braucht Zink). Ohne Zink kein funktionierendes Rhodopsin – selbst wenn Vit A ausreichend vorhanden ist!",
+                      fix:"ZEC+ Zink abends nüchtern. Synergie mit Vitamin A und Beta-Carotin für Sehkraft." },
+                    { name:"Riboflavin B2 Mangel", tag:"Lichtempfindlichkeit", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"B2 ist Cofaktor für Glutathionreduktase im Auge (Schutz vor oxidativem Stress in der Linse). Mangel → Lichtempfindlichkeit, Augenreizung, Augenbrennen, erhöhtes Katarakt-Risiko. Klinisch gut belegt!",
+                      fix:"ZEC+ Vitamin B25 morgens. Nahrung: Milch, Mandeln, Lachs, Eier." }
+                ]
+            },
+            ears: {
+                icon:"👂", label:"Ohren & Gehör", sub:"Tinnitus, Hörverlust, Schwindel, Geräuschempfindlichkeit",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Tinnitus / Lärmschutz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Klinisch belegt: Magnesium schützt Haarzellen im Innenohr vor lärmbedingtem Schaden (cochleärer Ischämie). Bei Magnesiummangel: erhöhtes Tinnitus-Risiko nach Lärm. Studien zeigen Hörverlust-Prävention bei 167–500 mg Mg vor Lärmexposition!",
+                      fix:"Basische Mineralien täglich. Bei Tinnitus: Glycinat-Form bevorzugen. Lärm-Schutz + Mg kombinieren." },
+                    { name:"Zink Mangel", tag:"Tinnitus / Presbyakusis", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist höchst konzentriert im Innenohr (Cochlea, Vestibularapparat). Mangel korreliert klinisch mit Tinnitus und altersbedingtem Hörverlust (Presbyakusis). Supplementierung zeigte in mehreren Studien Linderung bei Zink-mangel-assoziiertem Tinnitus.",
+                      fix:"ZEC+ Zink abends nüchtern. Nicht gleichzeitig mit Kupfer oder Eisen (DMT1-Antagonismus)." },
+                    { name:"Vitamin B12 Mangel", tag:"Hörnerv / Schwindel", color:"#f97316", bg:"#2a0d00",
+                      text:"B12 essentiell für Myelinscheide des Hörnervs (N. cochlearis und N. vestibularis). Mangel → Demyelinisierung → Tinnitus, Hörverlust, Schwindel (Vertigo). Besonders bei Veganer:innen, PPI-Einnahme und Metformin-Therapie!",
+                      fix:"ZEC+ Vitamin B25. Bei Magenerkrankungen/PPI: sublinguales B12 (Methylcobalamin) für direkte Schleimhaut-Absorption." },
+                    { name:"Omega-3 Mangel", tag:"Gefäßversorgung Cochlea", color:"#34d399", bg:"#022a18",
+                      text:"EPA verbessert Mikrozirkulation in der Cochlea. Mangelhafte Durchblutung → Nährstoffunterversorgung der extrem empfindlichen Haarzellen → Hörverlust. Cochlea hat KEINE regenerative Kapazität – Prävention entscheidend!",
+                      fix:"Super Omega-3 täglich. EPA-betonte Formen für Gefäßgesundheit. Langfristig einnehmen." },
+                    { name:"Vitamin D3 Mangel", tag:"Otosklerose", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calcium-Balance im Felsbein (Schläfenknochen). Mangel korreliert mit Otosklerose (fehlerhafte Verknöcherung der Gehörknöchelchen → Schallleitungsschwerhörigkeit). Auch Autoimmunprozesse im Innenohr D3-abhängig moduliert.",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest: Ziel 40–60 ng/ml 25-OH-D3." }
+                ]
+            },
+            mouth: {
+                icon:"🦷", label:"Mund, Zähne & Zahnfleisch", sub:"Zahnfleischbluten, Aphten, Zahnschmelz, Mundgeruch, Parodontose",
+                deficiencies:[
+                    { name:"Vitamin C Mangel", tag:"Zahnfleisch", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin C ist essentiell für Kollagen im Zahnfleischgewebe. Mangel → Zahnfleischbluten, Schwellung, Zahnfleischrückgang. Skorbut (historisch): Zähne fallen aus bei totaler Depletion. Bereits moderater Mangel → Zahnfleischbluten beim Zähneputzen.",
+                      fix:"ZEC+ Vitamin C + Hagebutte täglich zu Mahlzeiten. 200–500 mg reicht. Hohe Dosen (>2g) können Nierensteine fördern." },
+                    { name:"Calcium + Vitamin D3 Mangel", tag:"Zahnschmelz & Kiefer", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Zähne bestehen zu ~96% aus Hydroxylapatit (Calcium-Phosphat). D3 reguliert Calciumaufnahme. Mangel → poröser Zahnschmelz, erhöhte Kariesanfälligkeit, Kieferknochenabbau (Parodontitis-Risiko). Kieferknochen reagiert sehr empfindlich auf D3-Mangel.",
+                      fix:"D3 + K2 morgens mit Fett. Calcium primär aus Nahrung: Milch, Brokkoli, Sesam, Mandeln." },
+                    { name:"CoQ10 Mangel", tag:"Parodontose", color:"#eab308", bg:"#2a1a00",
+                      text:"CoQ10 ist hochkonzentriert in gesundem Zahnfleischgewebe. Klinisch belegt: Mangel → mitochondriale Schwäche in Zahnfleischzellen → schlechte Regeneration → Parodontose (entzündlicher Zahnhalteapparat-Abbau). Studien: CoQ10 als Adjuvans bei Parodontitis-Behandlung wirksam!",
+                      fix:"HEALTH+ Protect Heart (enthält Ubiquinol Q10) mit fettreicher Mahlzeit. Ubiquinol-Form 8x besser bioverfügbar als Ubiquinon." },
+                    { name:"B-Vitamine Mangel (B2, B3, B12)", tag:"Aphten & Mundwinkel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"B2 (Riboflavin) → Mundwinkelrisse (Cheilosis), Zungenbrennen, Glossitis. B3 → Pellagra-Symptom: Stomatitis. B12-Mangel → wiederkehrende Aphten (kleine schmerzhafte Geschwüre) – oft ERSTES Zeichen von B12-Depletion! Nicht mit Eisenmangel-Aphten verwechseln.",
+                      fix:"ZEC+ Vitamin B25 morgens. Sublinguales B12 bei Magenproblemen. Abklären ob Eisen-Mangel-Aphten (anderer Mechanismus)." },
+                    { name:"Zink Mangel", tag:"Geschmack & Mundschleimhaut", color:"#4ade80", bg:"#052e16",
+                      text:"Zink reguliert Gustin (Carboanhydrase VI) – Protein der Geschmacksknospen. Mangel → Geschmacksverlust (Hypogeusie), verminderter Geruchssinn. Auch: verlangsamte Wundheilung nach Zahnextraktionen, erhöhte Infektanfälligkeit der Mundschleimhaut.",
+                      fix:"ZEC+ Zink abends nüchtern. 15–30 mg/Tag. Nicht mit Kaffee/Tee gleichzeitig (Tannine hemmen Zinkaufnahme)." }
+                ]
+            },
+            tendons: {
+                icon:"🔗", label:"Sehnen & Bänder", sub:"Tendinopathie, Achillesschmerz, Sehnenrisse, langsame Heilung",
+                deficiencies:[
+                    { name:"Kollagen-Mangel (Typ I)", tag:"Sehnenstruktur", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Sehnen und Bänder bestehen zu ~70% aus Kollagen Typ I. Mangel → erhöhte Reißanfälligkeit, chronische Tendinopathie, langsame Heilung nach Verletzung. Hydrolysierte Kollagen-Peptide stimulieren Tenozyten (Sehnenzellen) zur Kollagensynthese – belegt durch RCT-Studien!",
+                      fix:"HEALTH+ Collagen (Vit C bereits enthalten!) 30–60 min VOR Training mit Kohlenhydraten. Mindestens 6–12 Wochen kontinuierlich." },
+                    { name:"Kupfer Mangel", tag:"Kollagen-Quervernetzung", color:"#f97316", bg:"#2a0d00",
+                      text:"Kupfer aktiviert Lysyl-Oxidase – das Enzym, das Kollagenfasern quervernetzt (cross-linking). Ohne Quervernetzung: strukturell schwaches, elastisches Kollagen → brüchige Sehnen und Bänder. Cave: Hochdosiertes Zink (>40mg) verdrängt Kupfer via Metallothionein!",
+                      fix:"Im Multivitamin und Collagen-Produkt enthalten. Kupfermangel durch unkontrolliertes Zink-Stacking vermeiden (max Zn:Cu 10:1)." },
+                    { name:"Vitamin C Mangel", tag:"Kollagensynthese Sehne", color:"#eab308", bg:"#2a1a00",
+                      text:"Vit C ist essentieller Cofaktor für Prolyl-Hydroxylase und Lysyl-Hydroxylase – Enzyme, die das Kollagen-Gerüst stabilisieren. Ohne Vit C: instabiles Prokollagen, das nicht korrekt zur Tripelhelix faltet → strukturell schwaches Sehnenkollagen.",
+                      fix:"HEALTH+ Collagen enthält bereits Acerola-Vit C. Zusätzlich ZEC+ Vitamin C sinnvoll bei erhöhtem Bedarf (Training, Heilungsphase)." },
+                    { name:"Magnesium Mangel", tag:"Sehnenspasmus & MTJ", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium reguliert Muskel-Sehnen-Übergang (MTJ). Mangel → chronische Muskel-Sehnen-Verspannung, erhöhter Zug auf Sehnenansatz → Enthesiopathie (Ansatz-Tendinopathie, z.B. Achillesansatz, Patellasehne).",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskel-Sehnen-Entspannung. Physio + Supplement kombinieren." },
+                    { name:"MSM Mangel", tag:"Sehnenreparatur", color:"#34d399", bg:"#022a18",
+                      text:"MSM (Methylsulfonylmethan) liefert organischen Schwefel – Baustein für Cystin-Disulfidbrücken in Kollagen und Elastin der Sehnen. Klinisch: MSM reduziert Entzündungsmarker in Sehnengewebe. Synergie mit Glucosamin (gemeinsam in Arthro Essential).",
+                      fix:"ZEC+ Arthro Essential (enthält MSM + Glucosamin + Weihrauch + Piperin). Mind. 3–6 Monate für strukturellen Effekt." }
+                ]
+            },
+            bones: {
+                icon:"🦴", label:"Knochen & Knochendichte", sub:"Osteoporose, Stressfrakturen, Knochenschmerzen, Heilung",
+                deficiencies:[
+                    { name:"Calcium + Vitamin D3 Mangel", tag:"Knochendichte", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Knochen bestehen zu ~65% aus Hydroxylapatit (Ca₁₀(PO₄)₆(OH)₂). D3 reguliert intestinale Calciumaufnahme um 50–70%. Ohne D3: Calcium wird nicht resorbiert → Osteopenie → Osteoporose → Stressfrakturen. Bei Sportlern: Knochenstress-Frakturen oft erster Hinweis auf D3-Mangel!",
+                      fix:"D3 + K2 morgens mit Fett. Calcium primär aus Nahrung (Milch, Brokkoli, Sesam) – Supplement-Calcium kann Nierensteine fördern." },
+                    { name:"Vitamin K2 Mangel", tag:"Calcium-Steuerung", color:"#fbbf24", bg:"#2a1a00",
+                      text:"K2 (MK-7) aktiviert Osteocalcin – das Protein, das Calcium gezielt IN den Knochen einlagert statt in Arterien (Arteriosklerose!) oder Nieren (Steine). Ohne K2 → paradoxe Gefäßverkalkung trotz D3-Einnahme. NIEMALS D3 ohne K2!",
+                      fix:"D3 + K2 immer als Kombipräparat. MK-7-Form (lange Halbwertszeit). Vitamin K2 separat falls D3 allein genommen wird." },
+                    { name:"Magnesium Mangel", tag:"D3-Aktivierung & Matrix", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"~60% des Körper-Magnesiums steckt im Knochen als Strukturelement. Mg ist Cofaktor für D3-Aktivierung (25-OH-D3 → 1,25-OH₂-D3 in der Niere). Ohne Mg: D3 bleibt inaktiv → Calcium-Aufnahme sinkt. Also: D3 ohne Mg-Versorgung ist suboptimal!",
+                      fix:"Basische Mineralien abends. Glycinat/Malat-Form. Essentiell für D3-Aktivierung – oft übersehen!" },
+                    { name:"Bor Mangel", tag:"Knochenmineralisation", color:"#34d399", bg:"#022a18",
+                      text:"Bor erhöht Halbwertszeit von Östrogen und Testosteron → erhöht Calcium-Retention im Knochen und verbessert Mineralisation. Mangel → schlechtere Knochendichte (BMD), höheres Osteoporose-Risiko. In westlicher Ernährung oft extrem niedrig (<1 mg/Tag)!",
+                      fix:"Nüsse, Avocado, Trockenfrüchte. Im Arthro Essential-Komplex oft enthalten. Ziel: 3 mg/Tag." },
+                    { name:"Silizium Mangel", tag:"Knochenaufbau", color:"#4ade80", bg:"#052e16",
+                      text:"Silizium ist Cofaktor für Kollagen Typ I im Knochen-Grundgerüst (Osteoid). Ohne Silizium: schwaches Kollagengerüst → Mineralien können sich nicht korrekt einlagern → fragile, brüchige Knochen trotz ausreichend Calcium. Silizium reguliert Osteoblasten-Aktivität!",
+                      fix:"Kieselsäure-Supplement, Bambusextrakt, Schachtelhalm, Brennnessel. Vollkorn. Nicht im Standard-ZEC+-Stack – separat ergänzen." }
+                ]
+            },
+            // ── RÜCKENZONEN ──────────────────────────────────────────────
+            neck_back: {
+                icon:"🔙", label:"Nacken & Halswirbelsäule (HWS)", sub:"Nackenverspannungen, HWS-Schmerzen, Steifheit, Spannungskopfschmerz",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Muskelverspannung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium ist der Calcium-Antagonist in der Muskelzelle (Relaxationsfaktor). Mangel → Dauerkontraktion, Triggerpunkte im Nacken (M. trapezius, M. levator scapulae), Spannungskopfschmerz. Nacken-Triggerpunkte + Magnesium-Ergänzung: gut belegte klinische Synergie!",
+                      fix:"Basische Mineralien abends. Glycinat-Form optimal für Muskelentspannung. Physio + Mg kombinieren." },
+                    { name:"Kollagen-Mangel", tag:"Bandscheiben HWS", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Bandscheiben der HWS (C2–C7) bestehen zu ~60% aus Kollagen Typ I/II (Anulus fibrosus + Nucleus pulposus). Mangel → beschleunigte Diskusdegeneration → Zervikobrachialgie (Ausstrahlungsschmerz in Arme/Hände), HWS-Instabilität.",
+                      fix:"HEALTH+ All In One Collagen morgens nüchtern (Vit C bereits im Produkt!). Mind. 6 Monate bei bestehender Degeneration." },
+                    { name:"Vitamin D3 Mangel", tag:"Nacken-Muskelkraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Nacken- und Schultermuskulatur regulieren Muskelkraft und -regeneration. Mangel → schwache Hals-Nacken-Muskulatur → schlechte Kopfhaltung → muskuläre Überbelastung der HWS → chronischer Schmerz.",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest: 25-OH-D3 → Ziel 40–60 ng/ml." },
+                    { name:"Vitamin B12 Mangel", tag:"Zervikalnerven C1–C8", color:"#f97316", bg:"#2a0d00",
+                      text:"B12 essentiell für Myelinscheide der Zervikalnerven (C1–C8). Mangel → Kribbeln, Taubheit, Schwäche in Armen und Händen ausgehend vom Nacken (Zervikale Radikulopathie). Cave: Symptome ähneln Bandscheibenvorfall – Bluttest zur Differenzierung!",
+                      fix:"ZEC+ Vitamin B25. Bei Magenproblemen/PPI-Einnahme: sublinguales Methylcobalamin bevorzugen." },
+                    { name:"Omega-3 Mangel", tag:"HWS-Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt proinflammatorische Zytokine (IL-1β, TNF-α) in HWS-Bandscheiben und Facettengelenken. Chronische Entzündung = Haupttreiber von HWS-Degeneration. Ergänzend: Arthro Essential (Weihrauch als potenter NF-κB-Hemmer).",
+                      fix:"Super Omega-3 täglich. Mind. 6–8 Wochen für messbaren anti-inflammatorischen Effekt. Mit Arthro Essential kombinieren." }
+                ]
+            },
+            upper_back: {
+                icon:"🔼", label:"Oberer Rücken & Schulterblätter (BWS)", sub:"Schulterschmerzen, Verspannungen, Schulterblatt-Schmerz, Brustwirbelprobleme",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Rhomben & Trapezius", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Rhomboid und M. trapezius (Schulterblatt-Muskeln) reagieren extrem empfindlich auf Magnesiummangel. Chronische Verspannung, Triggerpunkte zwischen Schulterblättern = typisches Magnesiummangel-Muster im Kraftsport. Mangel nach intensivem Oberkörpertraining besonders akut.",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Wärme + Mg-Bad als ergänzende Therapie." },
+                    { name:"Kollagen-Mangel", tag:"Rotatorenmanschette", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Rotatorenmanschette (Supraspinatus, Infraspinatus, Subscapularis, Teres minor) = Kollagen Typ I/III. Mangel → Sehnenrisse, Schulterinstabilität, Impingement-Syndrom. BWS-Bandscheiben (T1–T12) ebenfalls Kollagen-abhängig.",
+                      fix:"HEALTH+ Collagen morgens (Vit C bereits enthalten). L-Glycin ergänzend. Mind. 6 Monate bei Sehnenproblematik." },
+                    { name:"Vitamin D3 Mangel", tag:"Schulter-Schmerz", color:"#fbbf24", bg:"#2a1a00",
+                      text:"RCT-Studien zeigen starke Korrelation zwischen D3-Mangel und chronischem Schulterschmerz (auch ohne strukturelle Pathologie nachweisbar). D3-Rezeptoren in Schultergelenk-Synovia und Gelenkkapsel aktiv – regulieren lokale Immunantwort.",
+                      fix:"D3 + K2 morgens. Bluttest: 25-OH-D3. Ziel 40–60 ng/ml. Nicht abends – zirkadiane Interferenz möglich." },
+                    { name:"Omega-3 Mangel", tag:"Bursitis & Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA hemmen Prostaglandin-E2-Synthese in Schultergelenk-Schleimbeuteln (Bursitis subdeltoidea, subacromialis). Effektiv wie niedrig dosierte NSAIDs (Ibuprofen) – ohne gastrointestinale Nebenwirkungen. Wirkt auch bei BWS-Facettengelenkarthrose.",
+                      fix:"Super Omega-3 täglich. 1500 mg EPA+DHA pro Tag. 4–8 Wochen für volle Wirkung." }
+                ]
+            },
+            spine: {
+                icon:"🦴", label:"Wirbelsäule & Bandscheiben", sub:"Rückenschmerzen, Bandscheibenvorfall, Wirbelkörperschmerz, Osteoporose der WS",
+                deficiencies:[
+                    { name:"Calcium + D3 Mangel", tag:"Wirbelknochen-Dichte", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Wirbelkörper aus Hydroxylapatit-Spongiosa (Trabekelung). Bei Osteoporose: Trabekel dünner → Sinterungsfrakturen (Wirbelkörpereinbruch). D3 steuert Calciumabsorption als absoluter Schlüsselfaktor. Krafttraining stimuliert Osteoblasten zusätzlich!",
+                      fix:"D3 + K2 morgens mit Fett. Calcium aus Nahrung. Krafttraining als Knochen-Stimulus unverzichtbar." },
+                    { name:"Vitamin K2 Mangel", tag:"Calcium-Lenkung", color:"#fbbf24", bg:"#2a1a00",
+                      text:"K2 aktiviert Osteocalcin in Wirbelkörpern → Calcium gezielt in Knochen einlagern (nicht in Bandscheiben-Verkalkung). Ohne K2 paradoxe Verkalkungen der Wirbelgelenke möglich. MK-7-Form: einmal täglich wegen langer Halbwertszeit ausreichend.",
+                      fix:"D3 + K2 als Kombi. NIEMALS D3 ohne K2. MK-7 (Menaquinon-7) bevorzugen." },
+                    { name:"Kollagen-Mangel (Bandscheiben)", tag:"Anulus fibrosus", color:"#ef4444", bg:"#2a0505",
+                      text:"Bandscheiben: Nucleus pulposus (Gallertkern) = Proteoglykane + Wasser; Anulus fibrosus = Kollagen Typ I/II. Beide degenerieren bei Kollagenmangel beschleunigt. Hydrolysierte Kollagenpeptide (FORTIGEL® etc.) stimulieren Fibroblasten der Bandscheibe nachweislich!",
+                      fix:"HEALTH+ Collagen täglich, langfristig (6–12 Monate!). Arthro Essential (MSM + Chondroitin) für Proteoglykan-Syntheseunterstützung." },
+                    { name:"Magnesium Mangel", tag:"Paravertebrale Muskulatur", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Paravertebrale Muskulatur (M. erector spinae, M. multifidus) reagiert stark auf Magnesiummangel. Dauerspasmus → erhöhter intradiskaler Druck → Bandscheibendegeneration beschleunigt. Psoas-Spasmus (LWS-Beteiligung) klassisches Bild.",
+                      fix:"Basische Mineralien abends. Direkter Effekt auf Muskelspasmus innerhalb 24–48h bei Mangel-Ursache." },
+                    { name:"Vitamin B12 Mangel", tag:"Rückenmark / Myelinscheide", color:"#f97316", bg:"#2a0d00",
+                      text:"Das Rückenmark selbst benötigt B12 für Myelinscheide (spinale Axone). Schwerer Mangel → Funikuläre Myelose: subakute kombinierte Degeneration der Hinterstränge und Seitenstränge → Lähmungen, Sensibilitätsverlust aufsteigend. Irreversibel bei Spät-Therapie! Veganer:innen KRITISCH!",
+                      fix:"ZEC+ Vitamin B25. Bluttest: Holo-Transcobalamin (sensitiver als Standard-B12-Serum!). Ziel: >50 pmol/L HoloTC." }
+                ]
+            },
+            lower_back: {
+                icon:"⬇️", label:"Unterer Rücken (LWS)", sub:"Lendenwirbelsäule, Ischias, Bandscheiben L4/L5, Muskelkrämpfe",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Psoas & Quadratus lumborum", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"M. psoas und M. quadratus lumborum (LWS-Hauptstabilisatoren) reagieren hochsensibel auf Magnesiummangel. Psoas-Verkürzung durch Spasmus → erhöhter Druck auf L4/L5-Bandscheiben → Ischias-Trigger. Häufigste übersehene Ursache bei Kraftsportlern!",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Dehnung des Psoas als Pflicht-Therapiebegleiter." },
+                    { name:"Vitamin D3 Mangel", tag:"Chronischer LWS-Schmerz", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Randomisierte klinische Studien (RCTs) belegen: D3-Mangel (<20 ng/ml) → chronischer LWS-Schmerz ohne strukturelle Ursache. D3-Substitution zeigt signifikante Schmerzreduktion im LWS-Bereich. D3-Rezeptoren in LWS-Muskeln und -Gelenken direkt nachweisbar!",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest pflicht: Ziel mind. 40 ng/ml 25-OH-D3. Alle 3–6 Monate kontrollieren." },
+                    { name:"Kollagen-Mangel LWS", tag:"Bandscheiben L4/L5, L5/S1", color:"#ef4444", bg:"#2a0505",
+                      text:"LWS-Bandscheiben (v.a. L4/L5 und L5/S1) tragen die größte mechanische Last des Körpers. Kollagen Typ I/II im Anulus fibrosus degeneriert ohne kontinuierliche Peptid-Versorgung → Protrusion, Prolaps, Ischias-Syndrom (N. ischiadicus-Kompression).",
+                      fix:"HEALTH+ Collagen täglich. Arthro Essential (Chondroitin + MSM). Langfristig 6–12 Monate einnehmen!" },
+                    { name:"Omega-3 Mangel", tag:"Ischias-Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"Ischias-Schmerz = häufig Entzündungsreaktion am N. ischiadicus (perineural). EPA hemmt COX-2 und 5-Lipoxygenase → Prostaglandin E2 und Leukotriene ↓ → Entzündungshemmung direkt am Nervenumfeld. Synergie mit Weihrauch (Arthro Essential).",
+                      fix:"Super Omega-3 täglich, langfristig. Synergie mit Arthro Essential (Boswellia/Weihrauch als NF-κB-Hemmer)." },
+                    { name:"Kalium Mangel", tag:"LWS-Stabilisatoren", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kalium reguliert Membranpotenzial aller Muskelzellen. Mangel → generelle Muskelschwäche der LWS-Stabilisatoren → erhöhte Bandscheibenbelastung durch schlechte muskuläre Führung. Besonders nach intensivem Schwitzen (Verlust durch Schweiß).",
+                      fix:"Kaliumreiche Ernährung: Bananen, Kartoffeln, Avocados, Hülsenfrüchte. Bei intensivem Sport: Elektrolyte mit Kalium." }
+                ]
+            },
+            glutes: {
+                icon:"💪", label:"Gesäß & Hüfte", sub:"Gesäßschmerz, schwache Gluten, Hüftprobleme, Piriformis",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"Gluteus-Atrophie", color:"#ef4444", bg:"#2a0505",
+                      text:"Gluteus maximus ist der größte Muskel des Körpers und Hauptkraftquelle für Sprung, Sprint und Heben. Proteinmangel → Gluteus-Atrophie, Kraftverlust, kompensatorische LWS-Überbelastung. Mind. 2–3g Leucin pro Mahlzeit für MPS-Trigger.",
+                      fix:"1,6–2,2 g Protein/kg KG täglich. Alle 3–4h mit Leucin-Trigger. Glute-Training unverzichtbar." },
+                    { name:"Vitamin D3 Mangel", tag:"Gluteus-Kraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Gesäßmuskulatur regulieren Muskelproteinsynthese und -kraft. Klinisch belegt: D3-Mangel → messbare Kraft- und Leistungseinbußen der Hüftextensoren (Gluteus maximus, medius). Hüftinstabilität als Folge.",
+                      fix:"D3 + K2 morgens mit Fett. Ziel: 40–60 ng/ml. Krafttraining (Hip Thrust, Squat) als Knochen- und Muskelstimulus." },
+                    { name:"Kreatin Mangel", tag:"Explosive Kraft", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Explosive Glute-Krafteinsätze (Sprint, Sprung, Olympisches Heben) sind ATP-PCr-abhängig (anaerob alaktazid). Kreatin füllt Phosphokreatin-Speicher → mehr explosive Wiederholungen pro Satz. Uhrzeit irrelevant – kumulativer Spiegel über 2–4 Wochen entscheidend!",
+                      fix:"ZEC+ Kreatin Monohydrat 5g täglich konsistent (Zeitpunkt egal). Wasser 3L+." },
+                    { name:"Magnesium Mangel", tag:"Piriformis-Syndrom", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"M. piriformis (tiefer Gesäßrotator) kann bei Magnesiummangel verkrampfen → Piriformis-Syndrom: Kompression des N. ischiadicus im tiefen Gesäß → Ischias-ähnlicher Schmerz. Oft mit echtem Bandscheiben-Ischias verwechselt (Bluttest und MRT zur Differenzierung).",
+                      fix:"Basische Mineralien abends. Dehnung des Piriformis (Figure-4-Stretch). Differenzierung von Bandscheiben-Ischias wichtig!" }
+                ]
+            },
+            hamstrings: {
+                icon:"🦵", label:"Oberschenkel Rückseite (Hamstrings)", sub:"Hamstring-Verletzungen, Muskelrisse, Steifheit, Krämpfe",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"Regeneration", color:"#ef4444", bg:"#2a0505",
+                      text:"Hamstrings (Biceps femoris, Semitendinosus, Semimembranosus) sind häufigste Muskelverletzungsstelle im Sport. Ohne ausreichend Protein (besonders Leucin) → verlangsamt MPS in beschädigten Muskelfasern → erhöhte Rezidivrate bei Hamstring-Rissen.",
+                      fix:"1,6–2,2 g/kg KG täglich. Post-Workout sofort Hydrolysat. Leucin-Trigger 2–3g pro Dosis für maximale MPS." },
+                    { name:"Magnesium Mangel", tag:"Hamstring-Krämpfe", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Hamstring-Krämpfe bei Sportlern: primär neuromuskuläre Ermüdung + Natriumverlust, ABER Magnesiummangel erhöht Krampfneigung zusätzlich. Cave: Hamstring-Krampf ≠ Hamstring-Riss – diagnostisch wichtig! Plötzlich stechend = Riss, ziehend/knotend = Krampf.",
+                      fix:"Basische Mineralien abends + vor intensiven Training-Einheiten. Hydration und Natrium im Fokus bei Sportkrämpfen." },
+                    { name:"Kollagen & Omega-3", tag:"Sehnenansatz Ischias", color:"#34d399", bg:"#022a18",
+                      text:"Hamstring-Ursprung am Tuber ischiadicum (Sitzbein): Sehnenansatz aus Kollagen Typ I. Chronische Proximal-Tendinopathie (High Hamstring Tendinopathy) = Kollagen-Degeneration am Ansatz. EPA hemmt lokale Entzündungskaskaden.",
+                      fix:"HEALTH+ Collagen täglich (Vit C enthalten). Super Omega-3 für Entzündungshemmung." },
+                    { name:"Elektrolyt-Mangel", tag:"Performance & Krämpfe", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Natrium und Kalium regulieren Aktionspotentiale in Hamstring-Fasern. Schweißverlust → Natrium sinkt → neuromuskuläre Übererregbarkeit → Hamstring-Krämpfe. Besonders in Hitze und bei langen Trainingseinheiten relevant.",
+                      fix:"ZEC+ Intra Evolution (Elektrolyte + EAAs) während langer Einheiten. Natriumreiche Elektrolytgetränke bei Hitze-Training." }
+                ]
+            },
+            calves_back: {
+                icon:"🦵", label:"Waden (Rückansicht)", sub:"Wadenkrämpfe, Wadenrisse, Achillessehne, Schwere Beine",
+                deficiencies:[
+                    { name:"Sportkrämpfe", tag:"Hauptursachen Sportler", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Wie Vorderseite: Wadenkrämpfe bei Sportlern primär durch neuromuskuläre Ermüdung, Dehydration und Natriumverlust (nicht primär Magnesiummangel!). Wadenriss: meist Gastrocnemius-Riss (medialer Bauch), diagnostisch 'Tennisleg' – akut chirurgisch abklären.",
+                      fix:"Hydration, Elektrolyte mit Natrium, Trainingssteuerung. Magnesium abends für allgemeine Entspannung." },
+                    { name:"Vitamin B12 Mangel", tag:"Kribbeln Waden", color:"#f97316", bg:"#2a0d00",
+                      text:"B12-Mangel → Demyelinisierung peripherer Nerven (Suralis-Nerv, Peroneus) → Kribbeln, Taubheit in Waden und Unterschenkeln (Periphere Neuropathie). Oft als 'Strumpf-Handschuh'-Verteilung. Bluttest (Holo-TC) zur Bestätigung!",
+                      fix:"ZEC+ Vitamin B25. Holo-Transcobalamin >50 pmol/L als Ziel. Bei PPI/Antazida: sublinguales B12." },
+                    { name:"Omega-3 & Kollagen", tag:"Achillessehne", color:"#34d399", bg:"#022a18",
+                      text:"Achillessehne (stärkste Sehne des Körpers) = fast reines Kollagen Typ I. Chronische Achillestendinopathie: Kollagen-Degeneration + lokale Entzündung. EPA/DHA hemmen Entzündungskaskaden im Peritendineum.",
+                      fix:"HEALTH+ Collagen täglich (30–60 min vor Training optimal). Super Omega-3 für Entzündungshemmung. Mind. 3–6 Monate." },
+                    { name:"Eisen Mangel", tag:"Schwere Beine", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert Hämoglobin → O₂-Transport in arbeitende Wadenmuskeln sinkt → schwere Beine, schnelle Ermüdung, Brennen in den Waden. Besonders bei Ausdauersportlerinnen (läuferbedingte Hämolyse durch Fußauftritt).",
+                      fix:"NUR bei per Bluttest belegtem Mangel (Ferritin <30 ng/ml)! HEALTH+ Eisenbisglycinat nüchtern mit Vit C." }
+                ]
             }
         };
 
@@ -1867,6 +2228,27 @@
 
             // Scroll detail into view
             document.getElementById('atlasDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function collapseBodyDisclaimer() {
+            const d = document.getElementById('bodyDisclaimer');
+            const c = document.getElementById('bodyDisclaimerCollapsed');
+            if (d && c) { d.style.display = 'none'; c.style.display = 'block'; }
+        }
+        function expandBodyDisclaimer() {
+            const d = document.getElementById('bodyDisclaimer');
+            const c = document.getElementById('bodyDisclaimerCollapsed');
+            if (d && c) { d.style.display = 'block'; c.style.display = 'none'; }
+        }
+        setTimeout(collapseBodyDisclaimer, 5000);
+
+        let bodyShowingFront = true;
+        function flipBody() {
+            bodyShowingFront = !bodyShowingFront;
+            document.getElementById('bodyFront').classList.toggle('active', bodyShowingFront);
+            document.getElementById('bodyBack').classList.toggle('active', !bodyShowingFront);
+            const btn = document.getElementById('bodyFlipBtn');
+            btn.textContent = bodyShowingFront ? '🔄 Rücken ansehen' : '🔄 Vorderseite ansehen';
         }
 
         // ─── VITAMIN & MINERAL DATABASE ───────────────────────────────────
