@@ -652,12 +652,12 @@
                     </button>
                     <div id="proteinContent" class="panel-content">
                         <p style="font-size: 11px; color: #6ee7b7; margin-bottom: 10px; line-height: 1.5;">
-                            MPS (Muskelproteinsynthese) laeuft ~3–4h nach jeder Dosis. Nudel-Menge: 500g aufgeteilt in 5 Dosen a 100g.
+                            MPS (Muskelproteinsynthese) laeuft ~3–4h nach jeder Dosis. Protein alle 3–4h zufuehren fuer maximale Anabolik.
                         </p>
                         <div id="proteinDosesList" class="protein-grid"></div>
                         <div class="protein-total">
                             <span>Gesamt taeglich Ziel:</span>
-                            <span>~175–210g Protein | 500g Carbs (Nudeln) + Haferflocken</span>
+                            <span>~175–210g Protein | Carbs aus Mahlzeiten</span>
                         </div>
                     </div>
                 </div>
@@ -937,13 +937,13 @@
 
         // PROTEIN DOSES KONFIGURATION (wird ebenfalls dynamisch berechnet)
         const PROTEIN_DOSES_CONFIG = [
-          { label:"Fruehstueck", offsetMinutes: 45, type:"100g Haferflocken + Milch", g:"~25g" },
-          { label:"Vormittag", offsetMinutes: 180, type:"100g Nudeln + Shake", g:"~45g" },
+          { label:"Fruehstueck", offsetMinutes: 45, type:"Mahlzeit + Protein", g:"~25g" },
+          { label:"Vormittag", offsetMinutes: 180, type:"Shake", g:"~45g" },
           { label:"Post-Workout", offsetMinutes: 405, type:"Hydrolysat + Carbs", g:"25–30g" },
-          { label:"Mittagessen", offsetMinutes: 450, type:"100g Nudeln + Protein", g:"~35g" },
-          { label:"Nachmittag", offsetMinutes: 630, type:"100g Nudeln + Whey", g:"~45g" },
-          { label:"Abendessen", offsetMinutes: 780, type:"100g Nudeln + Pudding", g:"~35g" },
-          { label:"Vor Schlaf", offsetMinutes: 60, type:"100g Nudeln + Casein", g:"~50g", isRelativeTosleep: true }
+          { label:"Mittagessen", offsetMinutes: 450, type:"Mahlzeit + Protein", g:"~35g" },
+          { label:"Nachmittag", offsetMinutes: 630, type:"Mahlzeit + Whey", g:"~45g" },
+          { label:"Abendessen", offsetMinutes: 780, type:"Mahlzeit + Pudding", g:"~35g" },
+          { label:"Vor Schlaf", offsetMinutes: 60, type:"Casein", g:"~50g", isRelativeTosleep: true }
         ];
 
         const PRIO_STYLE = {
@@ -1610,7 +1610,7 @@
                       fix:"Basische Mineralien abends. Hohe Dosen wirken abführend." },
                     { name:"Ballaststoffmangel", tag:"Mikrobiom", color:"#34d399", bg:"#022a18",
                       text:"Ballaststoffe ernähren Darmbakterien (Präbiotika) und fördern Stuhlgang.",
-                      fix:"Vollkorn, Gemüse, Hülsenfrüchte. Haferflocken täglich." }
+                      fix:"Vollkorn, Gemüse, Hülsenfrüchte, Ballaststoffe taeglich." }
                 ]
             },
             liver: {
