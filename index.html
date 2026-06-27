@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: #08090d;
+            background-color: #000000;
             color: #e2e8f0;
             padding-bottom: 60px;
         }
@@ -31,88 +31,123 @@
             align-items: center;
             min-height: 100vh;
             padding: 20px;
-            background: radial-gradient(circle at top, #1e1b4b 0%, #08090d 100%);
+            background: radial-gradient(ellipse at 50% 0%, #130d2e 0%, #000000 65%);
         }
 
         .setup-card {
-            background: #111827;
-            border: 1px solid #1e293b;
-            padding: 30px 24px;
-            border-radius: 16px;
+            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%);
+            border: 1px solid #251650;
+            padding: 44px 32px 36px;
+            border-radius: 24px;
             width: 100%;
             max-width: 420px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 0 80px rgba(124, 58, 237, 0.1), 0 40px 80px rgba(0,0,0,0.97);
+        }
+
+        .setup-logo {
+            font-size: 34px;
+            display: block;
+            margin-bottom: 12px;
         }
 
         .setup-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 900;
-            letter-spacing: 0.1em;
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
+            letter-spacing: 0.22em;
+            background: linear-gradient(90deg, #c4b5fd 0%, #818cf8 50%, #60a5fa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
             text-transform: uppercase;
         }
 
-        .setup-desc {
-            font-size: 13px;
-            color: #94a3b8;
+        .setup-subtitle {
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            color: #3d2a7a;
+            text-transform: uppercase;
             margin-bottom: 24px;
-            line-height: 1.5;
+        }
+
+        .setup-desc {
+            font-size: 12px;
+            color: #4b5563;
+            margin-bottom: 28px;
+            line-height: 1.65;
+        }
+
+        .setup-time-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: end;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .setup-arrow {
+            font-size: 16px;
+            color: #3d2a7a;
+            padding-bottom: 16px;
+            font-weight: 700;
         }
 
         .form-group {
             text-align: left;
-            margin-bottom: 20px;
+            margin-bottom: 0;
         }
 
         .form-group label {
             display: block;
-            font-size: 11px;
+            font-size: 9px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #a78bfa;
-            margin-bottom: 6px;
+            letter-spacing: 0.12em;
+            color: #6d28d9;
+            margin-bottom: 8px;
         }
 
         .time-input {
             width: 100%;
-            padding: 14px;
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 10px;
+            padding: 14px 6px;
+            background: #03030a;
+            border: 1px solid #251650;
+            border-radius: 12px;
             color: #ffffff;
-            font-size: 18px;
-            font-weight: 700;
+            font-size: 20px;
+            font-weight: 800;
             text-align: center;
             outline: none;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            letter-spacing: 0.04em;
         }
 
         .time-input:focus {
             border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
         }
 
         .start-btn {
             width: 100%;
-            padding: 14px;
-            background: #7c3aed;
-            border: 1px solid #a78bfa;
+            padding: 16px;
+            background: linear-gradient(135deg, #7c3aed 0%, #5418c8 100%);
+            border: 1px solid rgba(167, 139, 250, 0.35);
             color: #ffffff;
-            font-size: 15px;
+            font-size: 12px;
             font-weight: 800;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+            transition: all 0.25s;
+            box-shadow: 0 4px 24px rgba(124, 58, 237, 0.45);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
         }
 
         .start-btn:hover {
-            background: #6d28d9;
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 36px rgba(124, 58, 237, 0.6);
         }
 
         /* MAIN APP CONTAINER (HIDDEN INITIALLY) */
@@ -122,12 +157,13 @@
 
         /* HEADER */
         header {
-            background: linear-gradient(180deg, #111128 0%, #08090d 100%);
+            background: linear-gradient(180deg, #07071a 0%, #000000 100%);
             padding: 16px 0 14px;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid #10102a;
             position: sticky;
             top: 0;
             z-index: 50;
+            backdrop-filter: blur(16px);
         }
 
         /* Adjustment for sticky header dynamic padding replacement */
@@ -173,11 +209,11 @@
             padding: 12px 0;
             font-size: 14px;
             font-weight: 700;
-            background: #111827;
-            border: 1px solid #1e293b;
+            background: #070710;
+            border: 1px solid #10102a;
             border-radius: 8px;
             cursor: pointer;
-            color: #94a3b8;
+            color: #4b5563;
             transition: all 0.2s;
         }
 
@@ -201,8 +237,8 @@
             overflow: hidden;
         }
 
-        .panel-rules { background: #150505; border: 1px solid #7f1d1d; }
-        .panel-protein { background: #001a0a; border: 1px solid #166534; }
+        .panel-rules { background: #080101; border: 1px solid #7f1d1d; }
+        .panel-protein { background: #000a04; border: 1px solid #166534; }
 
         .panel-trigger {
             width: 100%;
@@ -263,7 +299,7 @@
         .timeline-item-container { position: relative; }
         .timeline-line { position: absolute; left: 27px; bottom: -12px; width: 2px; height: 12px; background: #1e293b; z-index: 0; }
 
-        .timeline-card { background: #111827; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; position: relative; z-index: 1; transition: border-color 0.2s; }
+        .timeline-card { background: #070710; border: 1px solid #1e293b; border-radius: 12px; overflow: hidden; position: relative; z-index: 1; transition: border-color 0.2s; }
         .timeline-card.open { border-color: var(--border-color); }
 
         .card-trigger { width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; padding: 13px 14px; display: flex; align-items: center; gap: 10px; }
@@ -282,24 +318,24 @@
         .why-text { font-size: 11px; color: #94a3b8; line-height: 1.6; }
 
         .item-list { display: flex; flex-direction: column; gap: 8px; }
-        .sub-product-card { background: #1a2035; border: 1px solid #1e293b; border-radius: 9px; padding: 10px 12px; }
+        .sub-product-card { background: #0c0c1e; border: 1px solid #1e293b; border-radius: 9px; padding: 10px 12px; }
         .sub-product-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
         .sub-product-title { display: flex; align-items: center; gap: 6px; flex: 1; font-size: 12px; font-weight: 700; color: #e2e8f0; }
         .prio-badge { font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 8px; white-space: nowrap; }
-        .info-trigger-btn { font-size: 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #60a5fa; padding: 2px 7px; cursor: pointer; white-space: nowrap; }
+        .info-trigger-btn { font-size: 10px; background: #04040d; border: 1px solid #334155; border-radius: 6px; color: #60a5fa; padding: 2px 7px; cursor: pointer; white-space: nowrap; }
         .sub-product-note { font-size: 11px; color: #a78bfa; background: #1e1b4b; border-radius: 6px; padding: 5px 8px; margin-top: 4px; line-height: 1.5; }
 
         /* DATABASE VIEWS & FILTERS */
         .db-search-box { position: relative; margin-bottom: 10px; }
         .db-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #475569; }
-        .db-input { width: 100%; padding: 10px 14px 10px 36px; background: #1e293b; border: 1px solid #334155; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
+        .db-input { width: 100%; padding: 10px 14px 10px 36px; background: #05050f; border: 1px solid #1a1a30; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
         .db-categories { overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; display: flex; gap: 6px; }
         .cat-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; background: transparent; border: 1px solid #334155; color: #94a3b8; cursor: pointer; white-space: nowrap; }
         .cat-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
         .db-counter { font-size: 11px; color: #475569; margin-bottom: 10px; }
 
         /* DATABASE CARDS */
-        .db-card { background: #111827; border: 1px solid #1e293b; border-radius: 11px; overflow: hidden; transition: border-color 0.15s; margin-bottom: 7px; }
+        .db-card { background: #070710; border: 1px solid #1e293b; border-radius: 11px; overflow: hidden; transition: border-color 0.15s; margin-bottom: 7px; }
         .db-card.open { border-color: #7c3aed; }
         .db-card-trigger { width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
         .db-card-icon { font-size: 18px; min-width: 24px; }
@@ -311,14 +347,14 @@
         .db-card-content { display: none; padding: 0 14px 14px; border-top: 1px solid #1e293b; }
 
         /* MACROS & DETAILS ROW */
-        .macros-box { background: #0f172a; border-radius: 8px; padding: 9px 11px; margin: 10px 0; display: flex; gap: 12px; flex-wrap: wrap; }
+        .macros-box { background: #04040d; border-radius: 8px; padding: 9px 11px; margin: 10px 0; display: flex; gap: 12px; flex-wrap: wrap; }
         .macros-title { font-size: 10px; color: #475569; font-weight: 700; width: 100%; margin-bottom: 2px; }
         .macro-p { font-size: 12px; color: #4ade80; }
         .macro-c { font-size: 12px; color: #fb923c; }
         .macro-f { font-size: 12px; color: #facc15; }
         .macro-k { font-size: 12px; color: #94a3b8; }
 
-        .info-row { background: #0f172a; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
+        .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
         .info-row-val { font-size: 12px; color: #cbd5e1; line-height: 1.6; }
 
@@ -327,7 +363,7 @@
 
         /* FOOD VIEW STYLING */
         .food-container {
-            background: #111827;
+            background: #070710;
             border: 1px solid #1e293b;
             border-radius: 12px;
             padding: 20px;
@@ -386,7 +422,7 @@
 
         .atlas-detail-box {
             width: 100%;
-            background: #111827;
+            background: #070710;
             border: 1px solid #1e293b;
             border-radius: 14px;
             padding: 18px 16px;
@@ -422,7 +458,7 @@
 
         .deficiency-list { display: flex; flex-direction: column; gap: 8px; }
         .deficiency-card {
-            background: #0f172a;
+            background: #04040d;
             border-radius: 10px;
             border-left: 3px solid var(--def-color);
             padding: 10px 12px;
@@ -468,11 +504,11 @@
         .sport-wrap { display:flex; flex-direction:column; gap:10px; }
         .sport-mode-bar { display:flex; gap:6px; }
         .sport-mode-btn { flex:1; padding:10px 4px; font-size:11px; font-weight:700; border-radius:9px;
-            background:#111827; border:1px solid #1e293b; color:#94a3b8; cursor:pointer; transition:0.2s; }
+            background:#070710; border:1px solid #1e293b; color:#94a3b8; cursor:pointer; transition:0.2s; }
         .sport-mode-btn.active { background:#7c3aed; border-color:#a78bfa; color:#fff; }
         .sport-plan-box { display:none; flex-direction:column; gap:8px; }
         .sport-plan-box.active { display:flex; }
-        .sport-info-card { background:#111827; border:1px solid #1e293b; border-radius:12px; overflow:hidden; }
+        .sport-info-card { background:#070710; border:1px solid #1e293b; border-radius:12px; overflow:hidden; }
         .sport-info-trigger { width:100%; text-align:left; background:transparent; border:none; cursor:pointer;
             padding:13px 14px; display:flex; align-items:center; gap:10px; }
         .sport-info-icon { font-size:20px; min-width:28px; }
@@ -482,7 +518,7 @@
         .sport-info-content { display:none; padding:0 14px 14px; border-top:1px solid #1e293b33; }
         .sport-tag { display:inline-block; font-size:9px; font-weight:700; padding:2px 7px;
             border-radius:8px; margin-right:4px; margin-bottom:4px; }
-        .sport-row { background:#0f172a; border-radius:8px; padding:9px 11px; margin-top:8px;
+        .sport-row { background:#04040d; border-radius:8px; padding:9px 11px; margin-top:8px;
             border-left:3px solid var(--sc); }
         .sport-row-title { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
             color:var(--sc); margin-bottom:3px; }
@@ -513,12 +549,12 @@
 
         /* NAHRUNG – Vitamin/Mineral cards */
         .nutr-search-box { position: relative; margin-bottom: 10px; }
-        .nutr-input { width: 100%; padding: 10px 14px; background: #1e293b; border: 1px solid #334155; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
+        .nutr-input { width: 100%; padding: 10px 14px; background: #05050f; border: 1px solid #1a1a30; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
         .nutr-cats { overflow-x: auto; margin-bottom: 10px; padding-bottom: 4px; display: flex; gap: 6px; }
         .nutr-cat-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; background: transparent; border: 1px solid #334155; color: #94a3b8; cursor: pointer; white-space: nowrap; }
         .nutr-cat-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
 
-        .nutr-card { background: #111827; border: 1px solid #1e293b; border-radius: 11px; overflow: hidden; margin-bottom: 7px; transition: border-color 0.15s; }
+        .nutr-card { background: #070710; border: 1px solid #1e293b; border-radius: 11px; overflow: hidden; margin-bottom: 7px; transition: border-color 0.15s; }
         .nutr-card.open { border-color: #7c3aed; }
         .nutr-trigger { width: 100%; text-align: left; background: transparent; border: none; cursor: pointer; padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
         .nutr-icon { font-size: 20px; min-width: 28px; }
@@ -530,12 +566,12 @@
 
         .nutr-content { display: none; padding: 0 14px 14px; border-top: 1px solid #1e293b33; }
 
-        .nutr-row { background: #0f172a; border-radius: 8px; padding: 9px 11px; margin-top: 8px; border-left: 3px solid var(--nr-color); }
+        .nutr-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-top: 8px; border-left: 3px solid var(--nr-color); }
         .nutr-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--nr-color); margin-bottom: 3px; }
         .nutr-row-val { font-size: 11px; color: #cbd5e1; line-height: 1.6; }
 
         .dose-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .dose-box { flex: 1; min-width: 100px; background: #1a2035; border-radius: 8px; padding: 8px 10px; text-align: center; }
+        .dose-box { flex: 1; min-width: 100px; background: #0c0c1e; border-radius: 8px; padding: 8px 10px; text-align: center; }
         .dose-box-label { font-size: 9px; color: #475569; text-transform: uppercase; letter-spacing: 0.06em; }
         .dose-box-val { font-size: 14px; font-weight: 800; margin-top: 2px; }
         .dose-ok { color: #4ade80; }
@@ -543,8 +579,8 @@
         .dose-toxic { color: #ef4444; }
 
         /* OVERLAY DIALOG */
-        .overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.8); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
-        .overlay-sheet { background: #111827; border-radius: 18px 18px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 700px; max-height: 80vh; overflow-y: auto; }
+        .overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.93); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
+        .overlay-sheet { background: linear-gradient(145deg, #0d0d1e 0%, #07070f 100%); border: 1px solid #1a1a3a; border-bottom: none; border-radius: 20px 20px 0 0; padding: 20px 18px 40px; width: 100%; max-width: 700px; max-height: 80vh; overflow-y: auto; }
         .overlay-handle { width: 36px; height: 4px; background: #334155; border-radius: 2px; margin: 0 auto 16px; }
         .overlay-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
         .overlay-icon { font-size: 26px; }
@@ -556,15 +592,20 @@
 
     <div id="setupScreen">
         <div class="setup-card">
+            <span class="setup-logo">⚗️</span>
             <div class="setup-title">SILBERLOCKE</div>
-            <div class="setup-desc">Gib deine Aufwachzeit und Schlafenszeit an, um deinen Tagesplan und die Proteinsynthese-Phasen perfekt darauf abzutakten.</div>
-            <div class="form-group">
-                <label for="wakeTimeInput">Wann wachst du auf?</label>
-                <input type="time" id="wakeTimeInput" class="time-input" value="07:00">
-            </div>
-            <div class="form-group">
-                <label for="sleepTimeInput">Wann gehst du schlafen?</label>
-                <input type="time" id="sleepTimeInput" class="time-input" value="23:00">
+            <div class="setup-subtitle">Supplement &amp; Lifestyle System</div>
+            <div class="setup-desc">Gib deine Schlafzeiten ein – alle Supplement-Fenster und der Tagesplan werden exakt darauf getaktet.</div>
+            <div class="setup-time-grid">
+                <div class="form-group">
+                    <label for="wakeTimeInput">&#9728; Aufwachzeit</label>
+                    <input type="time" id="wakeTimeInput" class="time-input" value="07:00">
+                </div>
+                <div class="setup-arrow">&#8594;</div>
+                <div class="form-group">
+                    <label for="sleepTimeInput">&#9790; Schlafenszeit</label>
+                    <input type="time" id="sleepTimeInput" class="time-input" value="23:00">
+                </div>
             </div>
             <button class="start-btn" onclick="startApp()">Plan generieren</button>
         </div>
@@ -681,7 +722,7 @@
                         <defs>
                           <radialGradient id="bodyGrad" cx="50%" cy="50%" r="50%">
                             <stop offset="0%" style="stop-color:#1e293b"/>
-                            <stop offset="100%" style="stop-color:#0f172a"/>
+                            <stop offset="100%" style="stop-color:#04040d"/>
                           </radialGradient>
                         </defs>
 
@@ -1426,7 +1467,7 @@
 
                 const daysHtml = plan.days.map((day, di) => {
                     const exHtml = day.exercises.map((ex, ei) => `
-                        <div style="background:#0f172a; border-radius:8px; padding:9px 11px; margin-bottom:6px; border-left:3px solid ${plan.color};">
+                        <div style="background:#04040d; border-radius:8px; padding:9px 11px; margin-bottom:6px; border-left:3px solid ${plan.color};">
                             <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
                                 <div style="font-size:12px; font-weight:700; color:#e2e8f0;">${ex.name}</div>
                                 <div style="display:flex; gap:4px; flex-shrink:0;">
