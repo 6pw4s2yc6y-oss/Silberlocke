@@ -436,6 +436,10 @@
         .daily-nrv-norms { display: flex; gap: 5px; margin-top: 5px; font-size: 9px; color: #334155; flex-wrap: wrap; align-items: center; }
         .daily-nrv-norms-val { color: #60a5fa; }
         .daily-nrv-norms-sep { color: #1e3a5f; }
+        .nutr-opt-sources { margin-top: 5px; border-top: 1px solid #0f1e2e; padding-top: 4px; }
+        .nutr-opt-source { display: flex; justify-content: space-between; align-items: baseline; padding: 2px 0; }
+        .nutr-opt-prod { font-size: 9px; color: #475569; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 72%; }
+        .nutr-opt-amt { font-size: 9px; color: #60a5fa; font-weight: 600; white-space: nowrap; }
 
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
@@ -1962,7 +1966,10 @@
         function buildDailyNutrientsBox() {
             const allPids = new Set();
             TIMELINE_CONFIG.forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
-            const products = [...allPids].map(pid => getProductById(pid)).filter(Boolean);
+            const products = [...allPids]
+                .filter(pid => !(PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout'))
+                .map(pid => getProductById(pid))
+                .filter(Boolean);
 
             let totalProtein = 0, totalCarbs = 0, totalFat = 0, totalKcal = 0;
             products.forEach(p => {
@@ -1974,16 +1981,20 @@
 
             const nrvMap = {};
             const nonNrvMap = {};
+            const nonNrvOptMap = {};
 
             products.forEach(p => {
                 if (!p.nutrients) return;
                 p.nutrients.forEach(n => {
                     if (n.label.startsWith('—')) return;
                     if (n.nrv !== null) {
-                        if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, amount: n.amount };
+                        if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, sources: [] };
                         nrvMap[n.label].totalNrv += n.nrv;
+                        nrvMap[n.label].sources.push({ name: p.name, amount: n.amount, nrv: n.nrv });
                     } else {
                         if (!nonNrvMap[n.label]) nonNrvMap[n.label] = n.amount;
+                        if (!nonNrvOptMap[n.label]) nonNrvOptMap[n.label] = [];
+                        nonNrvOptMap[n.label].push(p.name);
                     }
                 });
             });
@@ -2041,6 +2052,63 @@
                 '</div>';
             }).join('');
 
+            const nrvOptHtml = nrvEntries.map(([label, data]) => {
+                const pct = data.totalNrv;
+                const norm = NUTRIENT_NORMS[label];
+                const sourcesHtml = '<div class="nutr-opt-sources">' +
+                    data.sources.map(s => '<div class="nutr-opt-source"><span class="nutr-opt-prod">' + s.name + '</span><span class="nutr-opt-amt">' + s.amount + '</span></div>').join('') +
+                '</div>';
+                if (!norm) {
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const barColor = pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    return '<div class="daily-nrv-row">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                            '<span class="daily-nrv-name">' + label + '</span>' +
+                            '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + pct + '% NRV</span>' +
+                        '</div>' +
+                        '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                        sourcesHtml +
+                    '</div>';
+                }
+                const consumed = (pct / 100) * norm.v;
+                const consumedStr = (consumed >= 1000 ? Math.round(consumed) : consumed.toFixed(1)) + ' ' + norm.u;
+                const allMin = Math.min(norm.v, norm.dach_min, norm.usa_min);
+                const allMax = Math.max(norm.v, norm.dach_max, norm.usa_max);
+                const scaleVal = Math.max(allMax * 1.5, consumed > 0 ? consumed * 1.1 : norm.v * 3, norm.v * 3);
+                const fillPct = Math.min(consumed / scaleVal * 100, 100);
+                const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
+                const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
+                let fillColor, valColor;
+                if (norm.ul && consumed >= norm.ul) { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
+                else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
+                const sepColor = consumed >= allMax ? '#dc2626' : '#22c55e';
+                let markers = '';
+                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
+                if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
+                const normsHtml = '<div class="daily-nrv-norms">' +
+                    '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>D-A-CH: <span class="daily-nrv-norms-val">' + norm.dach + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
+                    (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
+                    '</div>';
+                return '<div class="daily-nrv-row">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                        '<span class="daily-nrv-name">' + label + '</span>' +
+                        '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
+                    '</div>' +
+                    '<div class="daily-nrv-track">' +
+                        '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        markers +
+                    '</div>' +
+                    normsHtml +
+                    sourcesHtml +
+                '</div>';
+            }).join('');
+
             const nonNrvEntries = Object.entries(nonNrvMap);
             const nonNrvHtml = nonNrvEntries.map(([label, amount]) =>
                 '<div class="daily-nonrv-row"><span class="daily-nonrv-lbl">' + label + '</span><span class="daily-nonrv-val">' + amount + '</span></div>'
@@ -2067,6 +2135,37 @@
                     '</div>' +
                     '<div id="daily-nonrv-body">' +
                         nonNrvHtml +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nonNrvOptEntries = Object.entries(nonNrvOptMap);
+            const nonNrvOptSection = nonNrvOptEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nonrv-opt-body\',\'daily-nonrv-opt-arrow\')">'+
+                        '<span>Wirkstoffe &amp; Extrakte (kein EU-NRV)</span>' +
+                        '<span id="daily-nonrv-opt-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nonrv-opt-body" style="display:none;">' +
+                        nonNrvOptEntries.map(([label, names]) =>
+                            '<div class="daily-nonrv-row" style="flex-direction:column;align-items:flex-start;gap:2px;">' +
+                                '<span class="daily-nonrv-lbl">' + label + '</span>' +
+                                '<span style="font-size:9px;color:#475569;font-style:italic;">' + names.join(', ') + '</span>' +
+                            '</div>'
+                        ).join('') +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nrvOptSection = nrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nrv-opt-body\',\'daily-nrv-opt-arrow\')">'+
+                        '<span>Mikronährstoffe &mdash; Ist-Zufuhr + 3 Referenzwerte</span>' +
+                        '<span id="daily-nrv-opt-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nrv-opt-body" style="display:none;">' +
+                        nrvOptHtml +
+                        '<div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Supplement-only · EU Nr. 1169/2011 · D-A-CH 2020 · USA NIH/HMD</div>' +
                     '</div>' +
                 '</div>'
             ) : '';
@@ -2105,6 +2204,21 @@
                     </div>
                     ${nrvSection}
                     ${nonNrvSection}
+                </div>
+            </div>
+            <div class="daily-nutr-box" style="margin-top:8px;">
+                <div class="daily-nutr-header" onclick="toggleDailySection('daily-opt-content','daily-opt-arrow')" style="cursor:pointer;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <div class="daily-nutr-title">Nährwerte optimieren</div>
+                            <div class="daily-nutr-subtitle">Welches Produkt liefert welchen Nährwert</div>
+                        </div>
+                        <span id="daily-opt-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▼</span>
+                    </div>
+                </div>
+                <div id="daily-opt-content" style="display:none;">
+                    ${nrvOptSection}
+                    ${nonNrvOptSection}
                 </div>
             </div>`;
         }
