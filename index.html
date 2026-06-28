@@ -392,6 +392,8 @@
         .micro-table td:first-child { color: #94a3b8; }
         .micro-table td:last-child { text-align: right; font-weight: 600; color: #e2e8f0; white-space: nowrap; }
         .micro-nrv { color: #4ade80; font-size: 10px; font-weight: 700; margin-left: 4px; }
+        .micro-sub td:first-child { padding-left: 12px; color: #64748b; font-size: 10px; }
+        .micro-sub td:last-child { color: #94a3b8; font-size: 10px; font-weight: 500; }
 
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
@@ -1132,7 +1134,31 @@
           { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",                      icon:"🔬", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstützung, Nährstoffaufnahme, Blähungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ ProBio-TECT",                        icon:"🦠", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Magensäureresistente Kapseln – Bakterien erreichen Darm lebend", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung", takeWith:"Morgens nüchtern. Nicht mit heißen Getränken. Mit Ballaststoffen.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Rücksprache.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Nährstoff Optimizer",                icon:"🔑", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme -> mehr Nährstoffe ins Blut", function:"Bioverfügbarkeit aller Nährstoffe +20–40%, Entzündungshemmung", takeWith:"Zu Supplement-Mahlzeiten. Curcumin +2000%, Q10, Vitamine.", competes:"WICHTIG: Erhöht auch Medikamentenspiegel (hemmt CYP3A4)! Bei jeder Rx-Medikation kritisch.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
-          { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",                icon:"✨", serving:"~30g",  protein:26, carbs:0,  fat:0,  kcal:104, absorption:"Hydrolysierte Peptide (FORTIGEL®, TENDOFORTE®, BODYBALANCE®, VERISOL®) bis zu 90% bioverfügbar", function:"Haut, Haare, Nägel, Knorpel, Gelenke, Darm, Knochen, Sehnen. Enthält 4 patentierte Kollagen-Typen + Acerola-Vitamin C + Zink + Mangan + Kupfer.", takeWith:"Morgens nüchtern. Vit C BEREITS IM PRODUKT ENTHALTEN (Acerolafruchtpulver) – kein externes Vit C nötig! L-Glycin ergänzt optimal.", competes:"Kein vollständiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle.", geschmack:"Neutral / Leicht süßlich (Pulver) – fast geschmacksneutral. Auch Kirsche erhältlich.", loeslichkeit:"Sehr gut – klar löslich in kaltem oder heißem Wasser (300 ml)" },
+          { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",                icon:"✨", serving:"30g",    protein:27, carbs:0,  fat:0,  kcal:108, absorption:"Hydrolysierte Peptide (FORTIGEL®, TENDOFORTE®, BODYBALANCE®, VERISOL®) bis zu 90% bioverfügbar", function:"Haut, Haare, Nägel, Knorpel, Gelenke, Darm, Knochen, Sehnen. Enthält 4 patentierte Kollagen-Typen + Acerola-Vitamin C (50 mg, 63% NRV) + Zink (30% NRV) + Mangan (50% NRV) + Kupfer (50% NRV) + Bambusblattextrakt (53,6 mg Kieselsäure).", takeWith:"Morgens nüchtern oder VOR dem Essen. Vit C BEREITS IM PRODUKT (Acerolafruchtpulver) – kein externes Vit C nötig! 300 ml kaltes Wasser.", competes:"Kein vollständiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle. Zink (30% NRV) – mit p24 (Zink abends) auf Gesamtzufuhr achten.", geschmack:"Neutral / Leicht süßlich (Pulver) – fast geschmacksneutral. Auch Kirsche erhältlich.", loeslichkeit:"Sehr gut – klar löslich in kaltem Wasser (300 ml), 4 gestrichene Messlöffel",
+  ingredients:"Kollagenhydrolysat (Rind) [BODYBALANCE® 50,0%, FORTIGEL® 16,7%, TENDOFORTE® 16,7%, VERISOL® 8,33%], Acerolafruchtpulver, Bambusblattextrakt, Zinkbisglycinat, Mangangluconat, Kupfer(II)-gluconat.",
+  nutrients:[
+    { label:"Brennwert",             amount:"459 kJ / 108 kcal", nrv:null },
+    { label:"Fett",                  amount:"<0,5 g",            nrv:null },
+    { label:"— ges. Fettsäuren",    amount:"0,0 g",             nrv:null },
+    { label:"Kohlenhydrate",         amount:"<0,5 g",            nrv:null },
+    { label:"— Zucker",             amount:"<0,5 g",            nrv:null },
+    { label:"Ballaststoffe",         amount:"<0,5 g",            nrv:null },
+    { label:"Eiweiß",               amount:"27,0 g",            nrv:null },
+    { label:"Salz",                  amount:"0,15 g",            nrv:null },
+    { label:"Zink",                  amount:"3,0 mg",            nrv:30 },
+    { label:"Kupfer",                amount:"0,5 mg",            nrv:50 },
+    { label:"Mangan",                amount:"1,0 mg",            nrv:50 },
+    { label:"Kollagenhydrolysat",    amount:"29,6 g",            nrv:null },
+    { label:"— BODYBALANCE®",       amount:"16,2 g",            nrv:null },
+    { label:"— FORTIGEL®",          amount:"5,4 g",             nrv:null },
+    { label:"— TENDOFORTE®",        amount:"5,4 g",             nrv:null },
+    { label:"— VERISOL®",           amount:"2,7 g",             nrv:null },
+    { label:"Acerolafruchtpulver",   amount:"294,0 mg",          nrv:null },
+    { label:"— Vitamin C",          amount:"50,0 mg",           nrv:63 },
+    { label:"Bambusblattextrakt",    amount:"71,4 mg",           nrv:null },
+    { label:"— Kieselsäure",       amount:"53,6 mg",           nrv:null },
+    { label:"— Silicium",           amount:"24,6 mg",           nrv:null }
+] },
           { id:"p39", cat:"Kollagen & Gelenke",name:"ZEC+ Arthro Essential",                      icon:"🦵", serving:"5 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Glucosaminsulfat oral ~30%; MSM gut bioverfügbar; Wirkung erst nach 4–8+ Wochen sichtbar", function:"Knorpelschutz/-aufbau, Gelenkschmierung & -schutz (Glucosamin + Chondroitin + MSM), Entzündungshemmung (Weihrauch, Ingwer, Brennnessel), Schmerzreduktion (Katzenkralle), verbesserte Absorption (Piperin)", takeWith:"Mit Mahlzeiten. Mind. 3 Monate durchgehend einnehmen für echten Knorpel-Effekt.", competes:"Glucosamin kann Blutzucker leicht erhöhen (Diabetiker aufpassen). Chondroitin & Katzenkralle leicht blutdünnend. Piperin erhöht Medikamentenspiegel – Rx-Medi beachten!", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p40", cat:"Schlaf & Erholung", name:"ZEC+ Sleep",                                 icon:"🌙", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Schnell – Melatonin wirkt in 20–30 min", function:"Einschlafförderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschüttung", takeWith:"30 min vor Schlaf. Mit ZEC+ Casein für nächtliche Muskelversorgung.", competes:"Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg).", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p41", cat:"Schlaf & Erholung", name:"ZEC+ Schatten der Liebe",                    icon:"🌸", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – pflanzliche Extrakte variieren; L-Citrullin schnell (30–60 min)", function:"Libido & Potenz (L-Citrullin → NO-Boost & Durchblutung), Testosteron & Energie (Bockshornklee), Energie & Ausdauer (Maca-Extrakt), Entzündungshemmung (Ingwer-Extrakt)", takeWith:"Abends mit Abendessen oder 1–2h vor dem Schlafengehen. Mit p32 (Maca) kombinierbar, aber Doppeldosis beachten!", competes:"WICHTIG: Enthält L-Citrullin – Dosis beachten wenn p14 (Citrullin Malat) am gleichen Tag! Enthält Maca – bei Kombinat. mit p32 Doppeldosis. Nicht mit PDE5-Hemmern (Viagra). Vorsicht bei Herzproblemen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
@@ -1471,7 +1497,8 @@
                     { icon:"", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
                     { icon:"", label:"Womit konkurriert", val:p.competes, col:"#f97316" },
                     { icon:"", label:"Geschmack", val:p.geschmack, col:"#f472b6" },
-                    { icon:"", label:"Löslichkeit", val:p.loeslichkeit, col:"#38bdf8" }
+                    { icon:"", label:"Löslichkeit", val:p.loeslichkeit, col:"#38bdf8" },
+                    ...(p.ingredients ? [{ icon:"", label:"Zutaten", val:p.ingredients, col:"#64748b" }] : [])
                 ];
 
                 const detailsRowsHtml = rows.map(r => `
@@ -1505,9 +1532,10 @@
             if (!p.nutrients || p.nutrients.length === 0) return '';
             return `<div class="micro-box">
                 <div class="macros-title">MIKRONÄHRSTOFFE PRO PORTION (${p.serving})</div>
-                <table class="micro-table">${p.nutrients.map(n =>
-                    `<tr><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`
-                ).join('')}</table>
+                <table class="micro-table">${p.nutrients.map(n => {
+                    const isSub = n.label.startsWith('—');
+                    return `<tr class="${isSub ? 'micro-sub' : ''}"><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`;
+                }).join('')}</table>
             </div>`;
         }
 
