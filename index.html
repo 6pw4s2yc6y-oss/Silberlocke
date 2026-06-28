@@ -178,14 +178,27 @@
             margin-bottom: 16px;
         }
 
+        .brand-sub-wrap {
+            cursor: pointer;
+            display: inline-block;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
         .brand-sub {
             font-size: 20px;
             letter-spacing: 0.15em;
-            background: linear-gradient(90deg, #a78bfa, #60a5fa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             font-weight: 900;
             text-transform: uppercase;
+            display: inline-block;
+        }
+        .brand-sub span {
+            -webkit-text-fill-color: initial;
+        }
+        .brand-about {
+            font-size: 9px;
+            color: #f97316;
+            letter-spacing: 0.08em;
+            margin-top: -2px;
         }
 
         .header-time-info {
@@ -630,8 +643,9 @@
         <header>
             <div class="max-container">
                 <div class="header-top">
-                    <div>
-                        <div class="brand-sub">SILBERLOCKE</div>
+                    <div class="brand-sub-wrap" onclick="showAboutMe()">
+                        <div class="brand-sub"><span style="color:#a855f7">S</span><span style="color:#7c3aed">I</span><span style="color:#4f46e5">L</span><span style="color:#2563eb">B</span><span style="color:#0891b2">E</span><span style="color:#059669">R</span><span style="color:#65a30d">L</span><span style="color:#ca8a04">O</span><span style="color:#ea580c">C</span><span style="color:#dc2626">K</span><span style="color:#db2777">E</span></div>
+                        <div class="brand-about">about me</div>
                     </div>
                     <div class="header-time-info">
                         Aufwachen: <span id="displayWakeTime">07:00</span> | Schlafen: <span id="displaySleepTime">23:00</span>
@@ -1010,6 +1024,33 @@
                         <div class="atlas-placeholder">
                             <span class="atlas-placeholder-icon">&#128073;</span>
                             <span>Zone am Körper antippen</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ABOUT ME PAGE -->
+            <div class="view-section" id="viewAboutMe" style="display:none; flex-direction:column; align-items:center; padding: 20px 0; gap:16px;">
+                <div style="width:100%; max-width:400px; padding:0 16px;">
+                    <button onclick="hideAboutMe()" style="background:none; border:none; color:#a78bfa; font-size:13px; cursor:pointer; padding:0; margin-bottom:12px;">&#8592; Zurück</button>
+                    <div style="text-align:center; margin-bottom:20px;">
+                        <div style="font-size:28px; font-weight:900; letter-spacing:0.2em; margin-bottom:4px;">
+                            <span style="color:#a855f7">S</span><span style="color:#7c3aed">I</span><span style="color:#4f46e5">L</span><span style="color:#2563eb">B</span><span style="color:#0891b2">E</span><span style="color:#059669">R</span><span style="color:#65a30d">L</span><span style="color:#ca8a04">O</span><span style="color:#ea580c">C</span><span style="color:#dc2626">K</span><span style="color:#db2777">E</span>
+                        </div>
+                        <div style="font-size:11px; color:#f97316; letter-spacing:0.1em;">about me</div>
+                    </div>
+                    <div style="background:#1e293b; border-radius:16px; padding:20px; border:1px solid #334155;">
+                        <div style="font-size:14px; color:#e2e8f0; line-height:1.7;">
+                            Dieses System wurde für persönliche Gesundheit, Leistung und Wohlbefinden entwickelt. Es kombiniert Supplementierung, Ernährung, Sport und Körperanalyse in einer übersichtlichen App.
+                        </div>
+                    </div>
+                    <div style="background:#0f172a; border-radius:12px; padding:16px; border:1px solid #1e293b; margin-top:12px;">
+                        <div style="font-size:11px; color:#f97316; font-weight:700; margin-bottom:8px; letter-spacing:0.05em;">FOCUS</div>
+                        <div style="display:flex; flex-direction:column; gap:8px;">
+                            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1;">&#128200; Supplement & Lifestyle Optimierung</div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1;">&#129458; Ernährungsanalyse & Vitamine</div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1;">&#127947; Trainingssteuerung</div>
+                            <div style="display:flex; align-items:center; gap:10px; font-size:12px; color:#cbd5e1;">&#129504; Körperatlas & Mängeldiagnose</div>
                         </div>
                     </div>
                 </div>
@@ -2274,6 +2315,23 @@
 
             // Scroll detail into view
             document.getElementById('atlasDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showAboutMe() {
+            document.getElementById('viewAboutMe').style.display = 'flex';
+            ["viewTimeline","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            ["tabTimeline","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            document.getElementById("timelinePanels").style.display = "none";
+        }
+        function hideAboutMe() {
+            document.getElementById('viewAboutMe').style.display = 'none';
+            document.getElementById("tabTimeline").classList.add("active");
+            document.getElementById("viewTimeline").classList.add("active");
+            document.getElementById("timelinePanels").style.display = "block";
         }
 
         function collapseBodyDisclaimer() {
