@@ -429,6 +429,9 @@
         .daily-nonrv-row:first-child { border-top: none; }
         .daily-nonrv-lbl { font-size: 11px; color: #94a3b8; }
         .daily-nonrv-val { font-size: 11px; color: #e2e8f0; font-weight: 600; }
+        .daily-nutr-section-toggle { cursor: pointer; display: flex; justify-content: space-between; align-items: center; user-select: none; }
+        .daily-nutr-section-toggle:hover > span:first-child { color: #60a5fa; }
+        .daily-nutr-section-arrow { font-size: 10px; color: #60a5fa; flex-shrink: 0; }
 
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
@@ -1891,6 +1894,62 @@
             }
         }
 
+        function toggleDailyNutrBox() {
+            const content = document.getElementById('daily-nutr-content');
+            const arrow = document.getElementById('daily-nutr-arrow');
+            const isHidden = content.style.display === 'none';
+            content.style.display = isHidden ? 'block' : 'none';
+            arrow.textContent = isHidden ? '▲' : '▼';
+        }
+        function toggleDailySection(contentId, arrowId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            const isHidden = content.style.display === 'none';
+            content.style.display = isHidden ? 'block' : 'none';
+            arrow.textContent = isHidden ? '▲' : '▼';
+        }
+
+        const EU_NRV = {
+            "Vitamin A":                    "800 µg",
+            "Vitamin D":                    "5 µg",
+            "Vitamin D3 (Cholecalciferol)": "5 µg",
+            "Vitamin E":                    "12 mg",
+            "Vitamin E (Tocopherol)":       "12 mg",
+            "Vitamin E (Alpha-Tocopherol)": "12 mg",
+            "Vitamin K":                    "75 µg",
+            "Vitamin K2 (Menachinon)":      "75 µg",
+            "Vitamin C":                    "80 mg",
+            "Thiamin (B1)":                 "1,1 mg",
+            "Thiamin":                      "1,1 mg",
+            "Riboflavin (B2)":              "1,4 mg",
+            "Riboflavin":                   "1,4 mg",
+            "Vitamin B2 – Riboflavin":      "1,4 mg",
+            "Niacin (B3)":                  "16 mg",
+            "Niacin":                       "16 mg",
+            "Pantothensäure (B5)":          "6 mg",
+            "Pantothensäure":               "6 mg",
+            "Vitamin B6":                   "1,4 mg",
+            "Folsäure (B9)":                "200 µg",
+            "Folsäure":                     "200 µg",
+            "Vitamin B9":                   "200 µg",
+            "Biotin (B7)":                  "50 µg",
+            "Biotin":                       "50 µg",
+            "Vitamin B12":                  "2,5 µg",
+            "Calcium":                      "800 mg",
+            "Chlorid":                      "800 mg",
+            "Chrom":                        "40 µg",
+            "Eisen":                        "14 mg",
+            "Jod":                          "150 µg",
+            "Kalium":                       "2.000 mg",
+            "Kupfer":                       "1 mg",
+            "Magnesium":                    "375 mg",
+            "Mangan":                       "2 mg",
+            "Molybdän":                     "50 µg",
+            "Phosphor":                     "700 mg",
+            "Selen":                        "55 µg",
+            "Zink":                         "10 mg"
+        };
+
         function buildDailyNutrientsBox() {
             const allPids = new Set();
             TIMELINE_CONFIG.forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
@@ -1929,55 +1988,81 @@
                 else if (pct >= 100){ barColor = '#22c55e'; pctColor = '#4ade80'; }
                 else if (pct >= 50) { barColor = '#f97316'; pctColor = '#fb923c'; }
                 else                { barColor = '#ef4444'; pctColor = '#f87171'; }
-                return `<div class="daily-nrv-row">
-                    <div class="daily-nrv-label">
-                        <span class="daily-nrv-name">${label}</span>
-                        <span class="daily-nrv-pct" style="color:${pctColor}">${pct}% <span class="daily-nrv-soll">/ 100% Soll</span></span>
-                    </div>
-                    <div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:${fillPct.toFixed(1)}%;background:${barColor};"></div></div>
-                </div>`;
+                const sollRef = EU_NRV[label] ? 'Soll: ' + EU_NRV[label] : '100%';
+                return '<div class="daily-nrv-row">' +
+                    '<div class="daily-nrv-label">' +
+                        '<span class="daily-nrv-name">' + label + '</span>' +
+                        '<span class="daily-nrv-pct" style="color:' + pctColor + '">' + pct + '% <span class="daily-nrv-soll">/ ' + sollRef + '</span></span>' +
+                    '</div>' +
+                    '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                '</div>';
             }).join('');
 
             const nonNrvEntries = Object.entries(nonNrvMap);
             const nonNrvHtml = nonNrvEntries.map(([label, amount]) =>
-                `<div class="daily-nonrv-row"><span class="daily-nonrv-lbl">${label}</span><span class="daily-nonrv-val">${amount}</span></div>`
+                '<div class="daily-nonrv-row"><span class="daily-nonrv-lbl">' + label + '</span><span class="daily-nonrv-val">' + amount + '</span></div>'
             ).join('');
 
+            const nrvSection = nrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nrv-body\',\'daily-nrv-arrow\')">' +
+                        '<span>Mikronährstoffe mit EU-NRV &mdash; Ist vs. Soll</span>' +
+                        '<span id="daily-nrv-arrow" class="daily-nutr-section-arrow">▲</span>' +
+                    '</div>' +
+                    '<div id="daily-nrv-body">' +
+                        nrvHtml +
+                        '<div style="font-size:9px;color:#1e3a5f;margin-top:8px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011 &nbsp;·&nbsp; Balken skaliert bis 300%</div>' +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nonNrvSection = nonNrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nonrv-body\',\'daily-nonrv-arrow\')">' +
+                        '<span>Wirkstoffe &amp; Extrakte (kein EU-NRV)</span>' +
+                        '<span id="daily-nonrv-arrow" class="daily-nutr-section-arrow">▲</span>' +
+                    '</div>' +
+                    '<div id="daily-nonrv-body">' +
+                        nonNrvHtml +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
             return `<div class="daily-nutr-box">
-                <div class="daily-nutr-header">
-                    <div class="daily-nutr-title">Tages-Nährwertbilanz</div>
-                    <div class="daily-nutr-subtitle">Aus Supplementplan (ohne Mahlzeiten) · alle Timeline-Produkte</div>
-                </div>
-                <div class="daily-nutr-section">
-                    <div class="daily-nutr-section-title">Makronährstoffe aus Supplementen</div>
-                    <div class="daily-macro-grid">
-                        <div class="daily-macro-cell">
-                            <div class="daily-macro-val" style="color:#4ade80">${totalProtein.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
-                            <div class="daily-macro-lbl">Protein</div>
+                <div class="daily-nutr-header" onclick="toggleDailyNutrBox()" style="cursor:pointer;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <div class="daily-nutr-title">Tages-Nährwertbilanz</div>
+                            <div class="daily-nutr-subtitle">Aus Supplementplan (ohne Mahlzeiten) · alle Timeline-Produkte</div>
                         </div>
-                        <div class="daily-macro-cell">
-                            <div class="daily-macro-val" style="color:#fb923c">${totalCarbs.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
-                            <div class="daily-macro-lbl">Kohlenhydrate</div>
-                        </div>
-                        <div class="daily-macro-cell">
-                            <div class="daily-macro-val" style="color:#facc15">${totalFat.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
-                            <div class="daily-macro-lbl">Fett</div>
-                        </div>
-                        <div class="daily-macro-cell">
-                            <div class="daily-macro-val" style="color:#a78bfa">${Math.round(totalKcal)}<span style="font-size:10px;font-weight:400">kcal</span></div>
-                            <div class="daily-macro-lbl">Energie</div>
-                        </div>
+                        <span id="daily-nutr-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▲</span>
                     </div>
                 </div>
-                ${nrvEntries.length > 0 ? `<div class="daily-nutr-section">
-                    <div class="daily-nutr-section-title">Mikronährstoffe mit EU-NRV &mdash; Ist vs. 100% Soll</div>
-                    ${nrvHtml}
-                    <div style="font-size:9px;color:#1e3a5f;margin-top:8px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011 &nbsp;·&nbsp; Balken skaliert bis 300%</div>
-                </div>` : ''}
-                ${nonNrvEntries.length > 0 ? `<div class="daily-nutr-section">
-                    <div class="daily-nutr-section-title">Wirkstoffe &amp; Extrakte (kein EU-NRV)</div>
-                    ${nonNrvHtml}
-                </div>` : ''}
+                <div id="daily-nutr-content">
+                    <div class="daily-nutr-section">
+                        <div class="daily-nutr-section-title">Makronährstoffe aus Supplementen</div>
+                        <div class="daily-macro-grid">
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#4ade80">${totalProtein.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Protein</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#fb923c">${totalCarbs.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Kohlenhydrate</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#facc15">${totalFat.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Fett</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#a78bfa">${Math.round(totalKcal)}<span style="font-size:10px;font-weight:400">kcal</span></div>
+                                <div class="daily-macro-lbl">Energie</div>
+                            </div>
+                        </div>
+                    </div>
+                    ${nrvSection}
+                    ${nonNrvSection}
+                </div>
             </div>`;
         }
 
