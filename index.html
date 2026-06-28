@@ -266,8 +266,6 @@
             overflow: hidden;
         }
 
-        .panel-rules { background: #080101; border: 1px solid #7f1d1d; }
-        .panel-protein { background: #000a04; border: 1px solid #166534; }
 
         .panel-trigger {
             width: 100%;
@@ -320,6 +318,22 @@
         .protein-g { font-weight: 800; color: #34d399; font-size: 12px; }
 
         .protein-total { border-top: 1px solid #166534; margin-top: 8px; padding-top: 8px; display: flex; justify-content: space-between; font-weight: 700; color: #4ade80; font-size: 13px; }
+
+        /* MERGED GUIDE PANEL */
+        .panel-combined { background: #050510; border: 1px solid #312e6b; }
+        .combined-title { color: #a5b4fc; }
+        .combined-sub { font-size: 13px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+        .combined-divider { border: none; border-top: 1px solid #1e1b3a; margin: 16px 0; }
+
+        /* DAY-TYPE SELECTOR */
+        .daytype-bar { display: flex; gap: 6px; margin-top: 12px; margin-bottom: 2px; }
+        .daytype-btn { flex: 1; padding: 10px 4px; font-size: 11px; font-weight: 700; border-radius: 9px;
+            background: #070710; border: 1px solid #1e293b; color: #94a3b8; cursor: pointer; transition: 0.2s; white-space: nowrap; }
+        .daytype-btn.active { color: #fff; }
+        #dtTraining.active { background: #7c3aed; border-color: #a78bfa; }
+        #dtRest.active { background: #0369a1; border-color: #38bdf8; }
+        #dtCarb.active { background: #b45309; border-color: #fbbf24; }
+        .daytype-hint { font-size: 10px; color: #64748b; margin: 6px 2px 0; line-height: 1.5; }
 
         /* TIMELINE SECTIONS */
         .view-section { display: none; margin-top: 14px; }
@@ -740,22 +754,18 @@
         <div class="max-container">
             <div id="timelinePanels">
             <div class="top-panels-container">
-                <div class="panel panel-rules" id="panelRules">
-                    <button class="panel-trigger" onclick="toggleTopPanel('panelRules', 'rulesContent')">
-                        <div class="panel-title rules-title">Kritische Regeln – niemals brechen</div>
+                <div class="panel panel-combined" id="panelGuide">
+                    <button class="panel-trigger" onclick="toggleTopPanel('panelGuide', 'guideContent')">
+                        <div class="panel-title combined-title">Grundregeln & Proteinsynthese</div>
                         <span class="panel-arrow"></span>
                     </button>
-                    <div id="rulesContent" class="panel-content">
+                    <div id="guideContent" class="panel-content">
+                        <div class="combined-sub rules-title">Kritische Regeln – niemals brechen</div>
                         <div id="rulesList"></div>
-                    </div>
-                </div>
 
-                <div class="panel panel-protein" id="panelProtein">
-                    <button class="panel-trigger" onclick="toggleTopPanel('panelProtein', 'proteinContent')">
-                        <div class="panel-title protein-title">Proteinsynthese – Leucin-Trigger alle 3–4h!</div>
-                        <span class="panel-arrow"></span>
-                    </button>
-                    <div id="proteinContent" class="panel-content">
+                        <hr class="combined-divider">
+
+                        <div class="combined-sub protein-title">Proteinsynthese – Leucin-Trigger alle 3–4h!</div>
                         <p style="font-size: 11px; color: #6ee7b7; margin-bottom: 10px; line-height: 1.5;">
                             MPS-Fenster: ~3–4h nach Leucin-Trigger. Schwelle: mind. <strong>2–3g Leucin pro Dosis</strong> (Muscle Full Effect – ohne Leucin-Minimum keine maximale MPS-Stimulation!). Tagesgesamtmenge macht <strong>80–90%</strong> des Effekts aus – Timing nur ~10%. Ziel: <strong>1,6–2,2 g Protein pro kg Körpergewicht/Tag</strong>. Bei erhöhtem Körperfettanteil: <strong>ca. 2,5 g pro kg Lean Body Mass</strong> (fettfreier Masse) für akkuratere Berechnung..
                         </p>
@@ -766,6 +776,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="daytype-bar">
+                    <button class="daytype-btn active" id="dtTraining" onclick="selectDayType('training')">🏋️ Trainingstag</button>
+                    <button class="daytype-btn" id="dtRest" onclick="selectDayType('rest')">🛌 Trainingsfrei</button>
+                    <button class="daytype-btn" id="dtCarb" onclick="selectDayType('carb')">🍚 Carb-Loading</button>
+                </div>
+                <div class="daytype-hint" id="dayTypeHint"></div>
             </div>
             </div>
 
@@ -1850,6 +1867,7 @@
 
             // Alle Listen rendern
             initStaticPanels();
+            document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
             renderTimeline();
             initDatabaseView();
             initNutrView();
@@ -1968,7 +1986,7 @@
 
         function buildDailyNutrientsBox() {
             const allPids = new Set();
-            TIMELINE_CONFIG.forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
+            getActiveTimeline().forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
             const products = [...allPids]
                 .filter(pid => !(PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout'))
                 .map(pid => getProductById(pid))
@@ -2264,6 +2282,78 @@
             </div>`;
         }
 
+        // ── TAGESTYP (Trainingstag / Trainingsfrei / Carb-Loading) ──────────────────
+        let currentDayType = 'training';
+
+        // Pre-Workout Stim-/Pump-Booster – an trainingsfreien Tagen überflüssig
+        const BOOSTER_IDS = new Set(['p43','p44','p45','p46','p47']);
+        // Schnelle Post-Workout-Kohlenhydrate / Gainer – nur zur Glykogen-Auffüllung nach dem Training
+        const FASTCARB_IDS = new Set(['p8','p9']);
+        // Kohlenhydrat-Quellen für Carb-Loading (verfügbar, nicht ausverkauft)
+        const CARBLOAD_INJECT = { p9: "Maltodextrin", p12: "Instant Rice Pudding" };
+
+        const DAYTYPE_HINTS = {
+            training: "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
+            rest:     "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
+            carb:     "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation."
+        };
+
+        function selectDayType(type) {
+            currentDayType = type;
+            ['training','rest','carb'].forEach(t => {
+                const btn = document.getElementById('dt' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (btn) btn.classList.toggle('active', t === type);
+            });
+            const hint = document.getElementById('dayTypeHint');
+            if (hint) hint.innerHTML = DAYTYPE_HINTS[type] || '';
+            renderTimeline();
+        }
+
+        function getActiveTimeline() {
+            if (currentDayType === 'rest') return buildRestTimeline();
+            if (currentDayType === 'carb') return buildCarbTimeline();
+            return TIMELINE_CONFIG;
+        }
+
+        // Trainingsfreier Tag: Pre-Workout entfällt, Post-Workout ohne schnelle Carbs/Gainer
+        function buildRestTimeline() {
+            return TIMELINE_CONFIG
+                .filter(b => b.id !== 't4')
+                .map(b => {
+                    if (b.id !== 't6') return b;
+                    const productIds = b.productIds.filter(pid => !FASTCARB_IDS.has(pid));
+                    const notes = { ...b.notes };
+                    const priority = { ...b.priority };
+                    FASTCARB_IDS.forEach(pid => { delete notes[pid]; delete priority[pid]; });
+                    return {
+                        ...b,
+                        label: "Protein & Regeneration",
+                        why: ": WASSER: 400ml – 500ml.<br><br>Trainingsfreier Tag: <strong>Kein anaboles Fenster</strong> – Glykogenspeicher sind gefüllt, schnelle Kohlenhydrate (Maltodextrin/Gainer) entfallen. Protein bleibt wichtig (Leucin-Trigger alle 3–4h für MPS). Kreatin weiterhin täglich – kumulativ, Zeitpunkt egal.",
+                        productIds, notes, priority
+                    };
+                });
+        }
+
+        // Carb-Loading: Trainingsplan + Carbs zu Frühstück, Mittag- & Abendessen
+        function buildCarbTimeline() {
+            const carbMeals = new Set(['t2','t7','t9']);
+            return TIMELINE_CONFIG.map(b => {
+                if (!carbMeals.has(b.id)) return b;
+                const productIds = [...b.productIds];
+                const notes = { ...b.notes };
+                const priority = { ...b.priority };
+                Object.keys(CARBLOAD_INJECT).forEach(pid => {
+                    if (PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout') return;
+                    if (!productIds.includes(pid)) {
+                        productIds.push(pid);
+                        notes[pid] = "CARB-LOADING: Extra-Kohlenhydrate zur Glykogen-Superkompensation. In Wasser/Milch einrühren – über den Tag verteilt 8–10 g Carbs/kg KG anpeilen.";
+                        priority[pid] = "WICHTIG";
+                    }
+                });
+                return { ...b, productIds, notes, priority };
+            });
+        }
+
         function renderTimeline() {
             const container = document.getElementById("viewTimeline");
 
@@ -2284,7 +2374,7 @@
                 const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
                 return `${fmt(s)} – ${fmt(e)}`;
             }
-            const sortedBlocks = [...TIMELINE_CONFIG]
+            const sortedBlocks = [...getActiveTimeline()]
                 .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
                 .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
 
