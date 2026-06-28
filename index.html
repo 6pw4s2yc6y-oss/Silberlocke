@@ -754,7 +754,7 @@
                     </button>
                     <div id="proteinContent" class="panel-content">
                         <p style="font-size: 11px; color: #6ee7b7; margin-bottom: 10px; line-height: 1.5;">
-                            MPS-Fenster: ~3–4h nach Leucin-Trigger. Schwelle: mind. <strong>2–3g Leucin pro Dosis</strong> (Muscle Full Effect – ohne Leucin-Minimum kein MPS-Signal!). Tagesgesamtmenge macht <strong>80–90%</strong> des Effekts aus – Timing nur ~10%. Ziel: <strong>1,6–2,2 g Protein pro kg Körpergewicht/Tag</strong> (individuelle Lean Body Mass entscheidet – nicht starre Absolutzahl!).
+                            MPS-Fenster: ~3–4h nach Leucin-Trigger. Schwelle: mind. <strong>2–3g Leucin pro Dosis</strong> (Muscle Full Effect – ohne Leucin-Minimum keine maximale MPS-Stimulation!). Tagesgesamtmenge macht <strong>80–90%</strong> des Effekts aus – Timing nur ~10%. Ziel: <strong>1,6–2,2 g Protein pro kg Körpergewicht/Tag</strong>. Bei erhöhtem Körperfettanteil: <strong>ca. 2,5 g pro kg Lean Body Mass</strong> (fettfreier Masse) für akkuratere Berechnung..
                         </p>
                         <div id="proteinDosesList" class="protein-grid"></div>
                         <div class="protein-total">
@@ -811,7 +811,7 @@
                     <div style="text-align:center;">
                         <div style="font-size:13px; color:#94a3b8; margin-bottom:6px;">Zone antippen &rarr; Mängel & Ursachen sehen</div>
                         <div id="bodyDisclaimer" onclick="collapseBodyDisclaimer()" style="font-size:10px; color:#f97316; background:#1a0800; border:1px solid #9a3412; border-radius:8px; padding:6px 10px; margin-bottom:8px; line-height:1.5; text-align:left; overflow:hidden; cursor:pointer;">
-                            ⚠️ <strong>Medizinischer Hinweis:</strong> Symptome hier sind <strong>Hypothesen, keine Diagnosen!</strong> Viele Symptome haben mehrere Ursachen (z.B. Muskelkrämpfe = meist neuromuskuläre Ermüdung oder Natriumverlust, nicht zwingend Magnesiummangel). Nährstoffmängel müssen durch <strong>Laborwerte (Bluttest)</strong> bestätigt werden – Ferritin (Eisen), Holo-TC (B12), 25-OH-D3 (Vit D), Serum-Mg. Eigentherapie ohne Blutbild birgt Überdosierungsrisiko!
+                            ⚠️ <strong>Medizinischer Hinweis:</strong> Symptome hier sind <strong>Hypothesen, keine Diagnosen!</strong> Viele Symptome haben mehrere Ursachen (z.B. Muskelkrämpfe = meist neuromuskuläre Ermüdung oder Natriumverlust, nicht zwingend Magnesiummangel). Nährstoffmängel müssen durch <strong>Laborwerte (Bluttest)</strong> bestätigt werden – Ferritin (Eisen), Holo-TC (B12), 25-OH-D3 (Vit D), Vollblut-Mg (Erythrozyten-Mg – Goldstandard). Eigentherapie ohne Blutbild birgt Überdosierungsrisiko!
                             <span style="display:inline-block; margin-left:6px; color:#94a3b8; font-size:9px;">▲ einklappen</span>
                         </div>
                         <div id="bodyDisclaimerCollapsed" onclick="expandBodyDisclaimer()" style="display:none; font-size:10px; color:#f97316; background:#1a0800; border:1px solid #9a3412; border-radius:8px; padding:6px 10px; margin-bottom:8px; cursor:pointer;">⚠️ Medizinischer Hinweis <span style="color:#94a3b8; font-size:9px;">(antippen zum Lesen ▼)</span></div>
@@ -1312,12 +1312,12 @@
     { label:"Vitamin C",            amount:"500,0 mg", nrv:625 },
     { label:"Hagebuttenfruchtpulver", amount:"25,0 mg", nrv:null }
   ] },
-          { id:"p22", cat:"Vitamine",          name:"Robert Franz Vitamin D3 Tropfen",             icon:"☀️", serving:"1 Tropfen", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme, Galle (Mahlzeit) für maximale Bioverfügbarkeit nötig. Gewebespiegel (25-OH-D3) baut sich über Wochen auf – morgens bevorzugt.", function:"Calcium-Regulierung, Knochen, Immunsystem (aktiviert >200 Gene), Muskelkraft, Testosteron, Stimmung", takeWith:"MORGENS mit fettreicher Mahlzeit. IMMER mit K2 (p56) kombinieren – K2 lenkt Calcium in Knochen statt Arterien!", competes:"NIEMALS D3 ohne K2 (p56) – Arterienkalk-Risiko! Magnesium aktiviert D3 (Cofaktor). Ziel-Blutbild: 40–60 ng/ml 25-OH-D3. Nicht mit Warfarin.", geschmack:"Neutraler Öl-Eigengeschmack (MCT-Träger)", loeslichkeit:"In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
+          { id:"p22", cat:"Vitamine",          name:"Robert Franz Vitamin D3 Tropfen",             icon:"☀️", serving:"1 Tropfen", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme, Galle (Mahlzeit) für maximale Bioverfügbarkeit nötig. Gewebespiegel (25-OH-D3) baut sich über Wochen auf – morgens bevorzugt.", function:"Calcium-Regulierung, Knochen, Immunsystem (aktiviert >200 Gene), Muskelkraft, Testosteron, Stimmung", takeWith:"MORGENS mit fettreicher Mahlzeit. IMMER mit K2 (p56) kombinieren – K2 lenkt Calcium in Knochen statt Arterien!", competes:"Einnahme mit K2 (p56) optimiert die Calciumverteilung in den Knochen und schützt präventiv vor ektoper Kalzifizierung bei hochdosierter Nutzung. Magnesium aktiviert D3 (Cofaktor). Ziel-Blutbild: 40–60 ng/ml 25-OH-D3. Nicht mit Warfarin.", geschmack:"Neutraler Öl-Eigengeschmack (MCT-Träger)", loeslichkeit:"In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
   ingredients:"MCT-Öl aus Kokos, Vitamin D3 (Cholecalciferol).",
   nutrients:[
     { label:"Vitamin D3 (Cholecalciferol)", amount:"25,0 µg (1.000 IE)", nrv:500 }
   ] },
-          { id:"p23", cat:"Mineralien",        name:"HEALTH+ Eisenbisglycinat",                   icon:"🩸", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat. 25mg elementares Eisen pro Kapsel (179% NRV).", function:"Sauerstofftransport (Hämoglobin ~60% des Körpereisens), Blutbildung, Energie, Kognition. Tägl. Bedarf: 15mg (Frauen), 10mg (Männer).", takeWith:"Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch. Mit Wasser oder Saft.", competes:"NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Überladungsrisiko! Calcium, Zink, Magnesium hemmen Fe. Phytinsäure (Vollkorn) hemmt Aufnahme.",
+          { id:"p23", cat:"Mineralien",        name:"HEALTH+ Eisenbisglycinat",                   icon:"🩸", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat. 25mg elementares Eisen pro Kapsel (179% NRV).", function:"Sauerstofftransport (Hämoglobin ~60% des Körpereisens), Blutbildung, Energie, Kognition. Tägl. Bedarf: 15mg (Frauen), 10mg (Männer).", takeWith:"Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch. Mit Wasser oder Saft.", competes:"NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Überladungsrisiko! Calcium, Zink, Magnesium hemmen Fe. Phytinsäure (Vollkorn) hemmt Aufnahme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
   ingredients:"Füllstoff (mikrokristalline Cellulose), Eisenbisglycinat 30,4%, Hydroxypropylmethylcellulose.",
   nutrients:[
     { label:"Eisen", amount:"25,0 mg", nrv:179 }
@@ -1335,7 +1335,7 @@
     { label:"Natriumselenit",                amount:"217,4 µg",  nrv:null },
     { label:"— davon gesamt Selen",         amount:"200,0 µg",  nrv:364 }
   ] },
-          { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",                icon:"⚡", serving:"5 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut löslich", function:"Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+          { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",                icon:"⚡", serving:"5 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut löslich", function:"Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig. ⚠️ Zink 35 mg überschreitet das EFSA-Tageslimit (UL = 25 mg) – nicht mit anderen zinkhaltigen Produkten kombinieren (Kupfermangel-Risiko)!", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
   ingredients:"Trikaliumcitratmonohydrat, Magnesiumlactat 2 Hydrat, Trimagnesiumdicitrat, Tricalciumcitrat 4-Hydrat, Hydroxypropylmethylcellulose, Zinkbisglycinat.",
   nutrients:[
     { label:"Magnesium", amount:"190,0 mg", nrv:51 },
@@ -1405,7 +1405,7 @@
   nutrients:[
     { label:"CherryPure® Kirschpulver (50:1 Extrakt)", amount:"1.100,0 mg", nrv:null }
   ] },
-          { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",                      icon:"🔬", serving:"1 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wirkt lokal im Darm – keine systemische Absorption", function:"Verdauungsunterstützung, Nährstoffaufnahme, Blähungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+          { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",                      icon:"🔬", serving:"1 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Verdauungsenzyme wirken lokal im Darm; enthaltene Pflanzenproteasen (Bromelain/Papain) werden jedoch teilweise systemisch absorbiert und wirken dort entzündungsmodulierend", function:"Verdauungsunterstützung, Nährstoffaufnahme, Blähungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
   ingredients:"Multienzymkomplex DigeZyme® (Füllstoff Maltodextrin, Alpha Amylase, Protease, Cellulase, Galactohydrolase Lactase, Lipase), Hydroxypropylmethylcellulose, Betainhydrochlorid, Papain, Bromelain.",
   nutrients:[
     { label:"Multienzymkomplex (DigeZyme®)",        amount:"250,0 mg", nrv:null },
@@ -1514,7 +1514,7 @@
     { label:"Ingwerrhizomextrakt",           amount:"504,0 mg",   nrv:null },
     { label:"— davon Gingerole",            amount:"25,2 mg",    nrv:null }
   ] },
-          { id:"p42", cat:"Schlaf & Erholung", name:"Baldrian-ratiopharm",                             icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Valerensäure gut resorbiert; Wirkung nach 2–4 Wochen regelmäßig besser", function:"Einschlafunterstützung, Angstlösung, Muskelentspannung, Nervosität", takeWith:"30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.", competes:"Nicht mit Alkohol oder Benzodiazepinen. Tagesmüdigkeit möglich.", geschmack:"Nicht relevant (Dragée/Kapsel) – leichter Baldrian-Eigengeruch", loeslichkeit:"Nicht anwendbar (Dragée/Kapsel)",
+          { id:"p42", cat:"Schlaf & Erholung", name:"Baldrian-ratiopharm",                             icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Valerensäure gut resorbiert; Wirkung nach 2–4 Wochen regelmäßig besser", function:"Einschlafunterstützung, Angstlösung, Muskelentspannung, Nervosität", takeWith:"30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.", competes:"Nicht mit Alkohol oder Benzodiazepinen. Tagesmüdigkeit möglich. ⚠️ Enthält Titandioxid (E171) – in Lebensmitteln seit 2022 EU-weit verboten; als Arzneimittel noch zugelassen (Übergangsregelung).", geschmack:"Nicht relevant (Dragée/Kapsel) – leichter Baldrian-Eigengeruch", loeslichkeit:"Nicht anwendbar (Dragée/Kapsel)",
   ingredients:"Baldrianwurzel-Trockenextrakt (3-6:1) (Auszugsmittel: Ethanol 70%), Saccharose, Glucose-Sirup, Arabisches Gummi, Calciumcarbonat, Croscarmellose-Natrium, Cellulosepulver, Hochdisperses Siliciumdioxid, Stearinsäure, Talkum, Tragant, Titandioxid, Indigocarmin",
   nutrients:[
     { label:"Baldrianwurzel-Trockenextrakt (3-6:1)", amount:"450,0 mg", nrv:null }
@@ -1563,7 +1563,7 @@
     { label:"Panax Ginseng Extrakt",amount:"0,2 g",   nrv:null },
     { label:"Resveratrol",         amount:"0,2 g",     nrv:null }
   ] },
-          { id:"p45", cat:"Pre-Workout",       name:"ZEC+ Kickdown Evolution",                    icon:"🔥", serving:"~30g",  protein:10, carbs:6,  fat:0,  kcal:80,  absorption:"Schnell – 30–45 min vor Training", function:"Extremer Fokus, Energie, Kraft-Gefühl, mentale Schärfe", takeWith:"Nüchtern oder leichte Mahlzeit. Nicht nach 14 Uhr.", competes:"Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off).", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Berry, Citrus, Cola)", loeslichkeit:"Gut – löst sich in 300 ml Wasser",
+          { id:"p45", cat:"Pre-Workout",       name:"ZEC+ Kickdown Evolution",                    icon:"🔥", serving:"~30g",  protein:10, carbs:6,  fat:0,  kcal:80,  absorption:"Schnell – 30–45 min vor Training", function:"Extremer Fokus, Energie, Kraft-Gefühl, mentale Schärfe", takeWith:"Nüchtern oder leichte Mahlzeit. Nicht nach 14 Uhr.", competes:"⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Nicht für Koffein-Sensible oder Personen mit Bluthochdruck. Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off).", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Berry, Citrus, Cola)", loeslichkeit:"Gut – löst sich in 300 ml Wasser",
   ingredients:"Resistentes Maisdextrin, L-Citrullin-DL-Malat 2:1, L-Arginin Nitrat, L-Tyrosin, L-Ornithin Alpha Ketoglutarat 1:1, Betainanhydrat, Inositol, Chinesischer Raupenpilzmyzelextrakt (enthält Sulphite), Trennmittel (Siliciumdioxid), Magnesiumbisglycinat, Säuerungsmittel (Citronensäure), Aroma, Weißer Teeblattextrakt, Citicolin, mikroverkapseltes Koffein (Koffein, Überzugsmittel (Mono- und Diglyceride von Speisefettsäuren)) (NEWCAFF™-75 Microcapsules), Koffeinanhydrat, N-Acetyl-L-Cystein, Schisandra sphenanthera Fruchtextrakt, Mangoblattextrakt (Zynamite®), Süßungsmittel (Acesulfam K, Sucralose, Natriumcyclamat), Extraktmischung S7™ (Grüner Kaffeebohnenextrakt, Grünteeextrakt, Kurkumaextrakt, Sauerkirschpulver, Blaubeerenpulver, Brokkolipulver, Grünkohlpulver), Farbstoff (Carotin), Methylcobalamin",
   nutrients:[
     { label:"Vitamin B12",                     amount:"500,4 µg",    nrv:20015 },
@@ -1586,7 +1586,7 @@
     { label:"— davon Koffein",               amount:"203,0 mg",    nrv:null },
     { label:"Koffein gesamt",                  amount:"400,0 mg",    nrv:null }
   ] },
-          { id:"p46", cat:"Pre-Workout",       name:"ZEC+ Kickdown Nitro",                        icon:"💥", serving:"~20g",  protein:16, carbs:1,  fat:0,  kcal:79,  absorption:"Schnell", function:"Max. Trainingsintensität, Ausdauer, Pump + Energie kombiniert", takeWith:"30–45 min pre-workout. Für erfahrene Nutzer.", competes:"Alle Koffein-Warnungen verschärft. Nicht täglich – HF beachten.", geschmack:"Verschiedene Geschmacksrichtungen", loeslichkeit:"Gut – im Shaker mit 300–400 ml Wasser",
+          { id:"p46", cat:"Pre-Workout",       name:"ZEC+ Kickdown Nitro",                        icon:"💥", serving:"~20g",  protein:16, carbs:1,  fat:0,  kcal:79,  absorption:"Schnell", function:"Max. Trainingsintensität, Ausdauer, Pump + Energie kombiniert", takeWith:"30–45 min pre-workout. Für erfahrene Nutzer.", competes:"⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Alle Koffein-Warnungen verstärkt. Nicht täglich – HF beachten.", geschmack:"Verschiedene Geschmacksrichtungen", loeslichkeit:"Gut – im Shaker mit 300–400 ml Wasser",
   ingredients:"L-Citrullin-DL-Malat 2:1, L-Arginin-Nitrat, L-Tyrosin, Betainanhydrat, Taurin, Säuerungsmittel (Citronensäure), Aroma, Kokosnusssaftextraktpulver (Kokosnusssaftextrakt, Dextrose, Maltodextrin - Cococin™ WS), Löwenmähnenfruchtkörperextrakt (enthält Sulphite), Citicolin, Koffeinanhydrat, färbendes Lebensmittel (Rote Beetesaftpulver), Kakaobohnenextrakt, resistentes Maisdextrin, Trennmittel (Siliciumdioxid), Süßungsmittel (Acesulfam K, Natriumcyclamat, Natriumsaccharin)",
   nutrients:[
     { label:"L-Citrullin-DL-Malat 2:1",         amount:"6,0 g",    nrv:null },
@@ -1695,7 +1695,7 @@
         };
 
         const PRODUCT_BADGES = {
-          "p15": { text: "⚠ Verboten in EU", type: "banned"  },
+          "p15": { text: "⚠ EU Novel Food (HICA)", type: "banned"  },
           "p2":  { text: "Ausverkauft",       type: "soldout" },
           "p4":  { text: "Ausverkauft",       type: "soldout" },
           "p5":  { text: "Ausverkauft",       type: "soldout" },
@@ -3069,7 +3069,7 @@
                       text:"Knochen bestehen zu ~65% aus Hydroxylapatit (Ca₁₀(PO₄)₆(OH)₂). D3 reguliert intestinale Calciumaufnahme um 50–70%. Ohne D3: Calcium wird nicht resorbiert → Osteopenie → Osteoporose → Stressfrakturen. Bei Sportlern: Knochenstress-Frakturen oft erster Hinweis auf D3-Mangel!",
                       fix:"D3 + K2 morgens mit Fett. Calcium primär aus Nahrung (Milch, Brokkoli, Sesam) – Supplement-Calcium kann Nierensteine fördern." },
                     { name:"Vitamin K2 Mangel", tag:"Calcium-Steuerung", color:"#fbbf24", bg:"#2a1a00",
-                      text:"K2 (MK-7) aktiviert Osteocalcin – das Protein, das Calcium gezielt IN den Knochen einlagert statt in Arterien (Arteriosklerose!) oder Nieren (Steine). Ohne K2 → paradoxe Gefäßverkalkung trotz D3-Einnahme. NIEMALS D3 ohne K2!",
+                      text:"K2 (MK-7) aktiviert Osteocalcin – das Protein, das Calcium gezielt IN den Knochen einlagert statt in Arterien (Arteriosklerose!) oder Nieren (Steine). Ohne K2 → erhöhtes Risiko ektoper Kalzifizierung bei hochdosierter D3-Einnahme. K2 lenkt Calcium gezielt in Knochen statt Gefäße.",
                       fix:"D3 + K2 immer als Kombipräparat. MK-7-Form (lange Halbwertszeit). Vitamin K2 separat falls D3 allein genommen wird." },
                     { name:"Magnesium Mangel", tag:"D3-Aktivierung & Matrix", color:"#a78bfa", bg:"#1a0d3a",
                       text:"~60% des Körper-Magnesiums steckt im Knochen als Strukturelement. Mg ist Cofaktor für D3-Aktivierung (25-OH-D3 → 1,25-OH₂-D3 in der Niere). Ohne Mg: D3 bleibt inaktiv → Calcium-Aufnahme sinkt. Also: D3 ohne Mg-Versorgung ist suboptimal!",
@@ -3128,7 +3128,7 @@
                       fix:"D3 + K2 morgens mit Fett. Calcium aus Nahrung. Krafttraining als Knochen-Stimulus unverzichtbar." },
                     { name:"Vitamin K2 Mangel", tag:"Calcium-Lenkung", color:"#fbbf24", bg:"#2a1a00",
                       text:"K2 aktiviert Osteocalcin in Wirbelkörpern → Calcium gezielt in Knochen einlagern (nicht in Bandscheiben-Verkalkung). Ohne K2 paradoxe Verkalkungen der Wirbelgelenke möglich. MK-7-Form: einmal täglich wegen langer Halbwertszeit ausreichend.",
-                      fix:"D3 + K2 als Kombi. NIEMALS D3 ohne K2. MK-7 (Menaquinon-7) bevorzugen." },
+                      fix:"D3 + K2 als Kombi – optimiert Calciumverteilung in Knochen. MK-7 (Menaquinon-7) bevorzugen." },
                     { name:"Kollagen-Mangel (Bandscheiben)", tag:"Anulus fibrosus", color:"#ef4444", bg:"#2a0505",
                       text:"Bandscheiben: Nucleus pulposus (Gallertkern) = Proteoglykane + Wasser; Anulus fibrosus = Kollagen Typ I/II. Beide degenerieren bei Kollagenmangel beschleunigt. Hydrolysierte Kollagenpeptide (FORTIGEL® etc.) stimulieren Fibroblasten der Bandscheibe nachweislich!",
                       fix:"HEALTH+ Collagen täglich, langfristig (6–12 Monate!). Arthro Essential (MSM + Chondroitin) für Proteoglykan-Syntheseunterstützung." },
