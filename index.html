@@ -405,6 +405,31 @@
         .micro-sub td:first-child { padding-left: 12px; color: #64748b; font-size: 10px; }
         .micro-sub td:last-child { color: #94a3b8; font-size: 10px; font-weight: 500; }
 
+        /* DAILY NUTRIENTS SUMMARY BOX */
+        .daily-nutr-box { background: #07070f; border: 1px solid #1e3a5f; border-radius: 13px; margin-top: 20px; overflow: hidden; }
+        .daily-nutr-header { background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%); padding: 14px 16px; border-bottom: 1px solid #1e3a5f; }
+        .daily-nutr-title { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #60a5fa; margin-bottom: 2px; }
+        .daily-nutr-subtitle { font-size: 10px; color: #475569; }
+        .daily-nutr-section { padding: 12px 16px; border-bottom: 1px solid #0f1e2e; }
+        .daily-nutr-section:last-child { border-bottom: none; }
+        .daily-nutr-section-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #334155; margin-bottom: 10px; }
+        .daily-macro-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 7px; }
+        .daily-macro-cell { background: #04040d; border-radius: 8px; padding: 8px 6px; text-align: center; }
+        .daily-macro-val { font-size: 15px; font-weight: 800; line-height: 1.1; }
+        .daily-macro-lbl { font-size: 9px; color: #475569; margin-top: 2px; }
+        .daily-nrv-row { margin-bottom: 10px; }
+        .daily-nrv-row:last-child { margin-bottom: 0; }
+        .daily-nrv-label { font-size: 11px; color: #cbd5e1; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+        .daily-nrv-name { flex: 1; min-width: 0; }
+        .daily-nrv-pct { font-size: 11px; font-weight: 700; white-space: nowrap; }
+        .daily-nrv-soll { color: #334155; font-size: 9px; font-weight: 400; }
+        .daily-nrv-track { height: 5px; background: #1e293b; border-radius: 3px; overflow: hidden; }
+        .daily-nrv-fill { height: 100%; border-radius: 3px; }
+        .daily-nonrv-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-top: 1px solid #0f1e2e; }
+        .daily-nonrv-row:first-child { border-top: none; }
+        .daily-nonrv-lbl { font-size: 11px; color: #94a3b8; }
+        .daily-nonrv-val { font-size: 11px; color: #e2e8f0; font-weight: 600; }
+
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
         .info-row-val { font-size: 12px; color: #cbd5e1; line-height: 1.6; }
@@ -1867,6 +1892,96 @@
             }
         }
 
+        function buildDailyNutrientsBox() {
+            const allPids = new Set();
+            TIMELINE_CONFIG.forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
+            const products = [...allPids].map(pid => getProductById(pid)).filter(Boolean);
+
+            let totalProtein = 0, totalCarbs = 0, totalFat = 0, totalKcal = 0;
+            products.forEach(p => {
+                totalProtein += p.protein || 0;
+                totalCarbs   += p.carbs   || 0;
+                totalFat     += p.fat     || 0;
+                totalKcal    += p.kcal    || 0;
+            });
+
+            const nrvMap = {};
+            const nonNrvMap = {};
+
+            products.forEach(p => {
+                if (!p.nutrients) return;
+                p.nutrients.forEach(n => {
+                    if (n.label.startsWith('—')) return;
+                    if (n.nrv !== null) {
+                        if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, amount: n.amount };
+                        nrvMap[n.label].totalNrv += n.nrv;
+                    } else {
+                        if (!nonNrvMap[n.label]) nonNrvMap[n.label] = n.amount;
+                    }
+                });
+            });
+
+            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1].totalNrv - a[1].totalNrv);
+            const nrvHtml = nrvEntries.map(([label, data]) => {
+                const pct = data.totalNrv;
+                const fillPct = Math.min(pct, 300) / 300 * 100;
+                let barColor, pctColor;
+                if (pct >= 200)     { barColor = '#f59e0b'; pctColor = '#fbbf24'; }
+                else if (pct >= 100){ barColor = '#22c55e'; pctColor = '#4ade80'; }
+                else if (pct >= 50) { barColor = '#f97316'; pctColor = '#fb923c'; }
+                else                { barColor = '#ef4444'; pctColor = '#f87171'; }
+                return `<div class="daily-nrv-row">
+                    <div class="daily-nrv-label">
+                        <span class="daily-nrv-name">${label}</span>
+                        <span class="daily-nrv-pct" style="color:${pctColor}">${pct}% <span class="daily-nrv-soll">/ 100% Soll</span></span>
+                    </div>
+                    <div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:${fillPct.toFixed(1)}%;background:${barColor};"></div></div>
+                </div>`;
+            }).join('');
+
+            const nonNrvEntries = Object.entries(nonNrvMap);
+            const nonNrvHtml = nonNrvEntries.map(([label, amount]) =>
+                `<div class="daily-nonrv-row"><span class="daily-nonrv-lbl">${label}</span><span class="daily-nonrv-val">${amount}</span></div>`
+            ).join('');
+
+            return `<div class="daily-nutr-box">
+                <div class="daily-nutr-header">
+                    <div class="daily-nutr-title">Tages-Nährwertbilanz</div>
+                    <div class="daily-nutr-subtitle">Aus Supplementplan (ohne Mahlzeiten) · alle Timeline-Produkte</div>
+                </div>
+                <div class="daily-nutr-section">
+                    <div class="daily-nutr-section-title">Makronährstoffe aus Supplementen</div>
+                    <div class="daily-macro-grid">
+                        <div class="daily-macro-cell">
+                            <div class="daily-macro-val" style="color:#4ade80">${totalProtein.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                            <div class="daily-macro-lbl">Protein</div>
+                        </div>
+                        <div class="daily-macro-cell">
+                            <div class="daily-macro-val" style="color:#fb923c">${totalCarbs.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                            <div class="daily-macro-lbl">Kohlenhydrate</div>
+                        </div>
+                        <div class="daily-macro-cell">
+                            <div class="daily-macro-val" style="color:#facc15">${totalFat.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                            <div class="daily-macro-lbl">Fett</div>
+                        </div>
+                        <div class="daily-macro-cell">
+                            <div class="daily-macro-val" style="color:#a78bfa">${Math.round(totalKcal)}<span style="font-size:10px;font-weight:400">kcal</span></div>
+                            <div class="daily-macro-lbl">Energie</div>
+                        </div>
+                    </div>
+                </div>
+                ${nrvEntries.length > 0 ? `<div class="daily-nutr-section">
+                    <div class="daily-nutr-section-title">Mikronährstoffe mit EU-NRV &mdash; Ist vs. 100% Soll</div>
+                    ${nrvHtml}
+                    <div style="font-size:9px;color:#1e3a5f;margin-top:8px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011 &nbsp;·&nbsp; Balken skaliert bis 300%</div>
+                </div>` : ''}
+                ${nonNrvEntries.length > 0 ? `<div class="daily-nutr-section">
+                    <div class="daily-nutr-section-title">Wirkstoffe &amp; Extrakte (kein EU-NRV)</div>
+                    ${nonNrvHtml}
+                </div>` : ''}
+            </div>`;
+        }
+
         function renderTimeline() {
             const container = document.getElementById("viewTimeline");
 
@@ -1951,7 +2066,7 @@
                         </div>
                     </div>
                 `;
-            }).join('');
+            }).join('') + buildDailyNutrientsBox();
         }
 
         function initDatabaseView() {
