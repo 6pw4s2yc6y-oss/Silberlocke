@@ -423,8 +423,9 @@
         .daily-nrv-name { flex: 1; min-width: 0; }
         .daily-nrv-pct { font-size: 11px; font-weight: 700; white-space: nowrap; }
         .daily-nrv-soll { color: #334155; font-size: 9px; font-weight: 400; }
-        .daily-nrv-track { height: 5px; background: #1e293b; border-radius: 3px; overflow: hidden; }
-        .daily-nrv-fill { height: 100%; border-radius: 3px; }
+        .daily-nrv-track { height: 6px; background: #1e293b; border-radius: 3px; overflow: hidden; position: relative; }
+        .daily-nrv-fill { position: absolute; left: 0; top: 0; height: 100%; }
+        .daily-nrv-mark { position: absolute; top: 0; height: 100%; width: 2px; z-index: 2; }
         .daily-nonrv-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-top: 1px solid #0f1e2e; }
         .daily-nonrv-row:first-child { border-top: none; }
         .daily-nonrv-lbl { font-size: 11px; color: #94a3b8; }
@@ -1912,49 +1913,50 @@
             arrow.textContent = isHidden ? '▲' : '▼';
         }
 
-        // v = EU NRV numeric value for computing consumed amount; u = unit string
-        // eu/dach/usa = display strings for the three reference norm columns
+        // v = EU NRV numeric; u = unit; eu/dach/usa = display strings
+        // dach_min/max, usa_min/max = numeric range for bar zone calculation
+        // ul = Tolerable Upper Intake Level (numeric, same unit); ul_str = display string
         const NUTRIENT_NORMS = {
-            // ── Vitamins ──────────────────────────────────────────────────────────────
-            "Vitamin A":                    { v:800,  u:"µg", eu:"800 µg",   dach:"700–850 µg",  usa:"700–900 µg" },
-            "Vitamin D":                    { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",       usa:"15–20 µg" },
-            "Vitamin D3 (Cholecalciferol)": { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",       usa:"15–20 µg" },
-            "Vitamin E":                    { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",    usa:"15 mg" },
-            "Vitamin E (Tocopherol)":       { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",    usa:"15 mg" },
-            "Vitamin E (Alpha-Tocopherol)": { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",    usa:"15 mg" },
-            "Vitamin K":                    { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",    usa:"90–120 µg" },
-            "Vitamin K2 (Menachinon)":      { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",    usa:"90–120 µg" },
-            "Vitamin C":                    { v:80,   u:"mg", eu:"80 mg",    dach:"95–110 mg",   usa:"75–90 mg" },
-            "Thiamin (B1)":                 { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",  usa:"1,1–1,2 mg" },
-            "Thiamin":                      { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",  usa:"1,1–1,2 mg" },
-            "Riboflavin (B2)":              { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",  usa:"1,1–1,3 mg" },
-            "Riboflavin":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",  usa:"1,1–1,3 mg" },
-            "Vitamin B2 – Riboflavin":      { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",  usa:"1,1–1,3 mg" },
-            "Niacin (B3)":                  { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",    usa:"14–16 mg" },
-            "Niacin":                       { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",    usa:"14–16 mg" },
-            "Pantothensäure (B5)":          { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",        usa:"5 mg" },
-            "Pantothensäure":               { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",        usa:"5 mg" },
-            "Vitamin B6":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,4–1,6 mg",  usa:"1,3–1,7 mg" },
-            "Folsäure (B9)":                { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",      usa:"400 µg" },
-            "Folsäure":                     { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",      usa:"400 µg" },
-            "Vitamin B9":                   { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",      usa:"400 µg" },
-            "Biotin (B7)":                  { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",    usa:"30 µg" },
-            "Biotin":                       { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",    usa:"30 µg" },
-            "Vitamin B12":                  { v:2.5,  u:"µg", eu:"2,5 µg",   dach:"4,0 µg",      usa:"2,4 µg" },
-            // ── Minerals ──────────────────────────────────────────────────────────────
-            "Calcium":                      { v:800,  u:"mg", eu:"800 mg",   dach:"1000 mg",     usa:"1000–1200 mg" },
-            "Chlorid":                      { v:800,  u:"mg", eu:"800 mg",   dach:"2300 mg",     usa:"2300 mg" },
-            "Chrom":                        { v:40,   u:"µg", eu:"40 µg",    dach:"30–100 µg",   usa:"25–35 µg" },
-            "Eisen":                        { v:14,   u:"mg", eu:"14 mg",    dach:"10–15 mg",    usa:"8–18 mg" },
-            "Jod":                          { v:150,  u:"µg", eu:"150 µg",   dach:"150–200 µg",  usa:"150 µg" },
-            "Kalium":                       { v:2000, u:"mg", eu:"2.000 mg", dach:"4.000 mg",    usa:"2.600–3.400 mg" },
-            "Kupfer":                       { v:1,    u:"mg", eu:"1 mg",     dach:"1,0–1,5 mg",  usa:"0,9 mg" },
-            "Magnesium":                    { v:375,  u:"mg", eu:"375 mg",   dach:"300–350 mg",  usa:"310–420 mg" },
-            "Mangan":                       { v:2,    u:"mg", eu:"2 mg",     dach:"2,0–5,0 mg",  usa:"1,8–2,3 mg" },
-            "Molybdän":                     { v:50,   u:"µg", eu:"50 µg",    dach:"50–100 µg",   usa:"45 µg" },
-            "Phosphor":                     { v:700,  u:"mg", eu:"700 mg",   dach:"700 mg",      usa:"700 mg" },
-            "Selen":                        { v:55,   u:"µg", eu:"55 µg",    dach:"60–70 µg",    usa:"55 µg" },
-            "Zink":                         { v:10,   u:"mg", eu:"10 mg",    dach:"7–16 mg",     usa:"8–11 mg" }
+            // ── Vitamins ──────────────────────────────────────────────────────────────────────────────────────────────────
+            "Vitamin A":                    { v:800,  u:"µg", eu:"800 µg",   dach:"700–850 µg",   usa:"700–900 µg",    dach_min:700,  dach_max:850,  usa_min:700,  usa_max:900,  ul:3000, ul_str:"3.000 µg" },
+            "Vitamin D":                    { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",        usa:"15–20 µg",      dach_min:20,   dach_max:20,   usa_min:15,   usa_max:20,   ul:100,  ul_str:"100 µg" },
+            "Vitamin D3 (Cholecalciferol)": { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",        usa:"15–20 µg",      dach_min:20,   dach_max:20,   usa_min:15,   usa_max:20,   ul:100,  ul_str:"100 µg" },
+            "Vitamin E":                    { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin E (Tocopherol)":       { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin E (Alpha-Tocopherol)": { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin K":                    { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",     usa:"90–120 µg",     dach_min:60,   dach_max:70,   usa_min:90,   usa_max:120,  ul:null, ul_str:null },
+            "Vitamin K2 (Menachinon)":      { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",     usa:"90–120 µg",     dach_min:60,   dach_max:70,   usa_min:90,   usa_max:120,  ul:null, ul_str:null },
+            "Vitamin C":                    { v:80,   u:"mg", eu:"80 mg",    dach:"95–110 mg",    usa:"75–90 mg",      dach_min:95,   dach_max:110,  usa_min:75,   usa_max:90,   ul:2000, ul_str:"2.000 mg" },
+            "Thiamin (B1)":                 { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",   usa:"1,1–1,2 mg",    dach_min:1.0,  dach_max:1.3,  usa_min:1.1,  usa_max:1.2,  ul:null, ul_str:null },
+            "Thiamin":                      { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",   usa:"1,1–1,2 mg",    dach_min:1.0,  dach_max:1.3,  usa_min:1.1,  usa_max:1.2,  ul:null, ul_str:null },
+            "Riboflavin (B2)":              { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Riboflavin":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Vitamin B2 – Riboflavin":      { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Niacin (B3)":                  { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",     usa:"14–16 mg",      dach_min:13,   dach_max:15,   usa_min:14,   usa_max:16,   ul:35,   ul_str:"35 mg" },
+            "Niacin":                       { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",     usa:"14–16 mg",      dach_min:13,   dach_max:15,   usa_min:14,   usa_max:16,   ul:35,   ul_str:"35 mg" },
+            "Pantothensäure (B5)":          { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",         usa:"5 mg",          dach_min:6,    dach_max:6,    usa_min:5,    usa_max:5,    ul:null, ul_str:null },
+            "Pantothensäure":               { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",         usa:"5 mg",          dach_min:6,    dach_max:6,    usa_min:5,    usa_max:5,    ul:null, ul_str:null },
+            "Vitamin B6":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,4–1,6 mg",   usa:"1,3–1,7 mg",    dach_min:1.4,  dach_max:1.6,  usa_min:1.3,  usa_max:1.7,  ul:25,   ul_str:"25 mg" },
+            "Folsäure (B9)":                { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Folsäure":                     { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Vitamin B9":                   { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Biotin (B7)":                  { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",     usa:"30 µg",         dach_min:30,   dach_max:60,   usa_min:30,   usa_max:30,   ul:null, ul_str:null },
+            "Biotin":                       { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",     usa:"30 µg",         dach_min:30,   dach_max:60,   usa_min:30,   usa_max:30,   ul:null, ul_str:null },
+            "Vitamin B12":                  { v:2.5,  u:"µg", eu:"2,5 µg",   dach:"4,0 µg",       usa:"2,4 µg",        dach_min:4.0,  dach_max:4.0,  usa_min:2.4,  usa_max:2.4,  ul:null, ul_str:null },
+            // ── Minerals ──────────────────────────────────────────────────────────────────────────────────────────────────
+            "Calcium":                      { v:800,  u:"mg", eu:"800 mg",   dach:"1000 mg",      usa:"1000–1200 mg",  dach_min:1000, dach_max:1000, usa_min:1000, usa_max:1200, ul:2500, ul_str:"2.500 mg" },
+            "Chlorid":                      { v:800,  u:"mg", eu:"800 mg",   dach:"2300 mg",      usa:"2300 mg",       dach_min:2300, dach_max:2300, usa_min:2300, usa_max:2300, ul:null, ul_str:null },
+            "Chrom":                        { v:40,   u:"µg", eu:"40 µg",    dach:"30–100 µg",    usa:"25–35 µg",      dach_min:30,   dach_max:100,  usa_min:25,   usa_max:35,   ul:null, ul_str:null },
+            "Eisen":                        { v:14,   u:"mg", eu:"14 mg",    dach:"10–15 mg",     usa:"8–18 mg",       dach_min:10,   dach_max:15,   usa_min:8,    usa_max:18,   ul:45,   ul_str:"45 mg" },
+            "Jod":                          { v:150,  u:"µg", eu:"150 µg",   dach:"150–200 µg",   usa:"150 µg",        dach_min:150,  dach_max:200,  usa_min:150,  usa_max:150,  ul:600,  ul_str:"600 µg" },
+            "Kalium":                       { v:2000, u:"mg", eu:"2.000 mg", dach:"4.000 mg",     usa:"2.600–3.400 mg",dach_min:4000, dach_max:4000, usa_min:2600, usa_max:3400, ul:null, ul_str:null },
+            "Kupfer":                       { v:1,    u:"mg", eu:"1 mg",     dach:"1,0–1,5 mg",   usa:"0,9 mg",        dach_min:1.0,  dach_max:1.5,  usa_min:0.9,  usa_max:0.9,  ul:5,    ul_str:"5 mg" },
+            "Magnesium":                    { v:375,  u:"mg", eu:"375 mg",   dach:"300–350 mg",   usa:"310–420 mg",    dach_min:300,  dach_max:350,  usa_min:310,  usa_max:420,  ul:250,  ul_str:"250 mg†" },
+            "Mangan":                       { v:2,    u:"mg", eu:"2 mg",     dach:"2,0–5,0 mg",   usa:"1,8–2,3 mg",    dach_min:2.0,  dach_max:5.0,  usa_min:1.8,  usa_max:2.3,  ul:11,   ul_str:"11 mg" },
+            "Molybdän":                     { v:50,   u:"µg", eu:"50 µg",    dach:"50–100 µg",    usa:"45 µg",         dach_min:50,   dach_max:100,  usa_min:45,   usa_max:45,   ul:600,  ul_str:"600 µg" },
+            "Phosphor":                     { v:700,  u:"mg", eu:"700 mg",   dach:"700 mg",       usa:"700 mg",        dach_min:700,  dach_max:700,  usa_min:700,  usa_max:700,  ul:4000, ul_str:"4.000 mg" },
+            "Selen":                        { v:55,   u:"µg", eu:"55 µg",    dach:"60–70 µg",     usa:"55 µg",         dach_min:60,   dach_max:70,   usa_min:55,   usa_max:55,   ul:300,  ul_str:"300 µg" },
+            "Zink":                         { v:10,   u:"mg", eu:"10 mg",    dach:"7–16 mg",      usa:"8–11 mg",       dach_min:7,    dach_max:16,   usa_min:8,    usa_max:11,   ul:25,   ul_str:"25 mg" }
         };
 
         function buildDailyNutrientsBox() {
@@ -1989,34 +1991,50 @@
             const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1].totalNrv - a[1].totalNrv);
             const nrvHtml = nrvEntries.map(([label, data]) => {
                 const pct = data.totalNrv;
-                const fillPct = Math.min(pct, 300) / 300 * 100;
-                let barColor, valColor;
-                if (pct >= 200)     { barColor = '#f59e0b'; valColor = '#fbbf24'; }
-                else if (pct >= 100){ barColor = '#22c55e'; valColor = '#4ade80'; }
-                else if (pct >= 50) { barColor = '#f97316'; valColor = '#fb923c'; }
-                else                { barColor = '#ef4444'; valColor = '#f87171'; }
                 const norm = NUTRIENT_NORMS[label];
-                let consumedStr, normsHtml;
-                if (norm) {
-                    const raw = (pct / 100) * norm.v;
-                    consumedStr = (raw >= 1000 ? Math.round(raw) : raw.toFixed(1)) + ' ' + norm.u;
-                    normsHtml = '<div class="daily-nrv-norms">' +
-                        '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
-                        '<span class="daily-nrv-norms-sep">·</span>' +
-                        '<span>D-A-CH: <span class="daily-nrv-norms-val">' + norm.dach + '</span></span>' +
-                        '<span class="daily-nrv-norms-sep">·</span>' +
-                        '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
-                        '</div>';
-                } else {
-                    consumedStr = pct + '% NRV';
-                    normsHtml = '';
+                if (!norm) {
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const barColor = pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    return '<div class="daily-nrv-row">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                            '<span class="daily-nrv-name">' + label + '</span>' +
+                            '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + pct + '% NRV</span>' +
+                        '</div>' +
+                        '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                    '</div>';
                 }
+                const consumed = (pct / 100) * norm.v;
+                const consumedStr = (consumed >= 1000 ? Math.round(consumed) : consumed.toFixed(1)) + ' ' + norm.u;
+                const allMax = Math.max(norm.v, norm.dach_max, norm.usa_max);
+                const scaleVal = Math.max(allMax * 1.5, consumed > 0 ? consumed * 1.1 : norm.v * 3, norm.v * 3);
+                const fillPct = Math.min(consumed / scaleVal * 100, 100);
+                const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
+                const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
+                let fillColor, valColor;
+                if (norm.ul && consumed >= norm.ul) { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                else if (consumed >= allMax)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
+                else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
+                let markers = '';
+                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:#dc2626;"></div>';
+                if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
+                const normsHtml = '<div class="daily-nrv-norms">' +
+                    '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>D-A-CH: <span class="daily-nrv-norms-val">' + norm.dach + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
+                    (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
+                    '</div>';
                 return '<div class="daily-nrv-row">' +
                     '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
                         '<span class="daily-nrv-name">' + label + '</span>' +
                         '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
                     '</div>' +
-                    '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                    '<div class="daily-nrv-track">' +
+                        '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        markers +
+                    '</div>' +
                     normsHtml +
                 '</div>';
             }).join('');
