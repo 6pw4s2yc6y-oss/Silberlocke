@@ -367,6 +367,9 @@
         .db-card-arrow { color: #475569; font-size: 14px; transition: 0.2s; display: inline-block; }
         .db-card.open .db-card-arrow { transform: rotate(180deg); }
         .db-card-content { display: none; padding: 0 14px 14px; border-top: 1px solid #1e293b; }
+        .prod-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; white-space: nowrap; border-radius: 4px; padding: 3px 7px; flex-shrink: 0; }
+        .prod-badge-banned { color: #ef4444; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.35); }
+        .prod-badge-soldout { background: #ef4444; color: #fff; }
 
         /* MACROS & DETAILS ROW */
         .macros-box { background: #04040d; border-radius: 8px; padding: 9px 11px; margin: 10px 0; }
@@ -1603,6 +1606,18 @@
           { id:"p51", cat:"Omega & Öle",       name:"HEALTH+ Nachtkerzenöl",                      icon:"🌼", serving:"2 Kap", protein:0, carbs:0, fat:2, kcal:18, absorption:"Fettlöslich – GLA wird im Körper zu DGLA umgewandelt; immer mit Mahlzeit einnehmen", function:"Hormonbalance (GLA), Haut & Haare & Nägel, Entzündungshemmung, PMS-Linderung, Gelenk-Unterstützung", takeWith:"Mit fettreicher Mahlzeit. Synergie mit Omega-3 (p28) – balanciert Omega-6/3-Verhältnis optimal.", competes:"Nicht mit Blutverdünnern. Zu viel Omega-6 ohne Omega-3 kann kontraproduktiv wirken – immer zusammen mit Fischöl nehmen!", geschmack:"Nicht relevant (Kapsel) – ggf. leichter Öl-Eigengeschmack beim Aufstoßen", loeslichkeit:"Nicht anwendbar (Kapsel)" }
         ];
 
+        const PRODUCT_BADGES = {
+          "p15": { text: "⚠ Verboten in EU", type: "banned"  },
+          "p2":  { text: "Ausverkauft",       type: "soldout" },
+          "p4":  { text: "Ausverkauft",       type: "soldout" },
+          "p5":  { text: "Ausverkauft",       type: "soldout" },
+          "p6":  { text: "Ausverkauft",       type: "soldout" },
+          "p10": { text: "Ausverkauft",       type: "soldout" },
+          "p14": { text: "Ausverkauft",       type: "soldout" },
+          "p27": { text: "Ausverkauft",       type: "soldout" },
+          "p31": { text: "Ausverkauft",       type: "soldout" }
+        };
+
         // DATENSTRUKTUR FUER DIE TIMELINE (Die Uhrzeiten werden jetzt dynamisch berechnet)
         // offsetMinutes bestimmt den Abstand zur eingegebenen Aufwachzeit
         // isRelativeTosleep: true bedeutet, dass offsetMinutes VOR der Schlafzeit berechnet wird
@@ -1906,6 +1921,7 @@
 
             listContainer.innerHTML = filtered.map(p => {
                 const kj = Math.round(p.kcal * 4.184);
+                const badge = PRODUCT_BADGES[p.id];
                 let macroHtml = `
                     <div class="macros-box">
                         <div class="macros-title">NÄHRWERTE PRO PORTION (${p.serving})</div>
@@ -1943,6 +1959,7 @@
                                 <div class="db-card-name">${p.name}</div>
                                 <div class="db-card-cat">${p.cat}</div>
                             </div>
+                            ${badge ? `<span class="prod-badge prod-badge-${badge.type}">${badge.text}</span>` : ''}
                             <span class="db-card-arrow"></span>
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
