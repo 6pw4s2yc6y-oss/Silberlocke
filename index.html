@@ -384,6 +384,14 @@
         .naehr-row-carbs td:last-child { color: #fb923c; }
         .naehr-row-protein td:first-child { color: #94a3b8; }
         .naehr-row-protein td:last-child { color: #4ade80; }
+        .micro-box { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-top: 6px; }
+        .micro-table { width: 100%; border-collapse: collapse; }
+        .micro-table tr { border-top: 1px solid #1e293b; }
+        .micro-table tr:first-child { border-top: 2px solid #334155; }
+        .micro-table td { padding: 4px 2px; font-size: 11px; vertical-align: middle; }
+        .micro-table td:first-child { color: #94a3b8; }
+        .micro-table td:last-child { text-align: right; font-weight: 600; color: #e2e8f0; white-space: nowrap; }
+        .micro-nrv { color: #4ade80; font-size: 10px; font-weight: 700; margin-left: 4px; }
 
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
@@ -1095,7 +1103,25 @@
           { id:"p24", cat:"Mineralien",        name:"ZEC+ Zink",                                  icon:"🔵", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nüchtern. Mit Casein.", competes:"Testosteron-Effekt NUR bei nachgewiesenem Zinkmangel. Hemmt Kupfer bei Langzeit (10:1). Eisen & Kalzium hemmen Aufnahme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                              icon:"🟤", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – Selenomethionin >90% bioverfügbar", function:"Schilddrüse (T4->T3), Antioxidans (Glutathionperoxidase), Immunsystem, Fruchtbarkeit", takeWith:"Mit Mahlzeit. Synergie mit Vitamin E.", competes:"Max 400mcg/Tag (toxisch) – auf Stacking mit Multi achten. Hohe Vit-C-Dosen können Bioverfügbarkeit senken.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p26", cat:"Mineralien",        name:"ZEC+ Basische Mineralien",                   icon:"⚡", serving:"~5g",   protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut löslich", function:"Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf. In Wasser auflösen.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig.", geschmack:"Leicht salzig-mineralisch (Pulver)", loeslichkeit:"Gut – in 200–300 ml Wasser auflösen" },
-          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin Komplex",    icon:"🌈", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettlösliche Vitamine besser mit Fett", function:"Vollspektrum Vitamine + Q10, OPC, ALA, PQQ, Astaxanthin. WICHTIG: Enthält KEINE Mineralien (bewusst weggelassen – separate Mineralversorgung nötig!)", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"NICHT zusätzlich mit p17 (R-ALA), p33 (OPC) oder p18 (Antioxidant & Vitamin) – enthält bereits ALA & OPC, Doppeldosierung! Nicht mit B25, hochdos. Vit A, Selen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
+          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin Komplex",    icon:"🌈", serving:"2-3 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettlösliche Vitamine besser mit Fett", function:"Vollspektrum Vitamine + Q10, OPC, ALA, PQQ, Astaxanthin. WICHTIG: Enthält KEINE Mineralien (bewusst weggelassen – separate Mineralversorgung nötig!)", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"NICHT zusätzlich mit p17 (R-ALA), p33 (OPC) oder p18 (Antioxidant & Vitamin) – enthält bereits ALA & OPC, Doppeldosierung! Nicht mit B25, hochdos. Vit A, Selen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)", nutrients:[
+    { label:"Vitamin A",          amount:"800,0 µg RE",  nrv:100 },
+    { label:"Vitamin D",          amount:"5,0 µg",       nrv:100 },
+    { label:"Vitamin E",          amount:"12,0 mg α-TE", nrv:100 },
+    { label:"Vitamin K",          amount:"75,0 µg",      nrv:100 },
+    { label:"Vitamin C",          amount:"80,0 mg",      nrv:100 },
+    { label:"Thiamin (B1)",       amount:"1,1 mg",       nrv:100 },
+    { label:"Riboflavin (B2)",    amount:"1,4 mg",       nrv:100 },
+    { label:"Niacin (B3)",        amount:"16,0 mg NE",   nrv:100 },
+    { label:"Vitamin B6",         amount:"1,4 mg",       nrv:100 },
+    { label:"Folsäure",           amount:"200,0 µg",     nrv:100 },
+    { label:"Vitamin B12",        amount:"2,5 µg",       nrv:100 },
+    { label:"Biotin",             amount:"50,0 µg",      nrv:100 },
+    { label:"Pantothensäure",     amount:"6,0 mg",       nrv:100 },
+    { label:"Coenzym Q10",        amount:"100,0 mg",     nrv:null },
+    { label:"Alpha-Liponsäure",   amount:"100,0 mg",     nrv:null },
+    { label:"Astaxanthin",        amount:"4,0 mg",       nrv:null },
+    { label:"PQQ",                amount:"2,0 mg",       nrv:null }
+] },
           { id:"p28", cat:"Omega & Öle",       name:"HEALTH+ Super Omega 3 Triglyceride Fischöl", icon:"🐟", serving:"2 Kap", protein:0,  carbs:0,  fat:2,  kcal:18,  absorption:"Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit (Galle für Mizellenbildung nötig). 1500mg Omega-3 (1000mg EPA + 500mg DHA) pro 2 Kapseln. UHRZEIT IRRELEVANT – EPA/DHA-Gewebespiegel (Zellmembranen) baut sich über 4–8 Wochen chronischer Einnahme auf.", function:"Herzgesundheit (EPA verdrängt Arachidonsäure aus COX/LOX → erzeugt schwächere 3er-Eicosanoide statt 2er-Serie; KEIN direkter COX-Inhibitor wie Ibuprofen!), Entzündungshemmung, Gehirnfunktion (DHA ~40% der Fettsäuren in neuronalen Membranen), Gelenke", takeWith:"Mit einer beliebigen Hauptmahlzeit (mit Fett). Synergie mit D3+K2. Immer zusammen mit Nachtkerzenöl (p51) für Omega-6/3-Balance.", competes:"Blutdünnend – Vorsicht mit Aspirin/Warfarin/Heparin. Vor Operationen 1–2 Wochen absetzen.", geschmack:"Nicht relevant (Kapsel) – ggf. leichter Fischgeschmack beim Aufstoßen", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p29", cat:"Adaptogene",        name:"HEALTH+ Ashwagandha (KSM-66)",               icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Withanolide besser mit Mahlzeit", function:"Cortisol, Stressresistenz, Testosteron, Schlaf, Ausdauer", takeWith:"Abends (cortisol-senkend). 2x täglich mit Mahlzeit. Piperin verbessert Absorption.", competes:"Nicht mit Schilddrüsen-Medi ohne Rücksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
           { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",                  icon:"🍄", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfügbar", function:"ATP-Produktion, Ausdauer (bei Untrainierten +11% VO2max in einer Studie; bei Trainierten: schwache & gemischte Evidenz), Libido/Energie, Lungenkapazität", takeWith:"Pre-workout oder morgens. Mit CoQ10 für mitochondriale Gesundheit.", competes:"Für Hypertrophie evidenzschwach (eher Ausdauer). Leicht blutdünnend. Autoimmun vorsichtig.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)" },
@@ -1467,11 +1493,22 @@
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
                             ${macroHtml}
+                            ${buildNutrientsHtml(p)}
                             ${detailsRowsHtml}
                         </div>
                     </div>
                 `;
             }).join('');
+        }
+
+        function buildNutrientsHtml(p) {
+            if (!p.nutrients || p.nutrients.length === 0) return '';
+            return `<div class="micro-box">
+                <div class="macros-title">MIKRONÄHRSTOFFE PRO PORTION (${p.serving})</div>
+                <table class="micro-table">${p.nutrients.map(n =>
+                    `<tr><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`
+                ).join('')}</table>
+            </div>`;
         }
 
         function toggleTimelineCard(id) {
@@ -1534,7 +1571,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = macroHtml + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = macroHtml + buildNutrientsHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
