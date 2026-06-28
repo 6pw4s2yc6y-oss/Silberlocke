@@ -2006,6 +2006,7 @@
                 }
                 const consumed = (pct / 100) * norm.v;
                 const consumedStr = (consumed >= 1000 ? Math.round(consumed) : consumed.toFixed(1)) + ' ' + norm.u;
+                const allMin = Math.min(norm.v, norm.dach_min, norm.usa_min);
                 const allMax = Math.max(norm.v, norm.dach_max, norm.usa_max);
                 const scaleVal = Math.max(allMax * 1.5, consumed > 0 ? consumed * 1.1 : norm.v * 3, norm.v * 3);
                 const fillPct = Math.min(consumed / scaleVal * 100, 100);
@@ -2013,10 +2014,11 @@
                 const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
                 let fillColor, valColor;
                 if (norm.ul && consumed >= norm.ul) { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
-                else if (consumed >= allMax)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
+                else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
                 else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
+                const sepColor = consumed >= allMax ? '#dc2626' : '#22c55e';
                 let markers = '';
-                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:#dc2626;"></div>';
+                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
                 if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
                 const normsHtml = '<div class="daily-nrv-norms">' +
                     '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
