@@ -1273,7 +1273,7 @@
     { label:"Pantothensäure",         amount:"2,0 mg",       nrv:33 },
     { label:"Zink",                   amount:"5,0 mg",       nrv:50 },
     { label:"Kupfer",                 amount:"0,33 mg",      nrv:33 },
-    { label:"Selen",                  amount:"9,3 µg",       nrv:33 },
+    { label:"Selen",                  amount:"9,3 µg",       nrv:17 },
     { label:"Chrom",                  amount:"8,3 µg",       nrv:21 },
     { label:"Jod",                    amount:"76,9 µg",      nrv:51 },
     { label:"Spirulinapulver",        amount:"1.000,0 mg",   nrv:null },
@@ -1545,9 +1545,9 @@
           { id:"p44", cat:"Pre-Workout",       name:"ZEC+ Pumpdown Pump-Booster",                 icon:"💪", serving:"~30g",  protein:13, carbs:3,  fat:0,  kcal:84,  absorption:"Schnell – 30–45 min vor Training", function:"Maximaler Pump, Durchblutung, Gefäßerweiterung – koffeinfrei", takeWith:"Pre-workout. Kombinierbar mit Koffein-Booster.", competes:"Nicht mit PDE5-Hemmern. Blutdruck senkend -> Vorsicht bei Hypotonie.", geschmack:"Verschiedene Geschmacksrichtungen", loeslichkeit:"Gut – im Shaker mit 300 ml Wasser",
   ingredients:"Dextrin, L-Citrullin-Malat, Arginin AKG, HydroMax™ Glycerol, Taurin, Ornithin AKG, Betain Anhydrous, N-Acetyl-L-Tyrosin, Inositol, Farbstoff Beta-Carotin (1%ig), Aroma, N-Acetyl-Cystein, Kiefernrinden Extrakt, Traubenkern Extrakt, L-Norvalin, Panax Ginseng Extrakt, Resveratrol, Säuerungsmittel Citronensäure, Süßungsmittel: Acesulfam K und Sucralose, Vitamin C (Askorbinsäure), Vitamin B6 (Pyridoxin Hydrochlorid), Vitamin B9",
   nutrients:[
-    { label:"Vitamin C",           amount:"100,0 mg",  nrv:135 },
-    { label:"Vitamin B6",          amount:"2,0 mg",    nrv:118 },
-    { label:"Vitamin B9",          amount:"500,0 µg",  nrv:155 },
+    { label:"Vitamin C",           amount:"100,0 mg",  nrv:125 },
+    { label:"Vitamin B6",          amount:"2,0 mg",    nrv:143 },
+    { label:"Vitamin B9",          amount:"500,0 µg",  nrv:250 },
     { label:"L-Citrullin-Malat",   amount:"6,0 g",     nrv:null },
     { label:"Arginin-AKG",         amount:"3,0 g",     nrv:null },
     { label:"HydroMax™ Glycerol",  amount:"2,0 g",     nrv:null },
@@ -1984,11 +1984,11 @@
             const nonNrvOptMap = {};
 
             const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
-                'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium']);
+                'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium','Brennwert']);
             products.forEach(p => {
                 if (!p.nutrients) return;
                 p.nutrients.forEach(n => {
-                    if (n.label.startsWith('—') || MACRO_SKIP.has(n.label)) return;
+                    if ((n.label.startsWith('—') && n.nrv === null) || MACRO_SKIP.has(n.label)) return;
                     if (n.nrv !== null) {
                         if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, sources: [] };
                         nrvMap[n.label].totalNrv += n.nrv;
