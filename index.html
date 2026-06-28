@@ -1271,13 +1271,15 @@
             const _dwMin = (() => { const [h,m] = globalWakeTimeStr.split(':').map(Number); return h*60+m; })();
             const _dsMin = (() => { const [h,m] = globalSleepTimeStr.split(':').map(Number); return h*60+m; })();
             const _dAwake = (_dsMin - _dwMin + 1440) % 1440;
-            const _dMsw = (d) => d.isRelativeTosleep ? _dAwake - d.offsetMinutes : d.offsetMinutes;
+            const _dScale = _dAwake / 960;
+            const _dMsw = (d) => d.isRelativeTosleep ? _dAwake - d.offsetMinutes : Math.round(d.offsetMinutes * _dScale);
+            const _dFmt = (absMin) => { const h=Math.floor((absMin%1440)/60), m=absMin%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`; };
+            const _dTime = (d) => _dFmt((_dwMin + _dMsw(d)) % 1440);
             const sortedDoses = [...PROTEIN_DOSES_CONFIG]
                 .filter(d => { const v = _dMsw(d); return v >= 0 && v < _dAwake; })
                 .sort((a, b) => _dMsw(a) - _dMsw(b));
             proteinBox.innerHTML = sortedDoses.map(d => {
-                const baseTime = d.isRelativeTosleep ? globalSleepTimeStr : globalWakeTimeStr;
-                const calculatedTimeStr = calculateSingleTime(baseTime, d.offsetMinutes, d.isRelativeTosleep);
+                const calculatedTimeStr = _dTime(d);
                 return `
                     <div class="protein-row">
                         <div>
@@ -1310,11 +1312,19 @@
             const wakeMin = (() => { const [h, m] = globalWakeTimeStr.split(':').map(Number); return h * 60 + m; })();
             const sleepMin = (() => { const [h, m] = globalSleepTimeStr.split(':').map(Number); return h * 60 + m; })();
             const awakeDuration = (sleepMin - wakeMin + 1440) % 1440;
-            // Minuten seit Aufwachen (immer positiv, kein modulo-wrap-Bug)
+            // Config wurde für 16h-Tag (960 min) entworfen – proportional stauchen/strecken
+            const timeScale = awakeDuration / 960;
             function minutesSinceWake(block) {
                 return block.isRelativeTosleep
                     ? awakeDuration - block.offsetMinutes
-                    : block.offsetMinutes;
+                    : Math.round(block.offsetMinutes * timeScale);
+            }
+            function blockTimeWindow(block) {
+                const msw = minutesSinceWake(block);
+                const s = (wakeMin + msw) % 1440;
+                const e = (s + block.duration) % 1440;
+                const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+                return `${fmt(s)} – ${fmt(e)}`;
             }
             const sortedBlocks = [...TIMELINE_CONFIG]
                 .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
@@ -1324,9 +1334,8 @@
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
-                // Live-Kalkulation der getakteten Uhrzeit
-                const baseTime = block.isRelativeTosleep ? globalSleepTimeStr : globalWakeTimeStr;
-                const finalTimeWindow = calculateTimeWindow(baseTime, block.offsetMinutes, block.duration, block.isRelativeTosleep);
+                // Live-Kalkulation der getakteten Uhrzeit (skaliert)
+                const finalTimeWindow = blockTimeWindow(block);
 
                 let pListHtml = block.productIds.map(pid => {
                     const p = getProductById(pid);
