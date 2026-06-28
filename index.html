@@ -281,6 +281,15 @@
             color: #94a3b8;
             text-align: right;
             white-space: nowrap;
+            cursor: pointer;
+        }
+        .header-time-info::after {
+            content: "✎ ändern";
+            display: block;
+            color: #475569;
+            font-size: 9px;
+            font-weight: 600;
+            margin-top: 1px;
         }
 
         .header-time-info span {
@@ -1945,6 +1954,12 @@
             globalWakeTimeStr = wakeInput;
             globalSleepTimeStr = sleepInput;
 
+            // Zeiten lokal im Browser merken (kein Login/Backend nötig)
+            try {
+                localStorage.setItem("sl_wake", wakeInput);
+                localStorage.setItem("sl_sleep", sleepInput);
+            } catch (e) {}
+
             // Display im Header aktualisieren
             document.getElementById("displayWakeTime").innerText = wakeInput;
             document.getElementById("displaySleepTime").innerText = sleepInput;
@@ -1952,6 +1967,13 @@
             // Setup ausblenden → Modus-Auswahl (Hard / Light) einblenden
             document.getElementById("setupScreen").style.display = "none";
             document.getElementById("modeScreen").style.display = "flex";
+        }
+
+        // Zurück zur Zeiteingabe aus der laufenden App (Zeiten ändern)
+        function editTimes() {
+            document.getElementById("mainApp").style.display = "none";
+            document.getElementById("modeScreen").style.display = "none";
+            document.getElementById("setupScreen").style.display = "flex";
         }
 
         // ── MODUS-AUSWAHL: Hard (voll) oder Light (vereinfacht) ────────────────────
@@ -1973,6 +1995,9 @@
         function selectMode(mode) {
             appMode = mode;
             document.body.classList.toggle('light-mode', mode === 'light');
+
+            // Gewählten Modus lokal merken
+            try { localStorage.setItem("sl_mode", mode); } catch (e) {}
 
             document.getElementById("modeScreen").style.display = "none";
             document.getElementById("mainApp").style.display = "block";
@@ -3938,6 +3963,33 @@
             document.querySelector("#productOverlay .overlay-sheet").addEventListener("click", function(e) {
                 e.stopPropagation();
             });
+
+            // Header-Zeitanzeige anklickbar → Zeiten ändern
+            const timeInfo = document.querySelector(".header-time-info");
+            if (timeInfo) timeInfo.addEventListener("click", editTimes);
+
+            // ── Gespeicherte Sitzung wiederherstellen (localStorage) ──────────────
+            // Damit man die Uhrzeit nicht bei jedem Besuch neu eingeben muss.
+            try {
+                const savedWake  = localStorage.getItem("sl_wake");
+                const savedSleep = localStorage.getItem("sl_sleep");
+                const savedMode  = localStorage.getItem("sl_mode");
+
+                // Eingabefelder schon mal vorausfüllen (falls man doch zur Eingabe geht)
+                if (savedWake)  document.getElementById("wakeTimeInput").value  = savedWake;
+                if (savedSleep) document.getElementById("sleepTimeInput").value = savedSleep;
+
+                // Alles bekannt → direkt in die App, beide Startseiten überspringen
+                if (savedWake && savedSleep && savedMode) {
+                    globalWakeTimeStr  = savedWake;
+                    globalSleepTimeStr = savedSleep;
+                    document.getElementById("displayWakeTime").innerText  = savedWake;
+                    document.getElementById("displaySleepTime").innerText = savedSleep;
+                    document.getElementById("setupScreen").style.display = "none";
+                    document.getElementById("modeScreen").style.display  = "none";
+                    selectMode(savedMode);
+                }
+            } catch (e) {}
         });
     </script>
 </body>
