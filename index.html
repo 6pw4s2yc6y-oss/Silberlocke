@@ -1983,14 +1983,16 @@
             const nonNrvMap = {};
             const nonNrvOptMap = {};
 
+            const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
+                'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium']);
             products.forEach(p => {
                 if (!p.nutrients) return;
                 p.nutrients.forEach(n => {
-                    if (n.label.startsWith('—')) return;
+                    if (n.label.startsWith('—') || MACRO_SKIP.has(n.label)) return;
                     if (n.nrv !== null) {
                         if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, sources: [] };
                         nrvMap[n.label].totalNrv += n.nrv;
-                        nrvMap[n.label].sources.push({ name: p.name, amount: n.amount, nrv: n.nrv });
+                        nrvMap[n.label].sources.push({ name: p.name, serving: p.serving || '', amount: n.amount, nrv: n.nrv });
                     } else {
                         if (!nonNrvMap[n.label]) nonNrvMap[n.label] = n.amount;
                         if (!nonNrvOptMap[n.label]) nonNrvOptMap[n.label] = [];
@@ -2065,7 +2067,7 @@
                 const pct = data.totalNrv;
                 const norm = NUTRIENT_NORMS[label];
                 const sourcesHtml = '<div class="nutr-opt-sources">' +
-                    data.sources.map(s => '<div class="nutr-opt-source"><span class="nutr-opt-prod">' + s.name + '</span><span class="nutr-opt-amt">' + s.amount + '</span></div>').join('') +
+                    data.sources.map(s => '<div class="nutr-opt-source"><span class="nutr-opt-prod">' + s.name + (s.serving ? ' <span style="color:#334155;font-style:normal;">· ' + s.serving + '</span>' : '') + '</span><span class="nutr-opt-amt">' + s.amount + '</span></div>').join('') +
                 '</div>';
                 if (!norm) {
                     const fillPct = Math.min(pct, 300) / 300 * 100;
@@ -2136,9 +2138,9 @@
                 '<div class="daily-nutr-section">' +
                     '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nrv-body\',\'daily-nrv-arrow\')">' +
                         '<span>Mikronährstoffe &mdash; Ist-Zufuhr + 3 Referenzwerte</span>' +
-                        '<span id="daily-nrv-arrow" class="daily-nutr-section-arrow">▲</span>' +
+                        '<span id="daily-nrv-arrow" class="daily-nutr-section-arrow">▼</span>' +
                     '</div>' +
-                    '<div id="daily-nrv-body">' +
+                    '<div id="daily-nrv-body" style="display:none;">' +
                         nrvHtml +
                         '<div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Supplement-only · Balken relativ zum EU-NRV (skaliert bis 300%) · EU Nr. 1169/2011 · D-A-CH 2020 · USA NIH/HMD</div>' +
                     '</div>' +
@@ -2149,9 +2151,9 @@
                 '<div class="daily-nutr-section">' +
                     '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nonrv-body\',\'daily-nonrv-arrow\')">' +
                         '<span>Wirkstoffe &amp; Extrakte (kein EU-NRV)</span>' +
-                        '<span id="daily-nonrv-arrow" class="daily-nutr-section-arrow">▲</span>' +
+                        '<span id="daily-nonrv-arrow" class="daily-nutr-section-arrow">▼</span>' +
                     '</div>' +
-                    '<div id="daily-nonrv-body">' +
+                    '<div id="daily-nonrv-body" style="display:none;">' +
                         nonNrvHtml +
                     '</div>' +
                 '</div>'
@@ -2195,10 +2197,10 @@
                             <div class="daily-nutr-title">Tages-Nährwertbilanz</div>
                             <div class="daily-nutr-subtitle">Aus Supplementplan (ohne Mahlzeiten) · alle Timeline-Produkte</div>
                         </div>
-                        <span id="daily-nutr-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▲</span>
+                        <span id="daily-nutr-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▼</span>
                     </div>
                 </div>
-                <div id="daily-nutr-content">
+                <div id="daily-nutr-content" style="display:none;">
                     <div class="daily-nutr-section">
                         <div class="daily-nutr-section-title">Makronährstoffe aus Supplementen</div>
                         <div class="daily-macro-grid">
