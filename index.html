@@ -326,13 +326,16 @@
         .combined-divider { border: none; border-top: 1px solid #1e1b3a; margin: 16px 0; }
 
         /* DAY-TYPE SELECTOR */
-        .daytype-bar { display: flex; gap: 6px; margin-top: 12px; margin-bottom: 2px; }
-        .daytype-btn { flex: 1; padding: 10px 4px; font-size: 11px; font-weight: 700; border-radius: 9px;
+        .daytype-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; margin-bottom: 2px; }
+        .daytype-btn { flex: 1 1 28%; padding: 10px 4px; font-size: 11px; font-weight: 700; border-radius: 9px;
             background: #070710; border: 1px solid #1e293b; color: #94a3b8; cursor: pointer; transition: 0.2s; white-space: nowrap; }
         .daytype-btn.active { color: #fff; }
         #dtTraining.active { background: #7c3aed; border-color: #a78bfa; }
         #dtRest.active { background: #0369a1; border-color: #38bdf8; }
         #dtCarb.active { background: #b45309; border-color: #fbbf24; }
+        #dtAutophagy.active { background: #047857; border-color: #34d399; }
+        #dtWater.active { background: #0891b2; border-color: #22d3ee; }
+        #dtKeto.active { background: #be185d; border-color: #f472b6; }
         .daytype-hint { font-size: 10px; color: #64748b; margin: 6px 2px 0; line-height: 1.5; }
 
         /* TIMELINE SECTIONS */
@@ -781,6 +784,9 @@
                     <button class="daytype-btn active" id="dtTraining" onclick="selectDayType('training')">🏋️ Trainingstag</button>
                     <button class="daytype-btn" id="dtRest" onclick="selectDayType('rest')">🛌 Trainingsfrei</button>
                     <button class="daytype-btn" id="dtCarb" onclick="selectDayType('carb')">🍚 Carb-Loading</button>
+                    <button class="daytype-btn" id="dtAutophagy" onclick="selectDayType('autophagy')">🔄 Autophagie</button>
+                    <button class="daytype-btn" id="dtWater" onclick="selectDayType('water')">💧 Wasserfasten</button>
+                    <button class="daytype-btn" id="dtKeto" onclick="selectDayType('keto')">🥑 Ketogen</button>
                 </div>
                 <div class="daytype-hint" id="dayTypeHint"></div>
             </div>
@@ -2282,8 +2288,9 @@
             </div>`;
         }
 
-        // ── TAGESTYP (Trainingstag / Trainingsfrei / Carb-Loading) ──────────────────
+        // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
         let currentDayType = 'training';
+        const DAYTYPES = ['training','rest','carb','autophagy','water','keto'];
 
         // Pre-Workout Stim-/Pump-Booster – an trainingsfreien Tagen überflüssig
         const BOOSTER_IDS = new Set(['p43','p44','p45','p46','p47']);
@@ -2291,16 +2298,21 @@
         const FASTCARB_IDS = new Set(['p8','p9']);
         // Kohlenhydrat-Quellen für Carb-Loading (verfügbar, nicht ausverkauft)
         const CARBLOAD_INJECT = { p9: "Maltodextrin", p12: "Instant Rice Pudding" };
+        // Elektrolyt-/Mineral-Produkt fürs Wasserfasten (kalorienfrei, sicherheitsrelevant)
+        const WATERFAST_KEEP = new Set(['p26']);
 
         const DAYTYPE_HINTS = {
-            training: "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
-            rest:     "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
-            carb:     "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation."
+            training:  "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
+            rest:      "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
+            carb:      "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation.",
+            autophagy: "🔄 <strong>Autophagie-Tag:</strong> Nur kalorienfreie Mikronährstoffe & Wasser. <strong>Kein Protein, keine Kalorien</strong> – mTOR & Insulin niedrig halten, sonst stoppt die zelluläre Selbstreinigung. Ideal ab ~16h Fasten.",
+            water:     "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung.",
+            keto:      "🥑 <strong>Ketogener Tag:</strong> Kohlenhydratquellen (Maltodextrin, Gainer, Rice Pudding, High-Carb-Pre-Workout) entfallen. Ziel < 30–50 g Carbs/Tag. Mehr Elektrolyte trinken (Keto-Grippe vermeiden), Fett & moderates Protein bleiben."
         };
 
         function selectDayType(type) {
             currentDayType = type;
-            ['training','rest','carb'].forEach(t => {
+            DAYTYPES.forEach(t => {
                 const btn = document.getElementById('dt' + t.charAt(0).toUpperCase() + t.slice(1));
                 if (btn) btn.classList.toggle('active', t === type);
             });
@@ -2310,9 +2322,41 @@
         }
 
         function getActiveTimeline() {
-            if (currentDayType === 'rest') return buildRestTimeline();
-            if (currentDayType === 'carb') return buildCarbTimeline();
-            return TIMELINE_CONFIG;
+            switch (currentDayType) {
+                case 'rest':      return buildRestTimeline();
+                case 'carb':      return buildCarbTimeline();
+                case 'autophagy': return filterTimeline(
+                                       p => (p.protein||0)===0 && (p.carbs||0)===0 && (p.kcal||0)<=5,
+                                       "Fastenfenster: nur Wasser & kalorienfreie Mikronährstoffe. Kein Protein/keine Kalorien – sonst stoppt die Autophagie.");
+                case 'water':     return filterTimeline(
+                                       (p, pid) => WATERFAST_KEEP.has(pid),
+                                       "Striktes Wasserfasten: ausschließlich Wasser + Elektrolyte. Keine Kalorien, keine sonstigen Supplemente.");
+                case 'keto':      return filterTimeline(
+                                       p => (p.carbs||0) <= 10,
+                                       null);
+                default:          return TIMELINE_CONFIG;
+            }
+        }
+
+        // Generischer Filter: behält pro Block nur Produkte, die keepFn erfüllt;
+        // leere Blöcke fallen weg. whyOverride ersetzt optional die Begründung.
+        function filterTimeline(keepFn, whyOverride) {
+            return TIMELINE_CONFIG
+                .map(b => {
+                    const productIds = b.productIds.filter(pid => {
+                        const p = getProductById(pid);
+                        return p && keepFn(p, pid, b);
+                    });
+                    const notes = {}, priority = {};
+                    productIds.forEach(pid => {
+                        if (b.notes[pid]) notes[pid] = b.notes[pid];
+                        if (b.priority[pid]) priority[pid] = b.priority[pid];
+                    });
+                    const out = { ...b, productIds, notes, priority };
+                    if (whyOverride) out.why = ": WASSER: reichlich über den Tag verteilt.<br><br>" + whyOverride;
+                    return out;
+                })
+                .filter(b => b.productIds.length > 0);
         }
 
         // Trainingsfreier Tag: Pre-Workout entfällt, Post-Workout ohne schnelle Carbs/Gainer
