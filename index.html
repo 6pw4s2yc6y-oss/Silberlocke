@@ -358,7 +358,10 @@
         .db-search-box { position: relative; margin-bottom: 10px; }
         .db-search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #475569; }
         .db-input { width: 100%; padding: 10px 14px 10px 36px; background: #05050f; border: 1px solid #1a1a30; border-radius: 10px; color: #e2e8f0; font-size: 13px; outline: none; }
-        .db-categories { overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; display: flex; gap: 6px; }
+        .db-categories-wrap { position: relative; }
+        .db-categories-wrap::after { content:''; position:absolute; right:0; top:0; bottom:4px; width:28px; background:linear-gradient(to right,transparent,#000); pointer-events:none; }
+        .db-categories { overflow-x: auto; margin-bottom: 12px; padding-bottom: 4px; display: flex; gap: 6px; scrollbar-width: none; }
+        .db-categories::-webkit-scrollbar { display: none; }
         .cat-btn { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; background: transparent; border: 1px solid #334155; color: #94a3b8; cursor: pointer; white-space: nowrap; }
         .cat-btn.active { background: #7c3aed; border-color: #7c3aed; color: white; }
         .db-counter { font-size: 11px; color: #475569; margin-bottom: 10px; }
@@ -773,7 +776,7 @@
                     <span class="db-search-icon"></span>
                     <input type="text" class="db-input" id="dbSearchInput" placeholder="Produkt oder Funktion suchen...">
                 </div>
-                <div class="db-categories" id="dbCategoriesBox"></div>
+                <div class="db-categories-wrap"><div class="db-categories" id="dbCategoriesBox"></div></div>
                 <div class="db-counter" id="dbProductCount">0 Produkte</div>
                 <div id="dbCardList"></div>
                 <div class="no-results" id="dbNoResults">
@@ -954,7 +957,7 @@
                         <g class="body-hotspot" id="hs-hands" onclick="selectZone('hands')">
                           <ellipse cx="51" cy="249" rx="14" ry="17" fill="#f97316" fill-opacity="0.28" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
                           <ellipse cx="169" cy="249" rx="14" ry="17" fill="#f97316" fill-opacity="0.28" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
-                          <text x="7" y="252" text-anchor="middle" font-size="6" fill="#fdba74">Hände</text>
+                          <text x="18" y="252" text-anchor="middle" font-size="6" fill="#fdba74">Hände</text>
                         </g>
 
                         <!-- JOINTS / KNEES – at the knee joint -->
@@ -1985,18 +1988,34 @@
 
             const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
                 'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium','Brennwert']);
+            const LABEL_CANON = {
+                'Thiamin':                    'Thiamin (B1)',
+                'Riboflavin':                 'Riboflavin (B2)',
+                'Vitamin B2 – Riboflavin':    'Riboflavin (B2)',
+                'Niacin':                     'Niacin (B3)',
+                'Pantothensäure (B5)':        'Pantothensäure',
+                'Biotin (B7)':                'Biotin',
+                'Folsäure (B9)':              'Folsäure',
+                'Vitamin B9':                 'Folsäure',
+                'Vitamin D3 (Cholecalciferol)':'Vitamin D',
+                'Vitamin E (Tocopherol)':     'Vitamin E',
+                'Vitamin E (Alpha-Tocopherol)':'Vitamin E',
+                'Vitamin K2 (Menachinon)':    'Vitamin K',
+            };
             products.forEach(p => {
                 if (!p.nutrients) return;
                 p.nutrients.forEach(n => {
                     if ((n.label.startsWith('—') && n.nrv === null) || MACRO_SKIP.has(n.label)) return;
+                    const rawLabel = n.label.startsWith('— ') ? n.label.slice(2) : n.label;
+                    const canonLabel = LABEL_CANON[rawLabel] || rawLabel;
                     if (n.nrv !== null) {
-                        if (!nrvMap[n.label]) nrvMap[n.label] = { totalNrv: 0, sources: [] };
-                        nrvMap[n.label].totalNrv += n.nrv;
-                        nrvMap[n.label].sources.push({ name: p.name, serving: p.serving || '', amount: n.amount, nrv: n.nrv });
+                        if (!nrvMap[canonLabel]) nrvMap[canonLabel] = { totalNrv: 0, sources: [] };
+                        nrvMap[canonLabel].totalNrv += n.nrv;
+                        nrvMap[canonLabel].sources.push({ name: p.name, serving: p.serving || '', amount: n.amount, nrv: n.nrv });
                     } else {
-                        if (!nonNrvMap[n.label]) nonNrvMap[n.label] = n.amount;
-                        if (!nonNrvOptMap[n.label]) nonNrvOptMap[n.label] = [];
-                        nonNrvOptMap[n.label].push(p.name);
+                        if (!nonNrvMap[canonLabel]) nonNrvMap[canonLabel] = n.amount;
+                        if (!nonNrvOptMap[canonLabel]) nonNrvOptMap[canonLabel] = [];
+                        nonNrvOptMap[canonLabel].push(p.name);
                     }
                 });
             });
@@ -3610,6 +3629,9 @@
             });
             document.getElementById("productOverlay").addEventListener("click", function() {
                 this.style.display = "none";
+            });
+            document.querySelector("#productOverlay .overlay-sheet").addEventListener("click", function(e) {
+                e.stopPropagation();
             });
         });
     </script>
