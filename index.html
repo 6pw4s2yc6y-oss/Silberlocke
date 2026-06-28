@@ -203,11 +203,19 @@
         }
         .brand-about {
             font-size: 9px;
-            color: #f97316;
             letter-spacing: 0.08em;
             margin-top: -2px;
             text-align: right;
+            display: inline-block;
+            background: linear-gradient(90deg, #f97316 0%, #f97316 30%, #ffffff 50%, #f97316 70%, #f97316 100%);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: silberWave 2.5s linear infinite;
+            animation-direction: reverse;
         }
+        .db-card-flavor { font-size: 9px; color: #94a3b8; margin-top: 1px; font-style: italic; }
 
         .header-time-info {
             font-size: 10px;
@@ -1642,6 +1650,15 @@
   ] }
         ];
 
+        const PRODUCT_FLAVORS = {
+          "p1":  "Vanilla",
+          "p2":  "Cherry",
+          "p8":  "White Chocolate Coconut",
+          "p12": "Neutral",
+          "p43": "Mango Tango",
+          "p44": "Tropical Fruit"
+        };
+
         const PRODUCT_BADGES = {
           "p15": { text: "⚠ Verboten in EU", type: "banned"  },
           "p2":  { text: "Ausverkauft",       type: "soldout" },
@@ -1991,12 +2008,14 @@
                     </div>
                 `).join('');
 
+                const flavor = PRODUCT_FLAVORS[p.id];
                 return `
                     <div class="db-card" id="dbc-${p.id}">
                         <button class="db-card-trigger" onclick="toggleProductCard('${p.id}')">
                             <span class="db-card-icon">${p.icon}</span>
                             <div class="db-card-title-box">
                                 <div class="db-card-name">${p.name}</div>
+                                ${flavor ? `<div class="db-card-flavor">(${flavor})</div>` : ''}
                                 <div class="db-card-cat">${p.cat}</div>
                             </div>
                             ${badge ? `<span class="prod-badge prod-badge-${badge.type}">${badge.text}</span>` : ''}
