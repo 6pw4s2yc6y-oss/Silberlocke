@@ -1530,12 +1530,14 @@
 
         function buildNutrientsHtml(p) {
             if (!p.nutrients || p.nutrients.length === 0) return '';
+            const hasNrv = p.nutrients.some(n => n.nrv !== null);
             return `<div class="micro-box">
                 <div class="macros-title">MIKRONÄHRSTOFFE PRO PORTION (${p.serving})</div>
                 <table class="micro-table">${p.nutrients.map(n => {
                     const isSub = n.label.startsWith('—');
                     return `<tr class="${isSub ? 'micro-sub' : ''}"><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`;
                 }).join('')}</table>
+                ${hasNrv ? `<div style="font-size:9px;color:#475569;margin-top:6px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011</div>` : ''}
             </div>`;
         }
 
