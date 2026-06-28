@@ -369,12 +369,21 @@
         .db-card-content { display: none; padding: 0 14px 14px; border-top: 1px solid #1e293b; }
 
         /* MACROS & DETAILS ROW */
-        .macros-box { background: #04040d; border-radius: 8px; padding: 9px 11px; margin: 10px 0; display: flex; gap: 12px; flex-wrap: wrap; }
-        .macros-title { font-size: 10px; color: #475569; font-weight: 700; width: 100%; margin-bottom: 2px; }
-        .macro-p { font-size: 12px; color: #4ade80; }
-        .macro-c { font-size: 12px; color: #fb923c; }
-        .macro-f { font-size: 12px; color: #facc15; }
-        .macro-k { font-size: 12px; color: #94a3b8; }
+        .macros-box { background: #04040d; border-radius: 8px; padding: 9px 11px; margin: 10px 0; }
+        .macros-title { font-size: 10px; color: #475569; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.06em; }
+        .naehr-table { width: 100%; border-collapse: collapse; }
+        .naehr-table tr { border-top: 1px solid #1e293b; }
+        .naehr-table tr:first-child { border-top: 2px solid #334155; }
+        .naehr-table td { padding: 5px 2px; font-size: 12px; vertical-align: middle; }
+        .naehr-table td:last-child { text-align: right; font-weight: 700; }
+        .naehr-row-energy td:first-child { color: #94a3b8; }
+        .naehr-row-energy td:last-child { color: #fb923c; }
+        .naehr-row-fat td:first-child { color: #94a3b8; }
+        .naehr-row-fat td:last-child { color: #facc15; }
+        .naehr-row-carbs td:first-child { color: #94a3b8; }
+        .naehr-row-carbs td:last-child { color: #fb923c; }
+        .naehr-row-protein td:first-child { color: #94a3b8; }
+        .naehr-row-protein td:last-child { color: #4ade80; }
 
         .info-row { background: #04040d; border-radius: 8px; padding: 9px 11px; margin-bottom: 7px; border-left: 3px solid var(--row-color); }
         .info-row-title { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; color: var(--row-color); }
@@ -1417,13 +1426,16 @@
             document.getElementById("dbNoResults").style.display = filtered.length === 0 ? 'block' : 'none';
 
             listContainer.innerHTML = filtered.map(p => {
+                const kj = Math.round(p.kcal * 4.184);
                 let macroHtml = `
                     <div class="macros-box">
-                        <div class="macros-title">PRO PORTION (${p.serving})</div>
-                        ${p.protein > 0 ? `<span class="macro-p">Protein <strong>${p.protein}g</strong></span>` : ''}
-                        ${p.carbs > 0 ? `<span class="macro-c">Carbs <strong>${p.carbs}g</strong></span>` : ''}
-                        ${p.fat > 0 ? `<span class="macro-f">Fett <strong>${p.fat}g</strong></span>` : ''}
-                        <span class="macro-k">Kcal <strong>${p.kcal}</strong></span>
+                        <div class="macros-title">NÄHRWERTE PRO PORTION (${p.serving})</div>
+                        <table class="naehr-table">
+                            <tr class="naehr-row-energy"><td>Brennwert</td><td>${kj} kJ / ${p.kcal} kcal</td></tr>
+                            <tr class="naehr-row-fat"><td>Fett</td><td>${p.fat} g</td></tr>
+                            <tr class="naehr-row-carbs"><td>Kohlenhydrate</td><td>${p.carbs} g</td></tr>
+                            <tr class="naehr-row-protein"><td>Eiweiß</td><td>${p.protein} g</td></tr>
+                        </table>
                     </div>
                 `;
 
@@ -1493,13 +1505,16 @@
             document.getElementById("ovName").innerText = p.name;
             document.getElementById("ovCat").innerText = p.cat;
 
+            const kj = Math.round(p.kcal * 4.184);
             let macroHtml = `
                 <div class="macros-box">
-                    <div class="macros-title">PRO PORTION (${p.serving})</div>
-                    ${p.protein > 0 ? `<span class="macro-p">Protein <strong>${p.protein}g</strong></span>` : ''}
-                    ${p.carbs > 0 ? `<span class="macro-c">Carbs <strong>${p.carbs}g</strong></span>` : ''}
-                    ${p.fat > 0 ? `<span class="macro-f">Fett <strong>${p.fat}g</strong></span>` : ''}
-                    <span class="macro-k">Kcal <strong>${p.kcal}</strong></span>
+                    <div class="macros-title">NÄHRWERTE PRO PORTION (${p.serving})</div>
+                    <table class="naehr-table">
+                        <tr class="naehr-row-energy"><td>Brennwert</td><td>${kj} kJ / ${p.kcal} kcal</td></tr>
+                        <tr class="naehr-row-fat"><td>Fett</td><td>${p.fat} g</td></tr>
+                        <tr class="naehr-row-carbs"><td>Kohlenhydrate</td><td>${p.carbs} g</td></tr>
+                        <tr class="naehr-row-protein"><td>Eiweiß</td><td>${p.protein} g</td></tr>
+                    </table>
                 </div>
             `;
 
