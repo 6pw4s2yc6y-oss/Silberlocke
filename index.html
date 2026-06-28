@@ -2039,13 +2039,22 @@
                     '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
                     (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
                     '</div>';
+                let barFillHtml;
+                if (norm.ul && consumed >= norm.ul) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
+                } else if (consumed > allMax) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        '<div class="daily-nrv-fill" style="left:' + allMaxPct.toFixed(1) + '%;width:' + (fillPct - allMaxPct).toFixed(1) + '%;background:#dc2626;"></div>';
+                } else {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>';
+                }
                 return '<div class="daily-nrv-row">' +
                     '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
                         '<span class="daily-nrv-name">' + label + '</span>' +
                         '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
                     '</div>' +
                     '<div class="daily-nrv-track">' +
-                        '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        barFillHtml +
                         markers +
                     '</div>' +
                     normsHtml +
@@ -2095,13 +2104,22 @@
                     '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
                     (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
                     '</div>';
+                let barFillHtml;
+                if (norm.ul && consumed >= norm.ul) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
+                } else if (consumed > allMax) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        '<div class="daily-nrv-fill" style="left:' + allMaxPct.toFixed(1) + '%;width:' + (fillPct - allMaxPct).toFixed(1) + '%;background:#dc2626;"></div>';
+                } else {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>';
+                }
                 return '<div class="daily-nrv-row">' +
                     '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
                         '<span class="daily-nrv-name">' + label + '</span>' +
                         '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
                     '</div>' +
                     '<div class="daily-nrv-track">' +
-                        '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        barFillHtml +
                         markers +
                     '</div>' +
                     normsHtml +
