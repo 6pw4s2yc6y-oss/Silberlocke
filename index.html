@@ -2026,10 +2026,11 @@
                 const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
                 const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
                 let fillColor, valColor;
-                if (norm.ul && consumed >= norm.ul) { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                const ulToxic = norm.ul && norm.ul > norm.v && consumed >= norm.ul;
+                if (ulToxic)                         { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
                 else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
                 else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
-                const sepColor = consumed >= allMax ? '#dc2626' : '#22c55e';
+                const sepColor = consumed > allMax ? '#dc2626' : '#22c55e';
                 let markers = '';
                 if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
                 if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
@@ -2042,7 +2043,7 @@
                     (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
                     '</div>';
                 let barFillHtml;
-                if (norm.ul && consumed >= norm.ul) {
+                if (ulToxic) {
                     barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
                 } else if (consumed > allMax) {
                     barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
@@ -2091,10 +2092,11 @@
                 const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
                 const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
                 let fillColor, valColor;
-                if (norm.ul && consumed >= norm.ul) { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                const ulToxic = norm.ul && norm.ul > norm.v && consumed >= norm.ul;
+                if (ulToxic)                         { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
                 else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
                 else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
-                const sepColor = consumed >= allMax ? '#dc2626' : '#22c55e';
+                const sepColor = consumed > allMax ? '#dc2626' : '#22c55e';
                 let markers = '';
                 if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
                 if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
@@ -2107,7 +2109,7 @@
                     (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
                     '</div>';
                 let barFillHtml;
-                if (norm.ul && consumed >= norm.ul) {
+                if (ulToxic) {
                     barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
                 } else if (consumed > allMax) {
                     barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
