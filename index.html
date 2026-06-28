@@ -159,20 +159,39 @@
             padding: 20px;
             background: radial-gradient(ellipse at 50% 0%, #130d2e 0%, #000000 65%);
         }
-        .mode-choice { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
+        @property --rgb-angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        @keyframes rgbSpin { to { --rgb-angle: 360deg; } }
+
+        .mode-choice { display: flex; flex-direction: column; gap: 18px; margin-top: 22px; }
         .mode-btn {
-            display: flex; flex-direction: column; align-items: center; gap: 6px;
-            padding: 22px 18px; border-radius: 16px; cursor: pointer; text-align: center;
-            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%);
-            transition: all 0.2s;
+            --rgb-angle: 0deg;
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            padding: 26px 18px; border-radius: 16px; cursor: pointer; text-align: center;
+            border: 3px solid transparent;
+            background:
+                linear-gradient(145deg, #0d0d1c 0%, #06060e 100%) padding-box,
+                conic-gradient(from var(--rgb-angle),
+                    #ff2d6f, #ff8a00, #ffe600, #25e69b, #00b4ff, #8a5bff, #ff2d6f) border-box;
+            animation: rgbSpin 5s linear infinite;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .mode-hard { border: 1px solid #7c3aed; }
-        .mode-hard:hover { background: #140a2e; transform: translateY(-2px); }
-        .mode-light { border: 1px solid #047857; }
-        .mode-light:hover { background: #052016; transform: translateY(-2px); }
-        .mode-emoji { font-size: 34px; }
-        .mode-name { font-size: 18px; font-weight: 900; color: #f1f5f9; letter-spacing: 0.04em; }
+        .mode-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 30px rgba(124, 58, 237, 0.35); }
+        .mode-name { font-size: 21px; font-weight: 900; color: #f1f5f9; letter-spacing: 0.05em; }
         .mode-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+        .mode-back-btn {
+            margin-top: 20px; background: none; border: none; color: #64748b;
+            font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px;
+        }
+        .mode-back-btn:hover { color: #94a3b8; }
+
+        /* MODUS-WECHSEL-BUTTON im Header */
+        .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+        .mode-switch-btn {
+            background: #0c0c1e; border: 1px solid #312e6b; color: #a5b4fc;
+            font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 7px;
+            cursor: pointer; white-space: nowrap;
+        }
+        .mode-switch-btn:hover { background: #161636; border-color: #4c4795; }
 
         /* MAIN APP CONTAINER (HIDDEN INITIALLY) */
         #mainApp {
@@ -780,16 +799,15 @@
             <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
             <div class="mode-choice">
                 <button class="mode-btn mode-hard" onclick="selectMode('hard')">
-                    <span class="mode-emoji">🧠</span>
                     <span class="mode-name">Hard Mode</span>
                     <span class="mode-desc">Alle Details: Wissenschaft, Nährwerte & Begründungen. Für Profis, die alles verstehen wollen.</span>
                 </button>
                 <button class="mode-btn mode-light" onclick="selectMode('light')">
-                    <span class="mode-emoji">🌱</span>
                     <span class="mode-name">Light Mode</span>
                     <span class="mode-desc">Ganz einfach: Nur was du nimmst, wann und wie viel. Kein Fachchinesisch, kein Schnickschnack.</span>
                 </button>
             </div>
+            <button class="mode-back-btn" onclick="backToSetup()">&#8592; Zurück zur Zeiteingabe</button>
         </div>
     </div>
 
@@ -801,8 +819,11 @@
                         <div class="brand-sub">SILBERLOCKE</div>
                         <div class="brand-about">about me</div>
                     </div>
-                    <div class="header-time-info">
-                        Aufwachen: <span id="displayWakeTime">07:00</span> | Schlafen: <span id="displaySleepTime">23:00</span>
+                    <div class="header-right">
+                        <div class="header-time-info">
+                            Aufwachen: <span id="displayWakeTime">07:00</span> | Schlafen: <span id="displaySleepTime">23:00</span>
+                        </div>
+                        <button class="mode-switch-btn" onclick="backToModeSelect()">&#8646; Modus wechseln</button>
                     </div>
                 </div>
                 <div class="tab-bar">
@@ -1936,6 +1957,18 @@
         // ── MODUS-AUSWAHL: Hard (voll) oder Light (vereinfacht) ────────────────────
         let appMode = 'hard';
         function isLight() { return appMode === 'light'; }
+
+        // Zurück zur Zeiteingabe (von der Modus-Auswahl)
+        function backToSetup() {
+            document.getElementById("modeScreen").style.display = "none";
+            document.getElementById("setupScreen").style.display = "flex";
+        }
+
+        // Zurück zur Modus-Auswahl (aus der laufenden App – falls man im falschen Modus ist)
+        function backToModeSelect() {
+            document.getElementById("mainApp").style.display = "none";
+            document.getElementById("modeScreen").style.display = "flex";
+        }
 
         function selectMode(mode) {
             appMode = mode;
