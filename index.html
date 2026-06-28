@@ -853,6 +853,12 @@
                           <text x="110" y="223" text-anchor="middle" font-size="6" fill="#c4b5fd">Knochen / Becken</text>
                         </g>
 
+                        <!-- GENITALE / Reproduktion – zwischen Becken und Oberschenkeln -->
+                        <g class="body-hotspot" id="hs-genital" onclick="selectZone('genital')">
+                          <ellipse cx="110" cy="236" rx="14" ry="10" fill="#ec4899" fill-opacity="0.38" stroke="#ec4899" stroke-width="1.5" stroke-dasharray="3,2"/>
+                          <text x="110" y="239" text-anchor="middle" font-size="5.5" fill="#f9a8d4">Potenz</text>
+                        </g>
+
                         <!-- HANDS / NAILS -->
                         <g class="body-hotspot" id="hs-hands" onclick="selectZone('hands')">
                           <ellipse cx="51" cy="249" rx="14" ry="17" fill="#f97316" fill-opacity="0.28" stroke="#f97316" stroke-width="1.5" stroke-dasharray="3,2"/>
@@ -2209,6 +2215,26 @@
                     { name:"Eisen Mangel", tag:"Schwere Beine", color:"#ef4444", bg:"#2a0505",
                       text:"Eisenmangel reduziert Hämoglobin → O₂-Transport in arbeitende Wadenmuskeln sinkt → schwere Beine, schnelle Ermüdung, Brennen in den Waden. Besonders bei Ausdauersportlerinnen (läuferbedingte Hämolyse durch Fußauftritt).",
                       fix:"NUR bei per Bluttest belegtem Mangel (Ferritin <30 ng/ml)! HEALTH+ Eisenbisglycinat nüchtern mit Vit C." }
+                ]
+            },
+            genital: {
+                icon:"🔥", label:"Potenz & Reproduktion", sub:"Libido, Erektionsfähigkeit, Testosteron, Fruchtbarkeit",
+                deficiencies:[
+                    { name:"Zink-Mangel", tag:"Testosteron & Spermien", color:"#ec4899", bg:"#2a0018",
+                      text:"Zink ist essenziell für Testosteron-Synthese und Spermien-Reifung. Mangel → Testosteronabfall, Libidoverlust, schlechte Spermienqualität (Motilität ↓). Testosteron-Effekt durch Zink-Supplement NUR bei belegtem Zinkmangel klinisch relevant – bei ausgeglichenem Spiegel kein Boost!",
+                      fix:"ZEC+ Zink abends nüchtern. Nicht mit Eisen/Calcium (DMT1-Antagonismus). Austernfleisch als natürliche Zinkquelle." },
+                    { name:"L-Citrullin / NO-Mangel", tag:"Erektion / Durchblutung", color:"#f97316", bg:"#2a0d00",
+                      text:"Stickoxid (NO) entspannt glatte Muskulatur im Schwellkörper → Erektion möglich. L-Citrullin → Arginin → NO in der Niere. ZEC+ Citrullin Malat klinisch studiert (8g = bessere Erektionshärte). ZEC+ Schatten der Liebe enthält ebenfalls L-Citrullin.",
+                      fix:"ZEC+ Citrullin Malat 6–8g täglich. ZEC+ Schatten der Liebe abends. NICHT mit PDE5-Hemmern (Viagra) kombinieren!" },
+                    { name:"Omega-3 / Hormon-Mangel", tag:"Testosteron-Synthese", color:"#34d399", bg:"#022a18",
+                      text:"Testosteron wird aus Cholesterin synthetisiert – EPA/DHA optimieren die Fettsäure-Zusammensetzung der Leydig-Zellen. DHA ist auch im Sperma-Flagellum hoch konzentriert (Spermien-Beweglichkeit). Chronisch niedriges Omega-3 → suboptimale Steroid-Synthese.",
+                      fix:"Super Omega-3 täglich (1500 mg EPA+DHA). Synergie mit D3+K2 für Hormonsystem." },
+                    { name:"Vitamin D3-Mangel", tag:"Testosteron", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Leydig-Zellen (Hoden) direkt nachgewiesen. Meta-Analysen: D3-Supplementierung bei Mangelzustand erhöht Testosteron messbar. D3 <30 ng/ml → signifikant niedrigeres T. Winter-Mangel = häufige Ursache saisonaler Libidoprobleme.",
+                      fix:"D3 + K2 morgens mit Fett. Ziel-Blutspiegel 40–60 ng/ml (25-OH-D3). Bluttest im Winter!" },
+                    { name:"Ashwagandha / Cortisol", tag:"Libido & Testosteron", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Chronisch hohes Cortisol hemmt GnRH → LH sinkt → Testosteron sinkt (Cortisol-Testosteron-Seesaw). KSM-66 Ashwagandha in RCTs: Cortisol ↓14%, Testosteron ↑17% bei gestressten Männern. Maca zusätzlich für Libido.",
+                      fix:"HEALTH+ Ashwagandha KSM-66 abends. HEALTH+ Maca morgens. ZEC+ Schatten der Liebe für kombinierte Wirkung." }
                 ]
             }
         };
