@@ -150,10 +150,51 @@
             box-shadow: 0 8px 36px rgba(124, 58, 237, 0.6);
         }
 
+        /* MODE-AUSWAHL (Hard / Light) */
+        #modeScreen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: radial-gradient(ellipse at 50% 0%, #130d2e 0%, #000000 65%);
+        }
+        .mode-choice { display: flex; flex-direction: column; gap: 14px; margin-top: 20px; }
+        .mode-btn {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            padding: 22px 18px; border-radius: 16px; cursor: pointer; text-align: center;
+            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%);
+            transition: all 0.2s;
+        }
+        .mode-hard { border: 1px solid #7c3aed; }
+        .mode-hard:hover { background: #140a2e; transform: translateY(-2px); }
+        .mode-light { border: 1px solid #047857; }
+        .mode-light:hover { background: #052016; transform: translateY(-2px); }
+        .mode-emoji { font-size: 34px; }
+        .mode-name { font-size: 18px; font-weight: 900; color: #f1f5f9; letter-spacing: 0.04em; }
+        .mode-desc { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+
         /* MAIN APP CONTAINER (HIDDEN INITIALLY) */
         #mainApp {
             display: none;
         }
+
+        /* ── LIGHT MODE: vereinfachte Ansicht ──────────────────────────────── */
+        body.light-mode #panelGuide { display: none; }
+        body.light-mode #tabBody,
+        body.light-mode #tabFood { display: none; }
+        body.light-mode .card-label { font-size: 17px; }
+        body.light-mode .card-time { font-size: 13px; }
+        .light-why { background: #04140a !important; border-color: #166534 !important; }
+        .light-why .why-text { color: #86efac; font-size: 13px; font-weight: 600; }
+        .light-serving { font-size: 13px; color: #cbd5e1; margin-top: 6px; }
+        .light-serving strong { color: #f1f5f9; }
+        .light-macros { padding: 16px; }
+        .light-macros-title { font-size: 13px; font-weight: 800; color: #a5b4fc; text-align: center; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+        .light-macros-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .light-macros-grid > div { background: #0c0c1e; border-radius: 10px; padding: 14px 8px; text-align: center; }
+        .lm-val { display: block; font-size: 24px; font-weight: 900; color: #f1f5f9; }
+        .lm-lbl { display: block; font-size: 12px; color: #94a3b8; margin-top: 4px; }
 
         /* HEADER */
         header {
@@ -729,6 +770,26 @@
                 </div>
             </div>
             <button class="start-btn" onclick="startApp()">Plan generieren</button>
+        </div>
+    </div>
+
+    <div id="modeScreen">
+        <div class="setup-card">
+            <span class="setup-logo">🧭</span>
+            <div class="setup-title">SILBERLOCKE</div>
+            <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
+            <div class="mode-choice">
+                <button class="mode-btn mode-hard" onclick="selectMode('hard')">
+                    <span class="mode-emoji">🧠</span>
+                    <span class="mode-name">Hard Mode</span>
+                    <span class="mode-desc">Alle Details: Wissenschaft, Nährwerte & Begründungen. Für Profis, die alles verstehen wollen.</span>
+                </button>
+                <button class="mode-btn mode-light" onclick="selectMode('light')">
+                    <span class="mode-emoji">🌱</span>
+                    <span class="mode-name">Light Mode</span>
+                    <span class="mode-desc">Ganz einfach: Nur was du nimmst, wann und wie viel. Kein Fachchinesisch, kein Schnickschnack.</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1867,8 +1928,20 @@
             document.getElementById("displayWakeTime").innerText = wakeInput;
             document.getElementById("displaySleepTime").innerText = sleepInput;
 
-            // Setup Screen ausblenden, Hauptapp einblenden
+            // Setup ausblenden → Modus-Auswahl (Hard / Light) einblenden
             document.getElementById("setupScreen").style.display = "none";
+            document.getElementById("modeScreen").style.display = "flex";
+        }
+
+        // ── MODUS-AUSWAHL: Hard (voll) oder Light (vereinfacht) ────────────────────
+        let appMode = 'hard';
+        function isLight() { return appMode === 'light'; }
+
+        function selectMode(mode) {
+            appMode = mode;
+            document.body.classList.toggle('light-mode', mode === 'light');
+
+            document.getElementById("modeScreen").style.display = "none";
             document.getElementById("mainApp").style.display = "block";
 
             // Alle Listen rendern
@@ -2005,6 +2078,19 @@
                 totalFat     += p.fat     || 0;
                 totalKcal    += p.kcal    || 0;
             });
+
+            // Light Mode: nur eine einfache Makro-Übersicht, keine NRV-Balken
+            if (isLight()) {
+                return `<div class="daily-nutr-box light-macros">
+                    <div class="light-macros-title">Das nimmst du heute insgesamt</div>
+                    <div class="light-macros-grid">
+                        <div><span class="lm-val" style="color:#4ade80;">${Math.round(totalProtein)} g</span><span class="lm-lbl">Eiweiß</span></div>
+                        <div><span class="lm-val" style="color:#fbbf24;">${Math.round(totalCarbs)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
+                        <div><span class="lm-val" style="color:#f87171;">${Math.round(totalFat)} g</span><span class="lm-lbl">Fett</span></div>
+                        <div><span class="lm-val" style="color:#a5b4fc;">${Math.round(totalKcal)}</span><span class="lm-lbl">Kalorien</span></div>
+                    </div>
+                </div>`;
+            }
 
             const nrvMap = {};
             const nonNrvMap = {};
@@ -2429,13 +2515,34 @@
                 // Live-Kalkulation der getakteten Uhrzeit (skaliert)
                 const finalTimeWindow = blockTimeWindow(block);
 
+                const light = isLight();
+                const SIMPLE_PRIO = { MUSS: "Unbedingt", WICHTIG: "Wichtig", OPTIONAL: "Wenn du magst" };
+
                 let pListHtml = block.productIds.map(pid => {
                     const p = getProductById(pid);
                     if (!p) return "";
                     const prio = block.priority[pid] || "OPTIONAL";
                     const style = PRIO_STYLE[prio];
-                    const noteHtml = block.notes[pid] ? `<div class="sub-product-note">${block.notes[pid]}</div>` : "";
 
+                    if (light) {
+                        return `
+                            <div class="sub-product-card">
+                                <div class="sub-product-top">
+                                    <div class="sub-product-title">
+                                        <span>${p.icon}</span>
+                                        <span>${p.name}</span>
+                                    </div>
+                                    <div style="display:flex; gap:5px; align-items:center;">
+                                        <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${SIMPLE_PRIO[prio] || prio}</span>
+                                        <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">?</button>
+                                    </div>
+                                </div>
+                                <div class="light-serving">Menge: <strong>${p.serving}</strong></div>
+                            </div>
+                        `;
+                    }
+
+                    const noteHtml = block.notes[pid] ? `<div class="sub-product-note">${block.notes[pid]}</div>` : "";
                     return `
                         <div class="sub-product-card">
                             <div class="sub-product-top">
@@ -2452,6 +2559,21 @@
                         </div>
                     `;
                 }).join('');
+
+                let whyHtml;
+                if (light) {
+                    const waterPart = (block.why.split('<br><br>')[0] || '').replace(/^:\s*/, '').trim();
+                    whyHtml = `
+                        <div class="why-box light-why">
+                            <div class="why-text">💧 ${waterPart || 'Mit einem großen Glas Wasser einnehmen.'}</div>
+                        </div>`;
+                } else {
+                    whyHtml = `
+                        <div class="why-box" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
+                            <div class="why-title" style="--color:${block.color}">Anweisungen & Wasserzufuhr</div>
+                            <div class="why-text">${block.why}</div>
+                        </div>`;
+                }
 
                 return `
                     <div class="timeline-item-container">
@@ -2471,10 +2593,7 @@
                                 </div>
                             </button>
                             <div class="card-content" id="tcc-${block.id}">
-                                <div class="why-box" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
-                                    <div class="why-title" style="--color:${block.color}">Anweisungen & Wasserzufuhr</div>
-                                    <div class="why-text">${block.why}</div>
-                                </div>
+                                ${whyHtml}
                                 <div class="item-list">
                                     ${pListHtml}
                                 </div>
@@ -2604,6 +2723,25 @@
             document.getElementById("ovIcon").innerText = p.icon;
             document.getElementById("ovName").innerText = p.name;
             document.getElementById("ovCat").innerText = p.cat;
+
+            // Light Mode: nur "Wofür?" und "Wann & wie?" in einfacher Sprache
+            if (isLight()) {
+                document.getElementById("ovDetails").innerHTML = `
+                    <div class="info-row" style="--row-color:#22c55e">
+                        <div class="info-row-title" style="--row-color:#22c55e">Wofür ist das gut?</div>
+                        <div class="info-row-val">${p.function}</div>
+                    </div>
+                    <div class="info-row" style="--row-color:#a78bfa">
+                        <div class="info-row-title" style="--row-color:#a78bfa">Wann & wie nehmen?</div>
+                        <div class="info-row-val">${p.takeWith}</div>
+                    </div>
+                    <div class="info-row" style="--row-color:#38bdf8">
+                        <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
+                        <div class="info-row-val">${p.serving}</div>
+                    </div>`;
+                document.getElementById("productOverlay").style.display = "flex";
+                return;
+            }
 
             const kj = Math.round(p.kcal * 4.184);
             let macroHtml = `
