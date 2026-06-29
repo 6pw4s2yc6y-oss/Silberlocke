@@ -1,0 +1,1262 @@
+{
+  "head": {
+    "icon": "🧠",
+    "label": "Kopf & Gehirn",
+    "sub": "Kopfschmerzen, Konzentration, Stimmung, Gedächtnis",
+    "deficiencies": [
+      {
+        "name": "Wassermangel",
+        "tag": "Häufigste Ursache",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Schon 1–2% Dehydration senken kognitive Leistung messbar. Dumpfe Nachmittagskopfschmerzen = klassisches Erstsymptom.",
+        "fix": "3+ Liter Wasser täglich. Morgens sofort 300–400 ml. Elektrolyte bei Schwitzen."
+      },
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Kopfschmerz",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Häufigste Nährstoffursache von Spannungskopfschmerzen und Migräne. Muskelverspannung im Nacken verstärkt.",
+        "fix": "Basische Mineralien abends. Dunkle Schokolade, Nüsse."
+      },
+      {
+        "name": "Vitamin B-Komplex",
+        "tag": "Gehirnnebel",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "B1, B6, B12 sind essenziell für Neurotransmitter. Mangel → Vergesslichkeit, Stimmungsschwankungen, Konzentrationsprobleme.",
+        "fix": "ZEC+ Vitamin B 25 morgens mit Frühstück."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Kognition",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "DHA ist Baustein der Gehirnzellmembran. Mangel verschlechtert Konzentration und Reaktionszeit langfristig.",
+        "fix": "HEALTH+ Super Omega-3 täglich mit fettreicher Mahlzeit."
+      },
+      {
+        "name": "Eisen-Mangel",
+        "tag": "Sauerstoff",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Eisenmangel reduziert O2-Transport ins Gehirn → anhaltende Müdigkeit, Konzentrationsprobleme. NUR bei Bluttest behandeln!",
+        "fix": "Eisenbisglycinat nüchtern + Vitamin C. Ferritin-Bluttest zuerst!"
+      }
+    ]
+  },
+  "shoulder": {
+    "icon": "💪",
+    "label": "Schulter & Nacken",
+    "sub": "Verspannungen, Schmerzen, eingeschränkte Beweglichkeit, Sehnenentzündung",
+    "deficiencies": [
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Verspannung",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesiummangel erhöht neuromuskuläre Erregbarkeit – Muskeln können nicht entspannen. Chronische Schulter-/Nackenverspannungen.",
+        "fix": "Basische Mineralien abends vor dem Schlafen."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Muskelkraft",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Mangel senkt Muskelkraft systemisch und erhöht Verletzungsrisiko. Schulterschmerzen ohne klare Ursache oft D3-Signal.",
+        "fix": "D3 + K2 morgens mit Fett."
+      },
+      {
+        "name": "Kollagen-Mangel",
+        "tag": "Sehnen",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Kollagen macht >70% der Sehnenmasse aus. Mangel → Verschleiß, Rissrisiko bei Überlastung.",
+        "fix": "All In One Collagen morgens nüchtern + Vitamin C zwingend!"
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Entzündung",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA hemmt entzündliche Prostaglandine (Tendinitis-Ursache).",
+        "fix": "Super Omega-3 täglich. Synergie mit Arthro Essential."
+      }
+    ]
+  },
+  "chest": {
+    "icon": "❤️",
+    "label": "Herz & Kreislauf",
+    "sub": "Herzrhythmus, Blutdruck, Durchblutung, Kurzatmigkeit",
+    "deficiencies": [
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Herzrhythmus",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Magnesium ist essenziell für Na/K-ATPase → stabilen Herzrhythmus. Mangel → Herzrasen, Arrhythmien, hoher Blutdruck.",
+        "fix": "Basische Mineralien abends. Blattgemüse."
+      },
+      {
+        "name": "CoQ10 Mangel",
+        "tag": "Herzenergie",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "CoQ10 für ATP-Produktion in Herzmuskelzellen. Statine blockieren CoQ10-Synthese zusätzlich.",
+        "fix": "Protect Heart mit fettreicher Mahlzeit (Ubiquinol-Form)."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Blutfette",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA/DHA senken Triglyzeride, reduzieren Blutplättchenaggregation und CRP. Direkt kardioprotektiv.",
+        "fix": "Super Omega-3 täglich. Synergie mit D3+K2."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Blutdruck",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Rezeptoren steuern Renin-Angiotensin-System mit. Mangel erhöht Risiko für Bluthochdruck.",
+        "fix": "D3 + K2 morgens. K2 verhindert Calciumablagerungen in Arterien."
+      },
+      {
+        "name": "Kalium-Mangel",
+        "tag": "Herzrhythmus",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Kalium reguliert mit Natrium Herzmuskelrhythmus. Mangel durch Schwitzen → Herzstolpern.",
+        "fix": "Bananen, Kartoffeln, Hülsenfrüchte. Bei viel Sport: Elektrolyte."
+      }
+    ]
+  },
+  "gut": {
+    "icon": "🫁",
+    "label": "Darm & Verdauung",
+    "sub": "Blähungen, Krämpfe, Unverträglichkeiten, Verstopfung",
+    "deficiencies": [
+      {
+        "name": "Probiotika-Mangel",
+        "tag": "Darmflora",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Dysbiose → Blähungen, Unverträglichkeiten, schlechte Nährstoffaufnahme, schlechte Stimmung (Darm-Hirn-Achse).",
+        "fix": "HEALTH+ Probio-Tect morgens nüchtern. 2h Abstand zu Antibiotika."
+      },
+      {
+        "name": "Wassermangel",
+        "tag": "Verstopfung",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Häufigste Ursache von Verstopfung. Darm entzieht dem Stuhl Wasser bei Dehydration.",
+        "fix": "3+ Liter täglich. Morgens nüchtern warmes Wasser."
+      },
+      {
+        "name": "Enzym-Mangel",
+        "tag": "Verdauung",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Bei hoher Proteinzufuhr können körpereigene Enzyme nicht ausreichen. Unvollständige Verdauung → Blähungen.",
+        "fix": "HEALTH+ Enzym Komplex direkt vor der Mahlzeit."
+      },
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Peristaltik",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesium reguliert glatte Darmmuskulatur. Mangel → verlangsamte Peristaltik, Verstopfung.",
+        "fix": "Basische Mineralien abends. Hohe Dosen wirken abführend."
+      },
+      {
+        "name": "Ballaststoffmangel",
+        "tag": "Mikrobiom",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Ballaststoffe ernähren Darmbakterien (Präbiotika) und fördern Stuhlgang.",
+        "fix": "Vollkorn, Gemüse, Hülsenfrüchte täglich."
+      },
+      {
+        "name": "Anti-Nährstoffe & Resorptionsblocker",
+        "tag": "Mineralien-Blocker",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Phytinsäure (Getreide, Vollkorn, Hülsenfrüchte), Tannine (Kaffee, schwarzer/grüner Tee) und Oxalsäure (Spinat, Nüsse, Rhabarber) bilden unlösliche Chelat-Komplexe mit Zn, Fe, Mg, Ca – und blockieren deren Resorption massiv. Keine Supplementierung wirkt, wenn diese gleichzeitig konsumiert werden!",
+        "fix": "Mind. 1–2h Abstand: Mineralien-Supplements NICHT zu Vollkorn, Kaffee/Tee oder Spinat-Mahlzeiten einnehmen. Einweichen/Keimen reduziert Phytinsäure in Getreide."
+      }
+    ]
+  },
+  "liver": {
+    "icon": "🔴",
+    "label": "Leber & Gallenblase",
+    "sub": "Müdigkeit, schlechte Entgiftung, Blähbauch nach Fettmahlzeiten",
+    "deficiencies": [
+      {
+        "name": "Vitamin E Mangel",
+        "tag": "Leberschutz",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Fettlösliches Antioxidans schützt Leberzellen vor oxidativem Stress (nicht-alkoholische Fettleber).",
+        "fix": "All In One Antioxidant mit fettreicher Mahlzeit."
+      },
+      {
+        "name": "NAC (N-Acetylcystein) Mangel",
+        "tag": "Glutathion",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "NAC ist Vorstufe von Glutathion – stärkstes körpereigenes Antioxidans. Leberregeneration und Entgiftung.",
+        "fix": "Protect Lunge enthält NAC. Mit Vitamin C für maximale Glutathion-Produktion."
+      },
+      {
+        "name": "Cholin-Mangel",
+        "tag": "Fettstoffwechsel",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Cholin ist essenziell für Lipoproteintransport. Mangel → Verfettung der Leber (NAFLD).",
+        "fix": "Eier (reichhaltigste Quelle), Leber, Soja. In Deutschland oft unterschätzt."
+      },
+      {
+        "name": "Reishi-Pilz",
+        "tag": "Leberschutz",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Beta-Glucane und Triterpene im Reishi schützen Leberzellen und fördern Regeneration.",
+        "fix": "HEALTH+ Reishi abends. Mit Vitamin C synergistisch."
+      }
+    ]
+  },
+  "kidney": {
+    "icon": "🫘",
+    "label": "Nieren & Harnwege",
+    "sub": "Häufiges Urinieren, Rückenschmerzen, Wassereinlagerungen",
+    "deficiencies": [
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Nierenfunktion",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 reguliert Calcium-Phosphor-Balance in der Niere. Chronischer Mangel erhöht Nierenstein-Risiko.",
+        "fix": "D3 + K2 morgens. K2 leitet Calcium weg von der Niere!"
+      },
+      {
+        "name": "Kalium-Mangel",
+        "tag": "Steinrisiko",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Ausreichend Kalium reduziert Calcium-Ausscheidung im Urin → weniger Nierensteine.",
+        "fix": "Kaliumreiche Ernährung. Bananen, Kartoffeln, Hülsenfrüchte."
+      },
+      {
+        "name": "Zu viel Vitamin C hochdosiert",
+        "tag": "Oxalat-Steine",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": ">2g Vit C täglich erhöht Oxalat-Ausscheidung → Nierensteine bei Neigung. Vorsicht!",
+        "fix": "Max 500–1000 mg/Tag. Viel Wasser (3L+) bei Supplementierung."
+      },
+      {
+        "name": "Dehydration",
+        "tag": "Häufigste Ursache",
+        "color": "#94a3b8",
+        "bg": "#1a1a2e",
+        "text": "Zu wenig Wasser → konzentrierter Urin → Mineral-Kristallisation → Nierensteine.",
+        "fix": "Mindestens 2,5–3 Liter täglich. Helle Urinfarbe als Ziel."
+      }
+    ]
+  },
+  "thyroid": {
+    "icon": "🦋",
+    "label": "Schilddrüse",
+    "sub": "Müdigkeit, Gewichtszunahme, Haarverlust, Kältegefühl",
+    "deficiencies": [
+      {
+        "name": "Jod-Mangel",
+        "tag": "T3/T4 Produktion",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Jod ist direkt Baustein der Schilddrüsenhormone T3 und T4. Mangel → Kropf, Hypothyreose, Gewichtszunahme.",
+        "fix": "Jodsalz täglich. Meeresfrüchte, Milchprodukte. Supplement: 150 mcg/Tag."
+      },
+      {
+        "name": "Selen-Mangel",
+        "tag": "T4→T3 Konversion",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Selen ist essenziell für Deiodinase-Enzyme (T4→T3-Umwandlung). Mangel → inaktives Hormon bleibt aktiv.",
+        "fix": "HEALTH+ Selen mit Mahlzeit. Selenomethionin-Form. Max 200 mcg."
+      },
+      {
+        "name": "Zink-Mangel",
+        "tag": "Hormon-Rezeptoren",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "Zink ist nötig für TSH-Rezeptor-Funktion und T3-Bindung an Zellen.",
+        "fix": "Zink abends nüchtern. Mit Selenium synergistisch."
+      },
+      {
+        "name": "Eisenmangel",
+        "tag": "Peroxidase",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Thyroid-Peroxidase (TPO) braucht Eisen für Hormonproduktion. Mangel hemmt TPO direkt.",
+        "fix": "NUR bei Bluttest-belegtem Mangel. Eisenbisglycinat nüchtern + Vit C."
+      }
+    ]
+  },
+  "joints": {
+    "icon": "🦵",
+    "label": "Knie & Gelenke",
+    "sub": "Gelenkschmerzen, Knorpelverschleiß, Steifheit, Arthrose",
+    "deficiencies": [
+      {
+        "name": "Kollagen-Mangel",
+        "tag": "Knorpel",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Gelenkknorpel besteht zu ~65% aus Kollagen Typ II. Mangel → Knorpelabbau unter Trainingsbelastung. HEALTH+ All In One Collagen enthält bereits Acerola-Vitamin C – kein externes Vit C nötig!",
+        "fix": "All In One Collagen morgens nüchtern (Vit C bereits enthalten!). Mind. 3 Monate kontinuierlich."
+      },
+      {
+        "name": "Glucosamin-Mangel",
+        "tag": "Gelenkflüssigkeit",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Glucosamin ist Baustein der Synovialflüssigkeit. Mangel → erhöhte Reibung, Entzündungsneigung.",
+        "fix": "ZEC+ Arthro Essential mit Mahlzeiten. 4–8 Wochen bis zur Wirkung."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Entzündung",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "EPA hemmt COX-Enzyme (ähnlich Ibuprofen, ohne Nebenwirkungen). Wirksam bei Gelenkentzündung.",
+        "fix": "Super Omega-3 täglich. Mind. 4 Wochen für messbare Wirkung."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Knochendichte",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 reguliert Calciumaufnahme für Knochenmineralisation. Mangel → Osteoporose, höhere Gelenkbelastung.",
+        "fix": "D3 + K2 morgens mit Fett."
+      },
+      {
+        "name": "Bor-Mangel",
+        "tag": "Knorpel",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Bor fördert Kollagensynthese und Calciumeinlagerung in Knochen. In westlicher Ernährung oft mangelhaft.",
+        "fix": "Nüsse, Avocado, Getreide. Im Arthro-Komplex oft enthalten."
+      }
+    ]
+  },
+  "muscles": {
+    "icon": "💪",
+    "label": "Muskeln & Kraft",
+    "sub": "Muskelkrämpfe, Kraftverlust, langsame Erholung, Abbau",
+    "deficiencies": [
+      {
+        "name": "Proteinmangel",
+        "tag": "MPS blockiert",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Ohne 1,6–2,2 g/kg KG/Tag und ohne Leucin-Trigger (mind. 2–3g Leucin pro Dosis alle 3–4h) bleibt MPS unter Maximum. Tagesgesamtmenge macht 80–90% des Ergebnisses aus – Timing nur ~10%.",
+        "fix": "1,6–2,2 g Protein pro kg Körpergewicht täglich. Alle 3–4h Leucin-Trigger. Nie über 5h Pause."
+      },
+      {
+        "name": "Kreatin-Mangel",
+        "tag": "ATP & Kraft",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Kreatin füllt Phosphokreatin-Speicher für explosive Kraft. Ohne Supplement nur ~60% des Maximums. Wichtig: Uhrzeit der Einnahme ist irrelevant – intramuskulärer Spiegel baut sich über 2–4 Wochen chronischer Einnahme auf.",
+        "fix": "Kreatin Monohydrat 5g täglich. Konsistenz über Wochen entscheidend – nicht der Einnahmezeitpunkt."
+      },
+      {
+        "name": "Muskelkrämpfe – Hauptursachen",
+        "tag": "Krämpfe (Sportler)",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Bei Sportlern korrelieren Krämpfe laut aktueller Evidenz HÄUFIGER mit: (1) Neuromuskulärer Ermüdung, (2) Dehydration, (3) Natriumverlust durch Schweiß – als mit Magnesiummangel. Magnesiummangel = eher nächtliche Krämpfe bei Inaktiven.",
+        "fix": "Hydration (Urin hellgelb), Elektrolyte mit Natrium, Trainingsvolumen anpassen. Magnesium abends für Relaxation."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Kraft",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Rezeptoren in Muskelzellen regulieren Proteinsynthese. Mangel = messbare Kraftverluste.",
+        "fix": "D3 + K2 morgens. Ziel: 40–60 ng/ml im Blut."
+      },
+      {
+        "name": "BCAAs / Leucin Mangel",
+        "tag": "MPS Signal",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Leucin ist direkter mTOR-Aktivator. Ohne mind. 2–3g Leucin pro Dosis wird MPS nicht maximal stimuliert.",
+        "fix": "Whey-Protein enthält ausreichend. ZEC+ Intra für Training."
+      }
+    ]
+  },
+  "hands": {
+    "icon": "🖐️",
+    "label": "Hände, Nägel & Haut",
+    "sub": "Brüchige Nägel, trockene Haut, Haarausfall, langsame Wundheilung",
+    "deficiencies": [
+      {
+        "name": "Kollagen-Mangel",
+        "tag": "Haut & Nägel",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Kollagen macht 80% der Hautstruktur aus. Mangel → Faltenbildung, dünne Haut, brüchige Nägel. HEALTH+ All In One Collagen enthält bereits Acerola-Vitamin C – kein externes Vit C nötig!",
+        "fix": "All In One Collagen morgens nüchtern (Vit C bereits enthalten!). OPC synergistisch."
+      },
+      {
+        "name": "Biotin (B7) Mangel",
+        "tag": "Keratin",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Biotin ist essenziell für Keratin-Produktion. Mangel → brüchige Nägel, Haarausfall.",
+        "fix": "Im Multivitamin. Bei starken Symptomen: 2500–5000 mcg separat."
+      },
+      {
+        "name": "Zink-Mangel",
+        "tag": "Wundheilung",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Zink ist Co-Faktor für Kollagensynthese. Mangel → weiße Flecken auf Nägeln, schlechte Heilung.",
+        "fix": "Zink abends nüchtern."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Hautfeuchtigkeit",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA/DHA sind Bestandteil der Hautzell-Membran. Mangel → trockene, schuppige Haut.",
+        "fix": "Super Omega-3 täglich mit Mahlzeit."
+      },
+      {
+        "name": "Silizium-Mangel",
+        "tag": "Haut/Haare/Nägel",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Silizium stärkt Haarstruktur, Nagelhärte und Hautstraffheit. In westlicher Ernährung oft niedrig.",
+        "fix": "Brennnessel-Extrakt, Bambus-Extrakt (in manchen Haarkomplexen). Vollkorn."
+      }
+    ]
+  },
+  "legs": {
+    "icon": "🦵",
+    "label": "Waden & Unterschenkel",
+    "sub": "Krämpfe, Taubheit, Kribbeln, Schwere Beine",
+    "deficiencies": [
+      {
+        "name": "Sportkrämpfe – Hauptursachen",
+        "tag": "Krämpfe bei Sportlern",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Aktuelle Sportwissenschaft: Wadenkrämpfe bei Sportlern korrelieren PRIMÄR mit (1) neuromuskulärer Ermüdung, (2) Dehydration, (3) Natriumverlust (Schweiß). Magnesiummangel = eher nächtliche Krämpfe bei Inaktiven oder älterer Bevölkerung. Benignes Faszikulieren (kurzes Zucken) ist meist harmlos.",
+        "fix": "Hydration sichern (3L+), Elektrolyte mit Natrium, Trainingsbelastung anpassen. Magnesium abends für allgemeine Muskelentspannung."
+      },
+      {
+        "name": "Kalium-Mangel",
+        "tag": "Elektrolyte",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "Kalium reguliert mit Natrium Wasserhaushalt in der Muskelzelle. Mangel durch starkes Schwitzen.",
+        "fix": "Bananen, Kartoffeln. Bei viel Sport extra Elektrolyte."
+      },
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Kribbeln",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "B12-Mangel schädigt Myelinscheiden der Nerven → Kribbeln/Taubheit in Beinen (periphere Neuropathie).",
+        "fix": "ZEC+ Vitamin B 25. Antazida blockieren B12-Aufnahme!"
+      },
+      {
+        "name": "Eisen-Mangel",
+        "tag": "Schwere Beine",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Eisenmangel reduziert O2-Transport in arbeitende Muskeln → schwere Beine schon bei leichter Belastung.",
+        "fix": "Nur bei Bluttest-belegtem Mangel! Ferritin-Wert prüfen."
+      },
+      {
+        "name": "Restless-Legs Syndrom",
+        "tag": "Nervensystem",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "RLS korreliert mit Eisenmangel, Folsäure- und Magnesium-Mangel. Auch Dialyse-Patienten betroffen.",
+        "fix": "Bluttest: Ferritin, Folat, Magnesium prüfen. Arztabklärung."
+      }
+    ]
+  },
+  "skin": {
+    "icon": "🧴",
+    "label": "Haut & Schleimhäute",
+    "sub": "Akne, Ekzeme, trockene Haut, Wundheilung, Psoriasis",
+    "deficiencies": [
+      {
+        "name": "Vitamin A Mangel",
+        "tag": "Verhornung",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Vitamin A reguliert Zellwachstum und Verhornung. Mangel → Akne, Follikelverhornung, trockene Schleimhäute.",
+        "fix": "All In One Antioxidant mit fettreicher Mahlzeit. Beta-Carotin sicherer als Retinol direkt."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Entzündung",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA hemmt Entzündungskaskaden in der Haut. Mangel → chronische Hautentzündungen, Ekzeme, Psoriasis.",
+        "fix": "Super Omega-3 täglich. Synergie mit Zink bei Akne."
+      },
+      {
+        "name": "Zink-Mangel",
+        "tag": "Akne",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Zink hemmt 5-Alpha-Reduktase (DHT) und reguliert Talgproduktion. Klinisch belegt für Akne.",
+        "fix": "Zink abends nüchtern. Studien: 30 mg täglich gegen Akne wirksam."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Immunhaut",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 moduliert Haut-Immunantwort. Mangel korreliert mit Psoriasis und Ekzem-Schüben.",
+        "fix": "D3 + K2 morgens mit Fett. Sonne (UV) direkt auf Haut."
+      },
+      {
+        "name": "Silizium-Mangel",
+        "tag": "Hautstraffheit",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Silizium ist Co-Faktor für Kollagen- und Elastin-Synthese in der Haut.",
+        "fix": "Kieselsäure-Supplement, Bambusextrakt, Brennnessel."
+      }
+    ]
+  },
+  "immune": {
+    "icon": "🛡️",
+    "label": "Immunsystem",
+    "sub": "Häufige Infekte, langsame Heilung, chronische Entzündungen",
+    "deficiencies": [
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Immunmodulator #1",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 aktiviert über 200 Gene des Immunsystems. Mangel korreliert stark mit häufigen Atemwegsinfekten.",
+        "fix": "D3 + K2 morgens. Wintermonate: 2000–4000 IE täglich."
+      },
+      {
+        "name": "Vitamin C Mangel",
+        "tag": "Immunschutz",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Vitamin C unterstützt Leukozyten-Funktion und Interferon-Produktion. Mangel → geschwächtes angeborenes Immunsystem.",
+        "fix": "500–1000 mg täglich bei Erkältungsrisiko. 2x täglich für bessere Absorption."
+      },
+      {
+        "name": "Zink-Mangel",
+        "tag": "T-Zellen",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Zink ist essenziell für T-Zell-Reifung und NK-Zell-Aktivität. Auch kurzer Mangel → Immunsuppression.",
+        "fix": "Zink täglich. Lozenges bei akuter Erkältung (innerhalb 24h nach Symptombeginn)."
+      },
+      {
+        "name": "Selen-Mangel",
+        "tag": "Viren",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Selen ist nötig für Glutathionperoxidase und Interferon. Mangel → Viren können schneller mutieren.",
+        "fix": "HEALTH+ Selen mit Mahlzeit. Max 200 mcg/Tag."
+      },
+      {
+        "name": "Probiotika-Mangel",
+        "tag": "Darm-Immunität",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "70% des Immunsystems sitzt im Darm. Dysbiose → geschwächte mukosale Immunantwort.",
+        "fix": "HEALTH+ Probio-Tect morgens nüchtern. Mit Ballaststoffen."
+      }
+    ]
+  },
+  "nerves": {
+    "icon": "⚡",
+    "label": "Nervensystem",
+    "sub": "Kribbeln, Taubheit, schlechter Schlaf, Anspannung, Zittern",
+    "deficiencies": [
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Myelinscheide",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "B12 ist für Myelinsynthese essenziell. Mangel → periphere Neuropathie (Kribbeln), Rückenmarkschäden.",
+        "fix": "ZEC+ Vitamin B 25. Bei Magenerkrankungen: sublinguales B12 besser."
+      },
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Nervenerregung",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesium blockiert NMDA-Rezeptoren (Nervenschutz). Mangel → Übererregbarkeit, Angst, Schlafprobleme.",
+        "fix": "Basische Mineralien abends. Glycinat-Form am besten für Nerven."
+      },
+      {
+        "name": "Vitamin B6 – Mangel & Toxizität",
+        "tag": "Neurotransmitter",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "B6 ist Cofaktor für Serotonin, Dopamin, GABA. Mangel → Reizbarkeit, Depression. GEFAHR: Ab ~50–100 mg/Tag dauerhaft → irreversible sensorische Neuropathie (Kribbeln, Taubheit)! Symptome bei Mangel UND bei Überdosierung identisch – Bluttest pflicht! Tagesbedarf: nur 1,3–1,7 mg.",
+        "fix": "ZEC+ Vitamin B 25 enthält B6 in physiologischer Dosis. NIEMALS Hochdosis-B6-Einzelpräparate ohne Bluttest! >50 mg/Tag = Nervenschäden möglich."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Nervenmembran",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "DHA ist Hauptkomponente der neuronalen Zellmembran. Mangel → verlangsamte Nervenleitung.",
+        "fix": "Super Omega-3 täglich. DHA-reiche Formen bevorzugen."
+      },
+      {
+        "name": "Thiamin (B1) Mangel",
+        "tag": "Nervenenergie",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "B1 ist essenziell für Glukosestoffwechsel in Neuronen. Schwerer Mangel → Wernicke-Enzephalopathie.",
+        "fix": "Im B-Komplex enthalten. Alkohol erhöht B1-Bedarf stark."
+      }
+    ]
+  },
+  "sleep": {
+    "icon": "🌙",
+    "label": "Schlaf & Regeneration",
+    "sub": "Einschlafprobleme, schlechte Schlafqualität, früh aufwachen",
+    "deficiencies": [
+      {
+        "name": "Magnesium-Mangel",
+        "tag": "Einschlafen",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesium aktiviert GABA-System und Parasympathikus → Einschlafen. Mangel = häufigste Schlafursache.",
+        "fix": "Basische Mineralien 30–60 min vor Schlaf. Glycinat-Form optimal."
+      },
+      {
+        "name": "Melatonin-Mangel",
+        "tag": "Einschlafhormon",
+        "color": "#818cf8",
+        "bg": "#05001a",
+        "text": "Lichtexposition abends hemmt Melatonin-Ausschüttung. Supplement bei Jetlag oder Schichtarbeit.",
+        "fix": "ZEC+ Sleep (0,5–1 mg Melatonin). Nicht überdosieren! Blaulicht-Filter abends."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Schlafqualität",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 beeinflusst Schlaf-Wach-Rhythmus (zirkadiane Gene). Mangel → schlechte Schlaftiefe.",
+        "fix": "D3 morgens (nicht abends!) – kann sonst Schlaf stören. K2 dazu."
+      },
+      {
+        "name": "L-Tryptophan Mangel",
+        "tag": "Serotonin/Melatonin",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Tryptophan ist Vorstufe von Serotonin und Melatonin. Abends mit Kohlenhydraten: bessere Aufnahme ins Gehirn.",
+        "fix": "Casein vor Schlaf (enthält Tryptophan). Bananenmilch, Quark."
+      },
+      {
+        "name": "Cortisol-Stress",
+        "tag": "Einschlafen",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Chronisch erhöhtes Cortisol abends blockiert Melatonin. Hauptursache bei Einschlafproblemen.",
+        "fix": "Ashwagandha abends (Cortisol↓). Cherry Power (Melatonin). Abendrituale."
+      }
+    ]
+  },
+  "eyes": {
+    "icon": "👁️",
+    "label": "Augen & Sehkraft",
+    "sub": "Nachtblindheit, trockene Augen, Makulaschäden, Lichtempfindlichkeit",
+    "deficiencies": [
+      {
+        "name": "Vitamin A Mangel",
+        "tag": "Nachtblindheit",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Vitamin A ist Baustein von Rhodopsin (Sehpurpur in Stäbchen). Mangel → Nachtblindheit, trockene Bindehaut (Xerophthalmie). Erstes klinisches Zeichen: schlechtes Sehen im Dunkeln. BETA-CAROTIN sicherer als Retinol direkt!",
+        "fix": "All In One Antioxidant & Vitamin mit Fett. Nahrung: Karotten, Leber, Süßkartoffel. Max 900 mcg RE/Tag."
+      },
+      {
+        "name": "Lutein & Zeaxanthin Mangel",
+        "tag": "Makula / AMD",
+        "color": "#eab308",
+        "bg": "#2a1a00",
+        "text": "Lutein/Zeaxanthin sind Makulapigmente – filtern blaues Licht (Bildschirme!) und schützen Fovea vor oxidativem Stress. Mangel → erhöhtes AMD-Risiko (Altersbedingte Makuladegeneration) und Katarakt. Nicht im typischen ZEC+-Stack!",
+        "fix": "Grünkohl, Spinat, Eigelb, Erbsen täglich. Bei Risiko: 10–20 mg Lutein-Supplement (nicht im Sortiment – separat)."
+      },
+      {
+        "name": "Omega-3 DHA Mangel",
+        "tag": "Trockene Augen",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "DHA macht ~50% der Fettsäuren in der Netzhaut (Photorezeptoren) aus. Mangel → trockene Augen (Meibomdrüsen-Dysfunktion), schlechtere Signalverarbeitung der Retina, entzündliche Augenerkrankungen.",
+        "fix": "Super Omega-3 täglich mit Mahlzeit. DHA-betonte Formen für Augengesundheit bevorzugen."
+      },
+      {
+        "name": "Zink Mangel",
+        "tag": "Vitamin-A-Transport",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Zink transportiert Vitamin A aus der Leber zur Netzhaut (Retinol-bindendes Protein braucht Zink). Ohne Zink kein funktionierendes Rhodopsin – selbst wenn Vit A ausreichend vorhanden ist!",
+        "fix": "ZEC+ Zink Caps abends nüchtern. Synergie mit Vitamin A und Beta-Carotin für Sehkraft."
+      },
+      {
+        "name": "Riboflavin B2 Mangel",
+        "tag": "Lichtempfindlichkeit",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "B2 ist Cofaktor für Glutathionreduktase im Auge (Schutz vor oxidativem Stress in der Linse). Mangel → Lichtempfindlichkeit, Augenreizung, Augenbrennen, erhöhtes Katarakt-Risiko. Klinisch gut belegt!",
+        "fix": "ZEC+ Vitamin B 25 morgens. Nahrung: Milch, Mandeln, Lachs, Eier."
+      }
+    ]
+  },
+  "ears": {
+    "icon": "👂",
+    "label": "Ohren & Gehör",
+    "sub": "Tinnitus, Hörverlust, Schwindel, Geräuschempfindlichkeit",
+    "deficiencies": [
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Tinnitus / Lärmschutz",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Klinisch belegt: Magnesium schützt Haarzellen im Innenohr vor lärmbedingtem Schaden (cochleärer Ischämie). Bei Magnesiummangel: erhöhtes Tinnitus-Risiko nach Lärm. Studien zeigen Hörverlust-Prävention bei 167–500 mg Mg vor Lärmexposition!",
+        "fix": "Basische Mineralien täglich. Bei Tinnitus: Glycinat-Form bevorzugen. Lärm-Schutz + Mg kombinieren."
+      },
+      {
+        "name": "Zink Mangel",
+        "tag": "Tinnitus / Presbyakusis",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Zink ist höchst konzentriert im Innenohr (Cochlea, Vestibularapparat). Mangel korreliert klinisch mit Tinnitus und altersbedingtem Hörverlust (Presbyakusis). Supplementierung zeigte in mehreren Studien Linderung bei Zink-mangel-assoziiertem Tinnitus.",
+        "fix": "ZEC+ Zink Caps abends nüchtern. Nicht gleichzeitig mit Kupfer oder Eisen (DMT1-Antagonismus)."
+      },
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Hörnerv / Schwindel",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "B12 essentiell für Myelinscheide des Hörnervs (N. cochlearis und N. vestibularis). Mangel → Demyelinisierung → Tinnitus, Hörverlust, Schwindel (Vertigo). Besonders bei Veganer:innen, PPI-Einnahme und Metformin-Therapie!",
+        "fix": "ZEC+ Vitamin B 25. Bei Magenerkrankungen/PPI: sublinguales B12 (Methylcobalamin) für direkte Schleimhaut-Absorption."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Gefäßversorgung Cochlea",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA verbessert Mikrozirkulation in der Cochlea. Mangelhafte Durchblutung → Nährstoffunterversorgung der extrem empfindlichen Haarzellen → Hörverlust. Cochlea hat KEINE regenerative Kapazität – Prävention entscheidend!",
+        "fix": "Super Omega-3 täglich. EPA-betonte Formen für Gefäßgesundheit. Langfristig einnehmen."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Otosklerose",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3 reguliert Calcium-Balance im Felsbein (Schläfenknochen). Mangel korreliert mit Otosklerose (fehlerhafte Verknöcherung der Gehörknöchelchen → Schallleitungsschwerhörigkeit). Auch Autoimmunprozesse im Innenohr D3-abhängig moduliert.",
+        "fix": "D3 + K2 morgens mit Fett. Bluttest: Ziel 40–60 ng/ml 25-OH-D3."
+      }
+    ]
+  },
+  "mouth": {
+    "icon": "🦷",
+    "label": "Mund, Zähne & Zahnfleisch",
+    "sub": "Zahnfleischbluten, Aphten, Zahnschmelz, Mundgeruch, Parodontose",
+    "deficiencies": [
+      {
+        "name": "Vitamin C Mangel",
+        "tag": "Zahnfleisch",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Vitamin C ist essentiell für Kollagen im Zahnfleischgewebe. Mangel → Zahnfleischbluten, Schwellung, Zahnfleischrückgang. Skorbut (historisch): Zähne fallen aus bei totaler Depletion. Bereits moderater Mangel → Zahnfleischbluten beim Zähneputzen.",
+        "fix": "ZEC+ Vitamin C + Hagebutte täglich zu Mahlzeiten. 200–500 mg reicht. Hohe Dosen (>2g) können Nierensteine fördern."
+      },
+      {
+        "name": "Calcium + Vitamin D3 Mangel",
+        "tag": "Zahnschmelz & Kiefer",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Zähne bestehen zu ~96% aus Hydroxylapatit (Calcium-Phosphat). D3 reguliert Calciumaufnahme. Mangel → poröser Zahnschmelz, erhöhte Kariesanfälligkeit, Kieferknochenabbau (Parodontitis-Risiko). Kieferknochen reagiert sehr empfindlich auf D3-Mangel.",
+        "fix": "D3 + K2 morgens mit Fett. Calcium primär aus Nahrung: Milch, Brokkoli, Sesam, Mandeln."
+      },
+      {
+        "name": "CoQ10 Mangel",
+        "tag": "Parodontose",
+        "color": "#eab308",
+        "bg": "#2a1a00",
+        "text": "CoQ10 ist hochkonzentriert in gesundem Zahnfleischgewebe. Klinisch belegt: Mangel → mitochondriale Schwäche in Zahnfleischzellen → schlechte Regeneration → Parodontose (entzündlicher Zahnhalteapparat-Abbau). Studien: CoQ10 als Adjuvans bei Parodontitis-Behandlung wirksam!",
+        "fix": "HEALTH+ Protect Heart (enthält Ubiquinol Q10) mit fettreicher Mahlzeit. Ubiquinol-Form 8x besser bioverfügbar als Ubiquinon."
+      },
+      {
+        "name": "B-Vitamine Mangel (B2, B3, B12)",
+        "tag": "Aphten & Mundwinkel",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "B2 (Riboflavin) → Mundwinkelrisse (Cheilosis), Zungenbrennen, Glossitis. B3 → Pellagra-Symptom: Stomatitis. B12-Mangel → wiederkehrende Aphten (kleine schmerzhafte Geschwüre) – oft ERSTES Zeichen von B12-Depletion! Nicht mit Eisenmangel-Aphten verwechseln.",
+        "fix": "ZEC+ Vitamin B 25 morgens. Sublinguales B12 bei Magenproblemen. Abklären ob Eisen-Mangel-Aphten (anderer Mechanismus)."
+      },
+      {
+        "name": "Zink Mangel",
+        "tag": "Geschmack & Mundschleimhaut",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Zink reguliert Gustin (Carboanhydrase VI) – Protein der Geschmacksknospen. Mangel → Geschmacksverlust (Hypogeusie), verminderter Geruchssinn. Auch: verlangsamte Wundheilung nach Zahnextraktionen, erhöhte Infektanfälligkeit der Mundschleimhaut.",
+        "fix": "ZEC+ Zink Caps abends nüchtern. 15–30 mg/Tag. Nicht mit Kaffee/Tee gleichzeitig (Tannine hemmen Zinkaufnahme)."
+      }
+    ]
+  },
+  "tendons": {
+    "icon": "🔗",
+    "label": "Sehnen & Bänder",
+    "sub": "Tendinopathie, Achillesschmerz, Sehnenrisse, langsame Heilung",
+    "deficiencies": [
+      {
+        "name": "Kollagen-Mangel (Typ I)",
+        "tag": "Sehnenstruktur",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Sehnen und Bänder bestehen zu ~70% aus Kollagen Typ I. Mangel → erhöhte Reißanfälligkeit, chronische Tendinopathie, langsame Heilung nach Verletzung. Hydrolysierte Kollagen-Peptide stimulieren Tenozyten (Sehnenzellen) zur Kollagensynthese – belegt durch RCT-Studien!",
+        "fix": "HEALTH+ Collagen (Vit C bereits enthalten!) 30–60 min VOR Training mit Kohlenhydraten. Mindestens 6–12 Wochen kontinuierlich."
+      },
+      {
+        "name": "Kupfer Mangel",
+        "tag": "Kollagen-Quervernetzung",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Kupfer aktiviert Lysyl-Oxidase – das Enzym, das Kollagenfasern quervernetzt (cross-linking). Ohne Quervernetzung: strukturell schwaches, elastisches Kollagen → brüchige Sehnen und Bänder. Cave: Hochdosiertes Zink (>40mg) verdrängt Kupfer via Metallothionein!",
+        "fix": "Im Multivitamin und Collagen-Produkt enthalten. Kupfermangel durch unkontrolliertes Zink-Stacking vermeiden (max Zn:Cu 10:1)."
+      },
+      {
+        "name": "Vitamin C Mangel",
+        "tag": "Kollagensynthese Sehne",
+        "color": "#eab308",
+        "bg": "#2a1a00",
+        "text": "Vit C ist essentieller Cofaktor für Prolyl-Hydroxylase und Lysyl-Hydroxylase – Enzyme, die das Kollagen-Gerüst stabilisieren. Ohne Vit C: instabiles Prokollagen, das nicht korrekt zur Tripelhelix faltet → strukturell schwaches Sehnenkollagen.",
+        "fix": "HEALTH+ Collagen enthält bereits Acerola-Vit C. Zusätzlich ZEC+ Vitamin C sinnvoll bei erhöhtem Bedarf (Training, Heilungsphase)."
+      },
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Sehnenspasmus & MTJ",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesium reguliert Muskel-Sehnen-Übergang (MTJ). Mangel → chronische Muskel-Sehnen-Verspannung, erhöhter Zug auf Sehnenansatz → Enthesiopathie (Ansatz-Tendinopathie, z.B. Achillesansatz, Patellasehne).",
+        "fix": "Basische Mineralien abends. Glycinat-Form für tiefe Muskel-Sehnen-Entspannung. Physio + Supplement kombinieren."
+      },
+      {
+        "name": "MSM Mangel",
+        "tag": "Sehnenreparatur",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "MSM (Methylsulfonylmethan) liefert organischen Schwefel – Baustein für Cystin-Disulfidbrücken in Kollagen und Elastin der Sehnen. Klinisch: MSM reduziert Entzündungsmarker in Sehnengewebe. Synergie mit Glucosamin (gemeinsam in Arthro Essential).",
+        "fix": "ZEC+ Arthro Essential (enthält MSM + Glucosamin + Weihrauch + Piperin). Mind. 3–6 Monate für strukturellen Effekt."
+      }
+    ]
+  },
+  "bones": {
+    "icon": "🦴",
+    "label": "Knochen & Knochendichte",
+    "sub": "Osteoporose, Stressfrakturen, Knochenschmerzen, Heilung",
+    "deficiencies": [
+      {
+        "name": "Calcium + Vitamin D3 Mangel",
+        "tag": "Knochendichte",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Knochen bestehen zu ~65% aus Hydroxylapatit (Ca₁₀(PO₄)₆(OH)₂). D3 reguliert intestinale Calciumaufnahme um 50–70%. Ohne D3: Calcium wird nicht resorbiert → Osteopenie → Osteoporose → Stressfrakturen. Bei Sportlern: Knochenstress-Frakturen oft erster Hinweis auf D3-Mangel!",
+        "fix": "D3 + K2 morgens mit Fett. Calcium primär aus Nahrung (Milch, Brokkoli, Sesam) – Supplement-Calcium kann Nierensteine fördern."
+      },
+      {
+        "name": "Vitamin K2 Mangel",
+        "tag": "Calcium-Steuerung",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "K2 (MK-7) aktiviert Osteocalcin – das Protein, das Calcium gezielt IN den Knochen einlagert statt in Arterien (Arteriosklerose!) oder Nieren (Steine). Ohne K2 → erhöhtes Risiko ektoper Kalzifizierung bei hochdosierter D3-Einnahme. K2 lenkt Calcium gezielt in Knochen statt Gefäße.",
+        "fix": "D3 + K2 immer als Kombipräparat. MK-7-Form (lange Halbwertszeit). Vitamin K2 separat falls D3 allein genommen wird."
+      },
+      {
+        "name": "Magnesium Mangel",
+        "tag": "D3-Aktivierung & Matrix",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "~60% des Körper-Magnesiums steckt im Knochen als Strukturelement. Mg ist Cofaktor für D3-Aktivierung (25-OH-D3 → 1,25-OH₂-D3 in der Niere). Ohne Mg: D3 bleibt inaktiv → Calcium-Aufnahme sinkt. Also: D3 ohne Mg-Versorgung ist suboptimal!",
+        "fix": "Basische Mineralien abends. Glycinat/Malat-Form. Essentiell für D3-Aktivierung – oft übersehen!"
+      },
+      {
+        "name": "Bor Mangel",
+        "tag": "Knochenmineralisation",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Bor erhöht Halbwertszeit von Östrogen und Testosteron → erhöht Calcium-Retention im Knochen und verbessert Mineralisation. Mangel → schlechtere Knochendichte (BMD), höheres Osteoporose-Risiko. In westlicher Ernährung oft extrem niedrig (<1 mg/Tag)!",
+        "fix": "Nüsse, Avocado, Trockenfrüchte. Im Arthro Essential-Komplex oft enthalten. Ziel: 3 mg/Tag."
+      },
+      {
+        "name": "Silizium Mangel",
+        "tag": "Knochenaufbau",
+        "color": "#4ade80",
+        "bg": "#052e16",
+        "text": "Silizium ist Cofaktor für Kollagen Typ I im Knochen-Grundgerüst (Osteoid). Ohne Silizium: schwaches Kollagengerüst → Mineralien können sich nicht korrekt einlagern → fragile, brüchige Knochen trotz ausreichend Calcium. Silizium reguliert Osteoblasten-Aktivität!",
+        "fix": "Kieselsäure-Supplement, Bambusextrakt, Schachtelhalm, Brennnessel. Vollkorn. Nicht im Standard-ZEC+-Stack – separat ergänzen."
+      }
+    ]
+  },
+  "neck_back": {
+    "icon": "🔙",
+    "label": "Nacken & Halswirbelsäule (HWS)",
+    "sub": "Nackenverspannungen, HWS-Schmerzen, Steifheit, Spannungskopfschmerz",
+    "deficiencies": [
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Muskelverspannung",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Magnesium ist der Calcium-Antagonist in der Muskelzelle (Relaxationsfaktor). Mangel → Dauerkontraktion, Triggerpunkte im Nacken (M. trapezius, M. levator scapulae), Spannungskopfschmerz. Nacken-Triggerpunkte + Magnesium-Ergänzung: gut belegte klinische Synergie!",
+        "fix": "Basische Mineralien abends. Glycinat-Form optimal für Muskelentspannung. Physio + Mg kombinieren."
+      },
+      {
+        "name": "Kollagen-Mangel",
+        "tag": "Bandscheiben HWS",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Bandscheiben der HWS (C2–C7) bestehen zu ~60% aus Kollagen Typ I/II (Anulus fibrosus + Nucleus pulposus). Mangel → beschleunigte Diskusdegeneration → Zervikobrachialgie (Ausstrahlungsschmerz in Arme/Hände), HWS-Instabilität.",
+        "fix": "HEALTH+ All In One Collagen morgens nüchtern (Vit C bereits im Produkt!). Mind. 6 Monate bei bestehender Degeneration."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Nacken-Muskelkraft",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Rezeptoren in Nacken- und Schultermuskulatur regulieren Muskelkraft und -regeneration. Mangel → schwache Hals-Nacken-Muskulatur → schlechte Kopfhaltung → muskuläre Überbelastung der HWS → chronischer Schmerz.",
+        "fix": "D3 + K2 morgens mit Fett. Bluttest: 25-OH-D3 → Ziel 40–60 ng/ml."
+      },
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Zervikalnerven C1–C8",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "B12 essentiell für Myelinscheide der Zervikalnerven (C1–C8). Mangel → Kribbeln, Taubheit, Schwäche in Armen und Händen ausgehend vom Nacken (Zervikale Radikulopathie). Cave: Symptome ähneln Bandscheibenvorfall – Bluttest zur Differenzierung!",
+        "fix": "ZEC+ Vitamin B 25. Bei Magenproblemen/PPI-Einnahme: sublinguales Methylcobalamin bevorzugen."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "HWS-Entzündung",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA hemmt proinflammatorische Zytokine (IL-1β, TNF-α) in HWS-Bandscheiben und Facettengelenken. Chronische Entzündung = Haupttreiber von HWS-Degeneration. Ergänzend: Arthro Essential (Weihrauch als potenter NF-κB-Hemmer).",
+        "fix": "Super Omega-3 täglich. Mind. 6–8 Wochen für messbaren anti-inflammatorischen Effekt. Mit Arthro Essential kombinieren."
+      }
+    ]
+  },
+  "upper_back": {
+    "icon": "🔼",
+    "label": "Oberer Rücken & Schulterblätter (BWS)",
+    "sub": "Schulterschmerzen, Verspannungen, Schulterblatt-Schmerz, Brustwirbelprobleme",
+    "deficiencies": [
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Rhomben & Trapezius",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Rhomboid und M. trapezius (Schulterblatt-Muskeln) reagieren extrem empfindlich auf Magnesiummangel. Chronische Verspannung, Triggerpunkte zwischen Schulterblättern = typisches Magnesiummangel-Muster im Kraftsport. Mangel nach intensivem Oberkörpertraining besonders akut.",
+        "fix": "Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Wärme + Mg-Bad als ergänzende Therapie."
+      },
+      {
+        "name": "Kollagen-Mangel",
+        "tag": "Rotatorenmanschette",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Rotatorenmanschette (Supraspinatus, Infraspinatus, Subscapularis, Teres minor) = Kollagen Typ I/III. Mangel → Sehnenrisse, Schulterinstabilität, Impingement-Syndrom. BWS-Bandscheiben (T1–T12) ebenfalls Kollagen-abhängig.",
+        "fix": "HEALTH+ Collagen morgens (Vit C bereits enthalten). L-Glycin ergänzend. Mind. 6 Monate bei Sehnenproblematik."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Schulter-Schmerz",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "RCT-Studien zeigen starke Korrelation zwischen D3-Mangel und chronischem Schulterschmerz (auch ohne strukturelle Pathologie nachweisbar). D3-Rezeptoren in Schultergelenk-Synovia und Gelenkkapsel aktiv – regulieren lokale Immunantwort.",
+        "fix": "D3 + K2 morgens. Bluttest: 25-OH-D3. Ziel 40–60 ng/ml. Nicht abends – zirkadiane Interferenz möglich."
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Bursitis & Entzündung",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "EPA/DHA hemmen Prostaglandin-E2-Synthese in Schultergelenk-Schleimbeuteln (Bursitis subdeltoidea, subacromialis). Effektiv wie niedrig dosierte NSAIDs (Ibuprofen) – ohne gastrointestinale Nebenwirkungen. Wirkt auch bei BWS-Facettengelenkarthrose.",
+        "fix": "Super Omega-3 täglich. 1500 mg EPA+DHA pro Tag. 4–8 Wochen für volle Wirkung."
+      }
+    ]
+  },
+  "spine": {
+    "icon": "🦴",
+    "label": "Wirbelsäule & Bandscheiben",
+    "sub": "Rückenschmerzen, Bandscheibenvorfall, Wirbelkörperschmerz, Osteoporose der WS",
+    "deficiencies": [
+      {
+        "name": "Calcium + D3 Mangel",
+        "tag": "Wirbelknochen-Dichte",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Wirbelkörper aus Hydroxylapatit-Spongiosa (Trabekelung). Bei Osteoporose: Trabekel dünner → Sinterungsfrakturen (Wirbelkörpereinbruch). D3 steuert Calciumabsorption als absoluter Schlüsselfaktor. Krafttraining stimuliert Osteoblasten zusätzlich!",
+        "fix": "D3 + K2 morgens mit Fett. Calcium aus Nahrung. Krafttraining als Knochen-Stimulus unverzichtbar."
+      },
+      {
+        "name": "Vitamin K2 Mangel",
+        "tag": "Calcium-Lenkung",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "K2 aktiviert Osteocalcin in Wirbelkörpern → Calcium gezielt in Knochen einlagern (nicht in Bandscheiben-Verkalkung). Ohne K2 paradoxe Verkalkungen der Wirbelgelenke möglich. MK-7-Form: einmal täglich wegen langer Halbwertszeit ausreichend.",
+        "fix": "D3 + K2 als Kombi – optimiert Calciumverteilung in Knochen. MK-7 (Menaquinon-7) bevorzugen."
+      },
+      {
+        "name": "Kollagen-Mangel (Bandscheiben)",
+        "tag": "Anulus fibrosus",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Bandscheiben: Nucleus pulposus (Gallertkern) = Proteoglykane + Wasser; Anulus fibrosus = Kollagen Typ I/II. Beide degenerieren bei Kollagenmangel beschleunigt. Hydrolysierte Kollagenpeptide (FORTIGEL® etc.) stimulieren Fibroblasten der Bandscheibe nachweislich!",
+        "fix": "HEALTH+ Collagen täglich, langfristig (6–12 Monate!). Arthro Essential (MSM + Chondroitin) für Proteoglykan-Syntheseunterstützung."
+      },
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Paravertebrale Muskulatur",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Paravertebrale Muskulatur (M. erector spinae, M. multifidus) reagiert stark auf Magnesiummangel. Dauerspasmus → erhöhter intradiskaler Druck → Bandscheibendegeneration beschleunigt. Psoas-Spasmus (LWS-Beteiligung) klassisches Bild.",
+        "fix": "Basische Mineralien abends. Direkter Effekt auf Muskelspasmus innerhalb 24–48h bei Mangel-Ursache."
+      },
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Rückenmark / Myelinscheide",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Das Rückenmark selbst benötigt B12 für Myelinscheide (spinale Axone). Schwerer Mangel → Funikuläre Myelose: subakute kombinierte Degeneration der Hinterstränge und Seitenstränge → Lähmungen, Sensibilitätsverlust aufsteigend. Irreversibel bei Spät-Therapie! Veganer:innen KRITISCH!",
+        "fix": "ZEC+ Vitamin B 25. Bluttest: Holo-Transcobalamin (sensitiver als Standard-B12-Serum!). Ziel: >50 pmol/L HoloTC."
+      }
+    ]
+  },
+  "lower_back": {
+    "icon": "⬇️",
+    "label": "Unterer Rücken (LWS)",
+    "sub": "Lendenwirbelsäule, Ischias, Bandscheiben L4/L5, Muskelkrämpfe",
+    "deficiencies": [
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Psoas & Quadratus lumborum",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "M. psoas und M. quadratus lumborum (LWS-Hauptstabilisatoren) reagieren hochsensibel auf Magnesiummangel. Psoas-Verkürzung durch Spasmus → erhöhter Druck auf L4/L5-Bandscheiben → Ischias-Trigger. Häufigste übersehene Ursache bei Kraftsportlern!",
+        "fix": "Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Dehnung des Psoas als Pflicht-Therapiebegleiter."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Chronischer LWS-Schmerz",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "Randomisierte klinische Studien (RCTs) belegen: D3-Mangel (<20 ng/ml) → chronischer LWS-Schmerz ohne strukturelle Ursache. D3-Substitution zeigt signifikante Schmerzreduktion im LWS-Bereich. D3-Rezeptoren in LWS-Muskeln und -Gelenken direkt nachweisbar!",
+        "fix": "D3 + K2 morgens mit Fett. Bluttest pflicht: Ziel mind. 40 ng/ml 25-OH-D3. Alle 3–6 Monate kontrollieren."
+      },
+      {
+        "name": "Kollagen-Mangel LWS",
+        "tag": "Bandscheiben L4/L5, L5/S1",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "LWS-Bandscheiben (v.a. L4/L5 und L5/S1) tragen die größte mechanische Last des Körpers. Kollagen Typ I/II im Anulus fibrosus degeneriert ohne kontinuierliche Peptid-Versorgung → Protrusion, Prolaps, Ischias-Syndrom (N. ischiadicus-Kompression).",
+        "fix": "HEALTH+ Collagen täglich. Arthro Essential (Chondroitin + MSM). Langfristig 6–12 Monate einnehmen!"
+      },
+      {
+        "name": "Omega-3 Mangel",
+        "tag": "Ischias-Entzündung",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Ischias-Schmerz = häufig Entzündungsreaktion am N. ischiadicus (perineural). EPA hemmt COX-2 und 5-Lipoxygenase → Prostaglandin E2 und Leukotriene ↓ → Entzündungshemmung direkt am Nervenumfeld. Synergie mit Weihrauch (Arthro Essential).",
+        "fix": "Super Omega-3 täglich, langfristig. Synergie mit Arthro Essential (Boswellia/Weihrauch als NF-κB-Hemmer)."
+      },
+      {
+        "name": "Kalium Mangel",
+        "tag": "LWS-Stabilisatoren",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Kalium reguliert Membranpotenzial aller Muskelzellen. Mangel → generelle Muskelschwäche der LWS-Stabilisatoren → erhöhte Bandscheibenbelastung durch schlechte muskuläre Führung. Besonders nach intensivem Schwitzen (Verlust durch Schweiß).",
+        "fix": "Kaliumreiche Ernährung: Bananen, Kartoffeln, Avocados, Hülsenfrüchte. Bei intensivem Sport: Elektrolyte mit Kalium."
+      }
+    ]
+  },
+  "glutes": {
+    "icon": "💪",
+    "label": "Gesäß & Hüfte",
+    "sub": "Gesäßschmerz, schwache Gluten, Hüftprobleme, Piriformis",
+    "deficiencies": [
+      {
+        "name": "Proteinmangel",
+        "tag": "Gluteus-Atrophie",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Gluteus maximus ist der größte Muskel des Körpers und Hauptkraftquelle für Sprung, Sprint und Heben. Proteinmangel → Gluteus-Atrophie, Kraftverlust, kompensatorische LWS-Überbelastung. Mind. 2–3g Leucin pro Mahlzeit für MPS-Trigger.",
+        "fix": "1,6–2,2 g Protein/kg KG täglich. Alle 3–4h mit Leucin-Trigger. Glute-Training unverzichtbar."
+      },
+      {
+        "name": "Vitamin D3 Mangel",
+        "tag": "Gluteus-Kraft",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Rezeptoren in Gesäßmuskulatur regulieren Muskelproteinsynthese und -kraft. Klinisch belegt: D3-Mangel → messbare Kraft- und Leistungseinbußen der Hüftextensoren (Gluteus maximus, medius). Hüftinstabilität als Folge.",
+        "fix": "D3 + K2 morgens mit Fett. Ziel: 40–60 ng/ml. Krafttraining (Hip Thrust, Squat) als Knochen- und Muskelstimulus."
+      },
+      {
+        "name": "Kreatin Mangel",
+        "tag": "Explosive Kraft",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Explosive Glute-Krafteinsätze (Sprint, Sprung, Olympisches Heben) sind ATP-PCr-abhängig (anaerob alaktazid). Kreatin füllt Phosphokreatin-Speicher → mehr explosive Wiederholungen pro Satz. Uhrzeit irrelevant – kumulativer Spiegel über 2–4 Wochen entscheidend!",
+        "fix": "ZEC+ Kreatin Monohydrat 5g täglich konsistent (Zeitpunkt egal). Wasser 3L+."
+      },
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Piriformis-Syndrom",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "M. piriformis (tiefer Gesäßrotator) kann bei Magnesiummangel verkrampfen → Piriformis-Syndrom: Kompression des N. ischiadicus im tiefen Gesäß → Ischias-ähnlicher Schmerz. Oft mit echtem Bandscheiben-Ischias verwechselt (Bluttest und MRT zur Differenzierung).",
+        "fix": "Basische Mineralien abends. Dehnung des Piriformis (Figure-4-Stretch). Differenzierung von Bandscheiben-Ischias wichtig!"
+      }
+    ]
+  },
+  "hamstrings": {
+    "icon": "🦵",
+    "label": "Oberschenkel Rückseite (Hamstrings)",
+    "sub": "Hamstring-Verletzungen, Muskelrisse, Steifheit, Krämpfe",
+    "deficiencies": [
+      {
+        "name": "Proteinmangel",
+        "tag": "Regeneration",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Hamstrings (Biceps femoris, Semitendinosus, Semimembranosus) sind häufigste Muskelverletzungsstelle im Sport. Ohne ausreichend Protein (besonders Leucin) → verlangsamt MPS in beschädigten Muskelfasern → erhöhte Rezidivrate bei Hamstring-Rissen.",
+        "fix": "1,6–2,2 g/kg KG täglich. Post-Workout sofort Hydrolysat. Leucin-Trigger 2–3g pro Dosis für maximale MPS."
+      },
+      {
+        "name": "Magnesium Mangel",
+        "tag": "Hamstring-Krämpfe",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Hamstring-Krämpfe bei Sportlern: primär neuromuskuläre Ermüdung + Natriumverlust, ABER Magnesiummangel erhöht Krampfneigung zusätzlich. Cave: Hamstring-Krampf ≠ Hamstring-Riss – diagnostisch wichtig! Plötzlich stechend = Riss, ziehend/knotend = Krampf.",
+        "fix": "Basische Mineralien abends + vor intensiven Training-Einheiten. Hydration und Natrium im Fokus bei Sportkrämpfen."
+      },
+      {
+        "name": "Kollagen & Omega-3",
+        "tag": "Sehnenansatz Ischias",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Hamstring-Ursprung am Tuber ischiadicum (Sitzbein): Sehnenansatz aus Kollagen Typ I. Chronische Proximal-Tendinopathie (High Hamstring Tendinopathy) = Kollagen-Degeneration am Ansatz. EPA hemmt lokale Entzündungskaskaden.",
+        "fix": "HEALTH+ Collagen täglich (Vit C enthalten). Super Omega-3 für Entzündungshemmung."
+      },
+      {
+        "name": "Elektrolyt-Mangel",
+        "tag": "Performance & Krämpfe",
+        "color": "#60a5fa",
+        "bg": "#0d1a3a",
+        "text": "Natrium und Kalium regulieren Aktionspotentiale in Hamstring-Fasern. Schweißverlust → Natrium sinkt → neuromuskuläre Übererregbarkeit → Hamstring-Krämpfe. Besonders in Hitze und bei langen Trainingseinheiten relevant.",
+        "fix": "ZEC+ Intra Evolution (Elektrolyte + EAAs) während langer Einheiten. Natriumreiche Elektrolytgetränke bei Hitze-Training."
+      }
+    ]
+  },
+  "calves_back": {
+    "icon": "🦵",
+    "label": "Waden (Rückansicht)",
+    "sub": "Wadenkrämpfe, Wadenrisse, Achillessehne, Schwere Beine",
+    "deficiencies": [
+      {
+        "name": "Sportkrämpfe",
+        "tag": "Hauptursachen Sportler",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Wie Vorderseite: Wadenkrämpfe bei Sportlern primär durch neuromuskuläre Ermüdung, Dehydration und Natriumverlust (nicht primär Magnesiummangel!). Wadenriss: meist Gastrocnemius-Riss (medialer Bauch), diagnostisch 'Tennisleg' – akut chirurgisch abklären.",
+        "fix": "Hydration, Elektrolyte mit Natrium, Trainingssteuerung. Magnesium abends für allgemeine Entspannung."
+      },
+      {
+        "name": "Vitamin B12 Mangel",
+        "tag": "Kribbeln Waden",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "B12-Mangel → Demyelinisierung peripherer Nerven (Suralis-Nerv, Peroneus) → Kribbeln, Taubheit in Waden und Unterschenkeln (Periphere Neuropathie). Oft als 'Strumpf-Handschuh'-Verteilung. Bluttest (Holo-TC) zur Bestätigung!",
+        "fix": "ZEC+ Vitamin B 25. Holo-Transcobalamin >50 pmol/L als Ziel. Bei PPI/Antazida: sublinguales B12."
+      },
+      {
+        "name": "Omega-3 & Kollagen",
+        "tag": "Achillessehne",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Achillessehne (stärkste Sehne des Körpers) = fast reines Kollagen Typ I. Chronische Achillestendinopathie: Kollagen-Degeneration + lokale Entzündung. EPA/DHA hemmen Entzündungskaskaden im Peritendineum.",
+        "fix": "HEALTH+ Collagen täglich (30–60 min vor Training optimal). Super Omega-3 für Entzündungshemmung. Mind. 3–6 Monate."
+      },
+      {
+        "name": "Eisen Mangel",
+        "tag": "Schwere Beine",
+        "color": "#ef4444",
+        "bg": "#2a0505",
+        "text": "Eisenmangel reduziert Hämoglobin → O₂-Transport in arbeitende Wadenmuskeln sinkt → schwere Beine, schnelle Ermüdung, Brennen in den Waden. Besonders bei Ausdauersportlerinnen (läuferbedingte Hämolyse durch Fußauftritt).",
+        "fix": "NUR bei per Bluttest belegtem Mangel (Ferritin <30 ng/ml)! HEALTH+ Eisenbisglycinat nüchtern mit Vit C."
+      }
+    ]
+  },
+  "genital": {
+    "icon": "🔥",
+    "label": "Potenz & Reproduktion",
+    "sub": "Libido, Erektionsfähigkeit, Testosteron, Fruchtbarkeit",
+    "deficiencies": [
+      {
+        "name": "Zink-Mangel",
+        "tag": "Testosteron & Spermien",
+        "color": "#ec4899",
+        "bg": "#2a0018",
+        "text": "Zink ist essenziell für Testosteron-Synthese und Spermien-Reifung. Mangel → Testosteronabfall, Libidoverlust, schlechte Spermienqualität (Motilität ↓). Testosteron-Effekt durch Zink-Supplement NUR bei belegtem Zinkmangel klinisch relevant – bei ausgeglichenem Spiegel kein Boost!",
+        "fix": "ZEC+ Zink Caps abends nüchtern. Nicht mit Eisen/Calcium (DMT1-Antagonismus). Austernfleisch als natürliche Zinkquelle."
+      },
+      {
+        "name": "L-Citrullin / NO-Mangel",
+        "tag": "Erektion / Durchblutung",
+        "color": "#f97316",
+        "bg": "#2a0d00",
+        "text": "Stickoxid (NO) entspannt glatte Muskulatur im Schwellkörper → Erektion möglich. L-Citrullin → Arginin → NO in der Niere. ZEC+ Citrullin Malat klinisch studiert (8g = bessere Erektionshärte). ZEC+ Schatten der Liebe enthält ebenfalls L-Citrullin.",
+        "fix": "ZEC+ Citrullin Malat 6–8g täglich. ZEC+ Schatten der Liebe abends. NICHT mit PDE5-Hemmern (Viagra) kombinieren!"
+      },
+      {
+        "name": "Omega-3 / Hormon-Mangel",
+        "tag": "Testosteron-Synthese",
+        "color": "#34d399",
+        "bg": "#022a18",
+        "text": "Testosteron wird aus Cholesterin synthetisiert – EPA/DHA optimieren die Fettsäure-Zusammensetzung der Leydig-Zellen. DHA ist auch im Sperma-Flagellum hoch konzentriert (Spermien-Beweglichkeit). Chronisch niedriges Omega-3 → suboptimale Steroid-Synthese.",
+        "fix": "Super Omega-3 täglich (1500 mg EPA+DHA). Synergie mit D3+K2 für Hormonsystem."
+      },
+      {
+        "name": "Vitamin D3-Mangel",
+        "tag": "Testosteron",
+        "color": "#fbbf24",
+        "bg": "#2a1a00",
+        "text": "D3-Rezeptoren in Leydig-Zellen (Hoden) direkt nachgewiesen. Meta-Analysen: D3-Supplementierung bei Mangelzustand erhöht Testosteron messbar. D3 <30 ng/ml → signifikant niedrigeres T. Winter-Mangel = häufige Ursache saisonaler Libidoprobleme.",
+        "fix": "D3 + K2 morgens mit Fett. Ziel-Blutspiegel 40–60 ng/ml (25-OH-D3). Bluttest im Winter!"
+      },
+      {
+        "name": "Ashwagandha / Cortisol",
+        "tag": "Libido & Testosteron",
+        "color": "#a78bfa",
+        "bg": "#1a0d3a",
+        "text": "Chronisch hohes Cortisol hemmt GnRH → LH sinkt → Testosteron sinkt (Cortisol-Testosteron-Seesaw). KSM-66 Ashwagandha in RCTs: Cortisol ↓14%, Testosteron ↑17% bei gestressten Männern. Maca zusätzlich für Libido.",
+        "fix": "HEALTH+ Ashwagandha KSM-66 abends. HEALTH+ Maca morgens. ZEC+ Schatten der Liebe für kombinierte Wirkung."
+      }
+    ]
+  }
+}

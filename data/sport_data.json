@@ -1,0 +1,527 @@
+{
+  "maxkraft": {
+    "color": "#ef4444",
+    "bg": "#1a0000",
+    "border": "#991b1b",
+    "title": "Maximalkraft",
+    "icon": "🏋️",
+    "desc": "1–5 Wdh., 85–100% 1RM, Pause 3–5 min. Ziel: Nervale Ansteuerung & maximale Kraftentwicklung.",
+    "supplements": "Kreatin 5g täglich · Citrullin 8g pre · Whey + Dextrose post · Koffein-Booster",
+    "days": [
+      {
+        "day": "Tag A – Unterkörper Kraft",
+        "exercises": [
+          {
+            "name": "Kniebeuge",
+            "sets": "5×3",
+            "load": "87–92% 1RM",
+            "rest": "4 min",
+            "tip": "Tief sitzen, Knie über Zehe, Brustkorb hoch"
+          },
+          {
+            "name": "Rumänisches Kreuzheben",
+            "sets": "4×4",
+            "load": "80–85% 1RM",
+            "rest": "3 min",
+            "tip": "Rücken neutral, Hüfte zurück, keine Kniebeuge"
+          },
+          {
+            "name": "Beinpresse",
+            "sets": "3×5",
+            "load": "82% 1RM",
+            "rest": "3 min",
+            "tip": "Füße schulterbreit, volle Streckung oben"
+          },
+          {
+            "name": "Wadenheben stehend",
+            "sets": "4×6",
+            "load": "Schwer",
+            "rest": "2 min",
+            "tip": "Volle ROM, oben 1 sek halten"
+          }
+        ]
+      },
+      {
+        "day": "Tag B – Oberkörper Drücken",
+        "exercises": [
+          {
+            "name": "Langhantel Bankdrücken",
+            "sets": "5×3",
+            "load": "87–92% 1RM",
+            "rest": "4 min",
+            "tip": "Schulterblätter zusammen, Bogen, Ellbogen 45°"
+          },
+          {
+            "name": "Schrägbank Bankdrücken",
+            "sets": "4×4",
+            "load": "80% 1RM",
+            "rest": "3 min",
+            "tip": "30° Neigung, volle Streckung oben"
+          },
+          {
+            "name": "Schulterdrücken sitzend",
+            "sets": "4×4",
+            "load": "78% 1RM",
+            "rest": "3 min",
+            "tip": "Kern anspannen, keine Ausweichbewegung"
+          },
+          {
+            "name": "Trizeps Dips (Gewicht)",
+            "sets": "4×5",
+            "load": "Zusatzgewicht",
+            "rest": "2 min",
+            "tip": "Rumpf leicht vorne, Ellbogen nah am Körper"
+          }
+        ]
+      },
+      {
+        "day": "Tag C – Oberkörper Ziehen",
+        "exercises": [
+          {
+            "name": "Klimmzüge (Gewicht)",
+            "sets": "5×3",
+            "load": "Zusatzgewicht",
+            "rest": "4 min",
+            "tip": "Schulterblätter unten, volle Streckung unten"
+          },
+          {
+            "name": "Langhantel Rudern vorgebeugt",
+            "sets": "4×4",
+            "load": "82% 1RM",
+            "rest": "3 min",
+            "tip": "45° Rumpf, Ellbogen nah, Stange zur Hüfte"
+          },
+          {
+            "name": "Hammer Curls",
+            "sets": "4×5",
+            "load": "Schwer",
+            "rest": "2 min",
+            "tip": "Daumen oben, kein Schwung"
+          },
+          {
+            "name": "Gesichtszug (Face Pull)",
+            "sets": "3×8",
+            "load": "Mittel",
+            "rest": "90 sek",
+            "tip": "Außenrotation am Ende, Schultergesundheit"
+          }
+        ]
+      },
+      {
+        "day": "Tag D – Ganzkörper Kraft",
+        "exercises": [
+          {
+            "name": "Kreuzheben",
+            "sets": "5×2",
+            "load": "90–95% 1RM",
+            "rest": "5 min",
+            "tip": "Größter Kraft-Stimulus – Rücken neutral, Luft holen"
+          },
+          {
+            "name": "Power Clean",
+            "sets": "4×3",
+            "load": "75% 1RM",
+            "rest": "3 min",
+            "tip": "Explosiv aus den Beinen, Ellbogen schnell durch"
+          },
+          {
+            "name": "Farmer's Walk",
+            "sets": "4×20m",
+            "load": "Schwer",
+            "rest": "2 min",
+            "tip": "Schultern zurück, kurze schnelle Schritte"
+          },
+          {
+            "name": "Bauchpresse / Kabelzug",
+            "sets": "3×8",
+            "load": "Schwer",
+            "rest": "90 sek",
+            "tip": "Kern maximal anspannen"
+          }
+        ]
+      }
+    ]
+  },
+  "hyper": {
+    "color": "#a78bfa",
+    "bg": "#0d001a",
+    "border": "#6d28d9",
+    "title": "Hypertrophie",
+    "icon": "💪",
+    "desc": "8–12 Wdh., 65–80% 1RM, Pause 60–120 sek. Ziel: Maximales Muskelvolumen & metabolischer Stress.",
+    "supplements": "Kreatin 5g · Whey alle 3–4h · Casein vor Schlaf · Citrullin pre · Intra-EAAs optional",
+    "days": [
+      {
+        "day": "Tag A – Brust & Trizeps",
+        "exercises": [
+          {
+            "name": "Schrägbank Kurzhantel",
+            "sets": "4×10",
+            "load": "70% 1RM",
+            "rest": "75 sek",
+            "tip": "Volle Dehnung unten, explosiv drücken, 3-0-1 Tempo"
+          },
+          {
+            "name": "Kabelzug Fliegende",
+            "sets": "3×12",
+            "load": "60% 1RM",
+            "rest": "60 sek",
+            "tip": "Maximale Dehnung, Kontraktion oben halten"
+          },
+          {
+            "name": "Dips (KG)",
+            "sets": "4×10",
+            "load": "Körpergewicht+",
+            "rest": "75 sek",
+            "tip": "Rumpf leicht vorne für Brust-Fokus"
+          },
+          {
+            "name": "Skull Crusher",
+            "sets": "3×12",
+            "load": "Moderat",
+            "rest": "60 sek",
+            "tip": "Ellbogen eng, nur Unterarm bewegt"
+          },
+          {
+            "name": "Kabel Trizeps Pushdown",
+            "sets": "3×15",
+            "load": "Leicht-Mittel",
+            "rest": "45 sek",
+            "tip": "Kontraktion ganz unten halten 1 sek"
+          }
+        ]
+      },
+      {
+        "day": "Tag B – Rücken & Bizeps",
+        "exercises": [
+          {
+            "name": "Kabel Rudern eng",
+            "sets": "4×10",
+            "load": "70% 1RM",
+            "rest": "75 sek",
+            "tip": "Schulterblätter zusammenziehen, Brust raus"
+          },
+          {
+            "name": "Latzug breit vorne",
+            "sets": "4×12",
+            "load": "65% 1RM",
+            "rest": "75 sek",
+            "tip": "Ellbogen zur Hüfte führen, kein Schwung"
+          },
+          {
+            "name": "Kurzhantel Rudern",
+            "sets": "3×12",
+            "load": "70% 1RM",
+            "rest": "60 sek",
+            "tip": "Volle Streckung, Ellbogen über Rücken"
+          },
+          {
+            "name": "SZ-Curls",
+            "sets": "4×10",
+            "load": "Moderat",
+            "rest": "75 sek",
+            "tip": "Langsam ablassen (3 sek), explosiv hoch"
+          },
+          {
+            "name": "Konzentrations Curls",
+            "sets": "3×12",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Volle Kontraktion, kein Oberkörper-Schwung"
+          }
+        ]
+      },
+      {
+        "day": "Tag C – Schultern",
+        "exercises": [
+          {
+            "name": "Kurzhantel Schulterdrücken",
+            "sets": "4×10",
+            "load": "70% 1RM",
+            "rest": "75 sek",
+            "tip": "Keine Hohlkreuz, Kern fest"
+          },
+          {
+            "name": "Kurzhantel Seitheben",
+            "sets": "4×15",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Daumen leicht unten, Ellbogen führen, 30° vorbeugen"
+          },
+          {
+            "name": "Kabel Seitheben",
+            "sets": "3×15",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Konstante Spannung durch Kabel besser als KH"
+          },
+          {
+            "name": "Face Pull Kabel",
+            "sets": "4×15",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Außenrotation = gesunde Schulter"
+          },
+          {
+            "name": "Vorgebeugtes Seitheben",
+            "sets": "3×15",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Hinterer Deltamuskel oft vernachlässigt"
+          }
+        ]
+      },
+      {
+        "day": "Tag D – Beine",
+        "exercises": [
+          {
+            "name": "Kniebeuge",
+            "sets": "4×10",
+            "load": "70% 1RM",
+            "rest": "90 sek",
+            "tip": "Kontrolliert runter (3 sek), explosiv hoch"
+          },
+          {
+            "name": "Beinpresse",
+            "sets": "4×12",
+            "load": "65% 1RM",
+            "rest": "75 sek",
+            "tip": "Füße hoch = mehr Oberschenkel, eng = mehr Außen"
+          },
+          {
+            "name": "Beinstrecker",
+            "sets": "3×15",
+            "load": "Moderat",
+            "rest": "60 sek",
+            "tip": "Oben 2 sek halten für maximale Kontraktion"
+          },
+          {
+            "name": "Beinbeuger liegend",
+            "sets": "3×12",
+            "load": "Moderat",
+            "rest": "60 sek",
+            "tip": "Keine Hüfte abheben, volle Dehnung"
+          },
+          {
+            "name": "Wadenheben (Sitzend)",
+            "sets": "4×15",
+            "load": "Moderat",
+            "rest": "45 sek",
+            "tip": "Soleus-Fokus, tiefes Absenken"
+          }
+        ]
+      },
+      {
+        "day": "Tag E – Arme & Bauch",
+        "exercises": [
+          {
+            "name": "Kurzhantel Curls abwechselnd",
+            "sets": "4×12",
+            "load": "Moderat",
+            "rest": "60 sek",
+            "tip": "Supination am Ende für Bizepskontraktion"
+          },
+          {
+            "name": "Kabel Curls",
+            "sets": "3×15",
+            "load": "Leicht",
+            "rest": "45 sek",
+            "tip": "Konstante Spannung ganz oben und unten"
+          },
+          {
+            "name": "Trizeps Kabelzug",
+            "sets": "4×12",
+            "load": "Moderat",
+            "rest": "60 sek",
+            "tip": "Ellbogen fest am Körper, volle Streckung"
+          },
+          {
+            "name": "Kabelzug Bauchpresse",
+            "sets": "4×15",
+            "load": "Moderat",
+            "rest": "45 sek",
+            "tip": "Crunch-Bewegung, Nabel zur Hüfte"
+          },
+          {
+            "name": "Hängendes Knieheben",
+            "sets": "3×15",
+            "load": "KG",
+            "rest": "45 sek",
+            "tip": "Langsam absenken, kein Schwung"
+          }
+        ]
+      }
+    ]
+  },
+  "kausd": {
+    "color": "#22c55e",
+    "bg": "#001a08",
+    "border": "#166534",
+    "title": "Kraftausdauer",
+    "icon": "⚡",
+    "desc": "15–25 Wdh., 50–65% 1RM, Pause 30–60 sek. Ziel: Muskuläre Ausdauer, Laktatpufferung, Kondition.",
+    "supplements": "Citrullin Malat 8g pre (Laktatpufferung!) · Intra EAAs · Beta-Alanin (Kribbeln normal) · leichtes Protein post",
+    "days": [
+      {
+        "day": "Tag A – Oberkörper Zirkel",
+        "exercises": [
+          {
+            "name": "Liegestütze",
+            "sets": "3×20",
+            "load": "KG / Weste",
+            "rest": "30 sek",
+            "tip": "Volle ROM, konstantes Tempo 1-0-1"
+          },
+          {
+            "name": "TRX / Kabelrudern",
+            "sets": "3×20",
+            "load": "Leicht",
+            "rest": "30 sek",
+            "tip": "Schulterblätter zusammen am Ende"
+          },
+          {
+            "name": "Schulterdrücken Kurzhanteln",
+            "sets": "3×18",
+            "load": "Leicht",
+            "rest": "30 sek",
+            "tip": "Ohne Pause durchdrücken"
+          },
+          {
+            "name": "Klimmzug-Jumping Negatives",
+            "sets": "3×15",
+            "load": "KG",
+            "rest": "45 sek",
+            "tip": "5 sek negativ runterlassen"
+          },
+          {
+            "name": "Trizeps Dips",
+            "sets": "3×20",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Nur Trizeps, Rumpf aufrecht"
+          }
+        ]
+      },
+      {
+        "day": "Tag B – Unterkörper Ausdauer",
+        "exercises": [
+          {
+            "name": "Goblet Squat",
+            "sets": "4×20",
+            "load": "Kettle/KH",
+            "rest": "45 sek",
+            "tip": "Tief, aufrecht, Knie nach außen"
+          },
+          {
+            "name": "Ausfallschritte alternierend",
+            "sets": "3×20",
+            "load": "KH",
+            "rest": "45 sek",
+            "tip": "90° beide Knie, Rumpf aufrecht"
+          },
+          {
+            "name": "Rumänisches KH Kreuzheben",
+            "sets": "3×18",
+            "load": "Leicht-Mittel",
+            "rest": "45 sek",
+            "tip": "Kontrollierte Bewegung, Spannung halten"
+          },
+          {
+            "name": "Sumo Kniebeuge",
+            "sets": "3×20",
+            "load": "KH mittig",
+            "rest": "30 sek",
+            "tip": "Weite Hüfte, Knie stabil"
+          },
+          {
+            "name": "Wadenheben 1-beinig",
+            "sets": "3×20",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Volle ROM, Gleichgewicht"
+          }
+        ]
+      },
+      {
+        "day": "Tag C – Ganzkörper Ausdauer",
+        "exercises": [
+          {
+            "name": "Burpees",
+            "sets": "4×15",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Tempo halten, Hüfte voll strecken"
+          },
+          {
+            "name": "Kettlebell Swing",
+            "sets": "4×20",
+            "load": "Mittel",
+            "rest": "30 sek",
+            "tip": "Hüftstoß, kein Rücken!"
+          },
+          {
+            "name": "Push-Pull Supersatz",
+            "sets": "4×15+15",
+            "load": "KG/Kabel",
+            "rest": "45 sek",
+            "tip": "Direkt ohne Pause zwischen Push & Pull"
+          },
+          {
+            "name": "Seitstütz",
+            "sets": "3×30 sek",
+            "load": "KG",
+            "rest": "20 sek",
+            "tip": "Hüfte oben, Körper gerade"
+          },
+          {
+            "name": "Mountain Climbers",
+            "sets": "3×30",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Hüfte tief, Tempo konstant"
+          }
+        ]
+      },
+      {
+        "day": "Tag D – HIIT Zirkel",
+        "exercises": [
+          {
+            "name": "Box Jumps",
+            "sets": "4×10",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Weich landen, Knie leicht gebeugt"
+          },
+          {
+            "name": "Medizinball Slam",
+            "sets": "4×15",
+            "load": "Med. Ball",
+            "rest": "30 sek",
+            "tip": "Volle Streckung oben, maximale Kraft"
+          },
+          {
+            "name": "Kabelzug Rotation",
+            "sets": "3×15",
+            "load": "Leicht",
+            "rest": "30 sek",
+            "tip": "Kern rotiert, Hüfte stabil"
+          },
+          {
+            "name": "Seil springen",
+            "sets": "3×60 sek",
+            "load": "KG",
+            "rest": "30 sek",
+            "tip": "Leichter Zehensprung, Handgelenke rotieren"
+          },
+          {
+            "name": "Plank Variationen",
+            "sets": "3×45 sek",
+            "load": "KG",
+            "rest": "20 sek",
+            "tip": "Gesäß nicht hochschieben, atmen"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,297 @@
+[
+  {
+    "id": "t1",
+    "label": "Aufwachen & Nuechtern",
+    "offsetMinutes": 0,
+    "duration": 30,
+    "icon": "",
+    "color": "#f59e0b",
+    "bg": "#1a0f00",
+    "border": "#92400e",
+    "why": ": WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nüchternmagen = maximale Nährstoffaufnahme. Cortisol morgens hoch → R-ALA jetzt am effektivsten absorbierbar (Fett/Protein –40% Bioverfügbarkeit). OPC nüchtern für maximale Bioverfügbarkeit. Probiotikum nüchtern – Magensäure am niedrigsten, Bakterien überleben besser.",
+    "productIds": [
+      "p17",
+      "p33",
+      "p36"
+    ],
+    "notes": {
+      "p17": "MUSS nüchtern sein – Fett/Protein reduziert Aufnahme um 40%. NICHT direkt ums Training – R-ALA dämpft Trainings-ROS!",
+      "p33": "Nüchtern für maximale Bioverfügbarkeit. Synergie mit Vit C (p21) – OPC & Vit C zusammen potenzieren Wirkung.",
+      "p36": "Magensäure nach dem Aufwachen am niedrigsten → Bakterien überleben Magen besser. 10 min in kaltem Wasser ziehen lassen."
+    },
+    "priority": {
+      "p17": "MUSS",
+      "p33": "WICHTIG",
+      "p36": "WICHTIG"
+    }
+  },
+  {
+    "id": "t2",
+    "label": "Fruehstueck",
+    "offsetMinutes": 45,
+    "duration": 45,
+    "icon": "",
+    "color": "#10b981",
+    "bg": "#001a0f",
+    "border": "#065f46",
+    "why": ": WASSER: Volles grosses Glas (350ml – 500ml) zu den Kapseln.<br><br>Fettreiche Mahlzeit optimiert alle fettlöslichen Vitamine (Omega-3, Nachtkerzenöl, D3, K2). Multi (p27) ausverkauft → p18 Antioxidant & Vitamin abends deckt Vollspektrum ab. B-Komplex (p20) morgens aktiviert Energiestoffwechsel für den ganzen Tag. OPC 65 (p57) NICHT direkt ums Training – HIER optimal.",
+    "productIds": [
+      "p28",
+      "p57",
+      "p51",
+      "p20",
+      "p22",
+      "p56",
+      "p41",
+      "p49",
+      "p29",
+      "p32",
+      "p19",
+      "p30"
+    ],
+    "notes": {
+      "p28": "Triglyceridform IMMER mit Fett (Galle für Mizellenbildung nötig). EPA/DHA-Gewebespiegel baut sich über 4–8 Wochen auf – Konsistenz entscheidet!",
+      "p57": "Kurz nach dem Frühstück – 1 Kapsel. Synergie mit Vit C (p21). NICHT ums Training – OPC dämpft Trainings-ROS!",
+      "p51": "Direkt mit p28 (Omega-3) nehmen – GLA + EPA/DHA ergänzen sich optimal für Omega-6/3-Balance!",
+      "p20": "Mit Frühstück – B-Vitamine aktivieren den Energiestoffwechsel. ACHTUNG: überlappt mit p18 (Abends) – B-Vitaminstacking beachten!",
+      "p22": "MIT Fett (D3 fettlöslich! – MCT-Öl-Träger). IMMER mit K2 (p56) zusammen! 1 Tropfen morgens direkt auf die Zunge.",
+      "p56": "IMMER mit D3 (p22) – lenkt Calcium in Knochen statt Arterien & Weichgewebe. 1 Tropfen morgens. MK-7-Form = beste Bioverfügbarkeit.",
+      "p41": "Morgens für chronische Effekte (4–6 Wochen Aufbau). ACHTUNG: enthält 2g L-Citrullin – beachten wenn p44 Pre-Workout genommen wird. Nicht mit PDE5-Hemmern!",
+      "p49": "Morgens – NAC für Atemwege & Schleimhäute (NAC 1000mg). Enthält auch Quercetin (mit Piperin ×20 bioverfügbarer). Vorsicht mit Blutverdünnern.",
+      "p29": "Mit Fett – Withanolide fettlöslich. 1. Dosis morgens für Cortisolreduktion über den Tag.",
+      "p32": "Morgens für Energie & Libido. Chronische Wirkung nach 4–6 Wochen.",
+      "p19": "In Wasser oder Saft einrühren – Säure-Basen-Ausgleich, Mikronährstoffe aus Pflanzen.",
+      "p30": "Morgens vor/mit Frühstück – ATP-Produktion & Ausdauer (chronisch, täglich)."
+    },
+    "priority": {
+      "p28": "MUSS",
+      "p57": "WICHTIG",
+      "p51": "WICHTIG",
+      "p20": "WICHTIG",
+      "p22": "WICHTIG",
+      "p56": "WICHTIG",
+      "p41": "OPTIONAL",
+      "p49": "OPTIONAL",
+      "p29": "WICHTIG",
+      "p32": "OPTIONAL",
+      "p19": "OPTIONAL",
+      "p30": "OPTIONAL"
+    }
+  },
+  {
+    "id": "t3",
+    "label": "Vormittag",
+    "offsetMinutes": 180,
+    "duration": 30,
+    "icon": "",
+    "color": "#06b6d4",
+    "bg": "#001420",
+    "border": "#0e7490",
+    "why": ": WASSER: 300ml – 450ml (mit Shaker).<br><br>MPS-Fenster alle 3–4h: Hydrolysat (p2) ausverkauft → p3 (Clear Whey Isolat) ist jetzt die SCHNELLSTE verfügbare Proteinquelle vormittags. Vitamin C zusammen mit Eisen verdoppelt die Eisenaufnahme (Fe³⁺ → Fe²⁺). Eisen NUR bei labordiagnostisch belegtem Ferritin-Mangel!",
+    "productIds": [
+      "p21",
+      "p3",
+      "p23"
+    ],
+    "notes": {
+      "p21": "Zusammen mit Eisen für max. Eisenabsorption. 1. Vit-C-Dosis (2x täglich optimal – >200mg sinkt % Aufnahme). NICHT direkt vor dem Training.",
+      "p3": "Einzige Proteinquelle vormittags (Hydrolysat p2 ausverkauft). Clear Whey Isolat: schnell (~60–90 min), magenfreundlich, laktosefrei. Mind. 2–3g Leucin für MPS.",
+      "p23": "NUR bei per Bluttest belegtem Mangel! 2h NACH Frühstück & OHNE Ca/Zn/Mg. Mit Vitamin C → Absorption ×2."
+    },
+    "priority": {
+      "p21": "WICHTIG",
+      "p3": "MUSS",
+      "p23": "OPTIONAL"
+    }
+  },
+  {
+    "id": "t4",
+    "label": "Pre-Workout",
+    "offsetMinutes": 300,
+    "duration": 15,
+    "icon": "",
+    "color": "#ef4444",
+    "bg": "#1a0000",
+    "border": "#991b1b",
+    "why": ": WASSER: Exakt 400ml – 500ml zum Anmischen.<br><br>Citrullin Malat (p14) ausverkauft – Designer Carbs (p11) ausverkauft. Lösung: p44 (Pumpdown) enthält 6g L-Citrullin-Malat → VOLLER NO-Ersatz! Koffein Peak bei 60 min. <strong>NUR EINEN Koffein-Booster wählen (p43, p45, p46 oder p47) – NIEMALS kombinieren!</strong> p44 koffeinfrei → immer kombinierbar. KEINE Antioxidantien jetzt – Trainings-ROS sind Wachstumssignale!",
+    "productIds": [
+      "p44",
+      "p43",
+      "p45",
+      "p46",
+      "p47",
+      "p13"
+    ],
+    "notes": {
+      "p44": "PRIMÄR als NO-Ersatz für fehlendes p14! 6g L-Citrullin-Malat + Arginin + Glycerol + OPC-Pump. Koffeinfrei → IMMER mit einem Koffein-Booster kombinierbar!",
+      "p43": "Moderate Koffein-Stimulierung – Re-Act enthält bereits 1,25g Citrullin + 4g Kreatin. NUR EINEN Koffein-Booster wählen!",
+      "p45": "Intensive Stimulierung (400mg Koffein gesamt) – für Maximalkraft-Training. NUR EINEN Koffein-Booster wählen!",
+      "p46": "Extreme Intensität (400mg Koffein + Nitrat) – nur für erfahrene Nutzer. NIEMALS mit p43/p45/p47 kombinieren!",
+      "p47": "Kampfsport-spezifisch (Peak ATP®, Zynamite®, Citicolin). NUR für Kampfsport-Einheiten. Zyklen beachten!",
+      "p13": "Zeitpunkt IRRELEVANT – Phosphokreatin-Spiegel kumulativ über 2–4 Wochen. Hier für Gewohnheit. Post-workout leicht besser durch Insulin."
+    },
+    "priority": {
+      "p44": "MUSS",
+      "p43": "OPTIONAL",
+      "p45": "WICHTIG",
+      "p46": "OPTIONAL",
+      "p47": "OPTIONAL",
+      "p13": "WICHTIG"
+    }
+  },
+  {
+    "id": "t6",
+    "label": "Post-Workout",
+    "offsetMinutes": 405,
+    "duration": 30,
+    "icon": "",
+    "color": "#f97316",
+    "bg": "#1a0800",
+    "border": "#9a3412",
+    "why": ": WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Anaboles Fenster (~2h): Muskeln maximal insulinsensitiv, Glykogenspeicher leer, mTOR & MPS erhöht. Hydrolysat (p2) ausverkauft → p1 (Almost Whey, pflanzlich hydrolysiert via NiHPRO™) als schnellstes verfügbares Protein. Dextrose (p10) ausverkauft → p9 (Maltodextrin GI~110) für Insulintransport & Glykogen. Intra-Workout entfällt komplett (p15 verboten, p10 ausverkauft) – mehr Fokus Post-Workout. KEINE Antioxidantien!",
+    "productIds": [
+      "p1",
+      "p9",
+      "p12",
+      "p13",
+      "p8"
+    ],
+    "notes": {
+      "p1": "HYDROLYSAT-ERSATZ (p2 ausverkauft) – Almost Whey via NiHPRO™-Hydrolyse: ~2–3h Verdauung, gut bioverfügbar. Direkt nach Training trinken. Ratio zu p9 anstreben: ~1g Protein : 2g Carbs.",
+      "p9": "DEXTROSE-ERSATZ (p10 ausverkauft) – Maltodextrin GI~110: fast so schnell wie Dextrose. Insulin transportiert Protein + Kreatin in die Muskelzelle!",
+      "p12": "Feste Post-Workout Alternative (Reisstärke + leichtes Protein). Mit p1 für besseres Aminosäureprofil kombinieren.",
+      "p13": "Post-Workout leicht vorteilhaft durch Insulin-Peak – aber Konsistenz (täglich) ist der entscheidende Faktor, nicht der Zeitpunkt!",
+      "p8": "NUR für Hardgainer & aktive Masseaufbau-Phase! Hohe Kalorien (375 kcal/100g) – nicht in Diät- oder Erhaltungsphase!"
+    },
+    "priority": {
+      "p1": "MUSS",
+      "p9": "MUSS",
+      "p12": "OPTIONAL",
+      "p13": "WICHTIG",
+      "p8": "OPTIONAL"
+    }
+  },
+  {
+    "id": "t7",
+    "label": "Mittagessen",
+    "offsetMinutes": 450,
+    "duration": 60,
+    "icon": "",
+    "color": "#22c55e",
+    "bg": "#001a08",
+    "border": "#166534",
+    "why": ": WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br>Hauptmahlzeit: Kollagen (4 patentierte Typen), Gelenkschutz, Bioverfügbarkeit-Boost. Enzymkomplex DIREKT VOR der Mahlzeit – bei Festfood, nicht in Protein-Shakes! Mind. 2h Abstand zum Trainingsende für Nährstoff-Optimizer.",
+    "productIds": [
+      "p38",
+      "p39",
+      "p37",
+      "p35"
+    ],
+    "notes": {
+      "p38": "VOR dem Essen (nüchtern oder leerer Magen) – Vit C BEREITS IM PRODUKT (Acerolafruchtpulver, 50mg = 63% NRV). Kein externes Vit C nötig! 300ml kaltes Wasser.",
+      "p39": "Mit Mahlzeit. Mind. 3 Monate durchgehend einnehmen für messbaren Knorpel-Effekt (Glucosamin + Chondroitin + MSM).",
+      "p37": "Steigert Absorption ALLER Nährstoffe +20–40% (Piperin hemmt CYP3A4). ACHTUNG: erhöht auch Medikamentenspiegel – Rx-Medi beachten!",
+      "p35": "DIREKT VOR oder zu Beginn der Mahlzeit – Verdauungsenzyme müssen mit fester Nahrung in Kontakt kommen. Nicht danach & nicht in Shakes!"
+    },
+    "priority": {
+      "p38": "WICHTIG",
+      "p39": "WICHTIG",
+      "p37": "WICHTIG",
+      "p35": "WICHTIG"
+    }
+  },
+  {
+    "id": "t8",
+    "label": "Nachmittag",
+    "offsetMinutes": 630,
+    "duration": 30,
+    "icon": "",
+    "color": "#60a5fa",
+    "bg": "#000d1a",
+    "border": "#1d4ed8",
+    "why": ": WASSER: 300ml – 350ml.<br><br>Kein Protein-Shake nachmittags (p1 jetzt Post-Workout, p5 ausverkauft) – Protein aus Mahlzeiten. Jetzt optimaler Zeitpunkt für Antioxidantien & Entzündungshemmung (genug Abstand vom Training). 2. Vit-C-Dosis für maximale Tagesdosis. Basische Mineralien nach Training für Säure-Basen-Balance.",
+    "productIds": [
+      "p21",
+      "p34",
+      "p26"
+    ],
+    "notes": {
+      "p21": "2. Vit-C-Dosis (500mg) – wasserlöslich, 2x täglich für max. Resorption. Genug Abstand vom Training – Antioxidans-Effekt jetzt unbedenklich.",
+      "p34": "Entzündungshemmung (Anthocyane) nach Training. Natürliches Melatonin (CherryPure® 50:1) bereitet Schlafhormon-Balance vor. NICHT ums Training selbst.",
+      "p26": "Saure-Basen-Ausgleich nach intensiver Belastung. Magnesium entspannt Muskulatur & Nervensystem. 2. Dosis folgt vor Schlaf (p26 Abends)."
+    },
+    "priority": {
+      "p21": "WICHTIG",
+      "p34": "OPTIONAL",
+      "p26": "WICHTIG"
+    }
+  },
+  {
+    "id": "t9",
+    "label": "Abendessen",
+    "offsetMinutes": 780,
+    "duration": 60,
+    "icon": "",
+    "color": "#a78bfa",
+    "bg": "#0d001a",
+    "border": "#6d28d9",
+    "why": ": WASSER: 300ml – 400ml zum Essen.<br><br>Letzte Nährstoff-Hauptversorgung. Multi (p27) ausverkauft → p18 (Antioxidant & Vitamin) abends als Multivitamin-Vollersatz! Selen (p25) ausverkauft – p18 enthält bereits 100% NRV Selen (55µg). Reishi (p31) ausverkauft. Cortisol senken, Herzregeneration vorbereiten (Protect Heart mit Q10 200mg + OPC 400mg). p7 Protein-Pudding als CASEIN-ERSATZ jetzt in t10!",
+    "productIds": [
+      "p18",
+      "p48",
+      "p29",
+      "p24"
+    ],
+    "notes": {
+      "p18": "MULTIVITAMIN-ERSATZ für ausverkauftes p27! Mit fettreicher Mahlzeit (fettlösliche Anteile: A, D, E, K). Enthält 100% NRV Selen (55µg) → kein Selenmangel trotz ausverkauftem p25. NICHT zusammen mit p20 (B25) – B-Vitamin-Doppeldosierung!",
+      "p48": "Mit fetthaltiger Mahlzeit (Q10 200mg fettlöslich). Abends für Herzmuskel-Regeneration im Schlaf. Nattokinase nüchtern besser – Kompromiss Abendessen.",
+      "p29": "Abends-Dosis: Cortisol vor dem Schlaf senken, Testosteron während GH-Ausschüttung im Schlaf erhöhen. 2x täglich optimal.",
+      "p24": "Nüchtern 2h nach Abendessen. Testosteron & Immuneffekt nur bei nachgewiesenem Zinkmangel! NICHT mit Eisen (p23) zur gleichen Zeit."
+    },
+    "priority": {
+      "p18": "MUSS",
+      "p48": "OPTIONAL",
+      "p29": "WICHTIG",
+      "p24": "OPTIONAL"
+    }
+  },
+  {
+    "id": "t10",
+    "label": "Vor dem Schlafen",
+    "offsetMinutes": 60,
+    "duration": 30,
+    "icon": "",
+    "color": "#818cf8",
+    "bg": "#05001a",
+    "border": "#4338ca",
+    "isRelativeTosleep": true,
+    "why": ": WASSER: Exakt 250ml – maximal 300ml (nächtliches Aufwachen vermeiden).<br><br>Casein (p6) ausverkauft → p7 (Protein Pudding Stracciatella, Casein-Basis!) als DIREKTER Ersatz: 5–7h langsame Aminosäurefreisetzung – deckt GH-Ausschüttung (beginnt 90 min nach Einschlafen) ab. Wachstumshormon + Protein + Schlafsubstanzen jetzt maximal aktivieren. <strong>ACHTUNG: NUR EINEN Melatonin-Träger wählen – p40 ODER p50, nicht beide!</strong>",
+    "productIds": [
+      "p7",
+      "p40",
+      "p50",
+      "p26",
+      "p16",
+      "p42",
+      "p34"
+    ],
+    "notes": {
+      "p7": "CASEIN-ERSATZ für ausverkauftes p6! Casein-Basis → 30 min vor Schlaf: 5–7h Aminosäurefreisetzung während GH-Ausschüttung. Mit 200ml kalter Milch verrühren. KEIN Whey-Protein jetzt – zu schnell!",
+      "p40": "Melatonin-Kapsel – 30 min vor Schlaf. NUR p40 ODER p50 wählen – beide enthalten Melatonin!",
+      "p50": "Melatonin-Spray – wirkt in 10–20 min (schneller als Kapsel). Ideal bei akutem Einschlafproblem. NUR p40 ODER p50!",
+      "p26": "Magnesium entspannt Muskulatur & Nervensystem für Tiefschlaf. Calcium für nächtliche Knochenregeneration.",
+      "p16": "Direkt vor Schlaf: L-Glycin senkt Kernkörpertemperatur → fördert Tiefschlaf (REM). Kollagensynthese läuft nachts auf Hochtouren.",
+      "p42": "Baldrian 30–60 min vor Schlaf. Wirkung steigert sich nach 2–4 Wochen regelmäßiger Einnahme.",
+      "p34": "Natürliches Melatonin (CherryPure® 1100mg) + Anthocyane für Anti-Entzündung über Nacht. Verstärkt Schlafwirkung von p40/p50."
+    },
+    "priority": {
+      "p7": "MUSS",
+      "p40": "WICHTIG",
+      "p50": "OPTIONAL",
+      "p26": "WICHTIG",
+      "p16": "WICHTIG",
+      "p42": "OPTIONAL",
+      "p34": "OPTIONAL"
+    }
+  }
+]
