@@ -264,6 +264,10 @@
         .targets-val { font-size: 19px; font-weight: 900; white-space: nowrap; }
         .targets-lbl { font-size: 10px; color: #94a3b8; margin-top: 3px; }
         .targets-goal { font-size: 11px; font-weight: 700; color: #fbbf24; margin-top: 10px; }
+        .targets-accuracy { font-size: 10px; font-weight: 600; margin-top: 8px; line-height: 1.5;
+            padding: 7px 9px; border-radius: 7px; }
+        .targets-accuracy.ok { color: #4ade80; background: #04140a; border: 1px solid #166534; }
+        .targets-accuracy.warn { color: #fca5a5; background: #1a0000; border: 1px solid #7f1d1d; }
         .targets-formula { font-size: 9px; color: #475569; margin-top: 8px; line-height: 1.5; }
         .targets-hint { font-size: 11px; color: #64748b; line-height: 1.5; margin: 4px 0 14px; text-align: center; }
 
@@ -1014,11 +1018,11 @@
         </div>
     </div>
 
-    <!-- SCHRITT 2: Alter & Geschlecht -->
+    <!-- SCHRITT 2: Alter, Größe, Gewicht, Geschlecht -->
     <div id="stepProfile" class="onboard-screen">
         <div class="setup-card">
-            <button class="onboard-back-top" onclick="goStep(1)" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 2 von 6 · Über dich</div>
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 2 von 8 · Über dich</div>
             <div class="setup-title" style="font-size:24px;">Über dich</div>
             <div class="setup-subtitle">Für deinen Kalorien- &amp; Eiweißbedarf</div>
             <div class="onboard-field">
@@ -1045,21 +1049,20 @@
             </div>
             <button class="start-btn" onclick="profileNext()">Weiter →</button>
             <div class="onboard-nav">
-                <button class="mode-back-btn" onclick="goStep(1)">&#8592; Zurück</button>
-                <button class="mode-back-btn" onclick="goStep(3)">Überspringen →</button>
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="nextStep()">Überspringen →</button>
             </div>
         </div>
     </div>
 
-    <!-- SCHRITT 3: Aktivitätslevel & Sportart -->
+    <!-- SCHRITT 3: Aktivitätslevel -->
     <div id="stepActivity" class="onboard-screen">
         <div class="setup-card">
-            <button class="onboard-back-top" onclick="goStep(2)" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 3 von 6 · Aktivität</div>
-            <div class="setup-title" style="font-size:24px;">Dein Alltag</div>
-            <div class="setup-subtitle">Aktivitätslevel &amp; Sportart</div>
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 3 von 8 · Aktivität</div>
+            <div class="setup-title" style="font-size:24px;">Wie aktiv bist du?</div>
+            <div class="setup-subtitle">Bestimmt deinen Kalorienbedarf</div>
             <div class="onboard-field">
-                <label>Wie aktiv bist du?</label>
                 <div class="onboard-choice onboard-choice-col" id="activityChoice">
                     <button class="onboard-opt" onclick="setProfileChoice('activity','wenig',this)">🛋️ Wenig aktiv (Büro, kaum Sport)</button>
                     <button class="onboard-opt" onclick="setProfileChoice('activity','maessig',this)">🚶 Mäßig aktiv (1–3× Sport/Woche)</button>
@@ -1067,8 +1070,23 @@
                     <button class="onboard-opt" onclick="setProfileChoice('activity','sehr',this)">🔥 Sehr aktiv (täglich / 2×)</button>
                 </div>
             </div>
+            <div id="onboardTargets"></div>
+            <button class="start-btn" onclick="nextStep()">Weiter →</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="skipStep('activity')">Überspringen →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHRITT 4: Sportart -->
+    <div id="stepSportType" class="onboard-screen">
+        <div class="setup-card">
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 4 von 8 · Sportart</div>
+            <div class="setup-title" style="font-size:24px;">Deine Sportart</div>
+            <div class="setup-subtitle">Womit trainierst du?</div>
             <div class="onboard-field">
-                <label>Deine Sportart</label>
                 <div class="onboard-choice" id="sportTypeChoice">
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','kraft',this)">🏋️ Kraftsport</button>
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','ausdauer',this)">🚴 Ausdauer</button>
@@ -1076,8 +1094,22 @@
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
                 </div>
             </div>
+            <button class="start-btn" onclick="nextStep()">Weiter →</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="skipStep('sportType')">Überspringen →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHRITT 5: Ziel -->
+    <div id="stepGoal" class="onboard-screen">
+        <div class="setup-card">
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 5 von 8 · Ziel</div>
+            <div class="setup-title" style="font-size:24px;">Dein Ziel</div>
+            <div class="setup-subtitle">Passt deinen Kalorienbedarf an</div>
             <div class="onboard-field">
-                <label>Dein Ziel</label>
                 <div class="onboard-choice onboard-choice-col" id="goalChoice">
                     <button class="onboard-opt" onclick="setProfileChoice('goal','abnehmen',this)">🔻 Abnehmen <span class="onboard-opt-sub">Kaloriendefizit (−20 %), viel Eiweiß zum Muskelerhalt</span></button>
                     <button class="onboard-opt" onclick="setProfileChoice('goal','halten',this)">⚖️ Gewicht halten <span class="onboard-opt-sub">Kalorien auf Erhaltungsniveau</span></button>
@@ -1085,11 +1117,11 @@
                     <button class="onboard-opt" onclick="setProfileChoice('goal','aufbauen',this)">💪 Aufbauen <span class="onboard-opt-sub">Kalorienüberschuss (+15 %), Muskelaufbau</span></button>
                 </div>
             </div>
-            <div id="onboardTargets"></div>
-            <button class="start-btn" onclick="activityNext()">Weiter →</button>
+            <div id="onboardTargets2"></div>
+            <button class="start-btn" onclick="nextStep()">Weiter →</button>
             <div class="onboard-nav">
-                <button class="mode-back-btn" onclick="goStep(2)">&#8592; Zurück</button>
-                <button class="mode-back-btn" onclick="goStep(4)">Überspringen →</button>
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="skipStep('goal')">Überspringen →</button>
             </div>
         </div>
     </div>
@@ -1097,7 +1129,7 @@
     <div id="modeScreen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="modeBack()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 4 von 6 · Ansicht</div>
+            <div class="onboard-progress">Schritt 6 von 8 · Ansicht</div>
             <span class="setup-logo">🧭</span>
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
@@ -1115,11 +1147,11 @@
         </div>
     </div>
 
-    <!-- SCHRITT 5: Produkte auswählen -->
+    <!-- SCHRITT 7: Produkte auswählen -->
     <div id="stepProducts" class="onboard-screen">
         <div class="setup-card onboard-card-wide">
-            <button class="onboard-back-top" onclick="goStep(4)" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 5 von 6 · Deine Produkte</div>
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 7 von 8 · Deine Produkte</div>
             <div class="setup-title" style="font-size:24px;">Deine Produkte</div>
             <div class="setup-subtitle">Wie soll dein Tagesplan starten?</div>
 
@@ -1132,19 +1164,19 @@
             <input type="text" class="time-input onboard-text" id="onboardProductSearch" placeholder="Produkt suchen…" oninput="renderOnboardProducts()" style="margin:0 0 6px;">
             <div class="onboard-count" id="onboardProductCount">0 Produkte gewählt</div>
             <div class="onboard-product-list" id="onboardProductList"></div>
-            <button class="start-btn" onclick="goStep(6)">Weiter mit Auswahl →</button>
+            <button class="start-btn" onclick="nextStep()">Weiter mit Auswahl →</button>
             <div class="onboard-nav">
-                <button class="mode-back-btn" onclick="goStep(4)">&#8592; Zurück</button>
-                <button class="mode-back-btn" onclick="goStep(6)">Überspringen →</button>
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="nextStep()">Überspringen →</button>
             </div>
         </div>
     </div>
 
-    <!-- SCHRITT 6: Trainingsplan -->
+    <!-- SCHRITT 8: Trainingsplan -->
     <div id="stepSport" class="onboard-screen">
         <div class="setup-card">
-            <button class="onboard-back-top" onclick="goStep(5)" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 6 von 6 · Training</div>
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Schritt 8 von 8 · Training</div>
             <div class="setup-title" style="font-size:24px;">Dein Training</div>
             <div class="setup-subtitle">Welcher Trainingsplan passt?</div>
             <div class="onboard-field">
@@ -1155,7 +1187,7 @@
                 </div>
             </div>
             <button class="start-btn" onclick="finishOnboarding()">✓ Fertig – App starten</button>
-            <button class="mode-back-btn" onclick="goStep(5)">&#8592; Zurück</button>
+            <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
         </div>
     </div>
 
@@ -2390,7 +2422,7 @@
             document.getElementById("displaySleepTime").innerText = sleepInput;
 
             // Schritt 1 abgeschlossen → weiter im Assistenten, oder (bei Schnell-Edit) direkt zurück in die App
-            if (inOnboarding) goStep(2);
+            if (inOnboarding) goStep(2);   // von Schritt 1 immer zu Schritt 2
             else enterApp();
         }
 
@@ -2398,7 +2430,8 @@
         let appMode = 'hard';
         let inOnboarding = true;
         let currentStep = 1;
-        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'modeScreen', 5:'stepProducts', 6:'stepSport' };
+        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepSportType', 5:'stepGoal', 6:'modeScreen', 7:'stepProducts', 8:'stepSport' };
+        const ONBOARD_LAST = 8;
 
         let userProfile = { age:'', gender:'', activity:'', sportType:'' };
         let selectedSportMode = 'maxkraft';
@@ -2435,10 +2468,14 @@
             let pf = PROTEIN_GKG[act] || [1.4, 1.7];
             if (goal === 'abnehmen') pf = [Math.max(pf[0], 2.0), Math.max(pf[1], 2.4)];
             else if (goal === 'aufbauen') pf = [Math.max(pf[0], 1.6), Math.max(pf[1], 2.2)];
+            // Welche Angaben fehlen → Werte werden ungenauer
+            const assumptions = [];
+            if (!ACTIVITY_PAL[act])     assumptions.push('Aktivität');
+            if (!GOAL_KCAL[userProfile.goal]) assumptions.push('Ziel');
             return {
                 bmr: Math.round(bmr), tdee, maintenance, goal,
                 proteinMin: Math.round(w * pf[0]), proteinMax: Math.round(w * pf[1]),
-                gkgMin: pf[0], gkgMax: pf[1], weight: w
+                gkgMin: pf[0], gkgMax: pf[1], weight: w, assumptions
             };
         }
 
@@ -2451,6 +2488,9 @@
             const goalBadge = t.goal && t.goal !== 'halten'
                 ? `<div class="targets-goal">🎯 ${goalLbl} <span style="color:#64748b;">(Erhalt: ${t.maintenance.toLocaleString('de-DE')} kcal)</span></div>`
                 : `<div class="targets-goal">🎯 ${goalLbl}</div>`;
+            const accuracy = t.assumptions.length === 0
+                ? `<div class="targets-accuracy ok">✓ Genau berechnet – alle Angaben vorhanden.</div>`
+                : `<div class="targets-accuracy warn">⚠️ Geschätzt: ${t.assumptions.join(' & ')} fehlt – die Werte werden mit jedem übersprungenen Schritt ungenauer.</div>`;
             return `<div class="targets-box">
                 <div class="targets-title">📊 Dein täglicher Bedarf</div>
                 <div class="targets-grid">
@@ -2464,14 +2504,17 @@
                     </div>
                 </div>
                 ${goalBadge}
+                ${accuracy}
                 <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität × Ziel (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
             </div>`;
         }
 
         function renderOnboardTargets() {
-            const box = document.getElementById('onboardTargets');
-            if (box) box.innerHTML = buildTargetsHtml(false);
+            const html = buildTargetsHtml(false);
+            ['onboardTargets', 'onboardTargets2'].forEach(id => { const b = document.getElementById(id); if (b) b.innerHTML = html; });
         }
+        // Überspringen eines Profil-Schritts (Wert bleibt leer → Genauigkeits-Hinweis greift)
+        function skipStep(field) { nextStep(); }
         function renderDailyTargets() {
             const box = document.getElementById('dailyTargets');
             if (box) box.innerHTML = buildTargetsHtml(true);
@@ -2479,34 +2522,36 @@
         function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
         function goStep(n) {
-            if (n > 6) { enterApp(); return; }
+            if (n > ONBOARD_LAST) { enterApp(); return; }
             if (n < 1) n = 1;
             Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
-            const el = document.getElementById(ONBOARD_SCREENS[n]);
+            const id = ONBOARD_SCREENS[n];
+            const el = document.getElementById(id);
             if (el) el.style.display = 'flex';
             currentStep = n;
             window.scrollTo(0, 0);
-            if (n === 3) renderOnboardTargets();
-            if (n === 5) renderOnboardProducts();
+            if (id === 'stepActivity' || id === 'stepGoal') renderOnboardTargets();
+            if (id === 'stepProducts') renderOnboardProducts();
         }
+        function nextStep() { goStep(currentStep + 1); }
+        function prevStep() { goStep(currentStep - 1); }
 
-        // Auswahl-Buttons (Geschlecht, Aktivität, Sportart)
+        // Auswahl-Buttons (Geschlecht, Aktivität, Sportart, Ziel)
         function setProfileChoice(field, val, btn) {
             userProfile[field] = val;
             saveProfile();
             const parent = btn.parentElement;
             parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            renderOnboardTargets(); // Bedarf live aktualisieren (z. B. nach Aktivitätswahl)
+            renderOnboardTargets(); // Bedarf live aktualisieren
         }
         function profileNext() {
             userProfile.age    = document.getElementById('profileAge').value.trim();
             userProfile.height = document.getElementById('profileHeight').value.trim();
             userProfile.weight = document.getElementById('profileWeight').value.trim();
             saveProfile();
-            goStep(3);
+            nextStep();
         }
-        function activityNext() { saveProfile(); goStep(4); }
 
         // Schritt 5: Produkte auswählen → füllt Mein Stack
         function onboardToggle(pid) {
@@ -2532,14 +2577,14 @@
             });
             setEmptyPlan(false);
             saveStack();
-            goStep(6);
+            nextStep();
         }
-        // Schritt 5 – Button: leer starten, selbst befüllen
+        // Button: leer starten, selbst befüllen
         function startEmptyPlan() {
             myStack = {};
             setEmptyPlan(true);
             saveStack();
-            goStep(6);
+            nextStep();
         }
         function renderOnboardProducts() {
             const box = document.getElementById('onboardProductList');
@@ -2579,7 +2624,7 @@
             document.getElementById("modeScreen").style.display = "flex";
         }
         function modeBack() {
-            if (inOnboarding) goStep(3);
+            if (inOnboarding) prevStep();
             else enterApp();
         }
         // Assistent komplett neu starten (ohne Cache löschen)
@@ -2596,7 +2641,7 @@
         }
         function selectMode(mode) {
             applyMode(mode);
-            if (inOnboarding) goStep(5);
+            if (inOnboarding) nextStep();
             else enterApp();
         }
 
