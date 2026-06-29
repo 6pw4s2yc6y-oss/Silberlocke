@@ -191,6 +191,8 @@
             font-size: 12px; font-weight: 600; cursor: pointer; padding: 6px;
         }
         .mode-back-btn:hover { color: #94a3b8; }
+        .onboard-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .onboard-nav .mode-back-btn { margin-top: 6px; }
 
         /* ── ONBOARDING-ASSISTENT ──────────────────────────────────────────── */
         .onboard-screen {
@@ -250,6 +252,7 @@
             cursor: pointer; white-space: nowrap;
         }
         .mode-switch-btn:hover { background: #161636; border-color: #4c4795; }
+        .header-btn-row { display: flex; gap: 5px; }
 
         /* MAIN APP CONTAINER (HIDDEN INITIALLY) */
         #mainApp {
@@ -1005,7 +1008,10 @@
                 </div>
             </div>
             <button class="start-btn" onclick="profileNext()">Weiter →</button>
-            <button class="mode-back-btn" onclick="goStep(1)">&#8592; Zurück</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="goStep(1)">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="goStep(3)">Überspringen →</button>
+            </div>
         </div>
     </div>
 
@@ -1044,7 +1050,10 @@
             </div>
             <div id="onboardTargets"></div>
             <button class="start-btn" onclick="activityNext()">Weiter →</button>
-            <button class="mode-back-btn" onclick="goStep(2)">&#8592; Zurück</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="goStep(2)">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="goStep(4)">Überspringen →</button>
+            </div>
         </div>
     </div>
 
@@ -1078,7 +1087,10 @@
             <div class="onboard-count" id="onboardProductCount">0 Produkte gewählt</div>
             <div class="onboard-product-list" id="onboardProductList"></div>
             <button class="start-btn" onclick="goStep(6)">Weiter →</button>
-            <button class="mode-back-btn" onclick="goStep(4)">&#8592; Zurück</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="goStep(4)">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="goStep(6)">Überspringen →</button>
+            </div>
         </div>
     </div>
 
@@ -1112,7 +1124,10 @@
                         <div class="header-time-info">
                             Aufwachen: <span id="displayWakeTime">07:00</span> | Schlafen: <span id="displaySleepTime">23:00</span>
                         </div>
-                        <button class="mode-switch-btn" onclick="backToModeSelect()">&#8646; Modus wechseln</button>
+                        <div class="header-btn-row">
+                            <button class="mode-switch-btn" onclick="restartOnboarding()">&#8635; Assistent</button>
+                            <button class="mode-switch-btn" onclick="backToModeSelect()">&#8646; Modus</button>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-bar">
@@ -2483,6 +2498,12 @@
         function modeBack() {
             if (inOnboarding) goStep(3);
             else enterApp();
+        }
+        // Assistent komplett neu starten (ohne Cache löschen)
+        function restartOnboarding() {
+            inOnboarding = true;
+            document.getElementById("mainApp").style.display = "none";
+            goStep(1);
         }
 
         function applyMode(mode) {
