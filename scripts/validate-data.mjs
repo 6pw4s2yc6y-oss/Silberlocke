@@ -60,8 +60,39 @@ else nutr.forEach((n, i) => {
     }
 });
 
-// ── sport_data / body_zones (Grundstruktur) ─────────────────────────────────
-if (!sport || typeof sport !== 'object' || Array.isArray(sport)) fail('sport_data.json: muss ein Objekt sein');
+// ── sport_data ──────────────────────────────────────────────────────────────
+if (!sport || typeof sport !== 'object' || Array.isArray(sport)) {
+    fail('sport_data.json: muss ein Objekt sein');
+} else {
+    // Jede Sportart-Gruppe muss ihre drei Pläne in den Daten haben (sonst leere Auswahl)
+    const SPORTTYPE_PLANS = {
+        kraft:    ['maxkraft', 'hyper', 'kausd'],
+        ausdauer: ['gla', 'intervall', 'wettkampf'],
+        kampf:    ['explosiv', 'kondition', 'technik'],
+        mix:      ['hybrid', 'functional', 'ganzkoerper'],
+    };
+    for (const [type, modes] of Object.entries(SPORTTYPE_PLANS)) {
+        modes.forEach(m => { if (!sport[m]) fail(`sport_data.json: Plan "${m}" (Sportart ${type}) fehlt`); });
+    }
+    for (const [key, plan] of Object.entries(sport)) {
+        const at = `sport_data.${key}`;
+        ['title', 'icon', 'color', 'bg', 'border', 'desc', 'supplements', 'short'].forEach(f => {
+            if (typeof plan[f] !== 'string' || !plan[f]) fail(`${at}: "${f}" fehlt oder kein String`);
+        });
+        if (!Array.isArray(plan.days) || plan.days.length === 0) { fail(`${at}: "days" fehlt/leer`); continue; }
+        plan.days.forEach((day, di) => {
+            if (typeof day.day !== 'string' || !day.day) fail(`${at}.days[${di}]: "day" fehlt`);
+            if (!Array.isArray(day.exercises) || day.exercises.length === 0) { fail(`${at}.days[${di}]: "exercises" fehlt/leer`); return; }
+            day.exercises.forEach((ex, ei) => {
+                ['name', 'sets', 'load', 'rest', 'tip'].forEach(f => {
+                    if (typeof ex[f] !== 'string' || !ex[f]) fail(`${at}.days[${di}].exercises[${ei}]: "${f}" fehlt`);
+                });
+            });
+        });
+    }
+}
+
+// ── body_zones (Grundstruktur) ──────────────────────────────────────────────
 if (!body || typeof body !== 'object' || Array.isArray(body)) fail('body_zones.json: muss ein Objekt sein');
 
 // ── Ergebnis ────────────────────────────────────────────────────────────────
