@@ -273,6 +273,32 @@
         .stack-plan-back:hover { background: #161636; }
         .stack-amt-badge { background: #052e16; color: #4ade80; font-size: 10px; font-weight: 700;
             padding: 2px 7px; border-radius: 6px; margin-left: 6px; white-space: nowrap; }
+
+        /* ── MONEY ───────────────────────────────────────────────────────────── */
+        .money-sec-head { font-size: 12px; font-weight: 800; color: #cbd5e1; margin: 18px 0 8px;
+            display: flex; align-items: center; gap: 6px; }
+        .money-item { display: flex; align-items: center; gap: 8px; background: #0c0c1e; border: 1px solid #1e293b;
+            border-radius: 9px; padding: 10px 12px; margin-bottom: 6px; }
+        .money-item-name { flex: 1; font-size: 13px; color: #e2e8f0; font-weight: 600; }
+        .money-item-val { font-size: 13px; font-weight: 800; text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
+        .money-debt { font-size: 9px; color: #64748b; font-weight: 600; }
+        .money-add-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+        .money-input { background: #05050d; border: 1px solid #334155; border-radius: 8px; color: #f1f5f9;
+            font-size: 13px; padding: 9px 10px; }
+        .money-name { flex: 1; min-width: 110px; }
+        .money-amt { width: 90px; }
+        .money-add-cost .money-amt { width: 84px; }
+        .money-add-btn { width: 40px; flex-shrink: 0; background: #7c3aed; border: 1px solid #a78bfa; color: #fff;
+            font-size: 20px; font-weight: 800; border-radius: 8px; cursor: pointer; line-height: 1; }
+        .money-add-btn:active { background: #6d28d9; }
+        .money-hint { font-size: 10px; color: #475569; margin-top: 6px; line-height: 1.5; }
+        .money-result { background: linear-gradient(145deg, #0d1f3c 0%, #07070f 100%); border: 1px solid #1e3a5f;
+            border-radius: 13px; padding: 16px; margin-bottom: 8px; }
+        .money-result-row { display: flex; justify-content: space-between; font-size: 13px; color: #94a3b8;
+            font-weight: 600; margin-bottom: 6px; }
+        .money-result-big { text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid #1e3a5f; }
+        .money-result-big-lbl { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
+        .money-result-big-val { font-size: 30px; font-weight: 900; margin-top: 4px; }
         .stack-empty { font-size: 12px; color: #475569; padding: 10px 2px; line-height: 1.5; }
         .stack-sel-head { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 8px; gap: 8px; }
         .stack-sel-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; }
@@ -378,12 +404,16 @@
 
         .tab-bar {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
+        .tab-bar::-webkit-scrollbar { display: none; }
 
         .tab-btn {
-            flex: 1;
-            padding: 12px 0;
+            flex: 0 0 auto;
+            white-space: nowrap;
+            padding: 12px 16px;
             font-size: 14px;
             font-weight: 700;
             background: #070710;
@@ -626,9 +656,9 @@
             color: #94a3b8;
         }
 
-        /* TAB BAR – 5 tabs equal */
-        .tab-bar { flex-wrap: nowrap; gap: 5px; }
-        .tab-btn { flex: 1; font-size: 11px; padding: 9px 2px; min-width: 0; }
+        /* TAB BAR – scrollbar bei vielen Tabs */
+        .tab-bar { gap: 6px; }
+        .tab-btn { font-size: 12px; padding: 9px 13px; }
 
         /* BODY ATLAS */
         .body-atlas-wrap {
@@ -879,10 +909,10 @@
             <div class="setup-train">
                 <div class="form-group">
                     <label for="trainTimeInput">&#127947; Trainingszeit</label>
-                    <input type="time" id="trainTimeInput" class="time-input" value="17:00" disabled>
+                    <input type="time" id="trainTimeInput" class="time-input" value="17:00" style="opacity:0.45;" onfocus="document.getElementById('trainFlexInput').checked=false; this.style.opacity='1';">
                 </div>
                 <label class="setup-flex-row">
-                    <input type="checkbox" id="trainFlexInput" checked onchange="document.getElementById('trainTimeInput').disabled = this.checked;">
+                    <input type="checkbox" id="trainFlexInput" checked onchange="document.getElementById('trainTimeInput').style.opacity = this.checked ? '0.45' : '1';">
                     <span>Flexibel / kein festes Training</span>
                 </label>
             </div>
@@ -926,6 +956,7 @@
                 </div>
                 <div class="tab-bar">
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
+                    <button class="tab-btn" id="tabMoney">💶 Money</button>
                     <button class="tab-btn" id="tabStack">Mein Stack</button>
                     <button class="tab-btn" id="tabDatabase">Produkte</button>
                     <button class="tab-btn" id="tabFood">Nahrung</button>
@@ -1002,13 +1033,38 @@
                         </select>
                         <div class="stack-gen-label">Trainingszeit</div>
                         <div class="stack-gen-train">
-                            <input type="time" id="stackGenTrain" class="time-input" value="17:00" disabled>
-                            <label class="stack-gen-flex"><input type="checkbox" id="stackGenFlex" checked onchange="document.getElementById('stackGenTrain').disabled = this.checked;"> Flexibel</label>
+                            <input type="time" id="stackGenTrain" class="time-input" value="17:00" style="opacity:0.45;" onfocus="document.getElementById('stackGenFlex').checked=false; this.style.opacity='1';">
+                            <label class="stack-gen-flex"><input type="checkbox" id="stackGenFlex" checked onchange="document.getElementById('stackGenTrain').style.opacity = this.checked ? '0.45' : '1';"> Flexibel</label>
                         </div>
                         <button class="stack-gen-create" onclick="generateStackPlan()">Plan erstellen →</button>
                     </div>
                 </div>
                 <div id="stackNutrients"></div>
+            </div>
+
+            <!-- MONEY – Finanzen: Einkommen, Fixkosten & was für Supps/Nahrung übrig bleibt -->
+            <div class="view-section" id="viewMoney">
+                <div class="stack-intro">Trage dein Einkommen und deine monatlichen Fixkosten & Schulden ein. Unten siehst du, wie viel im Monat für Supplements & Nahrung übrig bleibt. Alles bleibt nur auf deinem Gerät gespeichert.</div>
+
+                <div class="money-result" id="moneyResult"></div>
+
+                <div class="money-sec-head"><span>💰 Einkommen / Monat</span></div>
+                <div id="moneyIncomeList"></div>
+                <div class="money-add-row">
+                    <input type="text" class="money-input money-name" id="incomeName" placeholder="z. B. Jobcenter">
+                    <input type="text" inputmode="decimal" class="money-input money-amt" id="incomeAmt" placeholder="€">
+                    <button class="money-add-btn" onclick="addIncome()">+</button>
+                </div>
+
+                <div class="money-sec-head"><span>🧾 Fixkosten & Schulden / Monat</span></div>
+                <div id="moneyCostList"></div>
+                <div class="money-add-row money-add-cost">
+                    <input type="text" class="money-input money-name" id="costName" placeholder="z. B. iPhone">
+                    <input type="text" inputmode="decimal" class="money-input money-amt" id="costMonthly" placeholder="Rate €">
+                    <input type="text" inputmode="decimal" class="money-input money-amt" id="costDebt" placeholder="Restschuld €">
+                    <button class="money-add-btn" onclick="addCost()">+</button>
+                </div>
+                <div class="money-hint">„Restschuld" ist optional – nur zur Übersicht, wie viel insgesamt noch offen ist.</div>
             </div>
 
             <div class="view-section" id="viewDatabase">
@@ -2144,6 +2200,8 @@
             renderSportPlans();
             loadStack();
             renderStackView();
+            loadMoney();
+            renderMoney();
         }
 
         function initStaticPanels() {
@@ -2674,7 +2732,7 @@
                     </div>
                     <div class="stack-item-amount">
                         <button class="stack-step" onclick="stackStep('${pid}', -1)" aria-label="weniger">−</button>
-                        <input type="number" inputmode="decimal" min="0" step="any" class="stack-amount-input"
+                        <input type="text" inputmode="decimal" class="stack-amount-input"
                                value="${myStack[pid].amount}" oninput="stackSetAmount('${pid}', this.value)">
                         <button class="stack-step" onclick="stackStep('${pid}', 1)" aria-label="mehr">+</button>
                         <span class="stack-unit">${unit}</span>
@@ -2849,8 +2907,8 @@
                 document.getElementById('stackGenDay').value = currentDayType;
                 const t = document.getElementById('stackGenTrain');
                 const f = document.getElementById('stackGenFlex');
-                if (globalTrainTimeStr) { t.value = globalTrainTimeStr; t.disabled = false; f.checked = false; }
-                else { f.checked = true; t.disabled = true; }
+                if (globalTrainTimeStr) { t.value = globalTrainTimeStr; t.style.opacity = '1'; f.checked = false; }
+                else { f.checked = true; t.style.opacity = '0.45'; }
             }
         }
 
@@ -2876,6 +2934,89 @@
         function exitStackPlan() {
             stackPlanActive = false;
             renderTimeline();
+        }
+
+        // ── MONEY – Finanzen ───────────────────────────────────────────────────────
+        let moneyData = { income: [], costs: [] };
+
+        function loadMoney() {
+            try { moneyData = JSON.parse(localStorage.getItem('sl_money') || '{}') || {}; } catch (e) { moneyData = {}; }
+            if (!moneyData.income) moneyData.income = [];
+            if (!moneyData.costs)  moneyData.costs  = [];
+        }
+        function saveMoney() {
+            try { localStorage.setItem('sl_money', JSON.stringify(moneyData)); } catch (e) {}
+        }
+        function eur(n) {
+            return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+        function parseEur(v) {
+            const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.'));
+            return isNaN(n) ? 0 : n;
+        }
+
+        function addIncome() {
+            const name = document.getElementById('incomeName').value.trim();
+            const amt = parseEur(document.getElementById('incomeAmt').value);
+            if (!name && !amt) return;
+            moneyData.income.push({ name: name || 'Einkommen', amount: amt });
+            saveMoney();
+            document.getElementById('incomeName').value = '';
+            document.getElementById('incomeAmt').value = '';
+            renderMoney();
+        }
+        function addCost() {
+            const name = document.getElementById('costName').value.trim();
+            const monthly = parseEur(document.getElementById('costMonthly').value);
+            const debt = parseEur(document.getElementById('costDebt').value);
+            if (!name && !monthly && !debt) return;
+            moneyData.costs.push({ name: name || 'Kosten', monthly: monthly, debt: debt });
+            saveMoney();
+            document.getElementById('costName').value = '';
+            document.getElementById('costMonthly').value = '';
+            document.getElementById('costDebt').value = '';
+            renderMoney();
+        }
+        function removeIncome(i) { moneyData.income.splice(i, 1); saveMoney(); renderMoney(); }
+        function removeCost(i)   { moneyData.costs.splice(i, 1);  saveMoney(); renderMoney(); }
+
+        function renderMoney() {
+            const incBox = document.getElementById('moneyIncomeList');
+            const costBox = document.getElementById('moneyCostList');
+            const resBox = document.getElementById('moneyResult');
+            if (!incBox || !costBox || !resBox) return;
+
+            const totalIncome  = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
+            const totalMonthly = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
+            const totalDebt    = moneyData.costs.reduce((s, e) => s + (e.debt || 0), 0);
+            const left = totalIncome - totalMonthly;
+
+            incBox.innerHTML = moneyData.income.length === 0
+                ? '<div class="stack-empty">Noch kein Einkommen eingetragen.</div>'
+                : moneyData.income.map((e, i) => `<div class="money-item">
+                        <span class="money-item-name">${e.name}</span>
+                        <span class="money-item-val" style="color:#4ade80;">${eur(e.amount || 0)}</span>
+                        <button class="stack-item-del" onclick="removeIncome(${i})">✕</button>
+                    </div>`).join('');
+
+            costBox.innerHTML = moneyData.costs.length === 0
+                ? '<div class="stack-empty">Noch keine Fixkosten eingetragen.</div>'
+                : moneyData.costs.map((e, i) => `<div class="money-item">
+                        <span class="money-item-name">${e.name}</span>
+                        <span class="money-item-val" style="color:#f87171;">${eur(e.monthly || 0)}${e.debt ? `<span class="money-debt">Rest ${eur(e.debt)}</span>` : ''}</span>
+                        <button class="stack-item-del" onclick="removeCost(${i})">✕</button>
+                    </div>`).join('');
+
+            const leftColor = left >= 0 ? '#4ade80' : '#f87171';
+            resBox.innerHTML = `
+                <div class="money-result-row"><span>Einkommen</span><span style="color:#4ade80;">${eur(totalIncome)}</span></div>
+                <div class="money-result-row"><span>− Fixkosten & Raten</span><span style="color:#f87171;">${eur(totalMonthly)}</span></div>
+                <div class="money-result-big">
+                    <div class="money-result-big-lbl">Übrig für Supplements & Nahrung</div>
+                    <div class="money-result-big-val" style="color:${leftColor};">${eur(left)}</div>
+                </div>
+                ${totalDebt > 0 ? `<div class="money-result-row" style="margin-top:8px;border-top:1px solid #1e293b;padding-top:8px;"><span>Gesamte Restschulden</span><span style="color:#fb923c;">${eur(totalDebt)}</span></div>` : ''}
+            `;
         }
 
         function renderStackBrowse() {
@@ -3359,10 +3500,10 @@
         }
 
         function activeSection(tabId, viewId) {
-            ["tabTimeline","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
-            ["viewTimeline","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
             document.getElementById(tabId).classList.add("active");
@@ -4141,10 +4282,10 @@
 
         function showAboutMe() {
             document.getElementById('viewAboutMe').style.display = 'flex';
-            ["viewTimeline","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
-            ["tabTimeline","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
             document.getElementById("timelinePanels").style.display = "none";
@@ -4469,6 +4610,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("tabTimeline").addEventListener("click", () => activeSection("tabTimeline", "viewTimeline"));
+            document.getElementById("tabMoney").addEventListener("click", () => { activeSection("tabMoney", "viewMoney"); renderMoney(); });
             document.getElementById("tabStack").addEventListener("click", () => { activeSection("tabStack", "viewStack"); renderStackView(); });
             document.getElementById("tabDatabase").addEventListener("click", () => activeSection("tabDatabase", "viewDatabase"));
             document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
@@ -4509,7 +4651,7 @@
                 if (savedSleep) document.getElementById("sleepTimeInput").value = savedSleep;
                 if (savedTrain) {
                     document.getElementById("trainTimeInput").value = savedTrain;
-                    document.getElementById("trainTimeInput").disabled = false;
+                    document.getElementById("trainTimeInput").style.opacity = '1';
                     document.getElementById("trainFlexInput").checked = false;
                 }
                 globalTrainTimeStr = savedTrain || "";
