@@ -1,0 +1,13 @@
+# Dependencies (derzeit keine – Vorsorge)
+node_modules/
+
+# Logs & Caches
+*.log
+.cache/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
