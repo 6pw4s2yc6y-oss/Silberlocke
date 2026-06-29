@@ -1,3 +1,6 @@
+        import { suggestMeals } from './modules/timeline.js';
+        import { buildTargetsHtml } from './modules/ui.js';
+
         const PRODUCTS = [
           { id:"p1",  cat:"Protein",           name:"ZEC+ Almost Whey",                          icon:"🥛", serving:"~25g",  protein:18, carbs:2,  fat:2,  kcal:93, absorption:"Mittel-schnell (~2–3h) – 100% pflanzlich & vegan (Erbsen- & Reisprotein, hydrolysiert via MPi™-Technologie). Laktosefrei.", function:"Muskelaufbau & -erhalt, Regeneration – pflanzliche Alternative zu Whey mit gleichwertigem Aminosäureprofil", takeWith:"Post-Workout mit Wasser oder Milch, mit Kohlenhydraten für Insulinausschüttung", competes:"Nicht mit Casein mischen; zeitversetzt zu Zink/Mg", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille, Erdbeere)", loeslichkeit:"Sehr gut – Instant-Pulver, Shaker reicht (200–300 ml Wasser/Milch)",
   ingredients:"Hydrolysiertes pflanzliches Eiweißpulver (Erbseneiweißisolat, Reiseiweißisolat, L-Leucin, L-Lysinhydrochlorid, L-Valin, L-Methionin, L-Isoleucin, L-Threonin)* 91,8%, Aroma, Verdickungsmittel (Guarkernmehl), Süßungsmittel (Sucralose), Farbstoff (Carotin). *NiHPRO™",
@@ -643,18 +646,7 @@
         let globalMeals = [];          // [] = automatisch (an Schlafrhythmus); sonst ["HH:MM", …]
         let mealCount = 3;
 
-        // ── MAHLZEITEN: Vorschläge richten sich nach Aufwach-/Schlafzeit ───────────
-        function _hm(s){ const p=(s||'').split(':'); return (+p[0])*60 + (+p[1]||0); }
-        function _fhm(min){ min=((Math.round(min)%1440)+1440)%1440; return String(Math.floor(min/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0'); }
-        function suggestMeals(count) {
-            const wakeMin = _hm(document.getElementById('wakeTimeInput').value || '07:00');
-            let awake = (_hm(document.getElementById('sleepTimeInput').value || '23:00') - wakeMin + 1440) % 1440;
-            if (awake < 240) awake = 240;
-            const first = 60, last = awake - 120, span = Math.max(last - first, 60);
-            const out = [];
-            for (let i = 0; i < count; i++) out.push(_fhm(wakeMin + (count === 1 ? first : first + span * i / (count - 1))));
-            return out;
-        }
+        // ── MAHLZEITEN: Vorschläge (suggestMeals) → js/modules/timeline.js ─────────
         function renderMealInputs(times) {
             const box = document.getElementById('mealsList');
             if (!box) return;
@@ -666,7 +658,9 @@
         function setMealCount(n) {
             mealCount = n;
             document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === n));
-            renderMealInputs(suggestMeals(n));
+            renderMealInputs(suggestMeals(n,
+                document.getElementById('wakeTimeInput').value || '07:00',
+                document.getElementById('sleepTimeInput').value || '23:00'));
         }
         function toggleMealAuto() {
             const auto = document.getElementById('mealAutoInput').checked;
@@ -679,61 +673,7 @@
 
         const getProductById = (id) => PRODUCTS.find(p => p.id === id);
 
-        // HILFSFUNKTION: Rechnet "HH:MM" + Minuten-Offset in ein neues Zeitfenster "HH:MM – HH:MM" um
-        function calculateTimeWindow(baseTimeStr, offsetMinutes, durationMinutes, isRelativeTosleep = false) {
-            const parts = baseTimeStr.split(':');
-            let hours = parseInt(parts[0], 10);
-            let minutes = parseInt(parts[1], 10);
-
-            let startTotalMinutes;
-            if (isRelativeTosleep) {
-                // Berechne rückwarts von der Schlafzeit
-                startTotalMinutes = hours * 60 + minutes - offsetMinutes;
-                // Korrigiere wenn negative Minuten
-                while (startTotalMinutes < 0) {
-                    startTotalMinutes += 24 * 60;
-                }
-            } else {
-                // Berechne vorwaerts von der Aufwachzeit
-                startTotalMinutes = hours * 60 + minutes + offsetMinutes;
-            }
-
-            let startHours = Math.floor(startTotalMinutes / 60) % 24;
-            let startMins = startTotalMinutes % 60;
-
-            // Endzeit berechnen
-            let endTotalMinutes = startTotalMinutes + durationMinutes;
-            let endHours = Math.floor(endTotalMinutes / 60) % 24;
-            let endMins = endTotalMinutes % 60;
-
-            const pad = (num) => String(num).padStart(2, '0');
-            return `${pad(startHours)}:${pad(startMins)} – ${pad(endHours)}:${pad(endMins)}`;
-        }
-
-        // HILFSFUNKTION: Rechnet nur eine einzige Uhrzeit aus (fuer die Proteindosen-Liste)
-        function calculateSingleTime(baseTimeStr, offsetMinutes, isRelativeTosleep = false) {
-            const parts = baseTimeStr.split(':');
-            let hours = parseInt(parts[0], 10);
-            let minutes = parseInt(parts[1], 10);
-
-            let totalMinutes;
-            if (isRelativeTosleep) {
-                // Berechne rückwarts von der Schlafzeit
-                totalMinutes = hours * 60 + minutes - offsetMinutes;
-                // Korrigiere wenn negative Minuten
-                while (totalMinutes < 0) {
-                    totalMinutes += 24 * 60;
-                }
-            } else {
-                // Berechne vorwaerts von der Aufwachzeit
-                totalMinutes = hours * 60 + minutes + offsetMinutes;
-            }
-
-            let finalHours = Math.floor(totalMinutes / 60) % 24;
-            let finalMins = totalMinutes % 60;
-
-            return `${String(finalHours).padStart(2, '0')}:${String(finalMins).padStart(2, '0')}`;
-        }
+        // HILFSFUNKTIONEN: calculateTimeWindow / calculateSingleTime → js/modules/timeline.js
 
         // APP INITIALISIEREN NACH KLICK AUF GENERIEREN
         function startApp() {
@@ -794,79 +734,18 @@
         }
 
         // ── BEDARFSBERECHNUNG (kcal & Eiweiß) ──────────────────────────────────────
-        // BMR: Mifflin-St Jeor (1990) · TDEE = BMR × PAL · Eiweiß: Morton et al. 2018 / ISSN 2017
-        const ACTIVITY_PAL = { wenig: 1.2, maessig: 1.375, aktiv: 1.55, sehr: 1.725 };
-        const PROTEIN_GKG   = { wenig: [1.0, 1.2], maessig: [1.4, 1.7], aktiv: [1.6, 2.0], sehr: [1.8, 2.2] };
-        // Ziel-Modus: kcal-Faktor auf den Erhaltungsbedarf (TDEE)
-        const GOAL_KCAL   = { abnehmen: 0.80, halten: 1.0, performance: 1.05, aufbauen: 1.15 };
-        const GOAL_LABEL  = { abnehmen: 'Abnehmen · Defizit −20 %', halten: 'Halten · Erhaltungsniveau', performance: 'Performance · +5 %', aufbauen: 'Aufbauen · Überschuss +15 %' };
-
-        function computeTargets() {
-            const num = v => parseFloat(String(v || '').replace(',', '.'));
-            const age = num(userProfile.age), h = num(userProfile.height), w = num(userProfile.weight);
-            const g = userProfile.gender, act = userProfile.activity;
-            if (!age || !h || !w || !g) return null;
-            // Mifflin-St Jeor BMR
-            let bmr = 10 * w + 6.25 * h - 5 * age;
-            bmr += (g === 'w') ? -161 : (g === 'd' ? -78 : 5);   // divers = Mittelwert
-            const pal = ACTIVITY_PAL[act] || 1.375;
-            const maintenance = Math.round(bmr * pal);
-            const goal = userProfile.goal || 'halten';
-            const tdee = Math.round(maintenance * (GOAL_KCAL[goal] || 1));
-            // Eiweiß: Aktivitätsbasis, im Defizit/Aufbau höher
-            let pf = PROTEIN_GKG[act] || [1.4, 1.7];
-            if (goal === 'abnehmen') pf = [Math.max(pf[0], 2.0), Math.max(pf[1], 2.4)];
-            else if (goal === 'aufbauen') pf = [Math.max(pf[0], 1.6), Math.max(pf[1], 2.2)];
-            // Welche Angaben fehlen → Werte werden ungenauer
-            const assumptions = [];
-            if (!ACTIVITY_PAL[act])     assumptions.push('Aktivität');
-            if (!GOAL_KCAL[userProfile.goal]) assumptions.push('Ziel');
-            return {
-                bmr: Math.round(bmr), tdee, maintenance, goal,
-                proteinMin: Math.round(w * pf[0]), proteinMax: Math.round(w * pf[1]),
-                gkgMin: pf[0], gkgMax: pf[1], weight: w, assumptions
-            };
-        }
-
-        function buildTargetsHtml(forApp) {
-            const t = computeTargets();
-            if (!t) {
-                return forApp ? '' : `<div class="targets-hint">Trage Alter, Größe, Gewicht & Geschlecht ein – dann berechne ich deinen Bedarf.</div>`;
-            }
-            const goalLbl = GOAL_LABEL[t.goal] || GOAL_LABEL.halten;
-            const goalBadge = t.goal && t.goal !== 'halten'
-                ? `<div class="targets-goal">🎯 ${goalLbl} <span style="color:#64748b;">(Erhalt: ${t.maintenance.toLocaleString('de-DE')} kcal)</span></div>`
-                : `<div class="targets-goal">🎯 ${goalLbl}</div>`;
-            const accuracy = t.assumptions.length === 0
-                ? `<div class="targets-accuracy ok">✓ Genau berechnet – alle Angaben vorhanden.</div>`
-                : `<div class="targets-accuracy warn">⚠️ Geschätzt: ${t.assumptions.join(' & ')} fehlt – die Werte werden mit jedem übersprungenen Schritt ungenauer.</div>`;
-            return `<div class="targets-box">
-                <div class="targets-title">📊 Dein täglicher Bedarf</div>
-                <div class="targets-grid">
-                    <div class="targets-cell">
-                        <div class="targets-val" style="color:#a5b4fc;">${t.tdee.toLocaleString('de-DE')}</div>
-                        <div class="targets-lbl">kcal / Tag</div>
-                    </div>
-                    <div class="targets-cell">
-                        <div class="targets-val" style="color:#4ade80;">${t.proteinMin}–${t.proteinMax} g</div>
-                        <div class="targets-lbl">Eiweiß / Tag</div>
-                    </div>
-                </div>
-                ${goalBadge}
-                ${accuracy}
-                <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität × Ziel (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
-            </div>`;
-        }
+        // computeTargets + Konstanten → js/modules/calculator.js
+        // buildTargetsHtml (Render) → js/modules/ui.js
 
         function renderOnboardTargets() {
-            const html = buildTargetsHtml(false);
+            const html = buildTargetsHtml(userProfile, false);
             ['onboardTargets', 'onboardTargets2'].forEach(id => { const b = document.getElementById(id); if (b) b.innerHTML = html; });
         }
         // Überspringen eines Profil-Schritts (Wert bleibt leer → Genauigkeits-Hinweis greift)
         function skipStep(field) { nextStep(); }
         function renderDailyTargets() {
             const box = document.getElementById('dailyTargets');
-            if (box) box.innerHTML = buildTargetsHtml(true);
+            if (box) box.innerHTML = buildTargetsHtml(userProfile, true);
         }
         function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
