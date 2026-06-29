@@ -11,8 +11,9 @@
                 t = setTimeout(() => fn.apply(this, args), wait);
             };
         }
-        // Performance: gerenderte Listen hart begrenzen.
-        const RENDER_LIMIT = 50;
+        // Performance: gerenderte Listen hart begrenzen (über aktuellem Datenbestand,
+        // sodass aktuell nichts abgeschnitten wird, aber bei Wachstum geschützt ist).
+        const RENDER_LIMIT = 100;
 
         let PRODUCTS = [];
 
