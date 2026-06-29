@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://6pw4s2yc6y-oss.github.io/Silberlocke/sitemap.xml
