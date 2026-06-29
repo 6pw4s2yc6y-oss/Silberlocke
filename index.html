@@ -229,7 +229,24 @@
             background: #0c0c1e; border: 1px solid #1e293b; border-radius: 9px; padding: 11px 13px; margin-bottom: 6px;
             color: #e2e8f0; font-size: 13px; text-align: left; cursor: pointer; }
         .stack-add-row:hover { border-color: #7c3aed; }
-        .stack-add-plus { color: #a78bfa; font-weight: 800; font-size: 18px; flex-shrink: 0; }
+        .stack-add-plus { color: #fff; background: #7c3aed; font-weight: 700; font-size: 11px;
+            padding: 5px 11px; border-radius: 7px; flex-shrink: 0; white-space: nowrap; }
+        .stack-add-row:hover .stack-add-plus { background: #8b5cf6; }
+
+        /* A–Z Durchblättern */
+        .stack-browse-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center;
+            background: #0c0c1e; border: 1px solid #312e6b; border-radius: 9px; padding: 11px 13px;
+            color: #a5b4fc; font-size: 13px; font-weight: 700; cursor: pointer; margin: 4px 0 10px; }
+        .stack-browse-toggle:hover { background: #161636; }
+        .stack-browse-arrow { color: #60a5fa; font-size: 11px; }
+        .stack-browse-row { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+            background: #0a0a16; border: 1px solid #1a2333; border-radius: 8px; padding: 9px 12px; margin-bottom: 5px;
+            color: #e2e8f0; font-size: 12px; text-align: left; cursor: pointer; }
+        .stack-browse-row:hover { border-color: #7c3aed; }
+        .stack-browse-row.in-stack { border-color: #166534; background: #04140a; }
+        .stack-browse-act { flex-shrink: 0; font-size: 10px; font-weight: 700; color: #a78bfa; white-space: nowrap; }
+        .stack-browse-row.in-stack .stack-browse-act { color: #4ade80; }
+        .stack-src { font-size: 9px; color: #475569; margin-top: 5px; line-height: 1.5; }
         .stack-empty { font-size: 12px; color: #475569; padding: 10px 2px; line-height: 1.5; }
         .stack-sel-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
             color: #64748b; margin: 16px 0 8px; }
@@ -932,6 +949,11 @@
                     <input type="text" class="db-input" id="stackSearchInput" placeholder="Produkt suchen & hinzufügen…">
                 </div>
                 <div id="stackAddList"></div>
+                <button class="stack-browse-toggle" id="stackBrowseToggle" onclick="toggleStackBrowse()">
+                    <span>📖 Alle Produkte (A–Z) durchblättern</span>
+                    <span id="stackBrowseArrow" class="stack-browse-arrow">▼</span>
+                </button>
+                <div id="stackBrowseList" style="display:none;"></div>
                 <div id="stackSelected"></div>
                 <div id="stackNutrients"></div>
             </div>
@@ -2534,12 +2556,18 @@
             renderStackAddList('');
             renderStackSelected();
             renderStackNutrients();
+            refreshStackBrowseIfOpen();
         }
         function stackRemove(pid) {
             delete myStack[pid];
             saveStack();
             renderStackSelected();
             renderStackNutrients();
+            refreshStackBrowseIfOpen();
+        }
+        function refreshStackBrowseIfOpen() {
+            const list = document.getElementById('stackBrowseList');
+            if (list && list.style.display !== 'none') renderStackBrowse();
         }
         function stackSetAmount(pid, val) {
             if (!myStack[pid]) return;
@@ -2563,7 +2591,7 @@
                 const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
                 return `<button class="stack-add-row" onclick="stackAdd('${p.id}')">
                     <span><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
-                    <span class="stack-add-plus">+</span>
+                    <span class="stack-add-plus">+ Hinzufügen</span>
                 </button>`;
             }).join('');
         }
@@ -2613,10 +2641,18 @@
                     if (n.nrv === null) return;
                     const raw = n.label.startsWith('— ') ? n.label.slice(2) : n.label;
                     const canon = LABEL_CANON[raw] || raw;
-                    nrvMap[canon] = (nrvMap[canon] || 0) + n.nrv * factor;
+                    if (!nrvMap[canon]) nrvMap[canon] = { total: 0, sources: [] };
+                    const contrib = n.nrv * factor;
+                    nrvMap[canon].total += contrib;
+                    nrvMap[canon].sources.push({ name: p.name, pct: contrib });
                 });
             });
             return { prot, carb, fat, kcal, nrvMap };
+        }
+
+        // Markennamen für kompakte Quellenanzeige kürzen
+        function shortName(name) {
+            return name.replace(/^(ZEC\+|HEALTH\+|Robert Franz|WICK)\s*/i, '').replace(/^ZEC\+\s*/i, '').trim();
         }
 
         function renderStackNutrients() {
@@ -2635,10 +2671,11 @@
                 </div>
             </div>`;
 
-            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1] - a[1]);
+            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1].total - a[1].total);
             let barsHtml = '';
             if (nrvEntries.length > 0) {
-                const rows = nrvEntries.map(([label, pct]) => {
+                const rows = nrvEntries.map(([label, data]) => {
+                    const pct = data.total;
                     const norm = NUTRIENT_NORMS[label];
                     const fillPct = Math.min(pct, 300) / 300 * 100;
                     const overUL = norm && norm.ul && norm.ul > norm.v && (pct / 100) * norm.v >= norm.ul;
@@ -2652,6 +2689,11 @@
                     const normLine = norm
                         ? `<div class="daily-nrv-norms"><span>EU: <span class="daily-nrv-norms-val">${norm.eu}</span></span>${norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : ''}</div>`
                         : '';
+                    // Quellen: welches Produkt liefert wie viel %
+                    const srcHtml = '<div class="stack-src">aus: ' + data.sources
+                        .sort((a, b) => b.pct - a.pct)
+                        .map(s => `${shortName(s.name)} <span style="color:#64748b;">(${Math.round(s.pct)}%)</span>`)
+                        .join(' · ') + '</div>';
                     return `<div class="daily-nrv-row">
                         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
                             <span class="daily-nrv-name">${label}</span>
@@ -2659,6 +2701,7 @@
                         </div>
                         <div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:${fillPct.toFixed(1)}%;background:${barColor};"></div></div>
                         ${normLine}
+                        ${srcHtml}
                     </div>`;
                 }).join('');
                 barsHtml = `<div class="daily-nutr-box" style="margin-top:8px;"><div class="daily-nutr-section">
@@ -2676,6 +2719,46 @@
             renderStackAddList(inp ? inp.value : '');
             renderStackSelected();
             renderStackNutrients();
+            const browse = document.getElementById('stackBrowseList');
+            if (browse && browse.style.display !== 'none') renderStackBrowse();
+        }
+
+        // A–Z-Liste auf-/zuklappen
+        function toggleStackBrowse() {
+            const list = document.getElementById('stackBrowseList');
+            const arrow = document.getElementById('stackBrowseArrow');
+            const open = list.style.display !== 'none';
+            list.style.display = open ? 'none' : 'block';
+            arrow.textContent = open ? '▼' : '▲';
+            if (!open) renderStackBrowse();
+        }
+
+        // Im Stack? → entfernen, sonst → hinzufügen (für die A–Z-Liste)
+        function stackToggle(pid) {
+            if (myStack[pid]) stackRemove(pid);
+            else {
+                const p = getProductById(pid);
+                if (!p) return;
+                myStack[pid] = { amount: parseServing(p.serving).num };
+                saveStack();
+                renderStackSelected();
+                renderStackNutrients();
+            }
+            renderStackBrowse();
+        }
+
+        function renderStackBrowse() {
+            const box = document.getElementById('stackBrowseList');
+            if (!box) return;
+            const sorted = [...PRODUCTS].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+            box.innerHTML = sorted.map(p => {
+                const inStack = !!myStack[p.id];
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-browse-row${inStack ? ' in-stack' : ''}" onclick="stackToggle('${p.id}')">
+                    <span class="stack-browse-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-browse-act">${inStack ? '✓ Drin' : '+ Hinzufügen'}</span>
+                </button>`;
+            }).join('');
         }
 
         // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
