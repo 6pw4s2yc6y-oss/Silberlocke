@@ -83,8 +83,16 @@
             grid-template-columns: 1fr auto 1fr;
             align-items: end;
             gap: 10px;
-            margin-bottom: 24px;
+            margin-bottom: 14px;
         }
+        .setup-train { margin-bottom: 22px; }
+        .setup-train .form-group { max-width: 160px; margin: 0 auto; }
+        .setup-flex-row {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 12px; font-size: 12px; color: #94a3b8; cursor: pointer; user-select: none;
+        }
+        .setup-flex-row input { width: 16px; height: 16px; accent-color: #7c3aed; cursor: pointer; }
+        .time-input:disabled { opacity: 0.4; cursor: not-allowed; }
 
         .setup-arrow {
             font-size: 16px;
@@ -817,6 +825,16 @@
                     <label for="sleepTimeInput">&#9790; Schlafenszeit</label>
                     <input type="time" id="sleepTimeInput" class="time-input" value="23:00">
                 </div>
+            </div>
+            <div class="setup-train">
+                <div class="form-group">
+                    <label for="trainTimeInput">&#127947; Trainingszeit</label>
+                    <input type="time" id="trainTimeInput" class="time-input" value="17:00" disabled>
+                </div>
+                <label class="setup-flex-row">
+                    <input type="checkbox" id="trainFlexInput" checked onchange="document.getElementById('trainTimeInput').disabled = this.checked;">
+                    <span>Flexibel / kein festes Training</span>
+                </label>
             </div>
             <button class="start-btn" onclick="startApp()">Plan generieren</button>
         </div>
@@ -1915,6 +1933,7 @@
         let currentSearchQuery = "";
         let globalWakeTimeStr = "07:00";
         let globalSleepTimeStr = "23:00";
+        let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training
 
         const getProductById = (id) => PRODUCTS.find(p => p.id === id);
 
@@ -1987,10 +2006,16 @@
             globalWakeTimeStr = wakeInput;
             globalSleepTimeStr = sleepInput;
 
+            // Trainingszeit (leer = flexibel)
+            const flex = document.getElementById("trainFlexInput").checked;
+            const trainInput = document.getElementById("trainTimeInput").value;
+            globalTrainTimeStr = (flex || !trainInput) ? "" : trainInput;
+
             // Zeiten lokal im Browser merken (kein Login/Backend nötig)
             try {
                 localStorage.setItem("sl_wake", wakeInput);
                 localStorage.setItem("sl_sleep", sleepInput);
+                localStorage.setItem("sl_train", globalTrainTimeStr);
             } catch (e) {}
 
             // Display im Header aktualisieren
@@ -2772,6 +2797,7 @@
             // Config wurde für 16h-Tag (960 min) entworfen – proportional stauchen/strecken
             const timeScale = awakeDuration / 960;
             function minutesSinceWake(block) {
+                if (block.absoluteMinutes != null) return block.absoluteMinutes;
                 return block.isRelativeTosleep
                     ? awakeDuration - block.offsetMinutes
                     : Math.round(block.offsetMinutes * timeScale);
@@ -2783,7 +2809,30 @@
                 const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
                 return `${fmt(s)} – ${fmt(e)}`;
             }
-            const sortedBlocks = [...getActiveTimeline()]
+            // Trainingszeit → Offset ab Aufwachen (null = flexibel / außerhalb Wachzeit)
+            let trainOffset = null;
+            if (globalTrainTimeStr) {
+                const [th, tm] = globalTrainTimeStr.split(':').map(Number);
+                const to = ((th * 60 + tm) - wakeMin + 1440) % 1440;
+                if (to >= 0 && to < awakeDuration) trainOffset = to;
+            }
+
+            // Pre-/Post-Workout um die echte Trainingszeit takten + Hinweise
+            let activeBlocks = getActiveTimeline();
+            if (trainOffset != null) {
+                const late  = (awakeDuration - trainOffset) < 360; // < 6h vor Schlaf
+                const early = trainOffset < 90;                    // < 1,5h nach Aufwachen
+                let preNote = "";
+                if (late) preNote += "<div style='color:#fca5a5;background:#1a0000;border:1px solid #7f1d1d;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>⚠️ Spätes Training: Koffein-Booster (Re-Act, Kickdown, Fight) ruinieren den Tiefschlaf (Koffein wirkt ~5–6h nach). Besser den <strong>koffeinfreien Pumpdown</strong> nehmen.</div>";
+                if (early) preNote += "<div style='color:#fcd34d;background:#1a1000;border:1px solid #92400e;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>🌅 Früh-Training: wenig Zeit vorher – Fokus auf <strong>schnelles Protein + Kohlenhydrate</strong>, kein großer Stack.</div>";
+                activeBlocks = activeBlocks.map(b => {
+                    if (b.id === 't4') return { ...b, absoluteMinutes: Math.max(0, trainOffset - b.duration), why: preNote + b.why };
+                    if (b.id === 't6') return { ...b, absoluteMinutes: Math.min(awakeDuration - b.duration, trainOffset + 60) };
+                    return b;
+                });
+            }
+
+            const sortedBlocks = [...activeBlocks]
                 .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
                 .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
 
@@ -4199,10 +4248,17 @@
                 const savedWake  = localStorage.getItem("sl_wake");
                 const savedSleep = localStorage.getItem("sl_sleep");
                 const savedMode  = localStorage.getItem("sl_mode");
+                const savedTrain = localStorage.getItem("sl_train");
 
                 // Eingabefelder schon mal vorausfüllen (falls man doch zur Eingabe geht)
                 if (savedWake)  document.getElementById("wakeTimeInput").value  = savedWake;
                 if (savedSleep) document.getElementById("sleepTimeInput").value = savedSleep;
+                if (savedTrain) {
+                    document.getElementById("trainTimeInput").value = savedTrain;
+                    document.getElementById("trainTimeInput").disabled = false;
+                    document.getElementById("trainFlexInput").checked = false;
+                }
+                globalTrainTimeStr = savedTrain || "";
 
                 // Alles bekannt → direkt in die App, beide Startseiten überspringen
                 if (savedWake && savedSleep && savedMode) {
