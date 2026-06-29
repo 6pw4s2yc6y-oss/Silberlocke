@@ -2080,3 +2080,11 @@ Object.assign(window, {
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
 });
+
+// ── PWA: Service Worker registrieren (App-Shell-Caching / Offline) ──────────
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js', { scope: './' })
+            .catch(err => console.warn('Service-Worker-Registrierung fehlgeschlagen:', err));
+    });
+}
