@@ -1,6 +1,7 @@
         import { suggestMeals } from './modules/timeline.js';
         import { buildTargetsHtml } from './modules/ui.js';
         import { loadData } from './modules/dataFetcher.js';
+        import { store, initStorage } from './modules/storage.js';
 
         // Performance: Eingaben entprellen, damit nicht bei jedem Tastendruck neu gerendert wird.
         function debounce(fn, wait = 250) {
@@ -143,10 +144,10 @@
 
             // Zeiten lokal im Browser merken (kein Login/Backend nötig)
             try {
-                localStorage.setItem("sl_wake", wakeInput);
-                localStorage.setItem("sl_sleep", sleepInput);
-                localStorage.setItem("sl_train", globalTrainTimeStr);
-                localStorage.setItem("sl_meals", JSON.stringify(globalMeals));
+                store.setItem("sl_wake", wakeInput);
+                store.setItem("sl_sleep", sleepInput);
+                store.setItem("sl_train", globalTrainTimeStr);
+                store.setItem("sl_meals", JSON.stringify(globalMeals));
             } catch (e) {}
 
             // Display im Header aktualisieren
@@ -171,9 +172,9 @@
         function isLight() { return appMode === 'light'; }
 
         function loadProfile() {
-            try { userProfile = JSON.parse(localStorage.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
+            try { userProfile = JSON.parse(store.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
             ['age','gender','height','weight','activity','sportType','goal'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
-            selectedSportMode = localStorage.getItem('sl_sport') || 'maxkraft';
+            selectedSportMode = store.getItem('sl_sport') || 'maxkraft';
         }
 
         // ── BEDARFSBERECHNUNG (kcal & Eiweiß) ──────────────────────────────────────
@@ -190,7 +191,7 @@
             const box = document.getElementById('dailyTargets');
             if (box) box.innerHTML = buildTargetsHtml(userProfile, true);
         }
-        function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
+        function saveProfile() { try { store.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
         function goStep(n) {
             if (n > ONBOARD_LAST) { enterApp(); return; }
@@ -235,7 +236,7 @@
 
         function setEmptyPlan(v) {
             userWantsEmptyPlan = v;
-            try { localStorage.setItem('sl_emptyplan', v ? '1' : '0'); } catch (e) {}
+            try { store.setItem('sl_emptyplan', v ? '1' : '0'); } catch (e) {}
         }
 
         // Schritt 5 – Button: empfohlene Produkte in den Stack übernehmen
@@ -277,7 +278,7 @@
         // Schritt 6: Trainingsplan wählen
         function setSportChoice(mode, btn) {
             selectedSportMode = mode;
-            try { localStorage.setItem('sl_sport', mode); } catch (e) {}
+            try { store.setItem('sl_sport', mode); } catch (e) {}
             btn.parentElement.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
@@ -308,7 +309,7 @@
         function applyMode(mode) {
             appMode = mode;
             document.body.classList.toggle('light-mode', mode === 'light');
-            try { localStorage.setItem("sl_mode", mode); } catch (e) {}
+            try { store.setItem("sl_mode", mode); } catch (e) {}
         }
         function selectMode(mode) {
             applyMode(mode);
@@ -324,7 +325,7 @@
 
             loadStack();
             loadMoney();
-            try { userWantsEmptyPlan = localStorage.getItem('sl_emptyplan') === '1'; } catch (e) {}
+            try { userWantsEmptyPlan = store.getItem('sl_emptyplan') === '1'; } catch (e) {}
             // Produkte gewählt ODER bewusst leer gestartet → persönlicher (Stack-)Plan
             stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
 
@@ -773,11 +774,11 @@
         let myStack = {}; // { pid: { amount: Number } }
 
         function loadStack() {
-            try { myStack = JSON.parse(localStorage.getItem('sl_stack') || '{}') || {}; }
+            try { myStack = JSON.parse(store.getItem('sl_stack') || '{}') || {}; }
             catch (e) { myStack = {}; }
         }
         function saveStack() {
-            try { localStorage.setItem('sl_stack', JSON.stringify(myStack)); } catch (e) {}
+            try { store.setItem('sl_stack', JSON.stringify(myStack)); } catch (e) {}
         }
 
         // Portionsangabe ("~95g", "1 Kap", "1 Tropfen") → { num, unit }
@@ -1058,7 +1059,7 @@
             const flex = document.getElementById('stackGenFlex').checked;
             const tval = document.getElementById('stackGenTrain').value;
             globalTrainTimeStr = (flex || !tval) ? '' : tval;
-            try { localStorage.setItem('sl_train', globalTrainTimeStr); } catch (e) {}
+            try { store.setItem('sl_train', globalTrainTimeStr); } catch (e) {}
 
             stackPlanActive = true;
             selectDayType(dayType);                        // setzt Tagestyp + rendert Timeline (Stack-Modus)
@@ -1076,13 +1077,13 @@
         let moneyData = { income: [], costs: [] };
 
         function loadMoney() {
-            try { moneyData = JSON.parse(localStorage.getItem('sl_money') || '{}') || {}; } catch (e) { moneyData = {}; }
+            try { moneyData = JSON.parse(store.getItem('sl_money') || '{}') || {}; } catch (e) { moneyData = {}; }
             if (!moneyData.income) moneyData.income = [];
             if (!moneyData.costs)  moneyData.costs  = [];
             if (!moneyData.budget) moneyData.budget = { supps: 0, food: 0 };
         }
         function saveMoney() {
-            try { localStorage.setItem('sl_money', JSON.stringify(moneyData)); } catch (e) {}
+            try { store.setItem('sl_money', JSON.stringify(moneyData)); } catch (e) {}
         }
         function eur(n) {
             return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
@@ -1958,6 +1959,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
+            // Persistenz-Cache füllen, bevor irgendetwas gelesen wird.
+            initStorage();
             // Statische Datensätze asynchron laden (PRODUCTS, TIMELINE_CONFIG, …) und
             // die davon abgeleiteten Werte (CATS, RECOMMENDED_IDS) berechnen.
             try {
@@ -2025,10 +2028,10 @@
             } catch (e) {}
 
             try {
-                const savedWake  = localStorage.getItem("sl_wake");
-                const savedSleep = localStorage.getItem("sl_sleep");
-                const savedMode  = localStorage.getItem("sl_mode");
-                const savedTrain = localStorage.getItem("sl_train");
+                const savedWake  = store.getItem("sl_wake");
+                const savedSleep = store.getItem("sl_sleep");
+                const savedMode  = store.getItem("sl_mode");
+                const savedTrain = store.getItem("sl_train");
 
                 // Eingabefelder schon mal vorausfüllen (falls man doch zur Eingabe geht)
                 if (savedWake)  document.getElementById("wakeTimeInput").value  = savedWake;
@@ -2042,7 +2045,7 @@
 
                 // Mahlzeiten wiederherstellen (Array-Format)
                 try {
-                    const m = JSON.parse(localStorage.getItem("sl_meals") || "null");
+                    const m = JSON.parse(store.getItem("sl_meals") || "null");
                     if (Array.isArray(m) && m.length) {
                         globalMeals = m;
                         mealCount = m.length;
