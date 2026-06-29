@@ -164,8 +164,8 @@
         let appMode = 'hard';
         let inOnboarding = true;
         let currentStep = 1;
-        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepSportType', 5:'stepGoal', 6:'modeScreen', 7:'stepProducts', 8:'stepSport' };
-        const ONBOARD_LAST = 8;
+        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepGoal', 5:'stepSport', 6:'modeScreen', 7:'stepProducts' };
+        const ONBOARD_LAST = 7;
 
         let userProfile = { age:'', gender:'', activity:'', sportType:'' };
         let selectedSportMode = 'maxkraft';
@@ -209,7 +209,7 @@
         function nextStep() { goStep(currentStep + 1); }
         function prevStep() { goStep(currentStep - 1); }
 
-        // Auswahl-Buttons (Geschlecht, Aktivität, Sportart, Ziel)
+        // Auswahl-Buttons (Geschlecht, Aktivität, Ziel, Sportart)
         function setProfileChoice(field, val, btn) {
             userProfile[field] = val;
             saveProfile();
@@ -226,7 +226,7 @@
             nextStep();
         }
 
-        // Schritt 5: Produkte auswählen → füllt Mein Stack
+        // Schritt 7: Produkte auswählen → füllt Mein Stack
         function onboardToggle(pid) {
             if (myStack[pid]) delete myStack[pid];
             else { const p = getProductById(pid); if (p) myStack[pid] = { amount: parseServing(p.serving).num }; }
@@ -240,7 +240,7 @@
             try { store.setItem('sl_emptyplan', v ? '1' : '0'); } catch (e) {}
         }
 
-        // Schritt 5 – Button: empfohlene Produkte in den Stack übernehmen
+        // Schritt 7 – Button: empfohlene Produkte in den Stack übernehmen
         function fillRecommendedStack() {
             myStack = {};
             RECOMMENDED_IDS.forEach(pid => {
@@ -276,7 +276,7 @@
             }).join('');
         }
 
-        // Schritt 6: Trainingsplan wählen
+        // Schritt 5: Sportart & Trainingsplan wählen
         function setSportChoice(mode, btn) {
             selectedSportMode = mode;
             try { store.setItem('sl_sport', mode); } catch (e) {}
