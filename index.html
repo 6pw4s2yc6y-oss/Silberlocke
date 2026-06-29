@@ -227,6 +227,19 @@
         .onboard-opt.active .onboard-opt-sub { color: #ddd6fe; }
         .onboard-count { font-size: 11px; color: #a5b4fc; font-weight: 700; text-align: center; margin-bottom: 10px; }
         .onboard-product-list { max-height: 42vh; overflow-y: auto; margin-bottom: 14px; padding-right: 2px; }
+        .onboard-row2 { display: flex; gap: 10px; }
+        .onboard-row2 .onboard-field { flex: 1; }
+
+        /* Bedarfs-Box (kcal & Eiweiß) */
+        .targets-box { background: linear-gradient(145deg, #0d1f3c 0%, #07070f 100%); border: 1px solid #1e3a5f;
+            border-radius: 12px; padding: 14px; margin: 4px 0 16px; text-align: left; }
+        .targets-title { font-size: 12px; font-weight: 800; color: #60a5fa; margin-bottom: 10px; }
+        .targets-grid { display: flex; gap: 10px; }
+        .targets-cell { flex: 1; background: #0c0c1e; border-radius: 9px; padding: 12px 8px; text-align: center; }
+        .targets-val { font-size: 19px; font-weight: 900; white-space: nowrap; }
+        .targets-lbl { font-size: 10px; color: #94a3b8; margin-top: 3px; }
+        .targets-formula { font-size: 9px; color: #475569; margin-top: 10px; line-height: 1.5; }
+        .targets-hint { font-size: 11px; color: #64748b; line-height: 1.5; margin: 4px 0 14px; text-align: center; }
 
         /* MODUS-WECHSEL-BUTTON im Header */
         .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
@@ -967,10 +980,20 @@
         <div class="setup-card">
             <div class="onboard-progress">Schritt 2 von 6 · Über dich</div>
             <div class="setup-title" style="font-size:24px;">Über dich</div>
-            <div class="setup-subtitle">Alter &amp; Geschlecht</div>
+            <div class="setup-subtitle">Für deinen Kalorien- &amp; Eiweißbedarf</div>
             <div class="onboard-field">
                 <label>Alter</label>
                 <input type="text" inputmode="numeric" id="profileAge" class="time-input onboard-text" placeholder="z. B. 27">
+            </div>
+            <div class="onboard-row2">
+                <div class="onboard-field">
+                    <label>Größe (cm)</label>
+                    <input type="text" inputmode="decimal" id="profileHeight" class="time-input onboard-text" placeholder="z. B. 180">
+                </div>
+                <div class="onboard-field">
+                    <label>Gewicht (kg)</label>
+                    <input type="text" inputmode="decimal" id="profileWeight" class="time-input onboard-text" placeholder="z. B. 80">
+                </div>
             </div>
             <div class="onboard-field">
                 <label>Geschlecht</label>
@@ -1009,6 +1032,7 @@
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
                 </div>
             </div>
+            <div id="onboardTargets"></div>
             <button class="start-btn" onclick="activityNext()">Weiter →</button>
             <button class="mode-back-btn" onclick="goStep(2)">&#8592; Zurück</button>
         </div>
@@ -1128,6 +1152,7 @@
                     <button class="daytype-btn" id="dtKeto" onclick="selectDayType('keto')">🥑 Ketogen</button>
                 </div>
                 <div class="daytype-hint" id="dayTypeHint"></div>
+                <div id="dailyTargets"></div>
             </div>
             </div>
 
@@ -2300,8 +2325,61 @@
 
         function loadProfile() {
             try { userProfile = JSON.parse(localStorage.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
-            ['age','gender','activity','sportType'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
+            ['age','gender','height','weight','activity','sportType'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
             selectedSportMode = localStorage.getItem('sl_sport') || 'maxkraft';
+        }
+
+        // ── BEDARFSBERECHNUNG (kcal & Eiweiß) ──────────────────────────────────────
+        // BMR: Mifflin-St Jeor (1990) · TDEE = BMR × PAL · Eiweiß: Morton et al. 2018 / ISSN 2017
+        const ACTIVITY_PAL = { wenig: 1.2, maessig: 1.375, aktiv: 1.55, sehr: 1.725 };
+        const PROTEIN_GKG   = { wenig: [1.0, 1.2], maessig: [1.4, 1.7], aktiv: [1.6, 2.0], sehr: [1.8, 2.2] };
+
+        function computeTargets() {
+            const num = v => parseFloat(String(v || '').replace(',', '.'));
+            const age = num(userProfile.age), h = num(userProfile.height), w = num(userProfile.weight);
+            const g = userProfile.gender, act = userProfile.activity;
+            if (!age || !h || !w || !g) return null;
+            // Mifflin-St Jeor BMR
+            let bmr = 10 * w + 6.25 * h - 5 * age;
+            bmr += (g === 'w') ? -161 : (g === 'd' ? -78 : 5);   // divers = Mittelwert
+            const pal = ACTIVITY_PAL[act] || 1.375;
+            const tdee = Math.round(bmr * pal);
+            const pf = PROTEIN_GKG[act] || [1.4, 1.7];
+            return {
+                bmr: Math.round(bmr), tdee,
+                proteinMin: Math.round(w * pf[0]), proteinMax: Math.round(w * pf[1]),
+                gkgMin: pf[0], gkgMax: pf[1], weight: w
+            };
+        }
+
+        function buildTargetsHtml(forApp) {
+            const t = computeTargets();
+            if (!t) {
+                return forApp ? '' : `<div class="targets-hint">Trage Alter, Größe, Gewicht & Geschlecht ein – dann berechne ich deinen Bedarf.</div>`;
+            }
+            return `<div class="targets-box">
+                <div class="targets-title">📊 Dein täglicher Bedarf</div>
+                <div class="targets-grid">
+                    <div class="targets-cell">
+                        <div class="targets-val" style="color:#a5b4fc;">${t.tdee.toLocaleString('de-DE')}</div>
+                        <div class="targets-lbl">kcal / Tag</div>
+                    </div>
+                    <div class="targets-cell">
+                        <div class="targets-val" style="color:#4ade80;">${t.proteinMin}–${t.proteinMax} g</div>
+                        <div class="targets-lbl">Eiweiß / Tag</div>
+                    </div>
+                </div>
+                <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
+            </div>`;
+        }
+
+        function renderOnboardTargets() {
+            const box = document.getElementById('onboardTargets');
+            if (box) box.innerHTML = buildTargetsHtml(false);
+        }
+        function renderDailyTargets() {
+            const box = document.getElementById('dailyTargets');
+            if (box) box.innerHTML = buildTargetsHtml(true);
         }
         function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
@@ -2313,6 +2391,7 @@
             if (el) el.style.display = 'flex';
             currentStep = n;
             window.scrollTo(0, 0);
+            if (n === 3) renderOnboardTargets();
             if (n === 5) renderOnboardProducts();
         }
 
@@ -2323,9 +2402,12 @@
             const parent = btn.parentElement;
             parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            renderOnboardTargets(); // Bedarf live aktualisieren (z. B. nach Aktivitätswahl)
         }
         function profileNext() {
-            userProfile.age = document.getElementById('profileAge').value.trim();
+            userProfile.age    = document.getElementById('profileAge').value.trim();
+            userProfile.height = document.getElementById('profileHeight').value.trim();
+            userProfile.weight = document.getElementById('profileWeight').value.trim();
             saveProfile();
             goStep(3);
         }
@@ -2407,6 +2489,7 @@
             renderStackView();
             loadMoney();
             renderMoney();
+            renderDailyTargets();
             if (selectedSportMode) selectSportMode(selectedSportMode);
         }
 
@@ -4901,7 +4984,9 @@
             loadStack();
             // Profil-Auswahlen für den Assistenten vorbelegen (falls man hingeht)
             try {
-                if (userProfile.age) document.getElementById('profileAge').value = userProfile.age;
+                if (userProfile.age)    document.getElementById('profileAge').value = userProfile.age;
+                if (userProfile.height) document.getElementById('profileHeight').value = userProfile.height;
+                if (userProfile.weight) document.getElementById('profileWeight').value = userProfile.weight;
                 const markChoice = (parentId, field) => {
                     document.querySelectorAll('#' + parentId + ' .onboard-opt').forEach(b => {
                         if (b.getAttribute('onclick').includes("'" + userProfile[field] + "'")) b.classList.add('active');
