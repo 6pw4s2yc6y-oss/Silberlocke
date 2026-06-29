@@ -35,6 +35,7 @@
         }
 
         .setup-card {
+            position: relative;
             background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%);
             border: 1px solid #251650;
             padding: 44px 32px 36px;
@@ -44,6 +45,14 @@
             text-align: center;
             box-shadow: 0 0 80px rgba(124, 58, 237, 0.1), 0 40px 80px rgba(0,0,0,0.97);
         }
+        .onboard-back-top {
+            position: absolute; top: 14px; left: 14px;
+            width: 38px; height: 38px; border-radius: 10px;
+            background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1;
+            font-size: 20px; font-weight: 700; cursor: pointer; line-height: 1;
+            display: flex; align-items: center; justify-content: center; z-index: 2;
+        }
+        .onboard-back-top:hover { border-color: #7c3aed; background: #161636; color: #fff; }
 
         .setup-logo {
             font-size: 34px;
@@ -1008,6 +1017,7 @@
     <!-- SCHRITT 2: Alter & Geschlecht -->
     <div id="stepProfile" class="onboard-screen">
         <div class="setup-card">
+            <button class="onboard-back-top" onclick="goStep(1)" aria-label="Zurück">&#8592;</button>
             <div class="onboard-progress">Schritt 2 von 6 · Über dich</div>
             <div class="setup-title" style="font-size:24px;">Über dich</div>
             <div class="setup-subtitle">Für deinen Kalorien- &amp; Eiweißbedarf</div>
@@ -1044,6 +1054,7 @@
     <!-- SCHRITT 3: Aktivitätslevel & Sportart -->
     <div id="stepActivity" class="onboard-screen">
         <div class="setup-card">
+            <button class="onboard-back-top" onclick="goStep(2)" aria-label="Zurück">&#8592;</button>
             <div class="onboard-progress">Schritt 3 von 6 · Aktivität</div>
             <div class="setup-title" style="font-size:24px;">Dein Alltag</div>
             <div class="setup-subtitle">Aktivitätslevel &amp; Sportart</div>
@@ -1085,6 +1096,7 @@
 
     <div id="modeScreen">
         <div class="setup-card">
+            <button class="onboard-back-top" onclick="modeBack()" aria-label="Zurück">&#8592;</button>
             <div class="onboard-progress">Schritt 4 von 6 · Ansicht</div>
             <span class="setup-logo">🧭</span>
             <div class="setup-title">SILBERLOCKE</div>
@@ -1106,6 +1118,7 @@
     <!-- SCHRITT 5: Produkte auswählen -->
     <div id="stepProducts" class="onboard-screen">
         <div class="setup-card onboard-card-wide">
+            <button class="onboard-back-top" onclick="goStep(4)" aria-label="Zurück">&#8592;</button>
             <div class="onboard-progress">Schritt 5 von 6 · Deine Produkte</div>
             <div class="setup-title" style="font-size:24px;">Deine Produkte</div>
             <div class="setup-subtitle">Wie soll dein Tagesplan starten?</div>
@@ -1130,6 +1143,7 @@
     <!-- SCHRITT 6: Trainingsplan -->
     <div id="stepSport" class="onboard-screen">
         <div class="setup-card">
+            <button class="onboard-back-top" onclick="goStep(5)" aria-label="Zurück">&#8592;</button>
             <div class="onboard-progress">Schritt 6 von 6 · Training</div>
             <div class="setup-title" style="font-size:24px;">Dein Training</div>
             <div class="setup-subtitle">Welcher Trainingsplan passt?</div>
