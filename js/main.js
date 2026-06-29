@@ -1,0 +1,3610 @@
+        const PRODUCTS = [
+          { id:"p1",  cat:"Protein",           name:"ZEC+ Almost Whey",                          icon:"🥛", serving:"~25g",  protein:18, carbs:2,  fat:2,  kcal:93, absorption:"Mittel-schnell (~2–3h) – 100% pflanzlich & vegan (Erbsen- & Reisprotein, hydrolysiert via MPi™-Technologie). Laktosefrei.", function:"Muskelaufbau & -erhalt, Regeneration – pflanzliche Alternative zu Whey mit gleichwertigem Aminosäureprofil", takeWith:"Post-Workout mit Wasser oder Milch, mit Kohlenhydraten für Insulinausschüttung", competes:"Nicht mit Casein mischen; zeitversetzt zu Zink/Mg", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille, Erdbeere)", loeslichkeit:"Sehr gut – Instant-Pulver, Shaker reicht (200–300 ml Wasser/Milch)",
+  ingredients:"Hydrolysiertes pflanzliches Eiweißpulver (Erbseneiweißisolat, Reiseiweißisolat, L-Leucin, L-Lysinhydrochlorid, L-Valin, L-Methionin, L-Isoleucin, L-Threonin)* 91,8%, Aroma, Verdickungsmittel (Guarkernmehl), Süßungsmittel (Sucralose), Farbstoff (Carotin). *NiHPRO™",
+  nutrients:[
+    { label:"Eisen", amount:"2,5 mg", nrv:18 }
+  ] },
+          { id:"p2",  cat:"Protein",           name:"ZEC+ Whey Hydrolysat",                      icon:"⚡", serving:"~25g",  protein:22, carbs:1,  fat:0.5,kcal:97,  absorption:"Sehr schnell (~30–60 min) – vorverdaute Peptide", function:"Schnellste Proteinversorgung post-workout, max. MPS", takeWith:"Direkt nach Training + Dextrose für anabolen Effekt", competes:"Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille)", loeslichkeit:"Sehr gut – Instant, fast klar, kein Klumpen" },
+          { id:"p3",  cat:"Protein",           name:"ZEC+ Clear Whey Isolate (Kirsche)",         icon:"🍒", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min) – hochreines Isolat", function:"Fettarme Proteinversorgung, magenfreundlich, laktosefrei", takeWith:"Post-workout oder als Snack mit Wasser", competes:"Nicht gleichzeitig mit Calcium-/Eisenreichen Mahlzeiten", geschmack:"Kirsche / Sauerkirsche – fruchtig, erfrischend", loeslichkeit:"Sehr gut – löst sich klar wie Limonade in kaltem Wasser" },
+          { id:"p4",  cat:"Protein",           name:"ZEC+ Clear Whey Isolate (Süßer Apfel)",     icon:"🍏", serving:"~25g",  protein:22, carbs:0.5,fat:0.2,kcal:91,  absorption:"Schnell (~60–90 min)", function:"Wie Kirsche – leichte, klare Proteinquelle, ideal bei Diät", takeWith:"Post-workout oder tagsüber als leichte Quelle", competes:"Siehe Clear Whey Kirsche", geschmack:"Süßer Apfel – mild-fruchtig, erfrischend", loeslichkeit:"Sehr gut – klar, limonadenartig, ideal mit kaltem Wasser" },
+          { id:"p5",  cat:"Protein",           name:"ZEC+ Ladies Vegan Connection",               icon:"🌱", serving:"~30g",  protein:24, carbs:1,  fat:1,  kcal:109, absorption:"Mittel (~2–3h) – Reis- & Sojaprotein-Isolat (1:1). Vegan, laktosefrei, glutenfrei.", function:"Pflanzliche Versorgung, Muskelerhalt, hormonell ausgewogen – speziell für Frauen", takeWith:"Mit Vitamin C (verbessert Eisenaufnahme aus pflanzl. Protein). Post-workout oder Mahlzeitenersatz.", competes:"Soja-Phytoöstrogene: bei hormonabhängigen Erkrankungen mit Arzt besprechen. Phytate hemmen Zink/Eisen – zeitversetzt einnehmen.", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Haselnuss, Vanille, Pecan Caramel)", loeslichkeit:"Gut – gut löslich im Shaker (300 ml Wasser oder Pflanzenmilch)" },
+          { id:"p6",  cat:"Protein",           name:"ZEC+ Micellar Casein",                       icon:"🌙", serving:"~30g",  protein:24, carbs:2,  fat:1.5,kcal:118, absorption:"Sehr langsam (~5–7h) – bildet Gel im Magen", function:"Nächtliche Versorgung, Anti-Katabolismus im Schlaf", takeWith:"30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.", competes:"Als Post-Workout-Hauptprotein zu langsam. Blends mit Whey sind unproblematisch.", geschmack:"Verschiedene (z.B. Schokolade, Vanille, Cookies & Cream)", loeslichkeit:"Mittel – cremig-dickflüssig, quillt auf, Shaker mit 300–400 ml" },
+          { id:"p7",  cat:"Protein",           name:"ZEC+ Protein Pudding Stracciatella",         icon:"🍮", serving:"~35g",  protein:20, carbs:5,  fat:3,  kcal:128, absorption:"Langsam (~4–6h) – Casein-Basis", function:"Sättigende Proteinmahlzeit, Anti-Heißhunger, abendliche Versorgung", takeWith:"Abends als Dessert oder zwischen Mahlzeiten", competes:"Nicht unmittelbar post-workout als schnelle Proteinquelle", geschmack:"Stracciatella (Schokolade-Vanille mit Schoko-Stückchen)", loeslichkeit:"Gut – mit 200–250 ml Milch (kalt oder warm) zu cremigem Pudding verrühren" },
+          { id:"p8",  cat:"Gainer & Carbs",    name:"ZEC+ Bullgainer",                            icon:"🐂", serving:"~100g", protein:24, carbs:69, fat:0,  kcal:375, absorption:"Schnell-mittel – Whey (Milchprotein + Molkenkonzentrat) + Maltodextrin/Dextrose/Fruchtzucker", function:"Maximale Kalorienaufnahme für Hardgainer, Muskelaufbau-Phase", takeWith:"Post-workout oder als zusätzliche Mahlzeit mit Milch", competes:"Nicht mit anderen hochkalorischen Mahlzeiten – Überschuss beachten", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille, Erdbeere, Spekulatius)", loeslichkeit:"Gut – Shaker mit 400–500 ml Milch empfohlen",
+  ingredients:"Maltodextrin, Milcheiweiß (Calciumcaseinat), Dextrose, Fruktose, Aroma, Molkeneiweißkonzentrat, Magnesiumcarbonat, L-Ascorbinsäure, Eisen (II)-Sulfat, Zinksulfatmonohydrat, Mangangluconat, DL-alpha-Tocopherylacetat, Nicotinamid, Emulgator (Lecithine), Calcium-D-pantothenat, Kupfer(II)-gluconat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Retinylacetat, Pteroylmonoglutaminsäure, Kaliumiodid, Natriumselenit, D-Biotin, Cyanocobalamin",
+  nutrients:[
+    { label:"Vitamin A",       amount:"355,0 µg RE",  nrv:44 },
+    { label:"Vitamin E",       amount:"5,1 mg α-TE",  nrv:43 },
+    { label:"Vitamin C",       amount:"35,0 mg",       nrv:44 },
+    { label:"Thiamin (B1)",    amount:"0,5 mg",        nrv:45 },
+    { label:"Riboflavin (B2)", amount:"0,71 mg",       nrv:51 },
+    { label:"Niacin (B3)",     amount:"6,9 mg NE",     nrv:43 },
+    { label:"Vitamin B6",      amount:"0,6 mg",        nrv:43 },
+    { label:"Folsäure",        amount:"87,6 µg",       nrv:44 },
+    { label:"Vitamin B12",     amount:"1,1 µg",        nrv:44 },
+    { label:"Biotin",          amount:"21,0 µg",       nrv:42 },
+    { label:"Pantothensäure",  amount:"2,6 mg",        nrv:43 },
+    { label:"Magnesium",       amount:"169,0 mg",      nrv:45 },
+    { label:"Calcium",         amount:"327,0 mg",      nrv:41 },
+    { label:"Eisen",           amount:"6,2 mg",        nrv:44 },
+    { label:"Zink",            amount:"5,1 mg",        nrv:51 },
+    { label:"Kupfer",          amount:"0,4 mg",        nrv:40 },
+    { label:"Mangan",          amount:"0,9 mg",        nrv:45 },
+    { label:"Jod",             amount:"66,6 µg",       nrv:44 },
+    { label:"Selen",           amount:"27,0 µg",       nrv:49 }
+  ] },
+          { id:"p9",  cat:"Gainer & Carbs",    name:"ZEC+ Maltodextrin",                          icon:"⚡", serving:"50g",   protein:0,  carbs:49, fat:0,  kcal:195, absorption:"Sehr schnell – GI ~110, sofortiger Blutzuckeranstieg", function:"Glykogen-Replenishment, Insulinspike für Nährstofftransport", takeWith:"Post-workout mit Hydrolysat oder Creatin", competes:"Nicht bei Insulinresistenz. Nicht in Ruhezeiten.", geschmack:"Neutral / Leicht süßlich – nahezu geschmacklos", loeslichkeit:"Sehr gut – klar löslich in Wasser, kein Rühren nötig",
+  ingredients:"100% Maltodextrin (DE 19)" },
+          { id:"p10", cat:"Gainer & Carbs",    name:"ZEC+ Dextrose",                              icon:"🍬", serving:"50g",   protein:0,  carbs:46, fat:0,  kcal:164, absorption:"Instantan – direkte Aufnahme, GI 100", function:"Sofortiger Energieschub, Glykogen, Nährstofftransport via Insulin", takeWith:"Post-workout mit Protein & Creatin", competes:"Nicht vor dem Schlafen; nicht bei Low-Carb", geschmack:"Süß (reine Glukose)", loeslichkeit:"Sehr gut – löst sich sofort in Wasser auf",
+  ingredients:"100% Dextrose (Traubenzucker)" },
+          { id:"p11", cat:"Gainer & Carbs",    name:"ZEC+ Designer Carbs",                        icon:"🌽", serving:"~50g",  protein:0,  carbs:47, fat:0,  kcal:188, absorption:"Mittel-schnell – Wachsmaisstärke, kein Insulinspike", function:"Gleichmäßige Energie, osmotisch günstig, kein Magendrücken", takeWith:"Pre- oder Intra-Workout für Einheiten >60 min", competes:"Weniger geeignet wenn schnelle Glykogenresynthese nötig", geschmack:"Neutral / Unflavored – geschmacksneutral", loeslichkeit:"Sehr gut – löst sich klar, kein osmotischer Druck (magenfreundlich)",
+  ingredients:"Wachsmaisstärke, hochverzweigtes zyklisches Dextrin (Cluster Dextrin®), Nicotinamid, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Pteroylmonoglutaminsäure, D-Biotin, Cyanocobalamin",
+  nutrients:[
+    { label:"Riboflavin",                         amount:"0,7 mg",   nrv:50 },
+    { label:"Niacin",                             amount:"8,0 mg",   nrv:50 },
+    { label:"Vitamin B6",                         amount:"0,7 mg",   nrv:50 },
+    { label:"Folsäure",                           amount:"100,0 µg", nrv:50 },
+    { label:"Vitamin B12",                        amount:"1,3 µg",   nrv:52 },
+    { label:"Biotin",                             amount:"25,0 µg",  nrv:50 },
+    { label:"Pantothensäure",                     amount:"3,0 mg",   nrv:50 },
+    { label:"Thiamin",                            amount:"0,55 mg",  nrv:50 },
+    { label:"Hochverzweigtes zyklisches Dextrin", amount:"25,0 g",   nrv:null },
+    { label:"Wachsmaisstärke",                    amount:"25,0 g",   nrv:null }
+  ] },
+          { id:"p12", cat:"Gainer & Carbs",    name:"ZEC+ Instant Rice Pudding",                  icon:"🍚", serving:"30g",   protein:2.4,carbs:25, fat:0,  kcal:113, absorption:"Schnell-mittel – Reisstärke", function:"Magenfreundliche Energie, leicht verdaulich, post-workout oder Mahlzeit", takeWith:"Post-workout oder morgens. Mit Casein für langsame Ergänzung.", competes:"Kein vollständiges Aminosäureprofil allein", geschmack:"Milchreis / Vanille – mild und süßlich", loeslichkeit:"Gut – mit heißem Wasser (150–200 ml) kurz verrühren, quillt leicht",
+  ingredients:"Reismehl, Aroma, Ceylon-Zimtrindenpulver, Süßungsmittel: Sucralose" },
+          { id:"p13", cat:"Performance",       name:"ZEC+ Creatin Monohydrat",                    icon:"💎", serving:"5g",    protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Kumulativ – intramuskulärer Phosphokreatin-Spiegel baut sich über 2–4 Wochen chronischer Einnahme auf. Einnahmezeitpunkt IRRELEVANT – nur Konsistenz (täglich) entscheidet!", function:"Kraftsteigerung (+5–15%), ATP-Resynthese für explosive Intensität, Zellvoluminisierung, kognitive Funktion", takeWith:"Täglich konsistent (Zeitpunkt egal). Post-workout mit Carbs & Protein leicht vorteilhaft durch Insulin – aber kein messbarer Unterschied bei täglicher Einnahme.", competes:"Viel Wasser (3L+). Nicht mit Diuretika. Koffein-Konflikt gilt als überholt (Mythos laut neuerer Studien).", geschmack:"Neutral / Geschmacklos", loeslichkeit:"Mittel – leichter Bodensatz möglich, gut umrühren (warm löst besser)",
+  ingredients:"Kreatinmonohydrat (99,9%), Methylcobalamin (0,00150%)",
+  nutrients:[
+    { label:"Creatin Monohydrat", amount:"5,0 g",   nrv:null },
+    { label:"— davon Creatin",   amount:"4,4 g",   nrv:null },
+    { label:"Vitamin B12",        amount:"0,75 µg", nrv:30 }
+  ] },
+          { id:"p14", cat:"Performance",       name:"ZEC+ Citrullin Malat",                       icon:"🔴", serving:"~8g",   protein:0,  carbs:0,  fat:0,  kcal:16,  absorption:"Schnell – wird in Niere zu Arginin umgewandelt", function:"NO-Boost, Pump & Durchblutung, Laktatpufferung, weniger Ermüdung", takeWith:"30–45 min pre-workout auf nüchternem Magen", competes:"Nicht mit PDE5-Hemmern. Hohe Dosen -> Magenprobleme möglich.", geschmack:"Leicht sauer / neutraler Grundgeschmack (Malat-Säure)", loeslichkeit:"Gut – löst sich in Wasser, ggf. leicht trüb",
+  ingredients:"L-Citrullin-DL-Malat 2:1",
+  nutrients:[
+    { label:"L-Citrullin-DL-Malat 2:1", amount:"8,0 g",  nrv:null },
+    { label:"— davon L-Citrullin",      amount:"5,0 g",  nrv:null }
+  ] },
+          { id:"p15", cat:"Performance",       name:"ZEC+ Intra Evolution",                       icon:"💧", serving:"~20g",  protein:8,  carbs:4,  fat:0,  kcal:50,  absorption:"Sehr schnell – freie Aminosäuren direkt verfügbar", function:"Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus", takeWith:"Während Training in 500–750 ml Wasser. Mit Natrium für Hydration.", competes:"Bei ausreichender Tagesprotein-Zufuhr weitgehend redundant – kein echter Hebel, aber unschädlich.", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Tropical, Lemon, Watermelon)", loeslichkeit:"Sehr gut – löst sich schnell in 500–750 ml Wasser",
+  ingredients:"Calcium-Beta-Hydroxy-Beta-Methylbuttersäure (Ca-HMB), PEAK O2® (Cordyceps militaris, Ganoderma lucidum, Pleurotus eryngii, Lentinula edodes, Hericium erinaceus), Leucin-Pulver (L-Leucin, Emulgator: Lecithine (Sonnenblume)), L-Lysin-Hydrochlorid, Valin-Pulver (L-Valin, Emulgator: Lecithine (Sonnenblume)), Kokosnusswasserpulver, Isoleucin-Pulver (L-Isoleucin, Emulgator: Lecithine (Sonnenblume)), L-Phenylalanin, L-Threonin, Taurin, Alpha-Hydroxy-Isocapronsäure (HICA), Säuerungsmittel: Citronensäure; L-Methionin, Aroma, Montmerency-Sauerkirsch-Pulver, Ashwaganda-Extrakt, Tryptophan-Pulver (L-Tryptophan, Emulgator: Lecithine (Sonnenblume)), Süßungsmittel: Sucralose; Farbstoff: Beta-Carotin",
+  nutrients:[
+    { label:"Calcium-Beta-Hydroxy-Beta-Methylbuttersäure (Ca-HMB)", amount:"2.000,0 mg", nrv:null },
+    { label:"PEAK O2®",                     amount:"2.000,0 mg", nrv:null },
+    { label:"L-Leucin",                     amount:"1.880,0 mg", nrv:null },
+    { label:"L-Lysin-Hydrochlorid",         amount:"1.725,0 mg", nrv:null },
+    { label:"L-Valin",                      amount:"1.592,0 mg", nrv:null },
+    { label:"L-Isoleucin",                  amount:"1.419,0 mg", nrv:null },
+    { label:"L-Phenylalanin",               amount:"1.245,0 mg", nrv:null },
+    { label:"L-Threonin",                   amount:"1.073,0 mg", nrv:null },
+    { label:"Taurin",                       amount:"1.000,0 mg", nrv:null },
+    { label:"Alpha-Hydroxy-Isocapronsäure (HICA)", amount:"1.000,0 mg", nrv:null },
+    { label:"Kokosnusswasserpulver",        amount:"1.500,0 mg", nrv:null },
+    { label:"— davon Kalium",             amount:"40,6 mg",    nrv:2 },
+    { label:"L-Methionin",                  amount:"675,0 mg",  nrv:null },
+    { label:"Montmorency-Sauerkirsch-Pulver", amount:"500,0 mg", nrv:null },
+    { label:"Ashwaganda-Extrakt",           amount:"400,0 mg",  nrv:null },
+    { label:"— davon Withanolide",         amount:"20,0 mg",   nrv:null },
+    { label:"L-Tryptophan",                 amount:"353,0 mg",  nrv:null }
+  ] },
+          { id:"p16", cat:"Aminosäuren",       name:"HEALTH+ L-Glycin",                           icon:"🧬", serving:"3g",    protein:3,  carbs:0,  fat:0,  kcal:12,  absorption:"Schnell – passive Diffusion, einfachste Aminosäure", function:"Kollagensynthese, Schlafqualität, Glutathion-Vorstufe, Verdauung", takeWith:"Abends vor Schlaf (schlaffördernd). Morgens nüchtern für Kollagen. Mit Kollagen-Präparaten.", competes:"Hohe Dosen (>10g) können schläfrig machen", geschmack:"Leicht süßlich (Pulver) – angenehm mild", loeslichkeit:"Sehr gut – löst sich klar in Wasser (als Pulver)",
+  ingredients:"L-Glycin.",
+  nutrients:[
+    { label:"L-Glycin", amount:"3,0 g", nrv:null }
+  ] },
+          { id:"p17", cat:"Aminosäuren",       name:"HEALTH+ R-Alpha-Liponsäure (R-ALA)",         icon:"⚡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Schnell nüchtern – Mahlzeiten –40% Bioverfügbarkeit", function:"Universelles Antioxidans (fett- & wasserlöslich), Insulinsensitivität, Nerven", takeWith:"30 min vor Mahlzeiten, nüchtern. NICHT direkt ums Training. Mit Biotin kombinieren.", competes:"Nicht mit Chemo ohne Rücksprache. Blutzucker bei Diabetes. Nicht mit Chelatoren.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Füllstoff mikrokristalline Cellulose, R-alpha-Liponsäure Natriumsalz, Kapselhülle (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"R-alpha-Liponsäure Natriumsalz", amount:"125,0 mg", nrv:null },
+    { label:"— davon R-alpha-Liponsäure",    amount:"100,0 mg", nrv:null }
+  ] },
+          { id:"p18", cat:"Vitamine",          name:"ZEC+ All In One Antioxidant & Vitamin",      icon:"🛡️", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Fettlösliche Anteile (A, E) mit Fett aufnehmen", function:"Freie Radikale bekämpfen, Immunsystem, Zellschutz, Entzündungshemmung", takeWith:"Mit fettreicher Mahlzeit. NICHT direkt ums Training – Megadosen dämpfen die Hypertrophie-Anpassung.", competes:"Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Hydroxypropylmethylcellulose, Tricalciumphosphat, Magnesiumcarbonate, L-Ascorbinsäure, Japanischer Staudenknöterichwurzelextrakt, Füllstoff (mikrokristalline Cellulose), D-alpha-Tocopherylacetat, Kaliumhydrogencarbonat, R-Alpha Liponsäure, Astaxanthinreiches Oleoresin aus der Alge Haematococcus pluvialis, Trennmittel (Magnesiumsalze der Speisefettsäuren, Siliciumdioxid), Salz, Calciumcarbonat, Eisen (II)-Sulfat, Mangangluconat, Nicotinamid, Zinksulfatmonohydrat, Schwarzer Pfefferextrakt (Bioperine®), Kupfer(II)-gluconat, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Retinylacetat, Pteroylmonoglutaminsäure, Chrom(III)-chloridhexahydrat, Natriummolybdat, Natriumselenit, Kaliumiodid, Phyllochinon, D-Biotin, Cholecalciferol, Cyanocobalamin.",
+  nutrients:[
+    { label:"Vitamin A",                             amount:"800,0 µg RE",  nrv:100 },
+    { label:"Vitamin D",                             amount:"5,0 µg",       nrv:100 },
+    { label:"Vitamin E",                             amount:"60,0 mg α-TE", nrv:500 },
+    { label:"Vitamin K",                             amount:"75,0 µg",      nrv:100 },
+    { label:"Vitamin C",                             amount:"200,0 mg",     nrv:250 },
+    { label:"Thiamin (B1)",                          amount:"1,1 mg",       nrv:100 },
+    { label:"Riboflavin (B2)",                       amount:"1,4 mg",       nrv:100 },
+    { label:"Niacin (B3)",                           amount:"16,0 mg",      nrv:100 },
+    { label:"Vitamin B6",                            amount:"1,4 mg",       nrv:100 },
+    { label:"Folsäure",                              amount:"200,0 µg",     nrv:100 },
+    { label:"Vitamin B12",                           amount:"2,5 µg",       nrv:100 },
+    { label:"Biotin",                                amount:"50,0 µg",      nrv:100 },
+    { label:"Pantothensäure",                        amount:"6,0 mg",       nrv:100 },
+    { label:"Kalium",                                amount:"50,2 mg",      nrv:3 },
+    { label:"Chlorid",                               amount:"25,2 mg",      nrv:3 },
+    { label:"Calcium",                               amount:"120,0 mg",     nrv:15 },
+    { label:"Phosphor",                              amount:"53,0 mg",      nrv:8 },
+    { label:"Magnesium",                             amount:"76,5 mg",      nrv:20 },
+    { label:"Eisen",                                 amount:"7,0 mg",       nrv:50 },
+    { label:"Zink",                                  amount:"5,0 mg",       nrv:50 },
+    { label:"Kupfer",                                amount:"1,0 mg",       nrv:100 },
+    { label:"Mangan",                                amount:"2,0 mg",       nrv:100 },
+    { label:"Selen",                                 amount:"55,0 µg",      nrv:100 },
+    { label:"Chrom",                                 amount:"40,0 µg",      nrv:100 },
+    { label:"Molybdän",                              amount:"50,0 µg",      nrv:100 },
+    { label:"Jod",                                   amount:"75,0 µg",      nrv:50 },
+    { label:"Japanischer Staudenknöterichwurzel",    amount:"204,0 mg",     nrv:null },
+    { label:"— davon trans-Resveratrol",            amount:"200,0 mg",     nrv:null },
+    { label:"R-Alpha Liponsäure (R-ALA)",            amount:"100,0 mg",     nrv:null },
+    { label:"Astaxanthinreiches Oleoresin",          amount:"80,0 mg",      nrv:null },
+    { label:"— davon Astaxanthin",                  amount:"4,0 mg",       nrv:null },
+    { label:"Schwarzer Pfefferextrakt (Bioperine®)", amount:"10,5 mg",      nrv:null },
+    { label:"— davon Piperin",                      amount:"10,0 mg",      nrv:null }
+  ] },
+          { id:"p19", cat:"Vitamine",          name:"ZEC+ Greens Mikronährstoffe",                icon:"🌿", serving:"5g",    protein:1,  carbs:2,  fat:0,  kcal:10,  absorption:"Mittel – pflanzliche Nährstoffe variieren", function:"Säure-Basen-Balance, Entgiftung, Mikronährstoffe, Energie", takeWith:"Morgens nüchtern mit Wasser. Vitamin C verbessert Eisenaufnahme.", competes:"Chlorella bindet Schwermetalle – nicht gleichzeitig mit Medis. Spirulina bei Autoimmun vorsichtig.", geschmack:"Grasig / Grün – leicht bitter, natürlicher Pflanzengeschmack", loeslichkeit:"Gut – in 200–300 ml Wasser oder Saft einrühren",
+  ingredients:"Spirulinapulver (enthält Sulphite), Chlorellapulver, Gerstengraspulver, Säuerungsmittel (Citronensäure), Inulin, Kaliumchlorid, Magnesiumbisglycinat, Rote Betesaftpulver, Sanddornfruchtpulver, Himbeerfruchtpulver, Braunalgenpulver (Ascophyllum nodosum), Verdickungsmittel (Xanthan), Zitronenschalenpulver, L-Ascorbinsäure, Süßungsmittel (Steviolglycoside aus Stevia), natürliches Aroma, Spinatpulver, Brokkolipulver, Karottenpulver, Artischockenblattextrakt, Ingwerwurzelpulver, Shiitakepulver (enthält Sulphite), Zinkcitrattrihydrat, Bromelain, Reishifruchtkörperextrakt, Löwenzahnwurzelextrakt, Weißdornblattextrakt, Nicotinamid, Selenhefe, DL-alpha-Tocopherylacetat, Kupfer(II)-gluconat, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Chrompicolinat, D-Biotin, Menachinon-7",
+  nutrients:[
+    { label:"Vitamin E",              amount:"2,0 mg α-TE",  nrv:17 },
+    { label:"Vitamin K",              amount:"15,0 µg",      nrv:20 },
+    { label:"Vitamin C",              amount:"53,0 mg",      nrv:66 },
+    { label:"Niacin",                 amount:"5,3 mg NE",    nrv:33 },
+    { label:"Vitamin B6",             amount:"0,47 mg",      nrv:34 },
+    { label:"Biotin",                 amount:"17,0 µg",      nrv:34 },
+    { label:"Pantothensäure",         amount:"2,0 mg",       nrv:33 },
+    { label:"Zink",                   amount:"5,0 mg",       nrv:50 },
+    { label:"Kupfer",                 amount:"0,33 mg",      nrv:33 },
+    { label:"Selen",                  amount:"9,3 µg",       nrv:17 },
+    { label:"Chrom",                  amount:"8,3 µg",       nrv:21 },
+    { label:"Jod",                    amount:"76,9 µg",      nrv:51 },
+    { label:"Spirulinapulver",        amount:"1.000,0 mg",   nrv:null },
+    { label:"Chlorellapulver",        amount:"1.000,0 mg",   nrv:null },
+    { label:"Gerstengraspulver",      amount:"833,0 mg",     nrv:null },
+    { label:"Braunalgenpulver (Ascophyllum nodosum)", amount:"100,0 mg", nrv:null },
+    { label:"Spinatpulver",           amount:"33,3 mg",      nrv:null },
+    { label:"Karottenpulver",         amount:"33,3 mg",      nrv:null },
+    { label:"Brokkolipulver",         amount:"33,3 mg",      nrv:null },
+    { label:"Artischokenblattextrakt",amount:"33,3 mg",      nrv:null },
+    { label:"— davon Cynarin",       amount:"833,0 µg",     nrv:null },
+    { label:"Ingwerwurzelpulver",     amount:"26,7 mg",      nrv:null },
+    { label:"Shiitakepulver",         amount:"16,7 mg",      nrv:null },
+    { label:"Bromelain 1.200 GDU/g", amount:"16,7 mg",      nrv:null },
+    { label:"Reishifruchtkörperextrakt", amount:"13,3 mg",  nrv:null },
+    { label:"— davon Polysaccharide",amount:"1,3 mg",       nrv:null },
+    { label:"Löwenzahnwurzelextrakt 4:1", amount:"13,3 mg", nrv:null },
+    { label:"Weißdornblattextrakt",   amount:"13,3 mg",      nrv:null },
+    { label:"— davon Flavonoide",    amount:"667,0 µg",     nrv:null }
+  ] },
+          { id:"p20", cat:"Vitamine",          name:"ZEC+ Vitamin B 25",                          icon:"⚡", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Wasserlöslich – B12 benötigt Intrinsic Factor", function:"Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion", takeWith:"Morgens mit Frühstück für Energie-Boost", competes:"B6 >50mg/Tag -> Neuropathie. Antazida reduzieren B12-Aufnahme. Achtung: überlappt mit Multivitamin.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"DL-Cholinbitartrat, Hydroxypropylmethylcellulose, Inositol, P-Aminobenzoesäure, Thiaminmononitrat, Pyridoxinhydrochlorid, Calcium-D-pantothenat, Nicotinamid, Riboflavin, Trennmittel (Magnesiumsalze der Speisefettsäuren), Pteroylmonoglutaminsäure, D-Biotin, Cyanocobalamin",
+  nutrients:[
+    { label:"Thiamin (B1)",      amount:"25,0 mg",   nrv:2276 },
+    { label:"Riboflavin (B2)",   amount:"25,0 mg",   nrv:1798 },
+    { label:"Niacin (B3)",       amount:"25,0 mg",   nrv:157 },
+    { label:"Pantothensäure (B5)", amount:"25,0 mg", nrv:417 },
+    { label:"Vitamin B6",        amount:"25,0 mg",   nrv:1789 },
+    { label:"Biotin (B7)",       amount:"25,0 µg",   nrv:50 },
+    { label:"Folsäure (B9)",     amount:"403,9 µg",  nrv:202 },
+    { label:"Vitamin B12",       amount:"25,0 µg",   nrv:1002 }
+  ] },
+          { id:"p21", cat:"Vitamine",          name:"ZEC+ Vitamin C + Hagebutte",                 icon:"🍊", serving:"1 Kap", protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Wasserlöslich – >200mg sinkt % Aufnahme; 2x täglich besser", function:"Immunsystem, Kollagensynthese, Eisenaufnahme x2, Antioxidans", takeWith:"Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen. Hochdosiert NICHT direkt ums Training.", competes:"Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsäure + viel Vit C. Peri-workout dämpft Anpassung.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"L-Ascorbinsäure, Hydroxypropylmethylcellulose, Füllstoff (mikrokristalline Cellulose), Hagebuttenschalenpulver, Trennmittel (Magnesiumsalze von Speisefettsäuren)",
+  nutrients:[
+    { label:"Vitamin C",            amount:"500,0 mg", nrv:625 },
+    { label:"Hagebuttenfruchtpulver", amount:"25,0 mg", nrv:null }
+  ] },
+          { id:"p22", cat:"Vitamine",          name:"Robert Franz Vitamin D3 Tropfen",             icon:"☀️", serving:"1 Tropfen", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme, Galle (Mahlzeit) für maximale Bioverfügbarkeit nötig. Gewebespiegel (25-OH-D3) baut sich über Wochen auf – morgens bevorzugt.", function:"Calcium-Regulierung, Knochen, Immunsystem (aktiviert >200 Gene), Muskelkraft, Testosteron, Stimmung", takeWith:"MORGENS mit fettreicher Mahlzeit. IMMER mit K2 (p56) kombinieren – K2 lenkt Calcium in Knochen statt Arterien!", competes:"Einnahme mit K2 (p56) optimiert die Calciumverteilung in den Knochen und schützt präventiv vor ektoper Kalzifizierung bei hochdosierter Nutzung. Magnesium aktiviert D3 (Cofaktor). Ziel-Blutbild: 40–60 ng/ml 25-OH-D3. Nicht mit Warfarin.", geschmack:"Neutraler Öl-Eigengeschmack (MCT-Träger)", loeslichkeit:"In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
+  ingredients:"MCT-Öl aus Kokos, Vitamin D3 (Cholecalciferol).",
+  nutrients:[
+    { label:"Vitamin D3 (Cholecalciferol)", amount:"25,0 µg (1.000 IE)", nrv:500 }
+  ] },
+          { id:"p23", cat:"Mineralien",        name:"HEALTH+ Eisenbisglycinat",                   icon:"🩸", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat. 25mg elementares Eisen pro Kapsel (179% NRV).", function:"Sauerstofftransport (Hämoglobin ~60% des Körpereisens), Blutbildung, Energie, Kognition. Tägl. Bedarf: 15mg (Frauen), 10mg (Männer).", takeWith:"Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch. Mit Wasser oder Saft.", competes:"NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Überladungsrisiko! Calcium, Zink, Magnesium hemmen Fe. Phytinsäure (Vollkorn) hemmt Aufnahme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Füllstoff (mikrokristalline Cellulose), Eisenbisglycinat 30,4%, Hydroxypropylmethylcellulose.",
+  nutrients:[
+    { label:"Eisen", amount:"25,0 mg", nrv:179 }
+] },
+          { id:"p24", cat:"Mineralien",        name:"ZEC+ Zink Caps",                             icon:"🔵", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel (~20–40%) – Picolinat/Bisglycinat am besten", function:"Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien", takeWith:"Abends nüchtern. Mit Casein.", competes:"Testosteron-Effekt NUR bei nachgewiesenem Zinkmangel. Hemmt Kupfer bei Langzeit (10:1). Eisen & Kalzium hemmen Aufnahme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Füllstoff (mikrokristalline Cellulose), Hydroxypropylmethylcellulose, Zinkbisglycinat, Trennmittel (Magnesiumsalze der Speisefettsäuren)",
+  nutrients:[
+    { label:"Zink", amount:"25,0 mg", nrv:250 }
+  ] },
+          { id:"p25", cat:"Mineralien",        name:"HEALTH+ Selen",                              icon:"🟤", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Hoch – L-Selenomethionin organisch & >90% bioverfügbar; Natriumselenit anorganisch. Kombination für maximale Versorgung.", function:"Schilddrüse (T4→T3-Umwandlung via Jodthyronin-Dejodinase), Antioxidans (Glutathionperoxidase), Immunsystem, Zellschutz vor oxidativem Stress, Haare & Nägel", takeWith:"Mit Mahlzeit. Enthält bereits Vitamin E (167% NRV) – kein externes Vit E nötig. Abends zusammen mit D3 (p22) + K2 (p56) für Schilddrüsen-Synergie.", competes:"Max. 400 µg/Tag Selen (toxisch!) – Stacking mit Multi p27/p18 und p43 (24% NRV) beachten. Selen + Jod (p52) schützen Schilddrüse bei Hashimoto.", geschmack:"Nicht relevant (Kapsel) – natürliches Zitronen-Aroma", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Füllstoff (mikrokristalline Cellulose), Kapselhülle (Hydroxypropylmethylcellulose), natürliches Zitronen-Aroma, Vitamin E (als Tocopheryl-acetat), Natriumselenit, Selenomethionin.",
+  nutrients:[
+    { label:"Vitamin E (Alpha-Tocopherol)",  amount:"20,1 mg",   nrv:167 },
+    { label:"L-Selenomethionin",             amount:"280,0 µg",  nrv:null },
+    { label:"Natriumselenit",                amount:"217,4 µg",  nrv:null },
+    { label:"— davon gesamt Selen",         amount:"200,0 µg",  nrv:364 }
+  ] },
+          { id:"p26", cat:"Mineralien",        name:"HEALTH+ Basische Mineralien",                icon:"⚡", serving:"5 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut – basische Formen (Citrat, Carbonat) gut löslich", function:"Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen", takeWith:"Abends nach Training oder vor Schlaf.", competes:"Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig. ⚠️ Zink 35 mg überschreitet das EFSA-Tageslimit (UL = 25 mg) – nicht mit anderen zinkhaltigen Produkten kombinieren (Kupfermangel-Risiko)!", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Trikaliumcitratmonohydrat, Magnesiumlactat 2 Hydrat, Trimagnesiumdicitrat, Tricalciumcitrat 4-Hydrat, Hydroxypropylmethylcellulose, Zinkbisglycinat.",
+  nutrients:[
+    { label:"Magnesium", amount:"190,0 mg", nrv:51 },
+    { label:"Kalium",    amount:"984,0 mg", nrv:49 },
+    { label:"Calcium",   amount:"129,0 mg", nrv:16 },
+    { label:"Zink",      amount:"35,0 mg",  nrv:350 }
+  ] },
+          { id:"p27", cat:"Mineralien",        name:"HEALTH+ All In One Multivitamin Komplex",    icon:"🌈", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Variabel – fettlösliche Vitamine besser mit Fett", function:"Vollspektrum Vitamine + Q10, OPC, ALA, PQQ, Astaxanthin. WICHTIG: Enthält KEINE Mineralien (bewusst weggelassen – separate Mineralversorgung nötig!)", takeWith:"Mit fettreicher Mahlzeit morgens", competes:"NICHT zusätzlich mit p17 (R-ALA), p33 (OPC) oder p18 (Antioxidant & Vitamin) – enthält bereits ALA & OPC, Doppeldosierung! Nicht mit B25, hochdos. Vit A, Selen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)", nutrients:[
+    { label:"Vitamin A",          amount:"800,0 µg RE",  nrv:100 },
+    { label:"Vitamin D",          amount:"5,0 µg",       nrv:100 },
+    { label:"Vitamin E",          amount:"12,0 mg α-TE", nrv:100 },
+    { label:"Vitamin K",          amount:"75,0 µg",      nrv:100 },
+    { label:"Vitamin C",          amount:"80,0 mg",      nrv:100 },
+    { label:"Thiamin (B1)",       amount:"1,1 mg",       nrv:100 },
+    { label:"Riboflavin (B2)",    amount:"1,4 mg",       nrv:100 },
+    { label:"Niacin (B3)",        amount:"16,0 mg NE",   nrv:100 },
+    { label:"Vitamin B6",         amount:"1,4 mg",       nrv:100 },
+    { label:"Folsäure",           amount:"200,0 µg",     nrv:100 },
+    { label:"Vitamin B12",        amount:"2,5 µg",       nrv:100 },
+    { label:"Biotin",             amount:"50,0 µg",      nrv:100 },
+    { label:"Pantothensäure",     amount:"6,0 mg",       nrv:100 },
+    { label:"Coenzym Q10",        amount:"100,0 mg",     nrv:null },
+    { label:"Alpha-Liponsäure",   amount:"100,0 mg",     nrv:null },
+    { label:"Astaxanthinreiches Oleoresin", amount:"80,0 mg",  nrv:null },
+    { label:"— Astaxanthin",              amount:"4,0 mg",   nrv:null },
+    { label:"PQQ",                        amount:"2,0 mg",   nrv:null }
+], ingredients:"Füllstoff (mikrokristalline Cellulose), Hydroxypropylmethylcellulose, Calcium-L-ascorbatdihydrat, Coenzym Q10, Alpha-Liponsäure, Astaxanthinreiches Oleoresin (Alge Haematococcus pluvialis), D-alpha-Tocopherylacetat, Nicotinamid, Calcium-D-pantothenat, Pyridoxal-5-phosphatmonohydrat, Pyrrolochinolinchinon-Dinatriumsalz, Thiaminmononitrat, Natrium-Riboflavin-5′-phosphat, Retinylacetat, Riboflavin, (6S)-5-Methyltetrahydrofolsäure-Glucosaminsalz, Menachinon-7, D-Biotin, Cholecalciferol, Methylcobalamin." },
+          { id:"p28", cat:"Omega & Öle",       name:"HEALTH+ Super Omega 3 Triglyceride Fischöl", icon:"🐟", serving:"2 Kap", protein:0,  carbs:0,  fat:2,  kcal:18,  absorption:"Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit (Galle für Mizellenbildung nötig). 1500mg Omega-3 (1000mg EPA + 500mg DHA) pro 2 Kapseln. UHRZEIT IRRELEVANT – EPA/DHA-Gewebespiegel (Zellmembranen) baut sich über 4–8 Wochen chronischer Einnahme auf.", function:"Herzgesundheit (EPA verdrängt Arachidonsäure aus COX/LOX → erzeugt schwächere 3er-Eicosanoide statt 2er-Serie; KEIN direkter COX-Inhibitor wie Ibuprofen!), Entzündungshemmung, Gehirnfunktion (DHA ~40% der Fettsäuren in neuronalen Membranen), Gelenke", takeWith:"Mit einer beliebigen Hauptmahlzeit (mit Fett). Synergie mit D3+K2. Immer zusammen mit Nachtkerzenöl (p51) für Omega-6/3-Balance.", competes:"Blutdünnend – Vorsicht mit Aspirin/Warfarin/Heparin. Vor Operationen 1–2 Wochen absetzen.", geschmack:"Nicht relevant (Kapsel) – ggf. leichter Fischgeschmack beim Aufstoßen", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Fischöl, Gelatine (Rind), Feuchthaltemittel (Glycerin), gereinigtes Wasser.",
+  nutrients:[
+    { label:"Fischöl",                                  amount:"2.000,0 mg", nrv:null },
+    { label:"— davon Eicosapentaensäure (EPA)",        amount:"1.000,0 mg", nrv:null },
+    { label:"— davon Docosahexaensäure (DHA)",         amount:"500,0 mg",   nrv:null }
+  ] },
+          { id:"p29", cat:"Adaptogene",        name:"HEALTH+ Ashwagandha (KSM-66)",               icon:"🌿", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Withanolide besser mit Mahlzeit. KSM-66®: HPLC-gemessene Withanolid-Reinheit (präziser als gravimetrisch – keine Überschätzung)", function:"Cortisol ↓, Stressresistenz, Testosteron ↑, Schlafqualität, Ausdauer. 500mg Extrakt pro Kapsel, 50mg Withanolide pro 2 Kapseln.", takeWith:"Abends (cortisol-senkend). 2x täglich mit Mahlzeit. Piperin verbessert Absorption.", competes:"Nicht mit Schilddrüsen-Medi ohne Rücksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Ashwagandhawurzelextrakt KSM-66®, Kapselhülle (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"Ashwagandhawurzelextrakt (KSM-66™)", amount:"1.000,0 mg", nrv:null },
+    { label:"— davon Withanolide",               amount:"50,0 mg",     nrv:null }
+] },
+          { id:"p30", cat:"Adaptogene",        name:"HEALTH+ Cordyceps Synergy",                  icon:"🍄", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Polysaccharide & Cordycepin gut bioverfügbar", function:"ATP-Produktion, Ausdauer (bei Untrainierten +11% VO2max in einer Studie; bei Trainierten: schwache & gemischte Evidenz), Libido/Energie, Lungenkapazität", takeWith:"2 Kapseln morgens VOR dem Frühstück mit Wasser.", competes:"Für Hypertrophie evidenzschwach (eher Ausdauer). Leicht blutdünnend. Autoimmun vorsichtig.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Cordyceps militaris-Extrakt, Cordyceps sinensis-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose), Füllstoff mikrokristalline Cellulose.",
+  nutrients:[
+    { label:"Cordyceps militaris-Extrakt", amount:"1.000,0 mg", nrv:null },
+    { label:"Cordyceps sinensis-Extrakt",  amount:"1.000,0 mg", nrv:null }
+  ] },
+          { id:"p31", cat:"Adaptogene",        name:"HEALTH+ Reishi",                             icon:"🍄", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – fettlösliche Triterpene besser mit Mahlzeit", function:"Immunmodulation, Beta-Glucane (30% Polysaccharide), Leberschutz, Stress, Schlaf", takeWith:"Laut Hersteller: 2 Kapseln morgens vor dem Frühstück. Alternativ abends für Schlaf & Entspannung. Mit Vitamin C synergistisch.", competes:"Blutdünnend. Blutdruck senkend. Vor OPs absetzen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Reishi-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"Reishi-Extrakt",         amount:"1.000,0 mg", nrv:null },
+    { label:"— davon Polysaccharide", amount:"300,0 mg",   nrv:null }
+  ] },
+          { id:"p32", cat:"Adaptogene",        name:"HEALTH+ Maca",                               icon:"🌱", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – wasserlösliche Bestandteile gut verfügbar", function:"Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)", takeWith:"Morgens mit Frühstück. Mit Ashwagandha kombinierbar.", competes:"Für Hypertrophie evidenzschwach. Vorsicht bei hormonabhängigen Erkrankungen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Macawurzelextrakt, Hydroxypropylmethylcellulose, Reismehl.",
+  nutrients:[
+    { label:"Maca-Extrakt 10:1", amount:"1.000,0 mg", nrv:null }
+  ] },
+          { id:"p33", cat:"Adaptogene",        name:"HEALTH+ OPC Traubenkernextrakt",             icon:"🍇", serving:"1 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Sehr schnell – kleine Moleküle, hohe Bioverfügbarkeit", function:"Hochpotentes pflanzliches Antioxidans (Oligomere Proanthocyanidine – Astaxanthin & Quercetin vergleichbar stark, kein alleiniger 'Stärkster'), Kollagen-Stabilisierung, Gefäße, Anti-Aging", takeWith:"Morgens nüchtern. NICHT direkt ums Training (Antioxidans). Mit Vitamin C synergistisch. Mit Kollagen.", competes:"Leicht blutdünnend. Kann Eisenaufnahme hemmen – zeitversetzt.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Traubenkernextrakt, Kapselhülle (Hydroxypropylmethylcellulose), Füllstoff (mikrokristalline Cellulose).",
+  nutrients:[
+    { label:"Traubenkernextrakt",              amount:"308,0 mg", nrv:null },
+    { label:"— davon Proanthocyanidine",      amount:"292,0 mg", nrv:null },
+    { label:"— davon OPC",                    amount:"200,0 mg", nrv:null }
+  ] },
+          { id:"p34", cat:"Adaptogene",        name:"HEALTH+ Cherry Power",                       icon:"🍒", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Gut – Anthocyane schnell resorbiert", function:"Entzündungshemmung, Regeneration, Schlaf (Melatonin), Harnsäure", takeWith:"Abends (Melatonin fördert Schlaf). NICHT im engen Trainingsfenster – kann Anpassung dämpfen.", competes:"Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"CherryPure® (Kirschpulver, Verdickungsmittel Guarkernmehl, Emulgator Sonnenblumenlecithin), Kapselhülle (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"CherryPure® Kirschpulver (50:1 Extrakt)", amount:"1.100,0 mg", nrv:null }
+  ] },
+          { id:"p35", cat:"Darm & Verdauung",  name:"HEALTH+ Enzym Komplex",                      icon:"🔬", serving:"1 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Verdauungsenzyme wirken lokal im Darm; enthaltene Pflanzenproteasen (Bromelain/Papain) werden jedoch teilweise systemisch absorbiert und wirken dort entzündungsmodulierend", function:"Verdauungsunterstützung, Nährstoffaufnahme, Blähungen", takeWith:"DIREKT VOR oder zu Beginn der Mahlzeit", competes:"Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Multienzymkomplex DigeZyme® (Füllstoff Maltodextrin, Alpha Amylase, Protease, Cellulase, Galactohydrolase Lactase, Lipase), Hydroxypropylmethylcellulose, Betainhydrochlorid, Papain, Bromelain.",
+  nutrients:[
+    { label:"Multienzymkomplex (DigeZyme®)",        amount:"250,0 mg", nrv:null },
+    { label:"— alpha-Amylase (24000 DU/g)",         amount:"",         nrv:null },
+    { label:"— neutral Protease (6000 PC/g)",       amount:"",         nrv:null },
+    { label:"— Cellulase (1100 CU/g)",              amount:"",         nrv:null },
+    { label:"— beta-D-Galactosidase (4000 ALU/g)", amount:"",         nrv:null },
+    { label:"— Lipase (200 FIP/g)",                 amount:"",         nrv:null },
+    { label:"Betainhydrochlorid",                   amount:"100,0 mg", nrv:null },
+    { label:"— davon Betain",                       amount:"76,3 mg",  nrv:null },
+    { label:"Papain (20.000 USP/mg)",               amount:"50,0 mg",  nrv:null },
+    { label:"Bromelain (2.500 GDU/g)",              amount:"83,0 mg",  nrv:null }
+  ] },
+          { id:"p36", cat:"Darm & Verdauung",  name:"HEALTH+ ProBio-TECT Pulver",                 icon:"🦠", serving:"8g",    protein:1, carbs:5,  fat:1,  kcal:35,  absorption:"Aktivierung in Flüssigkeit (10 min Ziehzeit) – Milchsäurebakterien lebend im Darm", function:"Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung. 5 Mrd. CFU aus 10 Stämmen.", takeWith:"Morgens vor oder nach dem Essen. In Wasser oder Pflanzenmilch (kalt) einrühren, 10 min ziehen lassen. Nicht mit heißen Getränken.", competes:"2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Rücksprache.", geschmack:"Neutral – nahezu geschmacksneutral (Pulver)", loeslichkeit:"Gut – in 200 ml kaltem Wasser oder Pflanzenmilch einrühren",
+  ingredients:"Maltodextrin, L-Glutamin, Sonnenblumenlecithinpulver, Inulin, Enzym Amylase, Milchsäurebakterien, Natriummolybdat.",
+  nutrients:[
+    { label:"Molybdän",             amount:"50,0 µg",    nrv:100 },
+    { label:"L-Glutamin",           amount:"1,0 g",      nrv:null },
+    { label:"Sonnenblumenlecithin", amount:"1,0 g",      nrv:null },
+    { label:"Inulin",               amount:"0,6 g",      nrv:null },
+    { label:"Amylase",              amount:"0,2 g",      nrv:null },
+    { label:"Milchsäurebakterien",  amount:"5 Mrd. CFU", nrv:null }
+  ] },
+          { id:"p37", cat:"Darm & Verdauung",  name:"HEALTH+ Nährstoff Optimizer",                icon:"🔑", serving:"2 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Piperin hemmt Darmenzyme -> mehr Nährstoffe ins Blut", function:"Bioverfügbarkeit aller Nährstoffe +20–40%, Entzündungshemmung", takeWith:"Zu Supplement-Mahlzeiten. Curcumin +2000%, Q10, Vitamine.", competes:"WICHTIG: Erhöht auch Medikamentenspiegel (hemmt CYP3A4)! Bei jeder Rx-Medikation kritisch.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Berberin HCL, Kapselhülle (Hydroxypropylmethylcellulose), Zimtrinden-Extrakt, Bittermelonen-Extrakt, Bockshornklee-Extrakt, Curcuma-Extrakt, D-Pinitol, Knoblauch-Extrakt, natürliches Aroma, schwarzer Pfeffer-Extrakt (Bioperine®).",
+  nutrients:[
+    { label:"Berberin HCl",                          amount:"706,0 mg", nrv:null },
+    { label:"— davon Berberin",                     amount:"600,0 mg", nrv:null },
+    { label:"Zimtrinden-Extrakt",                    amount:"400,0 mg", nrv:null },
+    { label:"Bittermelonen-Extrakt",                 amount:"400,0 mg", nrv:null },
+    { label:"— davon Saponine",                     amount:"40,0 mg",  nrv:null },
+    { label:"Bockshornklee-Extrakt",                 amount:"400,0 mg", nrv:null },
+    { label:"— davon Saponine",                     amount:"80,0 mg",  nrv:null },
+    { label:"Curcuma-Extrakt",                       amount:"210,0 mg", nrv:null },
+    { label:"— davon Curcuminoide",                 amount:"200,0 mg", nrv:null },
+    { label:"D-Pinitol",                             amount:"180,0 mg", nrv:null },
+    { label:"Knoblauch-Extrakt",                     amount:"100,0 mg", nrv:null },
+    { label:"— davon Alliin",                       amount:"500,0 µg", nrv:null },
+    { label:"Schwarzer Pfeffer-Extrakt (Bioperine®)", amount:"17,0 mg", nrv:null },
+    { label:"— davon Piperin",                      amount:"16,0 mg",  nrv:null }
+  ] },
+          { id:"p38", cat:"Kollagen & Gelenke",name:"HEALTH+ All In One Collagen",                icon:"✨", serving:"30g",    protein:27, carbs:0,  fat:0,  kcal:108, absorption:"Hydrolysierte Peptide (FORTIGEL®, TENDOFORTE®, BODYBALANCE®, VERISOL®) bis zu 90% bioverfügbar", function:"Haut, Haare, Nägel, Knorpel, Gelenke, Darm, Knochen, Sehnen. Enthält 4 patentierte Kollagen-Typen + Acerola-Vitamin C (50 mg, 63% NRV) + Zink (30% NRV) + Mangan (50% NRV) + Kupfer (50% NRV) + Bambusblattextrakt (53,6 mg Kieselsäure).", takeWith:"Morgens nüchtern oder VOR dem Essen. Vit C BEREITS IM PRODUKT (Acerolafruchtpulver) – kein externes Vit C nötig! 300 ml kaltes Wasser.", competes:"Kein vollständiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle. Zink (30% NRV) – mit p24 (Zink abends) auf Gesamtzufuhr achten.", geschmack:"Neutral / Leicht süßlich (Pulver) – fast geschmacksneutral. Auch Kirsche erhältlich.", loeslichkeit:"Sehr gut – klar löslich in kaltem Wasser (300 ml), 4 gestrichene Messlöffel",
+  ingredients:"Kollagenhydrolysat (Rind) [BODYBALANCE® 50,0%, FORTIGEL® 16,7%, TENDOFORTE® 16,7%, VERISOL® 8,33%], Acerolafruchtpulver, Bambusblattextrakt, Zinkbisglycinat, Mangangluconat, Kupfer(II)-gluconat.",
+  nutrients:[
+    { label:"Brennwert",             amount:"459 kJ / 108 kcal", nrv:null },
+    { label:"Fett",                  amount:"<0,5 g",            nrv:null },
+    { label:"— ges. Fettsäuren",    amount:"0,0 g",             nrv:null },
+    { label:"Kohlenhydrate",         amount:"<0,5 g",            nrv:null },
+    { label:"— Zucker",             amount:"<0,5 g",            nrv:null },
+    { label:"Ballaststoffe",         amount:"<0,5 g",            nrv:null },
+    { label:"Eiweiß",               amount:"27,0 g",            nrv:null },
+    { label:"Salz",                  amount:"0,15 g",            nrv:null },
+    { label:"Zink",                  amount:"3,0 mg",            nrv:30 },
+    { label:"Kupfer",                amount:"0,5 mg",            nrv:50 },
+    { label:"Mangan",                amount:"1,0 mg",            nrv:50 },
+    { label:"Kollagenhydrolysat",    amount:"29,6 g",            nrv:null },
+    { label:"— BODYBALANCE®",       amount:"16,2 g",            nrv:null },
+    { label:"— FORTIGEL®",          amount:"5,4 g",             nrv:null },
+    { label:"— TENDOFORTE®",        amount:"5,4 g",             nrv:null },
+    { label:"— VERISOL®",           amount:"2,7 g",             nrv:null },
+    { label:"Acerolafruchtpulver",   amount:"294,0 mg",          nrv:null },
+    { label:"— Vitamin C",          amount:"50,0 mg",           nrv:63 },
+    { label:"Bambusblattextrakt",    amount:"71,4 mg",           nrv:null },
+    { label:"— Kieselsäure",       amount:"53,6 mg",           nrv:null },
+    { label:"— Silicium",           amount:"24,6 mg",           nrv:null }
+] },
+          { id:"p39", cat:"Kollagen & Gelenke",name:"ZEC+ Arthro Essential",                      icon:"🦵", serving:"5 Kap", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Glucosaminsulfat oral ~30%; MSM gut bioverfügbar; Wirkung erst nach 4–8+ Wochen sichtbar", function:"Knorpelschutz/-aufbau, Gelenkschmierung & -schutz (Glucosamin + Chondroitin + MSM), Entzündungshemmung (Weihrauch, Ingwer, Brennnessel), Schmerzreduktion (Katzenkralle), verbesserte Absorption (Piperin)", takeWith:"Mit Mahlzeiten. Mind. 3 Monate durchgehend einnehmen für echten Knorpel-Effekt.", competes:"Glucosamin kann Blutzucker leicht erhöhen (Diabetiker aufpassen). Chondroitin & Katzenkralle leicht blutdünnend. Piperin erhöht Medikamentenspiegel – Rx-Medi beachten!", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"D-Glucosaminsulfatdikaliumchlorid (Krebstiere), Methylsulfonylmethan, Natrium-Chondroitinsulfat (Rind), Gelatine (Rind), Brennesselwurzelextrakt, Katzenkrallenwurzelextrakt, Ingwerrhizomextrakt, Weihrauchgummiharzextrakt, Trennmittel (Magnesiumsalze der Speisefettsäuren), Schwarzer Pfefferextrakt.",
+  nutrients:[
+    { label:"Glucosaminsulfatdikaliumchlorid",   amount:"1.990,0 mg", nrv:null },
+    { label:"— davon Glucosaminsulfat",         amount:"1.500,0 mg", nrv:null },
+    { label:"— davon Glucosamin",              amount:"1.178,0 mg", nrv:null },
+    { label:"Methylsulfonylmethan (MSM)",        amount:"1.500,0 mg", nrv:null },
+    { label:"Chondroitinsulfat",                 amount:"1.000,0 mg", nrv:null },
+    { label:"Brennesselwurzelextrakt 10:1",      amount:"400,0 mg",   nrv:null },
+    { label:"Katzenkrallenwurzelpulver",         amount:"400,0 mg",   nrv:null },
+    { label:"Ingwerrhizomextrakt",              amount:"300,0 mg",   nrv:null },
+    { label:"— davon Gingerole",               amount:"15,0 mg",    nrv:null },
+    { label:"Weihrauchextrakt",                  amount:"250,0 mg",   nrv:null },
+    { label:"— davon Boswelliasäuren",         amount:"163,0 mg",   nrv:null },
+    { label:"Schwarzer Pfefferextrakt",          amount:"5,3 mg",     nrv:null },
+    { label:"— davon Piperin",                 amount:"5,0 mg",     nrv:null }
+  ] },
+          { id:"p40", cat:"Schlaf & Erholung", name:"ZEC+ Sleep",                                 icon:"🌙", serving:"4 Kap",   protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Schnell – Melatonin wirkt in 20–30 min", function:"Einschlafförderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschüttung", takeWith:"30 min vor Schlaf. Mit ZEC+ Casein für nächtliche Muskelversorgung.", competes:"Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg).", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Magnesiumcitrat, L-Tryptophan, Kapselhülle (Hydroxypropylmethylcellulose), Melissen-Extrakt, Grüntee-Extrakt, Ashwagandha-Extrakt, Kamillen-Extrakt, Hopfen-Extrakt, Füllstoff mikrokristalline Cellulose, Trennmittel Magnesiumsalze von Speisefettsäuren",
+  nutrients:[
+    { label:"Magnesium",                       amount:"300,0 mg",  nrv:80 },
+    { label:"L-Tryptophan",                    amount:"1.000,0 mg", nrv:null },
+    { label:"Melissen-Extrakt",                amount:"400,0 mg",  nrv:null },
+    { label:"Grüntee-Extrakt",                 amount:"334,0 mg",  nrv:null },
+    { label:"— davon L-Theanin",             amount:"200,4 mg",  nrv:null },
+    { label:"Ashwagandha-Extrakt (Shoden®)",   amount:"200,0 mg",  nrv:null },
+    { label:"— davon Withanolidglykoside",    amount:"70,0 mg",   nrv:null },
+    { label:"Kamillen-Extrakt",                amount:"52,0 mg",   nrv:null },
+    { label:"— davon Apigenin",              amount:"51,0 mg",   nrv:null },
+    { label:"Hopfen-Extrakt",                  amount:"50,0 mg",   nrv:null }
+  ] },
+          { id:"p41", cat:"Schlaf & Erholung", name:"ZEC+ Schatten der Liebe",                    icon:"🌸", serving:"6 Kap",   protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – pflanzliche Extrakte variieren; L-Citrullin schnell (30–60 min)", function:"Libido & Potenz (L-Citrullin → NO-Boost & Durchblutung), Testosteron & Energie (Bockshornklee), Energie & Ausdauer (Maca-Extrakt), Entzündungshemmung (Ingwer-Extrakt)", takeWith:"Abends mit Abendessen oder 1–2h vor dem Schlafengehen. Mit p32 (Maca) kombinierbar, aber Doppeldosis beachten!", competes:"WICHTIG: Enthält L-Citrullin – Dosis beachten wenn p14 (Citrullin Malat) am gleichen Tag! Enthält Maca – bei Kombinat. mit p32 Doppeldosis. Nicht mit PDE5-Hemmern (Viagra). Vorsicht bei Herzproblemen.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"L-Citrullin-DL-Malat 2:1, Macawurzelextrakt, Hydroxypropylmethylcellulose, Bockshornkleesamenextrakt, Ingwerrhizomextrakt",
+  nutrients:[
+    { label:"L-Citrullin-DL-Malat 2:1",     amount:"3.264,0 mg", nrv:null },
+    { label:"— davon L-Citrullin",          amount:"2.040,0 mg", nrv:null },
+    { label:"Macawurzelextrakt",             amount:"2.000,0 mg", nrv:null },
+    { label:"Bockshornkleesamenextrakt",     amount:"600,0 mg",   nrv:null },
+    { label:"— davon Saponine",             amount:"120,0 mg",   nrv:null },
+    { label:"Ingwerrhizomextrakt",           amount:"504,0 mg",   nrv:null },
+    { label:"— davon Gingerole",            amount:"25,2 mg",    nrv:null }
+  ] },
+          { id:"p42", cat:"Schlaf & Erholung", name:"Baldrian-ratiopharm",                             icon:"🌿", serving:"1-2 Kap",protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Mittel – Valerensäure gut resorbiert; Wirkung nach 2–4 Wochen regelmäßig besser", function:"Einschlafunterstützung, Angstlösung, Muskelentspannung, Nervosität", takeWith:"30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.", competes:"Nicht mit Alkohol oder Benzodiazepinen. Tagesmüdigkeit möglich. ⚠️ Enthält Titandioxid (E171) – in Lebensmitteln seit 2022 EU-weit verboten; als Arzneimittel noch zugelassen (Übergangsregelung).", geschmack:"Nicht relevant (Dragée/Kapsel) – leichter Baldrian-Eigengeruch", loeslichkeit:"Nicht anwendbar (Dragée/Kapsel)",
+  ingredients:"Baldrianwurzel-Trockenextrakt (3-6:1) (Auszugsmittel: Ethanol 70%), Saccharose, Glucose-Sirup, Arabisches Gummi, Calciumcarbonat, Croscarmellose-Natrium, Cellulosepulver, Hochdisperses Siliciumdioxid, Stearinsäure, Talkum, Tragant, Titandioxid, Indigocarmin",
+  nutrients:[
+    { label:"Baldrianwurzel-Trockenextrakt (3-6:1)", amount:"450,0 mg", nrv:null }
+  ] },
+          { id:"p43", cat:"Pre-Workout",       name:"ZEC+ Re-Act 2.0",                            icon:"⚡", serving:"~95g",  protein:44, carbs:41, fat:0,  kcal:350, absorption:"Schnell – Koffein Peak bei 60 min", function:"Energie & Fokus, Reaktionszeit, Ausdauer, Pre-Workout-Aktivierung", takeWith:"30–45 min pre-workout. Nüchtern oder leichte Mahlzeit.", competes:"Nicht mit anderen Koffeinquellen. Nicht abends. Beta-Alanin-Kribbeln ist normal.", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Cherry, Watermelon, Citrus)", loeslichkeit:"Sehr gut – löst sich schnell in 300–400 ml Wasser",
+  ingredients:"Milcheiweiß (Molkeneiweißisolat), Maltodextrin, Isomaltulosepulver, Dextrose, Glycin, Kreatinmonohydrat (Creapure®), L-Glutamin alpha-Ketoglutarat 2:1, γ-Aminobuttersäure, Säuerungsmittel (Citronensäure), L-Citrullin-DL-Malat 2:1, Taurin, Aroma, L-Leucin, L-Lysin-Monohydrochlorid, L-Valin, L-Isoleucin, L-Phenylalanin, L-Threonin, Ashwagandhawurzelextrakt (KSM-66®), L-Methionin, L-Tryptophan, Süßungsmittel (Acesulfam K, Sucralose), Multienzymkomplex (DigeZyme®), Emulgator (Lecithine), Extrakt aus Panax notoginseng und Astragalus membranaceus (AstraGin™), Nicotinamid, Calcium-D-pantothenat, Farbstoff (Carotin), Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, L-5-Methyltetrahydrofolsäure Calciumsalz, Methylcobalamin",
+  nutrients:[
+    { label:"Thiamin (B1)",                                    amount:"0,32 mg",     nrv:29 },
+    { label:"Riboflavin (B2)",                                 amount:"0,44 mg",     nrv:31 },
+    { label:"Niacin (B3)",                                     amount:"4,8 mg NE",   nrv:30 },
+    { label:"Vitamin B6",                                      amount:"0,43 mg",     nrv:31 },
+    { label:"Folsäure",                                        amount:"70,1 µg",     nrv:35 },
+    { label:"Vitamin B12",                                     amount:"1,6 µg",      nrv:64 },
+    { label:"Pantothensäure",                                  amount:"1,8 mg",      nrv:30 },
+    { label:"Selen",                                           amount:"13,0 µg",     nrv:24 },
+    { label:"Creatin Monohydrat (Creapure®)",                  amount:"4,0 g",       nrv:null },
+    { label:"— davon Creatin",                                amount:"3,5 g",       nrv:null },
+    { label:"L-Glutamin Alpha-Ketoglutarat 2:1",               amount:"4,0 g",       nrv:null },
+    { label:"Gamma Amino Buttersäure (GABA)",                  amount:"2,0 g",       nrv:null },
+    { label:"L-Citrullin Malat 2:1",                           amount:"2,0 g",       nrv:null },
+    { label:"— davon L-Citrullin",                            amount:"1.250,0 mg",  nrv:null },
+    { label:"Taurin",                                          amount:"2,0 g",       nrv:null },
+    { label:"Ashwagandhawurzelextrakt (KSM-66®)",              amount:"600,0 mg",    nrv:null },
+    { label:"— davon Withanolide",                            amount:"30,0 mg",     nrv:null },
+    { label:"Multienzymkomplex (DigeZyme®)",                   amount:"250,0 mg",    nrv:null },
+    { label:"Extrakt aus Panax notoginseng & Astragalus (AstraGin™)", amount:"25,0 mg", nrv:null }
+  ] },
+          { id:"p44", cat:"Pre-Workout",       name:"ZEC+ Pumpdown Pump-Booster",                 icon:"💪", serving:"~30g",  protein:13, carbs:3,  fat:0,  kcal:84,  absorption:"Schnell – 30–45 min vor Training", function:"Maximaler Pump, Durchblutung, Gefäßerweiterung – koffeinfrei", takeWith:"Pre-workout. Kombinierbar mit Koffein-Booster.", competes:"Nicht mit PDE5-Hemmern. Blutdruck senkend -> Vorsicht bei Hypotonie.", geschmack:"Verschiedene Geschmacksrichtungen", loeslichkeit:"Gut – im Shaker mit 300 ml Wasser",
+  ingredients:"Dextrin, L-Citrullin-Malat, Arginin AKG, HydroMax™ Glycerol, Taurin, Ornithin AKG, Betain Anhydrous, N-Acetyl-L-Tyrosin, Inositol, Farbstoff Beta-Carotin (1%ig), Aroma, N-Acetyl-Cystein, Kiefernrinden Extrakt, Traubenkern Extrakt, L-Norvalin, Panax Ginseng Extrakt, Resveratrol, Säuerungsmittel Citronensäure, Süßungsmittel: Acesulfam K und Sucralose, Vitamin C (Askorbinsäure), Vitamin B6 (Pyridoxin Hydrochlorid), Vitamin B9",
+  nutrients:[
+    { label:"Vitamin C",           amount:"100,0 mg",  nrv:125 },
+    { label:"Vitamin B6",          amount:"2,0 mg",    nrv:143 },
+    { label:"Vitamin B9",          amount:"500,0 µg",  nrv:250 },
+    { label:"L-Citrullin-Malat",   amount:"6,0 g",     nrv:null },
+    { label:"Arginin-AKG",         amount:"3,0 g",     nrv:null },
+    { label:"HydroMax™ Glycerol",  amount:"2,0 g",     nrv:null },
+    { label:"Taurin",              amount:"2,0 g",     nrv:null },
+    { label:"Ornithin-AKG",        amount:"2,0 g",     nrv:null },
+    { label:"Betain Anhydrous",    amount:"1,5 g",     nrv:null },
+    { label:"N-Acetyl-L-Tyrosin",  amount:"1,5 g",     nrv:null },
+    { label:"Inositol",            amount:"1,0 g",     nrv:null },
+    { label:"N-Acetyl-Cystein",    amount:"0,3 g",     nrv:null },
+    { label:"Kiefernrindenextrakt",amount:"0,2 g",     nrv:null },
+    { label:"Traubenkernextrakt",  amount:"0,2 g",     nrv:null },
+    { label:"L-Norvalin",          amount:"0,2 g",     nrv:null },
+    { label:"Panax Ginseng Extrakt",amount:"0,2 g",   nrv:null },
+    { label:"Resveratrol",         amount:"0,2 g",     nrv:null }
+  ] },
+          { id:"p45", cat:"Pre-Workout",       name:"ZEC+ Kickdown Evolution",                    icon:"🔥", serving:"~30g",  protein:10, carbs:6,  fat:0,  kcal:80,  absorption:"Schnell – 30–45 min vor Training", function:"Extremer Fokus, Energie, Kraft-Gefühl, mentale Schärfe", takeWith:"Nüchtern oder leichte Mahlzeit. Nicht nach 14 Uhr.", competes:"⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Nicht für Koffein-Sensible oder Personen mit Bluthochdruck. Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off).", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Berry, Citrus, Cola)", loeslichkeit:"Gut – löst sich in 300 ml Wasser",
+  ingredients:"Resistentes Maisdextrin, L-Citrullin-DL-Malat 2:1, L-Arginin Nitrat, L-Tyrosin, L-Ornithin Alpha Ketoglutarat 1:1, Betainanhydrat, Inositol, Chinesischer Raupenpilzmyzelextrakt (enthält Sulphite), Trennmittel (Siliciumdioxid), Magnesiumbisglycinat, Säuerungsmittel (Citronensäure), Aroma, Weißer Teeblattextrakt, Citicolin, mikroverkapseltes Koffein (Koffein, Überzugsmittel (Mono- und Diglyceride von Speisefettsäuren)) (NEWCAFF™-75 Microcapsules), Koffeinanhydrat, N-Acetyl-L-Cystein, Schisandra sphenanthera Fruchtextrakt, Mangoblattextrakt (Zynamite®), Süßungsmittel (Acesulfam K, Sucralose, Natriumcyclamat), Extraktmischung S7™ (Grüner Kaffeebohnenextrakt, Grünteeextrakt, Kurkumaextrakt, Sauerkirschpulver, Blaubeerenpulver, Brokkolipulver, Grünkohlpulver), Farbstoff (Carotin), Methylcobalamin",
+  nutrients:[
+    { label:"Vitamin B12",                     amount:"500,4 µg",    nrv:20015 },
+    { label:"Magnesium",                       amount:"100,5 mg",    nrv:27 },
+    { label:"L-Citrullin-Malat",               amount:"6.000,0 mg",  nrv:null },
+    { label:"Trimethylglycin",                 amount:"2.000,0 mg",  nrv:null },
+    { label:"L-Ornithin-Alpha-Ketoglutarat",   amount:"2.000,0 mg",  nrv:null },
+    { label:"L-Tyrosin",                       amount:"2.000,0 mg",  nrv:null },
+    { label:"Pilz Mischung PEAK O2™",          amount:"2.000,0 mg",  nrv:null },
+    { label:"N-Acetyl-L-Cystein",              amount:"500,0 mg",    nrv:null },
+    { label:"Weißer Tee-Extrakt",              amount:"500,0 mg",    nrv:null },
+    { label:"Citicolin",                       amount:"500,0 mg",    nrv:null },
+    { label:"Inosit",                          amount:"1.000,0 mg",  nrv:null },
+    { label:"Schisandra-Extrakt",              amount:"200,0 mg",    nrv:null },
+    { label:"Mangoblatt-Extrakt (Zynamite®)",  amount:"200,0 mg",    nrv:null },
+    { label:"Extraktmischung S7™",             amount:"100,0 mg",    nrv:null },
+    { label:"Newcaff™ (60% Koffein)",          amount:"263,0 mg",    nrv:null },
+    { label:"— davon Koffein",               amount:"197,0 mg",    nrv:null },
+    { label:"Natürliches Koffein",             amount:"203,0 mg",    nrv:null },
+    { label:"— davon Koffein",               amount:"203,0 mg",    nrv:null },
+    { label:"Koffein gesamt",                  amount:"400,0 mg",    nrv:null }
+  ] },
+          { id:"p46", cat:"Pre-Workout",       name:"ZEC+ Kickdown Nitro",                        icon:"💥", serving:"~20g",  protein:16, carbs:1,  fat:0,  kcal:79,  absorption:"Schnell", function:"Max. Trainingsintensität, Ausdauer, Pump + Energie kombiniert", takeWith:"30–45 min pre-workout. Für erfahrene Nutzer.", competes:"⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Alle Koffein-Warnungen verstärkt. Nicht täglich – HF beachten.", geschmack:"Verschiedene Geschmacksrichtungen", loeslichkeit:"Gut – im Shaker mit 300–400 ml Wasser",
+  ingredients:"L-Citrullin-DL-Malat 2:1, L-Arginin-Nitrat, L-Tyrosin, Betainanhydrat, Taurin, Säuerungsmittel (Citronensäure), Aroma, Kokosnusssaftextraktpulver (Kokosnusssaftextrakt, Dextrose, Maltodextrin - Cococin™ WS), Löwenmähnenfruchtkörperextrakt (enthält Sulphite), Citicolin, Koffeinanhydrat, färbendes Lebensmittel (Rote Beetesaftpulver), Kakaobohnenextrakt, resistentes Maisdextrin, Trennmittel (Siliciumdioxid), Süßungsmittel (Acesulfam K, Natriumcyclamat, Natriumsaccharin)",
+  nutrients:[
+    { label:"L-Citrullin-DL-Malat 2:1",         amount:"6,0 g",    nrv:null },
+    { label:"— davon L-Citrullin",              amount:"3,8 g",    nrv:null },
+    { label:"L-Arginin Nitrat",                  amount:"3,1 g",    nrv:null },
+    { label:"— davon Nitrat",                   amount:"800,0 mg", nrv:null },
+    { label:"— davon L-Arginin",               amount:"2,3 g",    nrv:null },
+    { label:"Betain",                            amount:"2,0 g",    nrv:null },
+    { label:"Taurin",                            amount:"2,0 g",    nrv:null },
+    { label:"Citicolin",                         amount:"500,0 mg", nrv:null },
+    { label:"Löwenmähnenfruchtkörperextrakt",   amount:"500,0 mg", nrv:null },
+    { label:"— davon Polysaccharide",           amount:"150,0 mg", nrv:null },
+    { label:"— davon beta-Glucane",            amount:"100,0 mg", nrv:null },
+    { label:"Koffein",                           amount:"400,0 mg", nrv:null },
+    { label:"Kakaobohnenextrakt",                amount:"353,0 mg", nrv:null },
+    { label:"— davon Theobromin",              amount:"53,0 mg",  nrv:null },
+    { label:"Kokosnusssaftextrakt",              amount:"286,0 mg", nrv:null },
+    { label:"— davon freie Aminosäuren",        amount:"510,0 µg", nrv:null },
+    { label:"L-Tyrosin",                         amount:"2,0 g",    nrv:null }
+  ] },
+          { id:"p47", cat:"Pre-Workout",       name:"ZEC+ Fight+ Pre Fight",                      icon:"🥊", serving:"7g",    protein:3,  carbs:1,  fat:0,  kcal:12,  absorption:"Schnell – 30–45 min vor Kampf/Training", function:"Kampfsport-Performance, Reaktion, Ausdauer, Fokus, explosive Kraft", takeWith:"Pre-Fight oder Pre-Training. Nicht mit anderen Boostern.", competes:"Alle Pre-Workout-Warnungen. Manche Verbände testen auf Stimulanzien.", geschmack:"Verschiedene Geschmacksrichtungen (z.B. Cherry, Tropical)", loeslichkeit:"Gut – im Shaker mit 300 ml Wasser",
+  ingredients:"L-Tyrosin, Säuerungsmittel (Citronensäure), resistentes Maisdextrin, Citicolin, Chinesischer Raupenpilzmyzelextrakt (enthält Sulphite), Adenosin 5'-Triphosphat Dinatrium (Peak ATP®), Mangoblattextrakt (Zynamite®), Extraktmischung (Apfelschalenextrakt, Weintraubentresterextrakt, Safranblütenextrakt, enthält Schwefeldioxid / Sulfite) (enostim™), natürliches Aroma, Süßungsmittel (Acesulfam K, Sucralose), Mangofruchtpulver (Careflow®), Coenzym Q10, Ringelblumenblütenextrakt (ZeaONE™ / Optisharp™)",
+  nutrients:[
+    { label:"L-Tyrosin",                                    amount:"3,0 g",    nrv:null },
+    { label:"Citicolin",                                    amount:"500,0 mg", nrv:null },
+    { label:"— davon Cholin",                              amount:"101,0 mg", nrv:null },
+    { label:"Chinesischer Raupenpilzmyzelextrakt (CS-4)",  amount:"500,0 mg", nrv:null },
+    { label:"Adenosin 5'-Triphosphat Dinatrium (Peak ATP®)", amount:"400,0 mg", nrv:null },
+    { label:"Mangoblattextrakt (Zynamite®)",                amount:"300,0 mg", nrv:null },
+    { label:"— davon Mangiferin",                          amount:"45,0 mg",  nrv:null },
+    { label:"Extraktmischung (enostim™)",                   amount:"300,0 mg", nrv:null },
+    { label:"Mangofruchtpulver (Careflow®)",                amount:"100,0 mg", nrv:null },
+    { label:"Coenzym Q10",                                  amount:"100,0 mg", nrv:null },
+    { label:"Ringelblumenblütenextrakt (ZeaONE™)",         amount:"40,0 mg",  nrv:null },
+    { label:"— davon Zeaxanthin",                          amount:"2,0 mg",   nrv:null }
+  ] },
+          { id:"p48", cat:"Herz & Lunge",      name:"HEALTH+ Protect Heart",                      icon:"❤️", serving:"4 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"Q10 fettlöslich – Ubiquinol-Form 8x besser als Ubiquinon; mit Fett. Nattokinase: auf nüchternem Magen.", function:"Herzmuskel-Energie (Q10 200mg), Gefäßschutz (Traubenkern 800mg OPC), Herzrhythmus, Blutdruck (Nattokinase, R-ALA, S7®-Pflanzenformel)", takeWith:"4 Kapseln täglich mit ausreichend Flüssigkeit. Mit fettreicher Mahlzeit (Q10 fettlöslich). Abends für Herzregeneration im Schlaf.", competes:"Statine + Q10 – Arzt konsultieren. Blutdünnende Effekte beachten (Nattokinase + Traubenkern). Enthält Soja (Allergen).", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Terminalia arjuna-Extrakt, schwarzer Knoblauch-Extrakt, Traubenkern-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose), R-alpha-Liponsäure Natriumsalz, Kakaobohnen-Extrakt, Coenzym Q10, Nattokinase, Füllstoff mikrokristalline Cellulose, Pflanzen-Extrakt Mischung (Grüne Kaffeebohnen-Extrakt, Grüntee-Extrakt, Curcuma-Extrakt, Sauerkirschfruchtpulver, Heidelbeerfruchtpulver, Brokkolipulver, Grünkohlpulver), Trennmittel Magnesiumsalze von Speisefettsäuren. Enthält Soja.",
+  nutrients:[
+    { label:"Terminalia arjuna-Extrakt (Oxyjun®)",     amount:"1.000,0 mg", nrv:null },
+    { label:"— davon Arjunophenole",                  amount:"300,0 mg",   nrv:null },
+    { label:"— davon Terminaloside",                  amount:"150,0 mg",   nrv:null },
+    { label:"Schwarzer Knoblauch-Extrakt",             amount:"1.000,0 mg", nrv:null },
+    { label:"— davon SAC",                            amount:"1,0 mg",     nrv:null },
+    { label:"Traubenkern-Extrakt",                     amount:"800,0 mg",   nrv:null },
+    { label:"— davon OPC",                            amount:"400,0 mg",   nrv:null },
+    { label:"R-alpha-Liponsäure Natriumsalz",          amount:"250,0 mg",   nrv:null },
+    { label:"— davon R-alpha-Liponsäure",             amount:"200,0 mg",   nrv:null },
+    { label:"Kakaobohnen-Extrakt",                     amount:"250,0 mg",   nrv:null },
+    { label:"— davon Theobromin",                     amount:"50,0 mg",    nrv:null },
+    { label:"Coenzym Q10",                             amount:"200,0 mg",   nrv:null },
+    { label:"Nattokinase (20.000 FU/g)",               amount:"200,0 mg",   nrv:null },
+    { label:"Pflanzen-Extrakt Mischung (S7®)",         amount:"100,0 mg",   nrv:null }
+  ] },
+          { id:"p49", cat:"Herz & Lunge",      name:"HEALTH+ Protect Lunge",                      icon:"🫁", serving:"2 Kap",  protein:0, carbs:0,  fat:0,  kcal:0,   absorption:"NAC gut bioverfügbar; Vitamin B2 (300% NRV) wasserlöslich; Eukalyptus & Thymian lokal wirksam", function:"Lungengesundheit, Schleimhautschutz, Atemwege, Entzündungshemmung (NAC 1000mg, Lungenkraut 300mg, Eukalyptus 300mg, Thymian 200mg, B2 300% NRV)", takeWith:"2 Kapseln täglich morgens nüchtern mit ausreichend Flüssigkeit. Mit Vitamin C für maximale Glutathion-Produktion.", competes:"NAC verlängert Gerinnungszeit. Vorsicht mit Nitroglycerin.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"N-Acetyl-Cystein, Kapselhülle (Hydroxypropylmethylcellulose), Eukalyptus-Extrakt, Lungenkraut-Extrakt, Thymianpulver, Füllstoff mikrokristalline Cellulose, Riboflavin.",
+  nutrients:[
+    { label:"Vitamin B2 – Riboflavin", amount:"4,2 mg",     nrv:300 },
+    { label:"Lungenkraut-Extrakt",     amount:"300,0 mg",   nrv:null },
+    { label:"Thymianpulver",           amount:"200,0 mg",   nrv:null },
+    { label:"Eukalyptus-Extrakt",      amount:"300,0 mg",   nrv:null },
+    { label:"N-Acetyl-Cystein",        amount:"1.000,0 mg", nrv:null }
+  ] },
+          { id:"p50", cat:"Schlaf & Erholung", name:"WICK ZzzQuil® Gute Nacht Spray",             icon:"🌙", serving:"4-6 Sprühstöße", protein:0, carbs:0, fat:0, kcal:0, absorption:"Sehr schnell – sublingual/Schleimhaut, wirkt in 10–20 min (schneller als Kapsel)", function:"Einschlafförderung, Schlafrhythmus-Regulierung, Jetlag, schnelle Wirkung durch Sprühapplikation", takeWith:"30 min vor dem Zubettgehen direkt in den Mund sprühen.", competes:"Nicht mit Alkohol oder sedierenden Substanzen. Niedrig dosieren. Nicht für Kinder unter 12 J.", geschmack:"Lavendel- und Orangengeschmack", loeslichkeit:"Nicht anwendbar – Spray",
+  ingredients:"Demineralisiertes Wasser, Stabilisatoren (Pflanzliches Glycerin, Sorbitsirup), Konservierungsstoff (Kaliumsorbat), Melatonin, Säureregulator (Citronensäure), Natürliche Aromen, Lavendelöl (Lavandula angustifolia), Süßungsmittel (Sucralose)",
+  nutrients:[
+    { label:"Melatonin", amount:"1,0 mg", nrv:null }
+  ] },
+          { id:"p51", cat:"Omega & Öle",       name:"HEALTH+ Nachtkerzenöl",                      icon:"🌼", serving:"2 Kap", protein:0, carbs:0, fat:2, kcal:18, absorption:"Fettlöslich – GLA wird im Körper zu DGLA umgewandelt; immer mit Mahlzeit einnehmen", function:"Hormonbalance (GLA), Haut & Haare & Nägel, Entzündungshemmung, PMS-Linderung, Gelenk-Unterstützung", takeWith:"Mit fettreicher Mahlzeit. Synergie mit Omega-3 (p28) – balanciert Omega-6/3-Verhältnis optimal.", competes:"Nicht mit Blutverdünnern. Zu viel Omega-6 ohne Omega-3 kann kontraproduktiv wirken – immer zusammen mit Fischöl nehmen!", geschmack:"Nicht relevant (Kapsel) – ggf. leichter Öl-Eigengeschmack beim Aufstoßen", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Nachtkerzenöl, RRR-alpha-Tocopherol-Konzentrat (Vitamin E), Kapselhülle (Gelatine).",
+  nutrients:[
+    { label:"Nachtkerzenöl",          amount:"1.000,0 mg", nrv:null },
+    { label:"— davon GLA",            amount:">90,0 mg",   nrv:null },
+    { label:"Vitamin E (Tocopherol)", amount:"18,2 mg",    nrv:152 }
+  ] },
+          { id:"p54", cat:"Aminosäuren",       name:"HEALTH+ N-Acetyl-L-Cystein (NAC)",           icon:"🛡️", serving:"2 Kap",  protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut oral verfügbar – NAC als acetylierte, stabilisierte Form deutlich besser bioverfügbar als reines L-Cystein. Mahlzeit kaum relevant.", function:"Glutathion-Vorstufe (stärkstes körpereigenes Antioxidans), Entgiftung von Schwermetallen & Giftstoffen (Leber & Niere), Atemwegschutz & Schleimhautaufbau (Bronchien), Immunsystem, Zellschutz, kognitive Leistung", takeWith:"30 min vor einer Mahlzeit, 2 Kapseln mit ausreichend Wasser. Mit Vitamin C für maximale Glutathion-Synthese. Mit p49 (Protect Lunge) kombinierbar.", competes:"Verlängert Gerinnungszeit – Vorsicht mit Blutverdünnern (Warfarin, Aspirin). NICHT direkt ums Training – dämpft Trainings-ROS als Wachstumssignal.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"N-Acetyl-Cystein, Kapselhülle (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"N-Acetyl-Cystein", amount:"1.000,0 mg", nrv:null }
+  ] },
+          { id:"p55", cat:"Herz & Lunge",      name:"HEALTH+ Coenzym Q10",                        icon:"❤️", serving:"1 Kap",  protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – immer mit fetthaltiger Mahlzeit einnehmen (Galle für Absorption nötig). Ubiquinol-Form wäre 8x bioverfügbarer – dieses Produkt enthält Ubiquinon.", function:"Mitochondriale ATP-Produktion & Herzmuskel-Energie, Antioxidans in Mitochondrien & Zellmembranen, Schutz vor oxidativem Stress, Energie & Ausdauer", takeWith:"Mit fettreicher Mahlzeit (Galle für Absorption nötig). Abends für Herzregeneration im Schlaf.", competes:"Statine blockieren körpereigene Q10-Synthese → bei Statineinnahme besonders wichtig! Ubiquinol-Form hat deutlich bessere Bioverfügbarkeit als Ubiquinon.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Füllstoff (mikrokristalline Cellulose), Coenzym Q10, Hydroxypropylmethylcellulose.",
+  nutrients:[
+    { label:"Coenzym Q10", amount:"100,0 mg", nrv:null }
+  ] },
+          { id:"p56", cat:"Vitamine",           name:"Robert Franz Vitamin K2 Tropfen",            icon:"🦴", serving:"1 Tropfen", protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme. MK-7-Form hat längste Halbwertszeit (Wochen) und beste Bioverfügbarkeit unter allen K2-Formen.", function:"Calcium-Steuerung (lenkt Calcium in Knochen statt Arterien & Weichgewebe), Osteocalcin-Aktivierung, Kardiovaskulärer Schutz, Knochenaufbau", takeWith:"IMMER zusammen mit D3 (p22) einnehmen – gegenseitig unverzichtbar! MORGENS mit fetthaltiger Mahlzeit.", competes:"NIEMALS K2 ohne D3 – und umgekehrt! Vorsicht mit Warfarin/Marcumar (Vitamin-K-Antagonisten) – Arzt fragen!", geschmack:"Neutraler Öl-Eigengeschmack (MCT-Träger)", loeslichkeit:"In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
+  ingredients:"MCT-Öl aus Kokos, Vitamin K2 (Menachinon).",
+  nutrients:[
+    { label:"Vitamin K2 (Menachinon)", amount:"20,0 µg", nrv:27 }
+  ] },
+          { id:"p57", cat:"Vitamine",            name:"Robert Franz OPC 65",                        icon:"🍇", serving:"1 Kap",  protein:0,  carbs:0,  fat:0,  kcal:0,   absorption:"Gut oral resorbierbar – Traubenkernextrakt mit 65% OPC-Anteil; kurz nach der Mahlzeit für optimale Verträglichkeit.", function:"Starkes Antioxidans (Oligomere Proanthocyanidine aus Traubenkernen): verbessert Blutfließeigenschaft, verhindert Blutverklumpung, erhöht Gefäßelastizität, natürlicher UV-Schutz, verstärkt Wirkung von Vitamin C & E.", takeWith:"Kurz nach der Mahlzeit mit ausreichend Flüssigkeit. Synergie mit Vitamin C (p21). Morgens oder mittags einnehmen.", competes:"NICHT direkt vor oder nach dem Training – OPC dämpft Trainings-ROS (Wachstumssignale)! Nicht mit Blutverdünnern. Multi (p27) enthält bereits OPC – Gesamtdosis beachten.", geschmack:"Nicht relevant (Kapsel)", loeslichkeit:"Nicht anwendbar (Kapsel)",
+  ingredients:"Polyphenolhaltiges Traubenkernextrakt (OPC), Überzugsmittel (Hydroxypropylmethylcellulose).",
+  nutrients:[
+    { label:"Traubenkernextrakt", amount:"350,0 mg", nrv:null },
+    { label:"— davon OPC",        amount:"227,5 mg", nrv:null }
+  ] }
+        ];
+
+        const PRODUCT_FLAVORS = {
+          "p1":  "Vanilla",
+          "p2":  "Cherry",
+          "p8":  "White Chocolate Coconut",
+          "p12": "Neutral",
+          "p43": "Mango Tango",
+          "p44": "Tropical Fruit"
+        };
+
+        const PRODUCT_BADGES = {
+          "p15": { text: "⚠ EU Novel Food (HICA)", type: "banned"  },
+          "p2":  { text: "Ausverkauft",       type: "soldout" },
+          "p4":  { text: "Ausverkauft",       type: "soldout" },
+          "p5":  { text: "Ausverkauft",       type: "soldout" },
+          "p6":  { text: "Ausverkauft",       type: "soldout" },
+          "p10": { text: "Ausverkauft",       type: "soldout" },
+          "p11": { text: "Ausverkauft",       type: "soldout" },
+          "p14": { text: "Ausverkauft",       type: "soldout" },
+          "p25": { text: "Ausverkauft",       type: "soldout" },
+          "p27": { text: "Ausverkauft",       type: "soldout" },
+          "p31": { text: "Ausverkauft",       type: "soldout" },
+          "p54": { text: "Ausverkauft",       type: "soldout" },
+          "p55": { text: "Ausverkauft",       type: "soldout" }
+        };
+
+        // DATENSTRUKTUR FUER DIE TIMELINE (Die Uhrzeiten werden jetzt dynamisch berechnet)
+        // offsetMinutes bestimmt den Abstand zur eingegebenen Aufwachzeit
+        // isRelativeTosleep: true bedeutet, dass offsetMinutes VOR der Schlafzeit berechnet wird
+        // Nur verfügbare Produkte – ausverkaufte (p2,p4,p5,p6,p10,p11,p14,p25,p27,p31,p54,p55) & verbotene (p15) entfernt
+        const TIMELINE_CONFIG = [
+          { id:"t1", label:"Aufwachen & Nuechtern", offsetMinutes: 0, duration: 30, icon:"", color:"#f59e0b", bg:"#1a0f00", border:"#92400e", why:": WASSER: Mindestens 300ml – 400ml lauwarmes Wasser.<br><br>Nüchternmagen = maximale Nährstoffaufnahme. Cortisol morgens hoch → R-ALA jetzt am effektivsten absorbierbar (Fett/Protein –40% Bioverfügbarkeit). OPC nüchtern für maximale Bioverfügbarkeit. Probiotikum nüchtern – Magensäure am niedrigsten, Bakterien überleben besser.", productIds:["p17","p33","p36"], notes:{ p17:"MUSS nüchtern sein – Fett/Protein reduziert Aufnahme um 40%. NICHT direkt ums Training – R-ALA dämpft Trainings-ROS!", p33:"Nüchtern für maximale Bioverfügbarkeit. Synergie mit Vit C (p21) – OPC & Vit C zusammen potenzieren Wirkung.", p36:"Magensäure nach dem Aufwachen am niedrigsten → Bakterien überleben Magen besser. 10 min in kaltem Wasser ziehen lassen." }, priority:{ p17:"MUSS", p33:"WICHTIG", p36:"WICHTIG" } },
+          { id:"t2", label:"Fruehstueck", offsetMinutes: 45, duration: 45, icon:"", color:"#10b981", bg: "#001a0f", border: "#065f46", why:": WASSER: Volles grosses Glas (350ml – 500ml) zu den Kapseln.<br><br>Fettreiche Mahlzeit optimiert alle fettlöslichen Vitamine (Omega-3, Nachtkerzenöl, D3, K2). Multi (p27) ausverkauft → p18 Antioxidant & Vitamin abends deckt Vollspektrum ab. B-Komplex (p20) morgens aktiviert Energiestoffwechsel für den ganzen Tag. OPC 65 (p57) NICHT direkt ums Training – HIER optimal.", productIds:["p28","p57","p51","p20","p22","p56","p41","p49","p29","p32","p19","p30"], notes:{ p28:"Triglyceridform IMMER mit Fett (Galle für Mizellenbildung nötig). EPA/DHA-Gewebespiegel baut sich über 4–8 Wochen auf – Konsistenz entscheidet!", p57:"Kurz nach dem Frühstück – 1 Kapsel. Synergie mit Vit C (p21). NICHT ums Training – OPC dämpft Trainings-ROS!", p51:"Direkt mit p28 (Omega-3) nehmen – GLA + EPA/DHA ergänzen sich optimal für Omega-6/3-Balance!", p20:"Mit Frühstück – B-Vitamine aktivieren den Energiestoffwechsel. ACHTUNG: überlappt mit p18 (Abends) – B-Vitaminstacking beachten!", p22:"MIT Fett (D3 fettlöslich! – MCT-Öl-Träger). IMMER mit K2 (p56) zusammen! 1 Tropfen morgens direkt auf die Zunge.", p56:"IMMER mit D3 (p22) – lenkt Calcium in Knochen statt Arterien & Weichgewebe. 1 Tropfen morgens. MK-7-Form = beste Bioverfügbarkeit.", p41:"Morgens für chronische Effekte (4–6 Wochen Aufbau). ACHTUNG: enthält 2g L-Citrullin – beachten wenn p44 Pre-Workout genommen wird. Nicht mit PDE5-Hemmern!", p49:"Morgens – NAC für Atemwege & Schleimhäute (NAC 1000mg). Enthält auch Quercetin (mit Piperin ×20 bioverfügbarer). Vorsicht mit Blutverdünnern.", p29:"Mit Fett – Withanolide fettlöslich. 1. Dosis morgens für Cortisolreduktion über den Tag.", p32:"Morgens für Energie & Libido. Chronische Wirkung nach 4–6 Wochen.", p19:"In Wasser oder Saft einrühren – Säure-Basen-Ausgleich, Mikronährstoffe aus Pflanzen.", p30:"Morgens vor/mit Frühstück – ATP-Produktion & Ausdauer (chronisch, täglich)." }, priority:{ p28:"MUSS", p57:"WICHTIG", p51:"WICHTIG", p20:"WICHTIG", p22:"WICHTIG", p56:"WICHTIG", p41:"OPTIONAL", p49:"OPTIONAL", p29:"WICHTIG", p32:"OPTIONAL", p19:"OPTIONAL", p30:"OPTIONAL" } },
+          { id:"t3", label:"Vormittag", offsetMinutes: 180, duration: 30, icon:"", color:"#06b6d4", bg: "#001420", border: "#0e7490", why:": WASSER: 300ml – 450ml (mit Shaker).<br><br>MPS-Fenster alle 3–4h: Hydrolysat (p2) ausverkauft → p3 (Clear Whey Isolat) ist jetzt die SCHNELLSTE verfügbare Proteinquelle vormittags. Vitamin C zusammen mit Eisen verdoppelt die Eisenaufnahme (Fe³⁺ → Fe²⁺). Eisen NUR bei labordiagnostisch belegtem Ferritin-Mangel!", productIds:["p21","p3","p23"], notes:{ p21:"Zusammen mit Eisen für max. Eisenabsorption. 1. Vit-C-Dosis (2x täglich optimal – >200mg sinkt % Aufnahme). NICHT direkt vor dem Training.", p3:"Einzige Proteinquelle vormittags (Hydrolysat p2 ausverkauft). Clear Whey Isolat: schnell (~60–90 min), magenfreundlich, laktosefrei. Mind. 2–3g Leucin für MPS.", p23:"NUR bei per Bluttest belegtem Mangel! 2h NACH Frühstück & OHNE Ca/Zn/Mg. Mit Vitamin C → Absorption ×2." }, priority:{ p21:"WICHTIG", p3:"MUSS", p23:"OPTIONAL" } },
+          { id:"t4", label:"Pre-Workout", offsetMinutes: 300, duration: 15, icon:"", color:"#ef4444", bg: "#1a0000", border: "#991b1b", why:": WASSER: Exakt 400ml – 500ml zum Anmischen.<br><br>Citrullin Malat (p14) ausverkauft – Designer Carbs (p11) ausverkauft. Lösung: p44 (Pumpdown) enthält 6g L-Citrullin-Malat → VOLLER NO-Ersatz! Koffein Peak bei 60 min. <strong>NUR EINEN Koffein-Booster wählen (p43, p45, p46 oder p47) – NIEMALS kombinieren!</strong> p44 koffeinfrei → immer kombinierbar. KEINE Antioxidantien jetzt – Trainings-ROS sind Wachstumssignale!", productIds:["p44","p43","p45","p46","p47","p13"], notes:{ p44:"PRIMÄR als NO-Ersatz für fehlendes p14! 6g L-Citrullin-Malat + Arginin + Glycerol + OPC-Pump. Koffeinfrei → IMMER mit einem Koffein-Booster kombinierbar!", p43:"Moderate Koffein-Stimulierung – Re-Act enthält bereits 1,25g Citrullin + 4g Kreatin. NUR EINEN Koffein-Booster wählen!", p45:"Intensive Stimulierung (400mg Koffein gesamt) – für Maximalkraft-Training. NUR EINEN Koffein-Booster wählen!", p46:"Extreme Intensität (400mg Koffein + Nitrat) – nur für erfahrene Nutzer. NIEMALS mit p43/p45/p47 kombinieren!", p47:"Kampfsport-spezifisch (Peak ATP®, Zynamite®, Citicolin). NUR für Kampfsport-Einheiten. Zyklen beachten!", p13:"Zeitpunkt IRRELEVANT – Phosphokreatin-Spiegel kumulativ über 2–4 Wochen. Hier für Gewohnheit. Post-workout leicht besser durch Insulin." }, priority:{ p44:"MUSS", p43:"OPTIONAL", p45:"WICHTIG", p46:"OPTIONAL", p47:"OPTIONAL", p13:"WICHTIG" } },
+          { id:"t6", label:"Post-Workout", offsetMinutes: 405, duration: 30, icon:"", color:"#f97316", bg: "#1a0800", border: "#9a3412", why:": WASSER: 400ml – 500ml im Post-Workout Shaker.<br><br>Anaboles Fenster (~2h): Muskeln maximal insulinsensitiv, Glykogenspeicher leer, mTOR & MPS erhöht. Hydrolysat (p2) ausverkauft → p1 (Almost Whey, pflanzlich hydrolysiert via NiHPRO™) als schnellstes verfügbares Protein. Dextrose (p10) ausverkauft → p9 (Maltodextrin GI~110) für Insulintransport & Glykogen. Intra-Workout entfällt komplett (p15 verboten, p10 ausverkauft) – mehr Fokus Post-Workout. KEINE Antioxidantien!", productIds:["p1","p9","p12","p13","p8"], notes:{ p1:"HYDROLYSAT-ERSATZ (p2 ausverkauft) – Almost Whey via NiHPRO™-Hydrolyse: ~2–3h Verdauung, gut bioverfügbar. Direkt nach Training trinken. Ratio zu p9 anstreben: ~1g Protein : 2g Carbs.", p9:"DEXTROSE-ERSATZ (p10 ausverkauft) – Maltodextrin GI~110: fast so schnell wie Dextrose. Insulin transportiert Protein + Kreatin in die Muskelzelle!", p12:"Feste Post-Workout Alternative (Reisstärke + leichtes Protein). Mit p1 für besseres Aminosäureprofil kombinieren.", p13:"Post-Workout leicht vorteilhaft durch Insulin-Peak – aber Konsistenz (täglich) ist der entscheidende Faktor, nicht der Zeitpunkt!", p8:"NUR für Hardgainer & aktive Masseaufbau-Phase! Hohe Kalorien (375 kcal/100g) – nicht in Diät- oder Erhaltungsphase!" }, priority:{ p1:"MUSS", p9:"MUSS", p12:"OPTIONAL", p13:"WICHTIG", p8:"OPTIONAL" } },
+          { id:"t7", label:"Mittagessen", offsetMinutes: 450, duration: 60, icon:"", color: "#22c55e", bg: "#001a08", border: "#166534", why:": WASSER: 300ml – 400ml begleitend zur Mahlzeit.<br><br>Hauptmahlzeit: Kollagen (4 patentierte Typen), Gelenkschutz, Bioverfügbarkeit-Boost. Enzymkomplex DIREKT VOR der Mahlzeit – bei Festfood, nicht in Protein-Shakes! Mind. 2h Abstand zum Trainingsende für Nährstoff-Optimizer.", productIds:["p38","p39","p37","p35"], notes:{ p38:"VOR dem Essen (nüchtern oder leerer Magen) – Vit C BEREITS IM PRODUKT (Acerolafruchtpulver, 50mg = 63% NRV). Kein externes Vit C nötig! 300ml kaltes Wasser.", p39:"Mit Mahlzeit. Mind. 3 Monate durchgehend einnehmen für messbaren Knorpel-Effekt (Glucosamin + Chondroitin + MSM).", p37:"Steigert Absorption ALLER Nährstoffe +20–40% (Piperin hemmt CYP3A4). ACHTUNG: erhöht auch Medikamentenspiegel – Rx-Medi beachten!", p35:"DIREKT VOR oder zu Beginn der Mahlzeit – Verdauungsenzyme müssen mit fester Nahrung in Kontakt kommen. Nicht danach & nicht in Shakes!" }, priority:{ p38:"WICHTIG", p39:"WICHTIG", p37:"WICHTIG", p35:"WICHTIG" } },
+          { id:"t8", label:"Nachmittag", offsetMinutes: 630, duration: 30, icon:"", color: "#60a5fa", bg: "#000d1a", border: "#1d4ed8", why:": WASSER: 300ml – 350ml.<br><br>Kein Protein-Shake nachmittags (p1 jetzt Post-Workout, p5 ausverkauft) – Protein aus Mahlzeiten. Jetzt optimaler Zeitpunkt für Antioxidantien & Entzündungshemmung (genug Abstand vom Training). 2. Vit-C-Dosis für maximale Tagesdosis. Basische Mineralien nach Training für Säure-Basen-Balance.", productIds:["p21","p34","p26"], notes:{ p21:"2. Vit-C-Dosis (500mg) – wasserlöslich, 2x täglich für max. Resorption. Genug Abstand vom Training – Antioxidans-Effekt jetzt unbedenklich.", p34:"Entzündungshemmung (Anthocyane) nach Training. Natürliches Melatonin (CherryPure® 50:1) bereitet Schlafhormon-Balance vor. NICHT ums Training selbst.", p26:"Saure-Basen-Ausgleich nach intensiver Belastung. Magnesium entspannt Muskulatur & Nervensystem. 2. Dosis folgt vor Schlaf (p26 Abends)." }, priority:{ p21:"WICHTIG", p34:"OPTIONAL", p26:"WICHTIG" } },
+          { id:"t9", label:"Abendessen", offsetMinutes: 780, duration: 60, icon:"", color: "#a78bfa", bg: "#0d001a", border: "#6d28d9", why:": WASSER: 300ml – 400ml zum Essen.<br><br>Letzte Nährstoff-Hauptversorgung. Multi (p27) ausverkauft → p18 (Antioxidant & Vitamin) abends als Multivitamin-Vollersatz! Selen (p25) ausverkauft – p18 enthält bereits 100% NRV Selen (55µg). Reishi (p31) ausverkauft. Cortisol senken, Herzregeneration vorbereiten (Protect Heart mit Q10 200mg + OPC 400mg). p7 Protein-Pudding als CASEIN-ERSATZ jetzt in t10!", productIds:["p18","p48","p29","p24"], notes:{ p18:"MULTIVITAMIN-ERSATZ für ausverkauftes p27! Mit fettreicher Mahlzeit (fettlösliche Anteile: A, D, E, K). Enthält 100% NRV Selen (55µg) → kein Selenmangel trotz ausverkauftem p25. NICHT zusammen mit p20 (B25) – B-Vitamin-Doppeldosierung!", p48:"Mit fetthaltiger Mahlzeit (Q10 200mg fettlöslich). Abends für Herzmuskel-Regeneration im Schlaf. Nattokinase nüchtern besser – Kompromiss Abendessen.", p29:"Abends-Dosis: Cortisol vor dem Schlaf senken, Testosteron während GH-Ausschüttung im Schlaf erhöhen. 2x täglich optimal.", p24:"Nüchtern 2h nach Abendessen. Testosteron & Immuneffekt nur bei nachgewiesenem Zinkmangel! NICHT mit Eisen (p23) zur gleichen Zeit." }, priority:{ p18:"MUSS", p48:"OPTIONAL", p29:"WICHTIG", p24:"OPTIONAL" } },
+          { id:"t10", label:"Vor dem Schlafen", offsetMinutes: 60, duration: 30, icon:"", color:"#818cf8", bg: "#05001a", border: "#4338ca", isRelativeTosleep: true, why:": WASSER: Exakt 250ml – maximal 300ml (nächtliches Aufwachen vermeiden).<br><br>Casein (p6) ausverkauft → p7 (Protein Pudding Stracciatella, Casein-Basis!) als DIREKTER Ersatz: 5–7h langsame Aminosäurefreisetzung – deckt GH-Ausschüttung (beginnt 90 min nach Einschlafen) ab. Wachstumshormon + Protein + Schlafsubstanzen jetzt maximal aktivieren. <strong>ACHTUNG: NUR EINEN Melatonin-Träger wählen – p40 ODER p50, nicht beide!</strong>", productIds:["p7","p40","p50","p26","p16","p42","p34"], notes:{ p7:"CASEIN-ERSATZ für ausverkauftes p6! Casein-Basis → 30 min vor Schlaf: 5–7h Aminosäurefreisetzung während GH-Ausschüttung. Mit 200ml kalter Milch verrühren. KEIN Whey-Protein jetzt – zu schnell!", p40:"Melatonin-Kapsel – 30 min vor Schlaf. NUR p40 ODER p50 wählen – beide enthalten Melatonin!", p50:"Melatonin-Spray – wirkt in 10–20 min (schneller als Kapsel). Ideal bei akutem Einschlafproblem. NUR p40 ODER p50!", p26:"Magnesium entspannt Muskulatur & Nervensystem für Tiefschlaf. Calcium für nächtliche Knochenregeneration.", p16:"Direkt vor Schlaf: L-Glycin senkt Kernkörpertemperatur → fördert Tiefschlaf (REM). Kollagensynthese läuft nachts auf Hochtouren.", p42:"Baldrian 30–60 min vor Schlaf. Wirkung steigert sich nach 2–4 Wochen regelmäßiger Einnahme.", p34:"Natürliches Melatonin (CherryPure® 1100mg) + Anthocyane für Anti-Entzündung über Nacht. Verstärkt Schlafwirkung von p40/p50." }, priority:{ p7:"MUSS", p40:"WICHTIG", p50:"OPTIONAL", p26:"WICHTIG", p16:"WICHTIG", p42:"OPTIONAL", p34:"OPTIONAL" } }
+        ];
+
+        const CRITICAL = [
+          { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
+          { bad:true,  text:"Zink-Kupfer-Antagonismus: Hochdosiertes Zink (>40 mg/Tag dauerhaft) induziert Metallothionein in Darmzellen → bindet Kupfer & verhindert Resorption → Kupfermangel (Anämie, Neutropenie!). Max. Zn:Cu-Ratio 10:1." },
+          { bad:true,  text:"Anti-Nährstoffe blockieren Mineralien: Phytinsäure (Vollkorn, Getreide), Tannine (Kaffee, schwarzer/grüner Tee) und Oxalsäure (Spinat, Nüsse) bilden unlösliche Komplexe mit Zn/Fe/Mg/Ca – mind. 1–2h Abstand zwischen Mineralien und diesen Lebensmitteln!" },
+          { bad:true,  text:"Eisen + Calcium/Zink/Magnesium -> NIEMALS zusammen (hemmen sich gegenseitig stark)" },
+          { bad:true,  text:"Eisen NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Ueberladungsrisiko (organschaedigend)" },
+          { bad:true,  text:"Hochdosierte Antioxidantien (Vit C, OPC, R-ALA, Cherry, Antioxidant-Komplex) NICHT direkt ums Training – Trainings-ROS sind Wachstumssignale" },
+          { bad:true,  text:"Koffein-Booster <6h vor dem Schlafen -> ruiniert Tiefschlaf & GH-Ausschuettung (Koffein-Halbwertszeit ~5–6h, individuell stark verschieden – nicht 16 Uhr pauschal, sondern relativ zu DEINER Schlafzeit berechnen!)" },
+          { bad:true,  text:"R-ALA mit Mahlzeit -> ~40% weniger Absorption im Magen" },
+          { bad:true,  text:"Vitamin-Stacking pruefen: Multi + Einzelvitamine + Antioxidant ueberlappen (Obergrenzen B6 >50mg Neuropathie / Selen >400mcg toxisch / Vit A >3000mcg teratogen beachten!)" },
+          { bad:false, text:"D3 zusammen mit K2 – lenkt Calcium in Knochen statt Gefaesse (sinnvolle Kombi)" },
+          { bad:false, text:"Vitamin C mit Eisen – verdoppelt Non-Haem-Eisenaufnahme (Fe³⁺ → Fe²⁺). HEALTH+ Collagen enthält bereits Acerola-Vit C – kein extra Vit C nötig!" },
+          { bad:false, text:"Fettloesliche Vitamine (D3, A, E, K2, Q10, Omega-3, Nachtkerzenöl) IMMER zu fettreicher Mahlzeit – ohne Galle-Ausschuettung kaum absorbiert" },
+          { bad:false, text:"Kreatin/Omega-3/D3/Beta-Alanin: Uhrzeit irrelevant – kumulativer Gewebespiegel entscheidet. Einzig Konsistenz (taeglich) zaehlt, nicht der Zeitpunkt!" },
+          { bad:false, text:"Protein alle 3–4h mit mind. 2–3g Leucin pro Dosis fuer MPS-Trigger – ABER: Tagesgesamtmenge (1,6–2,2 g/kg KG) macht 80–90% des Effekts aus. Timing optimiert nur die restlichen ~10%." }
+        ];
+
+        // PROTEIN DOSES KONFIGURATION (wird ebenfalls dynamisch berechnet)
+        const PROTEIN_DOSES_CONFIG = [
+          { label:"Fruehstueck", offsetMinutes: 45, type:"Mahlzeit", g:"~20g" },
+          { label:"Vormittag", offsetMinutes: 180, type:"Clear Whey Isolat (p3)", g:"~22g" },
+          { label:"Post-Workout", offsetMinutes: 405, type:"Almost Whey + Malto (p1+p9)", g:"~18g" },
+          { label:"Mittagessen", offsetMinutes: 450, type:"Mahlzeit + Kollagen (p38)", g:"~30g" },
+          { label:"Abendessen", offsetMinutes: 780, type:"Mahlzeit", g:"~25g" },
+          { label:"Vor Schlaf", offsetMinutes: 60, type:"Protein Pudding Casein (p7)", g:"~20g", isRelativeTosleep: true }
+        ];
+
+        const PRIO_STYLE = {
+          "MUSS":     { bg:"#4a1500", color:"#fb923c" },
+          "WICHTIG":  { bg:"#0a2e18", color:"#4ade80" },
+          "OPTIONAL": { bg:"#1a1a2e", color:"#7c3aed" }
+        };
+
+        const CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
+
+        let currentCatFilter = "Alle";
+        let currentSearchQuery = "";
+        let globalWakeTimeStr = "07:00";
+        let globalSleepTimeStr = "23:00";
+        let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training
+        let globalMeals = [];          // [] = automatisch (an Schlafrhythmus); sonst ["HH:MM", …]
+        let mealCount = 3;
+
+        // ── MAHLZEITEN: Vorschläge richten sich nach Aufwach-/Schlafzeit ───────────
+        function _hm(s){ const p=(s||'').split(':'); return (+p[0])*60 + (+p[1]||0); }
+        function _fhm(min){ min=((Math.round(min)%1440)+1440)%1440; return String(Math.floor(min/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0'); }
+        function suggestMeals(count) {
+            const wakeMin = _hm(document.getElementById('wakeTimeInput').value || '07:00');
+            let awake = (_hm(document.getElementById('sleepTimeInput').value || '23:00') - wakeMin + 1440) % 1440;
+            if (awake < 240) awake = 240;
+            const first = 60, last = awake - 120, span = Math.max(last - first, 60);
+            const out = [];
+            for (let i = 0; i < count; i++) out.push(_fhm(wakeMin + (count === 1 ? first : first + span * i / (count - 1))));
+            return out;
+        }
+        function renderMealInputs(times) {
+            const box = document.getElementById('mealsList');
+            if (!box) return;
+            box.innerHTML = times.map((t, i) => {
+                const label = i === 0 ? 'Frühstück' : (i === times.length - 1 ? 'Letzte Mahlzeit' : 'Mahlzeit ' + (i + 1));
+                return `<div class="meal-row"><span>${label}</span><input type="time" class="time-input meal-time" value="${t}"></div>`;
+            }).join('');
+        }
+        function setMealCount(n) {
+            mealCount = n;
+            document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === n));
+            renderMealInputs(suggestMeals(n));
+        }
+        function toggleMealAuto() {
+            const auto = document.getElementById('mealAutoInput').checked;
+            document.getElementById('mealsCustom').style.display = auto ? 'none' : 'block';
+            if (!auto && !document.querySelector('#mealsList .meal-time')) setMealCount(mealCount);
+        }
+        function refreshMealSuggestions() {
+            if (!document.getElementById('mealAutoInput').checked) setMealCount(mealCount);
+        }
+
+        const getProductById = (id) => PRODUCTS.find(p => p.id === id);
+
+        // HILFSFUNKTION: Rechnet "HH:MM" + Minuten-Offset in ein neues Zeitfenster "HH:MM – HH:MM" um
+        function calculateTimeWindow(baseTimeStr, offsetMinutes, durationMinutes, isRelativeTosleep = false) {
+            const parts = baseTimeStr.split(':');
+            let hours = parseInt(parts[0], 10);
+            let minutes = parseInt(parts[1], 10);
+
+            let startTotalMinutes;
+            if (isRelativeTosleep) {
+                // Berechne rückwarts von der Schlafzeit
+                startTotalMinutes = hours * 60 + minutes - offsetMinutes;
+                // Korrigiere wenn negative Minuten
+                while (startTotalMinutes < 0) {
+                    startTotalMinutes += 24 * 60;
+                }
+            } else {
+                // Berechne vorwaerts von der Aufwachzeit
+                startTotalMinutes = hours * 60 + minutes + offsetMinutes;
+            }
+
+            let startHours = Math.floor(startTotalMinutes / 60) % 24;
+            let startMins = startTotalMinutes % 60;
+
+            // Endzeit berechnen
+            let endTotalMinutes = startTotalMinutes + durationMinutes;
+            let endHours = Math.floor(endTotalMinutes / 60) % 24;
+            let endMins = endTotalMinutes % 60;
+
+            const pad = (num) => String(num).padStart(2, '0');
+            return `${pad(startHours)}:${pad(startMins)} – ${pad(endHours)}:${pad(endMins)}`;
+        }
+
+        // HILFSFUNKTION: Rechnet nur eine einzige Uhrzeit aus (fuer die Proteindosen-Liste)
+        function calculateSingleTime(baseTimeStr, offsetMinutes, isRelativeTosleep = false) {
+            const parts = baseTimeStr.split(':');
+            let hours = parseInt(parts[0], 10);
+            let minutes = parseInt(parts[1], 10);
+
+            let totalMinutes;
+            if (isRelativeTosleep) {
+                // Berechne rückwarts von der Schlafzeit
+                totalMinutes = hours * 60 + minutes - offsetMinutes;
+                // Korrigiere wenn negative Minuten
+                while (totalMinutes < 0) {
+                    totalMinutes += 24 * 60;
+                }
+            } else {
+                // Berechne vorwaerts von der Aufwachzeit
+                totalMinutes = hours * 60 + minutes + offsetMinutes;
+            }
+
+            let finalHours = Math.floor(totalMinutes / 60) % 24;
+            let finalMins = totalMinutes % 60;
+
+            return `${String(finalHours).padStart(2, '0')}:${String(finalMins).padStart(2, '0')}`;
+        }
+
+        // APP INITIALISIEREN NACH KLICK AUF GENERIEREN
+        function startApp() {
+            const wakeInput = document.getElementById("wakeTimeInput").value;
+            const sleepInput = document.getElementById("sleepTimeInput").value;
+
+            if(!wakeInput || !sleepInput) {
+                alert("Bitte beide Zeiten eingeben!");
+                return;
+            }
+
+            globalWakeTimeStr = wakeInput;
+            globalSleepTimeStr = sleepInput;
+
+            // Trainingszeit (leer = flexibel)
+            const flex = document.getElementById("trainFlexInput").checked;
+            const trainInput = document.getElementById("trainTimeInput").value;
+            globalTrainTimeStr = (flex || !trainInput) ? "" : trainInput;
+
+            // Mahlzeiten (leer = automatisch an Schlafrhythmus; sonst eigene Zeiten)
+            const mealAuto = document.getElementById("mealAutoInput").checked;
+            globalMeals = mealAuto ? [] :
+                Array.from(document.querySelectorAll('#mealsList .meal-time')).map(i => i.value).filter(Boolean);
+
+            // Zeiten lokal im Browser merken (kein Login/Backend nötig)
+            try {
+                localStorage.setItem("sl_wake", wakeInput);
+                localStorage.setItem("sl_sleep", sleepInput);
+                localStorage.setItem("sl_train", globalTrainTimeStr);
+                localStorage.setItem("sl_meals", JSON.stringify(globalMeals));
+            } catch (e) {}
+
+            // Display im Header aktualisieren
+            document.getElementById("displayWakeTime").innerText = wakeInput;
+            document.getElementById("displaySleepTime").innerText = sleepInput;
+
+            // Schritt 1 abgeschlossen → weiter im Assistenten, oder (bei Schnell-Edit) direkt zurück in die App
+            if (inOnboarding) goStep(2);   // von Schritt 1 immer zu Schritt 2
+            else enterApp();
+        }
+
+        // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
+        let appMode = 'hard';
+        let inOnboarding = true;
+        let currentStep = 1;
+        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepSportType', 5:'stepGoal', 6:'modeScreen', 7:'stepProducts', 8:'stepSport' };
+        const ONBOARD_LAST = 8;
+
+        let userProfile = { age:'', gender:'', activity:'', sportType:'' };
+        let selectedSportMode = 'maxkraft';
+
+        function isLight() { return appMode === 'light'; }
+
+        function loadProfile() {
+            try { userProfile = JSON.parse(localStorage.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
+            ['age','gender','height','weight','activity','sportType','goal'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
+            selectedSportMode = localStorage.getItem('sl_sport') || 'maxkraft';
+        }
+
+        // ── BEDARFSBERECHNUNG (kcal & Eiweiß) ──────────────────────────────────────
+        // BMR: Mifflin-St Jeor (1990) · TDEE = BMR × PAL · Eiweiß: Morton et al. 2018 / ISSN 2017
+        const ACTIVITY_PAL = { wenig: 1.2, maessig: 1.375, aktiv: 1.55, sehr: 1.725 };
+        const PROTEIN_GKG   = { wenig: [1.0, 1.2], maessig: [1.4, 1.7], aktiv: [1.6, 2.0], sehr: [1.8, 2.2] };
+        // Ziel-Modus: kcal-Faktor auf den Erhaltungsbedarf (TDEE)
+        const GOAL_KCAL   = { abnehmen: 0.80, halten: 1.0, performance: 1.05, aufbauen: 1.15 };
+        const GOAL_LABEL  = { abnehmen: 'Abnehmen · Defizit −20 %', halten: 'Halten · Erhaltungsniveau', performance: 'Performance · +5 %', aufbauen: 'Aufbauen · Überschuss +15 %' };
+
+        function computeTargets() {
+            const num = v => parseFloat(String(v || '').replace(',', '.'));
+            const age = num(userProfile.age), h = num(userProfile.height), w = num(userProfile.weight);
+            const g = userProfile.gender, act = userProfile.activity;
+            if (!age || !h || !w || !g) return null;
+            // Mifflin-St Jeor BMR
+            let bmr = 10 * w + 6.25 * h - 5 * age;
+            bmr += (g === 'w') ? -161 : (g === 'd' ? -78 : 5);   // divers = Mittelwert
+            const pal = ACTIVITY_PAL[act] || 1.375;
+            const maintenance = Math.round(bmr * pal);
+            const goal = userProfile.goal || 'halten';
+            const tdee = Math.round(maintenance * (GOAL_KCAL[goal] || 1));
+            // Eiweiß: Aktivitätsbasis, im Defizit/Aufbau höher
+            let pf = PROTEIN_GKG[act] || [1.4, 1.7];
+            if (goal === 'abnehmen') pf = [Math.max(pf[0], 2.0), Math.max(pf[1], 2.4)];
+            else if (goal === 'aufbauen') pf = [Math.max(pf[0], 1.6), Math.max(pf[1], 2.2)];
+            // Welche Angaben fehlen → Werte werden ungenauer
+            const assumptions = [];
+            if (!ACTIVITY_PAL[act])     assumptions.push('Aktivität');
+            if (!GOAL_KCAL[userProfile.goal]) assumptions.push('Ziel');
+            return {
+                bmr: Math.round(bmr), tdee, maintenance, goal,
+                proteinMin: Math.round(w * pf[0]), proteinMax: Math.round(w * pf[1]),
+                gkgMin: pf[0], gkgMax: pf[1], weight: w, assumptions
+            };
+        }
+
+        function buildTargetsHtml(forApp) {
+            const t = computeTargets();
+            if (!t) {
+                return forApp ? '' : `<div class="targets-hint">Trage Alter, Größe, Gewicht & Geschlecht ein – dann berechne ich deinen Bedarf.</div>`;
+            }
+            const goalLbl = GOAL_LABEL[t.goal] || GOAL_LABEL.halten;
+            const goalBadge = t.goal && t.goal !== 'halten'
+                ? `<div class="targets-goal">🎯 ${goalLbl} <span style="color:#64748b;">(Erhalt: ${t.maintenance.toLocaleString('de-DE')} kcal)</span></div>`
+                : `<div class="targets-goal">🎯 ${goalLbl}</div>`;
+            const accuracy = t.assumptions.length === 0
+                ? `<div class="targets-accuracy ok">✓ Genau berechnet – alle Angaben vorhanden.</div>`
+                : `<div class="targets-accuracy warn">⚠️ Geschätzt: ${t.assumptions.join(' & ')} fehlt – die Werte werden mit jedem übersprungenen Schritt ungenauer.</div>`;
+            return `<div class="targets-box">
+                <div class="targets-title">📊 Dein täglicher Bedarf</div>
+                <div class="targets-grid">
+                    <div class="targets-cell">
+                        <div class="targets-val" style="color:#a5b4fc;">${t.tdee.toLocaleString('de-DE')}</div>
+                        <div class="targets-lbl">kcal / Tag</div>
+                    </div>
+                    <div class="targets-cell">
+                        <div class="targets-val" style="color:#4ade80;">${t.proteinMin}–${t.proteinMax} g</div>
+                        <div class="targets-lbl">Eiweiß / Tag</div>
+                    </div>
+                </div>
+                ${goalBadge}
+                ${accuracy}
+                <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität × Ziel (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
+            </div>`;
+        }
+
+        function renderOnboardTargets() {
+            const html = buildTargetsHtml(false);
+            ['onboardTargets', 'onboardTargets2'].forEach(id => { const b = document.getElementById(id); if (b) b.innerHTML = html; });
+        }
+        // Überspringen eines Profil-Schritts (Wert bleibt leer → Genauigkeits-Hinweis greift)
+        function skipStep(field) { nextStep(); }
+        function renderDailyTargets() {
+            const box = document.getElementById('dailyTargets');
+            if (box) box.innerHTML = buildTargetsHtml(true);
+        }
+        function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
+
+        function goStep(n) {
+            if (n > ONBOARD_LAST) { enterApp(); return; }
+            if (n < 1) n = 1;
+            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            const id = ONBOARD_SCREENS[n];
+            const el = document.getElementById(id);
+            if (el) el.style.display = 'flex';
+            currentStep = n;
+            window.scrollTo(0, 0);
+            if (id === 'stepActivity' || id === 'stepGoal') renderOnboardTargets();
+            if (id === 'stepProducts') renderOnboardProducts();
+        }
+        function nextStep() { goStep(currentStep + 1); }
+        function prevStep() { goStep(currentStep - 1); }
+
+        // Auswahl-Buttons (Geschlecht, Aktivität, Sportart, Ziel)
+        function setProfileChoice(field, val, btn) {
+            userProfile[field] = val;
+            saveProfile();
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderOnboardTargets(); // Bedarf live aktualisieren
+        }
+        function profileNext() {
+            userProfile.age    = document.getElementById('profileAge').value.trim();
+            userProfile.height = document.getElementById('profileHeight').value.trim();
+            userProfile.weight = document.getElementById('profileWeight').value.trim();
+            saveProfile();
+            nextStep();
+        }
+
+        // Schritt 5: Produkte auswählen → füllt Mein Stack
+        function onboardToggle(pid) {
+            if (myStack[pid]) delete myStack[pid];
+            else { const p = getProductById(pid); if (p) myStack[pid] = { amount: parseServing(p.serving).num }; }
+            setEmptyPlan(false);
+            saveStack();
+            renderOnboardProducts();
+        }
+
+        function setEmptyPlan(v) {
+            userWantsEmptyPlan = v;
+            try { localStorage.setItem('sl_emptyplan', v ? '1' : '0'); } catch (e) {}
+        }
+
+        // Schritt 5 – Button: empfohlene Produkte in den Stack übernehmen
+        function fillRecommendedStack() {
+            myStack = {};
+            RECOMMENDED_IDS.forEach(pid => {
+                if (PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout') return;
+                const p = getProductById(pid);
+                if (p) myStack[pid] = { amount: parseServing(p.serving).num };
+            });
+            setEmptyPlan(false);
+            saveStack();
+            nextStep();
+        }
+        // Button: leer starten, selbst befüllen
+        function startEmptyPlan() {
+            myStack = {};
+            setEmptyPlan(true);
+            saveStack();
+            nextStep();
+        }
+        function renderOnboardProducts() {
+            const box = document.getElementById('onboardProductList');
+            if (!box) return;
+            const q = (document.getElementById('onboardProductSearch')?.value || '').toLowerCase().trim();
+            let list = [...PRODUCTS].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+            if (q) list = list.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+            document.getElementById('onboardProductCount').textContent = Object.keys(myStack).length + ' Produkte gewählt';
+            box.innerHTML = list.map(p => {
+                const inStack = !!myStack[p.id];
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-browse-row${inStack ? ' in-stack' : ''}" onclick="onboardToggle('${p.id}')">
+                    <span class="stack-browse-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-browse-act">${inStack ? '✓ Drin' : '+ Wählen'}</span>
+                </button>`;
+            }).join('');
+        }
+
+        // Schritt 6: Trainingsplan wählen
+        function setSportChoice(mode, btn) {
+            selectedSportMode = mode;
+            try { localStorage.setItem('sl_sport', mode); } catch (e) {}
+            btn.parentElement.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        function finishOnboarding() { enterApp(); }
+
+        // Schnell-Wege aus der laufenden App (kein erneutes Onboarding)
+        function editTimes() {
+            inOnboarding = false;
+            document.getElementById("mainApp").style.display = "none";
+            document.getElementById("setupScreen").style.display = "flex";
+        }
+        function backToModeSelect() {
+            inOnboarding = false;
+            document.getElementById("mainApp").style.display = "none";
+            document.getElementById("modeScreen").style.display = "flex";
+        }
+        function modeBack() {
+            if (inOnboarding) prevStep();
+            else enterApp();
+        }
+        // Assistent komplett neu starten (ohne Cache löschen)
+        function restartOnboarding() {
+            inOnboarding = true;
+            document.getElementById("mainApp").style.display = "none";
+            goStep(1);
+        }
+
+        function applyMode(mode) {
+            appMode = mode;
+            document.body.classList.toggle('light-mode', mode === 'light');
+            try { localStorage.setItem("sl_mode", mode); } catch (e) {}
+        }
+        function selectMode(mode) {
+            applyMode(mode);
+            if (inOnboarding) nextStep();
+            else enterApp();
+        }
+
+        // App betreten – alle Onboarding-Screens aus, App rendern
+        function enterApp() {
+            inOnboarding = false;
+            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            document.getElementById("mainApp").style.display = "block";
+
+            loadStack();
+            loadMoney();
+            try { userWantsEmptyPlan = localStorage.getItem('sl_emptyplan') === '1'; } catch (e) {}
+            // Produkte gewählt ODER bewusst leer gestartet → persönlicher (Stack-)Plan
+            stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
+
+            initStaticPanels();
+            document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
+            renderTimeline();
+            initDatabaseView();
+            initNutrView();
+            renderSportPlans();
+            renderStackView();
+            renderMoney();
+            renderDailyTargets();
+            if (selectedSportMode) selectSportMode(selectedSportMode);
+        }
+
+        function initStaticPanels() {
+            const rulesBox = document.getElementById("rulesList");
+            rulesBox.innerHTML = CRITICAL.map(r => `
+                <div class="rule-item">
+                    <span>${r.bad ? "" : ""}</span>
+                    <span class="${r.bad ? 'rule-bad' : 'rule-good'}">${r.text}</span>
+                </div>
+            `).join('');
+
+            // Hier werden die Proteindosen dynamisch basierend auf der Uhrzeit getaktet!
+            const proteinBox = document.getElementById("proteinDosesList");
+            const _dwMin = (() => { const [h,m] = globalWakeTimeStr.split(':').map(Number); return h*60+m; })();
+            const _dsMin = (() => { const [h,m] = globalSleepTimeStr.split(':').map(Number); return h*60+m; })();
+            const _dAwake = (_dsMin - _dwMin + 1440) % 1440;
+            const _dScale = _dAwake / 960;
+            const _dMsw = (d) => d.isRelativeTosleep ? _dAwake - d.offsetMinutes : Math.round(d.offsetMinutes * _dScale);
+            const _dFmt = (absMin) => { const h=Math.floor((absMin%1440)/60), m=absMin%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`; };
+            const _dTime = (d) => _dFmt((_dwMin + _dMsw(d)) % 1440);
+            const sortedDoses = [...PROTEIN_DOSES_CONFIG]
+                .filter(d => { const v = _dMsw(d); return v >= 0 && v < _dAwake; })
+                .sort((a, b) => _dMsw(a) - _dMsw(b));
+            proteinBox.innerHTML = sortedDoses.map(d => {
+                const calculatedTimeStr = _dTime(d);
+                return `
+                    <div class="protein-row">
+                        <div>
+                            <span class="protein-time">${calculatedTimeStr} ${d.label}</span>
+                            <span class="protein-type">${d.type}</span>
+                        </div>
+                        <span class="protein-g">${d.g}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleTopPanel(panelId, contentId) {
+            const panel = document.getElementById(panelId);
+            const content = document.getElementById(contentId);
+            const isOpen = panel.classList.contains("open");
+
+            if (isOpen) {
+                panel.classList.remove("open");
+                content.style.display = "none";
+            } else {
+                panel.classList.add("open");
+                content.style.display = "block";
+            }
+        }
+
+        function toggleDailyNutrBox() {
+            const content = document.getElementById('daily-nutr-content');
+            const arrow = document.getElementById('daily-nutr-arrow');
+            const isHidden = content.style.display === 'none';
+            content.style.display = isHidden ? 'block' : 'none';
+            arrow.textContent = isHidden ? '▲' : '▼';
+        }
+        function toggleDailySection(contentId, arrowId) {
+            const content = document.getElementById(contentId);
+            const arrow = document.getElementById(arrowId);
+            const isHidden = content.style.display === 'none';
+            content.style.display = isHidden ? 'block' : 'none';
+            arrow.textContent = isHidden ? '▲' : '▼';
+        }
+
+        // v = EU NRV numeric; u = unit; eu/dach/usa = display strings
+        // dach_min/max, usa_min/max = numeric range for bar zone calculation
+        // ul = Tolerable Upper Intake Level (numeric, same unit); ul_str = display string
+        const NUTRIENT_NORMS = {
+            // ── Vitamins ──────────────────────────────────────────────────────────────────────────────────────────────────
+            "Vitamin A":                    { v:800,  u:"µg", eu:"800 µg",   dach:"700–850 µg",   usa:"700–900 µg",    dach_min:700,  dach_max:850,  usa_min:700,  usa_max:900,  ul:3000, ul_str:"3.000 µg" },
+            "Vitamin D":                    { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",        usa:"15–20 µg",      dach_min:20,   dach_max:20,   usa_min:15,   usa_max:20,   ul:100,  ul_str:"100 µg" },
+            "Vitamin D3 (Cholecalciferol)": { v:5,    u:"µg", eu:"5 µg",     dach:"20 µg",        usa:"15–20 µg",      dach_min:20,   dach_max:20,   usa_min:15,   usa_max:20,   ul:100,  ul_str:"100 µg" },
+            "Vitamin E":                    { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin E (Tocopherol)":       { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin E (Alpha-Tocopherol)": { v:12,   u:"mg", eu:"12 mg",    dach:"12–15 mg",     usa:"15 mg",         dach_min:12,   dach_max:15,   usa_min:15,   usa_max:15,   ul:300,  ul_str:"300 mg" },
+            "Vitamin K":                    { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",     usa:"90–120 µg",     dach_min:60,   dach_max:70,   usa_min:90,   usa_max:120,  ul:null, ul_str:null },
+            "Vitamin K2 (Menachinon)":      { v:75,   u:"µg", eu:"75 µg",    dach:"60–70 µg",     usa:"90–120 µg",     dach_min:60,   dach_max:70,   usa_min:90,   usa_max:120,  ul:null, ul_str:null },
+            "Vitamin C":                    { v:80,   u:"mg", eu:"80 mg",    dach:"95–110 mg",    usa:"75–90 mg",      dach_min:95,   dach_max:110,  usa_min:75,   usa_max:90,   ul:2000, ul_str:"2.000 mg" },
+            "Thiamin (B1)":                 { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",   usa:"1,1–1,2 mg",    dach_min:1.0,  dach_max:1.3,  usa_min:1.1,  usa_max:1.2,  ul:null, ul_str:null },
+            "Thiamin":                      { v:1.1,  u:"mg", eu:"1,1 mg",   dach:"1,0–1,3 mg",   usa:"1,1–1,2 mg",    dach_min:1.0,  dach_max:1.3,  usa_min:1.1,  usa_max:1.2,  ul:null, ul_str:null },
+            "Riboflavin (B2)":              { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Riboflavin":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Vitamin B2 – Riboflavin":      { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,1–1,4 mg",   usa:"1,1–1,3 mg",    dach_min:1.1,  dach_max:1.4,  usa_min:1.1,  usa_max:1.3,  ul:null, ul_str:null },
+            "Niacin (B3)":                  { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",     usa:"14–16 mg",      dach_min:13,   dach_max:15,   usa_min:14,   usa_max:16,   ul:35,   ul_str:"35 mg" },
+            "Niacin":                       { v:16,   u:"mg", eu:"16 mg",    dach:"13–15 mg",     usa:"14–16 mg",      dach_min:13,   dach_max:15,   usa_min:14,   usa_max:16,   ul:35,   ul_str:"35 mg" },
+            "Pantothensäure (B5)":          { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",         usa:"5 mg",          dach_min:6,    dach_max:6,    usa_min:5,    usa_max:5,    ul:null, ul_str:null },
+            "Pantothensäure":               { v:6,    u:"mg", eu:"6 mg",     dach:"6 mg",         usa:"5 mg",          dach_min:6,    dach_max:6,    usa_min:5,    usa_max:5,    ul:null, ul_str:null },
+            "Vitamin B6":                   { v:1.4,  u:"mg", eu:"1,4 mg",   dach:"1,4–1,6 mg",   usa:"1,3–1,7 mg",    dach_min:1.4,  dach_max:1.6,  usa_min:1.3,  usa_max:1.7,  ul:25,   ul_str:"25 mg" },
+            "Folsäure (B9)":                { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Folsäure":                     { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Vitamin B9":                   { v:200,  u:"µg", eu:"200 µg",   dach:"300 µg",       usa:"400 µg",        dach_min:300,  dach_max:300,  usa_min:400,  usa_max:400,  ul:1000, ul_str:"1.000 µg" },
+            "Biotin (B7)":                  { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",     usa:"30 µg",         dach_min:30,   dach_max:60,   usa_min:30,   usa_max:30,   ul:null, ul_str:null },
+            "Biotin":                       { v:50,   u:"µg", eu:"50 µg",    dach:"30–60 µg",     usa:"30 µg",         dach_min:30,   dach_max:60,   usa_min:30,   usa_max:30,   ul:null, ul_str:null },
+            "Vitamin B12":                  { v:2.5,  u:"µg", eu:"2,5 µg",   dach:"4,0 µg",       usa:"2,4 µg",        dach_min:4.0,  dach_max:4.0,  usa_min:2.4,  usa_max:2.4,  ul:null, ul_str:null },
+            // ── Minerals ──────────────────────────────────────────────────────────────────────────────────────────────────
+            "Calcium":                      { v:800,  u:"mg", eu:"800 mg",   dach:"1000 mg",      usa:"1000–1200 mg",  dach_min:1000, dach_max:1000, usa_min:1000, usa_max:1200, ul:2500, ul_str:"2.500 mg" },
+            "Chlorid":                      { v:800,  u:"mg", eu:"800 mg",   dach:"2300 mg",      usa:"2300 mg",       dach_min:2300, dach_max:2300, usa_min:2300, usa_max:2300, ul:null, ul_str:null },
+            "Chrom":                        { v:40,   u:"µg", eu:"40 µg",    dach:"30–100 µg",    usa:"25–35 µg",      dach_min:30,   dach_max:100,  usa_min:25,   usa_max:35,   ul:null, ul_str:null },
+            "Eisen":                        { v:14,   u:"mg", eu:"14 mg",    dach:"10–15 mg",     usa:"8–18 mg",       dach_min:10,   dach_max:15,   usa_min:8,    usa_max:18,   ul:45,   ul_str:"45 mg" },
+            "Jod":                          { v:150,  u:"µg", eu:"150 µg",   dach:"150–200 µg",   usa:"150 µg",        dach_min:150,  dach_max:200,  usa_min:150,  usa_max:150,  ul:600,  ul_str:"600 µg" },
+            "Kalium":                       { v:2000, u:"mg", eu:"2.000 mg", dach:"4.000 mg",     usa:"2.600–3.400 mg",dach_min:4000, dach_max:4000, usa_min:2600, usa_max:3400, ul:null, ul_str:null },
+            "Kupfer":                       { v:1,    u:"mg", eu:"1 mg",     dach:"1,0–1,5 mg",   usa:"0,9 mg",        dach_min:1.0,  dach_max:1.5,  usa_min:0.9,  usa_max:0.9,  ul:5,    ul_str:"5 mg" },
+            "Magnesium":                    { v:375,  u:"mg", eu:"375 mg",   dach:"300–350 mg",   usa:"310–420 mg",    dach_min:300,  dach_max:350,  usa_min:310,  usa_max:420,  ul:250,  ul_str:"250 mg†" },
+            "Mangan":                       { v:2,    u:"mg", eu:"2 mg",     dach:"2,0–5,0 mg",   usa:"1,8–2,3 mg",    dach_min:2.0,  dach_max:5.0,  usa_min:1.8,  usa_max:2.3,  ul:11,   ul_str:"11 mg" },
+            "Molybdän":                     { v:50,   u:"µg", eu:"50 µg",    dach:"50–100 µg",    usa:"45 µg",         dach_min:50,   dach_max:100,  usa_min:45,   usa_max:45,   ul:600,  ul_str:"600 µg" },
+            "Phosphor":                     { v:700,  u:"mg", eu:"700 mg",   dach:"700 mg",       usa:"700 mg",        dach_min:700,  dach_max:700,  usa_min:700,  usa_max:700,  ul:4000, ul_str:"4.000 mg" },
+            "Selen":                        { v:55,   u:"µg", eu:"55 µg",    dach:"60–70 µg",     usa:"55 µg",         dach_min:60,   dach_max:70,   usa_min:55,   usa_max:55,   ul:300,  ul_str:"300 µg" },
+            "Zink":                         { v:10,   u:"mg", eu:"10 mg",    dach:"7–16 mg",      usa:"8–11 mg",       dach_min:7,    dach_max:16,   usa_min:8,    usa_max:11,   ul:25,   ul_str:"25 mg" }
+        };
+
+        // Makros, die NICHT als Mikronährstoff/NRV gezählt werden
+        const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
+            'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium','Brennwert']);
+        // Vereinheitlichung verschiedener Schreibweisen desselben Nährstoffs
+        const LABEL_CANON = {
+            'Thiamin':                    'Thiamin (B1)',
+            'Riboflavin':                 'Riboflavin (B2)',
+            'Vitamin B2 – Riboflavin':    'Riboflavin (B2)',
+            'Niacin':                     'Niacin (B3)',
+            'Pantothensäure (B5)':        'Pantothensäure',
+            'Biotin (B7)':                'Biotin',
+            'Folsäure (B9)':              'Folsäure',
+            'Vitamin B9':                 'Folsäure',
+            'Vitamin D3 (Cholecalciferol)':'Vitamin D',
+            'Vitamin E (Tocopherol)':     'Vitamin E',
+            'Vitamin E (Alpha-Tocopherol)':'Vitamin E',
+            'Vitamin K2 (Menachinon)':    'Vitamin K',
+        };
+
+        function buildDailyNutrientsBox() {
+            // Stack-Plan: Nährwerte aus „Mein Stack" (mit echten Mengen) statt aus dem vollen Plan
+            if (stackPlanActive) {
+                const html = buildStackNutrientsHtml('Dein Tagesplan-Nährwerte (aus deinem Stack)');
+                return html || '<div class="daily-nutr-box light-macros" style="margin-top:14px;"><div class="light-macros-title">Stack ist leer</div></div>';
+            }
+            const allPids = new Set();
+            getActiveTimeline().forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
+            const products = [...allPids]
+                .filter(pid => !(PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout'))
+                .map(pid => getProductById(pid))
+                .filter(Boolean);
+
+            let totalProtein = 0, totalCarbs = 0, totalFat = 0, totalKcal = 0;
+            products.forEach(p => {
+                totalProtein += p.protein || 0;
+                totalCarbs   += p.carbs   || 0;
+                totalFat     += p.fat     || 0;
+                totalKcal    += p.kcal    || 0;
+            });
+
+            // Light Mode: nur eine einfache Makro-Übersicht, keine NRV-Balken
+            if (isLight()) {
+                return `<div class="daily-nutr-box light-macros">
+                    <div class="light-macros-title">Das nimmst du heute insgesamt</div>
+                    <div class="light-macros-grid">
+                        <div><span class="lm-val" style="color:#4ade80;">${Math.round(totalProtein)} g</span><span class="lm-lbl">Eiweiß</span></div>
+                        <div><span class="lm-val" style="color:#fbbf24;">${Math.round(totalCarbs)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
+                        <div><span class="lm-val" style="color:#f87171;">${Math.round(totalFat)} g</span><span class="lm-lbl">Fett</span></div>
+                        <div><span class="lm-val" style="color:#a5b4fc;">${Math.round(totalKcal)}</span><span class="lm-lbl">Kalorien</span></div>
+                    </div>
+                </div>`;
+            }
+
+            const nrvMap = {};
+            const nonNrvMap = {};
+            const nonNrvOptMap = {};
+
+            products.forEach(p => {
+                if (!p.nutrients) return;
+                p.nutrients.forEach(n => {
+                    if ((n.label.startsWith('—') && n.nrv === null) || MACRO_SKIP.has(n.label)) return;
+                    const rawLabel = n.label.startsWith('— ') ? n.label.slice(2) : n.label;
+                    const canonLabel = LABEL_CANON[rawLabel] || rawLabel;
+                    if (n.nrv !== null) {
+                        if (!nrvMap[canonLabel]) nrvMap[canonLabel] = { totalNrv: 0, sources: [] };
+                        nrvMap[canonLabel].totalNrv += n.nrv;
+                        nrvMap[canonLabel].sources.push({ name: p.name, serving: p.serving || '', amount: n.amount, nrv: n.nrv });
+                    } else {
+                        if (!nonNrvMap[canonLabel]) nonNrvMap[canonLabel] = n.amount;
+                        if (!nonNrvOptMap[canonLabel]) nonNrvOptMap[canonLabel] = [];
+                        nonNrvOptMap[canonLabel].push(p.name);
+                    }
+                });
+            });
+
+            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1].totalNrv - a[1].totalNrv);
+            const nrvHtml = nrvEntries.map(([label, data]) => {
+                const pct = data.totalNrv;
+                const norm = NUTRIENT_NORMS[label];
+                if (!norm) {
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const barColor = pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    return '<div class="daily-nrv-row">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                            '<span class="daily-nrv-name">' + label + '</span>' +
+                            '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + pct + '% NRV</span>' +
+                        '</div>' +
+                        '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                    '</div>';
+                }
+                const consumed = (pct / 100) * norm.v;
+                const consumedStr = (consumed >= 1000 ? Math.round(consumed) : consumed.toFixed(1)) + ' ' + norm.u;
+                const allMin = Math.min(norm.v, norm.dach_min, norm.usa_min);
+                const allMax = Math.max(norm.v, norm.dach_max, norm.usa_max);
+                const scaleVal = Math.max(allMax * 1.5, consumed > 0 ? consumed * 1.1 : norm.v * 3, norm.v * 3);
+                const fillPct = Math.min(consumed / scaleVal * 100, 100);
+                const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
+                const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
+                let fillColor, valColor;
+                const ulToxic = norm.ul && norm.ul > norm.v && consumed >= norm.ul;
+                if (ulToxic)                         { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
+                else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
+                const sepColor = consumed > allMax ? '#dc2626' : '#22c55e';
+                let markers = '';
+                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
+                if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
+                const normsHtml = '<div class="daily-nrv-norms">' +
+                    '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>D-A-CH: <span class="daily-nrv-norms-val">' + norm.dach + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
+                    (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
+                    '</div>';
+                let barFillHtml;
+                if (ulToxic) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
+                } else if (consumed > allMax) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        '<div class="daily-nrv-fill" style="left:' + allMaxPct.toFixed(1) + '%;width:' + (fillPct - allMaxPct).toFixed(1) + '%;background:#dc2626;"></div>';
+                } else {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>';
+                }
+                return '<div class="daily-nrv-row">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                        '<span class="daily-nrv-name">' + label + '</span>' +
+                        '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
+                    '</div>' +
+                    '<div class="daily-nrv-track">' +
+                        barFillHtml +
+                        markers +
+                    '</div>' +
+                    normsHtml +
+                '</div>';
+            }).join('');
+
+            const nrvOptHtml = nrvEntries.map(([label, data]) => {
+                const pct = data.totalNrv;
+                const norm = NUTRIENT_NORMS[label];
+                const sourcesHtml = '<div class="nutr-opt-sources">' +
+                    data.sources.map(s => '<div class="nutr-opt-source"><span class="nutr-opt-prod">' + s.name + (s.serving ? ' <span style="color:#334155;font-style:normal;">· ' + s.serving + '</span>' : '') + '</span><span class="nutr-opt-amt">' + s.amount + '</span></div>').join('') +
+                '</div>';
+                if (!norm) {
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const barColor = pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    return '<div class="daily-nrv-row">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                            '<span class="daily-nrv-name">' + label + '</span>' +
+                            '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + pct + '% NRV</span>' +
+                        '</div>' +
+                        '<div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + barColor + ';"></div></div>' +
+                        sourcesHtml +
+                    '</div>';
+                }
+                const consumed = (pct / 100) * norm.v;
+                const consumedStr = (consumed >= 1000 ? Math.round(consumed) : consumed.toFixed(1)) + ' ' + norm.u;
+                const allMin = Math.min(norm.v, norm.dach_min, norm.usa_min);
+                const allMax = Math.max(norm.v, norm.dach_max, norm.usa_max);
+                const scaleVal = Math.max(allMax * 1.5, consumed > 0 ? consumed * 1.1 : norm.v * 3, norm.v * 3);
+                const fillPct = Math.min(consumed / scaleVal * 100, 100);
+                const allMaxPct = Math.min(allMax / scaleVal * 100, 100);
+                const ulPct = norm.ul ? Math.min(norm.ul / scaleVal * 100, 100) : null;
+                let fillColor, valColor;
+                const ulToxic = norm.ul && norm.ul > norm.v && consumed >= norm.ul;
+                if (ulToxic)                         { fillColor = '#7f1d1d'; valColor = '#fca5a5'; }
+                else if (consumed >= allMin)         { fillColor = '#22c55e'; valColor = '#4ade80'; }
+                else                                 { fillColor = '#ef4444'; valColor = '#f87171'; }
+                const sepColor = consumed > allMax ? '#dc2626' : '#22c55e';
+                let markers = '';
+                if (allMaxPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + allMaxPct.toFixed(1) + '%;background:' + sepColor + ';"></div>';
+                if (ulPct && ulPct < 99) markers += '<div class="daily-nrv-mark" style="left:' + ulPct.toFixed(1) + '%;background:#7f1d1d;width:3px;"></div>';
+                const normsHtml = '<div class="daily-nrv-norms">' +
+                    '<span>EU: <span class="daily-nrv-norms-val">' + norm.eu + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>D-A-CH: <span class="daily-nrv-norms-val">' + norm.dach + '</span></span>' +
+                    '<span class="daily-nrv-norms-sep">·</span>' +
+                    '<span>USA: <span class="daily-nrv-norms-val">' + norm.usa + '</span></span>' +
+                    (norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : '') +
+                    '</div>';
+                let barFillHtml;
+                if (ulToxic) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:#7f1d1d;"></div>';
+                } else if (consumed > allMax) {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + allMaxPct.toFixed(1) + '%;background:' + fillColor + ';"></div>' +
+                        '<div class="daily-nrv-fill" style="left:' + allMaxPct.toFixed(1) + '%;width:' + (fillPct - allMaxPct).toFixed(1) + '%;background:#dc2626;"></div>';
+                } else {
+                    barFillHtml = '<div class="daily-nrv-fill" style="width:' + fillPct.toFixed(1) + '%;background:' + fillColor + ';"></div>';
+                }
+                return '<div class="daily-nrv-row">' +
+                    '<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">' +
+                        '<span class="daily-nrv-name">' + label + '</span>' +
+                        '<span style="color:' + valColor + ';font-size:12px;font-weight:700;">' + consumedStr + '</span>' +
+                    '</div>' +
+                    '<div class="daily-nrv-track">' +
+                        barFillHtml +
+                        markers +
+                    '</div>' +
+                    normsHtml +
+                    sourcesHtml +
+                '</div>';
+            }).join('');
+
+            const nonNrvEntries = Object.entries(nonNrvMap);
+            const nonNrvHtml = nonNrvEntries.map(([label, amount]) =>
+                '<div class="daily-nonrv-row"><span class="daily-nonrv-lbl">' + label + '</span><span class="daily-nonrv-val">' + amount + '</span></div>'
+            ).join('');
+
+            const nrvSection = nrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nrv-body\',\'daily-nrv-arrow\')">' +
+                        '<span>Mikronährstoffe &mdash; Ist-Zufuhr + 3 Referenzwerte</span>' +
+                        '<span id="daily-nrv-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nrv-body" style="display:none;">' +
+                        nrvHtml +
+                        '<div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Supplement-only · Balken relativ zum EU-NRV (skaliert bis 300%) · EU Nr. 1169/2011 · D-A-CH 2020 · USA NIH/HMD</div>' +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nonNrvSection = nonNrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nonrv-body\',\'daily-nonrv-arrow\')">' +
+                        '<span>Wirkstoffe &amp; Extrakte (kein EU-NRV)</span>' +
+                        '<span id="daily-nonrv-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nonrv-body" style="display:none;">' +
+                        nonNrvHtml +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nonNrvOptEntries = Object.entries(nonNrvOptMap);
+            const nonNrvOptSection = nonNrvOptEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nonrv-opt-body\',\'daily-nonrv-opt-arrow\')">'+
+                        '<span>Wirkstoffe &amp; Extrakte (kein EU-NRV)</span>' +
+                        '<span id="daily-nonrv-opt-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nonrv-opt-body" style="display:none;">' +
+                        nonNrvOptEntries.map(([label, names]) =>
+                            '<div class="daily-nonrv-row" style="flex-direction:column;align-items:flex-start;gap:2px;">' +
+                                '<span class="daily-nonrv-lbl">' + label + '</span>' +
+                                '<span style="font-size:9px;color:#475569;font-style:italic;">' + names.join(', ') + '</span>' +
+                            '</div>'
+                        ).join('') +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            const nrvOptSection = nrvEntries.length > 0 ? (
+                '<div class="daily-nutr-section">' +
+                    '<div class="daily-nutr-section-title daily-nutr-section-toggle" onclick="toggleDailySection(\'daily-nrv-opt-body\',\'daily-nrv-opt-arrow\')">'+
+                        '<span>Mikronährstoffe &mdash; Ist-Zufuhr + 3 Referenzwerte</span>' +
+                        '<span id="daily-nrv-opt-arrow" class="daily-nutr-section-arrow">▼</span>' +
+                    '</div>' +
+                    '<div id="daily-nrv-opt-body" style="display:none;">' +
+                        nrvOptHtml +
+                        '<div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Supplement-only · EU Nr. 1169/2011 · D-A-CH 2020 · USA NIH/HMD</div>' +
+                    '</div>' +
+                '</div>'
+            ) : '';
+
+            return `<div class="daily-nutr-box">
+                <div class="daily-nutr-header" onclick="toggleDailyNutrBox()" style="cursor:pointer;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <div class="daily-nutr-title">Tages-Nährwertbilanz</div>
+                            <div class="daily-nutr-subtitle">Aus Supplementplan (ohne Mahlzeiten) · alle Timeline-Produkte</div>
+                        </div>
+                        <span id="daily-nutr-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▼</span>
+                    </div>
+                </div>
+                <div id="daily-nutr-content" style="display:none;">
+                    <div class="daily-nutr-section">
+                        <div class="daily-nutr-section-title">Makronährstoffe aus Supplementen</div>
+                        <div class="daily-macro-grid">
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#4ade80">${totalProtein.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Protein</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#fb923c">${totalCarbs.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Kohlenhydrate</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#facc15">${totalFat.toFixed(1)}<span style="font-size:10px;font-weight:400">g</span></div>
+                                <div class="daily-macro-lbl">Fett</div>
+                            </div>
+                            <div class="daily-macro-cell">
+                                <div class="daily-macro-val" style="color:#a78bfa">${Math.round(totalKcal)}<span style="font-size:10px;font-weight:400">kcal</span></div>
+                                <div class="daily-macro-lbl">Energie</div>
+                            </div>
+                        </div>
+                    </div>
+                    ${nrvSection}
+                    ${nonNrvSection}
+                </div>
+            </div>
+            <div class="daily-nutr-box" style="margin-top:8px;">
+                <div class="daily-nutr-header" onclick="toggleDailySection('daily-opt-content','daily-opt-arrow')" style="cursor:pointer;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div>
+                            <div class="daily-nutr-title">Nährwerte optimieren</div>
+                            <div class="daily-nutr-subtitle">Welches Produkt liefert welchen Nährwert</div>
+                        </div>
+                        <span id="daily-opt-arrow" style="color:#60a5fa;font-size:16px;margin-left:8px;line-height:1;">▼</span>
+                    </div>
+                </div>
+                <div id="daily-opt-content" style="display:none;">
+                    ${nrvOptSection}
+                    ${nonNrvOptSection}
+                </div>
+            </div>`;
+        }
+
+        // ── MEIN STACK – eigene Produktauswahl mit Mengen ──────────────────────────
+        let myStack = {}; // { pid: { amount: Number } }
+
+        function loadStack() {
+            try { myStack = JSON.parse(localStorage.getItem('sl_stack') || '{}') || {}; }
+            catch (e) { myStack = {}; }
+        }
+        function saveStack() {
+            try { localStorage.setItem('sl_stack', JSON.stringify(myStack)); } catch (e) {}
+        }
+
+        // Portionsangabe ("~95g", "1 Kap", "1 Tropfen") → { num, unit }
+        function parseServing(serving) {
+            const s = serving || '';
+            const m = s.match(/(\d+(?:[.,]\d+)?)/);
+            const num = m ? parseFloat(m[1].replace(',', '.')) : 1;
+            let unit = 'Portion';
+            if (/kap/i.test(s))          unit = 'Kap';
+            else if (/tropfen/i.test(s)) unit = 'Tropfen';
+            else if (/\bml\b/i.test(s))  unit = 'ml';
+            else if (/g\b/i.test(s))     unit = 'g';
+            return { num: num || 1, unit };
+        }
+        function fmtDe(n) {
+            const r = n >= 100 ? Math.round(n) : Math.round(n * 10) / 10;
+            return String(r).replace('.', ',');
+        }
+
+        function stackAdd(pid) {
+            if (myStack[pid]) return;
+            const p = getProductById(pid);
+            if (!p) return;
+            myStack[pid] = { amount: parseServing(p.serving).num };
+            saveStack();
+            const inp = document.getElementById('stackSearchInput');
+            if (inp) inp.value = '';
+            renderStackAddList('');
+            renderStackSelected();
+            renderStackNutrients();
+            refreshStackBrowseIfOpen();
+        }
+        function stackRemove(pid) {
+            delete myStack[pid];
+            saveStack();
+            renderStackSelected();
+            renderStackNutrients();
+            refreshStackBrowseIfOpen();
+        }
+        function refreshStackBrowseIfOpen() {
+            const list = document.getElementById('stackBrowseList');
+            if (list && list.style.display !== 'none') renderStackBrowse();
+        }
+        function stackSetAmount(pid, val) {
+            if (!myStack[pid]) return;
+            const n = parseFloat(String(val).replace(',', '.'));
+            myStack[pid].amount = isNaN(n) ? 0 : n;
+            saveStack();
+            renderStackNutrients(); // nur Nährwerte neu → Eingabefokus bleibt erhalten
+        }
+
+        function renderStackAddList(query) {
+            const box = document.getElementById('stackAddList');
+            if (!box) return;
+            const q = (query || '').toLowerCase().trim();
+            if (!q) { box.innerHTML = ''; return; }
+            const matches = PRODUCTS.filter(p =>
+                !myStack[p.id] &&
+                (p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q))
+            ).slice(0, 8);
+            if (matches.length === 0) { box.innerHTML = '<div class="stack-empty">Kein Produkt gefunden.</div>'; return; }
+            box.innerHTML = matches.map(p => {
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-add-row" onclick="stackAdd('${p.id}')">
+                    <span><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-add-plus">+ Hinzufügen</span>
+                </button>`;
+            }).join('');
+        }
+
+        function renderStackSelected() {
+            const box = document.getElementById('stackSelected');
+            if (!box) return;
+            const ids = Object.keys(myStack);
+            if (ids.length === 0) {
+                box.innerHTML = '<div class="stack-empty">Noch nichts gewählt. Suche oben ein Produkt und tippe auf „+".</div>';
+                return;
+            }
+            box.innerHTML = '<div class="stack-sel-head"><span class="stack-sel-title">Deine Auswahl</span>' +
+                '<button class="stack-reco-btn" onclick="stackResetAmounts()">↺ Empfohlene Mengen</button></div>' + ids.map(pid => {
+                const p = getProductById(pid);
+                if (!p) return '';
+                const { unit } = parseServing(p.serving);
+                return `<div class="stack-item">
+                    <div class="stack-item-top">
+                        <span class="stack-item-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}</span>
+                        <button class="stack-item-del" onclick="stackRemove('${pid}')">✕</button>
+                    </div>
+                    <div class="stack-item-amount">
+                        <button class="stack-step" onclick="stackStep('${pid}', -1)" aria-label="weniger">−</button>
+                        <input type="text" inputmode="decimal" class="stack-amount-input"
+                               value="${myStack[pid].amount}" oninput="stackSetAmount('${pid}', this.value)">
+                        <button class="stack-step" onclick="stackStep('${pid}', 1)" aria-label="mehr">+</button>
+                        <span class="stack-unit">${unit}</span>
+                        <span class="stack-base">1 Portion = ${p.serving}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // +/− Schritt für die Menge (Gramm in 5er-Schritten, sonst 1er)
+        function stackStep(pid, dir) {
+            if (!myStack[pid]) return;
+            const p = getProductById(pid);
+            if (!p) return;
+            const unit = parseServing(p.serving).unit;
+            const step = unit === 'g' ? 5 : (unit === 'ml' ? 10 : 1);
+            let v = (myStack[pid].amount || 0) + dir * step;
+            if (v < 0) v = 0;
+            myStack[pid].amount = Math.round(v * 10) / 10;
+            saveStack();
+            renderStackSelected();
+            renderStackNutrients();
+            refreshStackBrowseIfOpen();
+        }
+
+        // Alle Mengen auf die empfohlene Portion zurücksetzen
+        function stackResetAmounts() {
+            Object.keys(myStack).forEach(pid => {
+                const p = getProductById(pid);
+                if (p) myStack[pid].amount = parseServing(p.serving).num;
+            });
+            saveStack();
+            renderStackSelected();
+            renderStackNutrients();
+        }
+
+        function computeStack() {
+            const nrvMap = {};
+            let prot = 0, carb = 0, fat = 0, kcal = 0;
+            Object.keys(myStack).forEach(pid => {
+                const p = getProductById(pid);
+                if (!p) return;
+                const base = parseServing(p.serving).num || 1;
+                const factor = (myStack[pid].amount || 0) / base;
+                prot += (p.protein || 0) * factor;
+                carb += (p.carbs || 0) * factor;
+                fat  += (p.fat || 0) * factor;
+                kcal += (p.kcal || 0) * factor;
+                if (!p.nutrients) return;
+                p.nutrients.forEach(n => {
+                    if ((n.label.startsWith('—') && n.nrv === null) || MACRO_SKIP.has(n.label)) return;
+                    if (n.nrv === null) return;
+                    const raw = n.label.startsWith('— ') ? n.label.slice(2) : n.label;
+                    const canon = LABEL_CANON[raw] || raw;
+                    if (!nrvMap[canon]) nrvMap[canon] = { total: 0, sources: [] };
+                    const contrib = n.nrv * factor;
+                    nrvMap[canon].total += contrib;
+                    nrvMap[canon].sources.push({ name: p.name, pct: contrib });
+                });
+            });
+            return { prot, carb, fat, kcal, nrvMap };
+        }
+
+        // Markennamen für kompakte Quellenanzeige kürzen
+        function shortName(name) {
+            return name.replace(/^(ZEC\+|HEALTH\+|Robert Franz|WICK)\s*/i, '').replace(/^ZEC\+\s*/i, '').trim();
+        }
+
+        function renderStackNutrients() {
+            const box = document.getElementById('stackNutrients');
+            if (!box) return;
+            box.innerHTML = buildStackNutrientsHtml();
+        }
+
+        function buildStackNutrientsHtml(title) {
+            if (Object.keys(myStack).length === 0) return '';
+            const { prot, carb, fat, kcal, nrvMap } = computeStack();
+
+            const macroHtml = `<div class="daily-nutr-box light-macros" style="margin-top:14px;">
+                <div class="light-macros-title">${title || 'Dein Stack insgesamt'}</div>
+                <div class="light-macros-grid">
+                    <div><span class="lm-val" style="color:#4ade80;">${Math.round(prot)} g</span><span class="lm-lbl">Eiweiß</span></div>
+                    <div><span class="lm-val" style="color:#fbbf24;">${Math.round(carb)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
+                    <div><span class="lm-val" style="color:#f87171;">${Math.round(fat)} g</span><span class="lm-lbl">Fett</span></div>
+                    <div><span class="lm-val" style="color:#a5b4fc;">${Math.round(kcal)}</span><span class="lm-lbl">Kalorien</span></div>
+                </div>
+            </div>`;
+
+            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1].total - a[1].total);
+            let barsHtml = '';
+            if (nrvEntries.length > 0) {
+                const rows = nrvEntries.map(([label, data]) => {
+                    const pct = data.total;
+                    const norm = NUTRIENT_NORMS[label];
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const overUL = norm && norm.ul && norm.ul > norm.v && (pct / 100) * norm.v >= norm.ul;
+                    const barColor = overUL ? '#7f1d1d' : pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = overUL ? '#fca5a5' : pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    let amountStr = '';
+                    if (norm) {
+                        const consumed = (pct / 100) * norm.v;
+                        amountStr = (consumed >= 1000 ? Math.round(consumed) : fmtDe(consumed)) + ' ' + norm.u + ' · ';
+                    }
+                    const normLine = norm
+                        ? `<div class="daily-nrv-norms"><span>EU: <span class="daily-nrv-norms-val">${norm.eu}</span></span>${norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : ''}</div>`
+                        : '';
+                    // Quellen: welches Produkt liefert wie viel %
+                    const srcHtml = '<div class="stack-src">aus: ' + data.sources
+                        .sort((a, b) => b.pct - a.pct)
+                        .map(s => `${shortName(s.name)} <span style="color:#64748b;">(${Math.round(s.pct)}%)</span>`)
+                        .join(' · ') + '</div>';
+                    return `<div class="daily-nrv-row">
+                        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+                            <span class="daily-nrv-name">${label}</span>
+                            <span style="color:${valColor};font-size:12px;font-weight:700;">${amountStr}${Math.round(pct)}% NRV</span>
+                        </div>
+                        <div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:${fillPct.toFixed(1)}%;background:${barColor};"></div></div>
+                        ${normLine}
+                        ${srcHtml}
+                    </div>`;
+                }).join('');
+                barsHtml = `<div class="daily-nutr-box" style="margin-top:8px;"><div class="daily-nutr-section">
+                    <div class="daily-nutr-section-title">Mikronährstoffe – Ist-Zufuhr (% NRV)</div>
+                    ${rows}
+                    <div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Hochgerechnet auf deine Mengen · Balken bis 300% · EU-NRV Nr. 1169/2011</div>
+                </div></div>`;
+            }
+
+            return macroHtml + barsHtml;
+        }
+
+        function renderStackView() {
+            const inp = document.getElementById('stackSearchInput');
+            renderStackAddList(inp ? inp.value : '');
+            renderStackSelected();
+            renderStackNutrients();
+            const browse = document.getElementById('stackBrowseList');
+            if (browse && browse.style.display !== 'none') renderStackBrowse();
+        }
+
+        // A–Z-Liste auf-/zuklappen
+        function toggleStackBrowse() {
+            const list = document.getElementById('stackBrowseList');
+            const arrow = document.getElementById('stackBrowseArrow');
+            const open = list.style.display !== 'none';
+            list.style.display = open ? 'none' : 'block';
+            arrow.textContent = open ? '▼' : '▲';
+            if (!open) renderStackBrowse();
+        }
+
+        // Im Stack? → entfernen, sonst → hinzufügen (für die A–Z-Liste)
+        function stackToggle(pid) {
+            if (myStack[pid]) stackRemove(pid);
+            else {
+                const p = getProductById(pid);
+                if (!p) return;
+                myStack[pid] = { amount: parseServing(p.serving).num };
+                saveStack();
+                renderStackSelected();
+                renderStackNutrients();
+            }
+            renderStackBrowse();
+        }
+
+        // Generieren-Panel auf-/zuklappen
+        function toggleStackGen() {
+            const panel = document.getElementById('stackGenPanel');
+            const open = panel.style.display !== 'none';
+            panel.style.display = open ? 'none' : 'block';
+            if (!open) {
+                // Tagestyp + Trainingszeit aus aktuellem Zustand vorbelegen
+                document.getElementById('stackGenDay').value = currentDayType;
+                const t = document.getElementById('stackGenTrain');
+                const f = document.getElementById('stackGenFlex');
+                if (globalTrainTimeStr) { t.value = globalTrainTimeStr; t.style.opacity = '1'; f.checked = false; }
+                else { f.checked = true; t.style.opacity = '0.45'; }
+            }
+        }
+
+        // Tagesplan aus dem Stack erzeugen
+        function generateStackPlan() {
+            if (Object.keys(myStack).length === 0) {
+                alert("Dein Stack ist leer – füge zuerst Produkte hinzu.");
+                return;
+            }
+            const dayType = document.getElementById('stackGenDay').value;
+            const flex = document.getElementById('stackGenFlex').checked;
+            const tval = document.getElementById('stackGenTrain').value;
+            globalTrainTimeStr = (flex || !tval) ? '' : tval;
+            try { localStorage.setItem('sl_train', globalTrainTimeStr); } catch (e) {}
+
+            stackPlanActive = true;
+            selectDayType(dayType);                        // setzt Tagestyp + rendert Timeline (Stack-Modus)
+            activeSection('tabTimeline', 'viewTimeline');  // zum Tagesplan wechseln
+            window.scrollTo(0, 0);
+        }
+
+        // Zurück zum vollständigen (empfohlenen) Plan
+        function exitStackPlan() {
+            stackPlanActive = false;
+            renderTimeline();
+        }
+
+        // ── MONEY – Finanzen ───────────────────────────────────────────────────────
+        let moneyData = { income: [], costs: [] };
+
+        function loadMoney() {
+            try { moneyData = JSON.parse(localStorage.getItem('sl_money') || '{}') || {}; } catch (e) { moneyData = {}; }
+            if (!moneyData.income) moneyData.income = [];
+            if (!moneyData.costs)  moneyData.costs  = [];
+            if (!moneyData.budget) moneyData.budget = { supps: 0, food: 0 };
+        }
+        function saveMoney() {
+            try { localStorage.setItem('sl_money', JSON.stringify(moneyData)); } catch (e) {}
+        }
+        function eur(n) {
+            return n.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+        }
+        function parseEur(v) {
+            const n = parseFloat(String(v).replace(/\./g, '').replace(',', '.'));
+            return isNaN(n) ? 0 : n;
+        }
+
+        function addIncome() {
+            const name = document.getElementById('incomeName').value.trim();
+            const amt = parseEur(document.getElementById('incomeAmt').value);
+            if (!name && !amt) return;
+            moneyData.income.push({ name: name || 'Einkommen', amount: amt });
+            saveMoney();
+            document.getElementById('incomeName').value = '';
+            document.getElementById('incomeAmt').value = '';
+            renderMoney();
+        }
+        function addCost() {
+            const name = document.getElementById('costName').value.trim();
+            const monthly = parseEur(document.getElementById('costMonthly').value);
+            const debt = parseEur(document.getElementById('costDebt').value);
+            if (!name && !monthly && !debt) return;
+            moneyData.costs.push({ name: name || 'Kosten', monthly: monthly, debt: debt });
+            saveMoney();
+            document.getElementById('costName').value = '';
+            document.getElementById('costMonthly').value = '';
+            document.getElementById('costDebt').value = '';
+            renderMoney();
+        }
+        function removeIncome(i) { moneyData.income.splice(i, 1); saveMoney(); renderMoney(); }
+        function removeCost(i)   { moneyData.costs.splice(i, 1);  saveMoney(); renderMoney(); }
+
+        function renderMoney() {
+            const incBox = document.getElementById('moneyIncomeList');
+            const costBox = document.getElementById('moneyCostList');
+            const resBox = document.getElementById('moneyResult');
+            if (!incBox || !costBox || !resBox) return;
+
+            const totalIncome  = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
+            const totalMonthly = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
+            const totalDebt    = moneyData.costs.reduce((s, e) => s + (e.debt || 0), 0);
+            const left = totalIncome - totalMonthly;
+
+            incBox.innerHTML = moneyData.income.length === 0
+                ? '<div class="stack-empty">Noch kein Einkommen eingetragen.</div>'
+                : moneyData.income.map((e, i) => `<div class="money-item">
+                        <span class="money-item-name">${e.name}</span>
+                        <span class="money-item-val" style="color:#4ade80;">${eur(e.amount || 0)}</span>
+                        <button class="stack-item-del" onclick="removeIncome(${i})">✕</button>
+                    </div>`).join('');
+
+            costBox.innerHTML = moneyData.costs.length === 0
+                ? '<div class="stack-empty">Noch keine Fixkosten eingetragen.</div>'
+                : moneyData.costs.map((e, i) => `<div class="money-item">
+                        <span class="money-item-name">${e.name}</span>
+                        <span class="money-item-val" style="color:#f87171;">${eur(e.monthly || 0)}${e.debt ? `<span class="money-debt">Rest ${eur(e.debt)}</span>` : ''}</span>
+                        <button class="stack-item-del" onclick="removeCost(${i})">✕</button>
+                    </div>`).join('');
+
+            const leftColor = left >= 0 ? '#a5b4fc' : '#f87171';
+            resBox.innerHTML = `
+                <div class="money-result-row"><span>Einkommen</span><span style="color:#4ade80;">${eur(totalIncome)}</span></div>
+                <div class="money-result-row"><span>− Fixkosten & Raten</span><span style="color:#f87171;">${eur(totalMonthly)}</span></div>
+                <div class="money-result-big">
+                    <div class="money-result-big-lbl">Verfügbar nach Fixkosten</div>
+                    <div class="money-result-big-val" style="color:${leftColor};">${eur(left)}</div>
+                </div>
+                ${totalDebt > 0 ? `<div class="money-result-row" style="margin-top:8px;border-top:1px solid #1e293b;padding-top:8px;"><span>Gesamte Restschulden</span><span style="color:#fb923c;">${eur(totalDebt)}</span></div>` : ''}
+            `;
+
+            renderMoneyBudget(left);
+        }
+
+        // Budget aufteilen: Supplements, Nahrung → Rest zum Sparen
+        function renderMoneyBudget(available) {
+            const box = document.getElementById('moneyBudget');
+            if (!box) return;
+            const supps = moneyData.budget.supps || 0;
+            const food  = moneyData.budget.food  || 0;
+            box.innerHTML = `
+                <div class="money-sec-head"><span>📊 Budget aufteilen</span></div>
+                <div class="money-budget-row">
+                    <span class="money-budget-lbl">💊 Supplements</span>
+                    <input type="text" inputmode="decimal" class="money-input money-budget-input" id="budgetSupps"
+                           value="${supps ? fmtDe(supps) : ''}" placeholder="€ / Monat" oninput="setBudgetVal('supps', this.value)">
+                </div>
+                <div class="money-budget-row">
+                    <span class="money-budget-lbl">🍗 Nahrung</span>
+                    <input type="text" inputmode="decimal" class="money-input money-budget-input" id="budgetFood"
+                           value="${food ? fmtDe(food) : ''}" placeholder="€ / Monat" oninput="setBudgetVal('food', this.value)">
+                </div>
+                <div class="money-result-row" style="margin-top:10px;"><span>Verfügbar</span><span style="color:#a5b4fc;">${eur(available)}</span></div>
+                <div class="money-result-row"><span>− Supplements + Nahrung</span><span id="moneyKonsum" style="color:#fb923c;">${eur(supps + food)}</span></div>
+                <div class="money-result-big" style="border-top-color:#166534;">
+                    <div class="money-result-big-lbl">💰 Zum Sparen übrig</div>
+                    <div class="money-result-big-val" id="moneySavings"></div>
+                </div>`;
+            updateSavings();
+        }
+
+        function setBudgetVal(type, val) {
+            moneyData.budget[type === 'supps' ? 'supps' : 'food'] = parseEur(val);
+            saveMoney();
+            // nur die Summen aktualisieren → Eingabefokus bleibt erhalten
+            const konsum = (moneyData.budget.supps || 0) + (moneyData.budget.food || 0);
+            const k = document.getElementById('moneyKonsum');
+            if (k) k.textContent = eur(konsum);
+            updateSavings();
+        }
+
+        function updateSavings() {
+            const el = document.getElementById('moneySavings');
+            if (!el) return;
+            const totalIncome  = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
+            const totalMonthly = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
+            const konsum = (moneyData.budget.supps || 0) + (moneyData.budget.food || 0);
+            const savings = totalIncome - totalMonthly - konsum;
+            el.textContent = eur(savings);
+            el.style.color = savings >= 0 ? '#4ade80' : '#f87171';
+        }
+
+        function renderStackBrowse() {
+            const box = document.getElementById('stackBrowseList');
+            if (!box) return;
+            const sorted = [...PRODUCTS].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+            box.innerHTML = sorted.map(p => {
+                const inStack = !!myStack[p.id];
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-browse-row${inStack ? ' in-stack' : ''}" onclick="stackToggle('${p.id}')">
+                    <span class="stack-browse-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-browse-act">${inStack ? '✓ Drin' : '+ Hinzufügen'}</span>
+                </button>`;
+            }).join('');
+        }
+
+        // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
+        let currentDayType = 'training';
+        let stackPlanActive = false;   // true = Tagesplan nur aus „Mein Stack"
+        let userWantsEmptyPlan = false; // true = bewusst leerer Plan (selbst befüllen)
+        // Alle empfohlenen Produkte (aus dem Standard-Tagesplan)
+        const RECOMMENDED_IDS = (() => {
+            const s = new Set();
+            TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => s.add(p)));
+            return s;
+        })();
+        const DAYTYPES = ['training','rest','carb','autophagy','water','keto'];
+        const DAYTYPE_LABELS = {
+            training: "Trainingstag", rest: "Trainingsfrei", carb: "Carb-Loading",
+            autophagy: "Autophagie", water: "Wasserfasten", keto: "Ketogen"
+        };
+
+        // Pre-Workout Stim-/Pump-Booster – an trainingsfreien Tagen überflüssig
+        const BOOSTER_IDS = new Set(['p43','p44','p45','p46','p47']);
+        // Schnelle Post-Workout-Kohlenhydrate / Gainer – nur zur Glykogen-Auffüllung nach dem Training
+        const FASTCARB_IDS = new Set(['p8','p9']);
+        // Kohlenhydrat-Quellen für Carb-Loading (verfügbar, nicht ausverkauft)
+        const CARBLOAD_INJECT = { p9: "Maltodextrin", p12: "Instant Rice Pudding" };
+        // Elektrolyt-/Mineral-Produkt fürs Wasserfasten (kalorienfrei, sicherheitsrelevant)
+        const WATERFAST_KEEP = new Set(['p26']);
+
+        const DAYTYPE_HINTS = {
+            training:  "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
+            rest:      "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
+            carb:      "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation.",
+            autophagy: "🔄 <strong>Autophagie-Tag:</strong> Nur kalorienfreie Mikronährstoffe & Wasser. <strong>Kein Protein, keine Kalorien</strong> – mTOR & Insulin niedrig halten, sonst stoppt die zelluläre Selbstreinigung. Ideal ab ~16h Fasten.",
+            water:     "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung.",
+            keto:      "🥑 <strong>Ketogener Tag:</strong> Kohlenhydratquellen (Maltodextrin, Gainer, Rice Pudding, High-Carb-Pre-Workout) entfallen. Ziel < 30–50 g Carbs/Tag. Mehr Elektrolyte trinken (Keto-Grippe vermeiden), Fett & moderates Protein bleiben."
+        };
+
+        function selectDayType(type) {
+            currentDayType = type;
+            DAYTYPES.forEach(t => {
+                const btn = document.getElementById('dt' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (btn) btn.classList.toggle('active', t === type);
+            });
+            const hint = document.getElementById('dayTypeHint');
+            if (hint) hint.innerHTML = DAYTYPE_HINTS[type] || '';
+            renderTimeline();
+        }
+
+        function getActiveTimeline() {
+            switch (currentDayType) {
+                case 'rest':      return buildRestTimeline();
+                case 'carb':      return buildCarbTimeline();
+                case 'autophagy': return filterTimeline(
+                                       p => (p.protein||0)===0 && (p.carbs||0)===0 && (p.kcal||0)<=5,
+                                       "Fastenfenster: nur Wasser & kalorienfreie Mikronährstoffe. Kein Protein/keine Kalorien – sonst stoppt die Autophagie.");
+                case 'water':     return filterTimeline(
+                                       (p, pid) => WATERFAST_KEEP.has(pid),
+                                       "Striktes Wasserfasten: ausschließlich Wasser + Elektrolyte. Keine Kalorien, keine sonstigen Supplemente.");
+                case 'keto':      return filterTimeline(
+                                       p => (p.carbs||0) <= 10,
+                                       null);
+                default:          return TIMELINE_CONFIG;
+            }
+        }
+
+        // Generischer Filter: behält pro Block nur Produkte, die keepFn erfüllt;
+        // leere Blöcke fallen weg. whyOverride ersetzt optional die Begründung.
+        function filterTimeline(keepFn, whyOverride) {
+            return TIMELINE_CONFIG
+                .map(b => {
+                    const productIds = b.productIds.filter(pid => {
+                        const p = getProductById(pid);
+                        return p && keepFn(p, pid, b);
+                    });
+                    const notes = {}, priority = {};
+                    productIds.forEach(pid => {
+                        if (b.notes[pid]) notes[pid] = b.notes[pid];
+                        if (b.priority[pid]) priority[pid] = b.priority[pid];
+                    });
+                    const out = { ...b, productIds, notes, priority };
+                    if (whyOverride) out.why = ": WASSER: reichlich über den Tag verteilt.<br><br>" + whyOverride;
+                    return out;
+                })
+                .filter(b => b.productIds.length > 0);
+        }
+
+        // Trainingsfreier Tag: Pre-Workout entfällt, Post-Workout ohne schnelle Carbs/Gainer
+        function buildRestTimeline() {
+            return TIMELINE_CONFIG
+                .filter(b => b.id !== 't4')
+                .map(b => {
+                    if (b.id !== 't6') return b;
+                    const productIds = b.productIds.filter(pid => !FASTCARB_IDS.has(pid));
+                    const notes = { ...b.notes };
+                    const priority = { ...b.priority };
+                    FASTCARB_IDS.forEach(pid => { delete notes[pid]; delete priority[pid]; });
+                    return {
+                        ...b,
+                        label: "Protein & Regeneration",
+                        why: ": WASSER: 400ml – 500ml.<br><br>Trainingsfreier Tag: <strong>Kein anaboles Fenster</strong> – Glykogenspeicher sind gefüllt, schnelle Kohlenhydrate (Maltodextrin/Gainer) entfallen. Protein bleibt wichtig (Leucin-Trigger alle 3–4h für MPS). Kreatin weiterhin täglich – kumulativ, Zeitpunkt egal.",
+                        productIds, notes, priority
+                    };
+                });
+        }
+
+        // Carb-Loading: Trainingsplan + Carbs zu Frühstück, Mittag- & Abendessen
+        function buildCarbTimeline() {
+            const carbMeals = new Set(['t2','t7','t9']);
+            return TIMELINE_CONFIG.map(b => {
+                if (!carbMeals.has(b.id)) return b;
+                const productIds = [...b.productIds];
+                const notes = { ...b.notes };
+                const priority = { ...b.priority };
+                Object.keys(CARBLOAD_INJECT).forEach(pid => {
+                    if (PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout') return;
+                    if (!productIds.includes(pid)) {
+                        productIds.push(pid);
+                        notes[pid] = "CARB-LOADING: Extra-Kohlenhydrate zur Glykogen-Superkompensation. In Wasser/Milch einrühren – über den Tag verteilt 8–10 g Carbs/kg KG anpeilen.";
+                        priority[pid] = "WICHTIG";
+                    }
+                });
+                return { ...b, productIds, notes, priority };
+            });
+        }
+
+        function renderTimeline() {
+            const container = document.getElementById("viewTimeline");
+
+            const wakeMin = (() => { const [h, m] = globalWakeTimeStr.split(':').map(Number); return h * 60 + m; })();
+            const sleepMin = (() => { const [h, m] = globalSleepTimeStr.split(':').map(Number); return h * 60 + m; })();
+            const awakeDuration = (sleepMin - wakeMin + 1440) % 1440;
+            // Config wurde für 16h-Tag (960 min) entworfen – proportional stauchen/strecken
+            const timeScale = awakeDuration / 960;
+            function minutesSinceWake(block) {
+                if (block.absoluteMinutes != null) return block.absoluteMinutes;
+                return block.isRelativeTosleep
+                    ? awakeDuration - block.offsetMinutes
+                    : Math.round(block.offsetMinutes * timeScale);
+            }
+            function blockTimeWindow(block) {
+                const msw = minutesSinceWake(block);
+                const s = (wakeMin + msw) % 1440;
+                const e = (s + block.duration) % 1440;
+                const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
+                return `${fmt(s)} – ${fmt(e)}`;
+            }
+            // Trainingszeit → Offset ab Aufwachen (null = flexibel / außerhalb Wachzeit)
+            let trainOffset = null;
+            if (globalTrainTimeStr) {
+                const [th, tm] = globalTrainTimeStr.split(':').map(Number);
+                const to = ((th * 60 + tm) - wakeMin + 1440) % 1440;
+                if (to >= 0 && to < awakeDuration) trainOffset = to;
+            }
+
+            // Pre-/Post-Workout um die echte Trainingszeit takten + Hinweise
+            let activeBlocks = getActiveTimeline();
+            if (trainOffset != null) {
+                const late  = (awakeDuration - trainOffset) < 360; // < 6h vor Schlaf
+                const early = trainOffset < 90;                    // < 1,5h nach Aufwachen
+                let preNote = "";
+                if (late) preNote += "<div style='color:#fca5a5;background:#1a0000;border:1px solid #7f1d1d;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>⚠️ Spätes Training: Koffein-Booster (Re-Act, Kickdown, Fight) ruinieren den Tiefschlaf (Koffein wirkt ~5–6h nach). Besser den <strong>koffeinfreien Pumpdown</strong> nehmen.</div>";
+                if (early) preNote += "<div style='color:#fcd34d;background:#1a1000;border:1px solid #92400e;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>🌅 Früh-Training: wenig Zeit vorher – Fokus auf <strong>schnelles Protein + Kohlenhydrate</strong>, kein großer Stack.</div>";
+                activeBlocks = activeBlocks.map(b => {
+                    if (b.id === 't4') return { ...b, absoluteMinutes: Math.max(0, trainOffset - b.duration), why: preNote + b.why };
+                    if (b.id === 't6') return { ...b, absoluteMinutes: Math.min(awakeDuration - b.duration, trainOffset + 60) };
+                    return b;
+                });
+            }
+
+            // Mahlzeiten-Blöcke auf die eigenen Zeiten takten (Frühstück → erste, Abendessen → letzte, Mittag → mittlere)
+            const toOffset = (timeStr) => {
+                if (!timeStr) return null;
+                const [hh, mm] = timeStr.split(':').map(Number);
+                const off = ((hh * 60 + mm) - wakeMin + 1440) % 1440;
+                return (off >= 0 && off < awakeDuration) ? off : null;
+            };
+            if (globalMeals && globalMeals.length) {
+                const m = globalMeals;
+                const mealMap = { t2: m[0], t9: m[m.length - 1] };
+                if (m.length >= 3) mealMap.t7 = m[Math.floor((m.length - 1) / 2)];
+                activeBlocks = activeBlocks.map(b => {
+                    if (mealMap[b.id]) { const off = toOffset(mealMap[b.id]); if (off != null) return { ...b, absoluteMinutes: off }; }
+                    return b;
+                });
+            }
+
+            // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
+            let stackBanner = "";
+            if (stackPlanActive) {
+                const stackIds = new Set(Object.keys(myStack));
+                const placed = new Set();
+                let blocks = activeBlocks.map(b => {
+                    const productIds = b.productIds.filter(pid => stackIds.has(pid));
+                    productIds.forEach(pid => placed.add(pid));
+                    // Feinschliff: nur Wasser-/Warn-Zeile behalten, keine Hinweise auf fremde Produkte
+                    const why = (b.why || '').split('<br><br>')[0];
+                    return { ...b, productIds, why };
+                }).filter(b => b.productIds.length > 0);
+                const leftover = [...stackIds].filter(pid => !placed.has(pid) && getProductById(pid));
+                if (leftover.length > 0) {
+                    blocks.push({
+                        id: 'tStackRest', label: 'Frei wählbar (zu einer Mahlzeit)', offsetMinutes: 120, duration: 30,
+                        icon: '', color: '#94a3b8', bg: '#0c0c1e', border: '#334155',
+                        why: ': Diese Produkte aus deinem Stack haben kein festes Zeitfenster – verteile sie über den Tag zu den Mahlzeiten.',
+                        productIds: leftover, notes: {}, priority: {}
+                    });
+                }
+                activeBlocks = blocks;
+                stackBanner = `<div class="stack-plan-banner">
+                    <div>⚡ <strong>Dein persönlicher Tagesplan</strong> aus deinem Stack · ${DAYTYPE_LABELS[currentDayType] || ''} · ${Object.keys(myStack).length} Produkte</div>
+                    <button class="stack-plan-back" onclick="exitStackPlan()">← Zurück zum vollständigen Plan</button>
+                </div>`;
+            }
+
+            const sortedBlocks = [...activeBlocks]
+                .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
+                .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
+
+            if (stackPlanActive && sortedBlocks.length === 0) {
+                container.innerHTML = stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
+                return;
+            }
+
+            container.innerHTML = stackBanner + sortedBlocks.map((block, idx) => {
+                const isLast = idx === sortedBlocks.length - 1;
+                const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
+
+                // Live-Kalkulation der getakteten Uhrzeit (skaliert)
+                const finalTimeWindow = blockTimeWindow(block);
+
+                const light = isLight();
+                const SIMPLE_PRIO = { MUSS: "Unbedingt", WICHTIG: "Wichtig", OPTIONAL: "Wenn du magst" };
+
+                let pListHtml = block.productIds.map(pid => {
+                    const p = getProductById(pid);
+                    if (!p) return "";
+                    const prio = block.priority[pid] || "OPTIONAL";
+                    const style = PRIO_STYLE[prio];
+                    const stackAmt = (stackPlanActive && myStack[pid]) ? `${myStack[pid].amount} ${parseServing(p.serving).unit}` : null;
+                    const recBadge = (stackPlanActive && RECOMMENDED_IDS.has(pid)) ? '<span class="rec-badge">empfohlen</span>' : '';
+
+                    if (light) {
+                        return `
+                            <div class="sub-product-card">
+                                <div class="sub-product-top">
+                                    <div class="sub-product-title">
+                                        <span>${p.icon}</span>
+                                        <span>${p.name}</span>
+                                    </div>
+                                    <div style="display:flex; gap:5px; align-items:center;">
+                                        <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${SIMPLE_PRIO[prio] || prio}</span>
+                                        <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">?</button>
+                                    </div>
+                                </div>
+                                <div class="light-serving">Menge: <strong>${stackAmt || p.serving}</strong></div>
+                            </div>
+                        `;
+                    }
+
+                    const noteHtml = block.notes[pid] ? `<div class="sub-product-note">${block.notes[pid]}</div>` : "";
+                    return `
+                        <div class="sub-product-card">
+                            <div class="sub-product-top">
+                                <div class="sub-product-title">
+                                    <span>${p.icon}</span>
+                                    <span>${p.name}</span>
+                                    ${stackAmt ? `<span class="stack-amt-badge">${stackAmt}</span>` : ''}
+                                    ${recBadge}
+                                </div>
+                                <div style="display:flex; gap:5px; align-items:center;">
+                                    <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${prio}</span>
+                                    <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">Info</button>
+                                </div>
+                            </div>
+                            ${noteHtml}
+                        </div>
+                    `;
+                }).join('');
+
+                let whyHtml;
+                if (light) {
+                    const waterPart = (block.why.split('<br><br>')[0] || '').replace(/^:\s*/, '').trim();
+                    whyHtml = `
+                        <div class="why-box light-why">
+                            <div class="why-text">💧 ${waterPart || 'Mit einem großen Glas Wasser einnehmen.'}</div>
+                        </div>`;
+                } else {
+                    whyHtml = `
+                        <div class="why-box" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
+                            <div class="why-title" style="--color:${block.color}">Anweisungen & Wasserzufuhr</div>
+                            <div class="why-text">${block.why}</div>
+                        </div>`;
+                }
+
+                return `
+                    <div class="timeline-item-container">
+                        ${lineHtml}
+                        <div class="timeline-card" id="tc-${block.id}" style="--border-color: ${block.color};">
+                            <button class="card-trigger" onclick="toggleTimelineCard('${block.id}')" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
+                                <div class="card-icon-box" style="--bg:${block.bg}; --border:${block.border};">
+                                    ${block.icon}
+                                </div>
+                                <div class="card-info">
+                                    <div class="card-label">${block.label}</div>
+                                    <div class="card-time" style="--color:${block.color}">${finalTimeWindow}</div>
+                                </div>
+                                <div class="card-badge-box">
+                                    <span class="card-count">${block.productIds.length}</span>
+                                    <span class="card-arrow"></span>
+                                </div>
+                            </button>
+                            <div class="card-content" id="tcc-${block.id}">
+                                ${whyHtml}
+                                <div class="item-list">
+                                    ${pListHtml}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('') + buildDailyNutrientsBox();
+        }
+
+        function initDatabaseView() {
+            const catBox = document.getElementById("dbCategoriesBox");
+            catBox.innerHTML = CATS.map(c => `
+                <button class="cat-btn ${c === currentCatFilter ? 'active' : ''}" id="cat-btn-${c}" onclick="filterCategory('${c}')">${c}</button>
+            `).join('');
+            renderFilteredProducts();
+        }
+
+        function renderFilteredProducts() {
+            const listContainer = document.getElementById("dbCardList");
+            const q = currentSearchQuery.toLowerCase();
+
+            const filtered = PRODUCTS.filter(p => {
+                const matchesCat = currentCatFilter === "Alle" || p.cat === currentCatFilter;
+                const matchesSearch = !q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q) || p.function.toLowerCase().includes(q);
+                return matchesCat && matchesSearch;
+            }).sort((a, b) => a.name.localeCompare(b.name, 'de'));
+
+            document.getElementById("dbProductCount").innerText = `${filtered.length} Produkte`;
+            document.getElementById("dbNoResults").style.display = filtered.length === 0 ? 'block' : 'none';
+
+            listContainer.innerHTML = filtered.map(p => {
+                const kj = Math.round(p.kcal * 4.184);
+                const badge = PRODUCT_BADGES[p.id];
+                let macroHtml = `
+                    <div class="macros-box">
+                        <div class="macros-title">NÄHRWERTE PRO PORTION (${p.serving})</div>
+                        <table class="naehr-table">
+                            <tr class="naehr-row-energy"><td>Brennwert</td><td>${kj} kJ / ${p.kcal} kcal</td></tr>
+                            <tr class="naehr-row-fat"><td>Fett</td><td>${p.fat} g</td></tr>
+                            <tr class="naehr-row-carbs"><td>Kohlenhydrate</td><td>${p.carbs} g</td></tr>
+                            <tr class="naehr-row-protein"><td>Eiweiß</td><td>${p.protein} g</td></tr>
+                        </table>
+                    </div>
+                `;
+
+                const rows = [
+                    { icon:"", label:"Funktion im Körper", val:p.function, col:"#22c55e" },
+                    { icon:"", label:"Absorption", val:p.absorption, col:"#60a5fa" },
+                    { icon:"", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
+                    { icon:"", label:"Womit konkurriert", val:p.competes, col:"#f97316" },
+                    { icon:"", label:"Geschmack", val:p.geschmack, col:"#f472b6" },
+                    { icon:"", label:"Löslichkeit", val:p.loeslichkeit, col:"#38bdf8" },
+                    ...(p.ingredients ? [{ icon:"", label:"Zutaten", val:p.ingredients, col:"#64748b" }] : [])
+                ];
+
+                const detailsRowsHtml = rows.map(r => `
+                    <div class="info-row" style="--row-color: ${r.col}">
+                        <div class="info-row-title" style="--row-color: ${r.col}">${r.icon} ${r.label}</div>
+                        <div class="info-row-val">${r.val}</div>
+                    </div>
+                `).join('');
+
+                const flavor = PRODUCT_FLAVORS[p.id];
+                return `
+                    <div class="db-card" id="dbc-${p.id}">
+                        <button class="db-card-trigger" onclick="toggleProductCard('${p.id}')">
+                            <span class="db-card-icon">${p.icon}</span>
+                            <div class="db-card-title-box">
+                                <div class="db-card-name">${p.name}</div>
+                                ${flavor ? `<div class="db-card-flavor">(${flavor})</div>` : ''}
+                                <div class="db-card-cat">${p.cat}</div>
+                            </div>
+                            ${badge ? `<span class="prod-badge prod-badge-${badge.type}">${badge.text}</span>` : ''}
+                            <span class="db-card-arrow"></span>
+                        </button>
+                        <div class="db-card-content" id="dbcc-${p.id}">
+                            ${macroHtml}
+                            ${buildNutrientsHtml(p)}
+                            ${detailsRowsHtml}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function buildNutrientsHtml(p) {
+            if (!p.nutrients || p.nutrients.length === 0) return '';
+            const hasNrv = p.nutrients.some(n => n.nrv !== null);
+            return `<div class="micro-box">
+                <div class="macros-title">MIKRONÄHRSTOFFE PRO PORTION (${p.serving})</div>
+                <table class="micro-table">${p.nutrients.map(n => {
+                    const isSub = n.label.startsWith('—');
+                    return `<tr class="${isSub ? 'micro-sub' : ''}"><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`;
+                }).join('')}</table>
+                ${hasNrv ? `<div style="font-size:9px;color:#475569;margin-top:6px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011</div>` : ''}
+            </div>`;
+        }
+
+        function toggleTimelineCard(id) {
+            const card = document.getElementById(`tc-${id}`);
+            const content = document.getElementById(`tcc-${id}`);
+            const isOpen = card.classList.contains("open");
+            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; }
+            else { card.classList.add("open"); content.style.display = "block"; }
+        }
+
+        function toggleProductCard(id) {
+            const card = document.getElementById(`dbc-${id}`);
+            const content = document.getElementById(`dbcc-${id}`);
+            const isOpen = card.classList.contains("open");
+            if(isOpen) { card.classList.remove("open"); content.style.display = "none"; }
+            else { card.classList.add("open"); content.style.display = "block"; }
+        }
+
+        function filterCategory(catName) {
+            CATS.forEach(c => { document.getElementById(`cat-btn-${c}`).classList.remove("active"); });
+            currentCatFilter = catName;
+            document.getElementById(`cat-btn-${catName}`).classList.add("active");
+            renderFilteredProducts();
+        }
+
+        function openProductOverlay(id) {
+            const p = getProductById(id);
+            if(!p) return;
+
+            document.getElementById("ovIcon").innerText = p.icon;
+            document.getElementById("ovName").innerText = p.name;
+            document.getElementById("ovCat").innerText = p.cat;
+
+            // Light Mode: nur "Wofür?" und "Wann & wie?" in einfacher Sprache
+            if (isLight()) {
+                document.getElementById("ovDetails").innerHTML = `
+                    <div class="info-row" style="--row-color:#22c55e">
+                        <div class="info-row-title" style="--row-color:#22c55e">Wofür ist das gut?</div>
+                        <div class="info-row-val">${p.function}</div>
+                    </div>
+                    <div class="info-row" style="--row-color:#a78bfa">
+                        <div class="info-row-title" style="--row-color:#a78bfa">Wann & wie nehmen?</div>
+                        <div class="info-row-val">${p.takeWith}</div>
+                    </div>
+                    <div class="info-row" style="--row-color:#38bdf8">
+                        <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
+                        <div class="info-row-val">${p.serving}</div>
+                    </div>`;
+                document.getElementById("productOverlay").style.display = "flex";
+                return;
+            }
+
+            const kj = Math.round(p.kcal * 4.184);
+            let macroHtml = `
+                <div class="macros-box">
+                    <div class="macros-title">NÄHRWERTE PRO PORTION (${p.serving})</div>
+                    <table class="naehr-table">
+                        <tr class="naehr-row-energy"><td>Brennwert</td><td>${kj} kJ / ${p.kcal} kcal</td></tr>
+                        <tr class="naehr-row-fat"><td>Fett</td><td>${p.fat} g</td></tr>
+                        <tr class="naehr-row-carbs"><td>Kohlenhydrate</td><td>${p.carbs} g</td></tr>
+                        <tr class="naehr-row-protein"><td>Eiweiß</td><td>${p.protein} g</td></tr>
+                    </table>
+                </div>
+            `;
+
+            const rows = [
+                { icon:"", label:"Funktion im Körper", val:p.function, col:"#22c55e" },
+                { icon:"", label:"Absorption", val:p.absorption, col:"#60a5fa" },
+                { icon:"", label:"Womit einnehmen", val:p.takeWith, col:"#a78bfa" },
+                { icon:"", label:"Womit konkurriert", val:p.competes, col:"#f97316" },
+                { icon:"", label:"Geschmack", val:p.geschmack, col:"#f472b6" },
+                { icon:"", label:"Löslichkeit", val:p.loeslichkeit, col:"#38bdf8" }
+            ];
+
+            const rowsHtml = rows.map(r => `
+                <div class="info-row" style="--row-color: ${r.col}">
+                    <div class="info-row-title" style="--row-color: ${r.col}">${r.icon} ${r.label}</div>
+                    <div class="info-row-val">${r.val}</div>
+                </div>
+            `).join('');
+
+            document.getElementById("ovDetails").innerHTML = macroHtml + buildNutrientsHtml(p) + rowsHtml;
+            document.getElementById("productOverlay").style.display = "flex";
+        }
+
+        function activeSection(tabId, viewId) {
+            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            document.getElementById(tabId).classList.add("active");
+            document.getElementById(viewId).classList.add("active");
+            // Show panels only on Tagesplan
+            document.getElementById("timelinePanels").style.display =
+                (tabId === "tabTimeline") ? "block" : "none";
+        }
+
+
+        // ─── SPORT DATA ───────────────────────────────────────────────────
+        const SPORT_DATA = {
+            maxkraft: {
+                color:"#ef4444", bg:"#1a0000", border:"#991b1b",
+                title:"Maximalkraft", icon:"🏋️",
+                desc:"1–5 Wdh., 85–100% 1RM, Pause 3–5 min. Ziel: Nervale Ansteuerung & maximale Kraftentwicklung.",
+                supplements:"Kreatin 5g täglich · Citrullin 8g pre · Whey + Dextrose post · Koffein-Booster",
+                days:[
+                    { day:"Tag A – Unterkörper Kraft", exercises:[
+                        { name:"Kniebeuge", sets:"5×3", load:"87–92% 1RM", rest:"4 min", tip:"Tief sitzen, Knie über Zehe, Brustkorb hoch" },
+                        { name:"Rumänisches Kreuzheben", sets:"4×4", load:"80–85% 1RM", rest:"3 min", tip:"Rücken neutral, Hüfte zurück, keine Kniebeuge" },
+                        { name:"Beinpresse", sets:"3×5", load:"82% 1RM", rest:"3 min", tip:"Füße schulterbreit, volle Streckung oben" },
+                        { name:"Wadenheben stehend", sets:"4×6", load:"Schwer", rest:"2 min", tip:"Volle ROM, oben 1 sek halten" }
+                    ]},
+                    { day:"Tag B – Oberkörper Drücken", exercises:[
+                        { name:"Langhantel Bankdrücken", sets:"5×3", load:"87–92% 1RM", rest:"4 min", tip:"Schulterblätter zusammen, Bogen, Ellbogen 45°" },
+                        { name:"Schrägbank Bankdrücken", sets:"4×4", load:"80% 1RM", rest:"3 min", tip:"30° Neigung, volle Streckung oben" },
+                        { name:"Schulterdrücken sitzend", sets:"4×4", load:"78% 1RM", rest:"3 min", tip:"Kern anspannen, keine Ausweichbewegung" },
+                        { name:"Trizeps Dips (Gewicht)", sets:"4×5", load:"Zusatzgewicht", rest:"2 min", tip:"Rumpf leicht vorne, Ellbogen nah am Körper" }
+                    ]},
+                    { day:"Tag C – Oberkörper Ziehen", exercises:[
+                        { name:"Klimmzüge (Gewicht)", sets:"5×3", load:"Zusatzgewicht", rest:"4 min", tip:"Schulterblätter unten, volle Streckung unten" },
+                        { name:"Langhantel Rudern vorgebeugt", sets:"4×4", load:"82% 1RM", rest:"3 min", tip:"45° Rumpf, Ellbogen nah, Stange zur Hüfte" },
+                        { name:"Hammer Curls", sets:"4×5", load:"Schwer", rest:"2 min", tip:"Daumen oben, kein Schwung" },
+                        { name:"Gesichtszug (Face Pull)", sets:"3×8", load:"Mittel", rest:"90 sek", tip:"Außenrotation am Ende, Schultergesundheit" }
+                    ]},
+                    { day:"Tag D – Ganzkörper Kraft", exercises:[
+                        { name:"Kreuzheben", sets:"5×2", load:"90–95% 1RM", rest:"5 min", tip:"Größter Kraft-Stimulus – Rücken neutral, Luft holen" },
+                        { name:"Power Clean", sets:"4×3", load:"75% 1RM", rest:"3 min", tip:"Explosiv aus den Beinen, Ellbogen schnell durch" },
+                        { name:"Farmer's Walk", sets:"4×20m", load:"Schwer", rest:"2 min", tip:"Schultern zurück, kurze schnelle Schritte" },
+                        { name:"Bauchpresse / Kabelzug", sets:"3×8", load:"Schwer", rest:"90 sek", tip:"Kern maximal anspannen" }
+                    ]}
+                ]
+            },
+            hyper: {
+                color:"#a78bfa", bg:"#0d001a", border:"#6d28d9",
+                title:"Hypertrophie", icon:"💪",
+                desc:"8–12 Wdh., 65–80% 1RM, Pause 60–120 sek. Ziel: Maximales Muskelvolumen & metabolischer Stress.",
+                supplements:"Kreatin 5g · Whey alle 3–4h · Casein vor Schlaf · Citrullin pre · Intra-EAAs optional",
+                days:[
+                    { day:"Tag A – Brust & Trizeps", exercises:[
+                        { name:"Schrägbank Kurzhantel", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Volle Dehnung unten, explosiv drücken, 3-0-1 Tempo" },
+                        { name:"Kabelzug Fliegende", sets:"3×12", load:"60% 1RM", rest:"60 sek", tip:"Maximale Dehnung, Kontraktion oben halten" },
+                        { name:"Dips (KG)", sets:"4×10", load:"Körpergewicht+", rest:"75 sek", tip:"Rumpf leicht vorne für Brust-Fokus" },
+                        { name:"Skull Crusher", sets:"3×12", load:"Moderat", rest:"60 sek", tip:"Ellbogen eng, nur Unterarm bewegt" },
+                        { name:"Kabel Trizeps Pushdown", sets:"3×15", load:"Leicht-Mittel", rest:"45 sek", tip:"Kontraktion ganz unten halten 1 sek" }
+                    ]},
+                    { day:"Tag B – Rücken & Bizeps", exercises:[
+                        { name:"Kabel Rudern eng", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Schulterblätter zusammenziehen, Brust raus" },
+                        { name:"Latzug breit vorne", sets:"4×12", load:"65% 1RM", rest:"75 sek", tip:"Ellbogen zur Hüfte führen, kein Schwung" },
+                        { name:"Kurzhantel Rudern", sets:"3×12", load:"70% 1RM", rest:"60 sek", tip:"Volle Streckung, Ellbogen über Rücken" },
+                        { name:"SZ-Curls", sets:"4×10", load:"Moderat", rest:"75 sek", tip:"Langsam ablassen (3 sek), explosiv hoch" },
+                        { name:"Konzentrations Curls", sets:"3×12", load:"Leicht", rest:"45 sek", tip:"Volle Kontraktion, kein Oberkörper-Schwung" }
+                    ]},
+                    { day:"Tag C – Schultern", exercises:[
+                        { name:"Kurzhantel Schulterdrücken", sets:"4×10", load:"70% 1RM", rest:"75 sek", tip:"Keine Hohlkreuz, Kern fest" },
+                        { name:"Kurzhantel Seitheben", sets:"4×15", load:"Leicht", rest:"45 sek", tip:"Daumen leicht unten, Ellbogen führen, 30° vorbeugen" },
+                        { name:"Kabel Seitheben", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Konstante Spannung durch Kabel besser als KH" },
+                        { name:"Face Pull Kabel", sets:"4×15", load:"Leicht", rest:"45 sek", tip:"Außenrotation = gesunde Schulter" },
+                        { name:"Vorgebeugtes Seitheben", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Hinterer Deltamuskel oft vernachlässigt" }
+                    ]},
+                    { day:"Tag D – Beine", exercises:[
+                        { name:"Kniebeuge", sets:"4×10", load:"70% 1RM", rest:"90 sek", tip:"Kontrolliert runter (3 sek), explosiv hoch" },
+                        { name:"Beinpresse", sets:"4×12", load:"65% 1RM", rest:"75 sek", tip:"Füße hoch = mehr Oberschenkel, eng = mehr Außen" },
+                        { name:"Beinstrecker", sets:"3×15", load:"Moderat", rest:"60 sek", tip:"Oben 2 sek halten für maximale Kontraktion" },
+                        { name:"Beinbeuger liegend", sets:"3×12", load:"Moderat", rest:"60 sek", tip:"Keine Hüfte abheben, volle Dehnung" },
+                        { name:"Wadenheben (Sitzend)", sets:"4×15", load:"Moderat", rest:"45 sek", tip:"Soleus-Fokus, tiefes Absenken" }
+                    ]},
+                    { day:"Tag E – Arme & Bauch", exercises:[
+                        { name:"Kurzhantel Curls abwechselnd", sets:"4×12", load:"Moderat", rest:"60 sek", tip:"Supination am Ende für Bizepskontraktion" },
+                        { name:"Kabel Curls", sets:"3×15", load:"Leicht", rest:"45 sek", tip:"Konstante Spannung ganz oben und unten" },
+                        { name:"Trizeps Kabelzug", sets:"4×12", load:"Moderat", rest:"60 sek", tip:"Ellbogen fest am Körper, volle Streckung" },
+                        { name:"Kabelzug Bauchpresse", sets:"4×15", load:"Moderat", rest:"45 sek", tip:"Crunch-Bewegung, Nabel zur Hüfte" },
+                        { name:"Hängendes Knieheben", sets:"3×15", load:"KG", rest:"45 sek", tip:"Langsam absenken, kein Schwung" }
+                    ]}
+                ]
+            },
+            kausd: {
+                color:"#22c55e", bg:"#001a08", border:"#166534",
+                title:"Kraftausdauer", icon:"⚡",
+                desc:"15–25 Wdh., 50–65% 1RM, Pause 30–60 sek. Ziel: Muskuläre Ausdauer, Laktatpufferung, Kondition.",
+                supplements:"Citrullin Malat 8g pre (Laktatpufferung!) · Intra EAAs · Beta-Alanin (Kribbeln normal) · leichtes Protein post",
+                days:[
+                    { day:"Tag A – Oberkörper Zirkel", exercises:[
+                        { name:"Liegestütze", sets:"3×20", load:"KG / Weste", rest:"30 sek", tip:"Volle ROM, konstantes Tempo 1-0-1" },
+                        { name:"TRX / Kabelrudern", sets:"3×20", load:"Leicht", rest:"30 sek", tip:"Schulterblätter zusammen am Ende" },
+                        { name:"Schulterdrücken Kurzhanteln", sets:"3×18", load:"Leicht", rest:"30 sek", tip:"Ohne Pause durchdrücken" },
+                        { name:"Klimmzug-Jumping Negatives", sets:"3×15", load:"KG", rest:"45 sek", tip:"5 sek negativ runterlassen" },
+                        { name:"Trizeps Dips", sets:"3×20", load:"KG", rest:"30 sek", tip:"Nur Trizeps, Rumpf aufrecht" }
+                    ]},
+                    { day:"Tag B – Unterkörper Ausdauer", exercises:[
+                        { name:"Goblet Squat", sets:"4×20", load:"Kettle/KH", rest:"45 sek", tip:"Tief, aufrecht, Knie nach außen" },
+                        { name:"Ausfallschritte alternierend", sets:"3×20", load:"KH", rest:"45 sek", tip:"90° beide Knie, Rumpf aufrecht" },
+                        { name:"Rumänisches KH Kreuzheben", sets:"3×18", load:"Leicht-Mittel", rest:"45 sek", tip:"Kontrollierte Bewegung, Spannung halten" },
+                        { name:"Sumo Kniebeuge", sets:"3×20", load:"KH mittig", rest:"30 sek", tip:"Weite Hüfte, Knie stabil" },
+                        { name:"Wadenheben 1-beinig", sets:"3×20", load:"KG", rest:"30 sek", tip:"Volle ROM, Gleichgewicht" }
+                    ]},
+                    { day:"Tag C – Ganzkörper Ausdauer", exercises:[
+                        { name:"Burpees", sets:"4×15", load:"KG", rest:"30 sek", tip:"Tempo halten, Hüfte voll strecken" },
+                        { name:"Kettlebell Swing", sets:"4×20", load:"Mittel", rest:"30 sek", tip:"Hüftstoß, kein Rücken!" },
+                        { name:"Push-Pull Supersatz", sets:"4×15+15", load:"KG/Kabel", rest:"45 sek", tip:"Direkt ohne Pause zwischen Push & Pull" },
+                        { name:"Seitstütz", sets:"3×30 sek", load:"KG", rest:"20 sek", tip:"Hüfte oben, Körper gerade" },
+                        { name:"Mountain Climbers", sets:"3×30", load:"KG", rest:"30 sek", tip:"Hüfte tief, Tempo konstant" }
+                    ]},
+                    { day:"Tag D – HIIT Zirkel", exercises:[
+                        { name:"Box Jumps", sets:"4×10", load:"KG", rest:"30 sek", tip:"Weich landen, Knie leicht gebeugt" },
+                        { name:"Medizinball Slam", sets:"4×15", load:"Med. Ball", rest:"30 sek", tip:"Volle Streckung oben, maximale Kraft" },
+                        { name:"Kabelzug Rotation", sets:"3×15", load:"Leicht", rest:"30 sek", tip:"Kern rotiert, Hüfte stabil" },
+                        { name:"Seil springen", sets:"3×60 sek", load:"KG", rest:"30 sek", tip:"Leichter Zehensprung, Handgelenke rotieren" },
+                        { name:"Plank Variationen", sets:"3×45 sek", load:"KG", rest:"20 sek", tip:"Gesäß nicht hochschieben, atmen" }
+                    ]}
+                ]
+            }
+        };
+
+        function selectSportMode(mode) {
+            ['maxkraft','hyper','kausd'].forEach(m => {
+                document.getElementById('sm' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
+                if (m === 'maxkraft') document.getElementById('smMaxkraft').classList.remove('active');
+                document.getElementById('sp' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
+            });
+            // fix IDs
+            ['Maxkraft','Hyper','Kausd'].forEach(id => {
+                document.getElementById('sm'+id).classList.remove('active');
+                document.getElementById('sp'+id).classList.remove('active');
+            });
+            const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
+            document.getElementById('sm' + modeMap[mode]).classList.add('active');
+            document.getElementById('sp' + modeMap[mode]).classList.add('active');
+        }
+
+        function renderSportPlans() {
+            Object.entries(SPORT_DATA).forEach(([key, plan]) => {
+                const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
+                const box = document.getElementById('sp' + modeMap[key]);
+                if (!box) return;
+
+                const suppHtml = `<div class="sport-row" style="--sc:${plan.color}">
+                    <div class="sport-row-title">Supplements für diesen Modus</div>
+                    <div class="sport-row-val">${plan.supplements}</div>
+                </div>`;
+
+                const bannerHtml = `<div class="sport-hero-banner" style="background:${plan.bg}; border:1px solid ${plan.border}; color:${plan.color};">
+                    <div style="font-size:22px; margin-bottom:4px;">${plan.icon} ${plan.title}</div>
+                    <div style="font-size:11px; color:#cbd5e1; line-height:1.5;">${plan.desc}</div>
+                    ${suppHtml}
+                </div>`;
+
+                const daysHtml = plan.days.map((day, di) => {
+                    const exHtml = day.exercises.map((ex, ei) => `
+                        <div style="background:#04040d; border-radius:8px; padding:9px 11px; margin-bottom:6px; border-left:3px solid ${plan.color};">
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
+                                <div style="font-size:12px; font-weight:700; color:#e2e8f0;">${ex.name}</div>
+                                <div style="display:flex; gap:4px; flex-shrink:0;">
+                                    <span class="sport-tag" style="background:${plan.bg}; color:${plan.color};">${ex.sets}</span>
+                                    <span class="sport-tag" style="background:#1a1a2e; color:#a78bfa;">${ex.load}</span>
+                                </div>
+                            </div>
+                            <div style="font-size:10px; color:#60a5fa; margin-top:3px;">⏱ Pause: ${ex.rest}</div>
+                            <div style="font-size:11px; color:#94a3b8; margin-top:3px; line-height:1.5;">💡 ${ex.tip}</div>
+                        </div>
+                    `).join('');
+
+                    return `<div class="sport-info-card" id="sc-${key}-${di}" style="--sc:${plan.color}">
+                        <button class="sport-info-trigger" onclick="toggleSportCard('${key}','${di}')">
+                            <span class="sport-info-icon">${plan.icon}</span>
+                            <span class="sport-info-title">${day.day}</span>
+                            <span class="sport-info-arrow">⌄</span>
+                        </button>
+                        <div class="sport-info-content" id="scc-${key}-${di}">
+                            ${exHtml}
+                        </div>
+                    </div>`;
+                }).join('');
+
+                box.innerHTML = bannerHtml + daysHtml;
+            });
+        }
+
+        function toggleSportCard(mode, idx) {
+            const card = document.getElementById('sc-' + mode + '-' + idx);
+            const content = document.getElementById('scc-' + mode + '-' + idx);
+            const open = card.classList.contains('open');
+            card.classList.toggle('open', !open);
+            content.style.display = open ? 'none' : 'block';
+        }
+
+
+        // ─── BODY ATLAS DATA ───────────────────────────────────────────────
+        const BODY_ZONES = {
+            head: {
+                icon:"🧠", label:"Kopf & Gehirn", sub:"Kopfschmerzen, Konzentration, Stimmung, Gedächtnis",
+                deficiencies:[
+                    { name:"Wassermangel", tag:"Häufigste Ursache", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Schon 1–2% Dehydration senken kognitive Leistung messbar. Dumpfe Nachmittagskopfschmerzen = klassisches Erstsymptom.",
+                      fix:"3+ Liter Wasser täglich. Morgens sofort 300–400 ml. Elektrolyte bei Schwitzen." },
+                    { name:"Magnesium-Mangel", tag:"Kopfschmerz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Häufigste Nährstoffursache von Spannungskopfschmerzen und Migräne. Muskelverspannung im Nacken verstärkt.",
+                      fix:"Basische Mineralien abends. Dunkle Schokolade, Nüsse." },
+                    { name:"Vitamin B-Komplex", tag:"Gehirnnebel", color:"#fbbf24", bg:"#2a1a00",
+                      text:"B1, B6, B12 sind essenziell für Neurotransmitter. Mangel → Vergesslichkeit, Stimmungsschwankungen, Konzentrationsprobleme.",
+                      fix:"ZEC+ Vitamin B 25 morgens mit Frühstück." },
+                    { name:"Omega-3 Mangel", tag:"Kognition", color:"#34d399", bg:"#022a18",
+                      text:"DHA ist Baustein der Gehirnzellmembran. Mangel verschlechtert Konzentration und Reaktionszeit langfristig.",
+                      fix:"HEALTH+ Super Omega-3 täglich mit fettreicher Mahlzeit." },
+                    { name:"Eisen-Mangel", tag:"Sauerstoff", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert O2-Transport ins Gehirn → anhaltende Müdigkeit, Konzentrationsprobleme. NUR bei Bluttest behandeln!",
+                      fix:"Eisenbisglycinat nüchtern + Vitamin C. Ferritin-Bluttest zuerst!" }
+                ]
+            },
+            shoulder: {
+                icon:"💪", label:"Schulter & Nacken", sub:"Verspannungen, Schmerzen, eingeschränkte Beweglichkeit, Sehnenentzündung",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Verspannung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesiummangel erhöht neuromuskuläre Erregbarkeit – Muskeln können nicht entspannen. Chronische Schulter-/Nackenverspannungen.",
+                      fix:"Basische Mineralien abends vor dem Schlafen." },
+                    { name:"Vitamin D3 Mangel", tag:"Muskelkraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Mangel senkt Muskelkraft systemisch und erhöht Verletzungsrisiko. Schulterschmerzen ohne klare Ursache oft D3-Signal.",
+                      fix:"D3 + K2 morgens mit Fett." },
+                    { name:"Kollagen-Mangel", tag:"Sehnen", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kollagen macht >70% der Sehnenmasse aus. Mangel → Verschleiß, Rissrisiko bei Überlastung.",
+                      fix:"All In One Collagen morgens nüchtern + Vitamin C zwingend!" },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt entzündliche Prostaglandine (Tendinitis-Ursache).",
+                      fix:"Super Omega-3 täglich. Synergie mit Arthro Essential." }
+                ]
+            },
+            chest: {
+                icon:"❤️", label:"Herz & Kreislauf", sub:"Herzrhythmus, Blutdruck, Durchblutung, Kurzatmigkeit",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Herzrhythmus", color:"#ef4444", bg:"#2a0505",
+                      text:"Magnesium ist essenziell für Na/K-ATPase → stabilen Herzrhythmus. Mangel → Herzrasen, Arrhythmien, hoher Blutdruck.",
+                      fix:"Basische Mineralien abends. Blattgemüse." },
+                    { name:"CoQ10 Mangel", tag:"Herzenergie", color:"#f97316", bg:"#2a0d00",
+                      text:"CoQ10 für ATP-Produktion in Herzmuskelzellen. Statine blockieren CoQ10-Synthese zusätzlich.",
+                      fix:"Protect Heart mit fettreicher Mahlzeit (Ubiquinol-Form)." },
+                    { name:"Omega-3 Mangel", tag:"Blutfette", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA senken Triglyzeride, reduzieren Blutplättchenaggregation und CRP. Direkt kardioprotektiv.",
+                      fix:"Super Omega-3 täglich. Synergie mit D3+K2." },
+                    { name:"Vitamin D3 Mangel", tag:"Blutdruck", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren steuern Renin-Angiotensin-System mit. Mangel erhöht Risiko für Bluthochdruck.",
+                      fix:"D3 + K2 morgens. K2 verhindert Calciumablagerungen in Arterien." },
+                    { name:"Kalium-Mangel", tag:"Herzrhythmus", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kalium reguliert mit Natrium Herzmuskelrhythmus. Mangel durch Schwitzen → Herzstolpern.",
+                      fix:"Bananen, Kartoffeln, Hülsenfrüchte. Bei viel Sport: Elektrolyte." }
+                ]
+            },
+            gut: {
+                icon:"🫁", label:"Darm & Verdauung", sub:"Blähungen, Krämpfe, Unverträglichkeiten, Verstopfung",
+                deficiencies:[
+                    { name:"Probiotika-Mangel", tag:"Darmflora", color:"#4ade80", bg:"#052e16",
+                      text:"Dysbiose → Blähungen, Unverträglichkeiten, schlechte Nährstoffaufnahme, schlechte Stimmung (Darm-Hirn-Achse).",
+                      fix:"HEALTH+ Probio-Tect morgens nüchtern. 2h Abstand zu Antibiotika." },
+                    { name:"Wassermangel", tag:"Verstopfung", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Häufigste Ursache von Verstopfung. Darm entzieht dem Stuhl Wasser bei Dehydration.",
+                      fix:"3+ Liter täglich. Morgens nüchtern warmes Wasser." },
+                    { name:"Enzym-Mangel", tag:"Verdauung", color:"#f97316", bg:"#2a0d00",
+                      text:"Bei hoher Proteinzufuhr können körpereigene Enzyme nicht ausreichen. Unvollständige Verdauung → Blähungen.",
+                      fix:"HEALTH+ Enzym Komplex direkt vor der Mahlzeit." },
+                    { name:"Magnesium-Mangel", tag:"Peristaltik", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium reguliert glatte Darmmuskulatur. Mangel → verlangsamte Peristaltik, Verstopfung.",
+                      fix:"Basische Mineralien abends. Hohe Dosen wirken abführend." },
+                    { name:"Ballaststoffmangel", tag:"Mikrobiom", color:"#34d399", bg:"#022a18",
+                      text:"Ballaststoffe ernähren Darmbakterien (Präbiotika) und fördern Stuhlgang.",
+                      fix:"Vollkorn, Gemüse, Hülsenfrüchte täglich." },
+                    { name:"Anti-Nährstoffe & Resorptionsblocker", tag:"Mineralien-Blocker", color:"#f97316", bg:"#2a0d00",
+                      text:"Phytinsäure (Getreide, Vollkorn, Hülsenfrüchte), Tannine (Kaffee, schwarzer/grüner Tee) und Oxalsäure (Spinat, Nüsse, Rhabarber) bilden unlösliche Chelat-Komplexe mit Zn, Fe, Mg, Ca – und blockieren deren Resorption massiv. Keine Supplementierung wirkt, wenn diese gleichzeitig konsumiert werden!",
+                      fix:"Mind. 1–2h Abstand: Mineralien-Supplements NICHT zu Vollkorn, Kaffee/Tee oder Spinat-Mahlzeiten einnehmen. Einweichen/Keimen reduziert Phytinsäure in Getreide." }
+                ]
+            },
+            liver: {
+                icon:"🔴", label:"Leber & Gallenblase", sub:"Müdigkeit, schlechte Entgiftung, Blähbauch nach Fettmahlzeiten",
+                deficiencies:[
+                    { name:"Vitamin E Mangel", tag:"Leberschutz", color:"#f97316", bg:"#2a0d00",
+                      text:"Fettlösliches Antioxidans schützt Leberzellen vor oxidativem Stress (nicht-alkoholische Fettleber).",
+                      fix:"All In One Antioxidant mit fettreicher Mahlzeit." },
+                    { name:"NAC (N-Acetylcystein) Mangel", tag:"Glutathion", color:"#34d399", bg:"#022a18",
+                      text:"NAC ist Vorstufe von Glutathion – stärkstes körpereigenes Antioxidans. Leberregeneration und Entgiftung.",
+                      fix:"Protect Lunge enthält NAC. Mit Vitamin C für maximale Glutathion-Produktion." },
+                    { name:"Cholin-Mangel", tag:"Fettstoffwechsel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Cholin ist essenziell für Lipoproteintransport. Mangel → Verfettung der Leber (NAFLD).",
+                      fix:"Eier (reichhaltigste Quelle), Leber, Soja. In Deutschland oft unterschätzt." },
+                    { name:"Reishi-Pilz", tag:"Leberschutz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Beta-Glucane und Triterpene im Reishi schützen Leberzellen und fördern Regeneration.",
+                      fix:"HEALTH+ Reishi abends. Mit Vitamin C synergistisch." }
+                ]
+            },
+            kidney: {
+                icon:"🫘", label:"Nieren & Harnwege", sub:"Häufiges Urinieren, Rückenschmerzen, Wassereinlagerungen",
+                deficiencies:[
+                    { name:"Vitamin D3 Mangel", tag:"Nierenfunktion", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calcium-Phosphor-Balance in der Niere. Chronischer Mangel erhöht Nierenstein-Risiko.",
+                      fix:"D3 + K2 morgens. K2 leitet Calcium weg von der Niere!" },
+                    { name:"Kalium-Mangel", tag:"Steinrisiko", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Ausreichend Kalium reduziert Calcium-Ausscheidung im Urin → weniger Nierensteine.",
+                      fix:"Kaliumreiche Ernährung. Bananen, Kartoffeln, Hülsenfrüchte." },
+                    { name:"Zu viel Vitamin C hochdosiert", tag:"Oxalat-Steine", color:"#ef4444", bg:"#2a0505",
+                      text:">2g Vit C täglich erhöht Oxalat-Ausscheidung → Nierensteine bei Neigung. Vorsicht!",
+                      fix:"Max 500–1000 mg/Tag. Viel Wasser (3L+) bei Supplementierung." },
+                    { name:"Dehydration", tag:"Häufigste Ursache", color:"#94a3b8", bg:"#1a1a2e",
+                      text:"Zu wenig Wasser → konzentrierter Urin → Mineral-Kristallisation → Nierensteine.",
+                      fix:"Mindestens 2,5–3 Liter täglich. Helle Urinfarbe als Ziel." }
+                ]
+            },
+            thyroid: {
+                icon:"🦋", label:"Schilddrüse", sub:"Müdigkeit, Gewichtszunahme, Haarverlust, Kältegefühl",
+                deficiencies:[
+                    { name:"Jod-Mangel", tag:"T3/T4 Produktion", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Jod ist direkt Baustein der Schilddrüsenhormone T3 und T4. Mangel → Kropf, Hypothyreose, Gewichtszunahme.",
+                      fix:"Jodsalz täglich. Meeresfrüchte, Milchprodukte. Supplement: 150 mcg/Tag." },
+                    { name:"Selen-Mangel", tag:"T4→T3 Konversion", color:"#34d399", bg:"#022a18",
+                      text:"Selen ist essenziell für Deiodinase-Enzyme (T4→T3-Umwandlung). Mangel → inaktives Hormon bleibt aktiv.",
+                      fix:"HEALTH+ Selen mit Mahlzeit. Selenomethionin-Form. Max 200 mcg." },
+                    { name:"Zink-Mangel", tag:"Hormon-Rezeptoren", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Zink ist nötig für TSH-Rezeptor-Funktion und T3-Bindung an Zellen.",
+                      fix:"Zink abends nüchtern. Mit Selenium synergistisch." },
+                    { name:"Eisenmangel", tag:"Peroxidase", color:"#ef4444", bg:"#2a0505",
+                      text:"Thyroid-Peroxidase (TPO) braucht Eisen für Hormonproduktion. Mangel hemmt TPO direkt.",
+                      fix:"NUR bei Bluttest-belegtem Mangel. Eisenbisglycinat nüchtern + Vit C." }
+                ]
+            },
+            joints: {
+                icon:"🦵", label:"Knie & Gelenke", sub:"Gelenkschmerzen, Knorpelverschleiß, Steifheit, Arthrose",
+                deficiencies:[
+                    { name:"Kollagen-Mangel", tag:"Knorpel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Gelenkknorpel besteht zu ~65% aus Kollagen Typ II. Mangel → Knorpelabbau unter Trainingsbelastung. HEALTH+ All In One Collagen enthält bereits Acerola-Vitamin C – kein externes Vit C nötig!",
+                      fix:"All In One Collagen morgens nüchtern (Vit C bereits enthalten!). Mind. 3 Monate kontinuierlich." },
+                    { name:"Glucosamin-Mangel", tag:"Gelenkflüssigkeit", color:"#34d399", bg:"#022a18",
+                      text:"Glucosamin ist Baustein der Synovialflüssigkeit. Mangel → erhöhte Reibung, Entzündungsneigung.",
+                      fix:"ZEC+ Arthro Essential mit Mahlzeiten. 4–8 Wochen bis zur Wirkung." },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#f97316", bg:"#2a0d00",
+                      text:"EPA hemmt COX-Enzyme (ähnlich Ibuprofen, ohne Nebenwirkungen). Wirksam bei Gelenkentzündung.",
+                      fix:"Super Omega-3 täglich. Mind. 4 Wochen für messbare Wirkung." },
+                    { name:"Vitamin D3 Mangel", tag:"Knochendichte", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calciumaufnahme für Knochenmineralisation. Mangel → Osteoporose, höhere Gelenkbelastung.",
+                      fix:"D3 + K2 morgens mit Fett." },
+                    { name:"Bor-Mangel", tag:"Knorpel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Bor fördert Kollagensynthese und Calciumeinlagerung in Knochen. In westlicher Ernährung oft mangelhaft.",
+                      fix:"Nüsse, Avocado, Getreide. Im Arthro-Komplex oft enthalten." }
+                ]
+            },
+            muscles: {
+                icon:"💪", label:"Muskeln & Kraft", sub:"Muskelkrämpfe, Kraftverlust, langsame Erholung, Abbau",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"MPS blockiert", color:"#ef4444", bg:"#2a0505",
+                      text:"Ohne 1,6–2,2 g/kg KG/Tag und ohne Leucin-Trigger (mind. 2–3g Leucin pro Dosis alle 3–4h) bleibt MPS unter Maximum. Tagesgesamtmenge macht 80–90% des Ergebnisses aus – Timing nur ~10%.",
+                      fix:"1,6–2,2 g Protein pro kg Körpergewicht täglich. Alle 3–4h Leucin-Trigger. Nie über 5h Pause." },
+                    { name:"Kreatin-Mangel", tag:"ATP & Kraft", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Kreatin füllt Phosphokreatin-Speicher für explosive Kraft. Ohne Supplement nur ~60% des Maximums. Wichtig: Uhrzeit der Einnahme ist irrelevant – intramuskulärer Spiegel baut sich über 2–4 Wochen chronischer Einnahme auf.",
+                      fix:"Kreatin Monohydrat 5g täglich. Konsistenz über Wochen entscheidend – nicht der Einnahmezeitpunkt." },
+                    { name:"Muskelkrämpfe – Hauptursachen", tag:"Krämpfe (Sportler)", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Bei Sportlern korrelieren Krämpfe laut aktueller Evidenz HÄUFIGER mit: (1) Neuromuskulärer Ermüdung, (2) Dehydration, (3) Natriumverlust durch Schweiß – als mit Magnesiummangel. Magnesiummangel = eher nächtliche Krämpfe bei Inaktiven.",
+                      fix:"Hydration (Urin hellgelb), Elektrolyte mit Natrium, Trainingsvolumen anpassen. Magnesium abends für Relaxation." },
+                    { name:"Vitamin D3 Mangel", tag:"Kraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Muskelzellen regulieren Proteinsynthese. Mangel = messbare Kraftverluste.",
+                      fix:"D3 + K2 morgens. Ziel: 40–60 ng/ml im Blut." },
+                    { name:"BCAAs / Leucin Mangel", tag:"MPS Signal", color:"#34d399", bg:"#022a18",
+                      text:"Leucin ist direkter mTOR-Aktivator. Ohne mind. 2–3g Leucin pro Dosis wird MPS nicht maximal stimuliert.",
+                      fix:"Whey-Protein enthält ausreichend. ZEC+ Intra für Training." }
+                ]
+            },
+            hands: {
+                icon:"🖐️", label:"Hände, Nägel & Haut", sub:"Brüchige Nägel, trockene Haut, Haarausfall, langsame Wundheilung",
+                deficiencies:[
+                    { name:"Kollagen-Mangel", tag:"Haut & Nägel", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kollagen macht 80% der Hautstruktur aus. Mangel → Faltenbildung, dünne Haut, brüchige Nägel. HEALTH+ All In One Collagen enthält bereits Acerola-Vitamin C – kein externes Vit C nötig!",
+                      fix:"All In One Collagen morgens nüchtern (Vit C bereits enthalten!). OPC synergistisch." },
+                    { name:"Biotin (B7) Mangel", tag:"Keratin", color:"#f97316", bg:"#2a0d00",
+                      text:"Biotin ist essenziell für Keratin-Produktion. Mangel → brüchige Nägel, Haarausfall.",
+                      fix:"Im Multivitamin. Bei starken Symptomen: 2500–5000 mcg separat." },
+                    { name:"Zink-Mangel", tag:"Wundheilung", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist Co-Faktor für Kollagensynthese. Mangel → weiße Flecken auf Nägeln, schlechte Heilung.",
+                      fix:"Zink abends nüchtern." },
+                    { name:"Omega-3 Mangel", tag:"Hautfeuchtigkeit", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA sind Bestandteil der Hautzell-Membran. Mangel → trockene, schuppige Haut.",
+                      fix:"Super Omega-3 täglich mit Mahlzeit." },
+                    { name:"Silizium-Mangel", tag:"Haut/Haare/Nägel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Silizium stärkt Haarstruktur, Nagelhärte und Hautstraffheit. In westlicher Ernährung oft niedrig.",
+                      fix:"Brennnessel-Extrakt, Bambus-Extrakt (in manchen Haarkomplexen). Vollkorn." }
+                ]
+            },
+            legs: {
+                icon:"🦵", label:"Waden & Unterschenkel", sub:"Krämpfe, Taubheit, Kribbeln, Schwere Beine",
+                deficiencies:[
+                    { name:"Sportkrämpfe – Hauptursachen", tag:"Krämpfe bei Sportlern", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Aktuelle Sportwissenschaft: Wadenkrämpfe bei Sportlern korrelieren PRIMÄR mit (1) neuromuskulärer Ermüdung, (2) Dehydration, (3) Natriumverlust (Schweiß). Magnesiummangel = eher nächtliche Krämpfe bei Inaktiven oder älterer Bevölkerung. Benignes Faszikulieren (kurzes Zucken) ist meist harmlos.",
+                      fix:"Hydration sichern (3L+), Elektrolyte mit Natrium, Trainingsbelastung anpassen. Magnesium abends für allgemeine Muskelentspannung." },
+                    { name:"Kalium-Mangel", tag:"Elektrolyte", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Kalium reguliert mit Natrium Wasserhaushalt in der Muskelzelle. Mangel durch starkes Schwitzen.",
+                      fix:"Bananen, Kartoffeln. Bei viel Sport extra Elektrolyte." },
+                    { name:"Vitamin B12 Mangel", tag:"Kribbeln", color:"#f97316", bg:"#2a0d00",
+                      text:"B12-Mangel schädigt Myelinscheiden der Nerven → Kribbeln/Taubheit in Beinen (periphere Neuropathie).",
+                      fix:"ZEC+ Vitamin B 25. Antazida blockieren B12-Aufnahme!" },
+                    { name:"Eisen-Mangel", tag:"Schwere Beine", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert O2-Transport in arbeitende Muskeln → schwere Beine schon bei leichter Belastung.",
+                      fix:"Nur bei Bluttest-belegtem Mangel! Ferritin-Wert prüfen." },
+                    { name:"Restless-Legs Syndrom", tag:"Nervensystem", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"RLS korreliert mit Eisenmangel, Folsäure- und Magnesium-Mangel. Auch Dialyse-Patienten betroffen.",
+                      fix:"Bluttest: Ferritin, Folat, Magnesium prüfen. Arztabklärung." }
+                ]
+            },
+            skin: {
+                icon:"🧴", label:"Haut & Schleimhäute", sub:"Akne, Ekzeme, trockene Haut, Wundheilung, Psoriasis",
+                deficiencies:[
+                    { name:"Vitamin A Mangel", tag:"Verhornung", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin A reguliert Zellwachstum und Verhornung. Mangel → Akne, Follikelverhornung, trockene Schleimhäute.",
+                      fix:"All In One Antioxidant mit fettreicher Mahlzeit. Beta-Carotin sicherer als Retinol direkt." },
+                    { name:"Omega-3 Mangel", tag:"Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt Entzündungskaskaden in der Haut. Mangel → chronische Hautentzündungen, Ekzeme, Psoriasis.",
+                      fix:"Super Omega-3 täglich. Synergie mit Zink bei Akne." },
+                    { name:"Zink-Mangel", tag:"Akne", color:"#4ade80", bg:"#052e16",
+                      text:"Zink hemmt 5-Alpha-Reduktase (DHT) und reguliert Talgproduktion. Klinisch belegt für Akne.",
+                      fix:"Zink abends nüchtern. Studien: 30 mg täglich gegen Akne wirksam." },
+                    { name:"Vitamin D3 Mangel", tag:"Immunhaut", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 moduliert Haut-Immunantwort. Mangel korreliert mit Psoriasis und Ekzem-Schüben.",
+                      fix:"D3 + K2 morgens mit Fett. Sonne (UV) direkt auf Haut." },
+                    { name:"Silizium-Mangel", tag:"Hautstraffheit", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Silizium ist Co-Faktor für Kollagen- und Elastin-Synthese in der Haut.",
+                      fix:"Kieselsäure-Supplement, Bambusextrakt, Brennnessel." }
+                ]
+            },
+            immune: {
+                icon:"🛡️", label:"Immunsystem", sub:"Häufige Infekte, langsame Heilung, chronische Entzündungen",
+                deficiencies:[
+                    { name:"Vitamin D3 Mangel", tag:"Immunmodulator #1", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 aktiviert über 200 Gene des Immunsystems. Mangel korreliert stark mit häufigen Atemwegsinfekten.",
+                      fix:"D3 + K2 morgens. Wintermonate: 2000–4000 IE täglich." },
+                    { name:"Vitamin C Mangel", tag:"Immunschutz", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin C unterstützt Leukozyten-Funktion und Interferon-Produktion. Mangel → geschwächtes angeborenes Immunsystem.",
+                      fix:"500–1000 mg täglich bei Erkältungsrisiko. 2x täglich für bessere Absorption." },
+                    { name:"Zink-Mangel", tag:"T-Zellen", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist essenziell für T-Zell-Reifung und NK-Zell-Aktivität. Auch kurzer Mangel → Immunsuppression.",
+                      fix:"Zink täglich. Lozenges bei akuter Erkältung (innerhalb 24h nach Symptombeginn)." },
+                    { name:"Selen-Mangel", tag:"Viren", color:"#34d399", bg:"#022a18",
+                      text:"Selen ist nötig für Glutathionperoxidase und Interferon. Mangel → Viren können schneller mutieren.",
+                      fix:"HEALTH+ Selen mit Mahlzeit. Max 200 mcg/Tag." },
+                    { name:"Probiotika-Mangel", tag:"Darm-Immunität", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"70% des Immunsystems sitzt im Darm. Dysbiose → geschwächte mukosale Immunantwort.",
+                      fix:"HEALTH+ Probio-Tect morgens nüchtern. Mit Ballaststoffen." }
+                ]
+            },
+            nerves: {
+                icon:"⚡", label:"Nervensystem", sub:"Kribbeln, Taubheit, schlechter Schlaf, Anspannung, Zittern",
+                deficiencies:[
+                    { name:"Vitamin B12 Mangel", tag:"Myelinscheide", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"B12 ist für Myelinsynthese essenziell. Mangel → periphere Neuropathie (Kribbeln), Rückenmarkschäden.",
+                      fix:"ZEC+ Vitamin B 25. Bei Magenerkrankungen: sublinguales B12 besser." },
+                    { name:"Magnesium-Mangel", tag:"Nervenerregung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium blockiert NMDA-Rezeptoren (Nervenschutz). Mangel → Übererregbarkeit, Angst, Schlafprobleme.",
+                      fix:"Basische Mineralien abends. Glycinat-Form am besten für Nerven." },
+                    { name:"Vitamin B6 – Mangel & Toxizität", tag:"Neurotransmitter", color:"#f97316", bg:"#2a0d00",
+                      text:"B6 ist Cofaktor für Serotonin, Dopamin, GABA. Mangel → Reizbarkeit, Depression. GEFAHR: Ab ~50–100 mg/Tag dauerhaft → irreversible sensorische Neuropathie (Kribbeln, Taubheit)! Symptome bei Mangel UND bei Überdosierung identisch – Bluttest pflicht! Tagesbedarf: nur 1,3–1,7 mg.",
+                      fix:"ZEC+ Vitamin B 25 enthält B6 in physiologischer Dosis. NIEMALS Hochdosis-B6-Einzelpräparate ohne Bluttest! >50 mg/Tag = Nervenschäden möglich." },
+                    { name:"Omega-3 Mangel", tag:"Nervenmembran", color:"#34d399", bg:"#022a18",
+                      text:"DHA ist Hauptkomponente der neuronalen Zellmembran. Mangel → verlangsamte Nervenleitung.",
+                      fix:"Super Omega-3 täglich. DHA-reiche Formen bevorzugen." },
+                    { name:"Thiamin (B1) Mangel", tag:"Nervenenergie", color:"#fbbf24", bg:"#2a1a00",
+                      text:"B1 ist essenziell für Glukosestoffwechsel in Neuronen. Schwerer Mangel → Wernicke-Enzephalopathie.",
+                      fix:"Im B-Komplex enthalten. Alkohol erhöht B1-Bedarf stark." }
+                ]
+            },
+            sleep: {
+                icon:"🌙", label:"Schlaf & Regeneration", sub:"Einschlafprobleme, schlechte Schlafqualität, früh aufwachen",
+                deficiencies:[
+                    { name:"Magnesium-Mangel", tag:"Einschlafen", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium aktiviert GABA-System und Parasympathikus → Einschlafen. Mangel = häufigste Schlafursache.",
+                      fix:"Basische Mineralien 30–60 min vor Schlaf. Glycinat-Form optimal." },
+                    { name:"Melatonin-Mangel", tag:"Einschlafhormon", color:"#818cf8", bg:"#05001a",
+                      text:"Lichtexposition abends hemmt Melatonin-Ausschüttung. Supplement bei Jetlag oder Schichtarbeit.",
+                      fix:"ZEC+ Sleep (0,5–1 mg Melatonin). Nicht überdosieren! Blaulicht-Filter abends." },
+                    { name:"Vitamin D3 Mangel", tag:"Schlafqualität", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 beeinflusst Schlaf-Wach-Rhythmus (zirkadiane Gene). Mangel → schlechte Schlaftiefe.",
+                      fix:"D3 morgens (nicht abends!) – kann sonst Schlaf stören. K2 dazu." },
+                    { name:"L-Tryptophan Mangel", tag:"Serotonin/Melatonin", color:"#34d399", bg:"#022a18",
+                      text:"Tryptophan ist Vorstufe von Serotonin und Melatonin. Abends mit Kohlenhydraten: bessere Aufnahme ins Gehirn.",
+                      fix:"Casein vor Schlaf (enthält Tryptophan). Bananenmilch, Quark." },
+                    { name:"Cortisol-Stress", tag:"Einschlafen", color:"#ef4444", bg:"#2a0505",
+                      text:"Chronisch erhöhtes Cortisol abends blockiert Melatonin. Hauptursache bei Einschlafproblemen.",
+                      fix:"Ashwagandha abends (Cortisol↓). Cherry Power (Melatonin). Abendrituale." }
+                ]
+            },
+            // ── NEUE FRONTZONEN ──────────────────────────────────────────
+            eyes: {
+                icon:"👁️", label:"Augen & Sehkraft", sub:"Nachtblindheit, trockene Augen, Makulaschäden, Lichtempfindlichkeit",
+                deficiencies:[
+                    { name:"Vitamin A Mangel", tag:"Nachtblindheit", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin A ist Baustein von Rhodopsin (Sehpurpur in Stäbchen). Mangel → Nachtblindheit, trockene Bindehaut (Xerophthalmie). Erstes klinisches Zeichen: schlechtes Sehen im Dunkeln. BETA-CAROTIN sicherer als Retinol direkt!",
+                      fix:"All In One Antioxidant & Vitamin mit Fett. Nahrung: Karotten, Leber, Süßkartoffel. Max 900 mcg RE/Tag." },
+                    { name:"Lutein & Zeaxanthin Mangel", tag:"Makula / AMD", color:"#eab308", bg:"#2a1a00",
+                      text:"Lutein/Zeaxanthin sind Makulapigmente – filtern blaues Licht (Bildschirme!) und schützen Fovea vor oxidativem Stress. Mangel → erhöhtes AMD-Risiko (Altersbedingte Makuladegeneration) und Katarakt. Nicht im typischen ZEC+-Stack!",
+                      fix:"Grünkohl, Spinat, Eigelb, Erbsen täglich. Bei Risiko: 10–20 mg Lutein-Supplement (nicht im Sortiment – separat)." },
+                    { name:"Omega-3 DHA Mangel", tag:"Trockene Augen", color:"#34d399", bg:"#022a18",
+                      text:"DHA macht ~50% der Fettsäuren in der Netzhaut (Photorezeptoren) aus. Mangel → trockene Augen (Meibomdrüsen-Dysfunktion), schlechtere Signalverarbeitung der Retina, entzündliche Augenerkrankungen.",
+                      fix:"Super Omega-3 täglich mit Mahlzeit. DHA-betonte Formen für Augengesundheit bevorzugen." },
+                    { name:"Zink Mangel", tag:"Vitamin-A-Transport", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Zink transportiert Vitamin A aus der Leber zur Netzhaut (Retinol-bindendes Protein braucht Zink). Ohne Zink kein funktionierendes Rhodopsin – selbst wenn Vit A ausreichend vorhanden ist!",
+                      fix:"ZEC+ Zink Caps abends nüchtern. Synergie mit Vitamin A und Beta-Carotin für Sehkraft." },
+                    { name:"Riboflavin B2 Mangel", tag:"Lichtempfindlichkeit", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"B2 ist Cofaktor für Glutathionreduktase im Auge (Schutz vor oxidativem Stress in der Linse). Mangel → Lichtempfindlichkeit, Augenreizung, Augenbrennen, erhöhtes Katarakt-Risiko. Klinisch gut belegt!",
+                      fix:"ZEC+ Vitamin B 25 morgens. Nahrung: Milch, Mandeln, Lachs, Eier." }
+                ]
+            },
+            ears: {
+                icon:"👂", label:"Ohren & Gehör", sub:"Tinnitus, Hörverlust, Schwindel, Geräuschempfindlichkeit",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Tinnitus / Lärmschutz", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Klinisch belegt: Magnesium schützt Haarzellen im Innenohr vor lärmbedingtem Schaden (cochleärer Ischämie). Bei Magnesiummangel: erhöhtes Tinnitus-Risiko nach Lärm. Studien zeigen Hörverlust-Prävention bei 167–500 mg Mg vor Lärmexposition!",
+                      fix:"Basische Mineralien täglich. Bei Tinnitus: Glycinat-Form bevorzugen. Lärm-Schutz + Mg kombinieren." },
+                    { name:"Zink Mangel", tag:"Tinnitus / Presbyakusis", color:"#4ade80", bg:"#052e16",
+                      text:"Zink ist höchst konzentriert im Innenohr (Cochlea, Vestibularapparat). Mangel korreliert klinisch mit Tinnitus und altersbedingtem Hörverlust (Presbyakusis). Supplementierung zeigte in mehreren Studien Linderung bei Zink-mangel-assoziiertem Tinnitus.",
+                      fix:"ZEC+ Zink Caps abends nüchtern. Nicht gleichzeitig mit Kupfer oder Eisen (DMT1-Antagonismus)." },
+                    { name:"Vitamin B12 Mangel", tag:"Hörnerv / Schwindel", color:"#f97316", bg:"#2a0d00",
+                      text:"B12 essentiell für Myelinscheide des Hörnervs (N. cochlearis und N. vestibularis). Mangel → Demyelinisierung → Tinnitus, Hörverlust, Schwindel (Vertigo). Besonders bei Veganer:innen, PPI-Einnahme und Metformin-Therapie!",
+                      fix:"ZEC+ Vitamin B 25. Bei Magenerkrankungen/PPI: sublinguales B12 (Methylcobalamin) für direkte Schleimhaut-Absorption." },
+                    { name:"Omega-3 Mangel", tag:"Gefäßversorgung Cochlea", color:"#34d399", bg:"#022a18",
+                      text:"EPA verbessert Mikrozirkulation in der Cochlea. Mangelhafte Durchblutung → Nährstoffunterversorgung der extrem empfindlichen Haarzellen → Hörverlust. Cochlea hat KEINE regenerative Kapazität – Prävention entscheidend!",
+                      fix:"Super Omega-3 täglich. EPA-betonte Formen für Gefäßgesundheit. Langfristig einnehmen." },
+                    { name:"Vitamin D3 Mangel", tag:"Otosklerose", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3 reguliert Calcium-Balance im Felsbein (Schläfenknochen). Mangel korreliert mit Otosklerose (fehlerhafte Verknöcherung der Gehörknöchelchen → Schallleitungsschwerhörigkeit). Auch Autoimmunprozesse im Innenohr D3-abhängig moduliert.",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest: Ziel 40–60 ng/ml 25-OH-D3." }
+                ]
+            },
+            mouth: {
+                icon:"🦷", label:"Mund, Zähne & Zahnfleisch", sub:"Zahnfleischbluten, Aphten, Zahnschmelz, Mundgeruch, Parodontose",
+                deficiencies:[
+                    { name:"Vitamin C Mangel", tag:"Zahnfleisch", color:"#f97316", bg:"#2a0d00",
+                      text:"Vitamin C ist essentiell für Kollagen im Zahnfleischgewebe. Mangel → Zahnfleischbluten, Schwellung, Zahnfleischrückgang. Skorbut (historisch): Zähne fallen aus bei totaler Depletion. Bereits moderater Mangel → Zahnfleischbluten beim Zähneputzen.",
+                      fix:"ZEC+ Vitamin C + Hagebutte täglich zu Mahlzeiten. 200–500 mg reicht. Hohe Dosen (>2g) können Nierensteine fördern." },
+                    { name:"Calcium + Vitamin D3 Mangel", tag:"Zahnschmelz & Kiefer", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Zähne bestehen zu ~96% aus Hydroxylapatit (Calcium-Phosphat). D3 reguliert Calciumaufnahme. Mangel → poröser Zahnschmelz, erhöhte Kariesanfälligkeit, Kieferknochenabbau (Parodontitis-Risiko). Kieferknochen reagiert sehr empfindlich auf D3-Mangel.",
+                      fix:"D3 + K2 morgens mit Fett. Calcium primär aus Nahrung: Milch, Brokkoli, Sesam, Mandeln." },
+                    { name:"CoQ10 Mangel", tag:"Parodontose", color:"#eab308", bg:"#2a1a00",
+                      text:"CoQ10 ist hochkonzentriert in gesundem Zahnfleischgewebe. Klinisch belegt: Mangel → mitochondriale Schwäche in Zahnfleischzellen → schlechte Regeneration → Parodontose (entzündlicher Zahnhalteapparat-Abbau). Studien: CoQ10 als Adjuvans bei Parodontitis-Behandlung wirksam!",
+                      fix:"HEALTH+ Protect Heart (enthält Ubiquinol Q10) mit fettreicher Mahlzeit. Ubiquinol-Form 8x besser bioverfügbar als Ubiquinon." },
+                    { name:"B-Vitamine Mangel (B2, B3, B12)", tag:"Aphten & Mundwinkel", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"B2 (Riboflavin) → Mundwinkelrisse (Cheilosis), Zungenbrennen, Glossitis. B3 → Pellagra-Symptom: Stomatitis. B12-Mangel → wiederkehrende Aphten (kleine schmerzhafte Geschwüre) – oft ERSTES Zeichen von B12-Depletion! Nicht mit Eisenmangel-Aphten verwechseln.",
+                      fix:"ZEC+ Vitamin B 25 morgens. Sublinguales B12 bei Magenproblemen. Abklären ob Eisen-Mangel-Aphten (anderer Mechanismus)." },
+                    { name:"Zink Mangel", tag:"Geschmack & Mundschleimhaut", color:"#4ade80", bg:"#052e16",
+                      text:"Zink reguliert Gustin (Carboanhydrase VI) – Protein der Geschmacksknospen. Mangel → Geschmacksverlust (Hypogeusie), verminderter Geruchssinn. Auch: verlangsamte Wundheilung nach Zahnextraktionen, erhöhte Infektanfälligkeit der Mundschleimhaut.",
+                      fix:"ZEC+ Zink Caps abends nüchtern. 15–30 mg/Tag. Nicht mit Kaffee/Tee gleichzeitig (Tannine hemmen Zinkaufnahme)." }
+                ]
+            },
+            tendons: {
+                icon:"🔗", label:"Sehnen & Bänder", sub:"Tendinopathie, Achillesschmerz, Sehnenrisse, langsame Heilung",
+                deficiencies:[
+                    { name:"Kollagen-Mangel (Typ I)", tag:"Sehnenstruktur", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Sehnen und Bänder bestehen zu ~70% aus Kollagen Typ I. Mangel → erhöhte Reißanfälligkeit, chronische Tendinopathie, langsame Heilung nach Verletzung. Hydrolysierte Kollagen-Peptide stimulieren Tenozyten (Sehnenzellen) zur Kollagensynthese – belegt durch RCT-Studien!",
+                      fix:"HEALTH+ Collagen (Vit C bereits enthalten!) 30–60 min VOR Training mit Kohlenhydraten. Mindestens 6–12 Wochen kontinuierlich." },
+                    { name:"Kupfer Mangel", tag:"Kollagen-Quervernetzung", color:"#f97316", bg:"#2a0d00",
+                      text:"Kupfer aktiviert Lysyl-Oxidase – das Enzym, das Kollagenfasern quervernetzt (cross-linking). Ohne Quervernetzung: strukturell schwaches, elastisches Kollagen → brüchige Sehnen und Bänder. Cave: Hochdosiertes Zink (>40mg) verdrängt Kupfer via Metallothionein!",
+                      fix:"Im Multivitamin und Collagen-Produkt enthalten. Kupfermangel durch unkontrolliertes Zink-Stacking vermeiden (max Zn:Cu 10:1)." },
+                    { name:"Vitamin C Mangel", tag:"Kollagensynthese Sehne", color:"#eab308", bg:"#2a1a00",
+                      text:"Vit C ist essentieller Cofaktor für Prolyl-Hydroxylase und Lysyl-Hydroxylase – Enzyme, die das Kollagen-Gerüst stabilisieren. Ohne Vit C: instabiles Prokollagen, das nicht korrekt zur Tripelhelix faltet → strukturell schwaches Sehnenkollagen.",
+                      fix:"HEALTH+ Collagen enthält bereits Acerola-Vit C. Zusätzlich ZEC+ Vitamin C sinnvoll bei erhöhtem Bedarf (Training, Heilungsphase)." },
+                    { name:"Magnesium Mangel", tag:"Sehnenspasmus & MTJ", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium reguliert Muskel-Sehnen-Übergang (MTJ). Mangel → chronische Muskel-Sehnen-Verspannung, erhöhter Zug auf Sehnenansatz → Enthesiopathie (Ansatz-Tendinopathie, z.B. Achillesansatz, Patellasehne).",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskel-Sehnen-Entspannung. Physio + Supplement kombinieren." },
+                    { name:"MSM Mangel", tag:"Sehnenreparatur", color:"#34d399", bg:"#022a18",
+                      text:"MSM (Methylsulfonylmethan) liefert organischen Schwefel – Baustein für Cystin-Disulfidbrücken in Kollagen und Elastin der Sehnen. Klinisch: MSM reduziert Entzündungsmarker in Sehnengewebe. Synergie mit Glucosamin (gemeinsam in Arthro Essential).",
+                      fix:"ZEC+ Arthro Essential (enthält MSM + Glucosamin + Weihrauch + Piperin). Mind. 3–6 Monate für strukturellen Effekt." }
+                ]
+            },
+            bones: {
+                icon:"🦴", label:"Knochen & Knochendichte", sub:"Osteoporose, Stressfrakturen, Knochenschmerzen, Heilung",
+                deficiencies:[
+                    { name:"Calcium + Vitamin D3 Mangel", tag:"Knochendichte", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Knochen bestehen zu ~65% aus Hydroxylapatit (Ca₁₀(PO₄)₆(OH)₂). D3 reguliert intestinale Calciumaufnahme um 50–70%. Ohne D3: Calcium wird nicht resorbiert → Osteopenie → Osteoporose → Stressfrakturen. Bei Sportlern: Knochenstress-Frakturen oft erster Hinweis auf D3-Mangel!",
+                      fix:"D3 + K2 morgens mit Fett. Calcium primär aus Nahrung (Milch, Brokkoli, Sesam) – Supplement-Calcium kann Nierensteine fördern." },
+                    { name:"Vitamin K2 Mangel", tag:"Calcium-Steuerung", color:"#fbbf24", bg:"#2a1a00",
+                      text:"K2 (MK-7) aktiviert Osteocalcin – das Protein, das Calcium gezielt IN den Knochen einlagert statt in Arterien (Arteriosklerose!) oder Nieren (Steine). Ohne K2 → erhöhtes Risiko ektoper Kalzifizierung bei hochdosierter D3-Einnahme. K2 lenkt Calcium gezielt in Knochen statt Gefäße.",
+                      fix:"D3 + K2 immer als Kombipräparat. MK-7-Form (lange Halbwertszeit). Vitamin K2 separat falls D3 allein genommen wird." },
+                    { name:"Magnesium Mangel", tag:"D3-Aktivierung & Matrix", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"~60% des Körper-Magnesiums steckt im Knochen als Strukturelement. Mg ist Cofaktor für D3-Aktivierung (25-OH-D3 → 1,25-OH₂-D3 in der Niere). Ohne Mg: D3 bleibt inaktiv → Calcium-Aufnahme sinkt. Also: D3 ohne Mg-Versorgung ist suboptimal!",
+                      fix:"Basische Mineralien abends. Glycinat/Malat-Form. Essentiell für D3-Aktivierung – oft übersehen!" },
+                    { name:"Bor Mangel", tag:"Knochenmineralisation", color:"#34d399", bg:"#022a18",
+                      text:"Bor erhöht Halbwertszeit von Östrogen und Testosteron → erhöht Calcium-Retention im Knochen und verbessert Mineralisation. Mangel → schlechtere Knochendichte (BMD), höheres Osteoporose-Risiko. In westlicher Ernährung oft extrem niedrig (<1 mg/Tag)!",
+                      fix:"Nüsse, Avocado, Trockenfrüchte. Im Arthro Essential-Komplex oft enthalten. Ziel: 3 mg/Tag." },
+                    { name:"Silizium Mangel", tag:"Knochenaufbau", color:"#4ade80", bg:"#052e16",
+                      text:"Silizium ist Cofaktor für Kollagen Typ I im Knochen-Grundgerüst (Osteoid). Ohne Silizium: schwaches Kollagengerüst → Mineralien können sich nicht korrekt einlagern → fragile, brüchige Knochen trotz ausreichend Calcium. Silizium reguliert Osteoblasten-Aktivität!",
+                      fix:"Kieselsäure-Supplement, Bambusextrakt, Schachtelhalm, Brennnessel. Vollkorn. Nicht im Standard-ZEC+-Stack – separat ergänzen." }
+                ]
+            },
+            // ── RÜCKENZONEN ──────────────────────────────────────────────
+            neck_back: {
+                icon:"🔙", label:"Nacken & Halswirbelsäule (HWS)", sub:"Nackenverspannungen, HWS-Schmerzen, Steifheit, Spannungskopfschmerz",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Muskelverspannung", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Magnesium ist der Calcium-Antagonist in der Muskelzelle (Relaxationsfaktor). Mangel → Dauerkontraktion, Triggerpunkte im Nacken (M. trapezius, M. levator scapulae), Spannungskopfschmerz. Nacken-Triggerpunkte + Magnesium-Ergänzung: gut belegte klinische Synergie!",
+                      fix:"Basische Mineralien abends. Glycinat-Form optimal für Muskelentspannung. Physio + Mg kombinieren." },
+                    { name:"Kollagen-Mangel", tag:"Bandscheiben HWS", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Bandscheiben der HWS (C2–C7) bestehen zu ~60% aus Kollagen Typ I/II (Anulus fibrosus + Nucleus pulposus). Mangel → beschleunigte Diskusdegeneration → Zervikobrachialgie (Ausstrahlungsschmerz in Arme/Hände), HWS-Instabilität.",
+                      fix:"HEALTH+ All In One Collagen morgens nüchtern (Vit C bereits im Produkt!). Mind. 6 Monate bei bestehender Degeneration." },
+                    { name:"Vitamin D3 Mangel", tag:"Nacken-Muskelkraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Nacken- und Schultermuskulatur regulieren Muskelkraft und -regeneration. Mangel → schwache Hals-Nacken-Muskulatur → schlechte Kopfhaltung → muskuläre Überbelastung der HWS → chronischer Schmerz.",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest: 25-OH-D3 → Ziel 40–60 ng/ml." },
+                    { name:"Vitamin B12 Mangel", tag:"Zervikalnerven C1–C8", color:"#f97316", bg:"#2a0d00",
+                      text:"B12 essentiell für Myelinscheide der Zervikalnerven (C1–C8). Mangel → Kribbeln, Taubheit, Schwäche in Armen und Händen ausgehend vom Nacken (Zervikale Radikulopathie). Cave: Symptome ähneln Bandscheibenvorfall – Bluttest zur Differenzierung!",
+                      fix:"ZEC+ Vitamin B 25. Bei Magenproblemen/PPI-Einnahme: sublinguales Methylcobalamin bevorzugen." },
+                    { name:"Omega-3 Mangel", tag:"HWS-Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA hemmt proinflammatorische Zytokine (IL-1β, TNF-α) in HWS-Bandscheiben und Facettengelenken. Chronische Entzündung = Haupttreiber von HWS-Degeneration. Ergänzend: Arthro Essential (Weihrauch als potenter NF-κB-Hemmer).",
+                      fix:"Super Omega-3 täglich. Mind. 6–8 Wochen für messbaren anti-inflammatorischen Effekt. Mit Arthro Essential kombinieren." }
+                ]
+            },
+            upper_back: {
+                icon:"🔼", label:"Oberer Rücken & Schulterblätter (BWS)", sub:"Schulterschmerzen, Verspannungen, Schulterblatt-Schmerz, Brustwirbelprobleme",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Rhomben & Trapezius", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Rhomboid und M. trapezius (Schulterblatt-Muskeln) reagieren extrem empfindlich auf Magnesiummangel. Chronische Verspannung, Triggerpunkte zwischen Schulterblättern = typisches Magnesiummangel-Muster im Kraftsport. Mangel nach intensivem Oberkörpertraining besonders akut.",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Wärme + Mg-Bad als ergänzende Therapie." },
+                    { name:"Kollagen-Mangel", tag:"Rotatorenmanschette", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Rotatorenmanschette (Supraspinatus, Infraspinatus, Subscapularis, Teres minor) = Kollagen Typ I/III. Mangel → Sehnenrisse, Schulterinstabilität, Impingement-Syndrom. BWS-Bandscheiben (T1–T12) ebenfalls Kollagen-abhängig.",
+                      fix:"HEALTH+ Collagen morgens (Vit C bereits enthalten). L-Glycin ergänzend. Mind. 6 Monate bei Sehnenproblematik." },
+                    { name:"Vitamin D3 Mangel", tag:"Schulter-Schmerz", color:"#fbbf24", bg:"#2a1a00",
+                      text:"RCT-Studien zeigen starke Korrelation zwischen D3-Mangel und chronischem Schulterschmerz (auch ohne strukturelle Pathologie nachweisbar). D3-Rezeptoren in Schultergelenk-Synovia und Gelenkkapsel aktiv – regulieren lokale Immunantwort.",
+                      fix:"D3 + K2 morgens. Bluttest: 25-OH-D3. Ziel 40–60 ng/ml. Nicht abends – zirkadiane Interferenz möglich." },
+                    { name:"Omega-3 Mangel", tag:"Bursitis & Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"EPA/DHA hemmen Prostaglandin-E2-Synthese in Schultergelenk-Schleimbeuteln (Bursitis subdeltoidea, subacromialis). Effektiv wie niedrig dosierte NSAIDs (Ibuprofen) – ohne gastrointestinale Nebenwirkungen. Wirkt auch bei BWS-Facettengelenkarthrose.",
+                      fix:"Super Omega-3 täglich. 1500 mg EPA+DHA pro Tag. 4–8 Wochen für volle Wirkung." }
+                ]
+            },
+            spine: {
+                icon:"🦴", label:"Wirbelsäule & Bandscheiben", sub:"Rückenschmerzen, Bandscheibenvorfall, Wirbelkörperschmerz, Osteoporose der WS",
+                deficiencies:[
+                    { name:"Calcium + D3 Mangel", tag:"Wirbelknochen-Dichte", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Wirbelkörper aus Hydroxylapatit-Spongiosa (Trabekelung). Bei Osteoporose: Trabekel dünner → Sinterungsfrakturen (Wirbelkörpereinbruch). D3 steuert Calciumabsorption als absoluter Schlüsselfaktor. Krafttraining stimuliert Osteoblasten zusätzlich!",
+                      fix:"D3 + K2 morgens mit Fett. Calcium aus Nahrung. Krafttraining als Knochen-Stimulus unverzichtbar." },
+                    { name:"Vitamin K2 Mangel", tag:"Calcium-Lenkung", color:"#fbbf24", bg:"#2a1a00",
+                      text:"K2 aktiviert Osteocalcin in Wirbelkörpern → Calcium gezielt in Knochen einlagern (nicht in Bandscheiben-Verkalkung). Ohne K2 paradoxe Verkalkungen der Wirbelgelenke möglich. MK-7-Form: einmal täglich wegen langer Halbwertszeit ausreichend.",
+                      fix:"D3 + K2 als Kombi – optimiert Calciumverteilung in Knochen. MK-7 (Menaquinon-7) bevorzugen." },
+                    { name:"Kollagen-Mangel (Bandscheiben)", tag:"Anulus fibrosus", color:"#ef4444", bg:"#2a0505",
+                      text:"Bandscheiben: Nucleus pulposus (Gallertkern) = Proteoglykane + Wasser; Anulus fibrosus = Kollagen Typ I/II. Beide degenerieren bei Kollagenmangel beschleunigt. Hydrolysierte Kollagenpeptide (FORTIGEL® etc.) stimulieren Fibroblasten der Bandscheibe nachweislich!",
+                      fix:"HEALTH+ Collagen täglich, langfristig (6–12 Monate!). Arthro Essential (MSM + Chondroitin) für Proteoglykan-Syntheseunterstützung." },
+                    { name:"Magnesium Mangel", tag:"Paravertebrale Muskulatur", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Paravertebrale Muskulatur (M. erector spinae, M. multifidus) reagiert stark auf Magnesiummangel. Dauerspasmus → erhöhter intradiskaler Druck → Bandscheibendegeneration beschleunigt. Psoas-Spasmus (LWS-Beteiligung) klassisches Bild.",
+                      fix:"Basische Mineralien abends. Direkter Effekt auf Muskelspasmus innerhalb 24–48h bei Mangel-Ursache." },
+                    { name:"Vitamin B12 Mangel", tag:"Rückenmark / Myelinscheide", color:"#f97316", bg:"#2a0d00",
+                      text:"Das Rückenmark selbst benötigt B12 für Myelinscheide (spinale Axone). Schwerer Mangel → Funikuläre Myelose: subakute kombinierte Degeneration der Hinterstränge und Seitenstränge → Lähmungen, Sensibilitätsverlust aufsteigend. Irreversibel bei Spät-Therapie! Veganer:innen KRITISCH!",
+                      fix:"ZEC+ Vitamin B 25. Bluttest: Holo-Transcobalamin (sensitiver als Standard-B12-Serum!). Ziel: >50 pmol/L HoloTC." }
+                ]
+            },
+            lower_back: {
+                icon:"⬇️", label:"Unterer Rücken (LWS)", sub:"Lendenwirbelsäule, Ischias, Bandscheiben L4/L5, Muskelkrämpfe",
+                deficiencies:[
+                    { name:"Magnesium Mangel", tag:"Psoas & Quadratus lumborum", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"M. psoas und M. quadratus lumborum (LWS-Hauptstabilisatoren) reagieren hochsensibel auf Magnesiummangel. Psoas-Verkürzung durch Spasmus → erhöhter Druck auf L4/L5-Bandscheiben → Ischias-Trigger. Häufigste übersehene Ursache bei Kraftsportlern!",
+                      fix:"Basische Mineralien abends. Glycinat-Form für tiefe Muskelentspannung. Dehnung des Psoas als Pflicht-Therapiebegleiter." },
+                    { name:"Vitamin D3 Mangel", tag:"Chronischer LWS-Schmerz", color:"#fbbf24", bg:"#2a1a00",
+                      text:"Randomisierte klinische Studien (RCTs) belegen: D3-Mangel (<20 ng/ml) → chronischer LWS-Schmerz ohne strukturelle Ursache. D3-Substitution zeigt signifikante Schmerzreduktion im LWS-Bereich. D3-Rezeptoren in LWS-Muskeln und -Gelenken direkt nachweisbar!",
+                      fix:"D3 + K2 morgens mit Fett. Bluttest pflicht: Ziel mind. 40 ng/ml 25-OH-D3. Alle 3–6 Monate kontrollieren." },
+                    { name:"Kollagen-Mangel LWS", tag:"Bandscheiben L4/L5, L5/S1", color:"#ef4444", bg:"#2a0505",
+                      text:"LWS-Bandscheiben (v.a. L4/L5 und L5/S1) tragen die größte mechanische Last des Körpers. Kollagen Typ I/II im Anulus fibrosus degeneriert ohne kontinuierliche Peptid-Versorgung → Protrusion, Prolaps, Ischias-Syndrom (N. ischiadicus-Kompression).",
+                      fix:"HEALTH+ Collagen täglich. Arthro Essential (Chondroitin + MSM). Langfristig 6–12 Monate einnehmen!" },
+                    { name:"Omega-3 Mangel", tag:"Ischias-Entzündung", color:"#34d399", bg:"#022a18",
+                      text:"Ischias-Schmerz = häufig Entzündungsreaktion am N. ischiadicus (perineural). EPA hemmt COX-2 und 5-Lipoxygenase → Prostaglandin E2 und Leukotriene ↓ → Entzündungshemmung direkt am Nervenumfeld. Synergie mit Weihrauch (Arthro Essential).",
+                      fix:"Super Omega-3 täglich, langfristig. Synergie mit Arthro Essential (Boswellia/Weihrauch als NF-κB-Hemmer)." },
+                    { name:"Kalium Mangel", tag:"LWS-Stabilisatoren", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Kalium reguliert Membranpotenzial aller Muskelzellen. Mangel → generelle Muskelschwäche der LWS-Stabilisatoren → erhöhte Bandscheibenbelastung durch schlechte muskuläre Führung. Besonders nach intensivem Schwitzen (Verlust durch Schweiß).",
+                      fix:"Kaliumreiche Ernährung: Bananen, Kartoffeln, Avocados, Hülsenfrüchte. Bei intensivem Sport: Elektrolyte mit Kalium." }
+                ]
+            },
+            glutes: {
+                icon:"💪", label:"Gesäß & Hüfte", sub:"Gesäßschmerz, schwache Gluten, Hüftprobleme, Piriformis",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"Gluteus-Atrophie", color:"#ef4444", bg:"#2a0505",
+                      text:"Gluteus maximus ist der größte Muskel des Körpers und Hauptkraftquelle für Sprung, Sprint und Heben. Proteinmangel → Gluteus-Atrophie, Kraftverlust, kompensatorische LWS-Überbelastung. Mind. 2–3g Leucin pro Mahlzeit für MPS-Trigger.",
+                      fix:"1,6–2,2 g Protein/kg KG täglich. Alle 3–4h mit Leucin-Trigger. Glute-Training unverzichtbar." },
+                    { name:"Vitamin D3 Mangel", tag:"Gluteus-Kraft", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Gesäßmuskulatur regulieren Muskelproteinsynthese und -kraft. Klinisch belegt: D3-Mangel → messbare Kraft- und Leistungseinbußen der Hüftextensoren (Gluteus maximus, medius). Hüftinstabilität als Folge.",
+                      fix:"D3 + K2 morgens mit Fett. Ziel: 40–60 ng/ml. Krafttraining (Hip Thrust, Squat) als Knochen- und Muskelstimulus." },
+                    { name:"Kreatin Mangel", tag:"Explosive Kraft", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Explosive Glute-Krafteinsätze (Sprint, Sprung, Olympisches Heben) sind ATP-PCr-abhängig (anaerob alaktazid). Kreatin füllt Phosphokreatin-Speicher → mehr explosive Wiederholungen pro Satz. Uhrzeit irrelevant – kumulativer Spiegel über 2–4 Wochen entscheidend!",
+                      fix:"ZEC+ Kreatin Monohydrat 5g täglich konsistent (Zeitpunkt egal). Wasser 3L+." },
+                    { name:"Magnesium Mangel", tag:"Piriformis-Syndrom", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"M. piriformis (tiefer Gesäßrotator) kann bei Magnesiummangel verkrampfen → Piriformis-Syndrom: Kompression des N. ischiadicus im tiefen Gesäß → Ischias-ähnlicher Schmerz. Oft mit echtem Bandscheiben-Ischias verwechselt (Bluttest und MRT zur Differenzierung).",
+                      fix:"Basische Mineralien abends. Dehnung des Piriformis (Figure-4-Stretch). Differenzierung von Bandscheiben-Ischias wichtig!" }
+                ]
+            },
+            hamstrings: {
+                icon:"🦵", label:"Oberschenkel Rückseite (Hamstrings)", sub:"Hamstring-Verletzungen, Muskelrisse, Steifheit, Krämpfe",
+                deficiencies:[
+                    { name:"Proteinmangel", tag:"Regeneration", color:"#ef4444", bg:"#2a0505",
+                      text:"Hamstrings (Biceps femoris, Semitendinosus, Semimembranosus) sind häufigste Muskelverletzungsstelle im Sport. Ohne ausreichend Protein (besonders Leucin) → verlangsamt MPS in beschädigten Muskelfasern → erhöhte Rezidivrate bei Hamstring-Rissen.",
+                      fix:"1,6–2,2 g/kg KG täglich. Post-Workout sofort Hydrolysat. Leucin-Trigger 2–3g pro Dosis für maximale MPS." },
+                    { name:"Magnesium Mangel", tag:"Hamstring-Krämpfe", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Hamstring-Krämpfe bei Sportlern: primär neuromuskuläre Ermüdung + Natriumverlust, ABER Magnesiummangel erhöht Krampfneigung zusätzlich. Cave: Hamstring-Krampf ≠ Hamstring-Riss – diagnostisch wichtig! Plötzlich stechend = Riss, ziehend/knotend = Krampf.",
+                      fix:"Basische Mineralien abends + vor intensiven Training-Einheiten. Hydration und Natrium im Fokus bei Sportkrämpfen." },
+                    { name:"Kollagen & Omega-3", tag:"Sehnenansatz Ischias", color:"#34d399", bg:"#022a18",
+                      text:"Hamstring-Ursprung am Tuber ischiadicum (Sitzbein): Sehnenansatz aus Kollagen Typ I. Chronische Proximal-Tendinopathie (High Hamstring Tendinopathy) = Kollagen-Degeneration am Ansatz. EPA hemmt lokale Entzündungskaskaden.",
+                      fix:"HEALTH+ Collagen täglich (Vit C enthalten). Super Omega-3 für Entzündungshemmung." },
+                    { name:"Elektrolyt-Mangel", tag:"Performance & Krämpfe", color:"#60a5fa", bg:"#0d1a3a",
+                      text:"Natrium und Kalium regulieren Aktionspotentiale in Hamstring-Fasern. Schweißverlust → Natrium sinkt → neuromuskuläre Übererregbarkeit → Hamstring-Krämpfe. Besonders in Hitze und bei langen Trainingseinheiten relevant.",
+                      fix:"ZEC+ Intra Evolution (Elektrolyte + EAAs) während langer Einheiten. Natriumreiche Elektrolytgetränke bei Hitze-Training." }
+                ]
+            },
+            calves_back: {
+                icon:"🦵", label:"Waden (Rückansicht)", sub:"Wadenkrämpfe, Wadenrisse, Achillessehne, Schwere Beine",
+                deficiencies:[
+                    { name:"Sportkrämpfe", tag:"Hauptursachen Sportler", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Wie Vorderseite: Wadenkrämpfe bei Sportlern primär durch neuromuskuläre Ermüdung, Dehydration und Natriumverlust (nicht primär Magnesiummangel!). Wadenriss: meist Gastrocnemius-Riss (medialer Bauch), diagnostisch 'Tennisleg' – akut chirurgisch abklären.",
+                      fix:"Hydration, Elektrolyte mit Natrium, Trainingssteuerung. Magnesium abends für allgemeine Entspannung." },
+                    { name:"Vitamin B12 Mangel", tag:"Kribbeln Waden", color:"#f97316", bg:"#2a0d00",
+                      text:"B12-Mangel → Demyelinisierung peripherer Nerven (Suralis-Nerv, Peroneus) → Kribbeln, Taubheit in Waden und Unterschenkeln (Periphere Neuropathie). Oft als 'Strumpf-Handschuh'-Verteilung. Bluttest (Holo-TC) zur Bestätigung!",
+                      fix:"ZEC+ Vitamin B 25. Holo-Transcobalamin >50 pmol/L als Ziel. Bei PPI/Antazida: sublinguales B12." },
+                    { name:"Omega-3 & Kollagen", tag:"Achillessehne", color:"#34d399", bg:"#022a18",
+                      text:"Achillessehne (stärkste Sehne des Körpers) = fast reines Kollagen Typ I. Chronische Achillestendinopathie: Kollagen-Degeneration + lokale Entzündung. EPA/DHA hemmen Entzündungskaskaden im Peritendineum.",
+                      fix:"HEALTH+ Collagen täglich (30–60 min vor Training optimal). Super Omega-3 für Entzündungshemmung. Mind. 3–6 Monate." },
+                    { name:"Eisen Mangel", tag:"Schwere Beine", color:"#ef4444", bg:"#2a0505",
+                      text:"Eisenmangel reduziert Hämoglobin → O₂-Transport in arbeitende Wadenmuskeln sinkt → schwere Beine, schnelle Ermüdung, Brennen in den Waden. Besonders bei Ausdauersportlerinnen (läuferbedingte Hämolyse durch Fußauftritt).",
+                      fix:"NUR bei per Bluttest belegtem Mangel (Ferritin <30 ng/ml)! HEALTH+ Eisenbisglycinat nüchtern mit Vit C." }
+                ]
+            },
+            genital: {
+                icon:"🔥", label:"Potenz & Reproduktion", sub:"Libido, Erektionsfähigkeit, Testosteron, Fruchtbarkeit",
+                deficiencies:[
+                    { name:"Zink-Mangel", tag:"Testosteron & Spermien", color:"#ec4899", bg:"#2a0018",
+                      text:"Zink ist essenziell für Testosteron-Synthese und Spermien-Reifung. Mangel → Testosteronabfall, Libidoverlust, schlechte Spermienqualität (Motilität ↓). Testosteron-Effekt durch Zink-Supplement NUR bei belegtem Zinkmangel klinisch relevant – bei ausgeglichenem Spiegel kein Boost!",
+                      fix:"ZEC+ Zink Caps abends nüchtern. Nicht mit Eisen/Calcium (DMT1-Antagonismus). Austernfleisch als natürliche Zinkquelle." },
+                    { name:"L-Citrullin / NO-Mangel", tag:"Erektion / Durchblutung", color:"#f97316", bg:"#2a0d00",
+                      text:"Stickoxid (NO) entspannt glatte Muskulatur im Schwellkörper → Erektion möglich. L-Citrullin → Arginin → NO in der Niere. ZEC+ Citrullin Malat klinisch studiert (8g = bessere Erektionshärte). ZEC+ Schatten der Liebe enthält ebenfalls L-Citrullin.",
+                      fix:"ZEC+ Citrullin Malat 6–8g täglich. ZEC+ Schatten der Liebe abends. NICHT mit PDE5-Hemmern (Viagra) kombinieren!" },
+                    { name:"Omega-3 / Hormon-Mangel", tag:"Testosteron-Synthese", color:"#34d399", bg:"#022a18",
+                      text:"Testosteron wird aus Cholesterin synthetisiert – EPA/DHA optimieren die Fettsäure-Zusammensetzung der Leydig-Zellen. DHA ist auch im Sperma-Flagellum hoch konzentriert (Spermien-Beweglichkeit). Chronisch niedriges Omega-3 → suboptimale Steroid-Synthese.",
+                      fix:"Super Omega-3 täglich (1500 mg EPA+DHA). Synergie mit D3+K2 für Hormonsystem." },
+                    { name:"Vitamin D3-Mangel", tag:"Testosteron", color:"#fbbf24", bg:"#2a1a00",
+                      text:"D3-Rezeptoren in Leydig-Zellen (Hoden) direkt nachgewiesen. Meta-Analysen: D3-Supplementierung bei Mangelzustand erhöht Testosteron messbar. D3 <30 ng/ml → signifikant niedrigeres T. Winter-Mangel = häufige Ursache saisonaler Libidoprobleme.",
+                      fix:"D3 + K2 morgens mit Fett. Ziel-Blutspiegel 40–60 ng/ml (25-OH-D3). Bluttest im Winter!" },
+                    { name:"Ashwagandha / Cortisol", tag:"Libido & Testosteron", color:"#a78bfa", bg:"#1a0d3a",
+                      text:"Chronisch hohes Cortisol hemmt GnRH → LH sinkt → Testosteron sinkt (Cortisol-Testosteron-Seesaw). KSM-66 Ashwagandha in RCTs: Cortisol ↓14%, Testosteron ↑17% bei gestressten Männern. Maca zusätzlich für Libido.",
+                      fix:"HEALTH+ Ashwagandha KSM-66 abends. HEALTH+ Maca morgens. ZEC+ Schatten der Liebe für kombinierte Wirkung." }
+                ]
+            }
+        };
+
+        function selectZone(zoneId) {
+            // Remove active from all hotspots
+            document.querySelectorAll('.body-hotspot').forEach(h => h.classList.remove('active'));
+            const hs = document.getElementById('hs-' + zoneId);
+            if (hs) hs.classList.add('active');
+
+            const z = BODY_ZONES[zoneId];
+            if (!z) return;
+
+            const defHtml = z.deficiencies.map(d => `
+                <div class="deficiency-card" style="--def-color:${d.color}; --def-bg:${d.bg};">
+                    <div class="deficiency-card-top">
+                        <span class="deficiency-name">${d.name}</span>
+                        <span class="deficiency-tag">${d.tag}</span>
+                    </div>
+                    <div class="deficiency-text">${d.text}</div>
+                    <div class="deficiency-fix">&#10003; ${d.fix}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('atlasDetail').innerHTML = `
+                <div class="atlas-zone-title">
+                    <span class="atlas-zone-icon">${z.icon}</span>
+                    ${z.label}
+                </div>
+                <div class="atlas-zone-sub">${z.sub}</div>
+                <div class="deficiency-list">${defHtml}</div>
+            `;
+
+            // Scroll detail into view
+            document.getElementById('atlasDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function showAboutMe() {
+            document.getElementById('viewAboutMe').style.display = 'flex';
+            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+                document.getElementById(id).classList.remove("active");
+            });
+            document.getElementById("timelinePanels").style.display = "none";
+        }
+        function hideAboutMe() {
+            document.getElementById('viewAboutMe').style.display = 'none';
+            document.getElementById("tabTimeline").classList.add("active");
+            document.getElementById("viewTimeline").classList.add("active");
+            document.getElementById("timelinePanels").style.display = "block";
+        }
+
+        function collapseBodyDisclaimer() {
+            const d = document.getElementById('bodyDisclaimer');
+            const c = document.getElementById('bodyDisclaimerCollapsed');
+            if (d && c) { d.style.display = 'none'; c.style.display = 'block'; }
+        }
+        function expandBodyDisclaimer() {
+            const d = document.getElementById('bodyDisclaimer');
+            const c = document.getElementById('bodyDisclaimerCollapsed');
+            if (d && c) { d.style.display = 'block'; c.style.display = 'none'; }
+        }
+        setTimeout(collapseBodyDisclaimer, 5000);
+
+        let bodyShowingFront = true;
+        function flipBody() {
+            bodyShowingFront = !bodyShowingFront;
+            document.getElementById('bodyFront').classList.toggle('active', bodyShowingFront);
+            document.getElementById('bodyBack').classList.toggle('active', !bodyShowingFront);
+            const btn = document.getElementById('bodyFlipBtn');
+            btn.textContent = bodyShowingFront ? '🔄 Rücken ansehen' : '🔄 Vorderseite ansehen';
+        }
+
+        // ─── VITAMIN & MINERAL DATABASE ───────────────────────────────────
+
+        const NUTR_DATA = [
+          // VITAMINE A–K
+          { id:"n_va", cat:"Vitamin", icon:"🔴", name:"Vitamin A (Retinol)",
+            bodyFunction:"Sehkraft (Rhodopsin), Haut- & Schleimhautschutz, Immunsystem, Zellwachstum, Knochen",
+            takeWith:"Fettreiche Mahlzeit (fettlöslich). Beta-Carotin sicherer als Retinol direkt.",
+            competes:"Bei Rauchern erhöht Beta-Carotin-Supplement Lungenkrebsrisiko! Hohe Dosen antagonisieren Vit K.",
+            dose:"700–900 mcg RE täglich", optimal:"Serum-Retinol 1,05–3,50 µmol/L",
+            toxic:">3000 mcg RE/Tag: Leberschäden, Knochenschwund, teratogen in Schwangerschaft!" },
+
+          { id:"n_b1", cat:"Vitamin", icon:"⚡", name:"Vitamin B1 (Thiamin)",
+            bodyFunction:"Glukose-Energie in Neuronen, Nervenfunktion, Herzmuskel, Kohlenhydrat-Stoffwechsel",
+            takeWith:"Morgens mit Frühstück. Im B-Komplex. Kaffee/Schwarztee hemmen Aufnahme.",
+            competes:"Alkohol blockiert B1-Resorption massiv. Roher Fisch (Thiaminase) zerstört B1.",
+            dose:"1,1–1,3 mg täglich", optimal:"Erythrozyten-Transketolase-Aktivität normal",
+            toxic:"Kein bekanntes Toxizitätslimit – wasserlöslich" },
+
+          { id:"n_b2", cat:"Vitamin", icon:"🟡", name:"Vitamin B2 (Riboflavin)",
+            bodyFunction:"Energiestoffwechsel (FAD/FMN), Antioxidans, Eisenstoffwechsel, Sehkraft, Haut",
+            takeWith:"Mit Mahlzeit. Licht zerstört Riboflavin – dunkle Verpackung.",
+            competes:"Tri- und tetrazyklische Antidepressiva hemmen Aufnahme.",
+            dose:"1,1–1,6 mg täglich", optimal:"Urin-Riboflavin erhöht nach Sättigung",
+            toxic:"Kein bekanntes Limit – überschuss wird im Urin gelb ausgeschieden" },
+
+          { id:"n_b3", cat:"Vitamin", icon:"🔥", name:"Vitamin B3 (Niacin)",
+            bodyFunction:"NAD+/NADH-Cofaktor (Energiestoffwechsel), DNA-Reparatur, Cholesterin-Regulation, Haut",
+            takeWith:"Mit Mahlzeit (verhindert Flush). Tryptophan wird zu Niacin umgewandelt (60:1).",
+            competes:"Nikotinsäure-Form: Flush (Rötung) normal bei >50 mg. Statine + Niacin: Muskelrisiko.",
+            dose:"14–18 mg NE täglich", optimal:"Serum-Niacin, Urin-N1-Methylnicotinamid",
+            toxic:">35 mg/Tag (UL) Niacinsäure: Flush, Leberschäden bei Langzeit-Hochdosierung" },
+
+          { id:"n_b5", cat:"Vitamin", icon:"🌀", name:"Vitamin B5 (Pantothensäure)",
+            bodyFunction:"Coenzym A (Fettsäure-Metabolismus), Stresshormon-Synthese, Wundheilung, Haarpigment",
+            takeWith:"Mit Mahlzeit. Weit verbreitet in Lebensmitteln – Mangel selten.",
+            competes:"Biotin konkurriert um gleichen Transporter bei extremen Dosen.",
+            dose:"5 mg täglich", optimal:"Plasma-Pantothensäure > 1,57 µmol/L",
+            toxic:"Kein bekanntes Limit bei normaler Dosierung; >10g/Tag: Durchfall möglich" },
+
+          { id:"n_b6", cat:"Vitamin", icon:"⚡", name:"Vitamin B6 (Pyridoxin)",
+            bodyFunction:"Aminosäure-Stoffwechsel, Neurotransmitter (Serotonin, Dopamin, GABA), Immunfunktion",
+            takeWith:"Morgens mit Frühstück. Synergistisch mit B12 und Folat.",
+            competes:"⚠️ KRITISCH: >50–100 mg/Tag dauerhaft → irreversible sensorische Neuropathie! Symptome (Kribbeln, Taubheit) bei Mangel UND Überdosierung identisch – ohne Bluttest nicht hochdosieren! Tagesbedarf: nur 1,3–1,7 mg!",
+            dose:"1,3–1,7 mg täglich (Tagesbedarf!)", optimal:"Plasma-Pyridoxal-5-Phosphat > 20 nmol/L",
+            toxic:"⚠️ Ab >50 mg/Tag dauerhaft: irreversible sensorische Neuropathie möglich! Hochdosis-B6-Präparate (50–500 mg) ohne Indikation gefährlich." },
+
+          { id:"n_b7", cat:"Vitamin", icon:"🦋", name:"Vitamin B7 (Biotin)",
+            bodyFunction:"Keratin-Synthese (Haare, Nägel), Fettsäure-Synthese, Gluconeogenese",
+            takeWith:"Morgens mit Frühstück. Mit R-ALA zusammen (R-ALA hemmt Biotin-Transport).",
+            competes:"Rohe Eier binden Biotin (Avidin). Hohe Dosen verfälschen Laborwerte (Troponin, TSH)!",
+            dose:"30–100 mcg täglich", optimal:"Serum-Biotinidase-Aktivität normal",
+            toxic:"Kein bekanntes Toxizitätslimit" },
+
+          { id:"n_b9", cat:"Vitamin", icon:"🌿", name:"Vitamin B9 (Folat)",
+            bodyFunction:"DNA-Synthese, Zellteilung, Neuralrohr-Entwicklung, Homocystein-Abbau, Blutbildung",
+            takeWith:"Mit B12 und B6. MTHFR-Träger: Methylfolat (5-MTHF) statt Folsäure.",
+            competes:"Hohe Dosen (>1000 mcg) maskieren B12-Mangel. Methotrexat blockiert Folat.",
+            dose:"400 mcg täglich (800 mcg Schwangerschaft)", optimal:"Serum-Folat > 6,8 nmol/L",
+            toxic:">1000 mcg/Tag Folsäure: maskiert B12-Mangel, neurologische Schäden möglich" },
+
+          { id:"n_b12", cat:"Vitamin", icon:"🧬", name:"Vitamin B12 (Cobalamin)",
+            bodyFunction:"Nervensystem (Myelinscheide), Blutbildung, DNA-Synthese, Energiestoffwechsel",
+            takeWith:"Morgens mit Frühstück. Braucht Intrinsic Factor – bei Magenproblemen sublinguale Form.",
+            competes:"Antazida, Metformin, PPIs blockieren Aufnahme massiv.",
+            dose:"2,4 mcg täglich (bei Mangel 500–1000 mcg)", optimal:"Serum B12 > 300 pg/ml (besser >400)",
+            toxic:"Kein bekanntes Toxizitätslimit – wasserlöslich" },
+
+          { id:"n_vc", cat:"Vitamin", icon:"🍊", name:"Vitamin C (Ascorbinsäure)",
+            bodyFunction:"Kollagensynthese, Immunsystem, Eisenaufnahme x2, Antioxidans, Wundheilung",
+            takeWith:"Zu Mahlzeiten. Mit Eisen gleichzeitig (Fe-Aufnahme x2). 2x täglich besser.",
+            competes:"Hochdosiert NICHT ums Training – dämpft ROS-Signale. Hohe Dosen hemmen Kupfer.",
+            dose:"100–200 mg täglich", optimal:"Plasma-Spiegel >50 µmol/L",
+            toxic:">2000 mg/Tag: Nierensteine (Oxalat), Durchfall, Kupfermangel" },
+
+          { id:"n_vd", cat:"Vitamin", icon:"☀️", name:"Vitamin D3 (Cholecalciferol)",
+            bodyFunction:"Calcium-Regulation, Knochen, Muskelkraft, Immunsystem, Testosteron, Stimmung",
+            takeWith:"Immer mit Fett + K2. K2 leitet Calcium in Knochen statt Arterien.",
+            competes:"Ohne K2 → Arterienverkalkung! Nicht mit Warfarin. Magnesium aktiviert D3.",
+            dose:"600–2000 IE täglich", optimal:"40–60 ng/ml im Blut (25-OH-D3)",
+            toxic:"Dauerhaft >10.000 IE/Tag: Hyperkalzämie (Nierenversagen)" },
+
+          { id:"n_ve", cat:"Vitamin", icon:"🛡️", name:"Vitamin E (Tocopherol)",
+            bodyFunction:"Fettlösliches Antioxidans, Zellmembranschutz, Immunsystem, Thrombozytenaggregation",
+            takeWith:"Mit fettreicher Mahlzeit. Synergie mit Selen. Natürliches d-Alpha bevorzugen.",
+            competes:"Antagonisiert Vitamin K – erhöht Blutungsrisiko bei Warfarin.",
+            dose:"15 mg (22,4 IE) täglich", optimal:"Plasma-Alpha-Tocopherol > 12 µmol/L",
+            toxic:">1000 mg/Tag: erhöhtes Blutungsrisiko" },
+
+          { id:"n_vk", cat:"Vitamin", icon:"🟢", name:"Vitamin K2 (MK-7)",
+            bodyFunction:"Calcium in Knochen statt Arterien, Osteocalcin-Aktivierung, Gefäßschutz, Blutgerinnung",
+            takeWith:"Mit D3 und fettreicher Mahlzeit.",
+            competes:"Antagonisiert Warfarin/Marcumar – bei Blutverdünner Arzt fragen!",
+            dose:"90–200 mcg täglich (MK-7)", optimal:"Kein etablierter Blutwert",
+            toxic:"Kein bekanntes Limit für K2; K1 hochdosiert kann Gerinnungsprobleme machen" },
+
+          // MINERALIEN A–Z
+          { id:"n_bor", cat:"Mineral", icon:"🔮", name:"Bor",
+            bodyFunction:"Knochen- & Knorpelstoffwechsel, Testosteron, Östrogen, Vitamin D-Aktivierung, Kognition",
+            takeWith:"Mit Mahlzeit. Natürlich in Nüssen, Avocado, Trockenfrüchten vorhanden.",
+            competes:"Keine bekannten kritischen Interaktionen in normaler Dosierung.",
+            dose:"1–3 mg täglich", optimal:"Kein etablierter Normwert",
+            toxic:">20 mg/Tag: Übelkeit, Durchfall. >100 mg: toxisch" },
+
+          { id:"n_ca", cat:"Mineral", icon:"🦴", name:"Calcium",
+            bodyFunction:"Knochenmineralisation (99% im Knochen), Muskelkontraktion, Nervensignale, Blutgerinnung",
+            takeWith:"Mit D3 + K2. Aufgeteilt auf 2 Dosen (max 500 mg pro Einnahme).",
+            competes:"Hemmt Eisenaufnahme stark (2h Abstand!). Zu viel ohne K2 → Gefäßverkalkung.",
+            dose:"1000–1200 mg täglich", optimal:"Serum-Calcium 2,2–2,6 mmol/L",
+            toxic:">2500 mg/Tag: Nierensteine, Verstopfung, Herzrhythmusstörungen" },
+
+          { id:"n_chr", cat:"Mineral", icon:"🔷", name:"Chrom",
+            bodyFunction:"Insulinsensitivität, Blutzucker-Regulation, Fettstoffwechsel, Hunger-Kontrolle",
+            takeWith:"Mit kohlenhydratreicher Mahlzeit für maximale Insulinwirkung.",
+            competes:"Antazida reduzieren Absorption. Hohe Vit-C-Dosen erhöhen Absorption.",
+            dose:"25–45 mcg täglich", optimal:"Serum-Chrom 0,1–0,2 µg/L",
+            toxic:">1000 mcg/Tag (Picolinat): mögliche DNA-Schäden, Lebertoxizität" },
+
+          { id:"n_fe", cat:"Mineral", icon:"🩸", name:"Eisen",
+            bodyFunction:"Hämoglobin (O2-Transport), Myoglobin, ATP-Produktion, Immunsystem, Kognition",
+            takeWith:"Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Kaffee, Tee, Milch.",
+            competes:"NUR bei Bluttest-belegtem Mangel (Ferritin <30)! Calcium, Zink, Magnesium hemmen.",
+            dose:"10–18 mg täglich (Nahrung)", optimal:"Ferritin 30–150 ng/ml",
+            toxic:">45 mg/Tag: Leberschäden. Akute Vergiftung >60 mg/kg KG: lebensbedrohlich!" },
+
+          { id:"n_jod", cat:"Mineral", icon:"🧠", name:"Jod",
+            bodyFunction:"Schilddrüsenhormone T3/T4 (Stoffwechsel, Wärme, Wachstum, Gehirnentwicklung)",
+            takeWith:"Mit Mahlzeit. In Deutschland: Jodsalz nutzen (häufige Unterversorgung).",
+            competes:"Hashimoto: Jod kann Entzündung verstärken – Arzt fragen. Selen schützt vor Jod-Peroxidation.",
+            dose:"150 mcg täglich", optimal:"Urin-Jod 100–200 µg/L",
+            toxic:">1100 mcg/Tag dauerhaft: Schilddrüsendysfunktion" },
+
+          { id:"n_kal", cat:"Mineral", icon:"🫀", name:"Kalium",
+            bodyFunction:"Elektrolyt-Balance, Blutdruck senken, Herzrhythmus, Muskelkontraktion, Nervenleitung",
+            takeWith:"Über Nahrung (Bananen, Kartoffeln, Hülsenfrüchte). Supplement bei viel Sport.",
+            competes:"Bei Niereninsuffizienz gefährlich! ACE-Hemmer erhöhen K-Spiegel.",
+            dose:"3500–4700 mg täglich (Nahrung)", optimal:"Serum-Kalium 3,5–5,0 mmol/L",
+            toxic:">18g/Tag Supplement: Herzstillstand möglich" },
+
+          { id:"n_kup", cat:"Mineral", icon:"🔩", name:"Kupfer",
+            bodyFunction:"Kollagensynthese, Eisenstoffwechsel, Antioxidans (SOD), Nervenmyelinisierung, Immunsystem",
+            takeWith:"Mit Mahlzeit. Bei >25 mg Zink täglich auf Kupfer achten (Zink verdrängt Kupfer).",
+            competes:"Zink hemmt Kupfer (max 10:1 Ratio). Hohe Vit-C-Dosen reduzieren Kupferverfügbarkeit.",
+            dose:"0,9 mg täglich", optimal:"Serum-Kupfer 70–140 µg/dl",
+            toxic:">10 mg/Tag: Leberschäden. Wilson-Krankheit: genetische Kupfer-Akkumulation" },
+
+          { id:"n_mg", cat:"Mineral", icon:"⚡", name:"Magnesium",
+            bodyFunction:"300+ Enzymreaktionen, Muskelrelaxation, Herzrhythmus, Schlaf, ATP-Produktion, Proteinsynthese",
+            takeWith:"Abends (schlaffördernd). Citrat/Glycinat besser als Oxid. Mit B6 synergistisch.",
+            competes:"Konkurriert mit Calcium (zeitversetzt). Bei Niereninsuffizienz gefährlich.",
+            dose:"310–420 mg täglich", optimal:"Serum-Magnesium 0,75–0,95 mmol/L",
+            toxic:">350 mg/Tag Supplement: Durchfall. Bei Nierenproblemen: Herzstillstand möglich" },
+
+          { id:"n_man", cat:"Mineral", icon:"🟤", name:"Mangan",
+            bodyFunction:"Antioxidans (MnSOD), Knochenbildung, Kollagensynthese, Glukose-Stoffwechsel, Schilddrüse",
+            takeWith:"Mit Mahlzeit. In Vollkorn, Nüssen, Hülsenfrüchten reichlich vorhanden.",
+            competes:"Eisen hemmt Mangan-Absorption (bei gleichzeitiger Einnahme). Calcium ebenfalls.",
+            dose:"1,8–2,3 mg täglich", optimal:"Serum-Mangan 7,7–12,1 µg/L",
+            toxic:">11 mg/Tag: Neurotoxizität (Mangan-Parkinson). Berufliche Exposition gefährlich." },
+
+          { id:"n_mo", cat:"Mineral", icon:"🔸", name:"Molybdän",
+            bodyFunction:"Entgiftungs-Enzyme (Sulfit-Oxidase, Xanthin-Oxidase), Harnsäure-Metabolismus",
+            takeWith:"In Hülsenfrüchten, Getreide reichlich vorhanden. Supplementierung selten nötig.",
+            competes:"Hohe Kupfer-Zufuhr senkt Molybdän-Absorption.",
+            dose:"45 mcg täglich", optimal:"Urin-Molybdän-Ausscheidung",
+            toxic:">2000 mcg/Tag: Gicht-ähnliche Symptome (Harnsäure ↑)" },
+
+          { id:"n_nat", cat:"Mineral", icon:"🧂", name:"Natrium",
+            bodyFunction:"Elektrolyt-Balance, Nervenleitung, Muskelkontraktion, Blutvolumen, Blutdruck",
+            takeWith:"Über Nahrung (Salz). Bei viel Sport/Schwitzen: Elektrolyt-Drinks.",
+            competes:"Zu viel Natrium erhöht Blutdruck und Calciumausscheidung über Niere.",
+            dose:"1500–2300 mg täglich (weniger bei Hypertonie)", optimal:"Serum-Natrium 135–145 mmol/L",
+            toxic:">5g/Tag: Hypertonie, Nierenschäden. Hypernatriämie akut: neurologische Schäden" },
+
+          { id:"n_phos", cat:"Mineral", icon:"🦷", name:"Phosphor",
+            bodyFunction:"Knochen & Zähne (85% im Skelett), ATP-Synthese, DNA/RNA-Rückgrat, Säure-Basen-Balance",
+            takeWith:"In Fleisch, Milch, Nüssen reichlich. Supplementierung selten nötig.",
+            competes:"Zu viel Phosphor (Fertigfood) hemmt Calcium-Absorption und fördert Knochenabbau.",
+            dose:"700 mg täglich", optimal:"Serum-Phosphat 0,87–1,45 mmol/L",
+            toxic:">4000 mg/Tag: Nierenschäden, Gefäßverkalkung (besonders bei Nierenerkrankung)" },
+
+          { id:"n_sel", cat:"Mineral", icon:"🟤", name:"Selen",
+            bodyFunction:"Schilddrüse (T4→T3), Glutathionperoxidase (Antioxidans), Immunsystem, Fruchtbarkeit",
+            takeWith:"Mit Mahlzeit. Selenomethionin >90% bioverfügbar. Synergie mit Vitamin E.",
+            competes:"Strenge Obergrenze! Multi-Stacking beachten. Hohe Vit-C-Dosen können senken.",
+            dose:"55 mcg täglich (max 200 mcg Supplement)", optimal:"Serum-Selen 100–140 µg/L",
+            toxic:">400 mcg/Tag: Selenosis – Haarausfall, Nagelbrüchigkeit, Nervenschäden" },
+
+          { id:"n_sil", cat:"Mineral", icon:"💎", name:"Silizium",
+            bodyFunction:"Kollagen & Elastin-Synthese, Haut/Haare/Nägel, Knochenmineralisation, Gefäßelastizität",
+            takeWith:"Morgens nüchtern (bessere Aufnahme). Kieselsäure-Form am bioverfügbarsten.",
+            competes:"Antazida und hohe Aluminiumzufuhr hemmen Silizium-Absorption.",
+            dose:"10–30 mg täglich (kein offizielles RDA)", optimal:"Kein etablierter Normwert",
+            toxic:"Kein bekanntes Toxizitätslimit für lösliches Silizium; Siliziumdioxid (Staub) lungsschädlich" },
+
+          { id:"n_zink", cat:"Mineral", icon:"🔵", name:"Zink",
+            bodyFunction:"Immunsystem, Wundheilung, Testosteron (bei Mangel), Proteinsynthese, Kollagen, 300+ Enzyme",
+            takeWith:"Abends nüchtern. Picolinat/Bisglycinat am besten verfügbar.",
+            competes:"Hemmt Kupfer (max 10:1). Eisen & Calcium hemmen Aufnahme. T-Anstieg nur bei Mangel!",
+            dose:"11 mg täglich (Supplement 15–25 mg)", optimal:"Serum-Zink 70–120 µg/dl",
+            toxic:">40 mg/Tag dauerhaft: Kupfermangel, geschwächtes Immunsystem" },
+
+          // WASSER
+          { id:"n_wasser", cat:"Wasser", icon:"💧", name:"Wasser (H₂O)",
+            bodyFunction:"Alle Stoffwechselreaktionen, Nährstofftransport, Temperaturregulation, Gelenk-Schmiere, Zellvolumen, Nierenentgiftung, Konzentration",
+            takeWith:"Morgens sofort 300–400 ml nüchtern. Zu jedem Supplement-Block 300–500 ml. Intra-Workout 600–800 ml. Vor Schlaf max 250 ml.",
+            competes:"Zu viel auf einmal (>1L in kurzer Zeit) → Hyponatriämie (Natriummangel durch Verdünnung). Creatin braucht mind. 3L/Tag.",
+            dose:"2,5–3,5 Liter täglich (mehr bei Sport, Hitze, Schwitzen)", optimal:"Urin hell-gelb bis klar",
+            toxic:"Hyponatriämie: >10 Liter kurzzeitig akut lebensgefährlich (Hirnödem)" }
+        ];
+
+
+        let nutrFilter = "Alle";
+        let nutrSearch = "";
+        const NUTR_CATS = ["Alle", "Vitamin", "Mineral", "Wasser"];
+
+        function initNutrView() {
+            const catBox = document.getElementById("nutrCatsBox");
+            catBox.innerHTML = NUTR_CATS.map(c => `
+                <button class="nutr-cat-btn ${c === nutrFilter ? 'active' : ''}" id="nutr-cat-${c}" onclick="nutrFilterCat('${c}')">${c}</button>
+            `).join('');
+            renderNutrCards();
+        }
+
+        function nutrFilterCat(cat) {
+            nutrFilter = cat;
+            NUTR_CATS.forEach(c => {
+                const el = document.getElementById('nutr-cat-' + c);
+                if (el) el.classList.toggle('active', c === cat);
+            });
+            renderNutrCards();
+        }
+
+        function renderNutrCards() {
+            const q = nutrSearch.toLowerCase();
+            const filtered = NUTR_DATA.filter(n => {
+                const matchCat = nutrFilter === "Alle" || n.cat === nutrFilter;
+                const matchSearch = !q || n.name.toLowerCase().includes(q) || n.bodyFunction.toLowerCase().includes(q);
+                return matchCat && matchSearch;
+            });
+
+            document.getElementById("nutrCardList").innerHTML = filtered.map(n => `
+                <div class="nutr-card" id="nc-${n.id}">
+                    <button class="nutr-trigger" onclick="toggleNutrCard('${n.id}')">
+                        <span class="nutr-icon">${n.icon}</span>
+                        <div class="nutr-title-box">
+                            <div class="nutr-name">${n.name}</div>
+                            <div class="nutr-cat-label">${n.cat}</div>
+                        </div>
+                        <span class="nutr-arrow">&#8964;</span>
+                    </button>
+                    <div class="nutr-content" id="ncc-${n.id}">
+                        <div class="dose-grid">
+                            <div class="dose-box">
+                                <div class="dose-box-label">Tagesdosis</div>
+                                <div class="dose-box-val dose-ok" style="font-size:11px;">${n.dose}</div>
+                            </div>
+                            <div class="dose-box">
+                                <div class="dose-box-label">Optimaler Wert</div>
+                                <div class="dose-box-val dose-warn" style="font-size:10px;">${n.optimal}</div>
+                            </div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#22c55e">
+                            <div class="nutr-row-title">Funktion im Körper</div>
+                            <div class="nutr-row-val">${n.bodyFunction}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#a78bfa">
+                            <div class="nutr-row-title">Womit einnehmen / Synergie</div>
+                            <div class="nutr-row-val">${n.takeWith}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#f97316">
+                            <div class="nutr-row-title">Konkurrenz / Wechselwirkung</div>
+                            <div class="nutr-row-val">${n.competes}</div>
+                        </div>
+                        <div class="nutr-row" style="--nr-color:#ef4444">
+                            <div class="nutr-row-title">&#9888; Toxische Grenze</div>
+                            <div class="nutr-row-val">${n.toxic}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleNutrCard(id) {
+            const card = document.getElementById('nc-' + id);
+            const content = document.getElementById('ncc-' + id);
+            const open = card.classList.contains('open');
+            card.classList.toggle('open', !open);
+            content.style.display = open ? 'none' : 'block';
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("tabTimeline").addEventListener("click", () => activeSection("tabTimeline", "viewTimeline"));
+            document.getElementById("tabMoney").addEventListener("click", () => { activeSection("tabMoney", "viewMoney"); renderMoney(); });
+            document.getElementById("tabStack").addEventListener("click", () => { activeSection("tabStack", "viewStack"); renderStackView(); });
+            document.getElementById("tabDatabase").addEventListener("click", () => activeSection("tabDatabase", "viewDatabase"));
+            document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
+            document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
+            document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
+            document.getElementById("dbSearchInput").addEventListener("input", function(e) {
+                currentSearchQuery = e.target.value;
+                renderFilteredProducts();
+            });
+            document.getElementById("stackSearchInput").addEventListener("input", function(e) {
+                renderStackAddList(e.target.value);
+            });
+            document.getElementById("nutrSearchInput").addEventListener("input", function(e) {
+                nutrSearch = e.target.value;
+                renderNutrCards();
+            });
+            document.getElementById("productOverlay").addEventListener("click", function() {
+                this.style.display = "none";
+            });
+            document.querySelector("#productOverlay .overlay-sheet").addEventListener("click", function(e) {
+                e.stopPropagation();
+            });
+
+            // Header-Zeitanzeige anklickbar → Zeiten ändern
+            const timeInfo = document.querySelector(".header-time-info");
+            if (timeInfo) timeInfo.addEventListener("click", editTimes);
+
+            // ── Gespeicherte Sitzung wiederherstellen (localStorage) ──────────────
+            // Damit man den Assistenten nicht bei jedem Besuch neu durchläuft.
+            loadProfile();
+            loadStack();
+            // Profil-Auswahlen für den Assistenten vorbelegen (falls man hingeht)
+            try {
+                if (userProfile.age)    document.getElementById('profileAge').value = userProfile.age;
+                if (userProfile.height) document.getElementById('profileHeight').value = userProfile.height;
+                if (userProfile.weight) document.getElementById('profileWeight').value = userProfile.weight;
+                const markChoice = (parentId, field) => {
+                    document.querySelectorAll('#' + parentId + ' .onboard-opt').forEach(b => {
+                        if (b.getAttribute('onclick').includes("'" + userProfile[field] + "'")) b.classList.add('active');
+                    });
+                };
+                if (userProfile.gender)    markChoice('genderChoice', 'gender');
+                if (userProfile.activity)  markChoice('activityChoice', 'activity');
+                if (userProfile.sportType) markChoice('sportTypeChoice', 'sportType');
+                if (userProfile.goal)      markChoice('goalChoice', 'goal');
+                document.querySelectorAll('#sportModeChoice .onboard-opt').forEach(b => {
+                    if (b.getAttribute('onclick').includes("'" + selectedSportMode + "'")) b.classList.add('active');
+                });
+            } catch (e) {}
+
+            try {
+                const savedWake  = localStorage.getItem("sl_wake");
+                const savedSleep = localStorage.getItem("sl_sleep");
+                const savedMode  = localStorage.getItem("sl_mode");
+                const savedTrain = localStorage.getItem("sl_train");
+
+                // Eingabefelder schon mal vorausfüllen (falls man doch zur Eingabe geht)
+                if (savedWake)  document.getElementById("wakeTimeInput").value  = savedWake;
+                if (savedSleep) document.getElementById("sleepTimeInput").value = savedSleep;
+                if (savedTrain) {
+                    document.getElementById("trainTimeInput").value = savedTrain;
+                    document.getElementById("trainTimeInput").style.opacity = '1';
+                    document.getElementById("trainFlexInput").checked = false;
+                }
+                globalTrainTimeStr = savedTrain || "";
+
+                // Mahlzeiten wiederherstellen (Array-Format)
+                try {
+                    const m = JSON.parse(localStorage.getItem("sl_meals") || "null");
+                    if (Array.isArray(m) && m.length) {
+                        globalMeals = m;
+                        mealCount = m.length;
+                        document.getElementById("mealAutoInput").checked = false;
+                        document.getElementById("mealsCustom").style.display = 'block';
+                        document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === m.length));
+                        renderMealInputs(m);
+                    } else {
+                        globalMeals = [];
+                    }
+                } catch (e) { globalMeals = []; }
+
+                // Alles bekannt → direkt in die App, Assistent überspringen
+                if (savedWake && savedSleep && savedMode) {
+                    globalWakeTimeStr  = savedWake;
+                    globalSleepTimeStr = savedSleep;
+                    document.getElementById("displayWakeTime").innerText  = savedWake;
+                    document.getElementById("displaySleepTime").innerText = savedSleep;
+                    applyMode(savedMode);
+                    enterApp();
+                }
+            } catch (e) {}
+        });
+
+// ── Bridge: Handler global verfügbar machen (inline onclick in ES6-Modulen) ──
+Object.assign(window, {
+    addCost, addIncome, backToModeSelect, collapseBodyDisclaimer, exitStackPlan,
+    expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
+    flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
+    onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
+    removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
+    selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
+    setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
+    stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
+    toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
+    toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
+});
