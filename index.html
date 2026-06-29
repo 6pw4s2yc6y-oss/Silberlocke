@@ -215,6 +215,27 @@
         .lm-val { display: block; font-size: 24px; font-weight: 900; color: #f1f5f9; }
         .lm-lbl { display: block; font-size: 12px; color: #94a3b8; margin-top: 4px; }
 
+        /* ── MEIN STACK ──────────────────────────────────────────────────────── */
+        .stack-intro { font-size: 12px; color: #94a3b8; line-height: 1.5; margin-bottom: 12px; }
+        .stack-add-row { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+            background: #0c0c1e; border: 1px solid #1e293b; border-radius: 9px; padding: 11px 13px; margin-bottom: 6px;
+            color: #e2e8f0; font-size: 13px; text-align: left; cursor: pointer; }
+        .stack-add-row:hover { border-color: #7c3aed; }
+        .stack-add-plus { color: #a78bfa; font-weight: 800; font-size: 18px; flex-shrink: 0; }
+        .stack-empty { font-size: 12px; color: #475569; padding: 10px 2px; line-height: 1.5; }
+        .stack-sel-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+            color: #64748b; margin: 16px 0 8px; }
+        .stack-item { background: #0c0c1e; border: 1px solid #1e293b; border-radius: 10px; padding: 11px 13px; margin-bottom: 8px; }
+        .stack-item-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+        .stack-item-name { font-size: 13px; font-weight: 700; color: #f1f5f9; }
+        .stack-item-del { background: none; border: none; color: #64748b; font-size: 14px; cursor: pointer; padding: 2px 4px; flex-shrink: 0; }
+        .stack-item-del:hover { color: #f87171; }
+        .stack-item-amount { display: flex; align-items: center; gap: 8px; margin-top: 9px; flex-wrap: wrap; }
+        .stack-amount-input { width: 84px; background: #05050d; border: 1px solid #334155; border-radius: 7px;
+            color: #f1f5f9; font-size: 14px; font-weight: 700; padding: 6px 9px; }
+        .stack-unit { font-size: 12px; color: #a78bfa; font-weight: 700; }
+        .stack-base { font-size: 10px; color: #475569; margin-left: auto; }
+
         /* HEADER */
         header {
             background: linear-gradient(180deg, #07071a 0%, #000000 100%);
@@ -837,6 +858,7 @@
                 </div>
                 <div class="tab-bar">
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
+                    <button class="tab-btn" id="tabStack">Mein Stack</button>
                     <button class="tab-btn" id="tabDatabase">Produkte</button>
                     <button class="tab-btn" id="tabFood">Nahrung</button>
                     <button class="tab-btn" id="tabBody">Körper</button>
@@ -884,6 +906,17 @@
             </div>
 
             <div class="view-section active" id="viewTimeline"></div>
+
+            <!-- MEIN STACK – eigene Produktauswahl mit Mengen -->
+            <div class="view-section" id="viewStack">
+                <div class="stack-intro">Stell dir deinen eigenen Stack zusammen. Wähle Produkte und trage deine Menge ein – die Nährwerte rechnen sich automatisch zusammen.</div>
+                <div class="db-search-box">
+                    <input type="text" class="db-input" id="stackSearchInput" placeholder="Produkt suchen & hinzufügen…">
+                </div>
+                <div id="stackAddList"></div>
+                <div id="stackSelected"></div>
+                <div id="stackNutrients"></div>
+            </div>
 
             <div class="view-section" id="viewDatabase">
                 <div class="db-search-box">
@@ -2009,6 +2042,8 @@
             initDatabaseView();
             initNutrView();
             renderSportPlans();
+            loadStack();
+            renderStackView();
         }
 
         function initStaticPanels() {
@@ -2121,6 +2156,25 @@
             "Zink":                         { v:10,   u:"mg", eu:"10 mg",    dach:"7–16 mg",      usa:"8–11 mg",       dach_min:7,    dach_max:16,   usa_min:8,    usa_max:11,   ul:25,   ul_str:"25 mg" }
         };
 
+        // Makros, die NICHT als Mikronährstoff/NRV gezählt werden
+        const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
+            'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium','Brennwert']);
+        // Vereinheitlichung verschiedener Schreibweisen desselben Nährstoffs
+        const LABEL_CANON = {
+            'Thiamin':                    'Thiamin (B1)',
+            'Riboflavin':                 'Riboflavin (B2)',
+            'Vitamin B2 – Riboflavin':    'Riboflavin (B2)',
+            'Niacin':                     'Niacin (B3)',
+            'Pantothensäure (B5)':        'Pantothensäure',
+            'Biotin (B7)':                'Biotin',
+            'Folsäure (B9)':              'Folsäure',
+            'Vitamin B9':                 'Folsäure',
+            'Vitamin D3 (Cholecalciferol)':'Vitamin D',
+            'Vitamin E (Tocopherol)':     'Vitamin E',
+            'Vitamin E (Alpha-Tocopherol)':'Vitamin E',
+            'Vitamin K2 (Menachinon)':    'Vitamin K',
+        };
+
         function buildDailyNutrientsBox() {
             const allPids = new Set();
             getActiveTimeline().forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
@@ -2154,22 +2208,6 @@
             const nonNrvMap = {};
             const nonNrvOptMap = {};
 
-            const MACRO_SKIP = new Set(['Eiweiß','Protein','Fett','Fettsäuren','Kohlenhydrate',
-                'Ballaststoffe','Zucker','Salz','Energie','Kalorien','kcal','kJ','Natrium','Brennwert']);
-            const LABEL_CANON = {
-                'Thiamin':                    'Thiamin (B1)',
-                'Riboflavin':                 'Riboflavin (B2)',
-                'Vitamin B2 – Riboflavin':    'Riboflavin (B2)',
-                'Niacin':                     'Niacin (B3)',
-                'Pantothensäure (B5)':        'Pantothensäure',
-                'Biotin (B7)':                'Biotin',
-                'Folsäure (B9)':              'Folsäure',
-                'Vitamin B9':                 'Folsäure',
-                'Vitamin D3 (Cholecalciferol)':'Vitamin D',
-                'Vitamin E (Tocopherol)':     'Vitamin E',
-                'Vitamin E (Alpha-Tocopherol)':'Vitamin E',
-                'Vitamin K2 (Menachinon)':    'Vitamin K',
-            };
             products.forEach(p => {
                 if (!p.nutrients) return;
                 p.nutrients.forEach(n => {
@@ -2430,6 +2468,189 @@
                     ${nonNrvOptSection}
                 </div>
             </div>`;
+        }
+
+        // ── MEIN STACK – eigene Produktauswahl mit Mengen ──────────────────────────
+        let myStack = {}; // { pid: { amount: Number } }
+
+        function loadStack() {
+            try { myStack = JSON.parse(localStorage.getItem('sl_stack') || '{}') || {}; }
+            catch (e) { myStack = {}; }
+        }
+        function saveStack() {
+            try { localStorage.setItem('sl_stack', JSON.stringify(myStack)); } catch (e) {}
+        }
+
+        // Portionsangabe ("~95g", "1 Kap", "1 Tropfen") → { num, unit }
+        function parseServing(serving) {
+            const s = serving || '';
+            const m = s.match(/(\d+(?:[.,]\d+)?)/);
+            const num = m ? parseFloat(m[1].replace(',', '.')) : 1;
+            let unit = 'Portion';
+            if (/kap/i.test(s))          unit = 'Kap';
+            else if (/tropfen/i.test(s)) unit = 'Tropfen';
+            else if (/\bml\b/i.test(s))  unit = 'ml';
+            else if (/g\b/i.test(s))     unit = 'g';
+            return { num: num || 1, unit };
+        }
+        function fmtDe(n) {
+            const r = n >= 100 ? Math.round(n) : Math.round(n * 10) / 10;
+            return String(r).replace('.', ',');
+        }
+
+        function stackAdd(pid) {
+            if (myStack[pid]) return;
+            const p = getProductById(pid);
+            if (!p) return;
+            myStack[pid] = { amount: parseServing(p.serving).num };
+            saveStack();
+            const inp = document.getElementById('stackSearchInput');
+            if (inp) inp.value = '';
+            renderStackAddList('');
+            renderStackSelected();
+            renderStackNutrients();
+        }
+        function stackRemove(pid) {
+            delete myStack[pid];
+            saveStack();
+            renderStackSelected();
+            renderStackNutrients();
+        }
+        function stackSetAmount(pid, val) {
+            if (!myStack[pid]) return;
+            const n = parseFloat(String(val).replace(',', '.'));
+            myStack[pid].amount = isNaN(n) ? 0 : n;
+            saveStack();
+            renderStackNutrients(); // nur Nährwerte neu → Eingabefokus bleibt erhalten
+        }
+
+        function renderStackAddList(query) {
+            const box = document.getElementById('stackAddList');
+            if (!box) return;
+            const q = (query || '').toLowerCase().trim();
+            if (!q) { box.innerHTML = ''; return; }
+            const matches = PRODUCTS.filter(p =>
+                !myStack[p.id] &&
+                (p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q))
+            ).slice(0, 8);
+            if (matches.length === 0) { box.innerHTML = '<div class="stack-empty">Kein Produkt gefunden.</div>'; return; }
+            box.innerHTML = matches.map(p => {
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-add-row" onclick="stackAdd('${p.id}')">
+                    <span><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-add-plus">+</span>
+                </button>`;
+            }).join('');
+        }
+
+        function renderStackSelected() {
+            const box = document.getElementById('stackSelected');
+            if (!box) return;
+            const ids = Object.keys(myStack);
+            if (ids.length === 0) {
+                box.innerHTML = '<div class="stack-empty">Noch nichts gewählt. Suche oben ein Produkt und tippe auf „+".</div>';
+                return;
+            }
+            box.innerHTML = '<div class="stack-sel-title">Deine Auswahl</div>' + ids.map(pid => {
+                const p = getProductById(pid);
+                if (!p) return '';
+                const { unit } = parseServing(p.serving);
+                return `<div class="stack-item">
+                    <div class="stack-item-top">
+                        <span class="stack-item-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}</span>
+                        <button class="stack-item-del" onclick="stackRemove('${pid}')">✕</button>
+                    </div>
+                    <div class="stack-item-amount">
+                        <input type="number" inputmode="decimal" min="0" step="any" class="stack-amount-input"
+                               value="${myStack[pid].amount}" oninput="stackSetAmount('${pid}', this.value)">
+                        <span class="stack-unit">${unit}</span>
+                        <span class="stack-base">1 Portion = ${p.serving}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function computeStack() {
+            const nrvMap = {};
+            let prot = 0, carb = 0, fat = 0, kcal = 0;
+            Object.keys(myStack).forEach(pid => {
+                const p = getProductById(pid);
+                if (!p) return;
+                const base = parseServing(p.serving).num || 1;
+                const factor = (myStack[pid].amount || 0) / base;
+                prot += (p.protein || 0) * factor;
+                carb += (p.carbs || 0) * factor;
+                fat  += (p.fat || 0) * factor;
+                kcal += (p.kcal || 0) * factor;
+                if (!p.nutrients) return;
+                p.nutrients.forEach(n => {
+                    if ((n.label.startsWith('—') && n.nrv === null) || MACRO_SKIP.has(n.label)) return;
+                    if (n.nrv === null) return;
+                    const raw = n.label.startsWith('— ') ? n.label.slice(2) : n.label;
+                    const canon = LABEL_CANON[raw] || raw;
+                    nrvMap[canon] = (nrvMap[canon] || 0) + n.nrv * factor;
+                });
+            });
+            return { prot, carb, fat, kcal, nrvMap };
+        }
+
+        function renderStackNutrients() {
+            const box = document.getElementById('stackNutrients');
+            if (!box) return;
+            if (Object.keys(myStack).length === 0) { box.innerHTML = ''; return; }
+            const { prot, carb, fat, kcal, nrvMap } = computeStack();
+
+            const macroHtml = `<div class="daily-nutr-box light-macros" style="margin-top:14px;">
+                <div class="light-macros-title">Dein Stack insgesamt</div>
+                <div class="light-macros-grid">
+                    <div><span class="lm-val" style="color:#4ade80;">${Math.round(prot)} g</span><span class="lm-lbl">Eiweiß</span></div>
+                    <div><span class="lm-val" style="color:#fbbf24;">${Math.round(carb)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
+                    <div><span class="lm-val" style="color:#f87171;">${Math.round(fat)} g</span><span class="lm-lbl">Fett</span></div>
+                    <div><span class="lm-val" style="color:#a5b4fc;">${Math.round(kcal)}</span><span class="lm-lbl">Kalorien</span></div>
+                </div>
+            </div>`;
+
+            const nrvEntries = Object.entries(nrvMap).sort((a, b) => b[1] - a[1]);
+            let barsHtml = '';
+            if (nrvEntries.length > 0) {
+                const rows = nrvEntries.map(([label, pct]) => {
+                    const norm = NUTRIENT_NORMS[label];
+                    const fillPct = Math.min(pct, 300) / 300 * 100;
+                    const overUL = norm && norm.ul && norm.ul > norm.v && (pct / 100) * norm.v >= norm.ul;
+                    const barColor = overUL ? '#7f1d1d' : pct >= 200 ? '#f59e0b' : pct >= 100 ? '#22c55e' : pct >= 50 ? '#f97316' : '#ef4444';
+                    const valColor = overUL ? '#fca5a5' : pct >= 200 ? '#fbbf24' : pct >= 100 ? '#4ade80' : pct >= 50 ? '#fb923c' : '#f87171';
+                    let amountStr = '';
+                    if (norm) {
+                        const consumed = (pct / 100) * norm.v;
+                        amountStr = (consumed >= 1000 ? Math.round(consumed) : fmtDe(consumed)) + ' ' + norm.u + ' · ';
+                    }
+                    const normLine = norm
+                        ? `<div class="daily-nrv-norms"><span>EU: <span class="daily-nrv-norms-val">${norm.eu}</span></span>${norm.ul ? '<span class="daily-nrv-norms-sep">·</span><span>UL: <span style="color:#f87171;">' + norm.ul_str + '</span></span>' : ''}</div>`
+                        : '';
+                    return `<div class="daily-nrv-row">
+                        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px;">
+                            <span class="daily-nrv-name">${label}</span>
+                            <span style="color:${valColor};font-size:12px;font-weight:700;">${amountStr}${Math.round(pct)}% NRV</span>
+                        </div>
+                        <div class="daily-nrv-track"><div class="daily-nrv-fill" style="width:${fillPct.toFixed(1)}%;background:${barColor};"></div></div>
+                        ${normLine}
+                    </div>`;
+                }).join('');
+                barsHtml = `<div class="daily-nutr-box" style="margin-top:8px;"><div class="daily-nutr-section">
+                    <div class="daily-nutr-section-title">Mikronährstoffe – Ist-Zufuhr (% NRV)</div>
+                    ${rows}
+                    <div style="font-size:9px;color:#1e3a5f;margin-top:8px;">Hochgerechnet auf deine Mengen · Balken bis 300% · EU-NRV Nr. 1169/2011</div>
+                </div></div>`;
+            }
+
+            box.innerHTML = macroHtml + barsHtml;
+        }
+
+        function renderStackView() {
+            const inp = document.getElementById('stackSearchInput');
+            renderStackAddList(inp ? inp.value : '');
+            renderStackSelected();
+            renderStackNutrients();
         }
 
         // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
@@ -2835,10 +3056,10 @@
         }
 
         function activeSection(tabId, viewId) {
-            ["tabTimeline","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+            ["tabTimeline","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
-            ["viewTimeline","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+            ["viewTimeline","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
             document.getElementById(tabId).classList.add("active");
@@ -3617,10 +3838,10 @@
 
         function showAboutMe() {
             document.getElementById('viewAboutMe').style.display = 'flex';
-            ["viewTimeline","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
+            ["viewTimeline","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
-            ["tabTimeline","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
+            ["tabTimeline","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
                 document.getElementById(id).classList.remove("active");
             });
             document.getElementById("timelinePanels").style.display = "none";
@@ -3945,6 +4166,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("tabTimeline").addEventListener("click", () => activeSection("tabTimeline", "viewTimeline"));
+            document.getElementById("tabStack").addEventListener("click", () => { activeSection("tabStack", "viewStack"); renderStackView(); });
             document.getElementById("tabDatabase").addEventListener("click", () => activeSection("tabDatabase", "viewDatabase"));
             document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
             document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
@@ -3952,6 +4174,9 @@
             document.getElementById("dbSearchInput").addEventListener("input", function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
+            });
+            document.getElementById("stackSearchInput").addEventListener("input", function(e) {
+                renderStackAddList(e.target.value);
             });
             document.getElementById("nutrSearchInput").addEventListener("input", function(e) {
                 nutrSearch = e.target.value;
