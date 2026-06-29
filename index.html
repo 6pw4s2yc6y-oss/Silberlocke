@@ -234,7 +234,15 @@
         .onboard-opt-sub { font-size: 10px; font-weight: 500; color: #64748b; }
         .onboard-opt.active .onboard-opt-sub { color: #ddd6fe; }
         .onboard-count { font-size: 11px; color: #a5b4fc; font-weight: 700; text-align: center; margin-bottom: 10px; }
-        .onboard-product-list { max-height: 42vh; overflow-y: auto; margin-bottom: 14px; padding-right: 2px; }
+        .onboard-product-list { max-height: 36vh; overflow-y: auto; margin-bottom: 14px; padding-right: 2px; }
+        .onboard-secondary-btn { width: 100%; margin-top: 10px; padding: 12px; background: #0c0c1e;
+            border: 1px solid #334155; color: #cbd5e1; font-size: 13px; font-weight: 700; border-radius: 10px; cursor: pointer; }
+        .onboard-secondary-btn:hover { border-color: #7c3aed; background: #161636; }
+        .onboard-quick-hint { font-size: 10px; color: #64748b; line-height: 1.4; margin: 5px 2px 0; text-align: center; }
+        .onboard-divider-txt { font-size: 11px; color: #475569; text-transform: uppercase; letter-spacing: 0.06em;
+            font-weight: 700; text-align: center; margin: 18px 0 10px; }
+        .rec-badge { background: #0d2818; color: #4ade80; font-size: 9px; font-weight: 700;
+            padding: 2px 6px; border-radius: 5px; margin-left: 6px; border: 1px solid #166534; white-space: nowrap; }
         .onboard-row2 { display: flex; gap: 10px; }
         .onboard-row2 .onboard-field { flex: 1; }
 
@@ -1100,11 +1108,18 @@
         <div class="setup-card onboard-card-wide">
             <div class="onboard-progress">Schritt 5 von 6 · Deine Produkte</div>
             <div class="setup-title" style="font-size:24px;">Deine Produkte</div>
-            <div class="setup-subtitle">Wähle, was du nimmst – kommt in „Mein Stack"</div>
-            <input type="text" class="time-input onboard-text" id="onboardProductSearch" placeholder="Produkt suchen…" oninput="renderOnboardProducts()" style="margin:14px 0 6px;">
+            <div class="setup-subtitle">Wie soll dein Tagesplan starten?</div>
+
+            <button class="start-btn" style="margin-top:14px;" onclick="fillRecommendedStack()">✓ Empfohlene Produkte übernehmen</button>
+            <div class="onboard-quick-hint">Der Tagesplan wird automatisch mit den empfohlenen Supplements gefüllt (als „empfohlen" markiert).</div>
+            <button class="onboard-secondary-btn" onclick="startEmptyPlan()">Leer starten – selbst befüllen</button>
+            <div class="onboard-quick-hint">Tagesplan bleibt leer; du fügst deine Produkte selbst hinzu.</div>
+
+            <div class="onboard-divider-txt">oder einzeln auswählen</div>
+            <input type="text" class="time-input onboard-text" id="onboardProductSearch" placeholder="Produkt suchen…" oninput="renderOnboardProducts()" style="margin:0 0 6px;">
             <div class="onboard-count" id="onboardProductCount">0 Produkte gewählt</div>
             <div class="onboard-product-list" id="onboardProductList"></div>
-            <button class="start-btn" onclick="goStep(6)">Weiter →</button>
+            <button class="start-btn" onclick="goStep(6)">Weiter mit Auswahl →</button>
             <div class="onboard-nav">
                 <button class="mode-back-btn" onclick="goStep(4)">&#8592; Zurück</button>
                 <button class="mode-back-btn" onclick="goStep(6)">Überspringen →</button>
@@ -2483,8 +2498,34 @@
         function onboardToggle(pid) {
             if (myStack[pid]) delete myStack[pid];
             else { const p = getProductById(pid); if (p) myStack[pid] = { amount: parseServing(p.serving).num }; }
+            setEmptyPlan(false);
             saveStack();
             renderOnboardProducts();
+        }
+
+        function setEmptyPlan(v) {
+            userWantsEmptyPlan = v;
+            try { localStorage.setItem('sl_emptyplan', v ? '1' : '0'); } catch (e) {}
+        }
+
+        // Schritt 5 – Button: empfohlene Produkte in den Stack übernehmen
+        function fillRecommendedStack() {
+            myStack = {};
+            RECOMMENDED_IDS.forEach(pid => {
+                if (PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout') return;
+                const p = getProductById(pid);
+                if (p) myStack[pid] = { amount: parseServing(p.serving).num };
+            });
+            setEmptyPlan(false);
+            saveStack();
+            goStep(6);
+        }
+        // Schritt 5 – Button: leer starten, selbst befüllen
+        function startEmptyPlan() {
+            myStack = {};
+            setEmptyPlan(true);
+            saveStack();
+            goStep(6);
         }
         function renderOnboardProducts() {
             const box = document.getElementById('onboardProductList');
@@ -2553,8 +2594,9 @@
 
             loadStack();
             loadMoney();
-            // Hat man Produkte gewählt → Tagesplan zeigt nur die eigenen Produkte
-            stackPlanActive = Object.keys(myStack).length > 0;
+            try { userWantsEmptyPlan = localStorage.getItem('sl_emptyplan') === '1'; } catch (e) {}
+            // Produkte gewählt ODER bewusst leer gestartet → persönlicher (Stack-)Plan
+            stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
 
             initStaticPanels();
             document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
@@ -3451,6 +3493,13 @@
         // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
         let currentDayType = 'training';
         let stackPlanActive = false;   // true = Tagesplan nur aus „Mein Stack"
+        let userWantsEmptyPlan = false; // true = bewusst leerer Plan (selbst befüllen)
+        // Alle empfohlenen Produkte (aus dem Standard-Tagesplan)
+        const RECOMMENDED_IDS = (() => {
+            const s = new Set();
+            TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => s.add(p)));
+            return s;
+        })();
         const DAYTYPES = ['training','rest','carb','autophagy','water','keto'];
         const DAYTYPE_LABELS = {
             training: "Trainingstag", rest: "Trainingsfrei", carb: "Carb-Loading",
@@ -3673,6 +3722,7 @@
                     const prio = block.priority[pid] || "OPTIONAL";
                     const style = PRIO_STYLE[prio];
                     const stackAmt = (stackPlanActive && myStack[pid]) ? `${myStack[pid].amount} ${parseServing(p.serving).unit}` : null;
+                    const recBadge = (stackPlanActive && RECOMMENDED_IDS.has(pid)) ? '<span class="rec-badge">empfohlen</span>' : '';
 
                     if (light) {
                         return `
@@ -3700,6 +3750,7 @@
                                     <span>${p.icon}</span>
                                     <span>${p.name}</span>
                                     ${stackAmt ? `<span class="stack-amt-badge">${stackAmt}</span>` : ''}
+                                    ${recBadge}
                                 </div>
                                 <div style="display:flex; gap:5px; align-items:center;">
                                     <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${prio}</span>
