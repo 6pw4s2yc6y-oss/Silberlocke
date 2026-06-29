@@ -140,7 +140,8 @@
           }
         ]
       }
-    ]
+    ],
+    "short": "schwer, wenig Wdh., maximale Kraft"
   },
   "hyper": {
     "color": "#a78bfa",
@@ -351,7 +352,8 @@
           }
         ]
       }
-    ]
+    ],
+    "short": "Muskelaufbau, moderates Gewicht"
   },
   "kausd": {
     "color": "#22c55e",
@@ -519,6 +521,492 @@
             "load": "KG",
             "rest": "20 sek",
             "tip": "Gesäß nicht hochschieben, atmen"
+          }
+        ]
+      }
+    ],
+    "short": "viele Wdh., Ausdauer & Definition"
+  },
+  "gla": {
+    "color": "#22c55e",
+    "bg": "#021a0b",
+    "border": "#166534",
+    "title": "Grundlagenausdauer",
+    "icon": "🚴",
+    "short": "lange, ruhige Einheiten – Basis",
+    "desc": "Lange, ruhige Einheiten (GA1) bauen das aerobe Fundament: mehr Mitochondrien, bessere Fettverbrennung, höhere Ermüdungsresistenz.",
+    "supplements": "Elektrolyte + Kohlenhydrate (intra) · Beta-Alanin · Eisen bei Bedarf · Magnesium abends",
+    "days": [
+      {
+        "day": "Lange Einheiten",
+        "exercises": [
+          {
+            "name": "Dauerlauf GA1",
+            "sets": "60–90 min",
+            "load": "65–75% HFmax",
+            "rest": "–",
+            "tip": "Locker – du kannst dich unterhalten (Nasenatmung)"
+          },
+          {
+            "name": "Rad-Grundlage",
+            "sets": "90–120 min",
+            "load": "Zone 2",
+            "rest": "–",
+            "tip": "Gleichmäßige Trittfrequenz 85–95 U/min"
+          },
+          {
+            "name": "Regenerationslauf",
+            "sets": "30–40 min",
+            "load": "<70% HFmax",
+            "rest": "–",
+            "tip": "Sehr locker, fördert die Durchblutung"
+          }
+        ]
+      },
+      {
+        "day": "Stabilität & Technik",
+        "exercises": [
+          {
+            "name": "Core-Zirkel",
+            "sets": "3×45 s",
+            "load": "Körpergewicht",
+            "rest": "30 s",
+            "tip": "Plank, Side-Plank, Superman"
+          },
+          {
+            "name": "Lauf-ABC",
+            "sets": "4×30 m",
+            "load": "Technik",
+            "rest": "60 s",
+            "tip": "Kniehebelauf, Anfersen, Skippings"
+          }
+        ]
+      }
+    ]
+  },
+  "intervall": {
+    "color": "#14b8a6",
+    "bg": "#04201d",
+    "border": "#0f766e",
+    "title": "Intervall / HIIT",
+    "icon": "⚡",
+    "short": "kurze, harte Intervalle",
+    "desc": "Harte Intervalle heben VO₂max und Laktatschwelle – maximaler Reiz für die Ausdauerleistung in wenig Zeit.",
+    "supplements": "Koffein 3–6 mg/kg pre · Beta-Alanin · Natron (optional) · Kohlenhydrate post",
+    "days": [
+      {
+        "day": "Lange Intervalle",
+        "exercises": [
+          {
+            "name": "VO₂max-Intervalle",
+            "sets": "5×3 min",
+            "load": "90–95% HFmax",
+            "rest": "3 min Trab",
+            "tip": "Gleichmäßig hart, nicht überpacen"
+          },
+          {
+            "name": "Tempo-Dauerlauf",
+            "sets": "20–30 min",
+            "load": "Schwelle ~85%",
+            "rest": "–",
+            "tip": "Komfortabel hart, knapp unter der Schwelle"
+          }
+        ]
+      },
+      {
+        "day": "Kurzintervalle",
+        "exercises": [
+          {
+            "name": "Sprint-Intervalle",
+            "sets": "10×30 s",
+            "load": "nahezu maximal",
+            "rest": "90 s",
+            "tip": "Voll, aber sauber – Technik halten"
+          },
+          {
+            "name": "Berg-Sprints",
+            "sets": "8×20 s",
+            "load": "Steigung 6–8%",
+            "rest": "Trab zurück",
+            "tip": "Kraftvoller Armeinsatz"
+          }
+        ]
+      }
+    ]
+  },
+  "wettkampf": {
+    "color": "#10b981",
+    "bg": "#03190f",
+    "border": "#047857",
+    "title": "Wettkampf-Vorbereitung",
+    "icon": "🏁",
+    "short": "Renntempo & Tapering",
+    "desc": "Spezifische Belastung im Renntempo plus Tapering: Form auf den Punkt bringen, Pacing automatisieren.",
+    "supplements": "Carb-Loading 2–3 Tage vorher · Koffein am Wettkampftag · Elektrolyte · keine Experimente",
+    "days": [
+      {
+        "day": "Spezifisch",
+        "exercises": [
+          {
+            "name": "Wettkampftempo",
+            "sets": "3×10 min",
+            "load": "Renntempo",
+            "rest": "3 min",
+            "tip": "Renngefühl & Pacing üben"
+          },
+          {
+            "name": "Long Run mit Endbeschleunigung",
+            "sets": "75 min",
+            "load": "GA1, letzte 15 min GA2",
+            "rest": "–",
+            "tip": "Negativ-Split trainieren"
+          }
+        ]
+      },
+      {
+        "day": "Tapering & Mobilität",
+        "exercises": [
+          {
+            "name": "Lockeres Ausfahren",
+            "sets": "40 min",
+            "load": "Zone 1–2",
+            "rest": "–",
+            "tip": "Beine locker halten"
+          },
+          {
+            "name": "Mobility-Flow",
+            "sets": "15 min",
+            "load": "Dehnung",
+            "rest": "–",
+            "tip": "Hüfte, Waden, Achillessehne"
+          }
+        ]
+      }
+    ]
+  },
+  "explosiv": {
+    "color": "#f97316",
+    "bg": "#1a0a00",
+    "border": "#9a3412",
+    "title": "Explosivkraft",
+    "icon": "💥",
+    "short": "Schnell- & Explosivkraft",
+    "desc": "Maximale Rate of Force Development: schnelle, kraftvolle Bewegungen für härtere Schläge und Tritte.",
+    "supplements": "Kreatin 5 g · Koffein pre · Whey post · Elektrolyte",
+    "days": [
+      {
+        "day": "Power",
+        "exercises": [
+          {
+            "name": "Hang Power Clean",
+            "sets": "5×3",
+            "load": "75–85% 1RM",
+            "rest": "2–3 min",
+            "tip": "Explosiv aus der Hüfte, schnelle Arme"
+          },
+          {
+            "name": "Kastensprünge",
+            "sets": "5×4",
+            "load": "hoch",
+            "rest": "2 min",
+            "tip": "Maximal explosiv, weich landen"
+          },
+          {
+            "name": "Medizinball-Wurf",
+            "sets": "4×6",
+            "load": "5–8 kg",
+            "rest": "90 s",
+            "tip": "Rotation aus der Körpermitte"
+          }
+        ]
+      },
+      {
+        "day": "Schnellkraft",
+        "exercises": [
+          {
+            "name": "Band-Punches",
+            "sets": "4×20 s",
+            "load": "Theraband",
+            "rest": "40 s",
+            "tip": "Schnelligkeit vor Kraft"
+          },
+          {
+            "name": "Plyo-Liegestütz",
+            "sets": "4×6",
+            "load": "Körpergewicht",
+            "rest": "90 s",
+            "tip": "Abdrücken, Hände kurz lösen"
+          }
+        ]
+      }
+    ]
+  },
+  "kondition": {
+    "color": "#ef4444",
+    "bg": "#1a0000",
+    "border": "#991b1b",
+    "title": "Kampf-Kondition",
+    "icon": "🥊",
+    "short": "Runden, hohe Kondition",
+    "desc": "Rundenbasierte Konditionsarbeit: Tempo über mehrere Runden halten, ohne einzubrechen.",
+    "supplements": "Beta-Alanin · Elektrolyte intra · Koffein · EAA bei langen Sessions",
+    "days": [
+      {
+        "day": "Rundentraining",
+        "exercises": [
+          {
+            "name": "Sack-Intervalle",
+            "sets": "6×3 min",
+            "load": "hohe Intensität",
+            "rest": "1 min",
+            "tip": "Kombinationen, Tempo halten"
+          },
+          {
+            "name": "Seilspringen",
+            "sets": "5×3 min",
+            "load": "zügig",
+            "rest": "1 min",
+            "tip": "Fußarbeit, leicht bleiben"
+          }
+        ]
+      },
+      {
+        "day": "Kraftausdauer",
+        "exercises": [
+          {
+            "name": "Burpees",
+            "sets": "5×15",
+            "load": "Körpergewicht",
+            "rest": "45 s",
+            "tip": "Sauber, Tempo gleichmäßig"
+          },
+          {
+            "name": "Kettlebell-Swings",
+            "sets": "5×20",
+            "load": "16–24 kg",
+            "rest": "60 s",
+            "tip": "Hüftexplosion, Core fest"
+          }
+        ]
+      }
+    ]
+  },
+  "technik": {
+    "color": "#f59e0b",
+    "bg": "#1a1200",
+    "border": "#92400e",
+    "title": "Technik & Beweglichkeit",
+    "icon": "🤺",
+    "short": "Technik & Mobilität",
+    "desc": "Technik- und Mobilitätsfokus: saubere Bewegungen, Beweglichkeit und Verletzungsprophylaxe.",
+    "supplements": "Kollagen + Vitamin C (Gelenke) · Magnesium · Omega-3 · Whey",
+    "days": [
+      {
+        "day": "Skill",
+        "exercises": [
+          {
+            "name": "Schattenboxen",
+            "sets": "5×3 min",
+            "load": "locker–mittel",
+            "rest": "1 min",
+            "tip": "Saubere Technik, Beinarbeit"
+          },
+          {
+            "name": "Pratzen / Pad-Work",
+            "sets": "6×3 min",
+            "load": "Technik",
+            "rest": "1 min",
+            "tip": "Präzision vor Power"
+          }
+        ]
+      },
+      {
+        "day": "Mobility & Core",
+        "exercises": [
+          {
+            "name": "Hüft-Mobility",
+            "sets": "10 min",
+            "load": "Dehnung",
+            "rest": "–",
+            "tip": "Tiefe Hocke, Beinschwung"
+          },
+          {
+            "name": "Core-Stabilität",
+            "sets": "3×45 s",
+            "load": "Körpergewicht",
+            "rest": "30 s",
+            "tip": "Plank-Varianten, Anti-Rotation"
+          }
+        ]
+      }
+    ]
+  },
+  "hybrid": {
+    "color": "#8b5cf6",
+    "bg": "#0f0a1f",
+    "border": "#6d28d9",
+    "title": "Hybrid (Kraft + Ausdauer)",
+    "icon": "🔀",
+    "short": "Kraft + Ausdauer kombiniert",
+    "desc": "Kraft und Ausdauer in einer Woche: vielseitige Fitness ohne einen der beiden Bereiche zu vernachlässigen.",
+    "supplements": "Kreatin · Elektrolyte · Whey + Carbs post · Beta-Alanin",
+    "days": [
+      {
+        "day": "Kraft",
+        "exercises": [
+          {
+            "name": "Kniebeuge",
+            "sets": "4×6",
+            "load": "75–80% 1RM",
+            "rest": "2–3 min",
+            "tip": "Tief, kontrolliert"
+          },
+          {
+            "name": "Klimmzüge",
+            "sets": "4×8",
+            "load": "Körpergewicht / Zusatz",
+            "rest": "2 min",
+            "tip": "Volle ROM"
+          }
+        ]
+      },
+      {
+        "day": "Ausdauer",
+        "exercises": [
+          {
+            "name": "Intervall-Lauf",
+            "sets": "6×400 m",
+            "load": "zügig",
+            "rest": "200 m Trab",
+            "tip": "Gleichmäßiges Tempo"
+          },
+          {
+            "name": "Ruder-Ergometer",
+            "sets": "4×500 m",
+            "load": "hart",
+            "rest": "2 min",
+            "tip": "Beinarbeit zuerst"
+          }
+        ]
+      }
+    ]
+  },
+  "functional": {
+    "color": "#06b6d4",
+    "bg": "#031a1f",
+    "border": "#0e7490",
+    "title": "Functional Training",
+    "icon": "🤸",
+    "short": "funktionelle Ganzkörper-Zirkel",
+    "desc": "Funktionelle Zirkel über die ganze Kette: Kraft, Stabilität und Koordination im Alltag und Sport.",
+    "supplements": "Whey · Kreatin · Magnesium · Omega-3",
+    "days": [
+      {
+        "day": "Ganzkörper-Zirkel",
+        "exercises": [
+          {
+            "name": "Kettlebell-Swing",
+            "sets": "4×15",
+            "load": "16–24 kg",
+            "rest": "45 s",
+            "tip": "Hüftexplosion"
+          },
+          {
+            "name": "Liegestütz-Varianten",
+            "sets": "4×12",
+            "load": "Körpergewicht",
+            "rest": "45 s",
+            "tip": "Core fest"
+          },
+          {
+            "name": "Box Step-Ups",
+            "sets": "4×10 / Seite",
+            "load": "mittel",
+            "rest": "45 s",
+            "tip": "Kontrolliert hoch und runter"
+          }
+        ]
+      },
+      {
+        "day": "Stabilität & Core",
+        "exercises": [
+          {
+            "name": "Turkish Get-Up",
+            "sets": "3×3 / Seite",
+            "load": "leicht–mittel",
+            "rest": "60 s",
+            "tip": "Langsam, kontrolliert"
+          },
+          {
+            "name": "Farmer's Walk",
+            "sets": "4×30 m",
+            "load": "schwer",
+            "rest": "60 s",
+            "tip": "Aufrecht, Schultern hinten"
+          }
+        ]
+      }
+    ]
+  },
+  "ganzkoerper": {
+    "color": "#6366f1",
+    "bg": "#0c0c1e",
+    "border": "#4338ca",
+    "title": "Ganzkörper-Kraft",
+    "icon": "🏋️",
+    "short": "Ganzkörper-Kraft, 2er-Split",
+    "desc": "Ganzkörper-Kraft im 2er-Split: effizienter Aufbau für alle, die 2–3× pro Woche trainieren.",
+    "supplements": "Kreatin 5 g · Whey + Dextrose post · Magnesium · Vitamin D",
+    "days": [
+      {
+        "day": "Ganzkörper A",
+        "exercises": [
+          {
+            "name": "Kreuzheben",
+            "sets": "4×5",
+            "load": "78–83% 1RM",
+            "rest": "3 min",
+            "tip": "Rücken neutral, Hüfte zurück"
+          },
+          {
+            "name": "Schrägbankdrücken",
+            "sets": "4×8",
+            "load": "70% 1RM",
+            "rest": "2 min",
+            "tip": "Schulterblätter fixiert"
+          },
+          {
+            "name": "Rudern vorgebeugt",
+            "sets": "4×8",
+            "load": "mittel",
+            "rest": "2 min",
+            "tip": "Zug zur Hüfte"
+          }
+        ]
+      },
+      {
+        "day": "Ganzkörper B",
+        "exercises": [
+          {
+            "name": "Frontkniebeuge",
+            "sets": "4×6",
+            "load": "70–75% 1RM",
+            "rest": "2–3 min",
+            "tip": "Ellbogen hoch"
+          },
+          {
+            "name": "Schulterdrücken",
+            "sets": "4×8",
+            "load": "mittel",
+            "rest": "2 min",
+            "tip": "Core fest, kein Hohlkreuz"
+          },
+          {
+            "name": "Klimmzüge",
+            "sets": "4×8",
+            "load": "Körpergewicht",
+            "rest": "2 min",
+            "tip": "Volle Streckung unten"
           }
         ]
       }

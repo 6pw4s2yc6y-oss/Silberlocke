@@ -204,6 +204,7 @@
             currentStep = n;
             window.scrollTo(0, 0);
             if (id === 'stepActivity' || id === 'stepGoal') renderOnboardTargets();
+            if (id === 'stepSport') renderOnboardSportPlans();
             if (id === 'stepProducts') renderOnboardProducts();
         }
         function nextStep() { goStep(currentStep + 1); }
@@ -217,6 +218,8 @@
             parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             renderOnboardTargets(); // Bedarf live aktualisieren
+            // Sportart geändert → passende Trainingspläne neu aufbauen
+            if (field === 'sportType') renderOnboardSportPlans();
         }
         function profileNext() {
             userProfile.age    = document.getElementById('profileAge').value.trim();
@@ -1728,41 +1731,39 @@
         // ─── SPORT DATA ───────────────────────────────────────────────────
         let SPORT_DATA = {};
 
-        function selectSportMode(mode) {
-            ['maxkraft','hyper','kausd'].forEach(m => {
-                document.getElementById('sm' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
-                if (m === 'maxkraft') document.getElementById('smMaxkraft').classList.remove('active');
-                document.getElementById('sp' + m.charAt(0).toUpperCase() + m.slice(1)).classList.remove('active');
-            });
-            // fix IDs
-            ['Maxkraft','Hyper','Kausd'].forEach(id => {
-                document.getElementById('sm'+id).classList.remove('active');
-                document.getElementById('sp'+id).classList.remove('active');
-            });
-            const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
-            document.getElementById('sm' + modeMap[mode]).classList.add('active');
-            document.getElementById('sp' + modeMap[mode]).classList.add('active');
+        // Welche Trainingspläne gehören zu welcher Sportart
+        const SPORTTYPE_PLANS = {
+            kraft:    ['maxkraft', 'hyper', 'kausd'],
+            ausdauer: ['gla', 'intervall', 'wettkampf'],
+            kampf:    ['explosiv', 'kondition', 'technik'],
+            mix:      ['hybrid', 'functional', 'ganzkoerper'],
+        };
+        // Pläne passend zur gewählten Sportart (Default: Kraft, falls übersprungen)
+        function plansForType() {
+            const modes = SPORTTYPE_PLANS[userProfile.sportType] || SPORTTYPE_PLANS.kraft;
+            return modes.filter(m => SPORT_DATA[m]);
         }
 
-        function renderSportPlans() {
-            Object.entries(SPORT_DATA).forEach(([key, plan]) => {
-                const modeMap = {maxkraft:'Maxkraft', hyper:'Hyper', kausd:'Kausd'};
-                const box = document.getElementById('sp' + modeMap[key]);
-                if (!box) return;
+        function selectSportMode(mode) {
+            selectedSportMode = mode;
+            try { store.setItem('sl_sport', mode); } catch (e) {}
+            document.querySelectorAll('#sportModeBar .sport-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+            document.querySelectorAll('#sportPlanBoxes .sport-plan-box').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+        }
 
-                const suppHtml = `<div class="sport-row" style="--sc:${plan.color}">
+        // Baut Banner + Tages-Karten für einen Plan
+        function buildPlanHtml(key, plan) {
+            const suppHtml = `<div class="sport-row" style="--sc:${plan.color}">
                     <div class="sport-row-title">Supplements für diesen Modus</div>
                     <div class="sport-row-val">${plan.supplements}</div>
                 </div>`;
-
-                const bannerHtml = `<div class="sport-hero-banner" style="background:${plan.bg}; border:1px solid ${plan.border}; color:${plan.color};">
+            const bannerHtml = `<div class="sport-hero-banner" style="background:${plan.bg}; border:1px solid ${plan.border}; color:${plan.color};">
                     <div style="font-size:22px; margin-bottom:4px;">${plan.icon} ${plan.title}</div>
                     <div style="font-size:11px; color:#cbd5e1; line-height:1.5;">${plan.desc}</div>
                     ${suppHtml}
                 </div>`;
-
-                const daysHtml = plan.days.map((day, di) => {
-                    const exHtml = day.exercises.map((ex, ei) => `
+            const daysHtml = plan.days.map((day, di) => {
+                const exHtml = day.exercises.map((ex) => `
                         <div style="background:#04040d; border-radius:8px; padding:9px 11px; margin-bottom:6px; border-left:3px solid ${plan.color};">
                             <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:6px;">
                                 <div style="font-size:12px; font-weight:700; color:#e2e8f0;">${ex.name}</div>
@@ -1775,8 +1776,7 @@
                             <div style="font-size:11px; color:#94a3b8; margin-top:3px; line-height:1.5;">💡 ${ex.tip}</div>
                         </div>
                     `).join('');
-
-                    return `<div class="sport-info-card" id="sc-${key}-${di}" style="--sc:${plan.color}">
+                return `<div class="sport-info-card" id="sc-${key}-${di}" style="--sc:${plan.color}">
                         <button class="sport-info-trigger" onclick="toggleSportCard('${key}','${di}')">
                             <span class="sport-info-icon">${plan.icon}</span>
                             <span class="sport-info-title">${day.day}</span>
@@ -1786,10 +1786,37 @@
                             ${exHtml}
                         </div>
                     </div>`;
-                }).join('');
+            }).join('');
+            return bannerHtml + daysHtml;
+        }
 
-                box.innerHTML = bannerHtml + daysHtml;
-            });
+        // App-Sport-Tab: Modus-Leiste + Plan-Boxen passend zur Sportart aufbauen
+        function renderSportPlans() {
+            const bar = document.getElementById('sportModeBar');
+            const boxes = document.getElementById('sportPlanBoxes');
+            if (!bar || !boxes) return;
+            const modes = plansForType();
+            if (!modes.includes(selectedSportMode)) selectedSportMode = modes[0];
+            bar.innerHTML = modes.map(m => {
+                const plan = SPORT_DATA[m];
+                return `<button class="sport-mode-btn${m === selectedSportMode ? ' active' : ''}" data-mode="${m}" onclick="selectSportMode('${m}')">${plan.icon} ${plan.title}</button>`;
+            }).join('');
+            boxes.innerHTML = modes.map(m =>
+                `<div class="sport-plan-box${m === selectedSportMode ? ' active' : ''}" data-mode="${m}" id="sp-${m}">${buildPlanHtml(m, SPORT_DATA[m])}</div>`
+            ).join('');
+        }
+
+        // Onboarding: Trainingsplan-Buttons passend zur gewählten Sportart
+        function renderOnboardSportPlans() {
+            const box = document.getElementById('sportModeChoice');
+            if (!box) return;
+            const modes = plansForType();
+            if (!modes.includes(selectedSportMode)) selectedSportMode = modes[0];
+            box.innerHTML = modes.map(m => {
+                const plan = SPORT_DATA[m];
+                const active = m === selectedSportMode ? ' active' : '';
+                return `<button class="onboard-opt${active}" onclick="setSportChoice('${m}',this)">${plan.icon} ${plan.title} <span class="onboard-opt-sub">${plan.short || ''}</span></button>`;
+            }).join('');
         }
 
         function toggleSportCard(mode, idx) {
