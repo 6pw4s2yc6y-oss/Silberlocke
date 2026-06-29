@@ -299,6 +299,11 @@
         .money-result-big { text-align: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid #1e3a5f; }
         .money-result-big-lbl { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; }
         .money-result-big-val { font-size: 30px; font-weight: 900; margin-top: 4px; }
+        .money-budget { background: linear-gradient(145deg, #0d1a10 0%, #07070f 100%); border: 1px solid #166534;
+            border-radius: 13px; padding: 16px; margin-bottom: 8px; }
+        .money-budget-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .money-budget-lbl { flex: 1; font-size: 13px; color: #e2e8f0; font-weight: 600; }
+        .money-budget-input { width: 120px; text-align: right; }
         .stack-empty { font-size: 12px; color: #475569; padding: 10px 2px; line-height: 1.5; }
         .stack-sel-head { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 8px; gap: 8px; }
         .stack-sel-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; }
@@ -1044,9 +1049,11 @@
 
             <!-- MONEY – Finanzen: Einkommen, Fixkosten & was für Supps/Nahrung übrig bleibt -->
             <div class="view-section" id="viewMoney">
-                <div class="stack-intro">Trage dein Einkommen und deine monatlichen Fixkosten & Schulden ein. Unten siehst du, wie viel im Monat für Supplements & Nahrung übrig bleibt. Alles bleibt nur auf deinem Gerät gespeichert.</div>
+                <div class="stack-intro">Trage Einkommen und Fixkosten ein. Teile das Verfügbare auf Supplements & Nahrung auf – der Rest ist dein Sparbetrag. Alles bleibt nur auf deinem Gerät gespeichert.</div>
 
                 <div class="money-result" id="moneyResult"></div>
+
+                <div class="money-budget" id="moneyBudget"></div>
 
                 <div class="money-sec-head"><span>💰 Einkommen / Monat</span></div>
                 <div id="moneyIncomeList"></div>
@@ -2943,6 +2950,7 @@
             try { moneyData = JSON.parse(localStorage.getItem('sl_money') || '{}') || {}; } catch (e) { moneyData = {}; }
             if (!moneyData.income) moneyData.income = [];
             if (!moneyData.costs)  moneyData.costs  = [];
+            if (!moneyData.budget) moneyData.budget = { supps: 0, food: 0 };
         }
         function saveMoney() {
             try { localStorage.setItem('sl_money', JSON.stringify(moneyData)); } catch (e) {}
@@ -3007,16 +3015,66 @@
                         <button class="stack-item-del" onclick="removeCost(${i})">✕</button>
                     </div>`).join('');
 
-            const leftColor = left >= 0 ? '#4ade80' : '#f87171';
+            const leftColor = left >= 0 ? '#a5b4fc' : '#f87171';
             resBox.innerHTML = `
                 <div class="money-result-row"><span>Einkommen</span><span style="color:#4ade80;">${eur(totalIncome)}</span></div>
                 <div class="money-result-row"><span>− Fixkosten & Raten</span><span style="color:#f87171;">${eur(totalMonthly)}</span></div>
                 <div class="money-result-big">
-                    <div class="money-result-big-lbl">Übrig für Supplements & Nahrung</div>
+                    <div class="money-result-big-lbl">Verfügbar nach Fixkosten</div>
                     <div class="money-result-big-val" style="color:${leftColor};">${eur(left)}</div>
                 </div>
                 ${totalDebt > 0 ? `<div class="money-result-row" style="margin-top:8px;border-top:1px solid #1e293b;padding-top:8px;"><span>Gesamte Restschulden</span><span style="color:#fb923c;">${eur(totalDebt)}</span></div>` : ''}
             `;
+
+            renderMoneyBudget(left);
+        }
+
+        // Budget aufteilen: Supplements, Nahrung → Rest zum Sparen
+        function renderMoneyBudget(available) {
+            const box = document.getElementById('moneyBudget');
+            if (!box) return;
+            const supps = moneyData.budget.supps || 0;
+            const food  = moneyData.budget.food  || 0;
+            box.innerHTML = `
+                <div class="money-sec-head"><span>📊 Budget aufteilen</span></div>
+                <div class="money-budget-row">
+                    <span class="money-budget-lbl">💊 Supplements</span>
+                    <input type="text" inputmode="decimal" class="money-input money-budget-input" id="budgetSupps"
+                           value="${supps ? fmtDe(supps) : ''}" placeholder="€ / Monat" oninput="setBudgetVal('supps', this.value)">
+                </div>
+                <div class="money-budget-row">
+                    <span class="money-budget-lbl">🍗 Nahrung</span>
+                    <input type="text" inputmode="decimal" class="money-input money-budget-input" id="budgetFood"
+                           value="${food ? fmtDe(food) : ''}" placeholder="€ / Monat" oninput="setBudgetVal('food', this.value)">
+                </div>
+                <div class="money-result-row" style="margin-top:10px;"><span>Verfügbar</span><span style="color:#a5b4fc;">${eur(available)}</span></div>
+                <div class="money-result-row"><span>− Supplements + Nahrung</span><span id="moneyKonsum" style="color:#fb923c;">${eur(supps + food)}</span></div>
+                <div class="money-result-big" style="border-top-color:#166534;">
+                    <div class="money-result-big-lbl">💰 Zum Sparen übrig</div>
+                    <div class="money-result-big-val" id="moneySavings"></div>
+                </div>`;
+            updateSavings();
+        }
+
+        function setBudgetVal(type, val) {
+            moneyData.budget[type === 'supps' ? 'supps' : 'food'] = parseEur(val);
+            saveMoney();
+            // nur die Summen aktualisieren → Eingabefokus bleibt erhalten
+            const konsum = (moneyData.budget.supps || 0) + (moneyData.budget.food || 0);
+            const k = document.getElementById('moneyKonsum');
+            if (k) k.textContent = eur(konsum);
+            updateSavings();
+        }
+
+        function updateSavings() {
+            const el = document.getElementById('moneySavings');
+            if (!el) return;
+            const totalIncome  = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
+            const totalMonthly = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
+            const konsum = (moneyData.budget.supps || 0) + (moneyData.budget.food || 0);
+            const savings = totalIncome - totalMonthly - konsum;
+            el.textContent = eur(savings);
+            el.style.color = savings >= 0 ? '#4ade80' : '#f87171';
         }
 
         function renderStackBrowse() {
