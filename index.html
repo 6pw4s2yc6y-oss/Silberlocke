@@ -104,10 +104,16 @@
         .time-input:disabled { opacity: 0.4; cursor: not-allowed; }
         .setup-meals { margin-bottom: 20px; }
         .meals-label { display: block; font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 8px; }
-        .meals-grid { display: flex; gap: 8px; }
-        .meals-grid > div { flex: 1; display: flex; flex-direction: column; gap: 4px; }
-        .meals-grid span { font-size: 10px; color: #64748b; text-align: center; }
-        .meals-grid .time-input { padding: 8px 4px; font-size: 13px; }
+        .meals-count-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 12px 0 8px; }
+        .meals-count-row > span { font-size: 12px; color: #94a3b8; font-weight: 600; }
+        .meals-count-btns { display: flex; gap: 5px; }
+        .meals-count-btns button { width: 32px; height: 32px; border-radius: 8px; background: #0c0c1e;
+            border: 1px solid #334155; color: #cbd5e1; font-size: 13px; font-weight: 700; cursor: pointer; }
+        .meals-count-btns button.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
+        .meal-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+        .meal-row > span { font-size: 12px; color: #cbd5e1; }
+        .meal-row .time-input { width: 120px; padding: 8px 6px; font-size: 13px; }
+        .meals-hint { font-size: 10px; color: #475569; line-height: 1.5; margin-top: 4px; }
 
         .setup-arrow {
             font-size: 16px;
@@ -984,12 +990,12 @@
             <div class="setup-time-grid">
                 <div class="form-group">
                     <label for="wakeTimeInput">&#9728; Aufwachzeit</label>
-                    <input type="time" id="wakeTimeInput" class="time-input" value="07:00">
+                    <input type="time" id="wakeTimeInput" class="time-input" value="07:00" oninput="refreshMealSuggestions()">
                 </div>
                 <div class="setup-arrow">&#8594;</div>
                 <div class="form-group">
                     <label for="sleepTimeInput">&#9790; Schlafenszeit</label>
-                    <input type="time" id="sleepTimeInput" class="time-input" value="23:00">
+                    <input type="time" id="sleepTimeInput" class="time-input" value="23:00" oninput="refreshMealSuggestions()">
                 </div>
             </div>
             <div class="setup-train">
@@ -1003,16 +1009,25 @@
                 </label>
             </div>
             <div class="setup-meals" id="setupMeals">
-                <label class="meals-label">🍳 Mahlzeiten-Zeiten</label>
-                <div class="meals-grid" id="mealsGrid" style="opacity:0.45;">
-                    <div><span>Frühstück</span><input type="time" id="mealBreakfast" class="time-input" value="08:00"></div>
-                    <div><span>Mittag</span><input type="time" id="mealLunch" class="time-input" value="13:00"></div>
-                    <div><span>Abend</span><input type="time" id="mealDinner" class="time-input" value="19:00"></div>
-                </div>
+                <label class="meals-label">🍽️ Mahlzeiten</label>
                 <label class="setup-flex-row">
-                    <input type="checkbox" id="mealAutoInput" checked onchange="document.getElementById('mealsGrid').style.opacity = this.checked ? '0.45' : '1';">
-                    <span>Automatisch takten (Standard)</span>
+                    <input type="checkbox" id="mealAutoInput" checked onchange="toggleMealAuto()">
+                    <span>Automatisch an Aufwach-/Schlafzeit anpassen</span>
                 </label>
+                <div id="mealsCustom" style="display:none;">
+                    <div class="meals-count-row">
+                        <span>Anzahl Mahlzeiten</span>
+                        <div class="meals-count-btns" id="mealCountBtns">
+                            <button type="button" onclick="setMealCount(2)">2</button>
+                            <button type="button" class="active" onclick="setMealCount(3)">3</button>
+                            <button type="button" onclick="setMealCount(4)">4</button>
+                            <button type="button" onclick="setMealCount(5)">5</button>
+                            <button type="button" onclick="setMealCount(6)">6</button>
+                        </div>
+                    </div>
+                    <div id="mealsList"></div>
+                    <div class="meals-hint">Vorschläge richten sich nach deinen Zeiten – frei anpassbar.</div>
+                </div>
             </div>
             <button class="start-btn" onclick="startApp()">Weiter →</button>
         </div>
@@ -2323,7 +2338,42 @@
         let globalWakeTimeStr = "07:00";
         let globalSleepTimeStr = "23:00";
         let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training
-        let globalMealTimes = { breakfast:'', lunch:'', dinner:'' };  // '' = automatisch takten
+        let globalMeals = [];          // [] = automatisch (an Schlafrhythmus); sonst ["HH:MM", …]
+        let mealCount = 3;
+
+        // ── MAHLZEITEN: Vorschläge richten sich nach Aufwach-/Schlafzeit ───────────
+        function _hm(s){ const p=(s||'').split(':'); return (+p[0])*60 + (+p[1]||0); }
+        function _fhm(min){ min=((Math.round(min)%1440)+1440)%1440; return String(Math.floor(min/60)).padStart(2,'0')+':'+String(min%60).padStart(2,'0'); }
+        function suggestMeals(count) {
+            const wakeMin = _hm(document.getElementById('wakeTimeInput').value || '07:00');
+            let awake = (_hm(document.getElementById('sleepTimeInput').value || '23:00') - wakeMin + 1440) % 1440;
+            if (awake < 240) awake = 240;
+            const first = 60, last = awake - 120, span = Math.max(last - first, 60);
+            const out = [];
+            for (let i = 0; i < count; i++) out.push(_fhm(wakeMin + (count === 1 ? first : first + span * i / (count - 1))));
+            return out;
+        }
+        function renderMealInputs(times) {
+            const box = document.getElementById('mealsList');
+            if (!box) return;
+            box.innerHTML = times.map((t, i) => {
+                const label = i === 0 ? 'Frühstück' : (i === times.length - 1 ? 'Letzte Mahlzeit' : 'Mahlzeit ' + (i + 1));
+                return `<div class="meal-row"><span>${label}</span><input type="time" class="time-input meal-time" value="${t}"></div>`;
+            }).join('');
+        }
+        function setMealCount(n) {
+            mealCount = n;
+            document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === n));
+            renderMealInputs(suggestMeals(n));
+        }
+        function toggleMealAuto() {
+            const auto = document.getElementById('mealAutoInput').checked;
+            document.getElementById('mealsCustom').style.display = auto ? 'none' : 'block';
+            if (!auto && !document.querySelector('#mealsList .meal-time')) setMealCount(mealCount);
+        }
+        function refreshMealSuggestions() {
+            if (!document.getElementById('mealAutoInput').checked) setMealCount(mealCount);
+        }
 
         const getProductById = (id) => PRODUCTS.find(p => p.id === id);
 
@@ -2401,20 +2451,17 @@
             const trainInput = document.getElementById("trainTimeInput").value;
             globalTrainTimeStr = (flex || !trainInput) ? "" : trainInput;
 
-            // Mahlzeiten-Zeiten (leer = automatisch takten)
+            // Mahlzeiten (leer = automatisch an Schlafrhythmus; sonst eigene Zeiten)
             const mealAuto = document.getElementById("mealAutoInput").checked;
-            globalMealTimes = mealAuto ? { breakfast:'', lunch:'', dinner:'' } : {
-                breakfast: document.getElementById("mealBreakfast").value,
-                lunch:     document.getElementById("mealLunch").value,
-                dinner:    document.getElementById("mealDinner").value
-            };
+            globalMeals = mealAuto ? [] :
+                Array.from(document.querySelectorAll('#mealsList .meal-time')).map(i => i.value).filter(Boolean);
 
             // Zeiten lokal im Browser merken (kein Login/Backend nötig)
             try {
                 localStorage.setItem("sl_wake", wakeInput);
                 localStorage.setItem("sl_sleep", sleepInput);
                 localStorage.setItem("sl_train", globalTrainTimeStr);
-                localStorage.setItem("sl_meals", JSON.stringify(globalMealTimes));
+                localStorage.setItem("sl_meals", JSON.stringify(globalMeals));
             } catch (e) {}
 
             // Display im Header aktualisieren
@@ -3715,18 +3762,22 @@
                 });
             }
 
-            // Mahlzeiten-Blöcke auf die eingegebenen Uhrzeiten takten (Frühstück/Mittag/Abend)
+            // Mahlzeiten-Blöcke auf die eigenen Zeiten takten (Frühstück → erste, Abendessen → letzte, Mittag → mittlere)
             const toOffset = (timeStr) => {
                 if (!timeStr) return null;
                 const [hh, mm] = timeStr.split(':').map(Number);
                 const off = ((hh * 60 + mm) - wakeMin + 1440) % 1440;
                 return (off >= 0 && off < awakeDuration) ? off : null;
             };
-            const mealOffsets = { t2: toOffset(globalMealTimes.breakfast), t7: toOffset(globalMealTimes.lunch), t9: toOffset(globalMealTimes.dinner) };
-            activeBlocks = activeBlocks.map(b => {
-                if (mealOffsets[b.id] != null) return { ...b, absoluteMinutes: mealOffsets[b.id] };
-                return b;
-            });
+            if (globalMeals && globalMeals.length) {
+                const m = globalMeals;
+                const mealMap = { t2: m[0], t9: m[m.length - 1] };
+                if (m.length >= 3) mealMap.t7 = m[Math.floor((m.length - 1) / 2)];
+                activeBlocks = activeBlocks.map(b => {
+                    if (mealMap[b.id]) { const off = toOffset(mealMap[b.id]); if (off != null) return { ...b, absoluteMinutes: off }; }
+                    return b;
+                });
+            }
 
             // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
             let stackBanner = "";
@@ -5215,20 +5266,20 @@
                 }
                 globalTrainTimeStr = savedTrain || "";
 
-                // Mahlzeiten wiederherstellen
+                // Mahlzeiten wiederherstellen (Array-Format)
                 try {
                     const m = JSON.parse(localStorage.getItem("sl_meals") || "null");
-                    if (m) {
-                        globalMealTimes = m;
-                        if (m.breakfast || m.lunch || m.dinner) {
-                            if (m.breakfast) document.getElementById("mealBreakfast").value = m.breakfast;
-                            if (m.lunch)     document.getElementById("mealLunch").value = m.lunch;
-                            if (m.dinner)    document.getElementById("mealDinner").value = m.dinner;
-                            document.getElementById("mealAutoInput").checked = false;
-                            document.getElementById("mealsGrid").style.opacity = '1';
-                        }
+                    if (Array.isArray(m) && m.length) {
+                        globalMeals = m;
+                        mealCount = m.length;
+                        document.getElementById("mealAutoInput").checked = false;
+                        document.getElementById("mealsCustom").style.display = 'block';
+                        document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === m.length));
+                        renderMealInputs(m);
+                    } else {
+                        globalMeals = [];
                     }
-                } catch (e) {}
+                } catch (e) { globalMeals = []; }
 
                 // Alles bekannt → direkt in die App, Assistent überspringen
                 if (savedWake && savedSleep && savedMode) {
