@@ -238,7 +238,8 @@
         .targets-cell { flex: 1; background: #0c0c1e; border-radius: 9px; padding: 12px 8px; text-align: center; }
         .targets-val { font-size: 19px; font-weight: 900; white-space: nowrap; }
         .targets-lbl { font-size: 10px; color: #94a3b8; margin-top: 3px; }
-        .targets-formula { font-size: 9px; color: #475569; margin-top: 10px; line-height: 1.5; }
+        .targets-goal { font-size: 11px; font-weight: 700; color: #fbbf24; margin-top: 10px; }
+        .targets-formula { font-size: 9px; color: #475569; margin-top: 8px; line-height: 1.5; }
         .targets-hint { font-size: 11px; color: #64748b; line-height: 1.5; margin: 4px 0 14px; text-align: center; }
 
         /* MODUS-WECHSEL-BUTTON im Header */
@@ -1030,6 +1031,15 @@
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','ausdauer',this)">🚴 Ausdauer</button>
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','kampf',this)">🥊 Kampfsport</button>
                     <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
+                </div>
+            </div>
+            <div class="onboard-field">
+                <label>Dein Ziel</label>
+                <div class="onboard-choice onboard-choice-col" id="goalChoice">
+                    <button class="onboard-opt" onclick="setProfileChoice('goal','abnehmen',this)">🔻 Abnehmen <span class="onboard-opt-sub">Kaloriendefizit (−20 %), viel Eiweiß zum Muskelerhalt</span></button>
+                    <button class="onboard-opt" onclick="setProfileChoice('goal','halten',this)">⚖️ Gewicht halten <span class="onboard-opt-sub">Kalorien auf Erhaltungsniveau</span></button>
+                    <button class="onboard-opt" onclick="setProfileChoice('goal','performance',this)">🚀 Performance <span class="onboard-opt-sub">Leichter Überschuss (+5 %), Fokus Leistung</span></button>
+                    <button class="onboard-opt" onclick="setProfileChoice('goal','aufbauen',this)">💪 Aufbauen <span class="onboard-opt-sub">Kalorienüberschuss (+15 %), Muskelaufbau</span></button>
                 </div>
             </div>
             <div id="onboardTargets"></div>
@@ -2325,7 +2335,7 @@
 
         function loadProfile() {
             try { userProfile = JSON.parse(localStorage.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
-            ['age','gender','height','weight','activity','sportType'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
+            ['age','gender','height','weight','activity','sportType','goal'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
             selectedSportMode = localStorage.getItem('sl_sport') || 'maxkraft';
         }
 
@@ -2333,6 +2343,9 @@
         // BMR: Mifflin-St Jeor (1990) · TDEE = BMR × PAL · Eiweiß: Morton et al. 2018 / ISSN 2017
         const ACTIVITY_PAL = { wenig: 1.2, maessig: 1.375, aktiv: 1.55, sehr: 1.725 };
         const PROTEIN_GKG   = { wenig: [1.0, 1.2], maessig: [1.4, 1.7], aktiv: [1.6, 2.0], sehr: [1.8, 2.2] };
+        // Ziel-Modus: kcal-Faktor auf den Erhaltungsbedarf (TDEE)
+        const GOAL_KCAL   = { abnehmen: 0.80, halten: 1.0, performance: 1.05, aufbauen: 1.15 };
+        const GOAL_LABEL  = { abnehmen: 'Abnehmen · Defizit −20 %', halten: 'Halten · Erhaltungsniveau', performance: 'Performance · +5 %', aufbauen: 'Aufbauen · Überschuss +15 %' };
 
         function computeTargets() {
             const num = v => parseFloat(String(v || '').replace(',', '.'));
@@ -2343,10 +2356,15 @@
             let bmr = 10 * w + 6.25 * h - 5 * age;
             bmr += (g === 'w') ? -161 : (g === 'd' ? -78 : 5);   // divers = Mittelwert
             const pal = ACTIVITY_PAL[act] || 1.375;
-            const tdee = Math.round(bmr * pal);
-            const pf = PROTEIN_GKG[act] || [1.4, 1.7];
+            const maintenance = Math.round(bmr * pal);
+            const goal = userProfile.goal || 'halten';
+            const tdee = Math.round(maintenance * (GOAL_KCAL[goal] || 1));
+            // Eiweiß: Aktivitätsbasis, im Defizit/Aufbau höher
+            let pf = PROTEIN_GKG[act] || [1.4, 1.7];
+            if (goal === 'abnehmen') pf = [Math.max(pf[0], 2.0), Math.max(pf[1], 2.4)];
+            else if (goal === 'aufbauen') pf = [Math.max(pf[0], 1.6), Math.max(pf[1], 2.2)];
             return {
-                bmr: Math.round(bmr), tdee,
+                bmr: Math.round(bmr), tdee, maintenance, goal,
                 proteinMin: Math.round(w * pf[0]), proteinMax: Math.round(w * pf[1]),
                 gkgMin: pf[0], gkgMax: pf[1], weight: w
             };
@@ -2357,6 +2375,10 @@
             if (!t) {
                 return forApp ? '' : `<div class="targets-hint">Trage Alter, Größe, Gewicht & Geschlecht ein – dann berechne ich deinen Bedarf.</div>`;
             }
+            const goalLbl = GOAL_LABEL[t.goal] || GOAL_LABEL.halten;
+            const goalBadge = t.goal && t.goal !== 'halten'
+                ? `<div class="targets-goal">🎯 ${goalLbl} <span style="color:#64748b;">(Erhalt: ${t.maintenance.toLocaleString('de-DE')} kcal)</span></div>`
+                : `<div class="targets-goal">🎯 ${goalLbl}</div>`;
             return `<div class="targets-box">
                 <div class="targets-title">📊 Dein täglicher Bedarf</div>
                 <div class="targets-grid">
@@ -2369,7 +2391,8 @@
                         <div class="targets-lbl">Eiweiß / Tag</div>
                     </div>
                 </div>
-                <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
+                ${goalBadge}
+                <div class="targets-formula">Kalorien: Mifflin-St-Jeor × Aktivität × Ziel (BMR ${t.bmr} kcal) · Eiweiß: ${String(t.gkgMin).replace('.', ',')}–${String(t.gkgMax).replace('.', ',')} g/kg KG (Morton et al. 2018 / ISSN 2017). Richtwerte – kein medizinischer Rat.</div>
             </div>`;
         }
 
@@ -4995,6 +5018,7 @@
                 if (userProfile.gender)    markChoice('genderChoice', 'gender');
                 if (userProfile.activity)  markChoice('activityChoice', 'activity');
                 if (userProfile.sportType) markChoice('sportTypeChoice', 'sportType');
+                if (userProfile.goal)      markChoice('goalChoice', 'goal');
                 document.querySelectorAll('#sportModeChoice .onboard-opt').forEach(b => {
                     if (b.getAttribute('onclick').includes("'" + selectedSportMode + "'")) b.classList.add('active');
                 });
