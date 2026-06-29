@@ -247,6 +247,32 @@
         .stack-browse-act { flex-shrink: 0; font-size: 10px; font-weight: 700; color: #a78bfa; white-space: nowrap; }
         .stack-browse-row.in-stack .stack-browse-act { color: #4ade80; }
         .stack-src { font-size: 9px; color: #475569; margin-top: 5px; line-height: 1.5; }
+
+        /* Tagesplan aus Stack generieren */
+        .stack-gen-btn { width: 100%; margin: 16px 0 4px; padding: 13px;
+            background: linear-gradient(135deg, #7c3aed 0%, #5418c8 100%); color: #fff;
+            border: 1px solid rgba(167,139,250,0.4); border-radius: 11px; font-size: 13px; font-weight: 800;
+            cursor: pointer; letter-spacing: 0.03em; box-shadow: 0 4px 18px rgba(124,58,237,0.35); }
+        .stack-gen-btn:hover { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); }
+        #stackGenPanel { background: #0c0c1e; border: 1px solid #312e6b; border-radius: 11px; padding: 14px; margin-top: 8px; }
+        .stack-gen-label { font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+        .stack-gen-select { width: 100%; background: #05050d; border: 1px solid #334155; border-radius: 8px;
+            color: #f1f5f9; font-size: 14px; padding: 9px 10px; margin-bottom: 14px; }
+        .stack-gen-train { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+        .stack-gen-flex { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #94a3b8; cursor: pointer; }
+        .stack-gen-flex input { width: 15px; height: 15px; accent-color: #7c3aed; }
+        .stack-gen-create { width: 100%; padding: 12px; background: #166534; color: #fff; border: 1px solid #22c55e;
+            border-radius: 9px; font-size: 13px; font-weight: 800; cursor: pointer; }
+        .stack-gen-create:hover { background: #15803d; }
+
+        /* Stack-Plan im Tagesplan */
+        .stack-plan-banner { background: linear-gradient(135deg, #1a1145 0%, #0d0a25 100%); border: 1px solid #4c3a8f;
+            border-radius: 11px; padding: 12px 14px; margin-bottom: 12px; font-size: 12px; color: #c4b5fd; line-height: 1.5; }
+        .stack-plan-back { display: inline-block; margin-top: 8px; background: #0c0c1e; border: 1px solid #4c3a8f;
+            color: #a5b4fc; font-size: 11px; font-weight: 700; padding: 5px 10px; border-radius: 7px; cursor: pointer; }
+        .stack-plan-back:hover { background: #161636; }
+        .stack-amt-badge { background: #052e16; color: #4ade80; font-size: 10px; font-weight: 700;
+            padding: 2px 7px; border-radius: 6px; margin-left: 6px; white-space: nowrap; }
         .stack-empty { font-size: 12px; color: #475569; padding: 10px 2px; line-height: 1.5; }
         .stack-sel-title { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
             color: #64748b; margin: 16px 0 8px; }
@@ -955,6 +981,26 @@
                 </button>
                 <div id="stackBrowseList" style="display:none;"></div>
                 <div id="stackSelected"></div>
+                <div id="stackGenSection">
+                    <button class="stack-gen-btn" onclick="toggleStackGen()">⚡ Tagesplan aus meinem Stack generieren</button>
+                    <div id="stackGenPanel" style="display:none;">
+                        <div class="stack-gen-label">Für welchen Tag?</div>
+                        <select id="stackGenDay" class="stack-gen-select">
+                            <option value="training">🏋️ Trainingstag</option>
+                            <option value="rest">🛌 Trainingsfreier Tag</option>
+                            <option value="carb">🍚 Carb-Loading</option>
+                            <option value="autophagy">🔄 Autophagie</option>
+                            <option value="water">💧 Wasserfasten</option>
+                            <option value="keto">🥑 Ketogen</option>
+                        </select>
+                        <div class="stack-gen-label">Trainingszeit</div>
+                        <div class="stack-gen-train">
+                            <input type="time" id="stackGenTrain" class="time-input" value="17:00" disabled>
+                            <label class="stack-gen-flex"><input type="checkbox" id="stackGenFlex" checked onchange="document.getElementById('stackGenTrain').disabled = this.checked;"> Flexibel</label>
+                        </div>
+                        <button class="stack-gen-create" onclick="generateStackPlan()">Plan erstellen →</button>
+                    </div>
+                </div>
                 <div id="stackNutrients"></div>
             </div>
 
@@ -2223,6 +2269,11 @@
         };
 
         function buildDailyNutrientsBox() {
+            // Stack-Plan: Nährwerte aus „Mein Stack" (mit echten Mengen) statt aus dem vollen Plan
+            if (stackPlanActive) {
+                const html = buildStackNutrientsHtml('Dein Tagesplan-Nährwerte (aus deinem Stack)');
+                return html || '<div class="daily-nutr-box light-macros" style="margin-top:14px;"><div class="light-macros-title">Stack ist leer</div></div>';
+            }
             const allPids = new Set();
             getActiveTimeline().forEach(block => block.productIds.forEach(pid => allPids.add(pid)));
             const products = [...allPids]
@@ -2658,11 +2709,15 @@
         function renderStackNutrients() {
             const box = document.getElementById('stackNutrients');
             if (!box) return;
-            if (Object.keys(myStack).length === 0) { box.innerHTML = ''; return; }
+            box.innerHTML = buildStackNutrientsHtml();
+        }
+
+        function buildStackNutrientsHtml(title) {
+            if (Object.keys(myStack).length === 0) return '';
             const { prot, carb, fat, kcal, nrvMap } = computeStack();
 
             const macroHtml = `<div class="daily-nutr-box light-macros" style="margin-top:14px;">
-                <div class="light-macros-title">Dein Stack insgesamt</div>
+                <div class="light-macros-title">${title || 'Dein Stack insgesamt'}</div>
                 <div class="light-macros-grid">
                     <div><span class="lm-val" style="color:#4ade80;">${Math.round(prot)} g</span><span class="lm-lbl">Eiweiß</span></div>
                     <div><span class="lm-val" style="color:#fbbf24;">${Math.round(carb)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
@@ -2711,7 +2766,7 @@
                 </div></div>`;
             }
 
-            box.innerHTML = macroHtml + barsHtml;
+            return macroHtml + barsHtml;
         }
 
         function renderStackView() {
@@ -2747,6 +2802,45 @@
             renderStackBrowse();
         }
 
+        // Generieren-Panel auf-/zuklappen
+        function toggleStackGen() {
+            const panel = document.getElementById('stackGenPanel');
+            const open = panel.style.display !== 'none';
+            panel.style.display = open ? 'none' : 'block';
+            if (!open) {
+                // Tagestyp + Trainingszeit aus aktuellem Zustand vorbelegen
+                document.getElementById('stackGenDay').value = currentDayType;
+                const t = document.getElementById('stackGenTrain');
+                const f = document.getElementById('stackGenFlex');
+                if (globalTrainTimeStr) { t.value = globalTrainTimeStr; t.disabled = false; f.checked = false; }
+                else { f.checked = true; t.disabled = true; }
+            }
+        }
+
+        // Tagesplan aus dem Stack erzeugen
+        function generateStackPlan() {
+            if (Object.keys(myStack).length === 0) {
+                alert("Dein Stack ist leer – füge zuerst Produkte hinzu.");
+                return;
+            }
+            const dayType = document.getElementById('stackGenDay').value;
+            const flex = document.getElementById('stackGenFlex').checked;
+            const tval = document.getElementById('stackGenTrain').value;
+            globalTrainTimeStr = (flex || !tval) ? '' : tval;
+            try { localStorage.setItem('sl_train', globalTrainTimeStr); } catch (e) {}
+
+            stackPlanActive = true;
+            selectDayType(dayType);                        // setzt Tagestyp + rendert Timeline (Stack-Modus)
+            activeSection('tabTimeline', 'viewTimeline');  // zum Tagesplan wechseln
+            window.scrollTo(0, 0);
+        }
+
+        // Zurück zum vollständigen (empfohlenen) Plan
+        function exitStackPlan() {
+            stackPlanActive = false;
+            renderTimeline();
+        }
+
         function renderStackBrowse() {
             const box = document.getElementById('stackBrowseList');
             if (!box) return;
@@ -2763,7 +2857,12 @@
 
         // ── TAGESTYP (Training / Frei / Carb / Autophagie / Wasserfasten / Keto) ──────
         let currentDayType = 'training';
+        let stackPlanActive = false;   // true = Tagesplan nur aus „Mein Stack"
         const DAYTYPES = ['training','rest','carb','autophagy','water','keto'];
+        const DAYTYPE_LABELS = {
+            training: "Trainingstag", rest: "Trainingsfrei", carb: "Carb-Loading",
+            autophagy: "Autophagie", water: "Wasserfasten", keto: "Ketogen"
+        };
 
         // Pre-Workout Stim-/Pump-Booster – an trainingsfreien Tagen überflüssig
         const BOOSTER_IDS = new Set(['p43','p44','p45','p46','p47']);
@@ -2915,11 +3014,42 @@
                 });
             }
 
+            // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
+            let stackBanner = "";
+            if (stackPlanActive) {
+                const stackIds = new Set(Object.keys(myStack));
+                const placed = new Set();
+                let blocks = activeBlocks.map(b => {
+                    const productIds = b.productIds.filter(pid => stackIds.has(pid));
+                    productIds.forEach(pid => placed.add(pid));
+                    return { ...b, productIds };
+                }).filter(b => b.productIds.length > 0);
+                const leftover = [...stackIds].filter(pid => !placed.has(pid) && getProductById(pid));
+                if (leftover.length > 0) {
+                    blocks.push({
+                        id: 'tStackRest', label: 'Frei wählbar (zu einer Mahlzeit)', offsetMinutes: 120, duration: 30,
+                        icon: '', color: '#94a3b8', bg: '#0c0c1e', border: '#334155',
+                        why: ': Diese Produkte aus deinem Stack haben kein festes Zeitfenster – verteile sie über den Tag zu den Mahlzeiten.',
+                        productIds: leftover, notes: {}, priority: {}
+                    });
+                }
+                activeBlocks = blocks;
+                stackBanner = `<div class="stack-plan-banner">
+                    <div>⚡ <strong>Dein persönlicher Tagesplan</strong> aus deinem Stack · ${DAYTYPE_LABELS[currentDayType] || ''} · ${Object.keys(myStack).length} Produkte</div>
+                    <button class="stack-plan-back" onclick="exitStackPlan()">← Zurück zum vollständigen Plan</button>
+                </div>`;
+            }
+
             const sortedBlocks = [...activeBlocks]
                 .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
                 .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
 
-            container.innerHTML = sortedBlocks.map((block, idx) => {
+            if (stackPlanActive && sortedBlocks.length === 0) {
+                container.innerHTML = stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
+                return;
+            }
+
+            container.innerHTML = stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -2934,6 +3064,7 @@
                     if (!p) return "";
                     const prio = block.priority[pid] || "OPTIONAL";
                     const style = PRIO_STYLE[prio];
+                    const stackAmt = (stackPlanActive && myStack[pid]) ? `${myStack[pid].amount} ${parseServing(p.serving).unit}` : null;
 
                     if (light) {
                         return `
@@ -2948,7 +3079,7 @@
                                         <button class="info-trigger-btn" onclick="openProductOverlay('${p.id}')">?</button>
                                     </div>
                                 </div>
-                                <div class="light-serving">Menge: <strong>${p.serving}</strong></div>
+                                <div class="light-serving">Menge: <strong>${stackAmt || p.serving}</strong></div>
                             </div>
                         `;
                     }
@@ -2960,6 +3091,7 @@
                                 <div class="sub-product-title">
                                     <span>${p.icon}</span>
                                     <span>${p.name}</span>
+                                    ${stackAmt ? `<span class="stack-amt-badge">${stackAmt}</span>` : ''}
                                 </div>
                                 <div style="display:flex; gap:5px; align-items:center;">
                                     <span class="prio-badge" style="background:${style.bg}; color:${style.color};">${prio}</span>
