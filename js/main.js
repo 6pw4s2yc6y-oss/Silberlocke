@@ -1959,8 +1959,8 @@
         }
 
         document.addEventListener("DOMContentLoaded", async () => {
-            // Persistenz-Cache füllen, bevor irgendetwas gelesen wird.
-            initStorage();
+            // Persistenz-Cache füllen (IndexedDB laden + Migration), bevor gelesen wird.
+            await initStorage();
             // Statische Datensätze asynchron laden (PRODUCTS, TIMELINE_CONFIG, …) und
             // die davon abgeleiteten Werte (CATS, RECOMMENDED_IDS) berechnen.
             try {
