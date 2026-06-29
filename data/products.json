@@ -1,0 +1,2898 @@
+[
+  {
+    "id": "p1",
+    "cat": "Protein",
+    "name": "ZEC+ Almost Whey",
+    "icon": "🥛",
+    "serving": "~25g",
+    "protein": 18,
+    "carbs": 2,
+    "fat": 2,
+    "kcal": 93,
+    "absorption": "Mittel-schnell (~2–3h) – 100% pflanzlich & vegan (Erbsen- & Reisprotein, hydrolysiert via MPi™-Technologie). Laktosefrei.",
+    "function": "Muskelaufbau & -erhalt, Regeneration – pflanzliche Alternative zu Whey mit gleichwertigem Aminosäureprofil",
+    "takeWith": "Post-Workout mit Wasser oder Milch, mit Kohlenhydraten für Insulinausschüttung",
+    "competes": "Nicht mit Casein mischen; zeitversetzt zu Zink/Mg",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille, Erdbeere)",
+    "loeslichkeit": "Sehr gut – Instant-Pulver, Shaker reicht (200–300 ml Wasser/Milch)",
+    "ingredients": "Hydrolysiertes pflanzliches Eiweißpulver (Erbseneiweißisolat, Reiseiweißisolat, L-Leucin, L-Lysinhydrochlorid, L-Valin, L-Methionin, L-Isoleucin, L-Threonin)* 91,8%, Aroma, Verdickungsmittel (Guarkernmehl), Süßungsmittel (Sucralose), Farbstoff (Carotin). *NiHPRO™",
+    "nutrients": [
+      {
+        "label": "Eisen",
+        "amount": "2,5 mg",
+        "nrv": 18
+      }
+    ]
+  },
+  {
+    "id": "p2",
+    "cat": "Protein",
+    "name": "ZEC+ Whey Hydrolysat",
+    "icon": "⚡",
+    "serving": "~25g",
+    "protein": 22,
+    "carbs": 1,
+    "fat": 0.5,
+    "kcal": 97,
+    "absorption": "Sehr schnell (~30–60 min) – vorverdaute Peptide",
+    "function": "Schnellste Proteinversorgung post-workout, max. MPS",
+    "takeWith": "Direkt nach Training + Dextrose für anabolen Effekt",
+    "competes": "Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille)",
+    "loeslichkeit": "Sehr gut – Instant, fast klar, kein Klumpen"
+  },
+  {
+    "id": "p3",
+    "cat": "Protein",
+    "name": "ZEC+ Clear Whey Isolate (Kirsche)",
+    "icon": "🍒",
+    "serving": "~25g",
+    "protein": 22,
+    "carbs": 0.5,
+    "fat": 0.2,
+    "kcal": 91,
+    "absorption": "Schnell (~60–90 min) – hochreines Isolat",
+    "function": "Fettarme Proteinversorgung, magenfreundlich, laktosefrei",
+    "takeWith": "Post-workout oder als Snack mit Wasser",
+    "competes": "Nicht gleichzeitig mit Calcium-/Eisenreichen Mahlzeiten",
+    "geschmack": "Kirsche / Sauerkirsche – fruchtig, erfrischend",
+    "loeslichkeit": "Sehr gut – löst sich klar wie Limonade in kaltem Wasser"
+  },
+  {
+    "id": "p4",
+    "cat": "Protein",
+    "name": "ZEC+ Clear Whey Isolate (Süßer Apfel)",
+    "icon": "🍏",
+    "serving": "~25g",
+    "protein": 22,
+    "carbs": 0.5,
+    "fat": 0.2,
+    "kcal": 91,
+    "absorption": "Schnell (~60–90 min)",
+    "function": "Wie Kirsche – leichte, klare Proteinquelle, ideal bei Diät",
+    "takeWith": "Post-workout oder tagsüber als leichte Quelle",
+    "competes": "Siehe Clear Whey Kirsche",
+    "geschmack": "Süßer Apfel – mild-fruchtig, erfrischend",
+    "loeslichkeit": "Sehr gut – klar, limonadenartig, ideal mit kaltem Wasser"
+  },
+  {
+    "id": "p5",
+    "cat": "Protein",
+    "name": "ZEC+ Ladies Vegan Connection",
+    "icon": "🌱",
+    "serving": "~30g",
+    "protein": 24,
+    "carbs": 1,
+    "fat": 1,
+    "kcal": 109,
+    "absorption": "Mittel (~2–3h) – Reis- & Sojaprotein-Isolat (1:1). Vegan, laktosefrei, glutenfrei.",
+    "function": "Pflanzliche Versorgung, Muskelerhalt, hormonell ausgewogen – speziell für Frauen",
+    "takeWith": "Mit Vitamin C (verbessert Eisenaufnahme aus pflanzl. Protein). Post-workout oder Mahlzeitenersatz.",
+    "competes": "Soja-Phytoöstrogene: bei hormonabhängigen Erkrankungen mit Arzt besprechen. Phytate hemmen Zink/Eisen – zeitversetzt einnehmen.",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Haselnuss, Vanille, Pecan Caramel)",
+    "loeslichkeit": "Gut – gut löslich im Shaker (300 ml Wasser oder Pflanzenmilch)"
+  },
+  {
+    "id": "p6",
+    "cat": "Protein",
+    "name": "ZEC+ Micellar Casein",
+    "icon": "🌙",
+    "serving": "~30g",
+    "protein": 24,
+    "carbs": 2,
+    "fat": 1.5,
+    "kcal": 118,
+    "absorption": "Sehr langsam (~5–7h) – bildet Gel im Magen",
+    "function": "Nächtliche Versorgung, Anti-Katabolismus im Schlaf",
+    "takeWith": "30 min vor dem Schlafen. Kombinierbar mit ZEC+ Sleep.",
+    "competes": "Als Post-Workout-Hauptprotein zu langsam. Blends mit Whey sind unproblematisch.",
+    "geschmack": "Verschiedene (z.B. Schokolade, Vanille, Cookies & Cream)",
+    "loeslichkeit": "Mittel – cremig-dickflüssig, quillt auf, Shaker mit 300–400 ml"
+  },
+  {
+    "id": "p7",
+    "cat": "Protein",
+    "name": "ZEC+ Protein Pudding Stracciatella",
+    "icon": "🍮",
+    "serving": "~35g",
+    "protein": 20,
+    "carbs": 5,
+    "fat": 3,
+    "kcal": 128,
+    "absorption": "Langsam (~4–6h) – Casein-Basis",
+    "function": "Sättigende Proteinmahlzeit, Anti-Heißhunger, abendliche Versorgung",
+    "takeWith": "Abends als Dessert oder zwischen Mahlzeiten",
+    "competes": "Nicht unmittelbar post-workout als schnelle Proteinquelle",
+    "geschmack": "Stracciatella (Schokolade-Vanille mit Schoko-Stückchen)",
+    "loeslichkeit": "Gut – mit 200–250 ml Milch (kalt oder warm) zu cremigem Pudding verrühren"
+  },
+  {
+    "id": "p8",
+    "cat": "Gainer & Carbs",
+    "name": "ZEC+ Bullgainer",
+    "icon": "🐂",
+    "serving": "~100g",
+    "protein": 24,
+    "carbs": 69,
+    "fat": 0,
+    "kcal": 375,
+    "absorption": "Schnell-mittel – Whey (Milchprotein + Molkenkonzentrat) + Maltodextrin/Dextrose/Fruchtzucker",
+    "function": "Maximale Kalorienaufnahme für Hardgainer, Muskelaufbau-Phase",
+    "takeWith": "Post-workout oder als zusätzliche Mahlzeit mit Milch",
+    "competes": "Nicht mit anderen hochkalorischen Mahlzeiten – Überschuss beachten",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille, Erdbeere, Spekulatius)",
+    "loeslichkeit": "Gut – Shaker mit 400–500 ml Milch empfohlen",
+    "ingredients": "Maltodextrin, Milcheiweiß (Calciumcaseinat), Dextrose, Fruktose, Aroma, Molkeneiweißkonzentrat, Magnesiumcarbonat, L-Ascorbinsäure, Eisen (II)-Sulfat, Zinksulfatmonohydrat, Mangangluconat, DL-alpha-Tocopherylacetat, Nicotinamid, Emulgator (Lecithine), Calcium-D-pantothenat, Kupfer(II)-gluconat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Retinylacetat, Pteroylmonoglutaminsäure, Kaliumiodid, Natriumselenit, D-Biotin, Cyanocobalamin",
+    "nutrients": [
+      {
+        "label": "Vitamin A",
+        "amount": "355,0 µg RE",
+        "nrv": 44
+      },
+      {
+        "label": "Vitamin E",
+        "amount": "5,1 mg α-TE",
+        "nrv": 43
+      },
+      {
+        "label": "Vitamin C",
+        "amount": "35,0 mg",
+        "nrv": 44
+      },
+      {
+        "label": "Thiamin (B1)",
+        "amount": "0,5 mg",
+        "nrv": 45
+      },
+      {
+        "label": "Riboflavin (B2)",
+        "amount": "0,71 mg",
+        "nrv": 51
+      },
+      {
+        "label": "Niacin (B3)",
+        "amount": "6,9 mg NE",
+        "nrv": 43
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "0,6 mg",
+        "nrv": 43
+      },
+      {
+        "label": "Folsäure",
+        "amount": "87,6 µg",
+        "nrv": 44
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "1,1 µg",
+        "nrv": 44
+      },
+      {
+        "label": "Biotin",
+        "amount": "21,0 µg",
+        "nrv": 42
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "2,6 mg",
+        "nrv": 43
+      },
+      {
+        "label": "Magnesium",
+        "amount": "169,0 mg",
+        "nrv": 45
+      },
+      {
+        "label": "Calcium",
+        "amount": "327,0 mg",
+        "nrv": 41
+      },
+      {
+        "label": "Eisen",
+        "amount": "6,2 mg",
+        "nrv": 44
+      },
+      {
+        "label": "Zink",
+        "amount": "5,1 mg",
+        "nrv": 51
+      },
+      {
+        "label": "Kupfer",
+        "amount": "0,4 mg",
+        "nrv": 40
+      },
+      {
+        "label": "Mangan",
+        "amount": "0,9 mg",
+        "nrv": 45
+      },
+      {
+        "label": "Jod",
+        "amount": "66,6 µg",
+        "nrv": 44
+      },
+      {
+        "label": "Selen",
+        "amount": "27,0 µg",
+        "nrv": 49
+      }
+    ]
+  },
+  {
+    "id": "p9",
+    "cat": "Gainer & Carbs",
+    "name": "ZEC+ Maltodextrin",
+    "icon": "⚡",
+    "serving": "50g",
+    "protein": 0,
+    "carbs": 49,
+    "fat": 0,
+    "kcal": 195,
+    "absorption": "Sehr schnell – GI ~110, sofortiger Blutzuckeranstieg",
+    "function": "Glykogen-Replenishment, Insulinspike für Nährstofftransport",
+    "takeWith": "Post-workout mit Hydrolysat oder Creatin",
+    "competes": "Nicht bei Insulinresistenz. Nicht in Ruhezeiten.",
+    "geschmack": "Neutral / Leicht süßlich – nahezu geschmacklos",
+    "loeslichkeit": "Sehr gut – klar löslich in Wasser, kein Rühren nötig",
+    "ingredients": "100% Maltodextrin (DE 19)"
+  },
+  {
+    "id": "p10",
+    "cat": "Gainer & Carbs",
+    "name": "ZEC+ Dextrose",
+    "icon": "🍬",
+    "serving": "50g",
+    "protein": 0,
+    "carbs": 46,
+    "fat": 0,
+    "kcal": 164,
+    "absorption": "Instantan – direkte Aufnahme, GI 100",
+    "function": "Sofortiger Energieschub, Glykogen, Nährstofftransport via Insulin",
+    "takeWith": "Post-workout mit Protein & Creatin",
+    "competes": "Nicht vor dem Schlafen; nicht bei Low-Carb",
+    "geschmack": "Süß (reine Glukose)",
+    "loeslichkeit": "Sehr gut – löst sich sofort in Wasser auf",
+    "ingredients": "100% Dextrose (Traubenzucker)"
+  },
+  {
+    "id": "p11",
+    "cat": "Gainer & Carbs",
+    "name": "ZEC+ Designer Carbs",
+    "icon": "🌽",
+    "serving": "~50g",
+    "protein": 0,
+    "carbs": 47,
+    "fat": 0,
+    "kcal": 188,
+    "absorption": "Mittel-schnell – Wachsmaisstärke, kein Insulinspike",
+    "function": "Gleichmäßige Energie, osmotisch günstig, kein Magendrücken",
+    "takeWith": "Pre- oder Intra-Workout für Einheiten >60 min",
+    "competes": "Weniger geeignet wenn schnelle Glykogenresynthese nötig",
+    "geschmack": "Neutral / Unflavored – geschmacksneutral",
+    "loeslichkeit": "Sehr gut – löst sich klar, kein osmotischer Druck (magenfreundlich)",
+    "ingredients": "Wachsmaisstärke, hochverzweigtes zyklisches Dextrin (Cluster Dextrin®), Nicotinamid, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Pteroylmonoglutaminsäure, D-Biotin, Cyanocobalamin",
+    "nutrients": [
+      {
+        "label": "Riboflavin",
+        "amount": "0,7 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Niacin",
+        "amount": "8,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "0,7 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Folsäure",
+        "amount": "100,0 µg",
+        "nrv": 50
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "1,3 µg",
+        "nrv": 52
+      },
+      {
+        "label": "Biotin",
+        "amount": "25,0 µg",
+        "nrv": 50
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "3,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Thiamin",
+        "amount": "0,55 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Hochverzweigtes zyklisches Dextrin",
+        "amount": "25,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Wachsmaisstärke",
+        "amount": "25,0 g",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p12",
+    "cat": "Gainer & Carbs",
+    "name": "ZEC+ Instant Rice Pudding",
+    "icon": "🍚",
+    "serving": "30g",
+    "protein": 2.4,
+    "carbs": 25,
+    "fat": 0,
+    "kcal": 113,
+    "absorption": "Schnell-mittel – Reisstärke",
+    "function": "Magenfreundliche Energie, leicht verdaulich, post-workout oder Mahlzeit",
+    "takeWith": "Post-workout oder morgens. Mit Casein für langsame Ergänzung.",
+    "competes": "Kein vollständiges Aminosäureprofil allein",
+    "geschmack": "Milchreis / Vanille – mild und süßlich",
+    "loeslichkeit": "Gut – mit heißem Wasser (150–200 ml) kurz verrühren, quillt leicht",
+    "ingredients": "Reismehl, Aroma, Ceylon-Zimtrindenpulver, Süßungsmittel: Sucralose"
+  },
+  {
+    "id": "p13",
+    "cat": "Performance",
+    "name": "ZEC+ Creatin Monohydrat",
+    "icon": "💎",
+    "serving": "5g",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Kumulativ – intramuskulärer Phosphokreatin-Spiegel baut sich über 2–4 Wochen chronischer Einnahme auf. Einnahmezeitpunkt IRRELEVANT – nur Konsistenz (täglich) entscheidet!",
+    "function": "Kraftsteigerung (+5–15%), ATP-Resynthese für explosive Intensität, Zellvoluminisierung, kognitive Funktion",
+    "takeWith": "Täglich konsistent (Zeitpunkt egal). Post-workout mit Carbs & Protein leicht vorteilhaft durch Insulin – aber kein messbarer Unterschied bei täglicher Einnahme.",
+    "competes": "Viel Wasser (3L+). Nicht mit Diuretika. Koffein-Konflikt gilt als überholt (Mythos laut neuerer Studien).",
+    "geschmack": "Neutral / Geschmacklos",
+    "loeslichkeit": "Mittel – leichter Bodensatz möglich, gut umrühren (warm löst besser)",
+    "ingredients": "Kreatinmonohydrat (99,9%), Methylcobalamin (0,00150%)",
+    "nutrients": [
+      {
+        "label": "Creatin Monohydrat",
+        "amount": "5,0 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon Creatin",
+        "amount": "4,4 g",
+        "nrv": null
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "0,75 µg",
+        "nrv": 30
+      }
+    ]
+  },
+  {
+    "id": "p14",
+    "cat": "Performance",
+    "name": "ZEC+ Citrullin Malat",
+    "icon": "🔴",
+    "serving": "~8g",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 16,
+    "absorption": "Schnell – wird in Niere zu Arginin umgewandelt",
+    "function": "NO-Boost, Pump & Durchblutung, Laktatpufferung, weniger Ermüdung",
+    "takeWith": "30–45 min pre-workout auf nüchternem Magen",
+    "competes": "Nicht mit PDE5-Hemmern. Hohe Dosen -> Magenprobleme möglich.",
+    "geschmack": "Leicht sauer / neutraler Grundgeschmack (Malat-Säure)",
+    "loeslichkeit": "Gut – löst sich in Wasser, ggf. leicht trüb",
+    "ingredients": "L-Citrullin-DL-Malat 2:1",
+    "nutrients": [
+      {
+        "label": "L-Citrullin-DL-Malat 2:1",
+        "amount": "8,0 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Citrullin",
+        "amount": "5,0 g",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p15",
+    "cat": "Performance",
+    "name": "ZEC+ Intra Evolution",
+    "icon": "💧",
+    "serving": "~20g",
+    "protein": 8,
+    "carbs": 4,
+    "fat": 0,
+    "kcal": 50,
+    "absorption": "Sehr schnell – freie Aminosäuren direkt verfügbar",
+    "function": "Muskelschutz im Training, Hydration, Ausdauer, Anti-Katabolismus",
+    "takeWith": "Während Training in 500–750 ml Wasser. Mit Natrium für Hydration.",
+    "competes": "Bei ausreichender Tagesprotein-Zufuhr weitgehend redundant – kein echter Hebel, aber unschädlich.",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Tropical, Lemon, Watermelon)",
+    "loeslichkeit": "Sehr gut – löst sich schnell in 500–750 ml Wasser",
+    "ingredients": "Calcium-Beta-Hydroxy-Beta-Methylbuttersäure (Ca-HMB), PEAK O2® (Cordyceps militaris, Ganoderma lucidum, Pleurotus eryngii, Lentinula edodes, Hericium erinaceus), Leucin-Pulver (L-Leucin, Emulgator: Lecithine (Sonnenblume)), L-Lysin-Hydrochlorid, Valin-Pulver (L-Valin, Emulgator: Lecithine (Sonnenblume)), Kokosnusswasserpulver, Isoleucin-Pulver (L-Isoleucin, Emulgator: Lecithine (Sonnenblume)), L-Phenylalanin, L-Threonin, Taurin, Alpha-Hydroxy-Isocapronsäure (HICA), Säuerungsmittel: Citronensäure; L-Methionin, Aroma, Montmerency-Sauerkirsch-Pulver, Ashwaganda-Extrakt, Tryptophan-Pulver (L-Tryptophan, Emulgator: Lecithine (Sonnenblume)), Süßungsmittel: Sucralose; Farbstoff: Beta-Carotin",
+    "nutrients": [
+      {
+        "label": "Calcium-Beta-Hydroxy-Beta-Methylbuttersäure (Ca-HMB)",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "PEAK O2®",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Leucin",
+        "amount": "1.880,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Lysin-Hydrochlorid",
+        "amount": "1.725,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Valin",
+        "amount": "1.592,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Isoleucin",
+        "amount": "1.419,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Phenylalanin",
+        "amount": "1.245,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Threonin",
+        "amount": "1.073,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Taurin",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Alpha-Hydroxy-Isocapronsäure (HICA)",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Kokosnusswasserpulver",
+        "amount": "1.500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Kalium",
+        "amount": "40,6 mg",
+        "nrv": 2
+      },
+      {
+        "label": "L-Methionin",
+        "amount": "675,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Montmorency-Sauerkirsch-Pulver",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Ashwaganda-Extrakt",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Withanolide",
+        "amount": "20,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Tryptophan",
+        "amount": "353,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p16",
+    "cat": "Aminosäuren",
+    "name": "HEALTH+ L-Glycin",
+    "icon": "🧬",
+    "serving": "3g",
+    "protein": 3,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 12,
+    "absorption": "Schnell – passive Diffusion, einfachste Aminosäure",
+    "function": "Kollagensynthese, Schlafqualität, Glutathion-Vorstufe, Verdauung",
+    "takeWith": "Abends vor Schlaf (schlaffördernd). Morgens nüchtern für Kollagen. Mit Kollagen-Präparaten.",
+    "competes": "Hohe Dosen (>10g) können schläfrig machen",
+    "geschmack": "Leicht süßlich (Pulver) – angenehm mild",
+    "loeslichkeit": "Sehr gut – löst sich klar in Wasser (als Pulver)",
+    "ingredients": "L-Glycin.",
+    "nutrients": [
+      {
+        "label": "L-Glycin",
+        "amount": "3,0 g",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p17",
+    "cat": "Aminosäuren",
+    "name": "HEALTH+ R-Alpha-Liponsäure (R-ALA)",
+    "icon": "⚡",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Schnell nüchtern – Mahlzeiten –40% Bioverfügbarkeit",
+    "function": "Universelles Antioxidans (fett- & wasserlöslich), Insulinsensitivität, Nerven",
+    "takeWith": "30 min vor Mahlzeiten, nüchtern. NICHT direkt ums Training. Mit Biotin kombinieren.",
+    "competes": "Nicht mit Chemo ohne Rücksprache. Blutzucker bei Diabetes. Nicht mit Chelatoren.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Füllstoff mikrokristalline Cellulose, R-alpha-Liponsäure Natriumsalz, Kapselhülle (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "R-alpha-Liponsäure Natriumsalz",
+        "amount": "125,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon R-alpha-Liponsäure",
+        "amount": "100,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p18",
+    "cat": "Vitamine",
+    "name": "ZEC+ All In One Antioxidant & Vitamin",
+    "icon": "🛡️",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Fettlösliche Anteile (A, E) mit Fett aufnehmen",
+    "function": "Freie Radikale bekämpfen, Immunsystem, Zellschutz, Entzündungshemmung",
+    "takeWith": "Mit fettreicher Mahlzeit. NICHT direkt ums Training – Megadosen dämpfen die Hypertrophie-Anpassung.",
+    "competes": "Nicht mit hochdosierten Einzelantioxidantien kombinieren. Vit E antagonisiert Vit K.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Hydroxypropylmethylcellulose, Tricalciumphosphat, Magnesiumcarbonate, L-Ascorbinsäure, Japanischer Staudenknöterichwurzelextrakt, Füllstoff (mikrokristalline Cellulose), D-alpha-Tocopherylacetat, Kaliumhydrogencarbonat, R-Alpha Liponsäure, Astaxanthinreiches Oleoresin aus der Alge Haematococcus pluvialis, Trennmittel (Magnesiumsalze der Speisefettsäuren, Siliciumdioxid), Salz, Calciumcarbonat, Eisen (II)-Sulfat, Mangangluconat, Nicotinamid, Zinksulfatmonohydrat, Schwarzer Pfefferextrakt (Bioperine®), Kupfer(II)-gluconat, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, Retinylacetat, Pteroylmonoglutaminsäure, Chrom(III)-chloridhexahydrat, Natriummolybdat, Natriumselenit, Kaliumiodid, Phyllochinon, D-Biotin, Cholecalciferol, Cyanocobalamin.",
+    "nutrients": [
+      {
+        "label": "Vitamin A",
+        "amount": "800,0 µg RE",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin D",
+        "amount": "5,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin E",
+        "amount": "60,0 mg α-TE",
+        "nrv": 500
+      },
+      {
+        "label": "Vitamin K",
+        "amount": "75,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin C",
+        "amount": "200,0 mg",
+        "nrv": 250
+      },
+      {
+        "label": "Thiamin (B1)",
+        "amount": "1,1 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Riboflavin (B2)",
+        "amount": "1,4 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Niacin (B3)",
+        "amount": "16,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "1,4 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Folsäure",
+        "amount": "200,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "2,5 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Biotin",
+        "amount": "50,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "6,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Kalium",
+        "amount": "50,2 mg",
+        "nrv": 3
+      },
+      {
+        "label": "Chlorid",
+        "amount": "25,2 mg",
+        "nrv": 3
+      },
+      {
+        "label": "Calcium",
+        "amount": "120,0 mg",
+        "nrv": 15
+      },
+      {
+        "label": "Phosphor",
+        "amount": "53,0 mg",
+        "nrv": 8
+      },
+      {
+        "label": "Magnesium",
+        "amount": "76,5 mg",
+        "nrv": 20
+      },
+      {
+        "label": "Eisen",
+        "amount": "7,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Zink",
+        "amount": "5,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Kupfer",
+        "amount": "1,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Mangan",
+        "amount": "2,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Selen",
+        "amount": "55,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Chrom",
+        "amount": "40,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Molybdän",
+        "amount": "50,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Jod",
+        "amount": "75,0 µg",
+        "nrv": 50
+      },
+      {
+        "label": "Japanischer Staudenknöterichwurzel",
+        "amount": "204,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon trans-Resveratrol",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "R-Alpha Liponsäure (R-ALA)",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Astaxanthinreiches Oleoresin",
+        "amount": "80,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Astaxanthin",
+        "amount": "4,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Schwarzer Pfefferextrakt (Bioperine®)",
+        "amount": "10,5 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Piperin",
+        "amount": "10,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p19",
+    "cat": "Vitamine",
+    "name": "ZEC+ Greens Mikronährstoffe",
+    "icon": "🌿",
+    "serving": "5g",
+    "protein": 1,
+    "carbs": 2,
+    "fat": 0,
+    "kcal": 10,
+    "absorption": "Mittel – pflanzliche Nährstoffe variieren",
+    "function": "Säure-Basen-Balance, Entgiftung, Mikronährstoffe, Energie",
+    "takeWith": "Morgens nüchtern mit Wasser. Vitamin C verbessert Eisenaufnahme.",
+    "competes": "Chlorella bindet Schwermetalle – nicht gleichzeitig mit Medis. Spirulina bei Autoimmun vorsichtig.",
+    "geschmack": "Grasig / Grün – leicht bitter, natürlicher Pflanzengeschmack",
+    "loeslichkeit": "Gut – in 200–300 ml Wasser oder Saft einrühren",
+    "ingredients": "Spirulinapulver (enthält Sulphite), Chlorellapulver, Gerstengraspulver, Säuerungsmittel (Citronensäure), Inulin, Kaliumchlorid, Magnesiumbisglycinat, Rote Betesaftpulver, Sanddornfruchtpulver, Himbeerfruchtpulver, Braunalgenpulver (Ascophyllum nodosum), Verdickungsmittel (Xanthan), Zitronenschalenpulver, L-Ascorbinsäure, Süßungsmittel (Steviolglycoside aus Stevia), natürliches Aroma, Spinatpulver, Brokkolipulver, Karottenpulver, Artischockenblattextrakt, Ingwerwurzelpulver, Shiitakepulver (enthält Sulphite), Zinkcitrattrihydrat, Bromelain, Reishifruchtkörperextrakt, Löwenzahnwurzelextrakt, Weißdornblattextrakt, Nicotinamid, Selenhefe, DL-alpha-Tocopherylacetat, Kupfer(II)-gluconat, Calcium-D-pantothenat, Pyridoxinhydrochlorid, Chrompicolinat, D-Biotin, Menachinon-7",
+    "nutrients": [
+      {
+        "label": "Vitamin E",
+        "amount": "2,0 mg α-TE",
+        "nrv": 17
+      },
+      {
+        "label": "Vitamin K",
+        "amount": "15,0 µg",
+        "nrv": 20
+      },
+      {
+        "label": "Vitamin C",
+        "amount": "53,0 mg",
+        "nrv": 66
+      },
+      {
+        "label": "Niacin",
+        "amount": "5,3 mg NE",
+        "nrv": 33
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "0,47 mg",
+        "nrv": 34
+      },
+      {
+        "label": "Biotin",
+        "amount": "17,0 µg",
+        "nrv": 34
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "2,0 mg",
+        "nrv": 33
+      },
+      {
+        "label": "Zink",
+        "amount": "5,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Kupfer",
+        "amount": "0,33 mg",
+        "nrv": 33
+      },
+      {
+        "label": "Selen",
+        "amount": "9,3 µg",
+        "nrv": 17
+      },
+      {
+        "label": "Chrom",
+        "amount": "8,3 µg",
+        "nrv": 21
+      },
+      {
+        "label": "Jod",
+        "amount": "76,9 µg",
+        "nrv": 51
+      },
+      {
+        "label": "Spirulinapulver",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Chlorellapulver",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Gerstengraspulver",
+        "amount": "833,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Braunalgenpulver (Ascophyllum nodosum)",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Spinatpulver",
+        "amount": "33,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Karottenpulver",
+        "amount": "33,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Brokkolipulver",
+        "amount": "33,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Artischokenblattextrakt",
+        "amount": "33,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Cynarin",
+        "amount": "833,0 µg",
+        "nrv": null
+      },
+      {
+        "label": "Ingwerwurzelpulver",
+        "amount": "26,7 mg",
+        "nrv": null
+      },
+      {
+        "label": "Shiitakepulver",
+        "amount": "16,7 mg",
+        "nrv": null
+      },
+      {
+        "label": "Bromelain 1.200 GDU/g",
+        "amount": "16,7 mg",
+        "nrv": null
+      },
+      {
+        "label": "Reishifruchtkörperextrakt",
+        "amount": "13,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Polysaccharide",
+        "amount": "1,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Löwenzahnwurzelextrakt 4:1",
+        "amount": "13,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Weißdornblattextrakt",
+        "amount": "13,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Flavonoide",
+        "amount": "667,0 µg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p20",
+    "cat": "Vitamine",
+    "name": "ZEC+ Vitamin B 25",
+    "icon": "⚡",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Wasserlöslich – B12 benötigt Intrinsic Factor",
+    "function": "Energiestoffwechsel, Nervensystem, Blutbildung, Hormonproduktion",
+    "takeWith": "Morgens mit Frühstück für Energie-Boost",
+    "competes": "B6 >50mg/Tag -> Neuropathie. Antazida reduzieren B12-Aufnahme. Achtung: überlappt mit Multivitamin.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "DL-Cholinbitartrat, Hydroxypropylmethylcellulose, Inositol, P-Aminobenzoesäure, Thiaminmononitrat, Pyridoxinhydrochlorid, Calcium-D-pantothenat, Nicotinamid, Riboflavin, Trennmittel (Magnesiumsalze der Speisefettsäuren), Pteroylmonoglutaminsäure, D-Biotin, Cyanocobalamin",
+    "nutrients": [
+      {
+        "label": "Thiamin (B1)",
+        "amount": "25,0 mg",
+        "nrv": 2276
+      },
+      {
+        "label": "Riboflavin (B2)",
+        "amount": "25,0 mg",
+        "nrv": 1798
+      },
+      {
+        "label": "Niacin (B3)",
+        "amount": "25,0 mg",
+        "nrv": 157
+      },
+      {
+        "label": "Pantothensäure (B5)",
+        "amount": "25,0 mg",
+        "nrv": 417
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "25,0 mg",
+        "nrv": 1789
+      },
+      {
+        "label": "Biotin (B7)",
+        "amount": "25,0 µg",
+        "nrv": 50
+      },
+      {
+        "label": "Folsäure (B9)",
+        "amount": "403,9 µg",
+        "nrv": 202
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "25,0 µg",
+        "nrv": 1002
+      }
+    ]
+  },
+  {
+    "id": "p21",
+    "cat": "Vitamine",
+    "name": "ZEC+ Vitamin C + Hagebutte",
+    "icon": "🍊",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Wasserlöslich – >200mg sinkt % Aufnahme; 2x täglich besser",
+    "function": "Immunsystem, Kollagensynthese, Eisenaufnahme x2, Antioxidans",
+    "takeWith": "Zu Mahlzeiten. Gleichzeitig mit Eisen (verdoppelt Fe-Aufnahme). Mit Kollagen. Hochdosiert NICHT direkt ums Training.",
+    "competes": "Hohe Dosen hemmen Kupfer. Nierensteinrisiko bei Oxalsäure + viel Vit C. Peri-workout dämpft Anpassung.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "L-Ascorbinsäure, Hydroxypropylmethylcellulose, Füllstoff (mikrokristalline Cellulose), Hagebuttenschalenpulver, Trennmittel (Magnesiumsalze von Speisefettsäuren)",
+    "nutrients": [
+      {
+        "label": "Vitamin C",
+        "amount": "500,0 mg",
+        "nrv": 625
+      },
+      {
+        "label": "Hagebuttenfruchtpulver",
+        "amount": "25,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p22",
+    "cat": "Vitamine",
+    "name": "Robert Franz Vitamin D3 Tropfen",
+    "icon": "☀️",
+    "serving": "1 Tropfen",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme, Galle (Mahlzeit) für maximale Bioverfügbarkeit nötig. Gewebespiegel (25-OH-D3) baut sich über Wochen auf – morgens bevorzugt.",
+    "function": "Calcium-Regulierung, Knochen, Immunsystem (aktiviert >200 Gene), Muskelkraft, Testosteron, Stimmung",
+    "takeWith": "MORGENS mit fettreicher Mahlzeit. IMMER mit K2 (p56) kombinieren – K2 lenkt Calcium in Knochen statt Arterien!",
+    "competes": "Einnahme mit K2 (p56) optimiert die Calciumverteilung in den Knochen und schützt präventiv vor ektoper Kalzifizierung bei hochdosierter Nutzung. Magnesium aktiviert D3 (Cofaktor). Ziel-Blutbild: 40–60 ng/ml 25-OH-D3. Nicht mit Warfarin.",
+    "geschmack": "Neutraler Öl-Eigengeschmack (MCT-Träger)",
+    "loeslichkeit": "In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
+    "ingredients": "MCT-Öl aus Kokos, Vitamin D3 (Cholecalciferol).",
+    "nutrients": [
+      {
+        "label": "Vitamin D3 (Cholecalciferol)",
+        "amount": "25,0 µg (1.000 IE)",
+        "nrv": 500
+      }
+    ]
+  },
+  {
+    "id": "p23",
+    "cat": "Mineralien",
+    "name": "HEALTH+ Eisenbisglycinat",
+    "icon": "🩸",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Hoch (~25–30%) – Bisglycinat magenfreundlich, deutlich besser als Sulfat. 25mg elementares Eisen pro Kapsel (179% NRV).",
+    "function": "Sauerstofftransport (Hämoglobin ~60% des Körpereisens), Blutbildung, Energie, Kognition. Tägl. Bedarf: 15mg (Frauen), 10mg (Männer).",
+    "takeWith": "Nüchtern oder mit Vitamin C (Aufnahme x2). 2h Abstand zu Tee/Kaffee/Milch. Mit Wasser oder Saft.",
+    "competes": "NUR bei per Bluttest (Ferritin) belegtem Mangel einnehmen – sonst Überladungsrisiko! Calcium, Zink, Magnesium hemmen Fe. Phytinsäure (Vollkorn) hemmt Aufnahme.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Füllstoff (mikrokristalline Cellulose), Eisenbisglycinat 30,4%, Hydroxypropylmethylcellulose.",
+    "nutrients": [
+      {
+        "label": "Eisen",
+        "amount": "25,0 mg",
+        "nrv": 179
+      }
+    ]
+  },
+  {
+    "id": "p24",
+    "cat": "Mineralien",
+    "name": "ZEC+ Zink Caps",
+    "icon": "🔵",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel (~20–40%) – Picolinat/Bisglycinat am besten",
+    "function": "Immunsystem, Testosteron, Wundheilung, Proteinsynthese, Spermien",
+    "takeWith": "Abends nüchtern. Mit Casein.",
+    "competes": "Testosteron-Effekt NUR bei nachgewiesenem Zinkmangel. Hemmt Kupfer bei Langzeit (10:1). Eisen & Kalzium hemmen Aufnahme.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Füllstoff (mikrokristalline Cellulose), Hydroxypropylmethylcellulose, Zinkbisglycinat, Trennmittel (Magnesiumsalze der Speisefettsäuren)",
+    "nutrients": [
+      {
+        "label": "Zink",
+        "amount": "25,0 mg",
+        "nrv": 250
+      }
+    ]
+  },
+  {
+    "id": "p25",
+    "cat": "Mineralien",
+    "name": "HEALTH+ Selen",
+    "icon": "🟤",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Hoch – L-Selenomethionin organisch & >90% bioverfügbar; Natriumselenit anorganisch. Kombination für maximale Versorgung.",
+    "function": "Schilddrüse (T4→T3-Umwandlung via Jodthyronin-Dejodinase), Antioxidans (Glutathionperoxidase), Immunsystem, Zellschutz vor oxidativem Stress, Haare & Nägel",
+    "takeWith": "Mit Mahlzeit. Enthält bereits Vitamin E (167% NRV) – kein externes Vit E nötig. Abends zusammen mit D3 (p22) + K2 (p56) für Schilddrüsen-Synergie.",
+    "competes": "Max. 400 µg/Tag Selen (toxisch!) – Stacking mit Multi p27/p18 und p43 (24% NRV) beachten. Selen + Jod (p52) schützen Schilddrüse bei Hashimoto.",
+    "geschmack": "Nicht relevant (Kapsel) – natürliches Zitronen-Aroma",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Füllstoff (mikrokristalline Cellulose), Kapselhülle (Hydroxypropylmethylcellulose), natürliches Zitronen-Aroma, Vitamin E (als Tocopheryl-acetat), Natriumselenit, Selenomethionin.",
+    "nutrients": [
+      {
+        "label": "Vitamin E (Alpha-Tocopherol)",
+        "amount": "20,1 mg",
+        "nrv": 167
+      },
+      {
+        "label": "L-Selenomethionin",
+        "amount": "280,0 µg",
+        "nrv": null
+      },
+      {
+        "label": "Natriumselenit",
+        "amount": "217,4 µg",
+        "nrv": null
+      },
+      {
+        "label": "— davon gesamt Selen",
+        "amount": "200,0 µg",
+        "nrv": 364
+      }
+    ]
+  },
+  {
+    "id": "p26",
+    "cat": "Mineralien",
+    "name": "HEALTH+ Basische Mineralien",
+    "icon": "⚡",
+    "serving": "5 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Gut – basische Formen (Citrat, Carbonat) gut löslich",
+    "function": "Säure-Basen-Haushalt, Elektrolyte, Muskelentspannung, Knochen",
+    "takeWith": "Abends nach Training oder vor Schlaf.",
+    "competes": "Ca + Mg konkurrieren – zeitversetzt. Hemmt Eisenaufnahme. Kalium bei Niereninsuffizienz vorsichtig. ⚠️ Zink 35 mg überschreitet das EFSA-Tageslimit (UL = 25 mg) – nicht mit anderen zinkhaltigen Produkten kombinieren (Kupfermangel-Risiko)!",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Trikaliumcitratmonohydrat, Magnesiumlactat 2 Hydrat, Trimagnesiumdicitrat, Tricalciumcitrat 4-Hydrat, Hydroxypropylmethylcellulose, Zinkbisglycinat.",
+    "nutrients": [
+      {
+        "label": "Magnesium",
+        "amount": "190,0 mg",
+        "nrv": 51
+      },
+      {
+        "label": "Kalium",
+        "amount": "984,0 mg",
+        "nrv": 49
+      },
+      {
+        "label": "Calcium",
+        "amount": "129,0 mg",
+        "nrv": 16
+      },
+      {
+        "label": "Zink",
+        "amount": "35,0 mg",
+        "nrv": 350
+      }
+    ]
+  },
+  {
+    "id": "p27",
+    "cat": "Mineralien",
+    "name": "HEALTH+ All In One Multivitamin Komplex",
+    "icon": "🌈",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Variabel – fettlösliche Vitamine besser mit Fett",
+    "function": "Vollspektrum Vitamine + Q10, OPC, ALA, PQQ, Astaxanthin. WICHTIG: Enthält KEINE Mineralien (bewusst weggelassen – separate Mineralversorgung nötig!)",
+    "takeWith": "Mit fettreicher Mahlzeit morgens",
+    "competes": "NICHT zusätzlich mit p17 (R-ALA), p33 (OPC) oder p18 (Antioxidant & Vitamin) – enthält bereits ALA & OPC, Doppeldosierung! Nicht mit B25, hochdos. Vit A, Selen.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "nutrients": [
+      {
+        "label": "Vitamin A",
+        "amount": "800,0 µg RE",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin D",
+        "amount": "5,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin E",
+        "amount": "12,0 mg α-TE",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin K",
+        "amount": "75,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin C",
+        "amount": "80,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Thiamin (B1)",
+        "amount": "1,1 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Riboflavin (B2)",
+        "amount": "1,4 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Niacin (B3)",
+        "amount": "16,0 mg NE",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "1,4 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Folsäure",
+        "amount": "200,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "2,5 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Biotin",
+        "amount": "50,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "6,0 mg",
+        "nrv": 100
+      },
+      {
+        "label": "Coenzym Q10",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Alpha-Liponsäure",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Astaxanthinreiches Oleoresin",
+        "amount": "80,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— Astaxanthin",
+        "amount": "4,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "PQQ",
+        "amount": "2,0 mg",
+        "nrv": null
+      }
+    ],
+    "ingredients": "Füllstoff (mikrokristalline Cellulose), Hydroxypropylmethylcellulose, Calcium-L-ascorbatdihydrat, Coenzym Q10, Alpha-Liponsäure, Astaxanthinreiches Oleoresin (Alge Haematococcus pluvialis), D-alpha-Tocopherylacetat, Nicotinamid, Calcium-D-pantothenat, Pyridoxal-5-phosphatmonohydrat, Pyrrolochinolinchinon-Dinatriumsalz, Thiaminmononitrat, Natrium-Riboflavin-5′-phosphat, Retinylacetat, Riboflavin, (6S)-5-Methyltetrahydrofolsäure-Glucosaminsalz, Menachinon-7, D-Biotin, Cholecalciferol, Methylcobalamin."
+  },
+  {
+    "id": "p28",
+    "cat": "Omega & Öle",
+    "name": "HEALTH+ Super Omega 3 Triglyceride Fischöl",
+    "icon": "🐟",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 2,
+    "kcal": 18,
+    "absorption": "Triglyceridform ~70% besser als Ethylester – immer mit Mahlzeit (Galle für Mizellenbildung nötig). 1500mg Omega-3 (1000mg EPA + 500mg DHA) pro 2 Kapseln. UHRZEIT IRRELEVANT – EPA/DHA-Gewebespiegel (Zellmembranen) baut sich über 4–8 Wochen chronischer Einnahme auf.",
+    "function": "Herzgesundheit (EPA verdrängt Arachidonsäure aus COX/LOX → erzeugt schwächere 3er-Eicosanoide statt 2er-Serie; KEIN direkter COX-Inhibitor wie Ibuprofen!), Entzündungshemmung, Gehirnfunktion (DHA ~40% der Fettsäuren in neuronalen Membranen), Gelenke",
+    "takeWith": "Mit einer beliebigen Hauptmahlzeit (mit Fett). Synergie mit D3+K2. Immer zusammen mit Nachtkerzenöl (p51) für Omega-6/3-Balance.",
+    "competes": "Blutdünnend – Vorsicht mit Aspirin/Warfarin/Heparin. Vor Operationen 1–2 Wochen absetzen.",
+    "geschmack": "Nicht relevant (Kapsel) – ggf. leichter Fischgeschmack beim Aufstoßen",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Fischöl, Gelatine (Rind), Feuchthaltemittel (Glycerin), gereinigtes Wasser.",
+    "nutrients": [
+      {
+        "label": "Fischöl",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Eicosapentaensäure (EPA)",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Docosahexaensäure (DHA)",
+        "amount": "500,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p29",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ Ashwagandha (KSM-66)",
+    "icon": "🌿",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – fettlösliche Withanolide besser mit Mahlzeit. KSM-66®: HPLC-gemessene Withanolid-Reinheit (präziser als gravimetrisch – keine Überschätzung)",
+    "function": "Cortisol ↓, Stressresistenz, Testosteron ↑, Schlafqualität, Ausdauer. 500mg Extrakt pro Kapsel, 50mg Withanolide pro 2 Kapseln.",
+    "takeWith": "Abends (cortisol-senkend). 2x täglich mit Mahlzeit. Piperin verbessert Absorption.",
+    "competes": "Nicht mit Schilddrüsen-Medi ohne Rücksprache. Nicht mit Immunsuppressiva. Schwangerschaft: KI.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Ashwagandhawurzelextrakt KSM-66®, Kapselhülle (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "Ashwagandhawurzelextrakt (KSM-66™)",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Withanolide",
+        "amount": "50,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p30",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ Cordyceps Synergy",
+    "icon": "🍄",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – Polysaccharide & Cordycepin gut bioverfügbar",
+    "function": "ATP-Produktion, Ausdauer (bei Untrainierten +11% VO2max in einer Studie; bei Trainierten: schwache & gemischte Evidenz), Libido/Energie, Lungenkapazität",
+    "takeWith": "2 Kapseln morgens VOR dem Frühstück mit Wasser.",
+    "competes": "Für Hypertrophie evidenzschwach (eher Ausdauer). Leicht blutdünnend. Autoimmun vorsichtig.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Cordyceps militaris-Extrakt, Cordyceps sinensis-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose), Füllstoff mikrokristalline Cellulose.",
+    "nutrients": [
+      {
+        "label": "Cordyceps militaris-Extrakt",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Cordyceps sinensis-Extrakt",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p31",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ Reishi",
+    "icon": "🍄",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – fettlösliche Triterpene besser mit Mahlzeit",
+    "function": "Immunmodulation, Beta-Glucane (30% Polysaccharide), Leberschutz, Stress, Schlaf",
+    "takeWith": "Laut Hersteller: 2 Kapseln morgens vor dem Frühstück. Alternativ abends für Schlaf & Entspannung. Mit Vitamin C synergistisch.",
+    "competes": "Blutdünnend. Blutdruck senkend. Vor OPs absetzen.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Reishi-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "Reishi-Extrakt",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Polysaccharide",
+        "amount": "300,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p32",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ Maca",
+    "icon": "🌱",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Gut – wasserlösliche Bestandteile gut verfügbar",
+    "function": "Libido, Energie, Fruchtbarkeit, Hormonbalance (adaptogen)",
+    "takeWith": "Morgens mit Frühstück. Mit Ashwagandha kombinierbar.",
+    "competes": "Für Hypertrophie evidenzschwach. Vorsicht bei hormonabhängigen Erkrankungen.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Macawurzelextrakt, Hydroxypropylmethylcellulose, Reismehl.",
+    "nutrients": [
+      {
+        "label": "Maca-Extrakt 10:1",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p33",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ OPC Traubenkernextrakt",
+    "icon": "🍇",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Sehr schnell – kleine Moleküle, hohe Bioverfügbarkeit",
+    "function": "Hochpotentes pflanzliches Antioxidans (Oligomere Proanthocyanidine – Astaxanthin & Quercetin vergleichbar stark, kein alleiniger 'Stärkster'), Kollagen-Stabilisierung, Gefäße, Anti-Aging",
+    "takeWith": "Morgens nüchtern. NICHT direkt ums Training (Antioxidans). Mit Vitamin C synergistisch. Mit Kollagen.",
+    "competes": "Leicht blutdünnend. Kann Eisenaufnahme hemmen – zeitversetzt.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Traubenkernextrakt, Kapselhülle (Hydroxypropylmethylcellulose), Füllstoff (mikrokristalline Cellulose).",
+    "nutrients": [
+      {
+        "label": "Traubenkernextrakt",
+        "amount": "308,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Proanthocyanidine",
+        "amount": "292,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon OPC",
+        "amount": "200,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p34",
+    "cat": "Adaptogene",
+    "name": "HEALTH+ Cherry Power",
+    "icon": "🍒",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Gut – Anthocyane schnell resorbiert",
+    "function": "Entzündungshemmung, Regeneration, Schlaf (Melatonin), Harnsäure",
+    "takeWith": "Abends (Melatonin fördert Schlaf). NICHT im engen Trainingsfenster – kann Anpassung dämpfen.",
+    "competes": "Vorsicht mit Warfarin. Kalium bei Nierenerkrankungen beachten.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "CherryPure® (Kirschpulver, Verdickungsmittel Guarkernmehl, Emulgator Sonnenblumenlecithin), Kapselhülle (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "CherryPure® Kirschpulver (50:1 Extrakt)",
+        "amount": "1.100,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p35",
+    "cat": "Darm & Verdauung",
+    "name": "HEALTH+ Enzym Komplex",
+    "icon": "🔬",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Verdauungsenzyme wirken lokal im Darm; enthaltene Pflanzenproteasen (Bromelain/Papain) werden jedoch teilweise systemisch absorbiert und wirken dort entzündungsmodulierend",
+    "function": "Verdauungsunterstützung, Nährstoffaufnahme, Blähungen",
+    "takeWith": "DIREKT VOR oder zu Beginn der Mahlzeit",
+    "competes": "Nicht bei Pankreatitis. Hitze >40°C denaturiert Enzyme.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Multienzymkomplex DigeZyme® (Füllstoff Maltodextrin, Alpha Amylase, Protease, Cellulase, Galactohydrolase Lactase, Lipase), Hydroxypropylmethylcellulose, Betainhydrochlorid, Papain, Bromelain.",
+    "nutrients": [
+      {
+        "label": "Multienzymkomplex (DigeZyme®)",
+        "amount": "250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— alpha-Amylase (24000 DU/g)",
+        "amount": "",
+        "nrv": null
+      },
+      {
+        "label": "— neutral Protease (6000 PC/g)",
+        "amount": "",
+        "nrv": null
+      },
+      {
+        "label": "— Cellulase (1100 CU/g)",
+        "amount": "",
+        "nrv": null
+      },
+      {
+        "label": "— beta-D-Galactosidase (4000 ALU/g)",
+        "amount": "",
+        "nrv": null
+      },
+      {
+        "label": "— Lipase (200 FIP/g)",
+        "amount": "",
+        "nrv": null
+      },
+      {
+        "label": "Betainhydrochlorid",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Betain",
+        "amount": "76,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "Papain (20.000 USP/mg)",
+        "amount": "50,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Bromelain (2.500 GDU/g)",
+        "amount": "83,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p36",
+    "cat": "Darm & Verdauung",
+    "name": "HEALTH+ ProBio-TECT Pulver",
+    "icon": "🦠",
+    "serving": "8g",
+    "protein": 1,
+    "carbs": 5,
+    "fat": 1,
+    "kcal": 35,
+    "absorption": "Aktivierung in Flüssigkeit (10 min Ziehzeit) – Milchsäurebakterien lebend im Darm",
+    "function": "Darmflora, Immunsystem, Stimmung (Darm-Hirn-Achse), Verdauung. 5 Mrd. CFU aus 10 Stämmen.",
+    "takeWith": "Morgens vor oder nach dem Essen. In Wasser oder Pflanzenmilch (kalt) einrühren, 10 min ziehen lassen. Nicht mit heißen Getränken.",
+    "competes": "2h Abstand zu Antibiotika. Nicht nach Bestrahlung ohne Rücksprache.",
+    "geschmack": "Neutral – nahezu geschmacksneutral (Pulver)",
+    "loeslichkeit": "Gut – in 200 ml kaltem Wasser oder Pflanzenmilch einrühren",
+    "ingredients": "Maltodextrin, L-Glutamin, Sonnenblumenlecithinpulver, Inulin, Enzym Amylase, Milchsäurebakterien, Natriummolybdat.",
+    "nutrients": [
+      {
+        "label": "Molybdän",
+        "amount": "50,0 µg",
+        "nrv": 100
+      },
+      {
+        "label": "L-Glutamin",
+        "amount": "1,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Sonnenblumenlecithin",
+        "amount": "1,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Inulin",
+        "amount": "0,6 g",
+        "nrv": null
+      },
+      {
+        "label": "Amylase",
+        "amount": "0,2 g",
+        "nrv": null
+      },
+      {
+        "label": "Milchsäurebakterien",
+        "amount": "5 Mrd. CFU",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p37",
+    "cat": "Darm & Verdauung",
+    "name": "HEALTH+ Nährstoff Optimizer",
+    "icon": "🔑",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Piperin hemmt Darmenzyme -> mehr Nährstoffe ins Blut",
+    "function": "Bioverfügbarkeit aller Nährstoffe +20–40%, Entzündungshemmung",
+    "takeWith": "Zu Supplement-Mahlzeiten. Curcumin +2000%, Q10, Vitamine.",
+    "competes": "WICHTIG: Erhöht auch Medikamentenspiegel (hemmt CYP3A4)! Bei jeder Rx-Medikation kritisch.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Berberin HCL, Kapselhülle (Hydroxypropylmethylcellulose), Zimtrinden-Extrakt, Bittermelonen-Extrakt, Bockshornklee-Extrakt, Curcuma-Extrakt, D-Pinitol, Knoblauch-Extrakt, natürliches Aroma, schwarzer Pfeffer-Extrakt (Bioperine®).",
+    "nutrients": [
+      {
+        "label": "Berberin HCl",
+        "amount": "706,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Berberin",
+        "amount": "600,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Zimtrinden-Extrakt",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Bittermelonen-Extrakt",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Saponine",
+        "amount": "40,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Bockshornklee-Extrakt",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Saponine",
+        "amount": "80,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Curcuma-Extrakt",
+        "amount": "210,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Curcuminoide",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "D-Pinitol",
+        "amount": "180,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Knoblauch-Extrakt",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Alliin",
+        "amount": "500,0 µg",
+        "nrv": null
+      },
+      {
+        "label": "Schwarzer Pfeffer-Extrakt (Bioperine®)",
+        "amount": "17,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Piperin",
+        "amount": "16,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p38",
+    "cat": "Kollagen & Gelenke",
+    "name": "HEALTH+ All In One Collagen",
+    "icon": "✨",
+    "serving": "30g",
+    "protein": 27,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 108,
+    "absorption": "Hydrolysierte Peptide (FORTIGEL®, TENDOFORTE®, BODYBALANCE®, VERISOL®) bis zu 90% bioverfügbar",
+    "function": "Haut, Haare, Nägel, Knorpel, Gelenke, Darm, Knochen, Sehnen. Enthält 4 patentierte Kollagen-Typen + Acerola-Vitamin C (50 mg, 63% NRV) + Zink (30% NRV) + Mangan (50% NRV) + Kupfer (50% NRV) + Bambusblattextrakt (53,6 mg Kieselsäure).",
+    "takeWith": "Morgens nüchtern oder VOR dem Essen. Vit C BEREITS IM PRODUKT (Acerolafruchtpulver) – kein externes Vit C nötig! 300 ml kaltes Wasser.",
+    "competes": "Kein vollständiges Protein (kein Tryptophan). Nicht als Hauptproteinquelle. Zink (30% NRV) – mit p24 (Zink abends) auf Gesamtzufuhr achten.",
+    "geschmack": "Neutral / Leicht süßlich (Pulver) – fast geschmacksneutral. Auch Kirsche erhältlich.",
+    "loeslichkeit": "Sehr gut – klar löslich in kaltem Wasser (300 ml), 4 gestrichene Messlöffel",
+    "ingredients": "Kollagenhydrolysat (Rind) [BODYBALANCE® 50,0%, FORTIGEL® 16,7%, TENDOFORTE® 16,7%, VERISOL® 8,33%], Acerolafruchtpulver, Bambusblattextrakt, Zinkbisglycinat, Mangangluconat, Kupfer(II)-gluconat.",
+    "nutrients": [
+      {
+        "label": "Brennwert",
+        "amount": "459 kJ / 108 kcal",
+        "nrv": null
+      },
+      {
+        "label": "Fett",
+        "amount": "<0,5 g",
+        "nrv": null
+      },
+      {
+        "label": "— ges. Fettsäuren",
+        "amount": "0,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Kohlenhydrate",
+        "amount": "<0,5 g",
+        "nrv": null
+      },
+      {
+        "label": "— Zucker",
+        "amount": "<0,5 g",
+        "nrv": null
+      },
+      {
+        "label": "Ballaststoffe",
+        "amount": "<0,5 g",
+        "nrv": null
+      },
+      {
+        "label": "Eiweiß",
+        "amount": "27,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Salz",
+        "amount": "0,15 g",
+        "nrv": null
+      },
+      {
+        "label": "Zink",
+        "amount": "3,0 mg",
+        "nrv": 30
+      },
+      {
+        "label": "Kupfer",
+        "amount": "0,5 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Mangan",
+        "amount": "1,0 mg",
+        "nrv": 50
+      },
+      {
+        "label": "Kollagenhydrolysat",
+        "amount": "29,6 g",
+        "nrv": null
+      },
+      {
+        "label": "— BODYBALANCE®",
+        "amount": "16,2 g",
+        "nrv": null
+      },
+      {
+        "label": "— FORTIGEL®",
+        "amount": "5,4 g",
+        "nrv": null
+      },
+      {
+        "label": "— TENDOFORTE®",
+        "amount": "5,4 g",
+        "nrv": null
+      },
+      {
+        "label": "— VERISOL®",
+        "amount": "2,7 g",
+        "nrv": null
+      },
+      {
+        "label": "Acerolafruchtpulver",
+        "amount": "294,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— Vitamin C",
+        "amount": "50,0 mg",
+        "nrv": 63
+      },
+      {
+        "label": "Bambusblattextrakt",
+        "amount": "71,4 mg",
+        "nrv": null
+      },
+      {
+        "label": "— Kieselsäure",
+        "amount": "53,6 mg",
+        "nrv": null
+      },
+      {
+        "label": "— Silicium",
+        "amount": "24,6 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p39",
+    "cat": "Kollagen & Gelenke",
+    "name": "ZEC+ Arthro Essential",
+    "icon": "🦵",
+    "serving": "5 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – Glucosaminsulfat oral ~30%; MSM gut bioverfügbar; Wirkung erst nach 4–8+ Wochen sichtbar",
+    "function": "Knorpelschutz/-aufbau, Gelenkschmierung & -schutz (Glucosamin + Chondroitin + MSM), Entzündungshemmung (Weihrauch, Ingwer, Brennnessel), Schmerzreduktion (Katzenkralle), verbesserte Absorption (Piperin)",
+    "takeWith": "Mit Mahlzeiten. Mind. 3 Monate durchgehend einnehmen für echten Knorpel-Effekt.",
+    "competes": "Glucosamin kann Blutzucker leicht erhöhen (Diabetiker aufpassen). Chondroitin & Katzenkralle leicht blutdünnend. Piperin erhöht Medikamentenspiegel – Rx-Medi beachten!",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "D-Glucosaminsulfatdikaliumchlorid (Krebstiere), Methylsulfonylmethan, Natrium-Chondroitinsulfat (Rind), Gelatine (Rind), Brennesselwurzelextrakt, Katzenkrallenwurzelextrakt, Ingwerrhizomextrakt, Weihrauchgummiharzextrakt, Trennmittel (Magnesiumsalze der Speisefettsäuren), Schwarzer Pfefferextrakt.",
+    "nutrients": [
+      {
+        "label": "Glucosaminsulfatdikaliumchlorid",
+        "amount": "1.990,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Glucosaminsulfat",
+        "amount": "1.500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Glucosamin",
+        "amount": "1.178,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Methylsulfonylmethan (MSM)",
+        "amount": "1.500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Chondroitinsulfat",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Brennesselwurzelextrakt 10:1",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Katzenkrallenwurzelpulver",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Ingwerrhizomextrakt",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Gingerole",
+        "amount": "15,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Weihrauchextrakt",
+        "amount": "250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Boswelliasäuren",
+        "amount": "163,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Schwarzer Pfefferextrakt",
+        "amount": "5,3 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Piperin",
+        "amount": "5,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p40",
+    "cat": "Schlaf & Erholung",
+    "name": "ZEC+ Sleep",
+    "icon": "🌙",
+    "serving": "4 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Schnell – Melatonin wirkt in 20–30 min",
+    "function": "Einschlafförderung, Schlaftiefe, Erholung, Wachstumshormon-Ausschüttung",
+    "takeWith": "30 min vor Schlaf. Mit ZEC+ Casein für nächtliche Muskelversorgung.",
+    "competes": "Nicht mit Alkohol. Nicht mit sedierenden Substanzen. Melatonin niedrig dosieren (0.5–1mg).",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Magnesiumcitrat, L-Tryptophan, Kapselhülle (Hydroxypropylmethylcellulose), Melissen-Extrakt, Grüntee-Extrakt, Ashwagandha-Extrakt, Kamillen-Extrakt, Hopfen-Extrakt, Füllstoff mikrokristalline Cellulose, Trennmittel Magnesiumsalze von Speisefettsäuren",
+    "nutrients": [
+      {
+        "label": "Magnesium",
+        "amount": "300,0 mg",
+        "nrv": 80
+      },
+      {
+        "label": "L-Tryptophan",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Melissen-Extrakt",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Grüntee-Extrakt",
+        "amount": "334,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Theanin",
+        "amount": "200,4 mg",
+        "nrv": null
+      },
+      {
+        "label": "Ashwagandha-Extrakt (Shoden®)",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Withanolidglykoside",
+        "amount": "70,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Kamillen-Extrakt",
+        "amount": "52,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Apigenin",
+        "amount": "51,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Hopfen-Extrakt",
+        "amount": "50,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p41",
+    "cat": "Schlaf & Erholung",
+    "name": "ZEC+ Schatten der Liebe",
+    "icon": "🌸",
+    "serving": "6 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – pflanzliche Extrakte variieren; L-Citrullin schnell (30–60 min)",
+    "function": "Libido & Potenz (L-Citrullin → NO-Boost & Durchblutung), Testosteron & Energie (Bockshornklee), Energie & Ausdauer (Maca-Extrakt), Entzündungshemmung (Ingwer-Extrakt)",
+    "takeWith": "Abends mit Abendessen oder 1–2h vor dem Schlafengehen. Mit p32 (Maca) kombinierbar, aber Doppeldosis beachten!",
+    "competes": "WICHTIG: Enthält L-Citrullin – Dosis beachten wenn p14 (Citrullin Malat) am gleichen Tag! Enthält Maca – bei Kombinat. mit p32 Doppeldosis. Nicht mit PDE5-Hemmern (Viagra). Vorsicht bei Herzproblemen.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "L-Citrullin-DL-Malat 2:1, Macawurzelextrakt, Hydroxypropylmethylcellulose, Bockshornkleesamenextrakt, Ingwerrhizomextrakt",
+    "nutrients": [
+      {
+        "label": "L-Citrullin-DL-Malat 2:1",
+        "amount": "3.264,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Citrullin",
+        "amount": "2.040,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Macawurzelextrakt",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Bockshornkleesamenextrakt",
+        "amount": "600,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Saponine",
+        "amount": "120,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Ingwerrhizomextrakt",
+        "amount": "504,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Gingerole",
+        "amount": "25,2 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p42",
+    "cat": "Schlaf & Erholung",
+    "name": "Baldrian-ratiopharm",
+    "icon": "🌿",
+    "serving": "1-2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Mittel – Valerensäure gut resorbiert; Wirkung nach 2–4 Wochen regelmäßig besser",
+    "function": "Einschlafunterstützung, Angstlösung, Muskelentspannung, Nervosität",
+    "takeWith": "30–60 min vor Schlaf. Mit Hopfen oder Passionsblume synergistisch.",
+    "competes": "Nicht mit Alkohol oder Benzodiazepinen. Tagesmüdigkeit möglich. ⚠️ Enthält Titandioxid (E171) – in Lebensmitteln seit 2022 EU-weit verboten; als Arzneimittel noch zugelassen (Übergangsregelung).",
+    "geschmack": "Nicht relevant (Dragée/Kapsel) – leichter Baldrian-Eigengeruch",
+    "loeslichkeit": "Nicht anwendbar (Dragée/Kapsel)",
+    "ingredients": "Baldrianwurzel-Trockenextrakt (3-6:1) (Auszugsmittel: Ethanol 70%), Saccharose, Glucose-Sirup, Arabisches Gummi, Calciumcarbonat, Croscarmellose-Natrium, Cellulosepulver, Hochdisperses Siliciumdioxid, Stearinsäure, Talkum, Tragant, Titandioxid, Indigocarmin",
+    "nutrients": [
+      {
+        "label": "Baldrianwurzel-Trockenextrakt (3-6:1)",
+        "amount": "450,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p43",
+    "cat": "Pre-Workout",
+    "name": "ZEC+ Re-Act 2.0",
+    "icon": "⚡",
+    "serving": "~95g",
+    "protein": 44,
+    "carbs": 41,
+    "fat": 0,
+    "kcal": 350,
+    "absorption": "Schnell – Koffein Peak bei 60 min",
+    "function": "Energie & Fokus, Reaktionszeit, Ausdauer, Pre-Workout-Aktivierung",
+    "takeWith": "30–45 min pre-workout. Nüchtern oder leichte Mahlzeit.",
+    "competes": "Nicht mit anderen Koffeinquellen. Nicht abends. Beta-Alanin-Kribbeln ist normal.",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Cherry, Watermelon, Citrus)",
+    "loeslichkeit": "Sehr gut – löst sich schnell in 300–400 ml Wasser",
+    "ingredients": "Milcheiweiß (Molkeneiweißisolat), Maltodextrin, Isomaltulosepulver, Dextrose, Glycin, Kreatinmonohydrat (Creapure®), L-Glutamin alpha-Ketoglutarat 2:1, γ-Aminobuttersäure, Säuerungsmittel (Citronensäure), L-Citrullin-DL-Malat 2:1, Taurin, Aroma, L-Leucin, L-Lysin-Monohydrochlorid, L-Valin, L-Isoleucin, L-Phenylalanin, L-Threonin, Ashwagandhawurzelextrakt (KSM-66®), L-Methionin, L-Tryptophan, Süßungsmittel (Acesulfam K, Sucralose), Multienzymkomplex (DigeZyme®), Emulgator (Lecithine), Extrakt aus Panax notoginseng und Astragalus membranaceus (AstraGin™), Nicotinamid, Calcium-D-pantothenat, Farbstoff (Carotin), Pyridoxinhydrochlorid, Riboflavin, Thiaminmononitrat, L-5-Methyltetrahydrofolsäure Calciumsalz, Methylcobalamin",
+    "nutrients": [
+      {
+        "label": "Thiamin (B1)",
+        "amount": "0,32 mg",
+        "nrv": 29
+      },
+      {
+        "label": "Riboflavin (B2)",
+        "amount": "0,44 mg",
+        "nrv": 31
+      },
+      {
+        "label": "Niacin (B3)",
+        "amount": "4,8 mg NE",
+        "nrv": 30
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "0,43 mg",
+        "nrv": 31
+      },
+      {
+        "label": "Folsäure",
+        "amount": "70,1 µg",
+        "nrv": 35
+      },
+      {
+        "label": "Vitamin B12",
+        "amount": "1,6 µg",
+        "nrv": 64
+      },
+      {
+        "label": "Pantothensäure",
+        "amount": "1,8 mg",
+        "nrv": 30
+      },
+      {
+        "label": "Selen",
+        "amount": "13,0 µg",
+        "nrv": 24
+      },
+      {
+        "label": "Creatin Monohydrat (Creapure®)",
+        "amount": "4,0 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon Creatin",
+        "amount": "3,5 g",
+        "nrv": null
+      },
+      {
+        "label": "L-Glutamin Alpha-Ketoglutarat 2:1",
+        "amount": "4,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Gamma Amino Buttersäure (GABA)",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "L-Citrullin Malat 2:1",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Citrullin",
+        "amount": "1.250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Taurin",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Ashwagandhawurzelextrakt (KSM-66®)",
+        "amount": "600,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Withanolide",
+        "amount": "30,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Multienzymkomplex (DigeZyme®)",
+        "amount": "250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Extrakt aus Panax notoginseng & Astragalus (AstraGin™)",
+        "amount": "25,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p44",
+    "cat": "Pre-Workout",
+    "name": "ZEC+ Pumpdown Pump-Booster",
+    "icon": "💪",
+    "serving": "~30g",
+    "protein": 13,
+    "carbs": 3,
+    "fat": 0,
+    "kcal": 84,
+    "absorption": "Schnell – 30–45 min vor Training",
+    "function": "Maximaler Pump, Durchblutung, Gefäßerweiterung – koffeinfrei",
+    "takeWith": "Pre-workout. Kombinierbar mit Koffein-Booster.",
+    "competes": "Nicht mit PDE5-Hemmern. Blutdruck senkend -> Vorsicht bei Hypotonie.",
+    "geschmack": "Verschiedene Geschmacksrichtungen",
+    "loeslichkeit": "Gut – im Shaker mit 300 ml Wasser",
+    "ingredients": "Dextrin, L-Citrullin-Malat, Arginin AKG, HydroMax™ Glycerol, Taurin, Ornithin AKG, Betain Anhydrous, N-Acetyl-L-Tyrosin, Inositol, Farbstoff Beta-Carotin (1%ig), Aroma, N-Acetyl-Cystein, Kiefernrinden Extrakt, Traubenkern Extrakt, L-Norvalin, Panax Ginseng Extrakt, Resveratrol, Säuerungsmittel Citronensäure, Süßungsmittel: Acesulfam K und Sucralose, Vitamin C (Askorbinsäure), Vitamin B6 (Pyridoxin Hydrochlorid), Vitamin B9",
+    "nutrients": [
+      {
+        "label": "Vitamin C",
+        "amount": "100,0 mg",
+        "nrv": 125
+      },
+      {
+        "label": "Vitamin B6",
+        "amount": "2,0 mg",
+        "nrv": 143
+      },
+      {
+        "label": "Vitamin B9",
+        "amount": "500,0 µg",
+        "nrv": 250
+      },
+      {
+        "label": "L-Citrullin-Malat",
+        "amount": "6,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Arginin-AKG",
+        "amount": "3,0 g",
+        "nrv": null
+      },
+      {
+        "label": "HydroMax™ Glycerol",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Taurin",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Ornithin-AKG",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Betain Anhydrous",
+        "amount": "1,5 g",
+        "nrv": null
+      },
+      {
+        "label": "N-Acetyl-L-Tyrosin",
+        "amount": "1,5 g",
+        "nrv": null
+      },
+      {
+        "label": "Inositol",
+        "amount": "1,0 g",
+        "nrv": null
+      },
+      {
+        "label": "N-Acetyl-Cystein",
+        "amount": "0,3 g",
+        "nrv": null
+      },
+      {
+        "label": "Kiefernrindenextrakt",
+        "amount": "0,2 g",
+        "nrv": null
+      },
+      {
+        "label": "Traubenkernextrakt",
+        "amount": "0,2 g",
+        "nrv": null
+      },
+      {
+        "label": "L-Norvalin",
+        "amount": "0,2 g",
+        "nrv": null
+      },
+      {
+        "label": "Panax Ginseng Extrakt",
+        "amount": "0,2 g",
+        "nrv": null
+      },
+      {
+        "label": "Resveratrol",
+        "amount": "0,2 g",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p45",
+    "cat": "Pre-Workout",
+    "name": "ZEC+ Kickdown Evolution",
+    "icon": "🔥",
+    "serving": "~30g",
+    "protein": 10,
+    "carbs": 6,
+    "fat": 0,
+    "kcal": 80,
+    "absorption": "Schnell – 30–45 min vor Training",
+    "function": "Extremer Fokus, Energie, Kraft-Gefühl, mentale Schärfe",
+    "takeWith": "Nüchtern oder leichte Mahlzeit. Nicht nach 14 Uhr.",
+    "competes": "⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Nicht für Koffein-Sensible oder Personen mit Bluthochdruck. Koffein-Toleranz beachten. Nicht mit anderen Stimulanzien. Zyklen (5 on / 2 off).",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Berry, Citrus, Cola)",
+    "loeslichkeit": "Gut – löst sich in 300 ml Wasser",
+    "ingredients": "Resistentes Maisdextrin, L-Citrullin-DL-Malat 2:1, L-Arginin Nitrat, L-Tyrosin, L-Ornithin Alpha Ketoglutarat 1:1, Betainanhydrat, Inositol, Chinesischer Raupenpilzmyzelextrakt (enthält Sulphite), Trennmittel (Siliciumdioxid), Magnesiumbisglycinat, Säuerungsmittel (Citronensäure), Aroma, Weißer Teeblattextrakt, Citicolin, mikroverkapseltes Koffein (Koffein, Überzugsmittel (Mono- und Diglyceride von Speisefettsäuren)) (NEWCAFF™-75 Microcapsules), Koffeinanhydrat, N-Acetyl-L-Cystein, Schisandra sphenanthera Fruchtextrakt, Mangoblattextrakt (Zynamite®), Süßungsmittel (Acesulfam K, Sucralose, Natriumcyclamat), Extraktmischung S7™ (Grüner Kaffeebohnenextrakt, Grünteeextrakt, Kurkumaextrakt, Sauerkirschpulver, Blaubeerenpulver, Brokkolipulver, Grünkohlpulver), Farbstoff (Carotin), Methylcobalamin",
+    "nutrients": [
+      {
+        "label": "Vitamin B12",
+        "amount": "500,4 µg",
+        "nrv": 20015
+      },
+      {
+        "label": "Magnesium",
+        "amount": "100,5 mg",
+        "nrv": 27
+      },
+      {
+        "label": "L-Citrullin-Malat",
+        "amount": "6.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Trimethylglycin",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Ornithin-Alpha-Ketoglutarat",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "L-Tyrosin",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Pilz Mischung PEAK O2™",
+        "amount": "2.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "N-Acetyl-L-Cystein",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Weißer Tee-Extrakt",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Citicolin",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Inosit",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Schisandra-Extrakt",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Mangoblatt-Extrakt (Zynamite®)",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Extraktmischung S7™",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Newcaff™ (60% Koffein)",
+        "amount": "263,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Koffein",
+        "amount": "197,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Natürliches Koffein",
+        "amount": "203,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Koffein",
+        "amount": "203,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Koffein gesamt",
+        "amount": "400,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p46",
+    "cat": "Pre-Workout",
+    "name": "ZEC+ Kickdown Nitro",
+    "icon": "💥",
+    "serving": "~20g",
+    "protein": 16,
+    "carbs": 1,
+    "fat": 0,
+    "kcal": 79,
+    "absorption": "Schnell",
+    "function": "Max. Trainingsintensität, Ausdauer, Pump + Energie kombiniert",
+    "takeWith": "30–45 min pre-workout. Für erfahrene Nutzer.",
+    "competes": "⚠️ 400 mg Koffein pro Portion überschreiten das EFSA-Einzeldosislimit (200 mg) deutlich – mit halber Portion starten, Toleranz prüfen. Alle Koffein-Warnungen verstärkt. Nicht täglich – HF beachten.",
+    "geschmack": "Verschiedene Geschmacksrichtungen",
+    "loeslichkeit": "Gut – im Shaker mit 300–400 ml Wasser",
+    "ingredients": "L-Citrullin-DL-Malat 2:1, L-Arginin-Nitrat, L-Tyrosin, Betainanhydrat, Taurin, Säuerungsmittel (Citronensäure), Aroma, Kokosnusssaftextraktpulver (Kokosnusssaftextrakt, Dextrose, Maltodextrin - Cococin™ WS), Löwenmähnenfruchtkörperextrakt (enthält Sulphite), Citicolin, Koffeinanhydrat, färbendes Lebensmittel (Rote Beetesaftpulver), Kakaobohnenextrakt, resistentes Maisdextrin, Trennmittel (Siliciumdioxid), Süßungsmittel (Acesulfam K, Natriumcyclamat, Natriumsaccharin)",
+    "nutrients": [
+      {
+        "label": "L-Citrullin-DL-Malat 2:1",
+        "amount": "6,0 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Citrullin",
+        "amount": "3,8 g",
+        "nrv": null
+      },
+      {
+        "label": "L-Arginin Nitrat",
+        "amount": "3,1 g",
+        "nrv": null
+      },
+      {
+        "label": "— davon Nitrat",
+        "amount": "800,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon L-Arginin",
+        "amount": "2,3 g",
+        "nrv": null
+      },
+      {
+        "label": "Betain",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Taurin",
+        "amount": "2,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Citicolin",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Löwenmähnenfruchtkörperextrakt",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Polysaccharide",
+        "amount": "150,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon beta-Glucane",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Koffein",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Kakaobohnenextrakt",
+        "amount": "353,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Theobromin",
+        "amount": "53,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Kokosnusssaftextrakt",
+        "amount": "286,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon freie Aminosäuren",
+        "amount": "510,0 µg",
+        "nrv": null
+      },
+      {
+        "label": "L-Tyrosin",
+        "amount": "2,0 g",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p47",
+    "cat": "Pre-Workout",
+    "name": "ZEC+ Fight+ Pre Fight",
+    "icon": "🥊",
+    "serving": "7g",
+    "protein": 3,
+    "carbs": 1,
+    "fat": 0,
+    "kcal": 12,
+    "absorption": "Schnell – 30–45 min vor Kampf/Training",
+    "function": "Kampfsport-Performance, Reaktion, Ausdauer, Fokus, explosive Kraft",
+    "takeWith": "Pre-Fight oder Pre-Training. Nicht mit anderen Boostern.",
+    "competes": "Alle Pre-Workout-Warnungen. Manche Verbände testen auf Stimulanzien.",
+    "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Cherry, Tropical)",
+    "loeslichkeit": "Gut – im Shaker mit 300 ml Wasser",
+    "ingredients": "L-Tyrosin, Säuerungsmittel (Citronensäure), resistentes Maisdextrin, Citicolin, Chinesischer Raupenpilzmyzelextrakt (enthält Sulphite), Adenosin 5'-Triphosphat Dinatrium (Peak ATP®), Mangoblattextrakt (Zynamite®), Extraktmischung (Apfelschalenextrakt, Weintraubentresterextrakt, Safranblütenextrakt, enthält Schwefeldioxid / Sulfite) (enostim™), natürliches Aroma, Süßungsmittel (Acesulfam K, Sucralose), Mangofruchtpulver (Careflow®), Coenzym Q10, Ringelblumenblütenextrakt (ZeaONE™ / Optisharp™)",
+    "nutrients": [
+      {
+        "label": "L-Tyrosin",
+        "amount": "3,0 g",
+        "nrv": null
+      },
+      {
+        "label": "Citicolin",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Cholin",
+        "amount": "101,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Chinesischer Raupenpilzmyzelextrakt (CS-4)",
+        "amount": "500,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Adenosin 5'-Triphosphat Dinatrium (Peak ATP®)",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Mangoblattextrakt (Zynamite®)",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Mangiferin",
+        "amount": "45,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Extraktmischung (enostim™)",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Mangofruchtpulver (Careflow®)",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Coenzym Q10",
+        "amount": "100,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Ringelblumenblütenextrakt (ZeaONE™)",
+        "amount": "40,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Zeaxanthin",
+        "amount": "2,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p48",
+    "cat": "Herz & Lunge",
+    "name": "HEALTH+ Protect Heart",
+    "icon": "❤️",
+    "serving": "4 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Q10 fettlöslich – Ubiquinol-Form 8x besser als Ubiquinon; mit Fett. Nattokinase: auf nüchternem Magen.",
+    "function": "Herzmuskel-Energie (Q10 200mg), Gefäßschutz (Traubenkern 800mg OPC), Herzrhythmus, Blutdruck (Nattokinase, R-ALA, S7®-Pflanzenformel)",
+    "takeWith": "4 Kapseln täglich mit ausreichend Flüssigkeit. Mit fettreicher Mahlzeit (Q10 fettlöslich). Abends für Herzregeneration im Schlaf.",
+    "competes": "Statine + Q10 – Arzt konsultieren. Blutdünnende Effekte beachten (Nattokinase + Traubenkern). Enthält Soja (Allergen).",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Terminalia arjuna-Extrakt, schwarzer Knoblauch-Extrakt, Traubenkern-Extrakt, Kapselhülle (Hydroxypropylmethylcellulose), R-alpha-Liponsäure Natriumsalz, Kakaobohnen-Extrakt, Coenzym Q10, Nattokinase, Füllstoff mikrokristalline Cellulose, Pflanzen-Extrakt Mischung (Grüne Kaffeebohnen-Extrakt, Grüntee-Extrakt, Curcuma-Extrakt, Sauerkirschfruchtpulver, Heidelbeerfruchtpulver, Brokkolipulver, Grünkohlpulver), Trennmittel Magnesiumsalze von Speisefettsäuren. Enthält Soja.",
+    "nutrients": [
+      {
+        "label": "Terminalia arjuna-Extrakt (Oxyjun®)",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Arjunophenole",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Terminaloside",
+        "amount": "150,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Schwarzer Knoblauch-Extrakt",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon SAC",
+        "amount": "1,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Traubenkern-Extrakt",
+        "amount": "800,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon OPC",
+        "amount": "400,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "R-alpha-Liponsäure Natriumsalz",
+        "amount": "250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon R-alpha-Liponsäure",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Kakaobohnen-Extrakt",
+        "amount": "250,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon Theobromin",
+        "amount": "50,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Coenzym Q10",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Nattokinase (20.000 FU/g)",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Pflanzen-Extrakt Mischung (S7®)",
+        "amount": "100,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p49",
+    "cat": "Herz & Lunge",
+    "name": "HEALTH+ Protect Lunge",
+    "icon": "🫁",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "NAC gut bioverfügbar; Vitamin B2 (300% NRV) wasserlöslich; Eukalyptus & Thymian lokal wirksam",
+    "function": "Lungengesundheit, Schleimhautschutz, Atemwege, Entzündungshemmung (NAC 1000mg, Lungenkraut 300mg, Eukalyptus 300mg, Thymian 200mg, B2 300% NRV)",
+    "takeWith": "2 Kapseln täglich morgens nüchtern mit ausreichend Flüssigkeit. Mit Vitamin C für maximale Glutathion-Produktion.",
+    "competes": "NAC verlängert Gerinnungszeit. Vorsicht mit Nitroglycerin.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "N-Acetyl-Cystein, Kapselhülle (Hydroxypropylmethylcellulose), Eukalyptus-Extrakt, Lungenkraut-Extrakt, Thymianpulver, Füllstoff mikrokristalline Cellulose, Riboflavin.",
+    "nutrients": [
+      {
+        "label": "Vitamin B2 – Riboflavin",
+        "amount": "4,2 mg",
+        "nrv": 300
+      },
+      {
+        "label": "Lungenkraut-Extrakt",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Thymianpulver",
+        "amount": "200,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Eukalyptus-Extrakt",
+        "amount": "300,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "N-Acetyl-Cystein",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p50",
+    "cat": "Schlaf & Erholung",
+    "name": "WICK ZzzQuil® Gute Nacht Spray",
+    "icon": "🌙",
+    "serving": "4-6 Sprühstöße",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Sehr schnell – sublingual/Schleimhaut, wirkt in 10–20 min (schneller als Kapsel)",
+    "function": "Einschlafförderung, Schlafrhythmus-Regulierung, Jetlag, schnelle Wirkung durch Sprühapplikation",
+    "takeWith": "30 min vor dem Zubettgehen direkt in den Mund sprühen.",
+    "competes": "Nicht mit Alkohol oder sedierenden Substanzen. Niedrig dosieren. Nicht für Kinder unter 12 J.",
+    "geschmack": "Lavendel- und Orangengeschmack",
+    "loeslichkeit": "Nicht anwendbar – Spray",
+    "ingredients": "Demineralisiertes Wasser, Stabilisatoren (Pflanzliches Glycerin, Sorbitsirup), Konservierungsstoff (Kaliumsorbat), Melatonin, Säureregulator (Citronensäure), Natürliche Aromen, Lavendelöl (Lavandula angustifolia), Süßungsmittel (Sucralose)",
+    "nutrients": [
+      {
+        "label": "Melatonin",
+        "amount": "1,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p51",
+    "cat": "Omega & Öle",
+    "name": "HEALTH+ Nachtkerzenöl",
+    "icon": "🌼",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 2,
+    "kcal": 18,
+    "absorption": "Fettlöslich – GLA wird im Körper zu DGLA umgewandelt; immer mit Mahlzeit einnehmen",
+    "function": "Hormonbalance (GLA), Haut & Haare & Nägel, Entzündungshemmung, PMS-Linderung, Gelenk-Unterstützung",
+    "takeWith": "Mit fettreicher Mahlzeit. Synergie mit Omega-3 (p28) – balanciert Omega-6/3-Verhältnis optimal.",
+    "competes": "Nicht mit Blutverdünnern. Zu viel Omega-6 ohne Omega-3 kann kontraproduktiv wirken – immer zusammen mit Fischöl nehmen!",
+    "geschmack": "Nicht relevant (Kapsel) – ggf. leichter Öl-Eigengeschmack beim Aufstoßen",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Nachtkerzenöl, RRR-alpha-Tocopherol-Konzentrat (Vitamin E), Kapselhülle (Gelatine).",
+    "nutrients": [
+      {
+        "label": "Nachtkerzenöl",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon GLA",
+        "amount": ">90,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "Vitamin E (Tocopherol)",
+        "amount": "18,2 mg",
+        "nrv": 152
+      }
+    ]
+  },
+  {
+    "id": "p54",
+    "cat": "Aminosäuren",
+    "name": "HEALTH+ N-Acetyl-L-Cystein (NAC)",
+    "icon": "🛡️",
+    "serving": "2 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Gut oral verfügbar – NAC als acetylierte, stabilisierte Form deutlich besser bioverfügbar als reines L-Cystein. Mahlzeit kaum relevant.",
+    "function": "Glutathion-Vorstufe (stärkstes körpereigenes Antioxidans), Entgiftung von Schwermetallen & Giftstoffen (Leber & Niere), Atemwegschutz & Schleimhautaufbau (Bronchien), Immunsystem, Zellschutz, kognitive Leistung",
+    "takeWith": "30 min vor einer Mahlzeit, 2 Kapseln mit ausreichend Wasser. Mit Vitamin C für maximale Glutathion-Synthese. Mit p49 (Protect Lunge) kombinierbar.",
+    "competes": "Verlängert Gerinnungszeit – Vorsicht mit Blutverdünnern (Warfarin, Aspirin). NICHT direkt ums Training – dämpft Trainings-ROS als Wachstumssignal.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "N-Acetyl-Cystein, Kapselhülle (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "N-Acetyl-Cystein",
+        "amount": "1.000,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p55",
+    "cat": "Herz & Lunge",
+    "name": "HEALTH+ Coenzym Q10",
+    "icon": "❤️",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Fettlöslich – immer mit fetthaltiger Mahlzeit einnehmen (Galle für Absorption nötig). Ubiquinol-Form wäre 8x bioverfügbarer – dieses Produkt enthält Ubiquinon.",
+    "function": "Mitochondriale ATP-Produktion & Herzmuskel-Energie, Antioxidans in Mitochondrien & Zellmembranen, Schutz vor oxidativem Stress, Energie & Ausdauer",
+    "takeWith": "Mit fettreicher Mahlzeit (Galle für Absorption nötig). Abends für Herzregeneration im Schlaf.",
+    "competes": "Statine blockieren körpereigene Q10-Synthese → bei Statineinnahme besonders wichtig! Ubiquinol-Form hat deutlich bessere Bioverfügbarkeit als Ubiquinon.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Füllstoff (mikrokristalline Cellulose), Coenzym Q10, Hydroxypropylmethylcellulose.",
+    "nutrients": [
+      {
+        "label": "Coenzym Q10",
+        "amount": "100,0 mg",
+        "nrv": null
+      }
+    ]
+  },
+  {
+    "id": "p56",
+    "cat": "Vitamine",
+    "name": "Robert Franz Vitamin K2 Tropfen",
+    "icon": "🦴",
+    "serving": "1 Tropfen",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Fettlöslich – MCT-Öl als Träger unterstützt Aufnahme. MK-7-Form hat längste Halbwertszeit (Wochen) und beste Bioverfügbarkeit unter allen K2-Formen.",
+    "function": "Calcium-Steuerung (lenkt Calcium in Knochen statt Arterien & Weichgewebe), Osteocalcin-Aktivierung, Kardiovaskulärer Schutz, Knochenaufbau",
+    "takeWith": "IMMER zusammen mit D3 (p22) einnehmen – gegenseitig unverzichtbar! MORGENS mit fetthaltiger Mahlzeit.",
+    "competes": "NIEMALS K2 ohne D3 – und umgekehrt! Vorsicht mit Warfarin/Marcumar (Vitamin-K-Antagonisten) – Arzt fragen!",
+    "geschmack": "Neutraler Öl-Eigengeschmack (MCT-Träger)",
+    "loeslichkeit": "In MCT-Öl gelöst – 1 Tropfen direkt in den Mund oder auf Speisen",
+    "ingredients": "MCT-Öl aus Kokos, Vitamin K2 (Menachinon).",
+    "nutrients": [
+      {
+        "label": "Vitamin K2 (Menachinon)",
+        "amount": "20,0 µg",
+        "nrv": 27
+      }
+    ]
+  },
+  {
+    "id": "p57",
+    "cat": "Vitamine",
+    "name": "Robert Franz OPC 65",
+    "icon": "🍇",
+    "serving": "1 Kap",
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0,
+    "kcal": 0,
+    "absorption": "Gut oral resorbierbar – Traubenkernextrakt mit 65% OPC-Anteil; kurz nach der Mahlzeit für optimale Verträglichkeit.",
+    "function": "Starkes Antioxidans (Oligomere Proanthocyanidine aus Traubenkernen): verbessert Blutfließeigenschaft, verhindert Blutverklumpung, erhöht Gefäßelastizität, natürlicher UV-Schutz, verstärkt Wirkung von Vitamin C & E.",
+    "takeWith": "Kurz nach der Mahlzeit mit ausreichend Flüssigkeit. Synergie mit Vitamin C (p21). Morgens oder mittags einnehmen.",
+    "competes": "NICHT direkt vor oder nach dem Training – OPC dämpft Trainings-ROS (Wachstumssignale)! Nicht mit Blutverdünnern. Multi (p27) enthält bereits OPC – Gesamtdosis beachten.",
+    "geschmack": "Nicht relevant (Kapsel)",
+    "loeslichkeit": "Nicht anwendbar (Kapsel)",
+    "ingredients": "Polyphenolhaltiges Traubenkernextrakt (OPC), Überzugsmittel (Hydroxypropylmethylcellulose).",
+    "nutrients": [
+      {
+        "label": "Traubenkernextrakt",
+        "amount": "350,0 mg",
+        "nrv": null
+      },
+      {
+        "label": "— davon OPC",
+        "amount": "227,5 mg",
+        "nrv": null
+      }
+    ]
+  }
+]
