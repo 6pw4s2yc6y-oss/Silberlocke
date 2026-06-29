@@ -54,7 +54,7 @@
 
     <div id="setupScreen">
         <div class="setup-card">
-            <div class="onboard-progress">Schritt 1 von 6 · Uhrzeiten</div>
+            <div class="onboard-progress">Schritt 1 von 7 · Uhrzeiten</div>
             <span class="setup-logo">⚗️</span>
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Supplement &amp; Lifestyle System</div>
@@ -109,7 +109,7 @@
     <div id="stepProfile" class="onboard-screen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 2 von 8 · Über dich</div>
+            <div class="onboard-progress">Schritt 2 von 7 · Über dich</div>
             <div class="setup-title" style="font-size:24px;">Über dich</div>
             <div class="setup-subtitle">Für deinen Kalorien- &amp; Eiweißbedarf</div>
             <div class="onboard-field">
@@ -146,7 +146,7 @@
     <div id="stepActivity" class="onboard-screen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 3 von 8 · Aktivität</div>
+            <div class="onboard-progress">Schritt 3 von 7 · Aktivität</div>
             <div class="setup-title" style="font-size:24px;">Wie aktiv bist du?</div>
             <div class="setup-subtitle">Bestimmt deinen Kalorienbedarf</div>
             <div class="onboard-field">
@@ -166,34 +166,11 @@
         </div>
     </div>
 
-    <!-- SCHRITT 4: Sportart -->
-    <div id="stepSportType" class="onboard-screen">
-        <div class="setup-card">
-            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 4 von 8 · Sportart</div>
-            <div class="setup-title" style="font-size:24px;">Deine Sportart</div>
-            <div class="setup-subtitle">Womit trainierst du?</div>
-            <div class="onboard-field">
-                <div class="onboard-choice" id="sportTypeChoice">
-                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kraft',this)">🏋️ Kraftsport</button>
-                    <button class="onboard-opt" onclick="setProfileChoice('sportType','ausdauer',this)">🚴 Ausdauer</button>
-                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kampf',this)">🥊 Kampfsport</button>
-                    <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
-                </div>
-            </div>
-            <button class="start-btn" onclick="nextStep()">Weiter →</button>
-            <div class="onboard-nav">
-                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
-                <button class="mode-back-btn" onclick="skipStep('sportType')">Überspringen →</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- SCHRITT 5: Ziel -->
+    <!-- SCHRITT 4: Ziel -->
     <div id="stepGoal" class="onboard-screen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 5 von 8 · Ziel</div>
+            <div class="onboard-progress">Schritt 4 von 7 · Ziel</div>
             <div class="setup-title" style="font-size:24px;">Dein Ziel</div>
             <div class="setup-subtitle">Passt deinen Kalorienbedarf an</div>
             <div class="onboard-field">
@@ -216,7 +193,7 @@
     <div id="modeScreen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="modeBack()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 6 von 8 · Ansicht</div>
+            <div class="onboard-progress">Schritt 6 von 7 · Ansicht</div>
             <span class="setup-logo">🧭</span>
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
@@ -238,7 +215,7 @@
     <div id="stepProducts" class="onboard-screen">
         <div class="setup-card onboard-card-wide">
             <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 7 von 8 · Deine Produkte</div>
+            <div class="onboard-progress">Schritt 7 von 7 · Deine Produkte</div>
             <div class="setup-title" style="font-size:24px;">Deine Produkte</div>
             <div class="setup-subtitle">Wie soll dein Tagesplan starten?</div>
 
@@ -251,30 +228,43 @@
             <input type="text" class="time-input onboard-text" id="onboardProductSearch" placeholder="Produkt suchen…" oninput="renderOnboardProducts()" style="margin:0 0 6px;">
             <div class="onboard-count" id="onboardProductCount">0 Produkte gewählt</div>
             <div class="onboard-product-list" id="onboardProductList"></div>
-            <button class="start-btn" onclick="nextStep()">Weiter mit Auswahl →</button>
+            <button class="start-btn" onclick="finishOnboarding()">✓ Fertig – App starten</button>
             <div class="onboard-nav">
                 <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
-                <button class="mode-back-btn" onclick="nextStep()">Überspringen →</button>
+                <button class="mode-back-btn" onclick="finishOnboarding()">Überspringen →</button>
             </div>
         </div>
     </div>
 
-    <!-- SCHRITT 8: Trainingsplan -->
+    <!-- SCHRITT 5: Sport & Training -->
     <div id="stepSport" class="onboard-screen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
-            <div class="onboard-progress">Schritt 8 von 8 · Training</div>
-            <div class="setup-title" style="font-size:24px;">Dein Training</div>
-            <div class="setup-subtitle">Welcher Trainingsplan passt?</div>
+            <div class="onboard-progress">Schritt 5 von 7 · Sport &amp; Training</div>
+            <div class="setup-title" style="font-size:24px;">Sport &amp; Training</div>
+            <div class="setup-subtitle">Womit trainierst du – und wie?</div>
             <div class="onboard-field">
+                <label>Sportart</label>
+                <div class="onboard-choice" id="sportTypeChoice">
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kraft',this)">🏋️ Kraftsport</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','ausdauer',this)">🚴 Ausdauer</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kampf',this)">🥊 Kampfsport</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
+                </div>
+            </div>
+            <div class="onboard-field">
+                <label>Trainingsplan</label>
                 <div class="onboard-choice onboard-choice-col" id="sportModeChoice">
                     <button class="onboard-opt" onclick="setSportChoice('maxkraft',this)">💪 Maximalkraft <span class="onboard-opt-sub">schwer, wenig Wdh., maximale Kraft</span></button>
                     <button class="onboard-opt" onclick="setSportChoice('hyper',this)">🔥 Hypertrophie <span class="onboard-opt-sub">Muskelaufbau, moderates Gewicht</span></button>
                     <button class="onboard-opt" onclick="setSportChoice('kausd',this)">⚡ Kraftausdauer <span class="onboard-opt-sub">viele Wdh., Ausdauer & Definition</span></button>
                 </div>
             </div>
-            <button class="start-btn" onclick="finishOnboarding()">✓ Fertig – App starten</button>
-            <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+            <button class="start-btn" onclick="nextStep()">Weiter →</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="skipStep('sport')">Überspringen →</button>
+            </div>
         </div>
     </div>
 
