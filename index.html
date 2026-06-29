@@ -192,6 +192,42 @@
         }
         .mode-back-btn:hover { color: #94a3b8; }
 
+        /* ── ONBOARDING-ASSISTENT ──────────────────────────────────────────── */
+        .onboard-screen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: radial-gradient(ellipse at 50% 0%, #130d2e 0%, #000000 65%);
+        }
+        .onboard-card-wide { max-width: 460px; }
+        .onboard-progress {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+            color: #7c3aed; margin-bottom: 14px; text-align: center;
+        }
+        .onboard-field { text-align: left; margin-bottom: 18px; }
+        .onboard-field > label {
+            display: block; font-size: 12px; font-weight: 700; color: #94a3b8;
+            margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .onboard-text { width: 100%; text-align: center; }
+        .onboard-choice { display: flex; gap: 8px; flex-wrap: wrap; }
+        .onboard-choice-col { flex-direction: column; }
+        .onboard-opt {
+            flex: 1 1 auto; min-width: 90px; padding: 12px 10px; border-radius: 10px;
+            background: #0c0c1e; border: 1px solid #1e293b; color: #cbd5e1;
+            font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.15s;
+            display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center;
+        }
+        .onboard-choice-col .onboard-opt { align-items: flex-start; text-align: left; }
+        .onboard-opt:hover { border-color: #7c3aed; }
+        .onboard-opt.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
+        .onboard-opt-sub { font-size: 10px; font-weight: 500; color: #64748b; }
+        .onboard-opt.active .onboard-opt-sub { color: #ddd6fe; }
+        .onboard-count { font-size: 11px; color: #a5b4fc; font-weight: 700; text-align: center; margin-bottom: 10px; }
+        .onboard-product-list { max-height: 42vh; overflow-y: auto; margin-bottom: 14px; padding-right: 2px; }
+
         /* MODUS-WECHSEL-BUTTON im Header */
         .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
         .mode-switch-btn {
@@ -896,6 +932,7 @@
 
     <div id="setupScreen">
         <div class="setup-card">
+            <div class="onboard-progress">Schritt 1 von 6 · Uhrzeiten</div>
             <span class="setup-logo">⚗️</span>
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Supplement &amp; Lifestyle System</div>
@@ -921,12 +958,65 @@
                     <span>Flexibel / kein festes Training</span>
                 </label>
             </div>
-            <button class="start-btn" onclick="startApp()">Plan generieren</button>
+            <button class="start-btn" onclick="startApp()">Weiter →</button>
+        </div>
+    </div>
+
+    <!-- SCHRITT 2: Alter & Geschlecht -->
+    <div id="stepProfile" class="onboard-screen">
+        <div class="setup-card">
+            <div class="onboard-progress">Schritt 2 von 6 · Über dich</div>
+            <div class="setup-title" style="font-size:24px;">Über dich</div>
+            <div class="setup-subtitle">Alter &amp; Geschlecht</div>
+            <div class="onboard-field">
+                <label>Alter</label>
+                <input type="text" inputmode="numeric" id="profileAge" class="time-input onboard-text" placeholder="z. B. 27">
+            </div>
+            <div class="onboard-field">
+                <label>Geschlecht</label>
+                <div class="onboard-choice" id="genderChoice">
+                    <button class="onboard-opt" onclick="setProfileChoice('gender','m',this)">♂ Männlich</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('gender','w',this)">♀ Weiblich</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('gender','d',this)">⚧ Divers</button>
+                </div>
+            </div>
+            <button class="start-btn" onclick="profileNext()">Weiter →</button>
+            <button class="mode-back-btn" onclick="goStep(1)">&#8592; Zurück</button>
+        </div>
+    </div>
+
+    <!-- SCHRITT 3: Aktivitätslevel & Sportart -->
+    <div id="stepActivity" class="onboard-screen">
+        <div class="setup-card">
+            <div class="onboard-progress">Schritt 3 von 6 · Aktivität</div>
+            <div class="setup-title" style="font-size:24px;">Dein Alltag</div>
+            <div class="setup-subtitle">Aktivitätslevel &amp; Sportart</div>
+            <div class="onboard-field">
+                <label>Wie aktiv bist du?</label>
+                <div class="onboard-choice onboard-choice-col" id="activityChoice">
+                    <button class="onboard-opt" onclick="setProfileChoice('activity','wenig',this)">🛋️ Wenig aktiv (Büro, kaum Sport)</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('activity','maessig',this)">🚶 Mäßig aktiv (1–3× Sport/Woche)</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('activity','aktiv',this)">🏃 Aktiv (4–5× Sport/Woche)</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('activity','sehr',this)">🔥 Sehr aktiv (täglich / 2×)</button>
+                </div>
+            </div>
+            <div class="onboard-field">
+                <label>Deine Sportart</label>
+                <div class="onboard-choice" id="sportTypeChoice">
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kraft',this)">🏋️ Kraftsport</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','ausdauer',this)">🚴 Ausdauer</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','kampf',this)">🥊 Kampfsport</button>
+                    <button class="onboard-opt" onclick="setProfileChoice('sportType','mix',this)">🤸 Mix</button>
+                </div>
+            </div>
+            <button class="start-btn" onclick="activityNext()">Weiter →</button>
+            <button class="mode-back-btn" onclick="goStep(2)">&#8592; Zurück</button>
         </div>
     </div>
 
     <div id="modeScreen">
         <div class="setup-card">
+            <div class="onboard-progress">Schritt 4 von 6 · Ansicht</div>
             <span class="setup-logo">🧭</span>
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
@@ -940,7 +1030,39 @@
                     <span class="mode-desc">Ganz einfach: Nur was du nimmst, wann und wie viel. Kein Fachchinesisch, kein Schnickschnack.</span>
                 </button>
             </div>
-            <button class="mode-back-btn" onclick="backToSetup()">&#8592; Zurück zur Zeiteingabe</button>
+            <button class="mode-back-btn" onclick="modeBack()">&#8592; Zurück</button>
+        </div>
+    </div>
+
+    <!-- SCHRITT 5: Produkte auswählen -->
+    <div id="stepProducts" class="onboard-screen">
+        <div class="setup-card onboard-card-wide">
+            <div class="onboard-progress">Schritt 5 von 6 · Deine Produkte</div>
+            <div class="setup-title" style="font-size:24px;">Deine Produkte</div>
+            <div class="setup-subtitle">Wähle, was du nimmst – kommt in „Mein Stack"</div>
+            <input type="text" class="time-input onboard-text" id="onboardProductSearch" placeholder="Produkt suchen…" oninput="renderOnboardProducts()" style="margin:14px 0 6px;">
+            <div class="onboard-count" id="onboardProductCount">0 Produkte gewählt</div>
+            <div class="onboard-product-list" id="onboardProductList"></div>
+            <button class="start-btn" onclick="goStep(6)">Weiter →</button>
+            <button class="mode-back-btn" onclick="goStep(4)">&#8592; Zurück</button>
+        </div>
+    </div>
+
+    <!-- SCHRITT 6: Trainingsplan -->
+    <div id="stepSport" class="onboard-screen">
+        <div class="setup-card">
+            <div class="onboard-progress">Schritt 6 von 6 · Training</div>
+            <div class="setup-title" style="font-size:24px;">Dein Training</div>
+            <div class="setup-subtitle">Welcher Trainingsplan passt?</div>
+            <div class="onboard-field">
+                <div class="onboard-choice onboard-choice-col" id="sportModeChoice">
+                    <button class="onboard-opt" onclick="setSportChoice('maxkraft',this)">💪 Maximalkraft <span class="onboard-opt-sub">schwer, wenig Wdh., maximale Kraft</span></button>
+                    <button class="onboard-opt" onclick="setSportChoice('hyper',this)">🔥 Hypertrophie <span class="onboard-opt-sub">Muskelaufbau, moderates Gewicht</span></button>
+                    <button class="onboard-opt" onclick="setSportChoice('kausd',this)">⚡ Kraftausdauer <span class="onboard-opt-sub">viele Wdh., Ausdauer & Definition</span></button>
+                </div>
+            </div>
+            <button class="start-btn" onclick="finishOnboarding()">✓ Fertig – App starten</button>
+            <button class="mode-back-btn" onclick="goStep(5)">&#8592; Zurück</button>
         </div>
     </div>
 
@@ -2160,45 +2282,121 @@
             document.getElementById("displayWakeTime").innerText = wakeInput;
             document.getElementById("displaySleepTime").innerText = sleepInput;
 
-            // Setup ausblenden → Modus-Auswahl (Hard / Light) einblenden
-            document.getElementById("setupScreen").style.display = "none";
-            document.getElementById("modeScreen").style.display = "flex";
+            // Schritt 1 abgeschlossen → weiter im Assistenten, oder (bei Schnell-Edit) direkt zurück in die App
+            if (inOnboarding) goStep(2);
+            else enterApp();
         }
 
-        // Zurück zur Zeiteingabe aus der laufenden App (Zeiten ändern)
-        function editTimes() {
-            document.getElementById("mainApp").style.display = "none";
-            document.getElementById("modeScreen").style.display = "none";
-            document.getElementById("setupScreen").style.display = "flex";
-        }
-
-        // ── MODUS-AUSWAHL: Hard (voll) oder Light (vereinfacht) ────────────────────
+        // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
         let appMode = 'hard';
+        let inOnboarding = true;
+        let currentStep = 1;
+        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'modeScreen', 5:'stepProducts', 6:'stepSport' };
+
+        let userProfile = { age:'', gender:'', activity:'', sportType:'' };
+        let selectedSportMode = 'maxkraft';
+
         function isLight() { return appMode === 'light'; }
 
-        // Zurück zur Zeiteingabe (von der Modus-Auswahl)
-        function backToSetup() {
-            document.getElementById("modeScreen").style.display = "none";
-            document.getElementById("setupScreen").style.display = "flex";
+        function loadProfile() {
+            try { userProfile = JSON.parse(localStorage.getItem('sl_profile') || '{}') || {}; } catch (e) { userProfile = {}; }
+            ['age','gender','activity','sportType'].forEach(k => { if (!(k in userProfile)) userProfile[k] = ''; });
+            selectedSportMode = localStorage.getItem('sl_sport') || 'maxkraft';
+        }
+        function saveProfile() { try { localStorage.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
+
+        function goStep(n) {
+            if (n > 6) { enterApp(); return; }
+            if (n < 1) n = 1;
+            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            const el = document.getElementById(ONBOARD_SCREENS[n]);
+            if (el) el.style.display = 'flex';
+            currentStep = n;
+            window.scrollTo(0, 0);
+            if (n === 5) renderOnboardProducts();
         }
 
-        // Zurück zur Modus-Auswahl (aus der laufenden App – falls man im falschen Modus ist)
+        // Auswahl-Buttons (Geschlecht, Aktivität, Sportart)
+        function setProfileChoice(field, val, btn) {
+            userProfile[field] = val;
+            saveProfile();
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        function profileNext() {
+            userProfile.age = document.getElementById('profileAge').value.trim();
+            saveProfile();
+            goStep(3);
+        }
+        function activityNext() { saveProfile(); goStep(4); }
+
+        // Schritt 5: Produkte auswählen → füllt Mein Stack
+        function onboardToggle(pid) {
+            if (myStack[pid]) delete myStack[pid];
+            else { const p = getProductById(pid); if (p) myStack[pid] = { amount: parseServing(p.serving).num }; }
+            saveStack();
+            renderOnboardProducts();
+        }
+        function renderOnboardProducts() {
+            const box = document.getElementById('onboardProductList');
+            if (!box) return;
+            const q = (document.getElementById('onboardProductSearch')?.value || '').toLowerCase().trim();
+            let list = [...PRODUCTS].sort((a, b) => a.name.localeCompare(b.name, 'de'));
+            if (q) list = list.filter(p => p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
+            document.getElementById('onboardProductCount').textContent = Object.keys(myStack).length + ' Produkte gewählt';
+            box.innerHTML = list.map(p => {
+                const inStack = !!myStack[p.id];
+                const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+                return `<button class="stack-browse-row${inStack ? ' in-stack' : ''}" onclick="onboardToggle('${p.id}')">
+                    <span class="stack-browse-name"><span style="margin-right:6px;">${p.icon}</span>${p.name}${sold ? ' <span style="color:#f87171;font-size:9px;">(ausverkauft)</span>' : ''}</span>
+                    <span class="stack-browse-act">${inStack ? '✓ Drin' : '+ Wählen'}</span>
+                </button>`;
+            }).join('');
+        }
+
+        // Schritt 6: Trainingsplan wählen
+        function setSportChoice(mode, btn) {
+            selectedSportMode = mode;
+            try { localStorage.setItem('sl_sport', mode); } catch (e) {}
+            btn.parentElement.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        function finishOnboarding() { enterApp(); }
+
+        // Schnell-Wege aus der laufenden App (kein erneutes Onboarding)
+        function editTimes() {
+            inOnboarding = false;
+            document.getElementById("mainApp").style.display = "none";
+            document.getElementById("setupScreen").style.display = "flex";
+        }
         function backToModeSelect() {
+            inOnboarding = false;
             document.getElementById("mainApp").style.display = "none";
             document.getElementById("modeScreen").style.display = "flex";
         }
+        function modeBack() {
+            if (inOnboarding) goStep(3);
+            else enterApp();
+        }
 
-        function selectMode(mode) {
+        function applyMode(mode) {
             appMode = mode;
             document.body.classList.toggle('light-mode', mode === 'light');
-
-            // Gewählten Modus lokal merken
             try { localStorage.setItem("sl_mode", mode); } catch (e) {}
+        }
+        function selectMode(mode) {
+            applyMode(mode);
+            if (inOnboarding) goStep(5);
+            else enterApp();
+        }
 
-            document.getElementById("modeScreen").style.display = "none";
+        // App betreten – alle Onboarding-Screens aus, App rendern
+        function enterApp() {
+            inOnboarding = false;
+            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
             document.getElementById("mainApp").style.display = "block";
 
-            // Alle Listen rendern
             initStaticPanels();
             document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
             renderTimeline();
@@ -2209,6 +2407,7 @@
             renderStackView();
             loadMoney();
             renderMoney();
+            if (selectedSportMode) selectSportMode(selectedSportMode);
         }
 
         function initStaticPanels() {
@@ -4697,7 +4896,25 @@
             if (timeInfo) timeInfo.addEventListener("click", editTimes);
 
             // ── Gespeicherte Sitzung wiederherstellen (localStorage) ──────────────
-            // Damit man die Uhrzeit nicht bei jedem Besuch neu eingeben muss.
+            // Damit man den Assistenten nicht bei jedem Besuch neu durchläuft.
+            loadProfile();
+            loadStack();
+            // Profil-Auswahlen für den Assistenten vorbelegen (falls man hingeht)
+            try {
+                if (userProfile.age) document.getElementById('profileAge').value = userProfile.age;
+                const markChoice = (parentId, field) => {
+                    document.querySelectorAll('#' + parentId + ' .onboard-opt').forEach(b => {
+                        if (b.getAttribute('onclick').includes("'" + userProfile[field] + "'")) b.classList.add('active');
+                    });
+                };
+                if (userProfile.gender)    markChoice('genderChoice', 'gender');
+                if (userProfile.activity)  markChoice('activityChoice', 'activity');
+                if (userProfile.sportType) markChoice('sportTypeChoice', 'sportType');
+                document.querySelectorAll('#sportModeChoice .onboard-opt').forEach(b => {
+                    if (b.getAttribute('onclick').includes("'" + selectedSportMode + "'")) b.classList.add('active');
+                });
+            } catch (e) {}
+
             try {
                 const savedWake  = localStorage.getItem("sl_wake");
                 const savedSleep = localStorage.getItem("sl_sleep");
@@ -4714,15 +4931,14 @@
                 }
                 globalTrainTimeStr = savedTrain || "";
 
-                // Alles bekannt → direkt in die App, beide Startseiten überspringen
+                // Alles bekannt → direkt in die App, Assistent überspringen
                 if (savedWake && savedSleep && savedMode) {
                     globalWakeTimeStr  = savedWake;
                     globalSleepTimeStr = savedSleep;
                     document.getElementById("displayWakeTime").innerText  = savedWake;
                     document.getElementById("displaySleepTime").innerText = savedSleep;
-                    document.getElementById("setupScreen").style.display = "none";
-                    document.getElementById("modeScreen").style.display  = "none";
-                    selectMode(savedMode);
+                    applyMode(savedMode);
+                    enterApp();
                 }
             } catch (e) {}
         });
