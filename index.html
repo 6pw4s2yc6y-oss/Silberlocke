@@ -93,6 +93,12 @@
         }
         .setup-flex-row input { width: 16px; height: 16px; accent-color: #7c3aed; cursor: pointer; }
         .time-input:disabled { opacity: 0.4; cursor: not-allowed; }
+        .setup-meals { margin-bottom: 20px; }
+        .meals-label { display: block; font-size: 12px; font-weight: 700; color: #94a3b8; margin-bottom: 8px; }
+        .meals-grid { display: flex; gap: 8px; }
+        .meals-grid > div { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+        .meals-grid span { font-size: 10px; color: #64748b; text-align: center; }
+        .meals-grid .time-input { padding: 8px 4px; font-size: 13px; }
 
         .setup-arrow {
             font-size: 16px;
@@ -973,6 +979,18 @@
                 <label class="setup-flex-row">
                     <input type="checkbox" id="trainFlexInput" checked onchange="document.getElementById('trainTimeInput').style.opacity = this.checked ? '0.45' : '1';">
                     <span>Flexibel / kein festes Training</span>
+                </label>
+            </div>
+            <div class="setup-meals" id="setupMeals">
+                <label class="meals-label">🍳 Mahlzeiten-Zeiten</label>
+                <div class="meals-grid" id="mealsGrid" style="opacity:0.45;">
+                    <div><span>Frühstück</span><input type="time" id="mealBreakfast" class="time-input" value="08:00"></div>
+                    <div><span>Mittag</span><input type="time" id="mealLunch" class="time-input" value="13:00"></div>
+                    <div><span>Abend</span><input type="time" id="mealDinner" class="time-input" value="19:00"></div>
+                </div>
+                <label class="setup-flex-row">
+                    <input type="checkbox" id="mealAutoInput" checked onchange="document.getElementById('mealsGrid').style.opacity = this.checked ? '0.45' : '1';">
+                    <span>Automatisch takten (Standard)</span>
                 </label>
             </div>
             <button class="start-btn" onclick="startApp()">Weiter →</button>
@@ -2244,6 +2262,7 @@
         let globalWakeTimeStr = "07:00";
         let globalSleepTimeStr = "23:00";
         let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training
+        let globalMealTimes = { breakfast:'', lunch:'', dinner:'' };  // '' = automatisch takten
 
         const getProductById = (id) => PRODUCTS.find(p => p.id === id);
 
@@ -2321,11 +2340,20 @@
             const trainInput = document.getElementById("trainTimeInput").value;
             globalTrainTimeStr = (flex || !trainInput) ? "" : trainInput;
 
+            // Mahlzeiten-Zeiten (leer = automatisch takten)
+            const mealAuto = document.getElementById("mealAutoInput").checked;
+            globalMealTimes = mealAuto ? { breakfast:'', lunch:'', dinner:'' } : {
+                breakfast: document.getElementById("mealBreakfast").value,
+                lunch:     document.getElementById("mealLunch").value,
+                dinner:    document.getElementById("mealDinner").value
+            };
+
             // Zeiten lokal im Browser merken (kein Login/Backend nötig)
             try {
                 localStorage.setItem("sl_wake", wakeInput);
                 localStorage.setItem("sl_sleep", sleepInput);
                 localStorage.setItem("sl_train", globalTrainTimeStr);
+                localStorage.setItem("sl_meals", JSON.stringify(globalMealTimes));
             } catch (e) {}
 
             // Display im Header aktualisieren
@@ -2523,15 +2551,18 @@
             Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
             document.getElementById("mainApp").style.display = "block";
 
+            loadStack();
+            loadMoney();
+            // Hat man Produkte gewählt → Tagesplan zeigt nur die eigenen Produkte
+            stackPlanActive = Object.keys(myStack).length > 0;
+
             initStaticPanels();
             document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
             renderTimeline();
             initDatabaseView();
             initNutrView();
             renderSportPlans();
-            loadStack();
             renderStackView();
-            loadMoney();
             renderMoney();
             renderDailyTargets();
             if (selectedSportMode) selectSportMode(selectedSportMode);
@@ -3575,6 +3606,19 @@
                     return b;
                 });
             }
+
+            // Mahlzeiten-Blöcke auf die eingegebenen Uhrzeiten takten (Frühstück/Mittag/Abend)
+            const toOffset = (timeStr) => {
+                if (!timeStr) return null;
+                const [hh, mm] = timeStr.split(':').map(Number);
+                const off = ((hh * 60 + mm) - wakeMin + 1440) % 1440;
+                return (off >= 0 && off < awakeDuration) ? off : null;
+            };
+            const mealOffsets = { t2: toOffset(globalMealTimes.breakfast), t7: toOffset(globalMealTimes.lunch), t9: toOffset(globalMealTimes.dinner) };
+            activeBlocks = activeBlocks.map(b => {
+                if (mealOffsets[b.id] != null) return { ...b, absoluteMinutes: mealOffsets[b.id] };
+                return b;
+            });
 
             // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
             let stackBanner = "";
@@ -5060,6 +5104,21 @@
                     document.getElementById("trainFlexInput").checked = false;
                 }
                 globalTrainTimeStr = savedTrain || "";
+
+                // Mahlzeiten wiederherstellen
+                try {
+                    const m = JSON.parse(localStorage.getItem("sl_meals") || "null");
+                    if (m) {
+                        globalMealTimes = m;
+                        if (m.breakfast || m.lunch || m.dinner) {
+                            if (m.breakfast) document.getElementById("mealBreakfast").value = m.breakfast;
+                            if (m.lunch)     document.getElementById("mealLunch").value = m.lunch;
+                            if (m.dinner)    document.getElementById("mealDinner").value = m.dinner;
+                            document.getElementById("mealAutoInput").checked = false;
+                            document.getElementById("mealsGrid").style.opacity = '1';
+                        }
+                    }
+                } catch (e) {}
 
                 // Alles bekannt → direkt in die App, Assistent überspringen
                 if (savedWake && savedSleep && savedMode) {
