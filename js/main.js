@@ -2,6 +2,17 @@
         import { buildTargetsHtml } from './modules/ui.js';
         import { loadData } from './modules/dataFetcher.js';
 
+        // Performance: Eingaben entprellen, damit nicht bei jedem Tastendruck neu gerendert wird.
+        function debounce(fn, wait = 250) {
+            let t;
+            return function (...args) {
+                clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), wait);
+            };
+        }
+        // Performance: gerenderte Listen hart begrenzen.
+        const RENDER_LIMIT = 50;
+
         let PRODUCTS = [];
 
         const PRODUCT_FLAVORS = {
@@ -1546,7 +1557,7 @@
             document.getElementById("dbProductCount").innerText = `${filtered.length} Produkte`;
             document.getElementById("dbNoResults").style.display = filtered.length === 0 ? 'block' : 'none';
 
-            listContainer.innerHTML = filtered.map(p => {
+            listContainer.innerHTML = filtered.slice(0, RENDER_LIMIT).map(p => {
                 const kj = Math.round(p.kcal * 4.184);
                 const badge = PRODUCT_BADGES[p.id];
                 let macroHtml = `
@@ -1896,7 +1907,7 @@
                 return matchCat && matchSearch;
             });
 
-            document.getElementById("nutrCardList").innerHTML = filtered.map(n => `
+            document.getElementById("nutrCardList").innerHTML = filtered.slice(0, RENDER_LIMIT).map(n => `
                 <div class="nutr-card" id="nc-${n.id}">
                     <button class="nutr-trigger" onclick="toggleNutrCard('${n.id}')">
                         <span class="nutr-icon">${n.icon}</span>
@@ -1968,17 +1979,17 @@
             document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
             document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
-            document.getElementById("dbSearchInput").addEventListener("input", function(e) {
+            document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
-            });
-            document.getElementById("stackSearchInput").addEventListener("input", function(e) {
+            }, 250));
+            document.getElementById("stackSearchInput").addEventListener("input", debounce(function(e) {
                 renderStackAddList(e.target.value);
-            });
-            document.getElementById("nutrSearchInput").addEventListener("input", function(e) {
+            }, 250));
+            document.getElementById("nutrSearchInput").addEventListener("input", debounce(function(e) {
                 nutrSearch = e.target.value;
                 renderNutrCards();
-            });
+            }, 250));
             document.getElementById("productOverlay").addEventListener("click", function() {
                 this.style.display = "none";
             });
