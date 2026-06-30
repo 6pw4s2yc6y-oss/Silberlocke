@@ -287,7 +287,7 @@
                     </div>
                 </div>
                 <div class="tab-bar">
-                    <button class="tab-btn tab-emergency" id="tabEmergency">🚨 Notfall</button>
+                    <button class="tab-btn tab-emergency" id="tabRecovery">🚨 RecoveryMode</button>
                     <span class="tab-group-sep"></span>
                     <span class="tab-group-label" onclick="document.getElementById('tabTimeline').click()">Plan</span>
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
@@ -748,9 +748,13 @@
                 </div>
             </div>
 
-            <!-- NOTFALL / RECOVERY -->
-            <div class="view-section" id="viewEmergency">
-                <div class="emerg-wrap" id="emergencyList"></div>
+            <!-- RECOVERYMODE-HUB -->
+            <div class="view-section" id="viewRecovery">
+                <div class="emerg-wrap">
+                    <div class="emerg-banner">🚨 RECOVERYMODE</div>
+                    <div class="rec-subnav" id="recoveryNav"></div>
+                    <div id="recoveryBody"></div>
+                </div>
             </div>
 
             <!-- ÜBERWACHUNGS-PROTOKOLL -->

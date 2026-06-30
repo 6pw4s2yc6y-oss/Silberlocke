@@ -340,7 +340,7 @@
             initNutrView();
             initBloodView();
             initMonitorView();
-            renderEmergency();
+            initRecoveryHub();
             renderSportPlans();
             renderStackView();
             renderMoney();
@@ -1942,6 +1942,11 @@
         let monitorLog = {};    // { itemId: "YYYY-MM-DD" } – zuletzt erledigt
         let monitorFilter = "Alle";
         let EMERGENCY = { intro: "", numbers: [], immediate: { steps: [] }, redflags: [], facts: [] };
+        let INJURIES = [];
+        let MENTAL = { cards: [], help: {} };
+        let findings = [];        // [{ id, date, doctor, diagnosis, referral, notes }] – lokal
+        let recoveryTab = 'injuries';
+        let injuryFilter = 'Alle';
 
 
         let nutrFilter = "Alle";
@@ -2179,10 +2184,125 @@
             if (el) { const card = el.closest('.blood-card'); if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         }
 
-        // ─── NOTFALL / RECOVERY (Erste Hilfe & Notrufnummern) ──────────────────
-        function renderEmergency() {
-            const box = document.getElementById('emergencyList');
-            if (!box) return;
+        // ─── RECOVERYMODE-HUB (eigenständige Seite mit internen Tabs) ──────────
+        const RECOVERY_TABS = [
+            { id: 'injuries', label: '🤕 Verletzungen' },
+            { id: 'findings', label: '📋 Meine Befunde' },
+            { id: 'mind',     label: '🧠 Seelisches' },
+            { id: 'emergency',label: '📞 Notruf' },
+        ];
+        function initRecoveryHub() {
+            loadFindings();
+            renderRecoveryHub();
+        }
+        function selectRecoveryTab(id) { recoveryTab = id; renderRecoveryHub(); }
+        function renderRecoveryHub() {
+            const nav = document.getElementById('recoveryNav');
+            const body = document.getElementById('recoveryBody');
+            if (!nav || !body) return;
+            nav.innerHTML = RECOVERY_TABS.map(t =>
+                `<button class="rec-subtab${t.id === recoveryTab ? ' active' : ''}" onclick="selectRecoveryTab('${t.id}')">${t.label}</button>`
+            ).join('');
+            if (recoveryTab === 'injuries')      body.innerHTML = injuriesHtml();
+            else if (recoveryTab === 'findings') body.innerHTML = findingsHtml();
+            else if (recoveryTab === 'mind')     body.innerHTML = mindHtml();
+            else                                 body.innerHTML = emergencyHtml();
+        }
+
+        // — Verletzungen —
+        function injuriesHtml() {
+            const cats = ['Alle', ...new Set(INJURIES.map(i => i.cat))];
+            const catBar = cats.map(c =>
+                `<button class="blood-cat-btn${c === injuryFilter ? ' active' : ''}" onclick="setInjuryFilter('${c}')">${c}</button>`).join('');
+            const list = INJURIES.filter(i => injuryFilter === 'Alle' || i.cat === injuryFilter);
+            const cards = list.map(inj => {
+                const li = (arr, cls) => (arr || []).map(x => `<li class="${cls || ''}">${x}</li>`).join('');
+                const prods = (inj.products || []).map(pid => { const p = getProductById(pid); return p ? `<span class="blood-link-chip">${p.icon} ${p.name}</span>` : ''; }).join('');
+                return `<div class="inj-card" id="inj-${inj.id}">
+                    <button class="inj-trigger" onclick="toggleInjury('${inj.id}')">
+                        <span class="inj-icon">${inj.icon}</span>
+                        <span class="inj-name">${inj.name}</span>
+                        <span class="inj-cat">${inj.cat}</span>
+                        <span class="inj-arrow">⌄</span>
+                    </button>
+                    <div class="inj-content" id="injc-${inj.id}">
+                        <div class="inj-block-title">Symptome</div><ul class="emerg-list">${li(inj.symptoms)}</ul>
+                        <div class="inj-block-title">Sofortmaßnahmen</div><ul class="emerg-list ok">${li(inj.measures)}</ul>
+                        <div class="inj-block-title">Heilung</div><div class="inj-text">${inj.recovery}</div>
+                        <div class="inj-block-title danger">Sofort zum Arzt bei</div><ul class="emerg-list danger">${li(inj.redflags)}</ul>
+                        ${prods ? `<div class="blood-links">Recovery-Produkte: ${prods}</div>` : ''}
+                    </div>
+                </div>`;
+            }).join('');
+            return `<div class="rec-disclaimer">⚕️ Allgemeine Infos, kein medizinischer Rat. Bei Verdacht auf ernste Verletzung ärztlich abklären.</div>
+                <div class="blood-cat-bar">${catBar}</div>${cards}`;
+        }
+        function setInjuryFilter(c) { injuryFilter = c; renderRecoveryHub(); }
+        function toggleInjury(id) {
+            const card = document.getElementById('inj-' + id);
+            const content = document.getElementById('injc-' + id);
+            if (!card || !content) return;
+            const open = card.classList.contains('open');
+            card.classList.toggle('open', !open);
+            content.style.display = open ? 'none' : 'block';
+        }
+
+        // — Meine Befunde (lokale Eingabe) —
+        function loadFindings() {
+            try { findings = JSON.parse(store.getItem('sl_findings') || '[]') || []; } catch (e) { findings = []; }
+        }
+        function saveFindings() { try { store.setItem('sl_findings', JSON.stringify(findings)); } catch (e) {} }
+        function findingsHtml() {
+            const saved = findings.map(f => `<div class="find-item">
+                    <button class="find-del" onclick="removeFinding('${f.id}')" aria-label="löschen">✕</button>
+                    <div class="find-date">${f.date || ''}${f.doctor ? ' · ' + f.doctor : ''}</div>
+                    ${f.diagnosis ? `<div class="find-diag">${f.diagnosis}</div>` : ''}
+                    ${f.referral ? `<div class="find-row"><b>Überweisung:</b> ${f.referral}</div>` : ''}
+                    ${f.notes ? `<div class="find-row">${f.notes}</div>` : ''}
+                </div>`).join('');
+            return `<div class="rec-disclaimer">🔒 Deine Eingaben werden <strong>nur lokal</strong> auf diesem Gerät gespeichert – nichts wird gesendet.</div>
+                <div class="find-form">
+                    <input type="date" id="findDate" class="time-input onboard-text">
+                    <input type="text" id="findDoctor" class="time-input onboard-text" placeholder="Arzt / Praxis">
+                    <input type="text" id="findDiag" class="time-input onboard-text" placeholder="Diagnose / Befund">
+                    <input type="text" id="findRef" class="time-input onboard-text" placeholder="Überweisung an … (optional)">
+                    <textarea id="findNotes" class="time-input onboard-text" rows="2" placeholder="Notizen (optional)"></textarea>
+                    <button class="start-btn" onclick="addFinding()">+ Befund speichern</button>
+                </div>
+                ${saved ? `<div class="rec-sub-title">Gespeicherte Befunde</div>${saved}` : '<div class="find-empty">Noch keine Befunde gespeichert.</div>'}`;
+        }
+        function addFinding() {
+            const v = id => (document.getElementById(id)?.value || '').trim();
+            const date = v('findDate'), doctor = v('findDoctor'), diagnosis = v('findDiag'), referral = v('findRef'), notes = v('findNotes');
+            if (!date && !doctor && !diagnosis && !referral && !notes) return;
+            findings.unshift({ id: 'f' + Date.now(), date, doctor, diagnosis, referral, notes });
+            saveFindings();
+            renderRecoveryHub();
+        }
+        function removeFinding(id) {
+            findings = findings.filter(f => f.id !== id);
+            saveFindings();
+            renderRecoveryHub();
+        }
+
+        // — Seelisches —
+        function mindHtml() {
+            const cards = (MENTAL.cards || []).map(c =>
+                `<div class="mind-card"><div class="mind-title">${c.icon} ${c.title}</div><div class="mind-text">${c.text}</div></div>`).join('');
+            const h = MENTAL.help || {};
+            const crisis = h.crisis ? `<a class="emerg-call primary" href="tel:${h.crisis.tel}">
+                    <div class="emerg-call-label">${h.crisis.label}</div>
+                    <div class="emerg-call-num">${h.crisis.number}</div>
+                    <span class="emerg-call-go">📞 Anrufen</span></a>` : '';
+            return `<div class="rec-disclaimer">${MENTAL.intro || ''}</div>
+                ${cards}
+                <div class="rec-sub-title">${h.title || ''}</div>
+                <div class="mind-text" style="margin-bottom:10px;">${h.text || ''}</div>
+                ${crisis}`;
+        }
+
+        // — Notruf —
+        function emergencyHtml() {
             const E = EMERGENCY;
             const numbersHtml = (E.numbers || []).map(n => {
                 const inner = `<div class="emerg-call-label">${n.label}</div>
@@ -2196,9 +2316,7 @@
             const stepsHtml = (im.steps || []).map(s => `<li>${s}</li>`).join('');
             const flagsHtml = (E.redflags || []).map(f => `<li>${f}</li>`).join('');
             const factsHtml = (E.facts || []).map(f => `<li>${f}</li>`).join('');
-            box.innerHTML = `
-                <div class="emerg-banner">🚨 NOTFALL &amp; RECOVERY</div>
-                <div class="emerg-intro">${E.intro || ''}</div>
+            return `<div class="emerg-intro">${E.intro || ''}</div>
                 <div class="emerg-section-title">📞 Notruf &amp; Hilfe</div>
                 <div class="emerg-numbers">${numbersHtml}</div>
                 <div class="emerg-section-title">${im.title || 'Sofortmaßnahmen'}</div>
@@ -2225,6 +2343,8 @@
                 BLOOD_MARKERS   = data.bloodmarkers;
                 MONITORING      = data.monitoring;
                 EMERGENCY       = data.emergency;
+                INJURIES        = data.injuries;
+                MENTAL          = data.mental;
                 CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
                 RECOMMENDED_IDS = new Set();
                 TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => RECOMMENDED_IDS.add(p)));
@@ -2239,7 +2359,7 @@
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
-            document.getElementById("tabEmergency").addEventListener("click", () => { activeSection("tabEmergency", "viewEmergency"); renderEmergency(); });
+            document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
@@ -2332,6 +2452,7 @@
 Object.assign(window, {
     addCost, addIncome, backToModeSelect, bloodFilterCat, collapseBodyDisclaimer, exitStackPlan,
     monitorFilterGroup, openBloodMarker, toggleMonitorItem,
+    selectRecoveryTab, setInjuryFilter, toggleInjury, addFinding, removeFinding,
     expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
     flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
     onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
