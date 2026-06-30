@@ -71,4 +71,6 @@ wissenschaftliche Beratung.
 
 ## 📄 Lizenz
 
-[MIT](LICENSE)
+© 2026 SILBERLOCKE — **Alle Rechte vorbehalten.** Kopieren, Wiederverwenden
+oder Weiterverbreiten von Code, Daten oder Design ist ohne ausdrückliche
+schriftliche Genehmigung nicht gestattet. Siehe [LICENSE](LICENSE).
