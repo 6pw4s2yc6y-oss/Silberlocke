@@ -326,14 +326,19 @@
             const tabBar = document.querySelector('.tab-bar');
             if (tabBar) tabBar.style.display = 'none';   // immer versteckt – steuert nur noch intern
             const toolsBar = document.getElementById('toolsBar');
-            if (toolsBar) toolsBar.style.display = easy ? 'none' : 'flex';
+            if (toolsBar) toolsBar.style.display = 'flex';
+            // Easy: nur „Dein Tag" + roter Notfall-Knopf. Hard: „Dein Tag" + Werkzeuge.
+            const navTools = document.getElementById('navTools');
+            const navEmergency = document.getElementById('navEmergency');
+            if (navTools) navTools.style.display = easy ? 'none' : '';
+            if (navEmergency) navEmergency.style.display = easy ? '' : 'none';
             document.querySelectorAll('.daytype-advanced').forEach(e => {
                 e.style.display = easy ? 'none' : '';
             });
             if (easy) {
                 closeTools();
                 const active = document.querySelector('.tab-bar .tab-btn.active');
-                if (active && !EASY_TABS.includes(active.id)) activeSection('tabTimeline', 'viewTimeline');
+                if (active && active.id !== 'tabTimeline' && active.id !== 'tabRecovery') activeSection('tabTimeline', 'viewTimeline');
                 if (!EASY_DAYTYPES.includes(currentDayType)) selectDayType('training');
             } else {
                 buildToolsSheet();
@@ -401,7 +406,7 @@
             stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
 
             initStaticPanels();
-            document.getElementById("dayTypeHint").innerHTML = DAYTYPE_HINTS[currentDayType];
+            document.getElementById("dayTypeHint").innerHTML = dayHint(currentDayType);
             renderTimeline();
             initDatabaseView();
             initNutrView();
@@ -1328,6 +1333,16 @@
             water:     "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung.",
             keto:      "🥑 <strong>Ketogener Tag:</strong> Kohlenhydratquellen (Maltodextrin, Gainer, Rice Pudding, High-Carb-Pre-Workout) entfallen. Ziel < 30–50 g Carbs/Tag. Mehr Elektrolyte trinken (Keto-Grippe vermeiden), Fett & moderates Protein bleiben."
         };
+        // Easy Mode: gleiche Aussage in Klartext, ohne Fachbegriffe.
+        const DAYTYPE_HINTS_EASY = {
+            training: "🏋️ <strong>Trainingstag:</strong> Dein voller Plan für einen Tag, an dem du trainierst.",
+            rest:     "🛌 <strong>Tag ohne Training:</strong> Ein ruhigerer Plan – ohne die Extras rund ums Training, dafür bleibt alles für die Erholung."
+        };
+        // Liefert den Hinweis passend zum Modus (Easy = Klartext, Hard = Details).
+        function dayHint(type) {
+            if (appMode === 'light' && DAYTYPE_HINTS_EASY[type]) return DAYTYPE_HINTS_EASY[type];
+            return DAYTYPE_HINTS[type] || '';
+        }
 
         function selectDayType(type) {
             currentDayType = type;
@@ -1336,7 +1351,7 @@
                 if (btn) btn.classList.toggle('active', t === type);
             });
             const hint = document.getElementById('dayTypeHint');
-            if (hint) hint.innerHTML = DAYTYPE_HINTS[type] || '';
+            if (hint) hint.innerHTML = dayHint(type);
             renderTimeline();
         }
 
@@ -2430,6 +2445,7 @@
             document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
             document.getElementById("navDay").addEventListener("click", goToDay);
             document.getElementById("navTools").addEventListener("click", toggleTools);
+            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); closeTools(); window.scrollTo(0, 0); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
