@@ -161,10 +161,19 @@
         }
 
         // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
-        let appMode = 'light';   // Default = Easy Mode (für die breite Masse)
-        // Easy Mode zeigt nur den Tagesplan; Hard Mode schaltet alles frei.
-        const EASY_TABS = ['tabTimeline'];
-        const EASY_DAYTYPES = ['training', 'rest'];
+        let appMode = 'light';   // Default = Light Mode (für die breite Masse)
+        // Drei Stufen: Light (Masse) · Hard (ambitioniert) · Expert (volle Kontrolle).
+        // MODE_TOOLS = welche Bereiche im Werkzeuge-Menü erscheinen (Tagesplan ist immer da).
+        const MODE_TOOLS = {
+            light:  [],
+            hard:   ['tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery'],
+            expert: ['tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor'],
+        };
+        const MODE_DAYTYPES = {
+            light:  ['training', 'rest'],
+            hard:   ['training', 'rest', 'recovery', 'carb', 'keto'],
+            expert: ['training', 'rest', 'recovery', 'carb', 'keto', 'autophagy', 'water'],
+        };
         let inOnboarding = true;
         let currentStep = 1;
         const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepGoal', 5:'stepSport', 6:'modeScreen', 7:'stepProducts' };
@@ -318,53 +327,56 @@
             document.body.classList.toggle('light-mode', mode === 'light');
             try { store.setItem("sl_mode", mode); } catch (e) {}
         }
-        // Steuert die sichtbare Oberfläche je Modus.
-        // Easy = nur der Tagesplan. Hard = „Dein Tag" als Achse + Werkzeuge-Menü
-        // (die alte Tab-Leiste ist nur noch unsichtbare Engine für die Navigation).
+        // Steuert die sichtbare Oberfläche je Modus (Light/Hard/Expert).
+        // „Dein Tag" (Tagesplan) ist immer die Achse; MODE_TOOLS bestimmt das
+        // Werkzeuge-Menü, MODE_DAYTYPES die verfügbaren Tagestypen.
         function applyModeVisibility() {
-            const easy = appMode === 'light';
+            const light = appMode === 'light';
+            const tools = MODE_TOOLS[appMode] || MODE_TOOLS.light;
+            const dts = MODE_DAYTYPES[appMode] || MODE_DAYTYPES.light;
             const tabBar = document.querySelector('.tab-bar');
             if (tabBar) tabBar.style.display = 'none';   // immer versteckt – steuert nur noch intern
             const toolsBar = document.getElementById('toolsBar');
             if (toolsBar) toolsBar.style.display = 'flex';
-            // Easy: nur „Dein Tag" + roter Notfall-Knopf. Hard: „Dein Tag" + Werkzeuge.
+            // Werkzeuge-Menü nur, wenn es Tools gibt (Hard/Expert). Light: roter Notfall-Knopf.
             const navTools = document.getElementById('navTools');
             const navEmergency = document.getElementById('navEmergency');
-            if (navTools) navTools.style.display = easy ? 'none' : '';
-            if (navEmergency) navEmergency.style.display = easy ? '' : 'none';
-            document.querySelectorAll('.daytype-advanced').forEach(e => {
-                e.style.display = easy ? 'none' : '';
+            if (navTools) navTools.style.display = tools.length ? '' : 'none';
+            if (navEmergency) navEmergency.style.display = light ? '' : 'none';
+            // Tagestyp-Buttons je nach Modus ein-/ausblenden
+            document.querySelectorAll('.daytype-btn').forEach(b => {
+                const type = b.id.replace('dt', '').toLowerCase();
+                b.style.display = dts.includes(type) ? '' : 'none';
             });
-            if (easy) {
-                closeTools();
-                const active = document.querySelector('.tab-bar .tab-btn.active');
-                if (active && active.id !== 'tabTimeline' && active.id !== 'tabRecovery') activeSection('tabTimeline', 'viewTimeline');
-                if (!EASY_DAYTYPES.includes(currentDayType)) selectDayType('training');
-            } else {
-                buildToolsSheet();
-                setNavDayActive(document.getElementById('viewTimeline').classList.contains('active'));
-            }
+            buildToolsSheet();
+            closeTools();
+            // Falls die aktive Ansicht im neuen Modus nicht erlaubt ist → zurück zum Tag
+            const active = document.querySelector('.tab-bar .tab-btn.active');
+            const allowed = new Set(['tabTimeline', ...tools, ...(light ? ['tabRecovery'] : [])]);
+            if (active && !allowed.has(active.id)) activeSection('tabTimeline', 'viewTimeline');
+            if (!dts.includes(currentDayType)) selectDayType('training');
+            setNavDayActive(document.getElementById('viewTimeline').classList.contains('active'));
         }
 
-        // Baut das Werkzeuge-Menü aus den (versteckten) Tab-Buttons – außer Tagesplan.
+        // Baut das Werkzeuge-Menü aus den im Modus erlaubten Tools (in Reihenfolge).
         function buildToolsSheet() {
             const sheet = document.getElementById('toolsSheet');
             if (!sheet) return;
             sheet.innerHTML = '';
-            [...document.querySelectorAll('.tab-bar .tab-btn')]
-                .filter(b => b.id !== 'tabTimeline')
-                .forEach(src => {
-                    const item = document.createElement('button');
-                    item.className = 'tool-item' + (src.classList.contains('tab-emergency') ? ' emergency' : '');
-                    item.textContent = src.textContent;
-                    item.addEventListener('click', () => {
-                        src.click();                 // bestehenden Tab-Handler wiederverwenden
-                        setNavDayActive(false);
-                        closeTools();
-                        window.scrollTo(0, 0);
-                    });
-                    sheet.appendChild(item);
+            (MODE_TOOLS[appMode] || []).forEach(id => {
+                const src = document.getElementById(id);
+                if (!src) return;
+                const item = document.createElement('button');
+                item.className = 'tool-item' + (src.classList.contains('tab-emergency') ? ' emergency' : '');
+                item.textContent = src.textContent;
+                item.addEventListener('click', () => {
+                    src.click();                 // bestehenden Tab-Handler wiederverwenden
+                    setNavDayActive(false);
+                    closeTools();
+                    window.scrollTo(0, 0);
                 });
+                sheet.appendChild(item);
+            });
         }
         function setNavDayActive(on) {
             const d = document.getElementById('navDay');
