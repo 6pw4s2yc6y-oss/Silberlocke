@@ -1,0 +1,15 @@
+{
+  "intro": "Eine Verletzung trifft auch den Kopf. Frust, Ungeduld und Stimmungstiefs sind normal – hier ein paar Anker.",
+  "cards": [
+    { "icon": "🎯", "title": "Akzeptieren statt kämpfen", "text": "Der Heilungsprozess hat sein eigenes Tempo. Energie in das stecken, was geht (Reha, Technik, andere Muskelgruppen), statt gegen die Pause anzukämpfen." },
+    { "icon": "🧩", "title": "Kleine Ziele setzen", "text": "Schmerzfrei gehen, volle Beweglichkeit, erste Belastung – Etappen statt „alles oder nichts\". Jeder Fortschritt zählt." },
+    { "icon": "😴", "title": "Schlaf ist Reparatur", "text": "Im Tiefschlaf läuft die Gewebeheilung. 7–9 h, feste Zeiten, Bildschirm runter vorm Schlafen – das beschleunigt die Genesung messbar." },
+    { "icon": "🤝", "title": "Nicht allein durch", "text": "Mit Trainer, Physio oder Freunden reden. Soziale Unterstützung senkt nachweislich Stress und hilft beim Dranbleiben." },
+    { "icon": "🍎", "title": "Routine halten", "text": "Auch ohne Training: Ernährung, Schlaf und Tagesstruktur beibehalten. Das gibt Halt und schützt die Substanz." }
+  ],
+  "help": {
+    "title": "Wann professionelle Hilfe holen",
+    "text": "Anhaltende Niedergeschlagenheit, Antriebslosigkeit, Schlaflosigkeit über Wochen oder das Gefühl, nicht mehr rauszukommen – das ist ernst und behandelbar. Sprich mit Hausarzt/Ärztin oder ruf an:",
+    "crisis": { "label": "Telefonseelsorge (kostenlos, anonym, 24/7)", "number": "0800 111 0 111", "tel": "08001110111" }
+  }
+}

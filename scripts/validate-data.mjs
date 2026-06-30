@@ -21,6 +21,8 @@ const nutr = load('nutr_data.json');
 const blood = load('bloodmarkers.json');
 const monitoring = load('monitoring.json');
 const emergency = load('emergency.json');
+const injuries = load('injuries.json');
+const mental = load('mental.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -152,6 +154,25 @@ if (!emergency || typeof emergency !== 'object' || Array.isArray(emergency)) {
         fail('emergency.json: "immediate.steps" fehlt/leer');
 }
 
+// ── injuries ────────────────────────────────────────────────────────────────
+const injIds = new Set();
+if (!Array.isArray(injuries)) fail('injuries.json: muss ein Array sein');
+else injuries.forEach((it, i) => {
+    const at = `injuries[${i}]`;
+    ['id', 'name', 'cat', 'icon', 'recovery'].forEach(k => { if (typeof it[k] !== 'string' || !it[k]) fail(`${at}: "${k}" fehlt`); });
+    ['symptoms', 'measures', 'redflags'].forEach(k => { if (!Array.isArray(it[k]) || it[k].length === 0) fail(`${at}: "${k}" fehlt/leer`); });
+    if (it.id) { if (injIds.has(it.id)) fail(`${at}: doppelte id "${it.id}"`); injIds.add(it.id); }
+    if (!Array.isArray(it.products)) fail(`${at}: "products" muss ein Array sein`);
+    else it.products.forEach(pid => { if (!productIds.has(pid)) fail(`${at} (${it.id}): Produkt "${pid}" existiert nicht`); });
+});
+
+// ── mental ──────────────────────────────────────────────────────────────────
+if (!mental || typeof mental !== 'object' || Array.isArray(mental)) fail('mental.json: muss ein Objekt sein');
+else {
+    if (!Array.isArray(mental.cards) || mental.cards.length === 0) fail('mental.json: "cards" fehlt/leer');
+    else mental.cards.forEach((c, i) => { ['icon', 'title', 'text'].forEach(k => { if (typeof c[k] !== 'string' || !c[k]) fail(`mental.cards[${i}]: "${k}" fehlt`); }); });
+}
+
 // ── body_zones (Grundstruktur) ──────────────────────────────────────────────
 if (!body || typeof body !== 'object' || Array.isArray(body)) fail('body_zones.json: muss ein Objekt sein');
 
@@ -161,4 +182,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen.`);

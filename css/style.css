@@ -624,8 +624,39 @@
         .mon-flag.arzt .mon-flag-sign { color: #fcd34d; }
         .mon-flag-action { font-size: 11.5px; color: #cbd5e1; line-height: 1.55; margin-top: 4px; }
 
-        /* NOTFALL / RECOVERY – Alarm-Ansicht (rot) */
-        #viewEmergency.active { background: radial-gradient(ellipse at 50% 0%, #2a0606 0%, #0a0202 60%); border-radius: 14px; }
+        /* RECOVERYMODE-HUB – Alarm-Ansicht (rot) */
+        #viewRecovery.active { background: radial-gradient(ellipse at 50% 0%, #2a0606 0%, #0a0202 60%); border-radius: 14px; }
+        .rec-subnav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .rec-subtab {
+            flex: 1 1 auto; min-width: 0; font-size: 12px; font-weight: 800; padding: 9px 8px; border-radius: 9px;
+            background: #1a0606; border: 1px solid #7f1d1d; color: #fca5a5; cursor: pointer; white-space: nowrap;
+        }
+        .rec-subtab.active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-color: #fecaca; color: #fff; }
+        .rec-disclaimer { background: #1a0606; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 10px; padding: 10px 12px; font-size: 11.5px; line-height: 1.55; margin-bottom: 12px; }
+        .rec-sub-title { font-size: 13px; font-weight: 800; color: #fecaca; text-transform: uppercase; letter-spacing: 1px; margin: 18px 0 9px; }
+        .inj-card { background: #1a0606; border: 1px solid #7f1d1d; border-radius: 12px; margin-bottom: 9px; overflow: hidden; }
+        .inj-card.open { border-color: #fca5a5; }
+        .inj-trigger { width: 100%; display: flex; align-items: center; gap: 10px; background: none; border: none; cursor: pointer; padding: 13px 14px; text-align: left; }
+        .inj-icon { font-size: 20px; flex: 0 0 auto; }
+        .inj-name { flex: 1 1 auto; font-size: 13.5px; font-weight: 700; color: #fff; }
+        .inj-cat { flex: 0 0 auto; font-size: 9px; font-weight: 800; color: #fca5a5; background: #2a0606; border: 1px solid #7f1d1d; border-radius: 5px; padding: 2px 7px; }
+        .inj-arrow { flex: 0 0 auto; color: #fca5a5; transition: transform .2s; }
+        .inj-card.open .inj-arrow { transform: rotate(180deg); }
+        .inj-content { display: none; padding: 0 14px 13px; }
+        .inj-block-title { font-size: 11px; font-weight: 800; color: #fecaca; text-transform: uppercase; letter-spacing: .5px; margin: 11px 0 5px; }
+        .inj-block-title.danger { color: #f87171; }
+        .inj-text { font-size: 12px; color: #fed7d7; line-height: 1.6; }
+        .find-form { display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+        .find-form textarea.onboard-text { resize: vertical; font-family: inherit; }
+        .find-empty { color: #fca5a5; font-size: 12px; padding: 8px 0; }
+        .find-item { position: relative; background: #1a0606; border: 1px solid #7f1d1d; border-radius: 10px; padding: 11px 34px 11px 13px; margin-bottom: 8px; }
+        .find-del { position: absolute; top: 9px; right: 9px; width: 24px; height: 24px; border-radius: 6px; background: #2a0606; border: 1px solid #7f1d1d; color: #fca5a5; cursor: pointer; font-weight: 800; }
+        .find-date { font-size: 11px; color: #fca5a5; font-weight: 700; }
+        .find-diag { font-size: 13.5px; font-weight: 700; color: #fff; margin-top: 3px; }
+        .find-row { font-size: 12px; color: #fed7d7; line-height: 1.55; margin-top: 4px; }
+        .mind-card { background: #1a0606; border: 1px solid #7f1d1d; border-radius: 12px; padding: 12px 14px; margin-bottom: 9px; }
+        .mind-title { font-size: 13.5px; font-weight: 700; color: #fff; }
+        .mind-text { font-size: 12px; color: #fed7d7; line-height: 1.6; margin-top: 5px; }
         .emerg-wrap { padding: 6px 4px 26px; }
         .emerg-banner {
             background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);

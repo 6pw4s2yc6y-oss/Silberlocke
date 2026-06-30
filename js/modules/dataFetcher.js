@@ -11,6 +11,8 @@ const FILES = {
     bloodmarkers:    'bloodmarkers.json',
     monitoring:      'monitoring.json',
     emergency:       'emergency.json',
+    injuries:        'injuries.json',
+    mental:          'mental.json',
 };
 
 async function fetchJson(file) {
