@@ -1,0 +1,35 @@
+{
+  "intro": "Im Zweifel immer 112 anrufen. Diese Hinweise ersetzen keinen Erste-Hilfe-Kurs und keine ärztliche Behandlung.",
+  "numbers": [
+    { "label": "Notruf – Rettung & Feuerwehr", "number": "112", "tel": "112", "desc": "Bei Lebensgefahr, schweren Verletzungen, Bewusstlosigkeit, Atemnot. EU-weit kostenlos.", "primary": true },
+    { "label": "Polizei", "number": "110", "tel": "110", "desc": "Bei Unfällen, akuter Gefahr oder Straftaten.", "primary": false },
+    { "label": "Ärztlicher Bereitschaftsdienst", "number": "116117", "tel": "116117", "desc": "Wenn die Praxis zu hat, aber es kein Fall fürs Krankenhaus ist.", "primary": false },
+    { "label": "Giftnotruf (regional)", "number": "z. B. 030 19240", "tel": "03019240", "desc": "Bei Vergiftung/Überdosis – regional. Berlin 030 19240, München 089 19240.", "primary": false },
+    { "label": "Telefonseelsorge", "number": "0800 111 0 111", "tel": "08001110111", "desc": "Kostenlos & anonym, rund um die Uhr – bei seelischer Not oder Krise.", "primary": false }
+  ],
+  "immediate": {
+    "title": "PECH-Regel – sofort bei akuter Verletzung",
+    "steps": [
+      "Pause: Belastung sofort stoppen – nicht weitertrainieren.",
+      "Eis: 15–20 min kühlen (nie direkt auf die Haut – Tuch dazwischen).",
+      "Compression: leichter Druckverband gegen die Schwellung.",
+      "Hochlagern: betroffene Stelle über Herzhöhe legen."
+    ],
+    "avoid": "In den ersten 48 h vermeiden: Wärme, Alkohol, Massage und Belastung – das fördert die Schwellung."
+  },
+  "redflags": [
+    "Hörbares Knacken/Knirschen + sofortige starke Schwellung oder Fehlstellung",
+    "Du kannst das Gelenk/Bein nicht belasten oder bewegen",
+    "Sichtbare Verformung, abstehender Knochen oder offene Wunde",
+    "Taubheit, Kribbeln oder kalte/blasse Gliedmaße",
+    "Starke, nicht nachlassende Schmerzen",
+    "Kopfverletzung mit Übelkeit, Verwirrtheit oder Bewusstlosigkeit"
+  ],
+  "facts": [
+    "Schmerz ist ein Stoppsignal – „durchtrainieren\" verschlimmert Verletzungen meist.",
+    "Einmaliges Knacken ohne Schmerz ist meist harmlos – Knacken MIT Schmerz/Schwellung nicht.",
+    "Muskelkater ist normal; ein stechender, plötzlicher Schmerz ist es nicht.",
+    "Bei Verdacht auf Bruch oder Bänderriss: ruhigstellen und ärztlich abklären – nicht selbst „einrenken\".",
+    "Nach einer Verletzung schrittweise zurück zur Belastung – erst Schmerzfreiheit, dann steigern."
+  ]
+}

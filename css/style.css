@@ -521,9 +521,30 @@
             font-weight: 800;
             letter-spacing: 1px;
             text-transform: uppercase;
-            color: #4b5563;
-            padding: 0 2px;
+            color: #64748b;
+            padding: 4px 4px;
+            cursor: pointer;
         }
+        .tab-group-label:hover { color: #a78bfa; }
+
+        /* NOTFALL-TAB – sticht hervor, pulsiert dezent */
+        .tab-btn.tab-emergency {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            border-color: #f87171;
+            color: #fff;
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+            animation: emergPulse 2s infinite;
+        }
+        .tab-btn.tab-emergency.active {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            border-color: #fecaca;
+        }
+        @keyframes emergPulse {
+            0%   { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55); }
+            70%  { box-shadow: 0 0 0 9px rgba(220, 38, 38, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+        }
+        @media (prefers-reduced-motion: reduce) { .tab-btn.tab-emergency { animation: none; } }
         .tab-group-sep {
             flex: 0 0 auto;
             align-self: stretch;
@@ -602,6 +623,39 @@
         .mon-flag.notfall .mon-flag-sign { color: #fca5a5; }
         .mon-flag.arzt .mon-flag-sign { color: #fcd34d; }
         .mon-flag-action { font-size: 11.5px; color: #cbd5e1; line-height: 1.55; margin-top: 4px; }
+
+        /* NOTFALL / RECOVERY – Alarm-Ansicht (rot) */
+        #viewEmergency.active { background: radial-gradient(ellipse at 50% 0%, #2a0606 0%, #0a0202 60%); border-radius: 14px; }
+        .emerg-wrap { padding: 6px 4px 26px; }
+        .emerg-banner {
+            background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+            color: #fff; font-size: 18px; font-weight: 900; letter-spacing: 2px; text-align: center;
+            padding: 14px; border-radius: 12px; border: 1px solid #fca5a5; margin-bottom: 12px;
+        }
+        .emerg-intro { color: #fca5a5; font-size: 12px; line-height: 1.55; margin-bottom: 16px; text-align: center; }
+        .emerg-section-title { font-size: 13px; font-weight: 800; color: #fecaca; text-transform: uppercase; letter-spacing: 1px; margin: 18px 0 9px; }
+        .emerg-section-title.danger { color: #fca5a5; }
+        .emerg-numbers { display: flex; flex-direction: column; gap: 9px; }
+        .emerg-call {
+            display: block; text-decoration: none; background: #1a0606; border: 1px solid #7f1d1d;
+            border-radius: 12px; padding: 13px 14px; position: relative;
+        }
+        a.emerg-call { cursor: pointer; }
+        .emerg-call.primary {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-color: #fecaca;
+            box-shadow: 0 0 18px rgba(220, 38, 38, 0.4);
+        }
+        .emerg-call-label { font-size: 12px; font-weight: 700; color: #fecaca; }
+        .emerg-call.primary .emerg-call-label { color: #fff; }
+        .emerg-call-num { font-size: 26px; font-weight: 900; color: #fff; line-height: 1.1; margin: 2px 0; }
+        .emerg-call-desc { font-size: 11px; color: #fca5a5; line-height: 1.5; }
+        .emerg-call.primary .emerg-call-desc { color: #fee2e2; }
+        .emerg-call-go { position: absolute; top: 13px; right: 14px; font-size: 12px; font-weight: 800; color: #fff; background: rgba(0,0,0,.25); border: 1px solid #fecaca; border-radius: 999px; padding: 5px 11px; }
+        .emerg-avoid { background: #1a0606; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 10px; padding: 10px 12px; font-size: 11.5px; line-height: 1.55; margin-top: 8px; }
+        .emerg-list { margin: 0; padding-left: 20px; }
+        .emerg-list li { font-size: 12.5px; line-height: 1.65; color: #fed7d7; margin-bottom: 5px; }
+        .emerg-list.danger li { color: #fca5a5; font-weight: 600; }
+        .emerg-list.ok li { color: #d1d5db; }
 
         /* TOP PANELS (NOW COLLAPSIBLE) */
         .top-panels-container {
