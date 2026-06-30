@@ -340,6 +340,7 @@
             initNutrView();
             initBloodView();
             initMonitorView();
+            renderEmergency();
             renderSportPlans();
             renderStackView();
             renderMoney();
@@ -1940,6 +1941,7 @@
         let MONITORING = { checklist: [], redflags: [] };
         let monitorLog = {};    // { itemId: "YYYY-MM-DD" } – zuletzt erledigt
         let monitorFilter = "Alle";
+        let EMERGENCY = { intro: "", numbers: [], immediate: { steps: [] }, redflags: [], facts: [] };
 
 
         let nutrFilter = "Alle";
@@ -2177,6 +2179,37 @@
             if (el) { const card = el.closest('.blood-card'); if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
         }
 
+        // ─── NOTFALL / RECOVERY (Erste Hilfe & Notrufnummern) ──────────────────
+        function renderEmergency() {
+            const box = document.getElementById('emergencyList');
+            if (!box) return;
+            const E = EMERGENCY;
+            const numbersHtml = (E.numbers || []).map(n => {
+                const inner = `<div class="emerg-call-label">${n.label}</div>
+                    <div class="emerg-call-num">${n.number}</div>
+                    <div class="emerg-call-desc">${n.desc}</div>`;
+                return n.tel
+                    ? `<a class="emerg-call${n.primary ? ' primary' : ''}" href="tel:${n.tel}">${inner}<span class="emerg-call-go">📞 Anrufen</span></a>`
+                    : `<div class="emerg-call">${inner}</div>`;
+            }).join('');
+            const im = E.immediate || { steps: [] };
+            const stepsHtml = (im.steps || []).map(s => `<li>${s}</li>`).join('');
+            const flagsHtml = (E.redflags || []).map(f => `<li>${f}</li>`).join('');
+            const factsHtml = (E.facts || []).map(f => `<li>${f}</li>`).join('');
+            box.innerHTML = `
+                <div class="emerg-banner">🚨 NOTFALL &amp; RECOVERY</div>
+                <div class="emerg-intro">${E.intro || ''}</div>
+                <div class="emerg-section-title">📞 Notruf &amp; Hilfe</div>
+                <div class="emerg-numbers">${numbersHtml}</div>
+                <div class="emerg-section-title">${im.title || 'Sofortmaßnahmen'}</div>
+                <ul class="emerg-list">${stepsHtml}</ul>
+                ${im.avoid ? `<div class="emerg-avoid">⛔ ${im.avoid}</div>` : ''}
+                <div class="emerg-section-title danger">⚠️ Sofort zum Arzt / 112 bei:</div>
+                <ul class="emerg-list danger">${flagsHtml}</ul>
+                <div class="emerg-section-title">✅ Wichtig zu wissen</div>
+                <ul class="emerg-list ok">${factsHtml}</ul>`;
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
             // Persistenz-Cache füllen (IndexedDB laden + Migration), bevor gelesen wird.
             await initStorage();
@@ -2191,6 +2224,7 @@
                 NUTR_DATA       = data.nutr_data;
                 BLOOD_MARKERS   = data.bloodmarkers;
                 MONITORING      = data.monitoring;
+                EMERGENCY       = data.emergency;
                 CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
                 RECOMMENDED_IDS = new Set();
                 TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => RECOMMENDED_IDS.add(p)));
@@ -2205,6 +2239,7 @@
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
+            document.getElementById("tabEmergency").addEventListener("click", () => { activeSection("tabEmergency", "viewEmergency"); renderEmergency(); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();

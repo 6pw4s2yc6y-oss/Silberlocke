@@ -20,6 +20,7 @@ const body = load('body_zones.json');
 const nutr = load('nutr_data.json');
 const blood = load('bloodmarkers.json');
 const monitoring = load('monitoring.json');
+const emergency = load('emergency.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -135,6 +136,22 @@ if (!monitoring || typeof monitoring !== 'object' || Array.isArray(monitoring)) 
     });
 }
 
+// ── emergency ───────────────────────────────────────────────────────────────
+if (!emergency || typeof emergency !== 'object' || Array.isArray(emergency)) {
+    fail('emergency.json: muss ein Objekt sein');
+} else {
+    if (!Array.isArray(emergency.numbers) || emergency.numbers.length === 0) fail('emergency.json: "numbers" fehlt/leer');
+    else emergency.numbers.forEach((n, i) => {
+        const at = `emergency.numbers[${i}]`;
+        ['label', 'number', 'desc'].forEach(k => { if (typeof n[k] !== 'string' || !n[k]) fail(`${at}: "${k}" fehlt`); });
+    });
+    ['redflags', 'facts'].forEach(key => {
+        if (!Array.isArray(emergency[key]) || emergency[key].length === 0) fail(`emergency.json: "${key}" fehlt/leer`);
+    });
+    if (!emergency.immediate || !Array.isArray(emergency.immediate.steps) || emergency.immediate.steps.length === 0)
+        fail('emergency.json: "immediate.steps" fehlt/leer');
+}
+
 // ── body_zones (Grundstruktur) ──────────────────────────────────────────────
 if (!body || typeof body !== 'object' || Array.isArray(body)) fail('body_zones.json: muss ein Objekt sein');
 
@@ -144,4 +161,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern.`);
