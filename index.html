@@ -287,13 +287,17 @@
                     </div>
                 </div>
                 <div class="tab-bar">
+                    <span class="tab-group-label">Plan</span>
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
-                    <button class="tab-btn" id="tabMoney">💶 Money</button>
                     <button class="tab-btn" id="tabStack">Mein Stack</button>
                     <button class="tab-btn" id="tabDatabase">Produkte</button>
+                    <button class="tab-btn" id="tabMoney">💶 Money</button>
+                    <span class="tab-group-sep"></span>
+                    <span class="tab-group-label">Gesundheit</span>
                     <button class="tab-btn" id="tabFood">Nahrung</button>
                     <button class="tab-btn" id="tabBody">Körper</button>
                     <button class="tab-btn" id="tabSport">Sport</button>
+                    <button class="tab-btn" id="tabBlood">🩸 Blutwerte</button>
                 </div>
             </div>
         </header>
@@ -728,6 +732,16 @@
                             <span>Zone am Körper antippen</span>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- BLUTWERTE-ANALYSE -->
+            <div class="view-section" id="viewBlood">
+                <div class="blood-wrap">
+                    <div class="blood-disclaimer">⚕️ <strong>Kein medizinischer Rat.</strong> Diese Übersicht ist rein informativ und ersetzt keine ärztliche Diagnose. Lass deine Werte immer von einer Ärztin / einem Arzt beurteilen. Eingaben werden nur lokal in deinem Browser gespeichert.</div>
+                    <div class="blood-intro">Trage deine Laborwerte ein – du siehst Referenzbereich, Einordnung und passende Nährstoffe/Produkte.</div>
+                    <div class="blood-cat-bar" id="bloodCatBar"></div>
+                    <div id="bloodList"></div>
                 </div>
             </div>
 

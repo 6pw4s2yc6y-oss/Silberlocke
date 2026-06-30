@@ -8,6 +8,7 @@ const FILES = {
     sport_data:      'sport_data.json',
     body_zones:      'body_zones.json',
     nutr_data:       'nutr_data.json',
+    bloodmarkers:    'bloodmarkers.json',
 };
 
 async function fetchJson(file) {

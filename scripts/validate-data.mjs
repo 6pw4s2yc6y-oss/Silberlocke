@@ -18,6 +18,7 @@ const timeline = load('timeline_config.json');
 const sport = load('sport_data.json');
 const body = load('body_zones.json');
 const nutr = load('nutr_data.json');
+const blood = load('bloodmarkers.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -92,6 +93,25 @@ if (!sport || typeof sport !== 'object' || Array.isArray(sport)) {
     }
 }
 
+// ── bloodmarkers ────────────────────────────────────────────────────────────
+const bloodIds = new Set();
+if (!Array.isArray(blood)) fail('bloodmarkers.json: muss ein Array sein');
+else blood.forEach((m, i) => {
+    const at = `bloodmarkers[${i}]`;
+    ['id', 'name', 'cat', 'unit', 'meaning'].forEach(k => {
+        if (typeof m[k] !== 'string' || !m[k]) fail(`${at}: "${k}" fehlt oder kein String`);
+    });
+    if (m.id) {
+        if (bloodIds.has(m.id)) fail(`${at}: doppelte id "${m.id}"`);
+        bloodIds.add(m.id);
+    }
+    if (m.low != null && typeof m.low !== 'number') fail(`${at} (${m.id}): "low" muss Zahl oder null sein`);
+    if (m.high != null && typeof m.high !== 'number') fail(`${at} (${m.id}): "high" muss Zahl oder null sein`);
+    if (m.low == null && m.high == null) fail(`${at} (${m.id}): braucht mindestens "low" oder "high"`);
+    if (!Array.isArray(m.nutrients)) fail(`${at} (${m.id}): "nutrients" muss ein Array sein`);
+    else m.nutrients.forEach(pid => { if (!productIds.has(pid)) fail(`${at} (${m.id}): verlinktes Produkt "${pid}" existiert nicht`); });
+});
+
 // ── body_zones (Grundstruktur) ──────────────────────────────────────────────
 if (!body || typeof body !== 'object' || Array.isArray(body)) fail('body_zones.json: muss ein Objekt sein');
 
@@ -101,4 +121,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte.`);

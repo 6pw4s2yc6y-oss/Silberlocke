@@ -338,6 +338,7 @@
             renderTimeline();
             initDatabaseView();
             initNutrView();
+            initBloodView();
             renderSportPlans();
             renderStackView();
             renderMoney();
@@ -1748,12 +1749,9 @@
         }
 
         function activeSection(tabId, viewId) {
-            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
-                document.getElementById(id).classList.remove("active");
-            });
-            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
-                document.getElementById(id).classList.remove("active");
-            });
+            document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove("active"));
+            document.querySelectorAll('#mainApp .view-section').forEach(v => v.classList.remove("active"));
+            document.getElementById('viewAboutMe').style.display = 'none';
             document.getElementById(tabId).classList.add("active");
             document.getElementById(viewId).classList.add("active");
             // Show panels only on Tagesplan
@@ -1900,12 +1898,8 @@
 
         function showAboutMe() {
             document.getElementById('viewAboutMe').style.display = 'flex';
-            ["viewTimeline","viewMoney","viewStack","viewDatabase","viewFood","viewBody","viewSport"].forEach(id => {
-                document.getElementById(id).classList.remove("active");
-            });
-            ["tabTimeline","tabMoney","tabStack","tabDatabase","tabFood","tabBody","tabSport"].forEach(id => {
-                document.getElementById(id).classList.remove("active");
-            });
+            document.querySelectorAll('#mainApp .view-section').forEach(v => v.classList.remove("active"));
+            document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove("active"));
             document.getElementById("timelinePanels").style.display = "none";
         }
         function hideAboutMe() {
@@ -1939,6 +1933,9 @@
         // ─── VITAMIN & MINERAL DATABASE ───────────────────────────────────
 
         let NUTR_DATA = [];
+        let BLOOD_MARKERS = [];
+        let bloodValues = {};   // { markerId: "Wert" } – lokal gespeichert
+        let bloodFilter = "Alle";
 
 
         let nutrFilter = "Alle";
@@ -2020,6 +2017,90 @@
             content.style.display = open ? 'none' : 'block';
         }
 
+        // ─── BLUTWERTE-ANALYSE ─────────────────────────────────────────────
+        function loadBlood() {
+            try { bloodValues = JSON.parse(store.getItem('sl_blood') || '{}') || {}; } catch (e) { bloodValues = {}; }
+        }
+        function saveBlood() { try { store.setItem('sl_blood', JSON.stringify(bloodValues)); } catch (e) {} }
+
+        function bloodStatus(m, raw) {
+            if (raw === '' || raw == null) return { cls: 'none', label: '—' };
+            const v = parseFloat(String(raw).replace(',', '.'));
+            if (isNaN(v)) return { cls: 'none', label: '—' };
+            if (m.low != null && v < m.low) return { cls: 'low', label: 'niedrig' };
+            if (m.high != null && v > m.high) return { cls: 'high', label: 'hoch' };
+            return { cls: 'ok', label: 'im Bereich' };
+        }
+        function bloodRef(m) {
+            if (m.low != null && m.high != null) return `Referenz: ${m.low}–${m.high} ${m.unit}`;
+            if (m.high != null) return `Referenz: < ${m.high} ${m.unit}`;
+            if (m.low != null) return `Referenz: > ${m.low} ${m.unit}`;
+            return '';
+        }
+        function bloodNoteHtml(m, st) {
+            if (st.cls === 'low' && m.lowNote)  return `<div class="blood-note low">${m.lowNote}</div>`;
+            if (st.cls === 'high' && m.highNote) return `<div class="blood-note high">${m.highNote}</div>`;
+            return '';
+        }
+        function initBloodView() {
+            loadBlood();
+            renderBloodCats();
+            renderBloodCards();
+        }
+        function renderBloodCats() {
+            const bar = document.getElementById('bloodCatBar');
+            if (!bar) return;
+            const cats = ['Alle', 'PED-Monitoring', ...new Set(BLOOD_MARKERS.map(m => m.cat))];
+            bar.innerHTML = cats.map(c =>
+                `<button class="blood-cat-btn${c === bloodFilter ? ' active' : ''}" onclick="bloodFilterCat('${c}')">${c}</button>`
+            ).join('');
+        }
+        function bloodFilterCat(c) { bloodFilter = c; renderBloodCats(); renderBloodCards(); }
+        function renderBloodCards() {
+            const box = document.getElementById('bloodList');
+            if (!box) return;
+            const list = BLOOD_MARKERS.filter(m =>
+                bloodFilter === 'Alle' ? true :
+                bloodFilter === 'PED-Monitoring' ? m.ped : m.cat === bloodFilter);
+            box.innerHTML = list.map(m => {
+                const raw = bloodValues[m.id] || '';
+                const st = bloodStatus(m, raw);
+                const links = (m.nutrients || []).map(pid => {
+                    const p = getProductById(pid);
+                    return p ? `<span class="blood-link-chip">${p.icon} ${p.name}</span>` : '';
+                }).join('');
+                const linksHtml = links ? `<div class="blood-links">Passende Nährstoffe: ${links}</div>` : '';
+                return `<div class="blood-card">
+                    <div class="blood-card-top">
+                        <div>
+                            <div class="blood-name">${m.name}${m.ped ? '<span class="blood-ped-badge">PED-Monitoring</span>' : ''}</div>
+                            <div class="blood-ref">${bloodRef(m)}</div>
+                        </div>
+                        <span class="blood-status ${st.cls}" id="bs-${m.id}">${st.label}</span>
+                    </div>
+                    <div class="blood-input-row">
+                        <input type="text" inputmode="decimal" class="blood-input" value="${raw}" placeholder="dein Wert" oninput="setBloodValue('${m.id}', this.value)">
+                        <span class="blood-unit">${m.unit}</span>
+                    </div>
+                    <div class="blood-meaning">${m.meaning}</div>
+                    <div id="bn-${m.id}">${bloodNoteHtml(m, st)}</div>
+                    ${linksHtml}
+                </div>`;
+            }).join('');
+        }
+        // Wert-Eingabe: nur Status/Notiz dieser Karte aktualisieren (Fokus behalten)
+        function setBloodValue(id, value) {
+            bloodValues[id] = value;
+            saveBlood();
+            const m = BLOOD_MARKERS.find(x => x.id === id);
+            if (!m) return;
+            const st = bloodStatus(m, value);
+            const badge = document.getElementById('bs-' + id);
+            if (badge) { badge.className = 'blood-status ' + st.cls; badge.textContent = st.label; }
+            const noteBox = document.getElementById('bn-' + id);
+            if (noteBox) noteBox.innerHTML = bloodNoteHtml(m, st);
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
             // Persistenz-Cache füllen (IndexedDB laden + Migration), bevor gelesen wird.
             await initStorage();
@@ -2032,6 +2113,7 @@
                 SPORT_DATA      = data.sport_data;
                 BODY_ZONES      = data.body_zones;
                 NUTR_DATA       = data.nutr_data;
+                BLOOD_MARKERS   = data.bloodmarkers;
                 CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
                 RECOMMENDED_IDS = new Set();
                 TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => RECOMMENDED_IDS.add(p)));
@@ -2044,6 +2126,7 @@
             document.getElementById("tabFood").addEventListener("click", () => activeSection("tabFood", "viewFood"));
             document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
+            document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
@@ -2134,13 +2217,13 @@
 
 // ── Bridge: Handler global verfügbar machen (inline onclick in ES6-Modulen) ──
 Object.assign(window, {
-    addCost, addIncome, backToModeSelect, collapseBodyDisclaimer, exitStackPlan,
+    addCost, addIncome, backToModeSelect, bloodFilterCat, collapseBodyDisclaimer, exitStackPlan,
     expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
     flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
     onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
-    setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
+    setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
