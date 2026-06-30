@@ -564,6 +564,7 @@
         .daynav-btn.day.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
         .daynav-btn.tools { flex: 0 0 auto; background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1; }
         .daynav-btn.tools.active { border-color: #a78bfa; color: #fff; }
+        .daynav-btn.emergency { flex: 0 0 auto; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border: 1px solid #f87171; color: #fff; }
         .tools-sheet { display: none; flex-direction: column; gap: 6px; margin-top: 8px; padding: 10px; background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%); border: 1px solid #1e1e3a; border-radius: 12px; }
         .tools-sheet.open { display: flex; }
         .tool-item {
