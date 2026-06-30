@@ -514,6 +514,63 @@
             border-color: #a78bfa;
         }
 
+        .tab-group-label {
+            flex: 0 0 auto;
+            align-self: center;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #4b5563;
+            padding: 0 2px;
+        }
+        .tab-group-sep {
+            flex: 0 0 auto;
+            align-self: stretch;
+            width: 1px;
+            background: #1e1e3a;
+            margin: 5px 2px;
+        }
+
+        /* BLUTWERTE-ANALYSE */
+        .blood-wrap { padding: 4px 2px 24px; }
+        .blood-disclaimer {
+            background: #1a1000; border: 1px solid #92400e; color: #fcd34d;
+            border-radius: 10px; padding: 11px 13px; font-size: 11.5px; line-height: 1.5; margin-bottom: 12px;
+        }
+        .blood-intro { color: #94a3b8; font-size: 12.5px; line-height: 1.5; margin-bottom: 12px; }
+        .blood-cat-bar { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .blood-cat-btn {
+            font-size: 11px; font-weight: 700; padding: 6px 11px; border-radius: 7px;
+            background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1; cursor: pointer;
+        }
+        .blood-cat-btn.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
+        .blood-card {
+            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%);
+            border: 1px solid #1e1e3a; border-radius: 12px; padding: 13px 14px; margin-bottom: 10px;
+        }
+        .blood-card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+        .blood-name { font-size: 14px; font-weight: 700; color: #e2e8f0; }
+        .blood-ref { font-size: 11px; color: #64748b; margin-top: 2px; }
+        .blood-input-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+        .blood-input {
+            width: 90px; background: #03030a; border: 1px solid #334155; border-radius: 8px;
+            color: #fff; padding: 8px 10px; font-size: 14px; font-weight: 700;
+        }
+        .blood-unit { font-size: 12px; color: #94a3b8; }
+        .blood-status { font-size: 11px; font-weight: 800; padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+        .blood-status.ok   { background: #022c14; color: #4ade80; border: 1px solid #166534; }
+        .blood-status.low  { background: #0a1326; color: #60a5fa; border: 1px solid #1e3a8a; }
+        .blood-status.high { background: #1a0000; color: #f87171; border: 1px solid #7f1d1d; }
+        .blood-status.none { background: #0c0c1e; color: #64748b; border: 1px solid #334155; }
+        .blood-meaning { font-size: 11.5px; color: #94a3b8; line-height: 1.55; margin-top: 9px; }
+        .blood-note { font-size: 11.5px; line-height: 1.55; margin-top: 7px; padding: 7px 10px; border-radius: 8px; }
+        .blood-note.low  { background: #0a1326; color: #93c5fd; border: 1px solid #1e3a8a; }
+        .blood-note.high { background: #1a0000; color: #fca5a5; border: 1px solid #7f1d1d; }
+        .blood-ped-badge { display: inline-block; font-size: 9px; font-weight: 800; color: #fca5a5; background: #1a0000; border: 1px solid #7f1d1d; border-radius: 6px; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
+        .blood-links { font-size: 11px; color: #a5b4fc; margin-top: 8px; line-height: 1.6; }
+        .blood-link-chip { display: inline-block; background: #12122e; border: 1px solid #312e81; border-radius: 6px; padding: 3px 8px; margin: 2px 4px 2px 0; color: #c4b5fd; }
+
         /* TOP PANELS (NOW COLLAPSIBLE) */
         .top-panels-container {
             display: flex;
