@@ -198,13 +198,13 @@
             <div class="setup-title">SILBERLOCKE</div>
             <div class="setup-subtitle">Wie möchtest du den Plan sehen?</div>
             <div class="mode-choice">
+                <button class="mode-btn mode-light" onclick="selectMode('light')">
+                    <span class="mode-name">Easy Mode <span class="mode-recommended">empfohlen</span></span>
+                    <span class="mode-desc">Nur das Wesentliche: dein fertiger Tagesplan – was du nimmst, wann und wie viel. Kein Fachchinesisch, kein Schnickschnack.</span>
+                </button>
                 <button class="mode-btn mode-hard" onclick="selectMode('hard')">
                     <span class="mode-name">Hard Mode</span>
-                    <span class="mode-desc">Alle Details: Wissenschaft, Nährwerte & Begründungen. Für Profis, die alles verstehen wollen.</span>
-                </button>
-                <button class="mode-btn mode-light" onclick="selectMode('light')">
-                    <span class="mode-name">Light Mode</span>
-                    <span class="mode-desc">Ganz einfach: Nur was du nimmst, wann und wie viel. Kein Fachchinesisch, kein Schnickschnack.</span>
+                    <span class="mode-desc">Volle Kontrolle: alle Bereiche frei (Stack, Produkte, Nahrung, Körper, Sport, Blutwerte, Überwachung, RecoveryMode), Wissenschaft, Nährwerte & Begründungen.</span>
                 </button>
             </div>
             <button class="mode-back-btn" onclick="modeBack()">&#8592; Zurück</button>
@@ -334,11 +334,11 @@
                 <div class="daytype-bar">
                     <button class="daytype-btn active" id="dtTraining" onclick="selectDayType('training')">🏋️ Trainingstag</button>
                     <button class="daytype-btn" id="dtRest" onclick="selectDayType('rest')">🛌 Trainingsfrei</button>
-                    <button class="daytype-btn" id="dtRecovery" onclick="selectDayType('recovery')">🩹 Verletzung</button>
-                    <button class="daytype-btn" id="dtCarb" onclick="selectDayType('carb')">🍚 Carb-Loading</button>
-                    <button class="daytype-btn" id="dtAutophagy" onclick="selectDayType('autophagy')">🔄 Autophagie</button>
-                    <button class="daytype-btn" id="dtWater" onclick="selectDayType('water')">💧 Wasserfasten</button>
-                    <button class="daytype-btn" id="dtKeto" onclick="selectDayType('keto')">🥑 Ketogen</button>
+                    <button class="daytype-btn daytype-advanced" id="dtRecovery" onclick="selectDayType('recovery')">🩹 Verletzung</button>
+                    <button class="daytype-btn daytype-advanced" id="dtCarb" onclick="selectDayType('carb')">🍚 Carb-Loading</button>
+                    <button class="daytype-btn daytype-advanced" id="dtAutophagy" onclick="selectDayType('autophagy')">🔄 Autophagie</button>
+                    <button class="daytype-btn daytype-advanced" id="dtWater" onclick="selectDayType('water')">💧 Wasserfasten</button>
+                    <button class="daytype-btn daytype-advanced" id="dtKeto" onclick="selectDayType('keto')">🥑 Ketogen</button>
                 </div>
                 <div class="daytype-hint" id="dayTypeHint"></div>
                 <div id="dailyTargets"></div>

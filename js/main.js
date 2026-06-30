@@ -161,7 +161,10 @@
         }
 
         // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
-        let appMode = 'hard';
+        let appMode = 'light';   // Default = Easy Mode (für die breite Masse)
+        // Easy Mode zeigt nur den Tagesplan; Hard Mode schaltet alles frei.
+        const EASY_TABS = ['tabTimeline'];
+        const EASY_DAYTYPES = ['training', 'rest'];
         let inOnboarding = true;
         let currentStep = 1;
         const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepGoal', 5:'stepSport', 6:'modeScreen', 7:'stepProducts' };
@@ -315,6 +318,25 @@
             document.body.classList.toggle('light-mode', mode === 'light');
             try { store.setItem("sl_mode", mode); } catch (e) {}
         }
+        // Steuert die sichtbare Oberfläche je Modus: Easy = nur Tagesplan,
+        // Hard = alles. Wird in der App (enterApp) angewendet.
+        function applyModeVisibility() {
+            const easy = appMode === 'light';
+            document.querySelectorAll('.tab-bar .tab-btn').forEach(b => {
+                b.style.display = (!easy || EASY_TABS.includes(b.id)) ? '' : 'none';
+            });
+            document.querySelectorAll('.tab-group-label, .tab-group-sep').forEach(e => {
+                e.style.display = easy ? 'none' : '';
+            });
+            document.querySelectorAll('.daytype-advanced').forEach(e => {
+                e.style.display = easy ? 'none' : '';
+            });
+            if (easy) {
+                const active = document.querySelector('.tab-bar .tab-btn.active');
+                if (active && !EASY_TABS.includes(active.id)) activeSection('tabTimeline', 'viewTimeline');
+                if (!EASY_DAYTYPES.includes(currentDayType)) selectDayType('training');
+            }
+        }
         function selectMode(mode) {
             applyMode(mode);
             if (inOnboarding) nextStep();
@@ -346,6 +368,7 @@
             renderMoney();
             renderDailyTargets();
             if (selectedSportMode) selectSportMode(selectedSportMode);
+            applyModeVisibility();
         }
 
         function initStaticPanels() {
