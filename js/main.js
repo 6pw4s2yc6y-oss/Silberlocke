@@ -339,6 +339,7 @@
             initDatabaseView();
             initNutrView();
             initBloodView();
+            initMonitorView();
             renderSportPlans();
             renderStackView();
             renderMoney();
@@ -1936,6 +1937,9 @@
         let BLOOD_MARKERS = [];
         let bloodValues = {};   // { markerId: "Wert" } – lokal gespeichert
         let bloodFilter = "Alle";
+        let MONITORING = { checklist: [], redflags: [] };
+        let monitorLog = {};    // { itemId: "YYYY-MM-DD" } – zuletzt erledigt
+        let monitorFilter = "Alle";
 
 
         let nutrFilter = "Alle";
@@ -2101,6 +2105,78 @@
             if (noteBox) noteBox.innerHTML = bloodNoteHtml(m, st);
         }
 
+        // ─── ÜBERWACHUNGS-PROTOKOLL (Sicherheit/Monitoring, KEINE Einnahme-Anleitung) ───
+        const MONITOR_GROUPS = { steroide: 'Steroide', insulin: 'Insulin', peptide: 'Peptide' };
+        function loadMonitor() {
+            try { monitorLog = JSON.parse(store.getItem('sl_monitor') || '{}') || {}; } catch (e) { monitorLog = {}; }
+        }
+        function saveMonitor() { try { store.setItem('sl_monitor', JSON.stringify(monitorLog)); } catch (e) {} }
+        function fmtDate(iso) {
+            if (!iso) return '';
+            const d = new Date(iso); if (isNaN(d)) return '';
+            return d.toLocaleDateString('de-DE');
+        }
+        function initMonitorView() {
+            loadMonitor();
+            renderMonitorFilter();
+            renderMonitor();
+        }
+        function renderMonitorFilter() {
+            const bar = document.getElementById('monitorFilterBar');
+            if (!bar) return;
+            const opts = ['Alle', ...Object.keys(MONITOR_GROUPS)];
+            bar.innerHTML = opts.map(g =>
+                `<button class="blood-cat-btn${g === monitorFilter ? ' active' : ''}" onclick="monitorFilterGroup('${g}')">${g === 'Alle' ? 'Alle' : MONITOR_GROUPS[g]}</button>`
+            ).join('');
+        }
+        function monitorFilterGroup(g) { monitorFilter = g; renderMonitorFilter(); renderMonitor(); }
+        function renderMonitor() {
+            const box = document.getElementById('monitorList');
+            if (!box) return;
+            const items = (MONITORING.checklist || []).filter(it =>
+                monitorFilter === 'Alle' ? true : (it.groups || []).includes(monitorFilter));
+            const checklistHtml = items.map(it => {
+                const done = monitorLog[it.id];
+                const groupTags = (it.groups || []).map(g => `<span class="mon-tag">${MONITOR_GROUPS[g] || g}</span>`).join('');
+                const link = it.marker ? `<button class="mon-link" onclick="openBloodMarker('${it.marker}')">→ Wert eintragen</button>` : '';
+                return `<div class="mon-item${done ? ' done' : ''}">
+                    <button class="mon-check" onclick="toggleMonitorItem('${it.id}')" aria-label="erledigt">${done ? '✓' : ''}</button>
+                    <div class="mon-body">
+                        <div class="mon-label">${it.label} ${groupTags}</div>
+                        <div class="mon-interval">🕒 ${it.interval}${done ? ' · zuletzt: ' + fmtDate(done) : ''}</div>
+                        <div class="mon-why">${it.why}</div>
+                        ${link}
+                    </div>
+                </div>`;
+            }).join('');
+            const flagsHtml = (MONITORING.redflags || []).map(f =>
+                `<div class="mon-flag ${f.level}">
+                    <div class="mon-flag-sign">${f.level === 'notfall' ? '🚨' : '⚠️'} ${f.sign}</div>
+                    <div class="mon-flag-action">${f.action}</div>
+                </div>`).join('');
+            box.innerHTML = `
+                <div class="mon-section-title">Was du überwachen musst</div>
+                ${checklistHtml}
+                <div class="mon-section-title danger">Warnsignale – sofort handeln</div>
+                ${flagsHtml}`;
+        }
+        // Abhaken setzt das heutige Datum; erneutes Tippen entfernt es.
+        function toggleMonitorItem(id) {
+            if (monitorLog[id]) delete monitorLog[id];
+            else monitorLog[id] = new Date().toISOString().slice(0, 10);
+            saveMonitor();
+            renderMonitor();
+        }
+        // Sprung in die Blutwerte-Analyse zum passenden Marker
+        function openBloodMarker(markerId) {
+            activeSection('tabBlood', 'viewBlood');
+            bloodFilter = 'Alle';
+            renderBloodCats();
+            renderBloodCards();
+            const el = document.getElementById('bs-' + markerId);
+            if (el) { const card = el.closest('.blood-card'); if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        }
+
         document.addEventListener("DOMContentLoaded", async () => {
             // Persistenz-Cache füllen (IndexedDB laden + Migration), bevor gelesen wird.
             await initStorage();
@@ -2114,6 +2190,7 @@
                 BODY_ZONES      = data.body_zones;
                 NUTR_DATA       = data.nutr_data;
                 BLOOD_MARKERS   = data.bloodmarkers;
+                MONITORING      = data.monitoring;
                 CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
                 RECOMMENDED_IDS = new Set();
                 TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => RECOMMENDED_IDS.add(p)));
@@ -2127,6 +2204,7 @@
             document.getElementById("tabBody").addEventListener("click", () => activeSection("tabBody", "viewBody"));
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
+            document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
@@ -2218,6 +2296,7 @@
 // ── Bridge: Handler global verfügbar machen (inline onclick in ES6-Modulen) ──
 Object.assign(window, {
     addCost, addIncome, backToModeSelect, bloodFilterCat, collapseBodyDisclaimer, exitStackPlan,
+    monitorFilterGroup, openBloodMarker, toggleMonitorItem,
     expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
     flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
     onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
