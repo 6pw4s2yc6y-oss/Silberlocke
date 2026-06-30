@@ -318,24 +318,69 @@
             document.body.classList.toggle('light-mode', mode === 'light');
             try { store.setItem("sl_mode", mode); } catch (e) {}
         }
-        // Steuert die sichtbare Oberfläche je Modus: Easy = nur Tagesplan,
-        // Hard = alles. Wird in der App (enterApp) angewendet.
+        // Steuert die sichtbare Oberfläche je Modus.
+        // Easy = nur der Tagesplan. Hard = „Dein Tag" als Achse + Werkzeuge-Menü
+        // (die alte Tab-Leiste ist nur noch unsichtbare Engine für die Navigation).
         function applyModeVisibility() {
             const easy = appMode === 'light';
-            document.querySelectorAll('.tab-bar .tab-btn').forEach(b => {
-                b.style.display = (!easy || EASY_TABS.includes(b.id)) ? '' : 'none';
-            });
-            document.querySelectorAll('.tab-group-label, .tab-group-sep').forEach(e => {
-                e.style.display = easy ? 'none' : '';
-            });
+            const tabBar = document.querySelector('.tab-bar');
+            if (tabBar) tabBar.style.display = 'none';   // immer versteckt – steuert nur noch intern
+            const toolsBar = document.getElementById('toolsBar');
+            if (toolsBar) toolsBar.style.display = easy ? 'none' : 'flex';
             document.querySelectorAll('.daytype-advanced').forEach(e => {
                 e.style.display = easy ? 'none' : '';
             });
             if (easy) {
+                closeTools();
                 const active = document.querySelector('.tab-bar .tab-btn.active');
                 if (active && !EASY_TABS.includes(active.id)) activeSection('tabTimeline', 'viewTimeline');
                 if (!EASY_DAYTYPES.includes(currentDayType)) selectDayType('training');
+            } else {
+                buildToolsSheet();
+                setNavDayActive(document.getElementById('viewTimeline').classList.contains('active'));
             }
+        }
+
+        // Baut das Werkzeuge-Menü aus den (versteckten) Tab-Buttons – außer Tagesplan.
+        function buildToolsSheet() {
+            const sheet = document.getElementById('toolsSheet');
+            if (!sheet) return;
+            sheet.innerHTML = '';
+            [...document.querySelectorAll('.tab-bar .tab-btn')]
+                .filter(b => b.id !== 'tabTimeline')
+                .forEach(src => {
+                    const item = document.createElement('button');
+                    item.className = 'tool-item' + (src.classList.contains('tab-emergency') ? ' emergency' : '');
+                    item.textContent = src.textContent;
+                    item.addEventListener('click', () => {
+                        src.click();                 // bestehenden Tab-Handler wiederverwenden
+                        setNavDayActive(false);
+                        closeTools();
+                        window.scrollTo(0, 0);
+                    });
+                    sheet.appendChild(item);
+                });
+        }
+        function setNavDayActive(on) {
+            const d = document.getElementById('navDay');
+            if (d) d.classList.toggle('active', on);
+        }
+        function toggleTools() {
+            const s = document.getElementById('toolsSheet');
+            const t = document.getElementById('navTools');
+            if (!s) return;
+            const open = s.classList.toggle('open');
+            if (t) t.classList.toggle('active', open);
+        }
+        function closeTools() {
+            document.getElementById('toolsSheet')?.classList.remove('open');
+            document.getElementById('navTools')?.classList.remove('active');
+        }
+        function goToDay() {
+            document.getElementById('tabTimeline').click();
+            setNavDayActive(true);
+            closeTools();
+            window.scrollTo(0, 0);
         }
         function selectMode(mode) {
             applyMode(mode);
@@ -2383,6 +2428,8 @@
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
             document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
+            document.getElementById("navDay").addEventListener("click", goToDay);
+            document.getElementById("navTools").addEventListener("click", toggleTools);
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
