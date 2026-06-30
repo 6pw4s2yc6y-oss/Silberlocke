@@ -1,0 +1,22 @@
+{
+  "checklist": [
+    { "id": "bloodtest", "label": "Großes Blutbild + Organwerte", "interval": "alle 8–12 Wochen", "why": "Leber, Niere, Blutfette, Hämatokrit & Hormone im Blick behalten – die Basis jeder Überwachung.", "groups": ["steroide", "insulin", "peptide"], "marker": null },
+    { "id": "bp", "label": "Blutdruck messen", "interval": "wöchentlich", "why": "Steroide & Stimulanzien treiben den Druck – erhöht Herzinfarkt-/Schlaganfallrisiko.", "groups": ["steroide", "peptide"], "marker": "rr" },
+    { "id": "hct", "label": "Hämatokrit prüfen", "interval": "alle 8 Wochen", "why": "Zu dickes Blut → Thrombose-/Schlaganfallgefahr (Testosteron, EPO-artige Peptide).", "groups": ["steroide", "peptide"], "marker": "haematokrit" },
+    { "id": "lipids", "label": "Lipidprofil (LDL/HDL/Triglyceride)", "interval": "alle 8–12 Wochen", "why": "Vor allem orale Steroide verschlechtern die Blutfette stark.", "groups": ["steroide"], "marker": "ldl" },
+    { "id": "liver", "label": "Leberwerte (ALT/AST/GGT)", "interval": "alle 8 Wochen", "why": "17-alpha-alkylierte (orale) Steroide belasten die Leber erheblich.", "groups": ["steroide"], "marker": "alt" },
+    { "id": "kidney", "label": "Nierenwerte (Kreatinin/eGFR)", "interval": "alle 8–12 Wochen", "why": "Hohe Eiweißzufuhr plus Substanzen belasten die Niere.", "groups": ["steroide", "peptide"], "marker": "krea" },
+    { "id": "glucose", "label": "Blutzucker (nüchtern / HbA1c)", "interval": "Insulin: vor jeder Anwendung messen", "why": "Insulin kann lebensgefährlichen Unterzucker auslösen – niemals ohne Messung & schnelle Kohlenhydrate griffbereit.", "groups": ["insulin"], "marker": "glukose" },
+    { "id": "estra", "label": "Östradiol (E2)", "interval": "alle 6–8 Wochen", "why": "Aromatisierende Steroide heben E2 – Gyno- & Wassereinlagerungs-Risiko.", "groups": ["steroide"], "marker": "e2" },
+    { "id": "hormones", "label": "Testosteron + Erholung nach der Kur", "interval": "vor und nach der Kur", "why": "Die körpereigene Produktion wird unterdrückt – die Erholung gehört ärztlich begleitet.", "groups": ["steroide"], "marker": "testo" }
+  ],
+  "redflags": [
+    { "sign": "Zittern, Schwitzen, Heißhunger, Herzrasen, Verwirrtheit (Unterzucker bei Insulin)", "action": "SOFORT schnelle Kohlenhydrate (Saft, Traubenzucker, Cola). Bei Bewusstseinstrübung: Notruf 112.", "level": "notfall" },
+    { "sign": "Brustschmerz, Atemnot, einseitige Schwäche/Taubheit, plötzliche Sehstörung", "action": "Sofort Notruf 112 – Verdacht auf Herzinfarkt oder Schlaganfall.", "level": "notfall" },
+    { "sign": "Wadenschmerz/-schwellung, plötzliche Kurzatmigkeit (Thrombose/Embolie)", "action": "Sofort ärztlich/Notruf – oft mit zu hohem Hämatokrit verbunden.", "level": "notfall" },
+    { "sign": "Gelbliche Haut/Augen, dunkler Urin, starke Oberbauchschmerzen", "action": "Zeitnah zum Arzt – mögliche Leberschädigung.", "level": "arzt" },
+    { "sign": "Anhaltend hoher Blutdruck, starke/neue Kopfschmerzen", "action": "Substanzen pausieren und ärztlich abklären.", "level": "arzt" },
+    { "sign": "Starke Wassereinlagerung, Brustknoten oder -spannen (Gynäkomastie)", "action": "Ärztlich abklären – Östradiol prüfen lassen.", "level": "arzt" },
+    { "sign": "Anhaltend gedrückte Stimmung, Aggressivität, Schlaflosigkeit", "action": "Ernst nehmen und Hilfe suchen – auch psychisch belasten diese Substanzen.", "level": "arzt" }
+  ]
+}

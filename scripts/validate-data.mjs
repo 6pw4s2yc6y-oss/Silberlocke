@@ -19,6 +19,7 @@ const sport = load('sport_data.json');
 const body = load('body_zones.json');
 const nutr = load('nutr_data.json');
 const blood = load('bloodmarkers.json');
+const monitoring = load('monitoring.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -112,6 +113,28 @@ else blood.forEach((m, i) => {
     else m.nutrients.forEach(pid => { if (!productIds.has(pid)) fail(`${at} (${m.id}): verlinktes Produkt "${pid}" existiert nicht`); });
 });
 
+// ── monitoring ──────────────────────────────────────────────────────────────
+const VALID_GROUPS = new Set(['steroide', 'insulin', 'peptide']);
+if (!monitoring || typeof monitoring !== 'object' || Array.isArray(monitoring)) {
+    fail('monitoring.json: muss ein Objekt sein');
+} else {
+    if (!Array.isArray(monitoring.checklist) || monitoring.checklist.length === 0) fail('monitoring.json: "checklist" fehlt/leer');
+    else monitoring.checklist.forEach((it, i) => {
+        const at = `monitoring.checklist[${i}]`;
+        ['id', 'label', 'interval', 'why'].forEach(k => { if (typeof it[k] !== 'string' || !it[k]) fail(`${at}: "${k}" fehlt`); });
+        if (!Array.isArray(it.groups) || it.groups.length === 0) fail(`${at}: "groups" fehlt/leer`);
+        else it.groups.forEach(g => { if (!VALID_GROUPS.has(g)) fail(`${at}: unbekannte Gruppe "${g}"`); });
+        if (it.marker != null && !bloodIds.has(it.marker)) fail(`${at}: marker "${it.marker}" existiert nicht in bloodmarkers.json`);
+    });
+    if (!Array.isArray(monitoring.redflags) || monitoring.redflags.length === 0) fail('monitoring.json: "redflags" fehlt/leer');
+    else monitoring.redflags.forEach((f, i) => {
+        const at = `monitoring.redflags[${i}]`;
+        if (typeof f.sign !== 'string' || !f.sign) fail(`${at}: "sign" fehlt`);
+        if (typeof f.action !== 'string' || !f.action) fail(`${at}: "action" fehlt`);
+        if (!['notfall', 'arzt'].includes(f.level)) fail(`${at}: "level" muss notfall|arzt sein`);
+    });
+}
+
 // ── body_zones (Grundstruktur) ──────────────────────────────────────────────
 if (!body || typeof body !== 'object' || Array.isArray(body)) fail('body_zones.json: muss ein Objekt sein');
 
@@ -121,4 +144,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte.`);
