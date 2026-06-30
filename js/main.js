@@ -1231,11 +1231,13 @@
         let userWantsEmptyPlan = false; // true = bewusst leerer Plan (selbst befüllen)
         // Alle empfohlenen Produkte (aus dem Standard-Tagesplan)
         let RECOMMENDED_IDS = new Set();
-        const DAYTYPES = ['training','rest','carb','autophagy','water','keto'];
+        const DAYTYPES = ['training','rest','recovery','carb','autophagy','water','keto'];
         const DAYTYPE_LABELS = {
-            training: "Trainingstag", rest: "Trainingsfrei", carb: "Carb-Loading",
+            training: "Trainingstag", rest: "Trainingsfrei", recovery: "Verletzung/Recovery", carb: "Carb-Loading",
             autophagy: "Autophagie", water: "Wasserfasten", keto: "Ketogen"
         };
+        // Recovery-/Verletzungstag: Supplemente, die Geweberegeneration & Entzündungsdämpfung unterstützen
+        const RECOVERY_IDS = ['p38','p39','p28','p21','p22','p24','p16']; // Kollagen, Gelenke, Omega-3, Vit C, Vit D, Zink, Glycin
 
         // Pre-Workout Stim-/Pump-Booster – an trainingsfreien Tagen überflüssig
         const BOOSTER_IDS = new Set(['p43','p44','p45','p46','p47']);
@@ -1249,6 +1251,7 @@
         const DAYTYPE_HINTS = {
             training:  "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
             rest:      "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
+            recovery:  "🩹 <strong>Verletzungs-/Recovery-Tag:</strong> Fokus auf Gewebeheilung statt Leistung. Stimulanzien & Pre-Workout-Booster raus, Eiweiß hoch (Muskelerhalt in der Pause), Kollagen + Vitamin C fürs Bindegewebe, Omega-3 entzündungshemmend, Vitamin D & Zink fürs Immunsystem. Belastung dosieren – kein Schmerz. <strong>Bei starken oder anhaltenden Beschwerden zum Arzt/Physiotherapeuten.</strong>",
             carb:      "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation.",
             autophagy: "🔄 <strong>Autophagie-Tag:</strong> Nur kalorienfreie Mikronährstoffe & Wasser. <strong>Kein Protein, keine Kalorien</strong> – mTOR & Insulin niedrig halten, sonst stoppt die zelluläre Selbstreinigung. Ideal ab ~16h Fasten.",
             water:     "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung.",
@@ -1269,6 +1272,7 @@
         function getActiveTimeline() {
             switch (currentDayType) {
                 case 'rest':      return buildRestTimeline();
+                case 'recovery':  return buildRecoveryTimeline();
                 case 'carb':      return buildCarbTimeline();
                 case 'autophagy': return filterTimeline(
                                        p => (p.protein||0)===0 && (p.carbs||0)===0 && (p.kcal||0)<=5,
@@ -1321,6 +1325,36 @@
                         productIds, notes, priority
                     };
                 });
+        }
+
+        // Verletzungs-/Recovery-Tag: kein Training (Pre-Workout entfällt), Stimulanzien & schnelle
+        // Carbs raus, Heilungs-Supplemente (Kollagen, Omega-3, Vitamine) ins Frühstück einspielen.
+        function buildRecoveryTimeline() {
+            return TIMELINE_CONFIG
+                .filter(b => b.id !== 't4')
+                .map(b => {
+                    let productIds = b.productIds.filter(pid => !BOOSTER_IDS.has(pid) && !FASTCARB_IDS.has(pid));
+                    const notes = { ...b.notes };
+                    const priority = { ...b.priority };
+                    [...BOOSTER_IDS, ...FASTCARB_IDS].forEach(pid => { delete notes[pid]; delete priority[pid]; });
+                    if (b.id === 't2') {
+                        RECOVERY_IDS.forEach(pid => {
+                            if (PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout') return;
+                            if (!getProductById(pid)) return;
+                            if (!productIds.includes(pid)) productIds.push(pid);
+                            notes[pid] = "RECOVERY: unterstützt die Heilung von Gewebe & Gelenken und dämpft Entzündung – Kollagen + Vitamin C fürs Bindegewebe, Omega-3 entzündungshemmend, Vitamin D & Zink fürs Immunsystem.";
+                            priority[pid] = "WICHTIG";
+                        });
+                        return {
+                            ...b,
+                            label: "Recovery & Regeneration",
+                            why: ": WASSER: reichlich über den Tag.<br><br>Verletzungs-/Recovery-Tag: Fokus auf Geweberegeneration und Entzündungsdämpfung. Eiweiß hoch halten (Muskelerhalt in der Trainingspause), Kollagen + Vitamin C ~30–60 min vor Belastung/Physio. Belastung dosieren – kein Schmerz. Bei starken oder anhaltenden Beschwerden zum Arzt/Physiotherapeuten.",
+                            productIds, notes, priority
+                        };
+                    }
+                    return { ...b, productIds, notes, priority };
+                })
+                .filter(b => b.productIds.length > 0);
         }
 
         // Carb-Loading: Trainingsplan + Carbs zu Frühstück, Mittag- & Abendessen
