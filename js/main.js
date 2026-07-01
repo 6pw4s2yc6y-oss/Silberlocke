@@ -167,8 +167,8 @@
         // MODE_TOOLS = welche Bereiche im Werkzeuge-Menü erscheinen (Tagesplan ist immer da).
         const MODE_TOOLS = {
             light:  [],
-            hard:   ['tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery'],
-            expert: ['tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor'],
+            hard:   ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery'],
+            expert: ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor'],
         };
         const MODE_DAYTYPES = {
             light:  ['training', 'rest'],
@@ -456,6 +456,15 @@
             cards.push({ open: 'day', cls: 'wide', html:
                 `<div class="dash-icon">🗓</div><div class="dash-title">Heute · ${DAYTYPE_LABELS[currentDayType] || ''}</div>
                  <div class="dash-sub">${blocks.length} Zeitfenster im Plan</div><div class="dash-chips">${chips}</div>` });
+            // Diese Woche (Wochenplan) – in jedem Modus erreichbar
+            const wk = loadWeek();
+            const ti = todayIdx();
+            const weekChips = wk.map((e, i) => `<span class="dash-chip${i === ti ? ' today' : ''}">${WEEKDAYS[i]} ${e.train ? '🏋️' : '🛌'}</span>`).join('');
+            const trainDays = wk.filter(e => e.train).length;
+            cards.push({ open: 'tabWeek', cls: 'wide', html:
+                `<div class="dash-icon">📅</div><div class="dash-title">Diese Woche</div>
+                 <div class="dash-sub">${trainDays} Trainingstage · heute ${wk[ti].train ? 'Training' : 'Pause'}</div>
+                 <div class="dash-chips">${weekChips}</div>` });
             // Bedarf
             const t = computeTargets(userProfile);
             cards.push({ open: 'day', html: t
@@ -522,6 +531,8 @@
             stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
 
             initStaticPanels();
+            applyWeekToday();   // Tagestyp automatisch nach dem heutigen Wochentag setzen
+            renderWeek();
             document.getElementById("dayTypeHint").innerHTML = dayHint(currentDayType);
             renderTimeline();
             initDatabaseView();
@@ -1470,6 +1481,98 @@
             const hint = document.getElementById('dayTypeHint');
             if (hint) hint.innerHTML = dayHint(type);
             renderTimeline();
+        }
+
+        // ── WOCHENPLAN (Mo–So: Training oder Pause + optionale feste Uhrzeit) ────────
+        // Der Nutzer legt seine Woche einmal fest; die App stellt sich jeden Tag
+        // automatisch auf den richtigen Tagestyp (Training/Pause) ein.
+        const WEEKDAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+        const WEEKDAYS_FULL = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+        function defaultWeek() {
+            // Typischer Split: Mo/Di trainieren, Mi Pause, Do/Fr trainieren, Wochenende frei.
+            return [true, true, false, true, true, false, false].map(t => ({ train: t, time: '' }));
+        }
+        let weekPlan = null;
+        function loadWeek() {
+            if (weekPlan) return weekPlan;
+            try {
+                const raw = JSON.parse(store.getItem('sl_week') || 'null');
+                if (Array.isArray(raw) && raw.length === 7) {
+                    weekPlan = raw.map(e => ({ train: !!(e && e.train), time: (e && typeof e.time === 'string') ? e.time : '' }));
+                    return weekPlan;
+                }
+            } catch (e) {}
+            weekPlan = defaultWeek();
+            return weekPlan;
+        }
+        function saveWeek() { try { store.setItem('sl_week', JSON.stringify(weekPlan)); } catch (e) {} }
+        function todayIdx() { return (new Date().getDay() + 6) % 7; }   // 0 = Montag
+
+        // Stellt Tagestyp & (falls hinterlegt) Trainingszeit passend zum heutigen Tag ein.
+        function applyWeekToday() {
+            const wk = loadWeek();
+            const e = wk[todayIdx()];
+            if (!e) return;
+            currentDayType = e.train ? 'training' : 'rest';
+            if (e.train && e.time) globalTrainTimeStr = e.time;
+            DAYTYPES.forEach(t => {
+                const btn = document.getElementById('dt' + t.charAt(0).toUpperCase() + t.slice(1));
+                if (btn) btn.classList.toggle('active', t === currentDayType);
+            });
+        }
+
+        function renderWeek() {
+            const el = document.getElementById('viewWeek');
+            if (!el) return;
+            const wk = loadWeek();
+            const ti = todayIdx();
+            const trainCount = wk.filter(e => e.train).length;
+            const rows = wk.map((e, i) => {
+                const today = i === ti;
+                return `<div class="week-row${today ? ' today' : ''}">
+                    <div class="week-day">${WEEKDAYS_FULL[i]}${today ? ' <span class="week-today-badge">heute</span>' : ''}</div>
+                    <div class="week-toggle">
+                        <button class="week-btn train${e.train ? ' active' : ''}" onclick="setWeekDay(${i}, true)">🏋️ Training</button>
+                        <button class="week-btn rest${!e.train ? ' active' : ''}" onclick="setWeekDay(${i}, false)">🛌 Pause</button>
+                    </div>
+                    <div class="week-time">
+                        <label>Uhrzeit</label>
+                        <input type="time" value="${e.time || ''}" ${e.train ? '' : 'disabled'} onchange="setWeekTime(${i}, this.value)">
+                    </div>
+                </div>`;
+            }).join('');
+            el.innerHTML = `<div class="week-head">
+                    <h2>📅 Dein Wochenplan</h2>
+                    <p class="week-intro">Trag ein, wann du trainierst und wann Pause ist – die App stellt sich jeden Tag automatisch darauf ein. <strong>Heute</strong> ist markiert. Leere Uhrzeit = deine Standard-Trainingszeit.</p>
+                    <div class="week-summary">${trainCount} Trainingstage · ${7 - trainCount} Pausentage</div>
+                </div>${rows}`;
+        }
+
+        // Tag als Training/Pause setzen; wenn der heutige Tag betroffen ist, App live nachziehen.
+        function setWeekDay(i, train) {
+            const wk = loadWeek();
+            if (!wk[i]) return;
+            wk[i].train = !!train;
+            saveWeek();
+            renderWeek();
+            if (i === todayIdx()) {
+                applyWeekToday();
+                const hint = document.getElementById('dayTypeHint');
+                if (hint) hint.innerHTML = dayHint(currentDayType);
+                renderTimeline();
+            }
+            renderDashboard();
+        }
+        // Feste Uhrzeit für einen Trainingstag hinterlegen (leer = Standardzeit).
+        function setWeekTime(i, time) {
+            const wk = loadWeek();
+            if (!wk[i]) return;
+            wk[i].time = time || '';
+            saveWeek();
+            if (i === todayIdx() && wk[i].train) {
+                if (wk[i].time) globalTrainTimeStr = wk[i].time;
+                renderTimeline();
+            }
         }
 
         function getActiveTimeline() {
@@ -2551,6 +2654,7 @@
             } catch (e) { console.error(e); }
 
             document.getElementById("tabTimeline").addEventListener("click", () => activeSection("tabTimeline", "viewTimeline"));
+            document.getElementById("tabWeek").addEventListener("click", () => { activeSection("tabWeek", "viewWeek"); renderWeek(); });
             document.getElementById("tabMoney").addEventListener("click", () => { activeSection("tabMoney", "viewMoney"); renderMoney(); });
             document.getElementById("tabStack").addEventListener("click", () => { activeSection("tabStack", "viewStack"); renderStackView(); });
             document.getElementById("tabDatabase").addEventListener("click", () => activeSection("tabDatabase", "viewDatabase"));
@@ -2666,6 +2770,7 @@ Object.assign(window, {
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
+    setWeekDay, setWeekTime,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel

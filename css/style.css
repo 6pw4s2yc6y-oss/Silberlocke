@@ -583,6 +583,36 @@
         .dash-card.emergency .dash-sub { color: #dcfce7; }
         .dash-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
         .dash-chip { font-size: 9.5px; font-weight: 700; color: #cbd5e1; background: #12122e; border: 1px solid #312e81; border-radius: 5px; padding: 2px 6px; }
+        .dash-chip.today { color: #fff; background: #7c3aed; border-color: #a78bfa; }
+
+        /* WOCHENPLAN */
+        .week-head { padding: 4px 2px 14px; }
+        .week-head h2 { font-size: 18px; font-weight: 900; color: #e2e8f0; margin: 0 0 6px; }
+        .week-intro { font-size: 12px; color: #94a3b8; line-height: 1.5; margin: 0 0 8px; }
+        .week-summary { font-size: 12px; font-weight: 800; color: #a5b4fc; }
+        .week-row {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%); border: 1px solid #1e1e3a;
+            border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
+        }
+        .week-row.today { border-color: #7c3aed; background: linear-gradient(145deg, #16123a 0%, #0a0820 100%); }
+        .week-day { flex: 1 1 110px; font-size: 13.5px; font-weight: 800; color: #e2e8f0; }
+        .week-today-badge { font-size: 9.5px; font-weight: 800; color: #fff; background: #7c3aed; border-radius: 5px; padding: 2px 6px; margin-left: 6px; vertical-align: middle; }
+        .week-toggle { display: flex; gap: 6px; flex: 1 1 auto; }
+        .week-btn {
+            flex: 1 1 auto; white-space: nowrap; padding: 8px 10px; font-size: 12px; font-weight: 700;
+            border-radius: 8px; cursor: pointer; transition: all .15s;
+            background: #070710; border: 1px solid #1e1e3a; color: #94a3b8;
+        }
+        .week-btn.train.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
+        .week-btn.rest.active { background: #334155; border-color: #64748b; color: #fff; }
+        .week-time { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+        .week-time label { font-size: 10.5px; font-weight: 700; color: #64748b; }
+        .week-time input[type="time"] {
+            background: #070710; border: 1px solid #1e1e3a; color: #e2e8f0;
+            border-radius: 8px; padding: 6px 8px; font-size: 12px; font-weight: 700;
+        }
+        .week-time input[type="time"]:disabled { opacity: .35; cursor: not-allowed; }
         .daynav-btn.tools { flex: 0 0 auto; background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1; }
         .daynav-btn.tools.active { border-color: #a78bfa; color: #fff; }
         .daynav-btn.emergency { flex: 0 0 auto; background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); border: 1px solid #4ade80; color: #fff; }
