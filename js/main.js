@@ -342,7 +342,13 @@
         function skipStep(field) { nextStep(); }
         function renderDailyTargets() {
             const box = document.getElementById('dailyTargets');
-            if (box) box.innerHTML = buildTargetsHtml(userProfile, true);
+            if (!box) return;
+            // Light Mode: die Zahlen (kcal/Eiweiß) sind die Belohnung für Woche 2.
+            if (appMode === 'light' && !isUnlocked('body')) {
+                box.innerHTML = `<div class="targets-locked">🔒 <strong>Deine Zahlen</strong> (kcal &amp; Eiweiß-Bedarf) schaltest du in <strong>Woche 2</strong> frei – bleib diszipliniert dran.</div>`;
+                return;
+            }
+            box.innerHTML = buildTargetsHtml(userProfile, true);
         }
         function saveProfile() { try { store.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
@@ -490,6 +496,7 @@
             const navEmergency = document.getElementById('navEmergency');
             if (navTools) navTools.style.display = tools.length ? '' : 'none';
             if (navEmergency) navEmergency.style.display = light ? '' : 'none';
+            updateNavLocks();   // Light Mode: gesperrte Funktionen als 🔒 markieren
             // Tagestyp-Buttons je nach Modus ein-/ausblenden
             document.querySelectorAll('.daytype-btn').forEach(b => {
                 const type = b.id.replace('dt', '').toLowerCase();
@@ -557,8 +564,25 @@
             const b = document.getElementById('navBody');
             if (b) b.classList.toggle('active', on);
         }
+        // Nav-Knöpfe im Light Mode je nach Freischaltung sperren/entsperren.
+        function updateNavLocks() {
+            const light = appMode === 'light';
+            const navBody = document.getElementById('navBody');
+            if (navBody) {
+                const locked = light && !isUnlocked('body');
+                navBody.classList.toggle('locked', locked);
+                navBody.innerHTML = (locked ? '🔒' : '🫀') + ' Dein Körper';
+            }
+            const navEmergency = document.getElementById('navEmergency');
+            if (navEmergency) {
+                const locked = light && !isUnlocked('recovery');
+                navEmergency.classList.toggle('locked', locked);
+                navEmergency.innerHTML = (locked ? '🔒' : '💚') + ' RecoveryMode';
+            }
+        }
         // „Dein Körper" öffnen (Nav-Knopf neben „Dein Tag").
         function goToBody() {
+            if (appMode === 'light' && !isUnlocked('body')) { celebrate('🔒 „Dein Körper" schaltet ab 7 disziplinierten Tagen frei'); return; }
             document.getElementById('tabMyBody').click();
             setNavBodyActive(true);
             setNavDayActive(false);
@@ -591,36 +615,148 @@
             closeTools();
             window.scrollTo(0, 0);
         }
+        // ── FORTSCHRITT / DISZIPLIN-ENGINE (Phase 1: Light Mode) ────────────────────
+        // Jeder startet in Light. 7 disziplinierte Tage = 1 Woche = 1 Freischaltung,
+        // 28 = Aufstieg zur nächsten Stufe. Disziplin = alle Tagesblöcke abgehakt.
+        const STAGES = ['light', 'hard', 'expert', 'master'];
+        const STAGE_LABEL = { light: 'Light', hard: 'Hard', expert: 'Expert', master: 'Master' };
+        const DAYS_PER_STAGE = 28;
+        // Freischalt-Fahrplan Light: Feature-Key → ab wie vielen disziplinierten Tagen.
+        const LIGHT_UNLOCKS = [
+            { key: 'day',      day: 0,  label: 'Dein Tag – Tracking', icon: '🗓' },
+            { key: 'body',     day: 7,  label: 'Dein Körper – deine Zahlen', icon: '🫀' },
+            { key: 'week',     day: 14, label: 'Wochenplan', icon: '📅' },
+            { key: 'recovery', day: 21, label: 'RecoveryMode', icon: '💚' },
+        ];
+        let progress = null;
+        let todayBlockIds = [];   // IDs der heute angezeigten Tagesplan-Blöcke
+        function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+        function defaultProgress() {
+            return { stage: 'light', startDate: todayStr(), lastDate: todayStr(),
+                     disciplinedDays: 0, score: 60, unlocked: ['day'], log: {} };
+        }
+        function loadProgress() {
+            if (progress) return progress;
+            try {
+                const raw = JSON.parse(store.getItem('sl_progress') || 'null');
+                if (raw && typeof raw === 'object' && raw.stage) { progress = raw; progress.log = progress.log || {}; progress.unlocked = progress.unlocked || ['day']; return progress; }
+            } catch (e) {}
+            progress = defaultProgress();
+            return progress;
+        }
+        function saveProgress() { try { store.setItem('sl_progress', JSON.stringify(progress)); } catch (e) {} }
+        // Beim Öffnen an neuem Tag: war der letzte aktive Tag nicht diszipliniert → Status sanft senken.
+        function reconcileProgress() {
+            const p = loadProgress();
+            const t = todayStr();
+            if (p.lastDate && p.lastDate !== t) {
+                const prev = p.log[p.lastDate];
+                if (!prev || !prev.done) p.score = Math.max(0, p.score - 5);
+                p.lastDate = t;
+            }
+            checkUnlocks();   // Freischaltungen immer mit den disziplinierten Tagen abgleichen
+            saveProgress();
+        }
+        function isUnlocked(key) { return (loadProgress().unlocked || []).includes(key); }
+        function nextUnlock() { const p = loadProgress(); return LIGHT_UNLOCKS.find(u => !p.unlocked.includes(u.key)); }
+        function todayLog() { const p = loadProgress(); const t = todayStr(); if (!p.log[t]) p.log[t] = { checked: [], done: false }; return p.log[t]; }
+        function isBlockDone(id) { return todayLog().checked.includes(id); }
+        function toggleBlockDone(id) {
+            const log = todayLog();
+            const i = log.checked.indexOf(id);
+            if (i >= 0) log.checked.splice(i, 1); else log.checked.push(id);
+            saveProgress();
+            evaluateDay();
+            renderTimeline();
+            renderDailyTargets();   // Zahlen ggf. freischalten (Woche 2)
+            updateNavLocks();       // frisch freigeschaltete Funktionen sofort entsperren
+            if (document.getElementById('viewDashboard').classList.contains('active')) renderDashboard();
+        }
+        // Alle heutigen Blöcke abgehakt → disziplinierter Tag (einmal zählen).
+        function evaluateDay() {
+            const p = loadProgress();
+            const log = todayLog();
+            const allDone = todayBlockIds.length > 0 && todayBlockIds.every(id => log.checked.includes(id));
+            if (allDone && !log.done) {
+                log.done = true;
+                p.disciplinedDays += 1;
+                p.score = Math.min(100, p.score + 8);
+                checkUnlocks();
+                saveProgress();
+                celebrate('🎉 Tag geschafft! +1 disziplinierter Tag');
+            }
+        }
+        function checkUnlocks() {
+            const p = loadProgress();
+            LIGHT_UNLOCKS.forEach(u => {
+                if (p.disciplinedDays >= u.day && !p.unlocked.includes(u.key)) {
+                    p.unlocked.push(u.key);
+                    if (u.day > 0) celebrate('🔓 Freigeschaltet: ' + u.label);
+                }
+            });
+        }
+        function celebrate(msg) {
+            let el = document.getElementById('celebrateToast');
+            if (!el) { el = document.createElement('div'); el.id = 'celebrateToast'; el.className = 'celebrate-toast'; document.body.appendChild(el); }
+            el.textContent = msg;
+            void el.offsetWidth;
+            el.classList.add('show');
+            clearTimeout(el._t);
+            el._t = setTimeout(() => el.classList.remove('show'), 3200);
+        }
+        // Fortschritts-Karte (Übersicht): Status-Balken + Weg zur nächsten Freischaltung.
+        function progressCardHtml() {
+            const p = loadProgress();
+            const inWeek = p.disciplinedDays % 7;          // Tage in der laufenden Woche
+            const nu = nextUnlock();
+            const stageDaysLeft = Math.max(0, DAYS_PER_STAGE - p.disciplinedDays);
+            const nextLine = nu
+                ? `${7 - inWeek} disziplinierte${7 - inWeek === 1 ? 'r' : ''} Tag${7 - inWeek === 1 ? '' : 'e'} bis „${nu.label}" ${nu.icon}`
+                : (p.stage === 'light' ? `Noch ${stageDaysLeft} Tage bis Hard Mode 🔓` : 'Alles freigeschaltet');
+            return `<div class="dash-icon">🔥</div><div class="dash-title">Dein Fortschritt · ${STAGE_LABEL[p.stage]} Mode</div>
+                <div class="prog-status"><div class="prog-status-fill" style="width:${p.score}%"></div></div>
+                <div class="dash-sub">Disziplin-Status ${p.score}% · ${p.disciplinedDays} disziplinierte Tage</div>
+                <div class="prog-next">${nextLine}</div>`;
+        }
+
         // Baut das Karten-Dashboard – ein Register, das je Modul eine Karte liefert.
         // Neue (Lebens-)Module docken später einfach als weitere Karte an.
         function renderDashboard() {
             const grid = document.getElementById('dashGrid');
             if (!grid) return;
             const m = appMode;
+            const light = m === 'light';
+            // In Light Mode sind Funktionen erst nach Freischaltung offen; sonst alles frei.
+            const gate = key => light && !isUnlocked(key);
+            const unlockCond = key => { const u = LIGHT_UNLOCKS.find(x => x.key === key); return u ? `🔒 Freigeschaltet ab ${u.day} disziplinierten Tagen` : '🔒 Gesperrt'; };
             const cards = [];
-            // Heute / Tagesplan
+            // Fortschritt / Disziplin-Status (immer ganz oben)
+            cards.push({ open: 'day', cls: 'wide progress', html: progressCardHtml() });
+            // Heute / Tagesplan (Woche 1 – immer offen, hier wird abgehakt)
             const blocks = getActiveTimeline();
-            const chips = blocks.slice(0, 4).map(b => `<span class="dash-chip">${b.label || ''}</span>`).join('');
+            const doneCount = todayLog().checked.length;
             cards.push({ open: 'day', cls: 'wide', html:
                 `<div class="dash-icon">🗓</div><div class="dash-title">Heute · ${DAYTYPE_LABELS[currentDayType] || ''}</div>
-                 <div class="dash-sub">${blocks.length} Zeitfenster im Plan</div><div class="dash-chips">${chips}</div>` });
-            // Diese Woche (Wochenplan) – in jedem Modus erreichbar
-            const wk = loadWeek();
-            const ti = todayIdx();
-            const weekChips = wk.map((e, i) => `<span class="dash-chip${i === ti ? ' today' : ''}">${WEEKDAYS[i]} ${e.train ? '🏋️' : '🛌'}</span>`).join('');
-            const trainDays = wk.filter(e => e.train).length;
-            cards.push({ open: 'tabWeek', cls: 'wide', html:
-                `<div class="dash-icon">📅</div><div class="dash-title">Diese Woche</div>
-                 <div class="dash-sub">${trainDays} Trainingstage · heute ${wk[ti].train ? 'Training' : 'Pause'}</div>
-                 <div class="dash-chips">${weekChips}</div>` });
-            // Dein Körper (BMI, Bedarf) → öffnet die volle Körper-Ansicht
+                 <div class="dash-sub">${doneCount}/${blocks.length} abgehakt · zum Abhaken tippen</div>` });
+            // Dein Körper (Woche 2)
             const t = computeTargets(userProfile);
             const _num = v => parseFloat(String(v || '').replace(',', '.'));
             const _h = _num(userProfile.height), _w = _num(userProfile.weight);
             const bmiStr = (t && _h && _w) ? (_w / Math.pow(_h / 100, 2)).toFixed(1).replace('.', ',') : null;
-            cards.push({ open: 'tabMyBody', html: t
+            if (gate('body')) cards.push({ locked: true, cls: 'locked', html: `<div class="dash-icon">🔒</div><div class="dash-title">Dein Körper</div><div class="dash-sub">${unlockCond('body')}</div>` });
+            else cards.push({ open: 'tabMyBody', html: t
                 ? `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-big">${t.tdee.toLocaleString('de-DE')}</div><div class="dash-sub">kcal Bedarf${bmiStr ? ` · BMI ${bmiStr}` : ''} · ${t.proteinMin}–${t.proteinMax} g Eiweiß</div>`
                 : `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-sub">Profil ausfüllen für BMI, kcal &amp; Eiweiß</div>` });
+            // Diese Woche (Wochenplan – Woche 3)
+            const wk = loadWeek();
+            const ti = todayIdx();
+            const weekChips = wk.map((e, i) => `<span class="dash-chip${i === ti ? ' today' : ''}">${WEEKDAYS[i]} ${e.train ? '🏋️' : '🛌'}</span>`).join('');
+            const trainDays = wk.filter(e => e.train).length;
+            if (gate('week')) cards.push({ locked: true, cls: 'locked wide', html: `<div class="dash-icon">🔒</div><div class="dash-title">Wochenplan</div><div class="dash-sub">${unlockCond('week')}</div>` });
+            else cards.push({ open: 'tabWeek', cls: 'wide', html:
+                `<div class="dash-icon">📅</div><div class="dash-title">Diese Woche</div>
+                 <div class="dash-sub">${trainDays} Trainingstage · heute ${wk[ti].train ? 'Training' : 'Pause'}</div>
+                 <div class="dash-chips">${weekChips}</div>` });
             // Mein Stack (ab Hard)
             if (m !== 'light') cards.push({ open: 'tabStack', html:
                 `<div class="dash-icon">💊</div><div class="dash-title">Mein Stack</div><div class="dash-big">${Object.keys(myStack).length}</div><div class="dash-sub">Produkte im Plan</div>` });
@@ -646,8 +782,9 @@
                 cards.push({ open: 'tabMonitor', html:
                     `<div class="dash-icon">🩺</div><div class="dash-title">Überwachung</div><div class="dash-big">${done}/${total}</div><div class="dash-sub">Checks erledigt</div>` });
             }
-            // Notfall (immer)
-            cards.push({ open: 'tabRecovery', cls: 'emergency', html:
+            // RecoveryMode (Woche 4)
+            if (gate('recovery')) cards.push({ locked: true, cls: 'locked wide', html: `<div class="dash-icon">🔒</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">${unlockCond('recovery')}</div>` });
+            else cards.push({ open: 'tabRecovery', cls: 'emergency', html:
                 `<div class="dash-icon">💚</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">Verletzungen, Erste Hilfe, Seelisches &amp; Notruf</div>` });
 
             grid.innerHTML = '';
@@ -655,11 +792,15 @@
                 const el = document.createElement('button');
                 el.className = 'dash-card' + (c.cls ? ' ' + c.cls : '');
                 el.innerHTML = c.html;
-                el.addEventListener('click', () => dashOpen(c.open));
+                if (c.locked) el.addEventListener('click', () => celebrate('🔒 Erst freischalten – bleib dran!'));
+                else el.addEventListener('click', () => dashOpen(c.open));
                 grid.appendChild(el);
             });
         }
         function selectMode(mode) {
+            // Phase 1: Fortschritts-System – man startet in Light, höhere Stufen sind gesperrt.
+            const p = loadProgress();
+            if (mode !== 'light' && p.stage === 'light') { modeLocked(STAGE_LABEL[mode] || mode, 'nach 28 disziplinierten Tagen'); return; }
             applyMode(mode);
             if (inOnboarding) {
                 onboardFlow = ONBOARD_FLOW[mode] || ONBOARD_FLOW.light;   // Flow an den Modus anpassen
@@ -667,6 +808,10 @@
             } else {
                 enterApp();
             }
+        }
+        // Gesperrte Stufe angetippt → freundlicher Hinweis (Weg sichtbar machen).
+        function modeLocked(name, when) {
+            celebrate(`🔒 ${name} Mode: ab ${when}. Zieh erst Light diszipliniert durch!`);
         }
 
         // App betreten – alle Onboarding-Screens aus, App rendern
@@ -677,6 +822,8 @@
 
             loadStack();
             loadMoney();
+            loadProgress();
+            reconcileProgress();   // Status ggf. sanft anpassen, wenn Tage vergangen sind
             try { userWantsEmptyPlan = store.getItem('sl_emptyplan') === '1'; } catch (e) {}
             // Produkte gewählt ODER bewusst leer gestartet → persönlicher (Stack-)Plan
             stackPlanActive = Object.keys(myStack).length > 0 || userWantsEmptyPlan;
@@ -2059,6 +2206,10 @@
                 .filter(block => { const v = minutesSinceWake(block); return v >= 0 && v < awakeDuration; })
                 .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
 
+            // Für die Disziplin-Engine: welche Blöcke gibt es heute? (danach werten)
+            todayBlockIds = sortedBlocks.map(b => b.id);
+            evaluateDay();
+
             if (stackPlanActive && sortedBlocks.length === 0) {
                 container.innerHTML = sleepBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
                 return;
@@ -2135,23 +2286,27 @@
                         </div>`;
                 }
 
+                const done = isBlockDone(block.id);
                 return `
                     <div class="timeline-item-container">
                         ${lineHtml}
-                        <div class="timeline-card" id="tc-${block.id}" style="--border-color: ${block.color};">
-                            <button class="card-trigger" onclick="toggleTimelineCard('${block.id}')" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
-                                <div class="card-icon-box" style="--bg:${block.bg}; --border:${block.border};">
-                                    ${block.icon}
-                                </div>
-                                <div class="card-info">
-                                    <div class="card-label">${block.label}</div>
-                                    <div class="card-time" style="--color:${block.color}">${finalTimeWindow}</div>
-                                </div>
-                                <div class="card-badge-box">
-                                    <span class="card-count">${block.productIds.length}</span>
-                                    <span class="card-arrow"></span>
-                                </div>
-                            </button>
+                        <div class="timeline-card${done ? ' done' : ''}" id="tc-${block.id}" style="--border-color: ${block.color};">
+                            <div class="card-head-row">
+                                <button class="card-check${done ? ' on' : ''}" onclick="toggleBlockDone('${block.id}')" aria-label="Als erledigt markieren">${done ? '✓' : ''}</button>
+                                <button class="card-trigger" onclick="toggleTimelineCard('${block.id}')" style="--bg:${block.bg}; --border:${block.border}; --color:${block.color};">
+                                    <div class="card-icon-box" style="--bg:${block.bg}; --border:${block.border};">
+                                        ${block.icon}
+                                    </div>
+                                    <div class="card-info">
+                                        <div class="card-label">${block.label}</div>
+                                        <div class="card-time" style="--color:${block.color}">${finalTimeWindow}</div>
+                                    </div>
+                                    <div class="card-badge-box">
+                                        <span class="card-count">${block.productIds.length}</span>
+                                        <span class="card-arrow"></span>
+                                    </div>
+                                </button>
+                            </div>
                             <div class="card-content" id="tcc-${block.id}">
                                 ${whyHtml}
                                 <div class="item-list">
@@ -2959,7 +3114,7 @@
             document.getElementById("navDay").addEventListener("click", goToDay);
             document.getElementById("navBody").addEventListener("click", goToBody);
             document.getElementById("navTools").addEventListener("click", toggleTools);
-            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); setNavHomeActive(false); setNavBodyActive(false); closeTools(); window.scrollTo(0, 0); });
+            document.getElementById("navEmergency").addEventListener("click", () => { if (appMode === 'light' && !isUnlocked('recovery')) { celebrate('🔒 RecoveryMode schaltet ab 21 disziplinierten Tagen frei'); return; } document.getElementById("tabRecovery").click(); setNavDayActive(false); setNavHomeActive(false); setNavBodyActive(false); closeTools(); window.scrollTo(0, 0); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
@@ -3072,7 +3227,7 @@ Object.assign(window, {
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
-    setWeekDay, setWeekTime,
+    setWeekDay, setWeekTime, toggleBlockDone, modeLocked,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3081,7 +3236,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v20';
+const APP_VERSION = 'v21';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
