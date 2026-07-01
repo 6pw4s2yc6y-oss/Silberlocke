@@ -633,13 +633,19 @@
         function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
         function defaultProgress() {
             return { stage: 'light', startDate: todayStr(), lastDate: todayStr(),
-                     disciplinedDays: 0, score: 60, unlocked: ['day'], log: {} };
+                     disciplinedDays: 0, score: 60, jokers: 1, unlocked: ['day'], log: {} };
         }
         function loadProgress() {
             if (progress) return progress;
             try {
                 const raw = JSON.parse(store.getItem('sl_progress') || 'null');
-                if (raw && typeof raw === 'object' && raw.stage) { progress = raw; progress.log = progress.log || {}; progress.unlocked = progress.unlocked || ['day']; return progress; }
+                if (raw && typeof raw === 'object' && raw.stage) {
+                    progress = raw;
+                    progress.log = progress.log || {};
+                    progress.unlocked = progress.unlocked || ['day'];
+                    if (typeof progress.jokers !== 'number') progress.jokers = 1;   // Migration v21→v22
+                    return progress;
+                }
             } catch (e) {}
             progress = defaultProgress();
             return progress;
@@ -651,7 +657,15 @@
             const t = todayStr();
             if (p.lastDate && p.lastDate !== t) {
                 const prev = p.log[p.lastDate];
-                if (!prev || !prev.done) p.score = Math.max(0, p.score - 5);
+                if (!prev || !prev.done) {
+                    // 🃏 Joker fängt den verpassten Tag ab – Status bleibt erhalten.
+                    if (p.jokers > 0) {
+                        p.jokers -= 1;
+                        celebrate(`🃏 Joker eingesetzt – dein Status bleibt erhalten (${p.jokers}/3 übrig)`);
+                    } else {
+                        p.score = Math.max(0, p.score - 5);
+                    }
+                }
                 p.lastDate = t;
             }
             checkUnlocks();   // Freischaltungen immer mit den disziplinierten Tagen abgleichen
@@ -681,9 +695,15 @@
                 log.done = true;
                 p.disciplinedDays += 1;
                 p.score = Math.min(100, p.score + 8);
+                // Volle Woche geschafft → Joker verdienen (Rolling Buffer, Cap 3).
+                let weekMsg = '';
+                if (p.disciplinedDays % 7 === 0 && p.jokers < 3) {
+                    p.jokers += 1;
+                    weekMsg = ` · 🃏 Joker verdient (${p.jokers}/3)`;
+                }
                 checkUnlocks();
                 saveProgress();
-                celebrate('🎉 Tag geschafft! +1 disziplinierter Tag');
+                celebrate('🎉 Tag geschafft! +1 disziplinierter Tag' + weekMsg);
             }
         }
         function checkUnlocks() {
@@ -715,7 +735,7 @@
                 : (p.stage === 'light' ? `Noch ${stageDaysLeft} Tage bis Hard Mode 🔓` : 'Alles freigeschaltet');
             return `<div class="dash-icon">🔥</div><div class="dash-title">Dein Fortschritt · ${STAGE_LABEL[p.stage]} Mode</div>
                 <div class="prog-status"><div class="prog-status-fill" style="width:${p.score}%"></div></div>
-                <div class="dash-sub">Disziplin-Status ${p.score}% · ${p.disciplinedDays} disziplinierte Tage</div>
+                <div class="dash-sub">Disziplin-Status ${p.score}% · ${p.disciplinedDays} disziplinierte Tage · 🃏 ${p.jokers}/3 Joker</div>
                 <div class="prog-next">${nextLine}</div>`;
         }
 
@@ -3236,7 +3256,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v21';
+const APP_VERSION = 'v22';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
