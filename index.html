@@ -72,11 +72,12 @@
             </div>
             <div class="setup-train">
                 <div class="form-group">
-                    <label for="trainTimeInput">&#127947; Trainingszeit</label>
-                    <input type="time" id="trainTimeInput" class="time-input" value="17:00" style="opacity:0.45;" onfocus="document.getElementById('trainFlexInput').checked=false; this.style.opacity='1';" oninput="markTrainEdited()">
+                    <label>&#127947; Trainingszeit(en)</label>
+                    <div id="trainTimesList"></div>
+                    <button type="button" class="train-add-btn" id="trainAddBtn" onclick="addTrainTime()">+ weitere Einheit</button>
                 </div>
                 <label class="setup-flex-row">
-                    <input type="checkbox" id="trainFlexInput" checked onchange="document.getElementById('trainTimeInput').style.opacity = this.checked ? '0.45' : '1';">
+                    <input type="checkbox" id="trainFlexInput" checked onchange="toggleTrainFlex()">
                     <span>Flexibel / kein festes Training</span>
                 </label>
             </div>

@@ -88,7 +88,16 @@
         let currentSearchQuery = "";
         let globalWakeTimeStr = "07:00";
         let globalSleepTimeStr = "23:00";
-        let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training
+        let globalTrainTimeStr = "";   // "" = flexibel / kein festes Training (= erste Einheit)
+        let baseTrainTimes = [];       // globaler Standard aus dem Setup (mehrere Einheiten möglich)
+        let globalTrainTimes = [];     // effektiv für den aktuellen Tag – die Timeline liest das
+        // globalTrainTimeStr immer als erste effektive Einheit spiegeln (Einzelzeit-Konsumenten)
+        function syncTrainStr() { globalTrainTimeStr = globalTrainTimes[0] || ''; }
+        function setBaseTrainTimes(arr) {
+            baseTrainTimes = (arr || []).filter(Boolean);
+            globalTrainTimes = [...baseTrainTimes];
+            syncTrainStr();
+        }
         let globalMeals = [];          // [] = automatisch (an Schlafrhythmus); sonst ["HH:MM", …]
         let mealCount = 3;
 
@@ -102,16 +111,57 @@
                 return `<div class="meal-row"><span>${label}</span><input type="time" class="time-input meal-time" value="${t}"></div>`;
             }).join('');
         }
-        // Trainingszeit-Vorschlag: adaptiv aus Aufwach-/Schlafzeit, solange der
-        // Nutzer die Uhrzeit nicht selbst gesetzt hat (dann bleibt seine Wahl).
-        let trainManuallySet = false;
-        function markTrainEdited() { trainManuallySet = true; }
+        // ── SETUP: Trainingszeit(en) – 1 bis 3 Einheiten pro Tag ────────────────────
+        const MAX_TRAIN_UNITS = 3;
+        let setupTrainTimes = [];      // Zeiten im Setup-Formular
+        let trainManuallySet = false;  // true = Nutzer hat selbst eingegriffen (kein Auto-Vorschlag mehr)
+        function setupWake()  { return document.getElementById('wakeTimeInput')?.value || '07:00'; }
+        function setupSleep() { return document.getElementById('sleepTimeInput')?.value || '23:00'; }
+        function isTrainFlex() { return !!document.getElementById('trainFlexInput')?.checked; }
+
+        function renderTrainTimes() {
+            const box = document.getElementById('trainTimesList');
+            if (!box) return;
+            if (setupTrainTimes.length === 0) setupTrainTimes = [suggestTrainTime(setupWake(), setupSleep())];
+            const flex = isTrainFlex();
+            box.innerHTML = setupTrainTimes.map((t, i) => `
+                <div class="train-time-row">
+                    <span class="train-time-num">${i + 1}.</span>
+                    <input type="time" class="time-input train-time" value="${t}" ${flex ? 'style="opacity:0.45;"' : ''}
+                           onfocus="uncheckTrainFlex()" oninput="setTrainTimeAt(${i}, this.value)">
+                    ${setupTrainTimes.length > 1 ? `<button type="button" class="train-remove-btn" onclick="removeTrainTime(${i})" aria-label="Einheit entfernen">✕</button>` : ''}
+                </div>`).join('');
+            const addBtn = document.getElementById('trainAddBtn');
+            if (addBtn) addBtn.style.display = (flex || setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
+        }
+        function setTrainTimeAt(i, val) { trainManuallySet = true; setupTrainTimes[i] = val; }
+        function addTrainTime() {
+            if (setupTrainTimes.length >= MAX_TRAIN_UNITS) return;
+            trainManuallySet = true;
+            if (document.getElementById('trainFlexInput')) document.getElementById('trainFlexInput').checked = false;
+            // Vorschlag für die nächste Einheit: 3 h nach der letzten (im Wachfenster)
+            const last = setupTrainTimes[setupTrainTimes.length - 1] || suggestTrainTime(setupWake(), setupSleep());
+            const [lh, lm] = last.split(':').map(Number);
+            const next = String((lh + 3) % 24).padStart(2, '0') + ':' + String(lm).padStart(2, '0');
+            setupTrainTimes.push(next);
+            renderTrainTimes();
+        }
+        function removeTrainTime(i) {
+            trainManuallySet = true;
+            setupTrainTimes.splice(i, 1);
+            if (setupTrainTimes.length === 0) setupTrainTimes = [suggestTrainTime(setupWake(), setupSleep())];
+            renderTrainTimes();
+        }
+        function uncheckTrainFlex() {
+            const f = document.getElementById('trainFlexInput');
+            if (f && f.checked) { f.checked = false; renderTrainTimes(); }
+        }
+        function toggleTrainFlex() { renderTrainTimes(); }
+        // Auto-Vorschlag für die erste Einheit, solange der Nutzer nichts geändert hat.
         function refreshTrainSuggestion() {
-            const t = document.getElementById('trainTimeInput');
-            if (!t || trainManuallySet) return;
-            t.value = suggestTrainTime(
-                document.getElementById('wakeTimeInput').value || '07:00',
-                document.getElementById('sleepTimeInput').value || '23:00');
+            if (trainManuallySet) return;
+            setupTrainTimes = [suggestTrainTime(setupWake(), setupSleep())];
+            renderTrainTimes();
         }
         // Aufwach-/Schlafzeit geändert → Trainings- und Mahlzeit-Vorschläge neu.
         function onSetupTimesChanged() {
@@ -151,10 +201,13 @@
             globalWakeTimeStr = wakeInput;
             globalSleepTimeStr = sleepInput;
 
-            // Trainingszeit (leer = flexibel)
+            // Trainingszeit(en) – leer/flexibel = keine feste Einheit; sonst 1–3 Einheiten
             const flex = document.getElementById("trainFlexInput").checked;
-            const trainInput = document.getElementById("trainTimeInput").value;
-            globalTrainTimeStr = (flex || !trainInput) ? "" : trainInput;
+            const trainTimes = flex ? [] :
+                Array.from(document.querySelectorAll('#trainTimesList .train-time'))
+                    .map(i => i.value).filter(Boolean)
+                    .sort();
+            setBaseTrainTimes(trainTimes);
 
             // Mahlzeiten (leer = automatisch an Schlafrhythmus; sonst eigene Zeiten)
             const mealAuto = document.getElementById("mealAutoInput").checked;
@@ -165,7 +218,7 @@
             try {
                 store.setItem("sl_wake", wakeInput);
                 store.setItem("sl_sleep", sleepInput);
-                store.setItem("sl_train", globalTrainTimeStr);
+                store.setItem("sl_train", baseTrainTimes.join(','));
                 store.setItem("sl_meals", JSON.stringify(globalMeals));
             } catch (e) {}
 
@@ -1283,8 +1336,8 @@
             const dayType = document.getElementById('stackGenDay').value;
             const flex = document.getElementById('stackGenFlex').checked;
             const tval = document.getElementById('stackGenTrain').value;
-            globalTrainTimeStr = (flex || !tval) ? '' : tval;
-            try { store.setItem('sl_train', globalTrainTimeStr); } catch (e) {}
+            setBaseTrainTimes((flex || !tval) ? [] : [tval]);
+            try { store.setItem('sl_train', baseTrainTimes.join(',')); } catch (e) {}
 
             stackPlanActive = true;
             selectDayType(dayType);                        // setzt Tagestyp + rendert Timeline (Stack-Modus)
@@ -1520,7 +1573,12 @@
             const e = wk[todayIdx()];
             if (!e) return;
             currentDayType = e.train ? 'training' : 'rest';
-            if (e.train && e.time) globalTrainTimeStr = e.time;
+            // Effektive Trainingszeiten: Tages-Override (eine Einheit) sonst der globale
+            // Standard aus dem Setup (mehrere Einheiten). An Ruhetagen bleiben die Zeiten
+            // verfügbar, werden aber vom Ruhetag-Plan (ohne Workout-Blöcke) ignoriert –
+            // so erscheinen sie sofort, falls man manuell auf „Trainingstag" wechselt.
+            globalTrainTimes = (e.train && e.time) ? [e.time] : [...baseTrainTimes];
+            syncTrainStr();
             DAYTYPES.forEach(t => {
                 const btn = document.getElementById('dt' + t.charAt(0).toUpperCase() + t.slice(1));
                 if (btn) btn.classList.toggle('active', t === currentDayType);
@@ -1576,7 +1634,8 @@
             wk[i].time = time || '';
             saveWeek();
             if (i === todayIdx() && wk[i].train) {
-                if (wk[i].time) globalTrainTimeStr = wk[i].time;
+                globalTrainTimes = wk[i].time ? [wk[i].time] : [...baseTrainTimes];
+                syncTrainStr();
                 renderTimeline();
             }
         }
@@ -1710,27 +1769,45 @@
                 const fmt = n => `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;
                 return `${fmt(s)} – ${fmt(e)}`;
             }
-            // Trainingszeit → Offset ab Aufwachen (null = flexibel / außerhalb Wachzeit)
-            let trainOffset = null;
-            if (globalTrainTimeStr) {
-                const [th, tm] = globalTrainTimeStr.split(':').map(Number);
-                const to = ((th * 60 + tm) - wakeMin + 1440) % 1440;
-                if (to >= 0 && to < awakeDuration) trainOffset = to;
-            }
+            // Trainingszeiten → Offsets ab Aufwachen (mehrere Einheiten möglich,
+            // außerhalb der Wachzeit liegende werden verworfen), aufsteigend sortiert.
+            const trainOffsets = (globalTrainTimes || [])
+                .map(ts => { const [th, tm] = ts.split(':').map(Number); return ((th * 60 + tm) - wakeMin + 1440) % 1440; })
+                .filter(to => to >= 0 && to < awakeDuration)
+                .sort((a, b) => a - b);
 
-            // Pre-/Post-Workout um die echte Trainingszeit takten + Hinweise
+            // Pre-/Post-Workout je Einheit takten + Hinweise. Erste Einheit nutzt die
+            // bestehenden Blöcke t4/t6; weitere Einheiten werden als Klone ergänzt.
             let activeBlocks = getActiveTimeline();
-            if (trainOffset != null) {
-                const late  = (awakeDuration - trainOffset) < 360; // < 6h vor Schlaf
-                const early = trainOffset < 90;                    // < 1,5h nach Aufwachen
-                let preNote = "";
-                if (late) preNote += "<div style='color:#fca5a5;background:#1a0000;border:1px solid #7f1d1d;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>⚠️ Spätes Training: Koffein-Booster (Re-Act, Kickdown, Fight) ruinieren den Tiefschlaf (Koffein wirkt ~5–6h nach). Besser den <strong>koffeinfreien Pumpdown</strong> nehmen.</div>";
-                if (early) preNote += "<div style='color:#fcd34d;background:#1a1000;border:1px solid #92400e;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>🌅 Früh-Training: wenig Zeit vorher – Fokus auf <strong>schnelles Protein + Kohlenhydrate</strong>, kein großer Stack.</div>";
-                activeBlocks = activeBlocks.map(b => {
-                    if (b.id === 't4') return { ...b, absoluteMinutes: Math.max(0, trainOffset - b.duration), why: preNote + b.why };
-                    if (b.id === 't6') return { ...b, absoluteMinutes: Math.min(awakeDuration - b.duration, trainOffset + 60) };
-                    return b;
+            if (trainOffsets.length) {
+                const multi = trainOffsets.length > 1;
+                const suffix = i => multi ? ` (${i + 1}. Einheit)` : '';
+                const preTpl  = activeBlocks.find(b => b.id === 't4');
+                const postTpl = activeBlocks.find(b => b.id === 't6');
+                const extra = [];
+                const preNoteFor = (to, i) => {
+                    const late  = (awakeDuration - to) < 360; // < 6h vor Schlaf
+                    const early = to < 90;                    // < 1,5h nach Aufwachen
+                    let n = "";
+                    if (i > 0) n += "<div style='color:#fca5a5;background:#1a0000;border:1px solid #7f1d1d;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>⚠️ Weitere Einheit heute: <strong>keine zweite Koffein-Dosis</strong>, wenn du vorher schon geboostet hast (Tagesgrenze ~400 mg, Herzfrequenz/Blutdruck). Nimm den <strong>koffeinfreien Pumpdown</strong> + Protein/Carbs.</div>";
+                    if (late)  n += "<div style='color:#fca5a5;background:#1a0000;border:1px solid #7f1d1d;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>⚠️ Spätes Training: Koffein-Booster (Re-Act, Kickdown, Fight) ruinieren den Tiefschlaf (Koffein wirkt ~5–6h nach). Besser den <strong>koffeinfreien Pumpdown</strong> nehmen.</div>";
+                    if (early) n += "<div style='color:#fcd34d;background:#1a1000;border:1px solid #92400e;border-radius:8px;padding:8px 10px;margin-bottom:8px;font-weight:600;line-height:1.5;'>🌅 Früh-Training: wenig Zeit vorher – Fokus auf <strong>schnelles Protein + Kohlenhydrate</strong>, kein großer Stack.</div>";
+                    return n;
+                };
+                trainOffsets.forEach((to, i) => {
+                    if (i === 0) {
+                        const note = preNoteFor(to, 0);
+                        activeBlocks = activeBlocks.map(b => {
+                            if (b.id === 't4') return { ...b, absoluteMinutes: Math.max(0, to - b.duration), why: note + b.why, label: b.label + suffix(0) };
+                            if (b.id === 't6') return { ...b, absoluteMinutes: Math.min(awakeDuration - b.duration, to + 60), label: b.label + suffix(0) };
+                            return b;
+                        });
+                    } else {
+                        if (preTpl)  extra.push({ ...preTpl,  id: 't4_' + (i + 1), absoluteMinutes: Math.max(0, to - preTpl.duration), why: preNoteFor(to, i) + preTpl.why, label: preTpl.label + suffix(i) });
+                        if (postTpl) extra.push({ ...postTpl, id: 't6_' + (i + 1), absoluteMinutes: Math.min(awakeDuration - postTpl.duration, to + 60), label: postTpl.label + suffix(i) });
+                    }
                 });
+                if (extra.length) activeBlocks = activeBlocks.concat(extra);
             }
 
             // Mahlzeiten-Blöcke auf die eigenen Zeiten takten (Frühstück → erste, Abendessen → letzte, Mittag → mittlere)
@@ -2735,15 +2812,17 @@
                 // Eingabefelder schon mal vorausfüllen (falls man doch zur Eingabe geht)
                 if (savedWake)  document.getElementById("wakeTimeInput").value  = savedWake;
                 if (savedSleep) document.getElementById("sleepTimeInput").value = savedSleep;
-                if (savedTrain) {
-                    document.getElementById("trainTimeInput").value = savedTrain;
-                    document.getElementById("trainTimeInput").style.opacity = '1';
+                // sl_train ist kommagetrennt ("17:00,20:00") – abwärtskompatibel zum Einzelwert.
+                const savedTrainTimes = (savedTrain || "").split(',').map(s => s.trim()).filter(Boolean);
+                if (savedTrainTimes.length) {
+                    setupTrainTimes = [...savedTrainTimes];
                     document.getElementById("trainFlexInput").checked = false;
                     trainManuallySet = true;   // eigene Wahl nicht überschreiben
                 } else {
-                    refreshTrainSuggestion();  // neuer Nutzer: adaptiver Startwert statt fix 17:00
+                    trainManuallySet = false;  // neuer Nutzer: adaptiver Startwert statt fix 17:00
                 }
-                globalTrainTimeStr = savedTrain || "";
+                renderTrainTimes();
+                setBaseTrainTimes(savedTrainTimes);
 
                 // Mahlzeiten wiederherstellen (Array-Format)
                 try {
@@ -2783,7 +2862,7 @@ Object.assign(window, {
     expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
     flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
     onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
-    markTrainEdited, onSetupTimesChanged,
+    onSetupTimesChanged, addTrainTime, removeTrainTime, setTrainTimeAt, toggleTrainFlex, uncheckTrainFlex,
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,

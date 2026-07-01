@@ -88,7 +88,14 @@
             margin-bottom: 14px;
         }
         .setup-train { margin-bottom: 22px; }
-        .setup-train .form-group { max-width: 160px; margin: 0 auto; }
+        .setup-train .form-group { max-width: 220px; margin: 0 auto; }
+        .train-time-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .train-time-num { font-size: 12px; font-weight: 800; color: #a78bfa; width: 16px; text-align: right; }
+        .train-time-row .train-time { flex: 1 1 auto; min-width: 0; }
+        .train-remove-btn { flex: 0 0 auto; width: 28px; height: 28px; border-radius: 8px; background: #0c0c1e; border: 1px solid #334155; color: #fca5a5; font-size: 13px; font-weight: 800; cursor: pointer; }
+        .train-remove-btn:hover { border-color: #7f1d1d; }
+        .train-add-btn { margin-top: 4px; width: 100%; padding: 8px; border-radius: 8px; background: #0c0c1e; border: 1px dashed #4c1d95; color: #c4b5fd; font-size: 12px; font-weight: 700; cursor: pointer; }
+        .train-add-btn:hover { border-color: #7c3aed; color: #fff; }
         .setup-flex-row {
             display: flex; align-items: center; justify-content: center; gap: 8px;
             margin-top: 12px; font-size: 12px; color: #94a3b8; cursor: pointer; user-select: none;
