@@ -560,8 +560,29 @@
             flex: 1 1 auto; white-space: nowrap; padding: 12px 16px; font-size: 14px; font-weight: 800;
             border-radius: 9px; cursor: pointer; transition: all .2s;
         }
+        .daynav-btn.home { background: #070710; border: 1px solid #10102a; color: #cbd5e1; }
+        .daynav-btn.home.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
         .daynav-btn.day { background: #070710; border: 1px solid #10102a; color: #cbd5e1; }
         .daynav-btn.day.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }
+
+        /* ÜBERSICHT / DASHBOARD */
+        .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 4px 2px 24px; }
+        .dash-card {
+            display: flex; flex-direction: column; align-items: flex-start; gap: 3px; text-align: left;
+            background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%); border: 1px solid #1e1e3a;
+            border-radius: 14px; padding: 14px; cursor: pointer; transition: transform .15s, border-color .15s; min-height: 92px;
+        }
+        .dash-card:hover { transform: translateY(-2px); border-color: #7c3aed; }
+        .dash-card.wide { grid-column: 1 / -1; }
+        .dash-card.emergency { grid-column: 1 / -1; background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%); border-color: #fca5a5; }
+        .dash-icon { font-size: 22px; line-height: 1; }
+        .dash-title { font-size: 12.5px; font-weight: 800; color: #e2e8f0; }
+        .dash-card.emergency .dash-title { color: #fff; font-size: 15px; }
+        .dash-big { font-size: 20px; font-weight: 900; color: #a5b4fc; line-height: 1.1; margin-top: 2px; }
+        .dash-sub { font-size: 11px; color: #94a3b8; line-height: 1.4; }
+        .dash-card.emergency .dash-sub { color: #fee2e2; }
+        .dash-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+        .dash-chip { font-size: 9.5px; font-weight: 700; color: #cbd5e1; background: #12122e; border: 1px solid #312e81; border-radius: 5px; padding: 2px 6px; }
         .daynav-btn.tools { flex: 0 0 auto; background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1; }
         .daynav-btn.tools.active { border-color: #a78bfa; color: #fff; }
         .daynav-btn.emergency { flex: 0 0 auto; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border: 1px solid #f87171; color: #fff; }

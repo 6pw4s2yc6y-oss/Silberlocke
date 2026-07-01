@@ -1,5 +1,6 @@
         import { suggestMeals } from './modules/timeline.js';
         import { buildTargetsHtml } from './modules/ui.js';
+        import { computeTargets } from './modules/calculator.js';
         import { loadData } from './modules/dataFetcher.js';
         import { store, initStorage } from './modules/storage.js';
 
@@ -372,6 +373,7 @@
                 item.addEventListener('click', () => {
                     src.click();                 // bestehenden Tab-Handler wiederverwenden
                     setNavDayActive(false);
+                    setNavHomeActive(false);
                     closeTools();
                     window.scrollTo(0, 0);
                 });
@@ -396,8 +398,91 @@
         function goToDay() {
             document.getElementById('tabTimeline').click();
             setNavDayActive(true);
+            setNavHomeActive(false);
             closeTools();
             window.scrollTo(0, 0);
+        }
+        function setNavHomeActive(on) {
+            const h = document.getElementById('navHome');
+            if (h) h.classList.toggle('active', on);
+        }
+        // Übersicht/Dashboard anzeigen (Startseite: alles auf einen Blick)
+        function showDashboard() {
+            document.querySelectorAll('#mainApp .view-section').forEach(v => v.classList.remove('active'));
+            document.getElementById('viewAboutMe').style.display = 'none';
+            document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('viewDashboard').classList.add('active');
+            document.getElementById('timelinePanels').style.display = 'none';
+            setNavHomeActive(true);
+            setNavDayActive(false);
+            closeTools();
+            renderDashboard();
+            window.scrollTo(0, 0);
+        }
+        // Von einer Dashboard-Karte in ein Modul springen.
+        function dashOpen(target) {
+            if (target === 'day') { goToDay(); return; }
+            const btn = document.getElementById(target);
+            if (btn) btn.click();
+            setNavHomeActive(false);
+            closeTools();
+            window.scrollTo(0, 0);
+        }
+        // Baut das Karten-Dashboard – ein Register, das je Modul eine Karte liefert.
+        // Neue (Lebens-)Module docken später einfach als weitere Karte an.
+        function renderDashboard() {
+            const grid = document.getElementById('dashGrid');
+            if (!grid) return;
+            const m = appMode;
+            const cards = [];
+            // Heute / Tagesplan
+            const blocks = getActiveTimeline();
+            const chips = blocks.slice(0, 4).map(b => `<span class="dash-chip">${b.label || ''}</span>`).join('');
+            cards.push({ open: 'day', cls: 'wide', html:
+                `<div class="dash-icon">🗓</div><div class="dash-title">Heute · ${DAYTYPE_LABELS[currentDayType] || ''}</div>
+                 <div class="dash-sub">${blocks.length} Zeitfenster im Plan</div><div class="dash-chips">${chips}</div>` });
+            // Bedarf
+            const t = computeTargets(userProfile);
+            cards.push({ open: 'day', html: t
+                ? `<div class="dash-icon">📊</div><div class="dash-title">Dein Bedarf</div><div class="dash-big">${t.tdee.toLocaleString('de-DE')}</div><div class="dash-sub">kcal · ${t.proteinMin}–${t.proteinMax} g Eiweiß</div>`
+                : `<div class="dash-icon">📊</div><div class="dash-title">Dein Bedarf</div><div class="dash-sub">Profil ausfüllen für kcal & Eiweiß</div>` });
+            // Mein Stack (ab Hard)
+            if (m !== 'light') cards.push({ open: 'tabStack', html:
+                `<div class="dash-icon">💊</div><div class="dash-title">Mein Stack</div><div class="dash-big">${Object.keys(myStack).length}</div><div class="dash-sub">Produkte im Plan</div>` });
+            // Money (ab Hard)
+            if (m !== 'light') {
+                const inc = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
+                const cost = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
+                cards.push({ open: 'tabMoney', html:
+                    `<div class="dash-icon">💶</div><div class="dash-title">Money</div><div class="dash-big">${eur(inc - cost)}</div><div class="dash-sub">frei / Monat</div>` });
+            }
+            // Blutwerte (Expert)
+            if (m === 'expert') {
+                const entered = Object.values(bloodValues).filter(v => v !== '' && v != null).length;
+                let flagged = 0;
+                BLOOD_MARKERS.forEach(mk => { const st = bloodStatus(mk, bloodValues[mk.id] || ''); if (st.cls === 'low' || st.cls === 'high') flagged++; });
+                cards.push({ open: 'tabBlood', html:
+                    `<div class="dash-icon">🩸</div><div class="dash-title">Blutwerte</div><div class="dash-big">${entered}</div><div class="dash-sub">${flagged ? flagged + ' auffällig' : 'Werte erfasst'}</div>` });
+            }
+            // Überwachung (Expert)
+            if (m === 'expert') {
+                const done = Object.keys(monitorLog).length;
+                const total = (MONITORING.checklist || []).length;
+                cards.push({ open: 'tabMonitor', html:
+                    `<div class="dash-icon">🩺</div><div class="dash-title">Überwachung</div><div class="dash-big">${done}/${total}</div><div class="dash-sub">Checks erledigt</div>` });
+            }
+            // Notfall (immer)
+            cards.push({ open: 'tabRecovery', cls: 'emergency', html:
+                `<div class="dash-icon">🚨</div><div class="dash-title">Notfall & Erste Hilfe</div><div class="dash-sub">112, Verletzungen & RecoveryMode</div>` });
+
+            grid.innerHTML = '';
+            cards.forEach(c => {
+                const el = document.createElement('button');
+                el.className = 'dash-card' + (c.cls ? ' ' + c.cls : '');
+                el.innerHTML = c.html;
+                el.addEventListener('click', () => dashOpen(c.open));
+                grid.appendChild(el);
+            });
         }
         function selectMode(mode) {
             applyMode(mode);
@@ -431,6 +516,7 @@
             renderDailyTargets();
             if (selectedSportMode) selectSportMode(selectedSportMode);
             applyModeVisibility();
+            showDashboard();   // Startseite = Übersicht (alles auf einen Blick)
         }
 
         function initStaticPanels() {
@@ -2455,9 +2541,10 @@
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
             document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
+            document.getElementById("navHome").addEventListener("click", showDashboard);
             document.getElementById("navDay").addEventListener("click", goToDay);
             document.getElementById("navTools").addEventListener("click", toggleTools);
-            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); closeTools(); window.scrollTo(0, 0); });
+            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); setNavHomeActive(false); closeTools(); window.scrollTo(0, 0); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
