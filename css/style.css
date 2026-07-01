@@ -114,6 +114,13 @@
         .setup-warn.danger { color: #fecaca; background: #1a0000; border: 1px solid #7f1d1d; }
         .setup-warn.note { color: #fde68a; background: #1a1000; border: 1px solid #92400e; }
         .sleep-block-banner { font-size: 12.5px; line-height: 1.5; color: #fecaca; background: #1a0000; border: 1px solid #7f1d1d; border-radius: 10px; padding: 12px 14px; margin: 4px 2px 14px; }
+        .update-banner { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 9999;
+            display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
+            color: #fff; padding: 11px 15px; border-radius: 12px; box-shadow: 0 8px 28px rgba(0,0,0,.55);
+            font-size: 13px; font-weight: 700; max-width: calc(100% - 24px); }
+        .update-banner button { flex: 0 0 auto; background: #fff; color: #4c1d95; border: none; border-radius: 8px;
+            padding: 7px 13px; font-size: 12.5px; font-weight: 800; cursor: pointer; }
+        .update-banner button:hover { background: #ede9fe; }
         .meals-count-btns button { width: 32px; height: 32px; border-radius: 8px; background: #0c0c1e;
             border: 1px solid #334155; color: #cbd5e1; font-size: 13px; font-weight: 700; cursor: pointer; }
         .meals-count-btns button.active { background: #7c3aed; border-color: #a78bfa; color: #fff; }

@@ -2963,10 +2963,42 @@ Object.assign(window, {
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
 });
 
-// ── PWA: Service Worker registrieren (App-Shell-Caching / Offline) ──────────
+// ── PWA: Service Worker + Update-Hinweis ────────────────────────────────────
+// Neue Version wartet; ein kleines Banner „Neue Version verfügbar" lässt den
+// Nutzer sauber aktualisieren (kein Cache-Mix aus alter Logik + neuer Seite).
+function showUpdateBanner(worker) {
+    if (!worker || document.getElementById('updateBanner')) return;
+    const bar = document.createElement('div');
+    bar.id = 'updateBanner';
+    bar.className = 'update-banner';
+    bar.innerHTML = '<span>🔄 Neue Version verfügbar</span><button type="button">Aktualisieren</button>';
+    bar.querySelector('button').addEventListener('click', (e) => {
+        e.target.textContent = 'Lädt…';
+        worker.postMessage({ type: 'SKIP_WAITING' });
+    });
+    document.body.appendChild(bar);
+}
 if ('serviceWorker' in navigator) {
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (refreshing) return;      // beim Aktivieren der neuen Version einmalig neu laden
+        refreshing = true;
+        window.location.reload();
+    });
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js', { scope: './' })
-            .catch(err => console.warn('Service-Worker-Registrierung fehlgeschlagen:', err));
+        navigator.serviceWorker.register('service-worker.js', { scope: './' }).then(reg => {
+            // Wartet bereits eine neue Version? (z. B. beim Öffnen)
+            if (reg.waiting && navigator.serviceWorker.controller) showUpdateBanner(reg.waiting);
+            reg.addEventListener('updatefound', () => {
+                const nw = reg.installing;
+                if (!nw) return;
+                nw.addEventListener('statechange', () => {
+                    // „installed" + vorhandener Controller = Update (kein Erstinstall)
+                    if (nw.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner(nw);
+                });
+            });
+            // Beim Zurückkehren in den Tab/PWA nach Updates suchen
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) reg.update().catch(() => {}); });
+        }).catch(err => console.warn('Service-Worker-Registrierung fehlgeschlagen:', err));
     });
 }

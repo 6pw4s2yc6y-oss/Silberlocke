@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'silberlocke-v15';
+const CACHE_VERSION = 'silberlocke-v16';
 const APP_SHELL = [
     './',
     './index.html',
@@ -31,12 +31,18 @@ const APP_SHELL = [
 ];
 
 // Install: App-Shell vorab cachen (Fehler einzelner Dateien blockieren nicht).
+// KEIN automatisches skipWaiting mehr – die neue Version wartet, bis der Nutzer
+// im Update-Banner auf „Aktualisieren" tippt (verhindert Cache-Mix).
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_VERSION)
             .then(cache => Promise.allSettled(APP_SHELL.map(url => cache.add(url))))
-            .then(() => self.skipWaiting())
     );
+});
+
+// Die Seite kann die wartende Version auffordern, sofort aktiv zu werden.
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
 // Activate: veraltete Caches löschen.
