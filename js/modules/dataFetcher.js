@@ -13,6 +13,7 @@ const FILES = {
     emergency:       'emergency.json',
     injuries:        'injuries.json',
     mental:          'mental.json',
+    daytypes:        'daytypes.json',
 };
 
 async function fetchJson(file) {

@@ -23,6 +23,7 @@ const monitoring = load('monitoring.json');
 const emergency = load('emergency.json');
 const injuries = load('injuries.json');
 const mental = load('mental.json');
+const daytypes = load('daytypes.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -171,6 +172,24 @@ if (!mental || typeof mental !== 'object' || Array.isArray(mental)) fail('mental
 else {
     if (!Array.isArray(mental.cards) || mental.cards.length === 0) fail('mental.json: "cards" fehlt/leer');
     else mental.cards.forEach((c, i) => { ['icon', 'title', 'text'].forEach(k => { if (typeof c[k] !== 'string' || !c[k]) fail(`mental.cards[${i}]: "${k}" fehlt`); }); });
+}
+
+// ── daytypes ────────────────────────────────────────────────────────────────
+// Muss jeden im Code genutzten Tagestyp mit Label + Detail-Hinweis abdecken.
+const REQUIRED_DAYTYPES = ['training', 'rest', 'recovery', 'carb', 'autophagy', 'water', 'keto'];
+const EASY_DAYTYPES = ['training', 'rest']; // Light-Modus zeigt Klartext-Hinweise
+if (!daytypes || typeof daytypes !== 'object' || Array.isArray(daytypes)) {
+    fail('daytypes.json: muss ein Objekt sein');
+} else {
+    REQUIRED_DAYTYPES.forEach(type => {
+        const d = daytypes[type];
+        if (!d || typeof d !== 'object') { fail(`daytypes.json: Tagestyp "${type}" fehlt`); return; }
+        ['label', 'hint'].forEach(k => { if (typeof d[k] !== 'string' || !d[k]) fail(`daytypes.${type}: "${k}" fehlt oder kein String`); });
+    });
+    EASY_DAYTYPES.forEach(type => {
+        const d = daytypes[type];
+        if (d && (typeof d.hintEasy !== 'string' || !d.hintEasy)) fail(`daytypes.${type}: "hintEasy" fehlt (im Light-Modus benötigt)`);
+    });
 }
 
 // ── body_zones (Grundstruktur) ──────────────────────────────────────────────

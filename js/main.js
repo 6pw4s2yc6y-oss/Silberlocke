@@ -1436,10 +1436,9 @@
         // Alle empfohlenen Produkte (aus dem Standard-Tagesplan)
         let RECOMMENDED_IDS = new Set();
         const DAYTYPES = ['training','rest','recovery','carb','autophagy','water','keto'];
-        const DAYTYPE_LABELS = {
-            training: "Trainingstag", rest: "Trainingsfrei", recovery: "Verletzung/Recovery", carb: "Carb-Loading",
-            autophagy: "Autophagie", water: "Wasserfasten", keto: "Ketogen"
-        };
+        // Tagestyp-Texte kommen aus data/daytypes.json (Daten/Logik getrennt) und
+        // werden nach dem Laden befüllt – siehe loadData()-Block weiter unten.
+        let DAYTYPE_LABELS = {};
         // Recovery-/Verletzungstag: Supplemente, die Geweberegeneration & Entzündungsdämpfung unterstützen
         const RECOVERY_IDS = ['p38','p39','p28','p21','p22','p24','p16']; // Kollagen, Gelenke, Omega-3, Vit C, Vit D, Zink, Glycin
 
@@ -1452,20 +1451,10 @@
         // Elektrolyt-/Mineral-Produkt fürs Wasserfasten (kalorienfrei, sicherheitsrelevant)
         const WATERFAST_KEEP = new Set(['p26']);
 
-        const DAYTYPE_HINTS = {
-            training:  "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
-            rest:      "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
-            recovery:  "🩹 <strong>Verletzungs-/Recovery-Tag:</strong> Fokus auf Gewebeheilung statt Leistung. Stimulanzien & Pre-Workout-Booster raus, Eiweiß hoch (Muskelerhalt in der Pause), Kollagen + Vitamin C fürs Bindegewebe, Omega-3 entzündungshemmend, Vitamin D & Zink fürs Immunsystem. Belastung dosieren – kein Schmerz. <strong>Bei starken oder anhaltenden Beschwerden zum Arzt/Physiotherapeuten.</strong>",
-            carb:      "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation.",
-            autophagy: "🔄 <strong>Autophagie-Tag:</strong> Nur kalorienfreie Mikronährstoffe & Wasser. <strong>Kein Protein, keine Kalorien</strong> – mTOR & Insulin niedrig halten, sonst stoppt die zelluläre Selbstreinigung. Ideal ab ~16h Fasten.",
-            water:     "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung.",
-            keto:      "🥑 <strong>Ketogener Tag:</strong> Kohlenhydratquellen (Maltodextrin, Gainer, Rice Pudding, High-Carb-Pre-Workout) entfallen. Ziel < 30–50 g Carbs/Tag. Mehr Elektrolyte trinken (Keto-Grippe vermeiden), Fett & moderates Protein bleiben."
-        };
-        // Easy Mode: gleiche Aussage in Klartext, ohne Fachbegriffe.
-        const DAYTYPE_HINTS_EASY = {
-            training: "🏋️ <strong>Trainingstag:</strong> Dein voller Plan für einen Tag, an dem du trainierst.",
-            rest:     "🛌 <strong>Tag ohne Training:</strong> Ein ruhigerer Plan – ohne die Extras rund ums Training, dafür bleibt alles für die Erholung."
-        };
+        // Detail-Hinweise (Hard) & Klartext-Hinweise (Easy) – ebenfalls aus
+        // data/daytypes.json, nach dem Laden befüllt (siehe loadData()-Block).
+        let DAYTYPE_HINTS = {};
+        let DAYTYPE_HINTS_EASY = {};
         // Liefert den Hinweis passend zum Modus (Easy = Klartext, Hard = Details).
         function dayHint(type) {
             if (appMode === 'light' && DAYTYPE_HINTS_EASY[type]) return DAYTYPE_HINTS_EASY[type];
@@ -2648,6 +2637,13 @@
                 EMERGENCY       = data.emergency;
                 INJURIES        = data.injuries;
                 MENTAL          = data.mental;
+                // Tagestyp-Texte aus data/daytypes.json in die Lookup-Maps übernehmen
+                // (Daten liegen in JSON, der Code hält nur die Referenzen).
+                Object.entries(data.daytypes || {}).forEach(([type, d]) => {
+                    if (d.label != null)    DAYTYPE_LABELS[type]     = d.label;
+                    if (d.hint != null)     DAYTYPE_HINTS[type]      = d.hint;
+                    if (d.hintEasy != null) DAYTYPE_HINTS_EASY[type] = d.hintEasy;
+                });
                 CATS = ["Alle", ...new Set(PRODUCTS.map(p => p.cat))];
                 RECOMMENDED_IDS = new Set();
                 TIMELINE_CONFIG.forEach(b => b.productIds.forEach(p => RECOMMENDED_IDS.add(p)));

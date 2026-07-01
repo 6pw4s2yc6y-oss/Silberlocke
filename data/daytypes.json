@@ -1,0 +1,32 @@
+{
+    "training": {
+        "label": "Trainingstag",
+        "hint": "🏋️ <strong>Trainingstag:</strong> Voller Plan inkl. Pre-Workout-Booster & Post-Workout-Anabolfenster.",
+        "hintEasy": "🏋️ <strong>Trainingstag:</strong> Dein voller Plan für einen Tag, an dem du trainierst."
+    },
+    "rest": {
+        "label": "Trainingsfrei",
+        "hint": "🛌 <strong>Trainingsfreier Tag:</strong> Ohne Pre-Workout-Booster – kein Training, keine Stimulanzien/Pump nötig. Post-Workout-Fenster entfällt (keine schnellen Carbs), Protein & Kreatin bleiben für die Regeneration.",
+        "hintEasy": "🛌 <strong>Tag ohne Training:</strong> Ein ruhigerer Plan – ohne die Extras rund ums Training, dafür bleibt alles für die Erholung."
+    },
+    "recovery": {
+        "label": "Verletzung/Recovery",
+        "hint": "🩹 <strong>Verletzungs-/Recovery-Tag:</strong> Fokus auf Gewebeheilung statt Leistung. Stimulanzien & Pre-Workout-Booster raus, Eiweiß hoch (Muskelerhalt in der Pause), Kollagen + Vitamin C fürs Bindegewebe, Omega-3 entzündungshemmend, Vitamin D & Zink fürs Immunsystem. Belastung dosieren – kein Schmerz. <strong>Bei starken oder anhaltenden Beschwerden zum Arzt/Physiotherapeuten.</strong>"
+    },
+    "carb": {
+        "label": "Carb-Loading",
+        "hint": "🍚 <strong>Carb-Loading:</strong> Trainingsplan + gezielte Kohlenhydrat-Beladung (Maltodextrin & Rice Pudding) zu den Mahlzeiten. Ziel: 8–10 g Kohlenhydrate pro kg KG zur Glykogen-Superkompensation."
+    },
+    "autophagy": {
+        "label": "Autophagie",
+        "hint": "🔄 <strong>Autophagie-Tag:</strong> Nur kalorienfreie Mikronährstoffe & Wasser. <strong>Kein Protein, keine Kalorien</strong> – mTOR & Insulin niedrig halten, sonst stoppt die zelluläre Selbstreinigung. Ideal ab ~16h Fasten."
+    },
+    "water": {
+        "label": "Wasserfasten",
+        "hint": "💧 <strong>Wasserfasten:</strong> Ausschließlich Wasser + Elektrolyte (Natrium, Kalium, Magnesium) zur Sicherheit. <strong>Null Kalorien.</strong> Längeres Wasserfasten nur mit ärztlicher Begleitung."
+    },
+    "keto": {
+        "label": "Ketogen",
+        "hint": "🥑 <strong>Ketogener Tag:</strong> Kohlenhydratquellen (Maltodextrin, Gainer, Rice Pudding, High-Carb-Pre-Workout) entfallen. Ziel < 30–50 g Carbs/Tag. Mehr Elektrolyte trinken (Keto-Grippe vermeiden), Fett & moderates Protein bleiben."
+    }
+}
