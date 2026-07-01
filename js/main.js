@@ -98,7 +98,8 @@
             globalTrainTimes = [...baseTrainTimes];
             syncTrainStr();
         }
-        let globalMeals = [];          // [] = automatisch (an Schlafrhythmus); sonst ["HH:MM", …]
+        let globalMeals = [];          // gewählte Mahlzeit-Uhrzeiten (leer = 0 oder auto)
+        let mealsAuto = true;          // true = Zeiten automatisch; false = eigene Wahl (auch 0)
         let mealCount = 3;
 
         // ── MAHLZEITEN: Vorschläge (suggestMeals) → js/modules/timeline.js ─────────
@@ -246,9 +247,17 @@
                     .sort();
             setBaseTrainTimes(trainTimes);
 
-            // Mahlzeiten (leer = automatisch an Schlafrhythmus; sonst eigene Zeiten)
-            const mealAuto = document.getElementById("mealAutoInput").checked;
-            globalMeals = mealAuto ? [] :
+            // Feste Trainingszeit im Onboarding gesetzt → heute ist ein Trainingstag
+            // (sonst würde der Wochenplan-Standard evtl. „Trainingsfrei" zeigen und
+            // die Eingabe ignorieren). So spiegelt der Plan sofort die Abfrage.
+            if (inOnboarding && baseTrainTimes.length > 0) {
+                const wk = loadWeek();
+                if (wk[todayIdx()]) { wk[todayIdx()].train = true; saveWeek(); }
+            }
+
+            // Mahlzeiten: auto = an Schlafrhythmus; sonst eigene Zeiten (0 = keine).
+            mealsAuto = document.getElementById("mealAutoInput").checked;
+            globalMeals = mealsAuto ? [] :
                 Array.from(document.querySelectorAll('#mealsList .meal-time')).map(i => i.value).filter(Boolean);
 
             // Zeiten lokal im Browser merken (kein Login/Backend nötig)
@@ -256,7 +265,7 @@
                 store.setItem("sl_wake", wakeInput);
                 store.setItem("sl_sleep", sleepInput);
                 store.setItem("sl_train", baseTrainTimes.join(','));
-                store.setItem("sl_meals", JSON.stringify(globalMeals));
+                store.setItem("sl_meals", JSON.stringify({ auto: mealsAuto, times: globalMeals }));
             } catch (e) {}
 
             // Display im Header aktualisieren
@@ -1856,14 +1865,44 @@
                 const off = ((hh * 60 + mm) - wakeMin + 1440) % 1440;
                 return (off >= 0 && off < awakeDuration) ? off : null;
             };
-            if (globalMeals && globalMeals.length) {
-                const m = globalMeals;
-                const mealMap = { t2: m[0], t9: m[m.length - 1] };
-                if (m.length >= 3) mealMap.t7 = m[Math.floor((m.length - 1) / 2)];
-                activeBlocks = activeBlocks.map(b => {
-                    if (mealMap[b.id]) { const off = toOffset(mealMap[b.id]); if (off != null) return { ...b, absoluteMinutes: off }; }
-                    return b;
-                });
+            // Mahlzeit-Anzahl & -Zeiten aus dem Setup in den Plan übernehmen. Die drei
+            // fest verdrahteten Meal-Anker (t2 Frühstück, t7 Mittag, t9 Abend) werden
+            // durch genau die gewählten Mahlzeiten ersetzt; ihre mahlzeitgebundenen
+            // Supplemente werden auf die neuen Blöcke verteilt (nichts geht verloren).
+            const MEAL_IDS = ['t2', 't7', 't9'];
+            if (!mealsAuto) {
+                const t2 = activeBlocks.find(b => b.id === 't2');
+                const t7 = activeBlocks.find(b => b.id === 't7');
+                const t9 = activeBlocks.find(b => b.id === 't9');
+                const style = t2 || t7 || t9;
+                if (style) {
+                    activeBlocks = activeBlocks.filter(b => !MEAL_IDS.includes(b.id));
+                    const put = (anchor, blk) => {
+                        if (!anchor || !blk) return;
+                        anchor.productIds.forEach(p => { if (!blk.productIds.includes(p)) blk.productIds.push(p); });
+                        blk.notes = { ...anchor.notes, ...blk.notes };
+                        blk.priority = { ...anchor.priority, ...blk.priority };
+                    };
+                    if (globalMeals.length === 0) {
+                        // 0 Mahlzeiten: mahlzeitgebundene Supplemente in einen frei wählbaren Block
+                        const b = { ...style, id: 'tMealFree', label: 'Zu einer Mahlzeit (frei wählbar)',
+                            absoluteMinutes: Math.round(awakeDuration * 0.4), productIds: [], notes: {}, priority: {},
+                            why: ': Du hast 0 feste Mahlzeiten gewählt – nimm diese mahlzeitgebundenen Supplemente zu einer Mahlzeit deiner Wahl (fettlösliche Vitamine mit etwas Fett).' };
+                        put(t2, b); put(t7, b); put(t9, b);
+                        if (b.productIds.length) activeBlocks.push(b);
+                    } else {
+                        const blocks = globalMeals.map((tm, i) => {
+                            const off = toOffset(tm);
+                            return { ...style, id: 'tMeal' + (i + 1), label: (i + 1) + '. Mahlzeit',
+                                absoluteMinutes: off != null ? off : Math.round(awakeDuration * (i + 1) / (globalMeals.length + 1)),
+                                productIds: [], notes: {}, priority: {}, why: ': Mahlzeit – mit ausreichend Wasser.' };
+                        });
+                        put(t2, blocks[0]);
+                        put(t9, blocks[blocks.length - 1]);
+                        put(t7, blocks[Math.floor((blocks.length - 1) / 2)]);
+                        activeBlocks = activeBlocks.concat(blocks);
+                    }
+                }
             }
 
             // Gesundheits-Sperre: unter 6 h Schlaf keine Trainingsbelastung – Pre-/Post-
@@ -2872,21 +2911,22 @@
                 updateSleepWarn();
                 setBaseTrainTimes(savedTrainTimes);
 
-                // Mahlzeiten wiederherstellen (Array-Format)
+                // Mahlzeiten wiederherstellen. Neu: { auto, times }. Alt: reines Array
+                // (= eigene Zeiten) oder leeres Array (= auto) – abwärtskompatibel.
                 try {
-                    const m = JSON.parse(store.getItem("sl_meals") || "null");
-                    if (Array.isArray(m) && m.length) {
-                        globalMeals = m;
-                        mealCount = m.length;
+                    const raw = JSON.parse(store.getItem("sl_meals") || "null");
+                    if (Array.isArray(raw)) { mealsAuto = raw.length === 0; globalMeals = raw; }
+                    else if (raw && typeof raw === 'object') { mealsAuto = !!raw.auto; globalMeals = Array.isArray(raw.times) ? raw.times : []; }
+                    else { mealsAuto = true; globalMeals = []; }
+                    if (!mealsAuto) {
+                        mealCount = globalMeals.length;
                         document.getElementById("mealAutoInput").checked = false;
                         document.getElementById("mealsCustom").style.display = 'block';
-                        const sl = document.getElementById('mealCountSlider'); if (sl) sl.value = m.length;
-                        const v = document.getElementById('mealCountVal'); if (v) v.textContent = m.length;
-                        renderMealInputs(m);
-                    } else {
-                        globalMeals = [];
+                        const sl = document.getElementById('mealCountSlider'); if (sl) sl.value = globalMeals.length;
+                        const v = document.getElementById('mealCountVal'); if (v) v.textContent = globalMeals.length;
+                        renderMealInputs(globalMeals);
                     }
-                } catch (e) { globalMeals = []; }
+                } catch (e) { mealsAuto = true; globalMeals = []; }
 
                 // Alles bekannt → direkt in die App, Assistent überspringen.
                 // Sonst: Onboarding mit der Modus-Abfrage als erstem Schritt starten.
