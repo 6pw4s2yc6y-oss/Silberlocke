@@ -123,23 +123,49 @@
         function setupWake()  { return document.getElementById('wakeTimeInput')?.value || '07:00'; }
         function setupSleep() { return document.getElementById('sleepTimeInput')?.value || '23:00'; }
         function isTrainFlex() { return !!document.getElementById('trainFlexInput')?.checked; }
+        const _toMin = s => { const [h, m] = (s || '0:0').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
+        // Schlafdauer = von der Schlafenszeit (zu Bett) bis zur Aufwachzeit.
+        function setupSleepHours() { return ((_toMin(setupWake()) - _toMin(setupSleep()) + 1440) % 1440) / 60; }
+        // Gesundheits-Limit: unter 6 h Schlaf wird Training gesperrt (Regeneration reicht nicht).
+        function sleepTooLittle() { return setupSleepHours() < 6; }
 
         function renderTrainTimes() {
             const box = document.getElementById('trainTimesList');
             if (!box) return;
             if (setupTrainTimes.length === 0) setupTrainTimes = [suggestTrainTime(setupWake(), setupSleep())];
+            const blocked = sleepTooLittle();
+            // Unter 6 h Schlaf: Training zwingend flexibel & gesperrt.
+            const flexEl = document.getElementById('trainFlexInput');
+            if (flexEl) { flexEl.disabled = blocked; if (blocked) flexEl.checked = true; }
             const flex = isTrainFlex();
             box.innerHTML = setupTrainTimes.map((t, i) => `
                 <div class="train-time-row">
                     <span class="train-time-num">${i + 1}.</span>
-                    <input type="time" class="time-input train-time" value="${t}" ${flex ? 'style="opacity:0.45;"' : ''}
-                           onfocus="uncheckTrainFlex()" oninput="setTrainTimeAt(${i}, this.value)">
+                    <input type="time" class="time-input train-time" value="${t}" ${(flex || blocked) ? 'style="opacity:0.45;"' : ''} ${blocked ? 'disabled' : ''}
+                           onfocus="uncheckTrainFlex()" oninput="setTrainTimeAt(${i}, this.value)" onchange="setTrainTimeAt(${i}, this.value)">
                     ${setupTrainTimes.length > 1 ? `<button type="button" class="train-remove-btn" onclick="removeTrainTime(${i})" aria-label="Einheit entfernen">✕</button>` : ''}
                 </div>`).join('');
-            // Knopf immer sichtbar (außer bei Maximum) – Klick aktiviert bei Bedarf
-            // das Training (hebt „Flexibel" auf), damit er auffindbar & robust ist.
+            // Knopf immer sichtbar (außer bei Maximum oder Sperre) – Klick aktiviert bei
+            // Bedarf das Training (hebt „Flexibel" auf), damit er auffindbar & robust ist.
             const addBtn = document.getElementById('trainAddBtn');
-            if (addBtn) addBtn.style.display = (setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
+            if (addBtn) addBtn.style.display = (blocked || setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
+        }
+        // Warnbanner zur Schlafdauer (Ziel 6–9 h) unter den Zeitfeldern.
+        function updateSleepWarn() {
+            const warn = document.getElementById('sleepWarn');
+            if (!warn) return;
+            const hrs = setupSleepHours();
+            if (hrs < 6) {
+                warn.style.display = 'block';
+                warn.className = 'setup-warn danger';
+                warn.innerHTML = `🚫 <strong>Nur ${hrs.toFixed(1)} h Schlaf:</strong> Training gesperrt. Unter 6 h reicht die Regeneration nicht – erst ausschlafen (Ziel 6–9 h).`;
+            } else if (hrs > 9) {
+                warn.style.display = 'block';
+                warn.className = 'setup-warn note';
+                warn.innerHTML = `😴 <strong>${hrs.toFixed(1)} h Schlaf:</strong> viel – achte eher auf Schlafqualität (Ziel 6–9 h).`;
+            } else {
+                warn.style.display = 'none';
+            }
         }
         function setTrainTimeAt(i, val) { trainManuallySet = true; setupTrainTimes[i] = val; }
         function addTrainTime() {
@@ -170,14 +196,18 @@
             setupTrainTimes = [suggestTrainTime(setupWake(), setupSleep())];
             renderTrainTimes();
         }
-        // Aufwach-/Schlafzeit geändert → Trainings- und Mahlzeit-Vorschläge neu.
+        // Aufwach-/Schlafzeit geändert → Trainings- und Mahlzeit-Vorschläge neu
+        // verbinden (feuert auch bei `change`, damit Mobile-Zeitpicker greifen).
         function onSetupTimesChanged() {
             refreshTrainSuggestion();
+            renderTrainTimes();       // Sperre/Flex-Zustand immer neu anwenden (auch bei manuellen Zeiten)
             refreshMealSuggestions();
+            updateSleepWarn();
         }
         function setMealCount(n) {
             mealCount = n;
-            document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === n));
+            const sl = document.getElementById('mealCountSlider'); if (sl) sl.value = n;
+            const v = document.getElementById('mealCountVal'); if (v) v.textContent = n;
             renderMealInputs(suggestMeals(n,
                 document.getElementById('wakeTimeInput').value || '07:00',
                 document.getElementById('sleepTimeInput').value || '23:00'));
@@ -1778,7 +1808,9 @@
             }
             // Trainingszeiten → Offsets ab Aufwachen (mehrere Einheiten möglich,
             // außerhalb der Wachzeit liegende werden verworfen), aufsteigend sortiert.
-            const trainOffsets = (globalTrainTimes || [])
+            // Gesundheits-Sperre: unter 6 h Schlaf kein Training.
+            const sleepHrs = (1440 - awakeDuration) / 60;
+            const trainOffsets = (sleepHrs < 6 ? [] : (globalTrainTimes || []))
                 .map(ts => { const [th, tm] = ts.split(':').map(Number); return ((th * 60 + tm) - wakeMin + 1440) % 1440; })
                 .filter(to => to >= 0 && to < awakeDuration)
                 .sort((a, b) => a - b);
@@ -1834,6 +1866,14 @@
                 });
             }
 
+            // Gesundheits-Sperre: unter 6 h Schlaf keine Trainingsbelastung – Pre-/Post-
+            // Workout-Blöcke (inkl. weiterer Einheiten) entfernen, Rest bleibt im Plan.
+            let sleepBanner = "";
+            if (sleepHrs < 6) {
+                activeBlocks = activeBlocks.filter(b => !/^t4/.test(b.id) && !/^t6/.test(b.id));
+                sleepBanner = `<div class="sleep-block-banner">🚫 <strong>Training gesperrt:</strong> nur ${sleepHrs.toFixed(1)} h Schlaf. Unter 6 h keine Trainingsbelastung – Regeneration hat Vorrang. Supplemente & Mahlzeiten bleiben im Plan.</div>`;
+            }
+
             // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
             let stackBanner = "";
             if (stackPlanActive) {
@@ -1867,11 +1907,11 @@
                 .sort((a, b) => minutesSinceWake(a) - minutesSinceWake(b));
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
+                container.innerHTML = sleepBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
                 return;
             }
 
-            container.innerHTML = stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = sleepBanner + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -2829,6 +2869,7 @@
                     trainManuallySet = false;  // neuer Nutzer: adaptiver Startwert statt fix 17:00
                 }
                 renderTrainTimes();
+                updateSleepWarn();
                 setBaseTrainTimes(savedTrainTimes);
 
                 // Mahlzeiten wiederherstellen (Array-Format)
@@ -2839,7 +2880,8 @@
                         mealCount = m.length;
                         document.getElementById("mealAutoInput").checked = false;
                         document.getElementById("mealsCustom").style.display = 'block';
-                        document.querySelectorAll('#mealCountBtns button').forEach(b => b.classList.toggle('active', +b.textContent === m.length));
+                        const sl = document.getElementById('mealCountSlider'); if (sl) sl.value = m.length;
+                        const v = document.getElementById('mealCountVal'); if (v) v.textContent = m.length;
                         renderMealInputs(m);
                     } else {
                         globalMeals = [];

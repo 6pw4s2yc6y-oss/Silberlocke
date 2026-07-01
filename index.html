@@ -62,12 +62,12 @@
             <div class="setup-time-grid">
                 <div class="form-group">
                     <label for="wakeTimeInput">&#9728; Aufwachzeit</label>
-                    <input type="time" id="wakeTimeInput" class="time-input" value="07:00" oninput="onSetupTimesChanged()">
+                    <input type="time" id="wakeTimeInput" class="time-input" value="07:00" oninput="onSetupTimesChanged()" onchange="onSetupTimesChanged()">
                 </div>
                 <div class="setup-arrow">&#8594;</div>
                 <div class="form-group">
                     <label for="sleepTimeInput">&#9790; Schlafenszeit</label>
-                    <input type="time" id="sleepTimeInput" class="time-input" value="23:00" oninput="onSetupTimesChanged()">
+                    <input type="time" id="sleepTimeInput" class="time-input" value="23:00" oninput="onSetupTimesChanged()" onchange="onSetupTimesChanged()">
                 </div>
             </div>
             <div class="setup-train">
@@ -80,6 +80,7 @@
                     <input type="checkbox" id="trainFlexInput" checked onchange="toggleTrainFlex()">
                     <span>Flexibel / kein festes Training</span>
                 </label>
+                <div id="sleepWarn" class="setup-warn" style="display:none;"></div>
             </div>
             <div class="setup-meals" id="setupMeals">
                 <label class="meals-label">🍽️ Mahlzeiten</label>
@@ -90,14 +91,10 @@
                 <div id="mealsCustom" style="display:none;">
                     <div class="meals-count-row">
                         <span>Anzahl Mahlzeiten</span>
-                        <div class="meals-count-btns" id="mealCountBtns">
-                            <button type="button" onclick="setMealCount(0)">0</button>
-                            <button type="button" onclick="setMealCount(1)">1</button>
-                            <button type="button" onclick="setMealCount(2)">2</button>
-                            <button type="button" class="active" onclick="setMealCount(3)">3</button>
-                            <button type="button" onclick="setMealCount(4)">4</button>
-                            <button type="button" onclick="setMealCount(5)">5</button>
-                            <button type="button" onclick="setMealCount(6)">6</button>
+                        <div class="meals-slider-wrap">
+                            <input type="range" id="mealCountSlider" class="meals-slider" min="0" max="6" step="1" value="3"
+                                   oninput="setMealCount(+this.value)" onchange="setMealCount(+this.value)">
+                            <span class="meals-slider-val" id="mealCountVal">3</span>
                         </div>
                     </div>
                     <div id="mealsList"></div>
