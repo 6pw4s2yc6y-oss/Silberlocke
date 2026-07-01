@@ -2,18 +2,20 @@
 // Lädt die statischen Datensätze asynchron aus /data/*.json beim App-Start.
 // Pfade relativ zum Modul (../../data/), damit der Origin egal ist.
 
+// Logischer Key → Pfad (relativ zu data/). Domänen-Unterordner, damit die
+// wachsende Datenmenge (Studien, Nährstoffe, Supplemente) sortiert bleibt.
 const FILES = {
-    products:        'products.json',
-    timeline_config: 'timeline_config.json',
-    sport_data:      'sport_data.json',
-    body_zones:      'body_zones.json',
-    nutr_data:       'nutr_data.json',
-    bloodmarkers:    'bloodmarkers.json',
-    monitoring:      'monitoring.json',
-    emergency:       'emergency.json',
-    injuries:        'injuries.json',
-    mental:          'mental.json',
-    daytypes:        'daytypes.json',
+    products:        'supplements/products.json',
+    timeline_config: 'app/timeline_config.json',
+    sport_data:      'training/sport_data.json',
+    body_zones:      'health/body_zones.json',
+    nutr_data:       'nutrition/nutr_data.json',
+    bloodmarkers:    'health/bloodmarkers.json',
+    monitoring:      'health/monitoring.json',
+    emergency:       'health/emergency.json',
+    injuries:        'health/injuries.json',
+    mental:          'health/mental.json',
+    daytypes:        'app/daytypes.json',
 };
 
 async function fetchJson(file) {

@@ -13,17 +13,17 @@ function load(name) {
     catch (e) { fail(`${name}: ungültiges JSON – ${e.message}`); return null; }
 }
 
-const products = load('products.json');
-const timeline = load('timeline_config.json');
-const sport = load('sport_data.json');
-const body = load('body_zones.json');
-const nutr = load('nutr_data.json');
-const blood = load('bloodmarkers.json');
-const monitoring = load('monitoring.json');
-const emergency = load('emergency.json');
-const injuries = load('injuries.json');
-const mental = load('mental.json');
-const daytypes = load('daytypes.json');
+const products = load('supplements/products.json');
+const timeline = load('app/timeline_config.json');
+const sport = load('training/sport_data.json');
+const body = load('health/body_zones.json');
+const nutr = load('nutrition/nutr_data.json');
+const blood = load('health/bloodmarkers.json');
+const monitoring = load('health/monitoring.json');
+const emergency = load('health/emergency.json');
+const injuries = load('health/injuries.json');
+const mental = load('health/mental.json');
+const daytypes = load('app/daytypes.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();

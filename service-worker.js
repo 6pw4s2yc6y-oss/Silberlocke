@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'silberlocke-v9';
+const CACHE_VERSION = 'silberlocke-v10';
 const APP_SHELL = [
     './',
     './index.html',
@@ -14,17 +14,17 @@ const APP_SHELL = [
     './js/modules/dataFetcher.js',
     './js/modules/storage.js',
     './js/vendor/idb-keyval.js',
-    './data/products.json',
-    './data/timeline_config.json',
-    './data/sport_data.json',
-    './data/body_zones.json',
-    './data/nutr_data.json',
-    './data/bloodmarkers.json',
-    './data/monitoring.json',
-    './data/emergency.json',
-    './data/injuries.json',
-    './data/mental.json',
-    './data/daytypes.json',
+    './data/supplements/products.json',
+    './data/app/timeline_config.json',
+    './data/training/sport_data.json',
+    './data/health/body_zones.json',
+    './data/nutrition/nutr_data.json',
+    './data/health/bloodmarkers.json',
+    './data/health/monitoring.json',
+    './data/health/emergency.json',
+    './data/health/injuries.json',
+    './data/health/mental.json',
+    './data/app/daytypes.json',
     './manifest.json',
     './icons/icon-192.png',
     './icons/icon-512.png',

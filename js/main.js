@@ -1436,7 +1436,7 @@
         // Alle empfohlenen Produkte (aus dem Standard-Tagesplan)
         let RECOMMENDED_IDS = new Set();
         const DAYTYPES = ['training','rest','recovery','carb','autophagy','water','keto'];
-        // Tagestyp-Texte kommen aus data/daytypes.json (Daten/Logik getrennt) und
+        // Tagestyp-Texte kommen aus data/app/daytypes.json (Daten/Logik getrennt) und
         // werden nach dem Laden befüllt – siehe loadData()-Block weiter unten.
         let DAYTYPE_LABELS = {};
         // Recovery-/Verletzungstag: Supplemente, die Geweberegeneration & Entzündungsdämpfung unterstützen
@@ -1452,7 +1452,7 @@
         const WATERFAST_KEEP = new Set(['p26']);
 
         // Detail-Hinweise (Hard) & Klartext-Hinweise (Easy) – ebenfalls aus
-        // data/daytypes.json, nach dem Laden befüllt (siehe loadData()-Block).
+        // data/app/daytypes.json, nach dem Laden befüllt (siehe loadData()-Block).
         let DAYTYPE_HINTS = {};
         let DAYTYPE_HINTS_EASY = {};
         // Liefert den Hinweis passend zum Modus (Easy = Klartext, Hard = Details).
@@ -2637,7 +2637,7 @@
                 EMERGENCY       = data.emergency;
                 INJURIES        = data.injuries;
                 MENTAL          = data.mental;
-                // Tagestyp-Texte aus data/daytypes.json in die Lookup-Maps übernehmen
+                // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
                     if (d.label != null)    DAYTYPE_LABELS[type]     = d.label;
