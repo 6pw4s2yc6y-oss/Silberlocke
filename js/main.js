@@ -293,11 +293,13 @@
         };
         let inOnboarding = true;
         let currentStep = 1;
-        // Modus-zuerst & adaptiv: Light fragt nur die Uhrzeiten, Hard/Expert das volle Onboarding.
+        // Modus-zuerst & adaptiv: Light fragt nur die Uhrzeiten, Hard/Expert das volle
+        // Onboarding. Reihenfolge: erst „wer bist du" (Profil → Bedarf), dann der
+        // Tagesrhythmus (Uhrzeiten), dann Produkte.
         const ONBOARD_FLOW = {
             light:  ['modeScreen', 'setupScreen'],
-            hard:   ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'],
-            expert: ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'],
+            hard:   ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
+            expert: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
         };
         const ALL_ONBOARD = ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'];
         const SCREEN_TITLE = { modeScreen: 'Modus', setupScreen: 'Uhrzeiten', stepProfile: 'Über dich', stepActivity: 'Aktivität', stepGoal: 'Ziel', stepSport: 'Sport & Training', stepProducts: 'Deine Produkte' };
