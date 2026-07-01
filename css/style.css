@@ -19,7 +19,7 @@
 
         /* SETUP SCREEN */
         #setupScreen {
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -174,7 +174,7 @@
 
         /* MODE-AUSWAHL (Hard / Light) */
         #modeScreen {
-            display: none;
+            display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
