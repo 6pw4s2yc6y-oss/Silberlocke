@@ -18,6 +18,18 @@ export function suggestMeals(count, wakeStr, sleepStr) {
     return out;
 }
 
+// TRAININGSZEIT: sinnvoller Vorschlag im Wachfenster – im letzten Drittel des
+// Tages, aber mindestens 3 h vor dem Schlafen (Tiefschlaf/Koffein-Schutz).
+export function suggestTrainTime(wakeStr, sleepStr) {
+    const wakeMin = _hm(wakeStr || '07:00');
+    let awake = (_hm(sleepStr || '23:00') - wakeMin + 1440) % 1440;
+    if (awake < 180) awake = 180;
+    let off = Math.round(awake * 0.65);
+    const latest = awake - 180;                 // spätestens 3 h vor dem Schlafen
+    if (off > latest) off = Math.max(60, latest);
+    return _fhm(wakeMin + off);
+}
+
 // HILFSFUNKTION: Rechnet "HH:MM" + Minuten-Offset in ein neues Zeitfenster "HH:MM – HH:MM" um
 export function calculateTimeWindow(baseTimeStr, offsetMinutes, durationMinutes, isRelativeTosleep = false) {
     const parts = baseTimeStr.split(':');

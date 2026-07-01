@@ -1,4 +1,4 @@
-        import { suggestMeals } from './modules/timeline.js';
+        import { suggestMeals, suggestTrainTime } from './modules/timeline.js';
         import { buildTargetsHtml } from './modules/ui.js';
         import { computeTargets } from './modules/calculator.js';
         import { loadData } from './modules/dataFetcher.js';
@@ -97,9 +97,26 @@
             const box = document.getElementById('mealsList');
             if (!box) return;
             box.innerHTML = times.map((t, i) => {
-                const label = i === 0 ? 'Frühstück' : (i === times.length - 1 ? 'Letzte Mahlzeit' : 'Mahlzeit ' + (i + 1));
+                // Einheitliche Benennung: 1. Mahlzeit … N. Mahlzeit
+                const label = (i + 1) + '. Mahlzeit';
                 return `<div class="meal-row"><span>${label}</span><input type="time" class="time-input meal-time" value="${t}"></div>`;
             }).join('');
+        }
+        // Trainingszeit-Vorschlag: adaptiv aus Aufwach-/Schlafzeit, solange der
+        // Nutzer die Uhrzeit nicht selbst gesetzt hat (dann bleibt seine Wahl).
+        let trainManuallySet = false;
+        function markTrainEdited() { trainManuallySet = true; }
+        function refreshTrainSuggestion() {
+            const t = document.getElementById('trainTimeInput');
+            if (!t || trainManuallySet) return;
+            t.value = suggestTrainTime(
+                document.getElementById('wakeTimeInput').value || '07:00',
+                document.getElementById('sleepTimeInput').value || '23:00');
+        }
+        // Aufwach-/Schlafzeit geändert → Trainings- und Mahlzeit-Vorschläge neu.
+        function onSetupTimesChanged() {
+            refreshTrainSuggestion();
+            refreshMealSuggestions();
         }
         function setMealCount(n) {
             mealCount = n;
@@ -2722,6 +2739,9 @@
                     document.getElementById("trainTimeInput").value = savedTrain;
                     document.getElementById("trainTimeInput").style.opacity = '1';
                     document.getElementById("trainFlexInput").checked = false;
+                    trainManuallySet = true;   // eigene Wahl nicht überschreiben
+                } else {
+                    refreshTrainSuggestion();  // neuer Nutzer: adaptiver Startwert statt fix 17:00
                 }
                 globalTrainTimeStr = savedTrain || "";
 
@@ -2763,6 +2783,7 @@ Object.assign(window, {
     expandBodyDisclaimer, fillRecommendedStack, filterCategory, finishOnboarding,
     flipBody, generateStackPlan, hideAboutMe, modeBack, nextStep, nutrFilterCat,
     onboardToggle, openProductOverlay, prevStep, profileNext, refreshMealSuggestions,
+    markTrainEdited, onSetupTimesChanged,
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
