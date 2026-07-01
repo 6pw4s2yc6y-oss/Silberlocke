@@ -2975,6 +2975,33 @@ Object.assign(window, {
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
 });
 
+// ── VERSION ─────────────────────────────────────────────────────────────────
+// Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
+// CACHE_VERSION im service-worker.js hochzählen.
+const APP_VERSION = 'v18';
+(function initVersionBadge() {
+    const badge = document.getElementById('versionBadge');
+    if (!badge) return;
+    const label = 'Silberlocke ' + APP_VERSION;
+    badge.textContent = label;
+    badge.addEventListener('click', async () => {
+        if (!('serviceWorker' in navigator)) return;
+        const reg = await navigator.serviceWorker.getRegistration().catch(() => null);
+        if (!reg) return;
+        badge.textContent = 'Prüfe…';
+        await reg.update().catch(() => {});
+        setTimeout(() => {
+            // Kein Update-Banner erschienen → du bist auf dem neuesten Stand.
+            if (!document.getElementById('updateBanner')) {
+                badge.textContent = '✓ Aktuell · ' + APP_VERSION;
+                setTimeout(() => { badge.textContent = label; }, 2500);
+            } else {
+                badge.textContent = label;
+            }
+        }, 1500);
+    });
+})();
+
 // ── PWA: Service Worker + Update-Hinweis ────────────────────────────────────
 // Neue Version wartet; ein kleines Banner „Neue Version verfügbar" lässt den
 // Nutzer sauber aktualisieren (kein Cache-Mix aus alter Logik + neuer Seite).
