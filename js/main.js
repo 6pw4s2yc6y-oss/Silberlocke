@@ -151,6 +151,16 @@
             const addBtn = document.getElementById('trainAddBtn');
             if (addBtn) addBtn.style.display = (blocked || setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
         }
+        // Dauerhafte Live-Anzeige: wie viel wach / wie viel Schlaf aus den zwei Zeiten
+        // folgt. Macht transparent, dass „Schlafenszeit" der Zubettgeh-Zeitpunkt ist.
+        function updateSleepInfo() {
+            const el = document.getElementById('sleepInfo');
+            if (!el) return;
+            const sleep = setupSleepHours();
+            const awake = 24 - sleep;
+            const f = n => n.toFixed(1).replace('.', ',');
+            el.innerHTML = `☀️ <strong>${f(awake)} h</strong> wach &nbsp;·&nbsp; 😴 <strong>${f(sleep)} h</strong> Schlaf`;
+        }
         // Warnbanner zur Schlafdauer (Ziel 6–9 h) unter den Zeitfeldern.
         function updateSleepWarn() {
             const warn = document.getElementById('sleepWarn');
@@ -203,6 +213,7 @@
             refreshTrainSuggestion();
             renderTrainTimes();       // Sperre/Flex-Zustand immer neu anwenden (auch bei manuellen Zeiten)
             refreshMealSuggestions();
+            updateSleepInfo();
             updateSleepWarn();
         }
         function setMealCount(n) {
@@ -2910,6 +2921,7 @@
                     trainManuallySet = false;  // neuer Nutzer: adaptiver Startwert statt fix 17:00
                 }
                 renderTrainTimes();
+                updateSleepInfo();
                 updateSleepWarn();
                 setBaseTrainTimes(savedTrainTimes);
 

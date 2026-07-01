@@ -113,6 +113,9 @@
         .setup-warn { font-size: 11.5px; line-height: 1.5; border-radius: 8px; padding: 9px 12px; margin-top: 10px; text-align: left; }
         .setup-warn.danger { color: #fecaca; background: #1a0000; border: 1px solid #7f1d1d; }
         .setup-warn.note { color: #fde68a; background: #1a1000; border: 1px solid #92400e; }
+        .sleep-info { text-align: center; font-size: 12.5px; color: #a5b4fc; margin: 2px 0 14px; }
+        .sleep-info strong { color: #e2e8f0; }
+        .label-hint { font-weight: 400; color: #64748b; font-size: 10px; }
         .sleep-block-banner { font-size: 12.5px; line-height: 1.5; color: #fecaca; background: #1a0000; border: 1px solid #7f1d1d; border-radius: 10px; padding: 12px 14px; margin: 4px 2px 14px; }
         .update-banner { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 9999;
             display: flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #7c3aed 0%, #4c1d95 100%);
