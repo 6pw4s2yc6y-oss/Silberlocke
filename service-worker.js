@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'silberlocke-v6';
+const CACHE_VERSION = 'silberlocke-v7';
 const APP_SHELL = [
     './',
     './index.html',
@@ -47,25 +47,25 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch: nur GET im selben Origin behandeln. Cache-first mit Netzwerk-Fallback;
-// Navigationen fallen offline auf index.html zurück.
+// Fetch: nur GET im selben Origin behandeln.
+// Network-first: immer die aktuelle Version aus dem Netz laden (und den Cache
+// aktualisieren), Cache nur als Offline-Fallback. So bekommen Nutzer neue
+// Deploys sofort – ohne dass die Cache-Version manuell erhöht werden muss.
 self.addEventListener('fetch', (event) => {
     const req = event.request;
     if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
 
     event.respondWith(
-        caches.match(req).then(cached => {
+        fetch(req).then(res => {
+            if (res && res.ok && res.type === 'basic') {
+                const copy = res.clone();
+                caches.open(CACHE_VERSION).then(cache => cache.put(req, copy));
+            }
+            return res;
+        }).catch(() => caches.match(req).then(cached => {
             if (cached) return cached;
-            return fetch(req).then(res => {
-                if (res && res.ok && res.type === 'basic') {
-                    const copy = res.clone();
-                    caches.open(CACHE_VERSION).then(cache => cache.put(req, copy));
-                }
-                return res;
-            }).catch(() => {
-                if (req.mode === 'navigate') return caches.match('./index.html');
-                return new Response('', { status: 504, statusText: 'Offline' });
-            });
-        })
+            if (req.mode === 'navigate') return caches.match('./index.html');
+            return new Response('', { status: 504, statusText: 'Offline' });
+        }))
     );
 });
