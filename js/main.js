@@ -1,6 +1,6 @@
         import { suggestMeals, suggestTrainTime } from './modules/timeline.js';
         import { buildTargetsHtml } from './modules/ui.js';
-        import { computeTargets } from './modules/calculator.js';
+        import { computeTargets, GOAL_LABEL } from './modules/calculator.js';
         import { loadData } from './modules/dataFetcher.js';
         import { store, initStorage } from './modules/storage.js';
 
@@ -499,7 +499,7 @@
             closeTools();
             // Falls die aktive Ansicht im neuen Modus nicht erlaubt ist → zurück zum Tag
             const active = document.querySelector('.tab-bar .tab-btn.active');
-            const allowed = new Set(['tabTimeline', ...tools, ...(light ? ['tabRecovery'] : [])]);
+            const allowed = new Set(['tabTimeline', 'tabMyBody', ...tools, ...(light ? ['tabRecovery'] : [])]);
             if (active && !allowed.has(active.id)) activeSection('tabTimeline', 'viewTimeline');
             if (!dts.includes(currentDayType)) selectDayType('training');
             setNavDayActive(document.getElementById('viewTimeline').classList.contains('active'));
@@ -545,12 +545,26 @@
             document.getElementById('tabTimeline').click();
             setNavDayActive(true);
             setNavHomeActive(false);
+            setNavBodyActive(false);
             closeTools();
             window.scrollTo(0, 0);
         }
         function setNavHomeActive(on) {
             const h = document.getElementById('navHome');
             if (h) h.classList.toggle('active', on);
+        }
+        function setNavBodyActive(on) {
+            const b = document.getElementById('navBody');
+            if (b) b.classList.toggle('active', on);
+        }
+        // „Dein Körper" öffnen (Nav-Knopf neben „Dein Tag").
+        function goToBody() {
+            document.getElementById('tabMyBody').click();
+            setNavBodyActive(true);
+            setNavDayActive(false);
+            setNavHomeActive(false);
+            closeTools();
+            window.scrollTo(0, 0);
         }
         // Übersicht/Dashboard anzeigen (Startseite: alles auf einen Blick)
         function showDashboard() {
@@ -561,6 +575,7 @@
             document.getElementById('timelinePanels').style.display = 'none';
             setNavHomeActive(true);
             setNavDayActive(false);
+            setNavBodyActive(false);
             closeTools();
             renderDashboard();
             window.scrollTo(0, 0);
@@ -568,9 +583,11 @@
         // Von einer Dashboard-Karte in ein Modul springen.
         function dashOpen(target) {
             if (target === 'day') { goToDay(); return; }
+            if (target === 'tabMyBody') { goToBody(); return; }
             const btn = document.getElementById(target);
             if (btn) btn.click();
             setNavHomeActive(false);
+            setNavBodyActive(false);
             closeTools();
             window.scrollTo(0, 0);
         }
@@ -596,11 +613,14 @@
                 `<div class="dash-icon">📅</div><div class="dash-title">Diese Woche</div>
                  <div class="dash-sub">${trainDays} Trainingstage · heute ${wk[ti].train ? 'Training' : 'Pause'}</div>
                  <div class="dash-chips">${weekChips}</div>` });
-            // Bedarf
+            // Dein Körper (BMI, Bedarf) → öffnet die volle Körper-Ansicht
             const t = computeTargets(userProfile);
-            cards.push({ open: 'day', html: t
-                ? `<div class="dash-icon">📊</div><div class="dash-title">Dein Bedarf</div><div class="dash-big">${t.tdee.toLocaleString('de-DE')}</div><div class="dash-sub">kcal · ${t.proteinMin}–${t.proteinMax} g Eiweiß</div>`
-                : `<div class="dash-icon">📊</div><div class="dash-title">Dein Bedarf</div><div class="dash-sub">Profil ausfüllen für kcal & Eiweiß</div>` });
+            const _num = v => parseFloat(String(v || '').replace(',', '.'));
+            const _h = _num(userProfile.height), _w = _num(userProfile.weight);
+            const bmiStr = (t && _h && _w) ? (_w / Math.pow(_h / 100, 2)).toFixed(1).replace('.', ',') : null;
+            cards.push({ open: 'tabMyBody', html: t
+                ? `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-big">${t.tdee.toLocaleString('de-DE')}</div><div class="dash-sub">kcal Bedarf${bmiStr ? ` · BMI ${bmiStr}` : ''} · ${t.proteinMin}–${t.proteinMax} g Eiweiß</div>`
+                : `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-sub">Profil ausfüllen für BMI, kcal &amp; Eiweiß</div>` });
             // Mein Stack (ab Hard)
             if (m !== 'light') cards.push({ open: 'tabStack', html:
                 `<div class="dash-icon">💊</div><div class="dash-title">Mein Stack</div><div class="dash-big">${Object.keys(myStack).length}</div><div class="dash-sub">Produkte im Plan</div>` });
@@ -1338,6 +1358,85 @@
             }
 
             return macroHtml + barsHtml;
+        }
+
+        // Aufgenommene Makros aus dem aktuellen Plan (Stack-Modus: echte Mengen).
+        function computeIntakeMacros() {
+            if (stackPlanActive && Object.keys(myStack).length > 0) {
+                const s = computeStack();
+                return { protein: s.prot, carbs: s.carb, fat: s.fat, kcal: s.kcal };
+            }
+            const allPids = new Set();
+            getActiveTimeline().forEach(b => b.productIds.forEach(pid => allPids.add(pid)));
+            let protein = 0, carbs = 0, fat = 0, kcal = 0;
+            [...allPids].filter(pid => !(PRODUCT_BADGES[pid] && PRODUCT_BADGES[pid].type === 'soldout'))
+                .map(getProductById).filter(Boolean)
+                .forEach(p => { protein += p.protein || 0; carbs += p.carbs || 0; fat += p.fat || 0; kcal += p.kcal || 0; });
+            return { protein, carbs, fat, kcal };
+        }
+
+        // „Dein Körper": berechnete Körperwerte (BMI, Grundumsatz, Verbrauch) +
+        // aufgenommene Makros aus dem Plan/Stack und die Bilanz zum Bedarf.
+        function renderMyBody() {
+            const el = document.getElementById('viewMyBody');
+            if (!el) return;
+            const num = v => parseFloat(String(v || '').replace(',', '.'));
+            const h = num(userProfile.height), w = num(userProfile.weight);
+            const t = computeTargets(userProfile);
+            if (!t || !h || !w) {
+                el.innerHTML = `<div class="mybody-empty">
+                    <div class="mybody-empty-icon">🫀</div>
+                    <div class="mybody-empty-title">Noch keine Körperwerte</div>
+                    <div class="mybody-empty-sub">Fülle dein Profil aus (Alter, Geschlecht, Größe, Gewicht), dann berechnen wir BMI, Grundumsatz &amp; Bedarf.</div>
+                    <button class="mybody-cta" onclick="restartOnboarding()">Profil ausfüllen</button>
+                </div>`;
+                return;
+            }
+            const bmi = w / Math.pow(h / 100, 2);
+            let cat, catColor;
+            if (bmi < 18.5) { cat = 'Untergewicht'; catColor = '#60a5fa'; }
+            else if (bmi < 25) { cat = 'Normalgewicht'; catColor = '#4ade80'; }
+            else if (bmi < 30) { cat = 'Übergewicht'; catColor = '#fbbf24'; }
+            else { cat = 'Adipositas'; catColor = '#f87171'; }
+            const intake = computeIntakeMacros();
+            const f = n => Math.round(n).toLocaleString('de-DE');
+            const bmiStr = bmi.toFixed(1).replace('.', ',');
+            const kcalGap = Math.round(t.tdee - intake.kcal);
+            const protPct = Math.min(100, Math.round(intake.protein / t.proteinMin * 100));
+            const protCovered = intake.protein >= t.proteinMin;
+            el.innerHTML = `
+                <div class="mybody-head">
+                    <h2>🫀 Dein Körper</h2>
+                    <p class="mybody-intro">Aus deinem Profil berechnet – Richtwerte, kein medizinischer Rat.</p>
+                </div>
+                <div class="mybody-grid">
+                    <div class="mybody-card"><div class="mybody-lbl">BMI</div><div class="mybody-val" style="color:${catColor}">${bmiStr}</div><span class="mybody-badge" style="background:${catColor}22;color:${catColor}">${cat}</span></div>
+                    <div class="mybody-card"><div class="mybody-lbl">Grundumsatz</div><div class="mybody-val">${f(t.bmr)}</div><div class="mybody-unit">kcal in Ruhe (BMR)</div></div>
+                    <div class="mybody-card"><div class="mybody-lbl">Verbrauch</div><div class="mybody-val">${f(t.maintenance)}</div><div class="mybody-unit">kcal Erhaltung (TDEE)</div></div>
+                    <div class="mybody-card"><div class="mybody-lbl">Ziel-Kalorien</div><div class="mybody-val" style="color:#a5b4fc">${f(t.tdee)}</div><div class="mybody-unit">${GOAL_LABEL[t.goal] || ''}</div></div>
+                </div>
+
+                <div class="mybody-section-title">Eiweiß-Ziel</div>
+                <div class="mybody-bar-card">
+                    <div class="mybody-bar-top"><span>${f(intake.protein)} g aus deinem Plan</span><span style="color:${protCovered ? '#4ade80' : '#fbbf24'}">Ziel ${t.proteinMin}–${t.proteinMax} g</span></div>
+                    <div class="mybody-bar-track"><div class="mybody-bar-fill" style="width:${protPct}%;background:${protCovered ? '#22c55e' : '#f59e0b'}"></div></div>
+                    <div class="mybody-bar-note">${protCovered ? '✅ Eiweiß-Ziel über den Plan gedeckt.' : 'Rest über die Ernährung (Fleisch, Quark, Eier …) auffüllen.'}</div>
+                </div>
+
+                <div class="mybody-section-title">Heute aus deinem Plan / Stack</div>
+                <div class="light-macros-grid mybody-macros">
+                    <div><span class="lm-val" style="color:#4ade80;">${f(intake.protein)} g</span><span class="lm-lbl">Eiweiß</span></div>
+                    <div><span class="lm-val" style="color:#fbbf24;">${f(intake.carbs)} g</span><span class="lm-lbl">Kohlenhydrate</span></div>
+                    <div><span class="lm-val" style="color:#f87171;">${f(intake.fat)} g</span><span class="lm-lbl">Fett</span></div>
+                    <div><span class="lm-val" style="color:#a5b4fc;">${f(intake.kcal)}</span><span class="lm-lbl">Kalorien</span></div>
+                </div>
+                <div class="mybody-balance">
+                    ${kcalGap > 0
+                        ? `⚖️ <strong>Bilanz:</strong> Dein Plan liefert ${f(intake.kcal)} kcal – bis zum Ziel (${f(t.tdee)} kcal) fehlen noch rund <strong>${f(kcalGap)} kcal</strong>, die über deine Mahlzeiten dazukommen.`
+                        : `⚖️ <strong>Bilanz:</strong> Dein Plan liefert bereits ${f(intake.kcal)} kcal – rund dein ganzer Tagesbedarf (${f(t.tdee)} kcal). Achte, dass es echte Nahrung ist, nicht nur Supplemente.`}
+                </div>
+                <div class="mybody-disclaimer">Berechnung: BMR nach Mifflin-St-Jeor · TDEE = BMR × Aktivität · „Aufgenommen" = Nährwerte aus deinem Supplement-Plan (nicht deine gesamte Ernährung).</div>
+            `;
         }
 
         function renderStackView() {
@@ -2855,10 +2954,12 @@
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
             document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
+            document.getElementById("tabMyBody").addEventListener("click", () => { activeSection("tabMyBody", "viewMyBody"); renderMyBody(); });
             document.getElementById("navHome").addEventListener("click", showDashboard);
             document.getElementById("navDay").addEventListener("click", goToDay);
+            document.getElementById("navBody").addEventListener("click", goToBody);
             document.getElementById("navTools").addEventListener("click", toggleTools);
-            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); setNavHomeActive(false); closeTools(); window.scrollTo(0, 0); });
+            document.getElementById("navEmergency").addEventListener("click", () => { document.getElementById("tabRecovery").click(); setNavDayActive(false); setNavHomeActive(false); setNavBodyActive(false); closeTools(); window.scrollTo(0, 0); });
             document.getElementById("dbSearchInput").addEventListener("input", debounce(function(e) {
                 currentSearchQuery = e.target.value;
                 renderFilteredProducts();
@@ -2980,7 +3081,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v19';
+const APP_VERSION = 'v20';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
