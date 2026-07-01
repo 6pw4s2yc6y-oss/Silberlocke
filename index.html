@@ -291,7 +291,7 @@
                     </div>
                 </div>
                 <div class="tab-bar">
-                    <button class="tab-btn tab-emergency" id="tabRecovery">🚨 RecoveryMode</button>
+                    <button class="tab-btn tab-emergency" id="tabRecovery">💚 RecoveryMode</button>
                     <span class="tab-group-sep"></span>
                     <span class="tab-group-label" onclick="document.getElementById('tabTimeline').click()">Plan</span>
                     <button class="tab-btn active" id="tabTimeline">Tagesplan</button>
@@ -308,11 +308,17 @@
                 </div>
                 <!-- Dein-Tag-Navigation (Hard Mode): Tagesplan als Achse + Werkzeuge-Menü -->
                 <div class="tools-bar" id="toolsBar">
-                    <button class="daynav-btn day active" id="navDay">🗓 Dein Tag</button>
+                    <button class="daynav-btn home active" id="navHome">🏠 Übersicht</button>
+                    <button class="daynav-btn day" id="navDay">🗓 Dein Tag</button>
                     <button class="daynav-btn tools" id="navTools">⚙ Werkzeuge ▾</button>
-                    <button class="daynav-btn emergency" id="navEmergency">🚨 Notfall</button>
+                    <button class="daynav-btn emergency" id="navEmergency">💚 RecoveryMode</button>
                 </div>
                 <div class="tools-sheet" id="toolsSheet"></div>
+
+                <!-- ÜBERSICHT / DASHBOARD (Startseite: alles auf einen Blick) -->
+                <div class="view-section active" id="viewDashboard">
+                    <div class="dash-grid" id="dashGrid"></div>
+                </div>
             </div>
         </header>
 
@@ -356,7 +362,7 @@
             </div>
             </div>
 
-            <div class="view-section active" id="viewTimeline"></div>
+            <div class="view-section" id="viewTimeline"></div>
 
             <!-- MEIN STACK – eigene Produktauswahl mit Mengen -->
             <div class="view-section" id="viewStack">
@@ -762,7 +768,7 @@
             <!-- RECOVERYMODE-HUB -->
             <div class="view-section" id="viewRecovery">
                 <div class="emerg-wrap">
-                    <div class="emerg-banner">🚨 RECOVERYMODE</div>
+                    <div class="emerg-banner">💚 RECOVERYMODE</div>
                     <div class="rec-subnav" id="recoveryNav"></div>
                     <div id="recoveryBody"></div>
                 </div>
