@@ -473,7 +473,7 @@
             }
             // Notfall (immer)
             cards.push({ open: 'tabRecovery', cls: 'emergency', html:
-                `<div class="dash-icon">🚨</div><div class="dash-title">Notfall & Erste Hilfe</div><div class="dash-sub">112, Verletzungen & RecoveryMode</div>` });
+                `<div class="dash-icon">💚</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">Verletzungen, Erste Hilfe, Seelisches &amp; Notruf</div>` });
 
             grid.innerHTML = '';
             cards.forEach(c => {

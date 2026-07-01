@@ -528,22 +528,22 @@
         }
         .tab-group-label:hover { color: #a78bfa; }
 
-        /* NOTFALL-TAB – sticht hervor, pulsiert dezent */
+        /* RECOVERYMODE-TAB – sticht hervor (grün), pulsiert dezent */
         .tab-btn.tab-emergency {
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-            border-color: #f87171;
+            background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
+            border-color: #4ade80;
             color: #fff;
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+            box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
             animation: emergPulse 2s infinite;
         }
         .tab-btn.tab-emergency.active {
-            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
-            border-color: #fecaca;
+            background: linear-gradient(135deg, #34d399 0%, #16a34a 100%);
+            border-color: #bbf7d0;
         }
         @keyframes emergPulse {
-            0%   { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55); }
-            70%  { box-shadow: 0 0 0 9px rgba(220, 38, 38, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+            0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+            70%  { box-shadow: 0 0 0 9px rgba(34, 197, 94, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
         }
         @media (prefers-reduced-motion: reduce) { .tab-btn.tab-emergency { animation: none; } }
         .tab-group-sep {
@@ -574,18 +574,18 @@
         }
         .dash-card:hover { transform: translateY(-2px); border-color: #7c3aed; }
         .dash-card.wide { grid-column: 1 / -1; }
-        .dash-card.emergency { grid-column: 1 / -1; background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%); border-color: #fca5a5; }
+        .dash-card.emergency { grid-column: 1 / -1; background: linear-gradient(135deg, #16a34a 0%, #14532d 100%); border-color: #4ade80; }
         .dash-icon { font-size: 22px; line-height: 1; }
         .dash-title { font-size: 12.5px; font-weight: 800; color: #e2e8f0; }
         .dash-card.emergency .dash-title { color: #fff; font-size: 15px; }
         .dash-big { font-size: 20px; font-weight: 900; color: #a5b4fc; line-height: 1.1; margin-top: 2px; }
         .dash-sub { font-size: 11px; color: #94a3b8; line-height: 1.4; }
-        .dash-card.emergency .dash-sub { color: #fee2e2; }
+        .dash-card.emergency .dash-sub { color: #dcfce7; }
         .dash-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
         .dash-chip { font-size: 9.5px; font-weight: 700; color: #cbd5e1; background: #12122e; border: 1px solid #312e81; border-radius: 5px; padding: 2px 6px; }
         .daynav-btn.tools { flex: 0 0 auto; background: #0c0c1e; border: 1px solid #334155; color: #cbd5e1; }
         .daynav-btn.tools.active { border-color: #a78bfa; color: #fff; }
-        .daynav-btn.emergency { flex: 0 0 auto; background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border: 1px solid #f87171; color: #fff; }
+        .daynav-btn.emergency { flex: 0 0 auto; background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); border: 1px solid #4ade80; color: #fff; }
         .tools-sheet { display: none; flex-direction: column; gap: 6px; margin-top: 8px; padding: 10px; background: linear-gradient(145deg, #0d0d1c 0%, #06060e 100%); border: 1px solid #1e1e3a; border-radius: 12px; }
         .tools-sheet.open { display: flex; }
         .tool-item {
@@ -593,7 +593,7 @@
             background: #070710; border: 1px solid #10102a; color: #cbd5e1; cursor: pointer;
         }
         .tool-item:hover { border-color: #7c3aed; color: #fff; }
-        .tool-item.emergency { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-color: #f87171; color: #fff; }
+        .tool-item.emergency { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); border-color: #4ade80; color: #fff; }
 
         /* BLUTWERTE-ANALYSE */
         .blood-wrap { padding: 4px 2px 24px; }
@@ -667,13 +667,13 @@
         .mon-flag-action { font-size: 11.5px; color: #cbd5e1; line-height: 1.55; margin-top: 4px; }
 
         /* RECOVERYMODE-HUB – Alarm-Ansicht (rot) */
-        #viewRecovery.active { background: radial-gradient(ellipse at 50% 0%, #2a0606 0%, #0a0202 60%); border-radius: 14px; }
+        #viewRecovery.active { background: radial-gradient(ellipse at 50% 0%, #04220f 0%, #05060a 60%); border-radius: 14px; }
         .rec-subnav { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
         .rec-subtab {
             flex: 1 1 auto; min-width: 0; font-size: 12px; font-weight: 800; padding: 9px 8px; border-radius: 9px;
-            background: #1a0606; border: 1px solid #7f1d1d; color: #fca5a5; cursor: pointer; white-space: nowrap;
+            background: #06120b; border: 1px solid #166534; color: #86efac; cursor: pointer; white-space: nowrap;
         }
-        .rec-subtab.active { background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); border-color: #fecaca; color: #fff; }
+        .rec-subtab.active { background: linear-gradient(135deg, #22c55e 0%, #15803d 100%); border-color: #bbf7d0; color: #fff; }
         .rec-disclaimer { background: #1a0606; border: 1px solid #7f1d1d; color: #fca5a5; border-radius: 10px; padding: 10px 12px; font-size: 11.5px; line-height: 1.55; margin-bottom: 12px; }
         .rec-sub-title { font-size: 13px; font-weight: 800; color: #fecaca; text-transform: uppercase; letter-spacing: 1px; margin: 18px 0 9px; }
         .inj-card { background: #1a0606; border: 1px solid #7f1d1d; border-radius: 12px; margin-bottom: 9px; overflow: hidden; }
@@ -701,9 +701,9 @@
         .mind-text { font-size: 12px; color: #fed7d7; line-height: 1.6; margin-top: 5px; }
         .emerg-wrap { padding: 6px 4px 26px; }
         .emerg-banner {
-            background: linear-gradient(135deg, #dc2626 0%, #7f1d1d 100%);
+            background: linear-gradient(135deg, #16a34a 0%, #14532d 100%);
             color: #fff; font-size: 18px; font-weight: 900; letter-spacing: 2px; text-align: center;
-            padding: 14px; border-radius: 12px; border: 1px solid #fca5a5; margin-bottom: 12px;
+            padding: 14px; border-radius: 12px; border: 1px solid #4ade80; margin-bottom: 12px;
         }
         .emerg-intro { color: #fca5a5; font-size: 12px; line-height: 1.55; margin-bottom: 16px; text-align: center; }
         .emerg-section-title { font-size: 13px; font-weight: 800; color: #fecaca; text-transform: uppercase; letter-spacing: 1px; margin: 18px 0 9px; }
