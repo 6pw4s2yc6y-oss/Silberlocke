@@ -157,7 +157,7 @@
             document.getElementById("displaySleepTime").innerText = sleepInput;
 
             // Schritt 1 abgeschlossen → weiter im Assistenten, oder (bei Schnell-Edit) direkt zurück in die App
-            if (inOnboarding) goStep(2);   // von Schritt 1 immer zu Schritt 2
+            if (inOnboarding) nextStep();   // weiter im (mode-abhängigen) Flow
             else enterApp();
         }
 
@@ -177,8 +177,16 @@
         };
         let inOnboarding = true;
         let currentStep = 1;
-        const ONBOARD_SCREENS = { 1:'setupScreen', 2:'stepProfile', 3:'stepActivity', 4:'stepGoal', 5:'stepSport', 6:'modeScreen', 7:'stepProducts' };
-        const ONBOARD_LAST = 7;
+        // Modus-zuerst & adaptiv: Light fragt nur die Uhrzeiten, Hard/Expert das volle Onboarding.
+        const ONBOARD_FLOW = {
+            light:  ['modeScreen', 'setupScreen'],
+            hard:   ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'],
+            expert: ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'],
+        };
+        const ALL_ONBOARD = ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'];
+        const SCREEN_TITLE = { modeScreen: 'Modus', setupScreen: 'Uhrzeiten', stepProfile: 'Über dich', stepActivity: 'Aktivität', stepGoal: 'Ziel', stepSport: 'Sport & Training', stepProducts: 'Deine Produkte' };
+        let onboardFlow = ONBOARD_FLOW.light;   // wird gesetzt, sobald der Modus gewählt ist
+        let onboardIdx = 0;
 
         let userProfile = { age:'', gender:'', activity:'', sportType:'' };
         let selectedSportMode = 'maxkraft';
@@ -207,21 +215,27 @@
         }
         function saveProfile() { try { store.setItem('sl_profile', JSON.stringify(userProfile)); } catch (e) {} }
 
-        function goStep(n) {
-            if (n > ONBOARD_LAST) { enterApp(); return; }
-            if (n < 1) n = 1;
-            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
-            const id = ONBOARD_SCREENS[n];
+        // idx = Index innerhalb des aktuellen (mode-abhängigen) Flows.
+        function goStep(idx) {
+            if (idx >= onboardFlow.length) { enterApp(); return; }
+            if (idx < 0) idx = 0;
+            ALL_ONBOARD.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            const id = onboardFlow[idx];
             const el = document.getElementById(id);
             if (el) el.style.display = 'flex';
-            currentStep = n;
+            onboardIdx = idx;
+            currentStep = idx;
             window.scrollTo(0, 0);
+            const prog = el.querySelector('.onboard-progress');
+            if (prog) prog.innerText = (id === 'modeScreen')
+                ? 'Schritt 1 · Wähle deinen Modus'
+                : `Schritt ${idx + 1} von ${onboardFlow.length} · ${SCREEN_TITLE[id] || ''}`;
             if (id === 'stepActivity' || id === 'stepGoal') renderOnboardTargets();
             if (id === 'stepSport') renderOnboardSportPlans();
             if (id === 'stepProducts') renderOnboardProducts();
         }
-        function nextStep() { goStep(currentStep + 1); }
-        function prevStep() { goStep(currentStep - 1); }
+        function nextStep() { goStep(onboardIdx + 1); }
+        function prevStep() { goStep(onboardIdx - 1); }
 
         // Auswahl-Buttons (Geschlecht, Aktivität, Ziel, Sportart)
         function setProfileChoice(field, val, btn) {
@@ -316,11 +330,12 @@
             if (inOnboarding) prevStep();
             else enterApp();
         }
-        // Assistent komplett neu starten (ohne Cache löschen)
+        // Assistent komplett neu starten (ohne Cache löschen) → Modus-Abfrage zuerst
         function restartOnboarding() {
             inOnboarding = true;
             document.getElementById("mainApp").style.display = "none";
-            goStep(1);
+            onboardFlow = ONBOARD_FLOW[appMode] || ONBOARD_FLOW.light;
+            goStep(0);
         }
 
         function applyMode(mode) {
@@ -486,14 +501,18 @@
         }
         function selectMode(mode) {
             applyMode(mode);
-            if (inOnboarding) nextStep();
-            else enterApp();
+            if (inOnboarding) {
+                onboardFlow = ONBOARD_FLOW[mode] || ONBOARD_FLOW.light;   // Flow an den Modus anpassen
+                nextStep();
+            } else {
+                enterApp();
+            }
         }
 
         // App betreten – alle Onboarding-Screens aus, App rendern
         function enterApp() {
             inOnboarding = false;
-            Object.values(ONBOARD_SCREENS).forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+            ALL_ONBOARD.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
             document.getElementById("mainApp").style.display = "block";
 
             loadStack();
@@ -2621,7 +2640,8 @@
                     }
                 } catch (e) { globalMeals = []; }
 
-                // Alles bekannt → direkt in die App, Assistent überspringen
+                // Alles bekannt → direkt in die App, Assistent überspringen.
+                // Sonst: Onboarding mit der Modus-Abfrage als erstem Schritt starten.
                 if (savedWake && savedSleep && savedMode) {
                     globalWakeTimeStr  = savedWake;
                     globalSleepTimeStr = savedSleep;
@@ -2629,6 +2649,8 @@
                     document.getElementById("displaySleepTime").innerText = savedSleep;
                     applyMode(savedMode);
                     enterApp();
+                } else {
+                    goStep(0);   // neue Nutzer: zuerst Light/Hard/Expert wählen
                 }
             } catch (e) {}
         });
