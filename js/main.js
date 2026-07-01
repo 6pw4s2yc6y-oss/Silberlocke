@@ -105,6 +105,11 @@
         function renderMealInputs(times) {
             const box = document.getElementById('mealsList');
             if (!box) return;
+            if (!times || times.length === 0) {
+                // 0 Mahlzeiten = reiner Fastentag; keine festen Essenszeiten planen.
+                box.innerHTML = `<div class="meals-empty">Keine festen Essenszeiten geplant. Für echte Fastentage nutze den Tagestyp <strong>Autophagie</strong> oder <strong>Wasserfasten</strong> – der passt den ganzen Plan an.</div>`;
+                return;
+            }
             box.innerHTML = times.map((t, i) => {
                 // Einheitliche Benennung: 1. Mahlzeit … N. Mahlzeit
                 const label = (i + 1) + '. Mahlzeit';
@@ -131,8 +136,10 @@
                            onfocus="uncheckTrainFlex()" oninput="setTrainTimeAt(${i}, this.value)">
                     ${setupTrainTimes.length > 1 ? `<button type="button" class="train-remove-btn" onclick="removeTrainTime(${i})" aria-label="Einheit entfernen">✕</button>` : ''}
                 </div>`).join('');
+            // Knopf immer sichtbar (außer bei Maximum) – Klick aktiviert bei Bedarf
+            // das Training (hebt „Flexibel" auf), damit er auffindbar & robust ist.
             const addBtn = document.getElementById('trainAddBtn');
-            if (addBtn) addBtn.style.display = (flex || setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
+            if (addBtn) addBtn.style.display = (setupTrainTimes.length >= MAX_TRAIN_UNITS) ? 'none' : '';
         }
         function setTrainTimeAt(i, val) { trainManuallySet = true; setupTrainTimes[i] = val; }
         function addTrainTime() {
