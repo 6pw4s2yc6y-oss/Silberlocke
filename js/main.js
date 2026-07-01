@@ -308,7 +308,9 @@
         // Onboarding. Reihenfolge: erst „wer bist du" (Profil → Bedarf), dann der
         // Tagesrhythmus (Uhrzeiten), dann Produkte.
         const ONBOARD_FLOW = {
-            light:  ['modeScreen', 'setupScreen'],
+            // Light: kompakte Profil-/Zielabfrage (für die kcal-/Eiweiß-Berechnung)
+            // VOR den Uhrzeiten – Aktivität nutzt einen Standardwert (bleibt schlank).
+            light:  ['modeScreen', 'stepProfile', 'stepGoal', 'setupScreen'],
             hard:   ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
             expert: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
         };
@@ -2978,7 +2980,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v18';
+const APP_VERSION = 'v19';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
