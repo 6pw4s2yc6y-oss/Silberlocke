@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'silberlocke-v27';
+const CACHE_VERSION = 'silberlocke-v28';
 const APP_SHELL = [
     './',
     './index.html',
@@ -32,13 +32,15 @@ const APP_SHELL = [
     './icons/icon-512.png',
 ];
 
-// Install: App-Shell vorab cachen (Fehler einzelner Dateien blockieren nicht).
-// KEIN automatisches skipWaiting mehr – die neue Version wartet, bis der Nutzer
-// im Update-Banner auf „Aktualisieren" tippt (verhindert Cache-Mix).
+// Install: App-Shell STRIKT und vollständig vorab cachen (addAll = alles oder
+// nichts). Schlägt eine Datei fehl, schlägt die Installation fehl und der
+// Browser versucht es später erneut – so gibt es nie halbe Versions-Pakete.
+// KEIN automatisches skipWaiting – die neue Version wartet, bis der Nutzer
+// im Update-Banner auf „Aktualisieren" tippt.
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_VERSION)
-            .then(cache => Promise.allSettled(APP_SHELL.map(url => cache.add(url))))
+            .then(cache => cache.addAll(APP_SHELL.map(url => new Request(url, { cache: 'no-cache' }))))
     );
 });
 
@@ -57,24 +59,28 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch: nur GET im selben Origin behandeln.
-// Network-first: immer die aktuelle Version aus dem Netz laden (und den Cache
-// aktualisieren), Cache nur als Offline-Fallback. So bekommen Nutzer neue
-// Deploys sofort – ohne dass die Cache-Version manuell erhöht werden muss.
+// CACHE-FIRST aus dem aktuellen, vollständigen Versions-Paket. Dadurch laufen
+// HTML/JS/CSS/Daten immer konsistent aus EINER Version – nie gemischt (das war
+// die Ursache toter Buttons bei wackligem Netz). Neue Deploys kommen atomar
+// über den Update-Banner-Flow: neue SW-Version installiert das komplette Paket,
+// erst der Tipp auf „Aktualisieren" schaltet um und lädt einmal sauber neu.
 self.addEventListener('fetch', (event) => {
     const req = event.request;
     if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
 
     event.respondWith(
-        fetch(req).then(res => {
-            if (res && res.ok && res.type === 'basic') {
-                const copy = res.clone();
-                caches.open(CACHE_VERSION).then(cache => cache.put(req, copy));
-            }
-            return res;
-        }).catch(() => caches.match(req).then(cached => {
-            if (cached) return cached;
-            if (req.mode === 'navigate') return caches.match('./index.html');
-            return new Response('', { status: 504, statusText: 'Offline' });
-        }))
+        caches.open(CACHE_VERSION).then(cache =>
+            cache.match(req, { ignoreSearch: true }).then(cached => {
+                if (cached) return cached;
+                // Nicht im Paket (z. B. neue Datei): aus dem Netz holen und merken.
+                return fetch(req).then(res => {
+                    if (res && res.ok && res.type === 'basic') cache.put(req, res.clone());
+                    return res;
+                }).catch(() => {
+                    if (req.mode === 'navigate') return cache.match('./index.html');
+                    return new Response('', { status: 504, statusText: 'Offline' });
+                });
+            })
+        )
     );
 });

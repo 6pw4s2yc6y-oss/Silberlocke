@@ -681,6 +681,7 @@
                     progress.unlocked = progress.unlocked || ['day'];
                     if (typeof progress.jokers !== 'number') progress.jokers = 1;   // Migration v21→v22
                     if (typeof progress.staub !== 'number') progress.staub = 0;     // Migration v25→v26
+                    if (!STAGES.includes(progress.stage)) progress.stage = 'light'; // korrupten Stand heilen
                     return progress;
                 }
             } catch (e) {}
@@ -902,8 +903,9 @@
         }
         function selectMode(mode) {
             // Fortschritts-System: wählbar sind nur verdiente Stufen (≤ aktuelle Stufe).
+            // Light (Index 0) ist IMMER wählbar – auch bei korruptem Speicherstand.
             const p = loadProgress();
-            if (STAGES.indexOf(mode) > STAGES.indexOf(p.stage)) {
+            if (STAGES.indexOf(mode) > Math.max(0, STAGES.indexOf(p.stage))) {
                 modeLocked(STAGE_LABEL[mode] || mode, `${STAGES.indexOf(mode) * DAYS_PER_STAGE} disziplinierten Tagen`);
                 return;
             }
@@ -3505,7 +3507,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v27';
+const APP_VERSION = 'v28';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
