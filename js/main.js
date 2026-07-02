@@ -2041,6 +2041,60 @@
             }
         }
 
+        // ── PRE-WORKOUT-BARRIERE ─────────────────────────────────────────────────────
+        // Kurz-Check vor dem Training (Schlafqualität, Schmerzen, Muskelkater, Energie).
+        // Ergebnis gilt für heute: green = volles Training, yellow = angepasst,
+        // red = Training gesperrt (Workout-Blöcke raus). Starke Schmerzen sperren immer.
+        let barrierDraft = {};
+        const BARRIER_FIELDS = ['sleep', 'pain', 'soreness', 'cns'];
+        function loadBarrier() {
+            try {
+                const b = JSON.parse(store.getItem('sl_barrier') || 'null');
+                if (b && b.date === todayStr()) return b;
+            } catch (e) {}
+            return null;
+        }
+        function setBarrierAnswer(field, val) {
+            barrierDraft[field] = val;
+            if (BARRIER_FIELDS.every(k => typeof barrierDraft[k] === 'number')) {
+                const total = BARRIER_FIELDS.reduce((s, k) => s + barrierDraft[k], 0);
+                const verdict = (barrierDraft.pain === 2 || total >= 6) ? 'red' : (total >= 3 ? 'yellow' : 'green');
+                try { store.setItem('sl_barrier', JSON.stringify({ date: todayStr(), ...barrierDraft, verdict })); } catch (e) {}
+                barrierDraft = {};
+                celebrate(verdict === 'green' ? '✅ Barriere bestanden – gib Gas!'
+                        : verdict === 'yellow' ? '⚠️ Heute angepasst trainieren'
+                        : '🚫 Training gesperrt – Erholung zuerst');
+            }
+            renderTimeline();
+        }
+        function resetBarrier() {
+            try { store.removeItem('sl_barrier'); } catch (e) {}
+            barrierDraft = {};
+            renderTimeline();
+        }
+        function barrierBannerHtml() {
+            const b = loadBarrier();
+            if (b) {
+                const txt = {
+                    green:  '✅ <strong>Barriere bestanden</strong> – volles Training freigegeben.',
+                    yellow: '⚠️ <strong>Angepasst trainieren:</strong> weniger Volumen/Intensität, koffeinfreien Booster wählen – dein Körper ist heute nicht bei 100 %.',
+                    red:    '🚫 <strong>Training heute gesperrt:</strong> starke Schmerzen oder zu erschöpft – Erholung hat Vorrang, die Workout-Blöcke sind ausgeblendet. <strong>Bei anhaltenden Schmerzen zum Arzt.</strong>',
+                }[b.verdict];
+                return `<div class="barrier-verdict ${b.verdict}">${txt} <button class="barrier-redo" onclick="resetBarrier()">Neu prüfen</button></div>`;
+            }
+            const q = (field, label, opts) => `<div class="barrier-q"><span>${label}</span><div class="barrier-opts">${
+                opts.map((o, i) => `<button class="barrier-opt${barrierDraft[field] === i ? ' active' : ''}" onclick="setBarrierAnswer('${field}', ${i})">${o}</button>`).join('')
+            }</div></div>`;
+            return `<div class="barrier-card">
+                <div class="barrier-title">🛡️ Pre-Workout-Barriere · Kurz-Check vor dem Training</div>
+                ${q('sleep', '😴 Schlafqualität', ['Gut', 'Mittel', 'Schlecht'])}
+                ${q('pain', '🤕 Schmerzen', ['Keine', 'Leicht', 'Stark'])}
+                ${q('soreness', '💪 Muskelkater', ['Keiner', 'Leicht', 'Stark'])}
+                ${q('cns', '⚡ Energie', ['Fit', 'Müde', 'Erschöpft'])}
+                <div class="barrier-hint">Alle vier beantworten – die Barriere entscheidet: volles Training, angepasst oder Pause.</div>
+            </div>`;
+        }
+
         function getActiveTimeline() {
             switch (currentDayType) {
                 case 'rest':      return buildRestTimeline();
@@ -2268,6 +2322,17 @@
                 sleepBanner = `<div class="sleep-block-banner">🚫 <strong>Training gesperrt:</strong> nur ${sleepHrs.toFixed(1)} h Schlaf. Unter 6 h keine Trainingsbelastung – Regeneration hat Vorrang. Supplemente & Mahlzeiten bleiben im Plan.</div>`;
             }
 
+            // Pre-Workout-Barriere: nur wenn heute wirklich Training im Plan steht
+            // (Workout-Block vorhanden, Schlaf nicht ohnehin gesperrt). Rot = Blöcke raus.
+            let barrierBanner = "";
+            if (sleepHrs >= 6 && trainOffsets.length && activeBlocks.some(b => /^t4/.test(b.id))) {
+                barrierBanner = barrierBannerHtml();
+                const bv = loadBarrier();
+                if (bv && bv.verdict === 'red') {
+                    activeBlocks = activeBlocks.filter(b => !/^t4/.test(b.id) && !/^t6/.test(b.id));
+                }
+            }
+
             // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
             let stackBanner = "";
             if (stackPlanActive) {
@@ -2305,11 +2370,11 @@
             evaluateDay();
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = sleepBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
+                container.innerHTML = sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
                 return;
             }
 
-            container.innerHTML = sleepBanner + stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -3325,7 +3390,7 @@ Object.assign(window, {
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
-    setWeekDay, setWeekTime, toggleBlockDone, modeLocked,
+    setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3334,7 +3399,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v23';
+const APP_VERSION = 'v24';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

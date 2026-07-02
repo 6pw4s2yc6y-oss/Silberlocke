@@ -27,9 +27,9 @@
 
 ## Phase 2 – Jetzt (in der laufenden App baubar)
 
-1. **Joker-System** *(in Arbeit)* – Puffer mit Cap bei 3: ein Joker fängt
+1. ✅ **Joker-System** *(live, v22)* – Puffer mit Cap bei 3: ein Joker fängt
    einen verpassten Tag ab (Status bleibt); 1 Joker pro voller Woche verdient.
-2. **Monats-Aufstieg (Engine Phase 3)** – 28 disziplinierte Tage → nächste
+2. ✅ **Monats-Aufstieg** *(live, v23)* – 28 disziplinierte Tage → nächste
    Stufe; wöchentliche Freischaltungen innerhalb Hard/Expert/Master.
 3. **SilberStaub** – verdiente Währung für Disziplin (später eintauschbar).
 4. **FinancialMode Warrior/König** – zweite Achse: Warrior = günstige
@@ -37,7 +37,7 @@
 5. **Thermodynamik-Audit** – wöchentlicher Abgleich reales Gewicht vs.
    kalkulierte kcal; bei Diskrepanz kcal drosseln / Hinweis (kein „Tribunal"
    ohne Arzt – nur Empfehlung + Arzt-Verweis).
-6. **Pre-Workout-Barriere (voll)** – vor dem Training kurze Abfrage:
+6. ✅ **Pre-Workout-Barriere** *(live, v24)* – vor dem Training kurze Abfrage:
    Schlafqualität, Schmerzlevel, Muskelkater, ZNS-Zustand → Training ok /
    angepasst / gesperrt.
 7. **Produkt-Felder erweitern** (`data/supplements/products.json`):
