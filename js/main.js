@@ -697,16 +697,25 @@
             const p = loadProgress();
             const t = todayStr();
             if (p.lastDate && p.lastDate !== t) {
-                const prev = p.log[p.lastDate];
-                if (!prev || !prev.done) {
-                    // 🃏 Joker fängt den verpassten Tag ab – Status bleibt erhalten.
-                    if (p.jokers > 0) {
-                        p.jokers -= 1;
-                        celebrate(`🃏 Joker eingesetzt – dein Status bleibt erhalten (${p.jokers}/3 übrig)`);
-                    } else {
-                        p.score = Math.max(0, p.score - 5);
-                    }
+                // JEDER verpasste Tag seit dem letzten Besuch zählt (Audit-Fix v33):
+                // pro Tag erst ein Joker, danach je −5 Status. Kappung bei 30 Tagen.
+                let missed = 0;
+                const d = new Date(p.lastDate + 'T12:00:00');
+                const end = new Date(t + 'T12:00:00');
+                while (d < end && missed < 30) {
+                    const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+                    const entry = p.log[ds];
+                    if (!entry || !entry.done) missed++;
+                    d.setDate(d.getDate() + 1);
                 }
+                let jokersUsed = 0, penalty = 0;
+                for (let i = 0; i < missed; i++) {
+                    if (p.jokers > 0) { p.jokers -= 1; jokersUsed++; }
+                    else penalty += 5;
+                }
+                if (penalty) p.score = Math.max(0, p.score - penalty);
+                if (jokersUsed && penalty) celebrate(`🃏 ${jokersUsed} Joker eingesetzt · Status −${penalty}% für ${missed} verpasste Tage`);
+                else if (jokersUsed) celebrate(`🃏 ${jokersUsed} Joker eingesetzt – Status gerettet (${p.jokers}/3 übrig)`);
                 p.lastDate = t;
             }
             checkUnlocks();   // Freischaltungen immer mit den disziplinierten Tagen abgleichen
@@ -2297,6 +2306,62 @@
             </div>`;
         }
 
+        // ── CONFESSION LOOP (#108) + TRAINING-STEUER (#25) ──────────────────────────
+        // Ehrlichkeit statt Strafe: ein gebeichteter Fehltritt kostet KEINEN Status,
+        // erzeugt aber für MORGEN einen Pflicht-Block „Training-Steuer" im Tagesplan,
+        // der wie jeder Block abgehakt werden muss. Steuern stapeln sich (Cap 60 Min).
+        const CONFESS_OPTS = {
+            snack: { label: 'Kleiner Ausrutscher (~300 kcal)', min: 10 },
+            meal:  { label: 'Richtig gesündigt (~600+ kcal)',  min: 20 },
+            skip:  { label: 'Training geschwänzt',             min: 15 },
+        };
+        function dateStrOffset(days) {
+            const d = new Date(Date.now() + days * 864e5);
+            return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        }
+        function loadPenalty() {
+            try {
+                const x = JSON.parse(store.getItem('sl_penalty') || 'null');
+                if (x && x.forDate === todayStr()) return x;
+            } catch (e) {}
+            return null;
+        }
+        function toggleConfess() {
+            const el = document.getElementById('confessPanel');
+            if (el) el.style.display = el.style.display === 'none' ? 'block' : 'none';
+        }
+        function confess(type) {
+            const o = CONFESS_OPTS[type];
+            if (!o) return;
+            const tomorrow = dateStrOffset(1);
+            let pen = null;
+            try { pen = JSON.parse(store.getItem('sl_penalty') || 'null'); } catch (e) {}
+            const minutes = Math.min(60, (pen && pen.forDate === tomorrow ? pen.minutes : 0) + o.min);
+            try {
+                store.setItem('sl_penalty', JSON.stringify({ forDate: tomorrow, minutes, reason: o.label }));
+                const log = JSON.parse(store.getItem('sl_confessions') || '[]');
+                log.push({ date: todayStr(), type });
+                while (log.length > 60) log.shift();
+                store.setItem('sl_confessions', JSON.stringify(log));
+            } catch (e) {}
+            celebrate(`🕊️ Ehrlichkeit registriert – kein Status-Verlust. Morgen wartet die ⚖️ Training-Steuer: ${minutes} Min. Cardio`);
+            renderTimeline();
+        }
+        function confessHtml() {
+            const pen = (() => { try { return JSON.parse(store.getItem('sl_penalty') || 'null'); } catch (e) { return null; } })();
+            const pending = (pen && pen.forDate === dateStrOffset(1)) ? `<div class="confess-pending">⚖️ Für morgen vorgemerkt: ${pen.minutes} Min. Cardio</div>` : '';
+            return `<div class="confess-wrap">
+                <button class="confess-btn" onclick="toggleConfess()">🕊️ Fehltritt beichten – Ehrlichkeit statt Strafe</button>
+                <div class="confess-panel" id="confessPanel" style="display:none;">
+                    <div class="confess-hint">Ehrlichkeit kostet keinen Status – aber morgen steht die <strong>⚖️ Training-Steuer</strong> als Pflicht-Block in deinem Plan.</div>
+                    <button class="confess-opt" onclick="confess('snack')">🍫 ~300 kcal genascht → +10 Min Cardio</button>
+                    <button class="confess-opt" onclick="confess('meal')">🍔 ~600+ kcal gesündigt → +20 Min Cardio</button>
+                    <button class="confess-opt" onclick="confess('skip')">🛋️ Training geschwänzt → +15 Min Cardio</button>
+                    ${pending}
+                </div>
+            </div>`;
+        }
+
         function getActiveTimeline() {
             switch (currentDayType) {
                 case 'rest':      return buildRestTimeline();
@@ -2535,6 +2600,18 @@
                 }
             }
 
+            // ⚖️ Training-Steuer von gestern? Pflicht-Block einfügen (zählt zum Tag).
+            const pen = loadPenalty();
+            if (pen) {
+                activeBlocks.push({
+                    id: 'tPenalty', label: `⚖️ Training-Steuer · ${pen.minutes} Min Cardio`,
+                    absoluteMinutes: Math.round(awakeDuration * 0.5), duration: pen.minutes,
+                    icon: '⚖️', color: '#f87171', bg: '#1a0000', border: '#7f1d1d',
+                    why: `: Pflicht-Block aus deiner Beichte von gestern (${pen.reason}). ${pen.minutes} Minuten zügiges Cardio (LISS) – abarbeiten, dann abhaken. Ehrlichkeit kostet Schweiß, nicht deinen Status.`,
+                    productIds: [], notes: {}, priority: {},
+                });
+            }
+
             // Stack-Plan: nur Produkte aus „Mein Stack" einplanen
             let stackBanner = "";
             if (stackPlanActive) {
@@ -2546,7 +2623,7 @@
                     // Feinschliff: nur Wasser-/Warn-Zeile behalten, keine Hinweise auf fremde Produkte
                     const why = (b.why || '').split('<br><br>')[0];
                     return { ...b, productIds, why };
-                }).filter(b => b.productIds.length > 0);
+                }).filter(b => b.productIds.length > 0 || b.id === 'tPenalty');
                 const leftover = [...stackIds].filter(pid => !placed.has(pid) && getProductById(pid));
                 if (leftover.length > 0) {
                     blocks.push({
@@ -2572,7 +2649,7 @@
             evaluateDay();
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox();
+                container.innerHTML = sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
                 return;
             }
 
@@ -2680,7 +2757,7 @@
                         </div>
                     </div>
                 `;
-            }).join('') + buildDailyNutrientsBox();
+            }).join('') + buildDailyNutrientsBox() + confessHtml();
         }
 
         function initDatabaseView() {
@@ -3637,7 +3714,7 @@ Object.assign(window, {
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
-    addWeightEntry, applyAuditAdj, resetAuditAdj,
+    addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3646,7 +3723,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v32';
+const APP_VERSION = 'v33';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

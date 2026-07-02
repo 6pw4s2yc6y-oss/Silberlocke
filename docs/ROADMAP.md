@@ -28,8 +28,8 @@
 
 ## III. Disziplin & Truth-Engine
 21 🟡 Truth-Engine (Score-Entzug ✓) · 22 🔵 Integritäts-Audit (echt nur serverseitig) ·
-23 ✅ Disziplin-Balken (Loss Aversion) · 24 🟡 24-h-Schreibschutz (Tag schließt um Mitternacht) ·
-25 🔨 Training-Steuer (Pflicht-Zusatz-Cardio) · 26 🔨⚠️ Degradierungs-Automatik (Regeln sauber definieren) ·
+23 ✅ Disziplin-Balken (Loss Aversion) · 24 ✅ 24-h-Schreibschutz (Tag schließt um Mitternacht; seit v33 zählt JEDER verpasste Tag – Joker pro Tag, dann −5) ·
+25 ✅ Training-Steuer *(live, v33)* · 26 🔨⚠️ Degradierungs-Automatik (Regeln sauber definieren) ·
 27 ❓ „Pro Woche 70"-Logik (Bedeutung klären) · 28 🔨 Therapie-Verträge (lokal als Selbstverpflichtung)
 
 ## IV. Gamification & Squads
@@ -84,7 +84,7 @@
 
 ## XI. Anti-Schummel-Mechanismen
 106 🔵⚠️ Audit-Kamera (Zero-Retention; Kamera-Rechte + DSGVO) · 107 🔵⚠️ Waagen-Pflicht-Foto ·
-108 🔨 Confession Loop (Beichte → Neuberechnung + Zusatz-Sport statt Degradierung) ·
+108 ✅ Confession Loop *(live, v33 – Beichte kostet keinen Status, erzeugt Pflicht-Cardio-Block für morgen, stapelbar bis 60 Min)* ·
 109 🟡⚠️ Thermodynamik-Audit – **live mit Schutzgrenzen** (±500-kcal-Deckel, >1,5 kg/Woche →
 Arzt-Verweis statt weiterer Kürzung). Eine unbegrenzte Kürzungs-Spirale wird aus
 Gesundheitsschutz-Gründen **nicht** gebaut – bei echten medizinischen Ursachen
@@ -100,7 +100,6 @@ v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
 v31 Studien-DB · v32 Schlaf-Analyse
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#108 + #25** Confession Loop + Training-Steuer (Kern der Truth-Engine, lokal machbar)
 2. **#31 + #32** SilberStaub-Shop erweitern: Cheat-Tag & Pre-Booking
 3. **#20** Gatekeeper: Aufstieg zusätzlich an Disziplin-Status ≥ 90 % knüpfen
 4. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
