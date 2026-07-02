@@ -85,6 +85,8 @@ if (Array.isArray(products)) products.forEach((p, i) => {
 if (!Array.isArray(timeline)) fail('timeline_config.json: muss ein Array sein');
 else timeline.forEach((b, i) => {
     const at = `timeline_config[${i}]`;
+    if (b.simpleTask != null && (typeof b.simpleTask !== 'string' || !b.simpleTask.trim()))
+        fail(`${at}: "simpleTask" muss ein nicht-leerer String sein`);
     if (!Array.isArray(b.productIds)) fail(`${at}: "productIds" fehlt/kein Array`);
     else b.productIds.forEach(pid => {
         if (!productIds.has(pid)) fail(`${at}: productId "${pid}" existiert nicht in products.json`);

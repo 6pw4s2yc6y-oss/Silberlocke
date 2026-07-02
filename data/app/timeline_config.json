@@ -23,7 +23,8 @@
       "p17": "MUSS",
       "p33": "WICHTIG",
       "p36": "WICHTIG"
-    }
+    },
+    "simpleTask": "Großes Glas Wasser (400–500 ml) direkt nach dem Aufstehen trinken."
   },
   {
     "id": "t2",
@@ -76,7 +77,8 @@
       "p32": "OPTIONAL",
       "p19": "OPTIONAL",
       "p30": "OPTIONAL"
-    }
+    },
+    "simpleTask": "Frühstück mit einer Eiweiß-Quelle essen (Eier, Quark, Joghurt, …)."
   },
   {
     "id": "t3",
@@ -102,7 +104,8 @@
       "p21": "WICHTIG",
       "p3": "MUSS",
       "p23": "OPTIONAL"
-    }
+    },
+    "simpleTask": "Wasser trinken und kurz bewegen (5 Minuten reichen)."
   },
   {
     "id": "t4",
@@ -137,7 +140,8 @@
       "p46": "OPTIONAL",
       "p47": "OPTIONAL",
       "p13": "WICHTIG"
-    }
+    },
+    "simpleTask": "Leichter Snack + Wasser ca. 45 Minuten vor dem Training."
   },
   {
     "id": "t6",
@@ -169,7 +173,8 @@
       "p12": "OPTIONAL",
       "p13": "WICHTIG",
       "p8": "OPTIONAL"
-    }
+    },
+    "simpleTask": "Nach dem Training: Eiweiß + Kohlenhydrate essen oder trinken."
   },
   {
     "id": "t7",
@@ -198,7 +203,8 @@
       "p39": "WICHTIG",
       "p37": "WICHTIG",
       "p35": "WICHTIG"
-    }
+    },
+    "simpleTask": "Mittagessen – Teller-Logik: ½ Gemüse, ¼ Eiweiß, ¼ Beilage."
   },
   {
     "id": "t8",
@@ -224,7 +230,8 @@
       "p21": "WICHTIG",
       "p34": "OPTIONAL",
       "p26": "WICHTIG"
-    }
+    },
+    "simpleTask": "Wasser-Check: schon genug getrunken? Kurz aufstehen und gehen."
   },
   {
     "id": "t9",
@@ -253,7 +260,8 @@
       "p48": "OPTIONAL",
       "p29": "WICHTIG",
       "p24": "OPTIONAL"
-    }
+    },
+    "simpleTask": "Abendessen mit Eiweiß – nicht zu spät und nicht zu schwer."
   },
   {
     "id": "t10",
@@ -292,6 +300,7 @@
       "p16": "WICHTIG",
       "p42": "OPTIONAL",
       "p34": "OPTIONAL"
-    }
+    },
+    "simpleTask": "Bildschirm aus, Raum dunkel und kühl – zur Ruhe kommen."
   }
 ]

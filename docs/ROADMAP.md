@@ -20,7 +20,7 @@
 9 🔵 Spenden-Modell · 10 🔵 Legacy-Profile (Backend)
 
 ## II. System-Architektur
-11 ✅ Zwei-Achsen-System · 12 🟡 Light (Block-Abhaken ✓; 4-h-Grob-Fenster offen) ·
+11 ✅ Zwei-Achsen-System · 12 ✅ Light als Routine-Tracker *(v34: einfache Aufgaben statt fremder Produkte, eigener Trainings-Block, Personalisierungs-Banner)* ·
 13 🟡 Hard (Gramm im Stack ✓) · 14 🟡 Expert (Analytik ✓; harte Degradierung offen) ·
 15 ✅ Master nicht kaufbar, nur erspielbar · 16 🟡 Warrior (Alternativen ✓) ·
 17 🔨 King-Synergien/Premium-Stacks · 18 🟡 Schnell-Onboarding (Treibstoff-Puffer offen) ·

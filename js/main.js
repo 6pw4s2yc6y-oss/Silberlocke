@@ -349,7 +349,7 @@
             if (!box) return;
             // Die Zahlen (kcal/Eiweiß) sind die Belohnung für Woche 2.
             if (!isUnlocked('body')) {
-                box.innerHTML = `<div class="targets-locked">🔒 <strong>Deine Zahlen</strong> (kcal &amp; Eiweiß-Bedarf) schaltest du in <strong>Woche 2</strong> frei – bleib diszipliniert dran.</div>`;
+                box.innerHTML = `<div class="targets-locked">🔒 <strong>Deine Angaben sind gespeichert.</strong> Die daraus berechneten Zahlen (kcal &amp; Eiweiß-Bedarf) schaltest du in <strong>Woche 2</strong> frei – bleib dran.</div>`;
                 return;
             }
             box.innerHTML = buildTargetsHtml(userProfile, true);
@@ -1128,6 +1128,13 @@
         };
 
         function buildDailyNutrientsBox() {
+            // Light ohne eigene Produkte: keine fremden Nährwert-Summen vortäuschen.
+            if (isLight() && !stackPlanActive) {
+                return `<div class="daily-nutr-box light-macros" style="margin-top:14px;">
+                    <div class="light-macros-title">Deine Nährwerte</div>
+                    <div class="lm-note">Hier erscheinen echte Zahlen, sobald du eigene Produkte trackst – das schaltest du dir im <strong>Hard Mode</strong> frei (Tag 28). Bis dahin zählt: Blöcke abhaken.</div>
+                </div>`;
+            }
             // Stack-Plan: Nährwerte aus „Mein Stack" (mit echten Mengen) statt aus dem vollen Plan
             if (stackPlanActive) {
                 const html = buildStackNutrientsHtml('Dein Tagesplan-Nährwerte (aus deinem Stack)');
@@ -2530,9 +2537,25 @@
                         if (preTpl)  extra.push({ ...preTpl,  id: 't4_' + (i + 1), absoluteMinutes: Math.max(0, to - preTpl.duration), why: preNoteFor(to, i) + preTpl.why, label: preTpl.label + suffix(i) });
                         if (postTpl) extra.push({ ...postTpl, id: 't6_' + (i + 1), absoluteMinutes: Math.min(awakeDuration - postTpl.duration, to + 60), label: postTpl.label + suffix(i) });
                     }
+                    // 🏋️ Das Training SELBST ist ein abhakbarer Block (alle Modi).
+                    extra.push({
+                        id: i === 0 ? 'tTrain' : 'tTrain_' + (i + 1),
+                        label: '🏋️ Dein Training' + suffix(i),
+                        absoluteMinutes: to, duration: 60,
+                        icon: '🏋️', color: '#a78bfa', bg: '#16123a', border: '#4c1d95',
+                        why: ': Deine Trainingseinheit – absolvieren, dann abhaken. Das ist der Kern deines Tages.',
+                        simpleTask: 'Training absolvieren – danach abhaken.',
+                        productIds: [], notes: {}, priority: {},
+                    });
                 });
                 if (extra.length) activeBlocks = activeBlocks.concat(extra);
             }
+
+            // LIGHT ohne eigene Produkte = Routine-Tracker: Booster-Fenster (t4/t6)
+            // raus – der Nutzer hat diese Produkte nicht gewählt. Sein Training,
+            // seine Mahlzeiten und einfache Aufgaben bleiben.
+            const lightSimple = isLight() && !stackPlanActive;
+            if (lightSimple) activeBlocks = activeBlocks.filter(b => !/^t4|^t6/.test(b.id));
 
             // Mahlzeiten-Blöcke auf die eigenen Zeiten takten (Frühstück → erste, Abendessen → letzte, Mittag → mittlere)
             const toOffset = (timeStr) => {
@@ -2581,22 +2604,26 @@
                 }
             }
 
+            // Sichtbarer Beweis der Personalisierung: der Plan kommt aus den Angaben.
+            const goalShort = (GOAL_LABEL[userProfile.goal] || '').split(' ·')[0];
+            const personalBanner = `<div class="personal-banner">📋 Getaktet aus <strong>deinen Angaben</strong>: ⏰ ${globalWakeTimeStr}–${globalSleepTimeStr}${globalTrainTimes.length ? ` · 🏋️ ${globalTrainTimes.join(' & ')}` : ''}${goalShort ? ` · 🎯 ${goalShort}` : ''} <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>`;
+
             // Gesundheits-Sperre: unter 6 h Schlaf keine Trainingsbelastung – Pre-/Post-
             // Workout-Blöcke (inkl. weiterer Einheiten) entfernen, Rest bleibt im Plan.
             let sleepBanner = "";
             if (sleepHrs < 6) {
-                activeBlocks = activeBlocks.filter(b => !/^t4/.test(b.id) && !/^t6/.test(b.id));
+                activeBlocks = activeBlocks.filter(b => !/^t4|^t6|^tTrain/.test(b.id));
                 sleepBanner = `<div class="sleep-block-banner">🚫 <strong>Training gesperrt:</strong> nur ${sleepHrs.toFixed(1)} h Schlaf. Unter 6 h keine Trainingsbelastung – Regeneration hat Vorrang. Supplemente & Mahlzeiten bleiben im Plan.</div>`;
             }
 
             // Pre-Workout-Barriere: nur wenn heute wirklich Training im Plan steht
             // (Workout-Block vorhanden, Schlaf nicht ohnehin gesperrt). Rot = Blöcke raus.
             let barrierBanner = "";
-            if (sleepHrs >= 6 && trainOffsets.length && activeBlocks.some(b => /^t4/.test(b.id))) {
+            if (sleepHrs >= 6 && trainOffsets.length && activeBlocks.some(b => /^t4|^tTrain/.test(b.id))) {
                 barrierBanner = barrierBannerHtml();
                 const bv = loadBarrier();
                 if (bv && bv.verdict === 'red') {
-                    activeBlocks = activeBlocks.filter(b => !/^t4/.test(b.id) && !/^t6/.test(b.id));
+                    activeBlocks = activeBlocks.filter(b => !/^t4|^t6|^tTrain/.test(b.id));
                 }
             }
 
@@ -2623,7 +2650,7 @@
                     // Feinschliff: nur Wasser-/Warn-Zeile behalten, keine Hinweise auf fremde Produkte
                     const why = (b.why || '').split('<br><br>')[0];
                     return { ...b, productIds, why };
-                }).filter(b => b.productIds.length > 0 || b.id === 'tPenalty');
+                }).filter(b => b.productIds.length > 0 || /^t(Penalty|Train)/.test(b.id));
                 const leftover = [...stackIds].filter(pid => !placed.has(pid) && getProductById(pid));
                 if (leftover.length > 0) {
                     blocks.push({
@@ -2649,11 +2676,11 @@
             evaluateDay();
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
+                container.innerHTML = personalBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
                 return;
             }
 
-            container.innerHTML = sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = personalBanner + sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -2663,6 +2690,11 @@
                 const light = isLight();
                 const SIMPLE_PRIO = { MUSS: "Unbedingt", WICHTIG: "Wichtig", OPTIONAL: "Wenn du magst" };
 
+                // Light-Routine: einfache Aufgabe statt fremder Produktliste
+                const simpleMode = lightSimple || block.productIds.length === 0;
+                const simpleText = block.simpleTask
+                    || (/^tMeal/.test(block.id) ? 'Mahlzeit in Ruhe essen – eine Eiweiß-Quelle einbauen.' : null)
+                    || (/^tTrain/.test(block.id) ? 'Training absolvieren – danach abhaken.' : null);
                 let pListHtml = block.productIds.map(pid => {
                     const p = getProductById(pid);
                     if (!p) return "";
@@ -2711,6 +2743,9 @@
                         </div>
                     `;
                 }).join('');
+                if (simpleMode && simpleText) {
+                    pListHtml = `<div class="simple-task">✅ ${simpleText}</div>`;
+                }
 
                 let whyHtml;
                 if (light) {
@@ -2743,7 +2778,7 @@
                                         <div class="card-time" style="--color:${block.color}">${finalTimeWindow}</div>
                                     </div>
                                     <div class="card-badge-box">
-                                        <span class="card-count">${block.productIds.length}</span>
+                                        ${(simpleMode && simpleText) ? '' : `<span class="card-count">${block.productIds.length}</span>`}
                                         <span class="card-arrow"></span>
                                     </div>
                                 </button>
@@ -3723,7 +3758,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v33';
+const APP_VERSION = 'v34';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
