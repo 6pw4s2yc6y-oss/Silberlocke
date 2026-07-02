@@ -44,7 +44,7 @@
    `noBullshitRating` (Geschmack getrennt von Wirkung), `affiliateUrl`,
    `rezepturAenderungWarning`, `smartReplacementId` (Ersatz bei Ausverkauf).
 8. ✅ **Studien-Datenbank** *(live, v31)* (`data/studies/`) – 7 echte Kern-Referenzen (ISSN/IOC/Meta-Analysen), per `studyIds` an Produkte verlinkt, ab Hard sichtbar.
-9. **Schlaf-Analyse** (Master-Inhalt) – Trends aus Schlafdauer/-qualität.
+9. ✅ **Schlaf-Analyse** *(live, v32)* – Master-Werkzeug (Tag 84): Dauer vs. 7–9-h-Empfehlung, Qualitäts-Verlauf aus der Barriere (30 Tage), Schlaf-↔-Disziplin-Korrelation.
 10. ✅ **Recht-Basics** *(live, v27)* – Impressum & Datenschutzerklärung als
     Seiten + Footer-Links. ⚠️ Impressum enthält noch Platzhalter – echte
     Betreiber-Daten (Name/Anschrift/E-Mail) müssen ergänzt werden.

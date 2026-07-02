@@ -297,7 +297,7 @@
             light:  [],
             hard:   ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery'],
             expert: ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor'],
-            master: ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor'],
+            master: ['tabWeek', 'tabStack', 'tabDatabase', 'tabFood', 'tabBody', 'tabSport', 'tabMoney', 'tabRecovery', 'tabBlood', 'tabMonitor', 'tabSleep'],
         };
         const MODE_DAYTYPES = {
             light:  ['training', 'rest'],
@@ -653,12 +653,14 @@
             // Expert (Monat 3)
             { key: 'blood',    day: 56, label: 'Blutwerte-Analyse', icon: '🩸' },
             { key: 'monitor',  day: 63, label: 'Überwachungs-Protokoll', icon: '🩺' },
+            // Master (Monat 4)
+            { key: 'sleep',    day: 84, label: 'Schlaf-Analyse', icon: '😴' },
         ];
         // Welcher Werkzeuge-Tab hängt an welchem Freischalt-Key?
         const TOOL_UNLOCK = {
             tabWeek: 'week', tabStack: 'stack', tabDatabase: 'stack', tabFood: 'food',
             tabBody: 'food', tabSport: 'sport', tabMoney: 'money', tabRecovery: 'recovery',
-            tabBlood: 'blood', tabMonitor: 'monitor',
+            tabBlood: 'blood', tabMonitor: 'monitor', tabSleep: 'sleep',
         };
         // Stufe aus den disziplinierten Tagen: 0–27 Light, 28–55 Hard, 56–83 Expert, ab 84 Master.
         function stageForDays(d) {
@@ -1739,6 +1741,62 @@
                 ${adjLine}`;
         }
 
+        // ── SCHLAF-ANALYSE (Master) ─────────────────────────────────────────────────
+        // Wertet Schlafdauer (Einstellungen) und Schlafqualität (Barriere-Verlauf,
+        // 30 Tage) aus – inkl. Kreuzung mit dem Disziplin-Log.
+        function renderSleepAnalysis() {
+            const el = document.getElementById('viewSleep');
+            if (!el) return;
+            const toMin = s => { const [h, m] = (s || '0:0').split(':').map(Number); return (h || 0) * 60 + (m || 0); };
+            const sleepHrs = ((toMin(globalWakeTimeStr) - toMin(globalSleepTimeStr) + 1440) % 1440) / 60;
+            const fH = sleepHrs.toFixed(1).replace('.', ',');
+            const durOk = sleepHrs >= 7 && sleepHrs <= 9;
+            const durColor = sleepHrs < 6 ? '#f87171' : durOk ? '#4ade80' : '#fbbf24';
+            const study = (STUDIES || []).find(s => s.id === 'hirshkowitz2015');
+
+            const log = loadBarrierLog().filter(e => typeof e.sleep === 'number');
+            const p = loadProgress();
+            const QL = ['Gut', 'Mittel', 'Schlecht'];
+            let qualHtml = `<div class="audit-box note">📊 Beantworte regelmäßig die 🛡️ Pre-Workout-Barriere – deine Schlafqualität wird hier über 30 Tage ausgewertet.</div>`;
+            if (log.length >= 3) {
+                const avg = log.reduce((s, e) => s + e.sleep, 0) / log.length;
+                const bad = log.filter(e => e.sleep === 2).length;
+                const chips = log.slice(-14).map(e =>
+                    `<span class="sleep-chip q${e.sleep}">${e.date.slice(8)}.${e.date.slice(5, 7)}.</span>`).join('');
+                // Kreuzung mit Disziplin: Plan geschafft nach guter vs. schlechter Nacht?
+                const done = d => !!(p.log[d] && p.log[d].done);
+                const good = log.filter(e => e.sleep === 0), poor = log.filter(e => e.sleep >= 1);
+                let corrHtml = '';
+                if (good.length >= 2 && poor.length >= 2) {
+                    const pct = arr => Math.round(arr.filter(e => done(e.date)).length / arr.length * 100);
+                    corrHtml = `<div class="sleep-corr">🔗 <strong>Schlaf ↔ Disziplin:</strong> Nach guten Nächten schaffst du <strong>${pct(good)} %</strong> deiner Tagespläne, nach mittleren/schlechten <strong>${pct(poor)} %</strong>.</div>`;
+                }
+                qualHtml = `
+                    <div class="mybody-grid">
+                        <div class="mybody-card"><div class="mybody-lbl">Ø Qualität (${log.length} Nächte)</div><div class="mybody-val" style="color:${avg < 0.5 ? '#4ade80' : avg < 1.2 ? '#fbbf24' : '#f87171'}">${QL[Math.round(avg)]}</div><div class="mybody-unit">aus der Pre-Workout-Barriere</div></div>
+                        <div class="mybody-card"><div class="mybody-lbl">Schlechte Nächte</div><div class="mybody-val" style="color:${bad === 0 ? '#4ade80' : '#f87171'}">${bad}</div><div class="mybody-unit">in den letzten ${log.length} Einträgen</div></div>
+                    </div>
+                    <div class="sleep-chips">${chips}</div>
+                    ${corrHtml}`;
+            }
+            el.innerHTML = `
+                <div class="mybody-head">
+                    <h2>😴 Schlaf-Analyse</h2>
+                    <p class="mybody-intro">Master-Werkzeug: Dauer, Qualität und ihr Einfluss auf deine Disziplin.</p>
+                </div>
+                <div class="mybody-grid">
+                    <div class="mybody-card"><div class="mybody-lbl">Deine Schlafdauer</div><div class="mybody-val" style="color:${durColor}">${fH} h</div><div class="mybody-unit">aus deinen Zeiten (${globalSleepTimeStr} → ${globalWakeTimeStr})</div></div>
+                    <div class="mybody-card"><div class="mybody-lbl">Empfehlung</div><div class="mybody-val" style="color:#4ade80">7–9 h</div><div class="mybody-unit">für Erwachsene (18–64)</div></div>
+                </div>
+                ${durOk ? '' : `<div class="audit-box ${sleepHrs < 6 ? 'red' : 'warn'}">${sleepHrs < 6 ? '🚫 Unter 6 h – Training ist gesperrt, Regeneration hat Vorrang.' : sleepHrs < 7 ? '⚠️ Knapp unter der Empfehlung – 30–60 min früher ins Bett bringt messbar mehr Erholung.' : '😴 Über 9 h – Menge passt, achte eher auf Schlafqualität und feste Zeiten.'}</div>`}
+                <div class="mybody-section-title">Qualitäts-Verlauf</div>
+                ${qualHtml}
+                <div class="mybody-section-title">Was nachweislich hilft</div>
+                <div class="audit-box note">🌙 Konsistente Schlaf-/Aufwachzeiten (auch am Wochenende) · ☕ Koffein-Stopp ~6 h vor dem Schlafen (deshalb warnt dein Plan bei späten Boostern) · 🌡️ Kühl &amp; dunkel schlafen · 📵 Letzte 30 min ohne Bildschirm.</div>
+                ${study ? `<div class="study-box"><div class="study-box-title">📚 Studienlage</div><div class="study-item"><div class="study-head"><span class="study-badge ${study.evidence}">Starke Evidenz</span></div><div class="study-title">${study.title}</div><div class="study-finding">${study.finding}</div><a class="study-link" href="${study.url}" target="_blank" rel="noopener noreferrer">${study.source} ↗</a></div></div>` : ''}
+                <div class="mybody-disclaimer">Qualitätsdaten stammen aus deinen Barriere-Antworten (letzte 30 Einträge). Kein medizinischer Rat – bei anhaltenden Schlafproblemen ärztlich abklären.</div>`;
+        }
+
         // „Dein Körper": berechnete Körperwerte (BMI, Grundumsatz, Verbrauch) +
         // aufgenommene Makros aus dem Plan/Stack und die Bilanz zum Bedarf.
         function renderMyBody() {
@@ -2172,10 +2230,25 @@
         // red = Training gesperrt (Workout-Blöcke raus). Starke Schmerzen sperren immer.
         let barrierDraft = {};
         const BARRIER_FIELDS = ['sleep', 'pain', 'soreness', 'cns'];
+        function loadBarrierLog() {
+            try { const l = JSON.parse(store.getItem('sl_barrierlog') || 'null'); if (Array.isArray(l)) return l; } catch (e) {}
+            return [];
+        }
+        function saveBarrierEntry(entry) {
+            const log = loadBarrierLog().filter(e => e.date !== entry.date);
+            log.push(entry);
+            log.sort((a, b) => a.date.localeCompare(b.date));
+            while (log.length > 30) log.shift();
+            try { store.setItem('sl_barrierlog', JSON.stringify(log)); } catch (e) {}
+        }
         function loadBarrier() {
+            const t = todayStr();
+            const hit = loadBarrierLog().find(e => e.date === t);
+            if (hit) return hit;
+            // Migration: alter Einzelwert (sl_barrier) → ins Log übernehmen
             try {
                 const b = JSON.parse(store.getItem('sl_barrier') || 'null');
-                if (b && b.date === todayStr()) return b;
+                if (b && b.date === t) { saveBarrierEntry(b); store.removeItem('sl_barrier'); return b; }
             } catch (e) {}
             return null;
         }
@@ -2184,7 +2257,7 @@
             if (BARRIER_FIELDS.every(k => typeof barrierDraft[k] === 'number')) {
                 const total = BARRIER_FIELDS.reduce((s, k) => s + barrierDraft[k], 0);
                 const verdict = (barrierDraft.pain === 2 || total >= 6) ? 'red' : (total >= 3 ? 'yellow' : 'green');
-                try { store.setItem('sl_barrier', JSON.stringify({ date: todayStr(), ...barrierDraft, verdict })); } catch (e) {}
+                saveBarrierEntry({ date: todayStr(), ...barrierDraft, verdict });
                 barrierDraft = {};
                 celebrate(verdict === 'green' ? '✅ Barriere bestanden – gib Gas!'
                         : verdict === 'yellow' ? '⚠️ Heute angepasst trainieren'
@@ -2193,7 +2266,11 @@
             renderTimeline();
         }
         function resetBarrier() {
-            try { store.removeItem('sl_barrier'); } catch (e) {}
+            const t = todayStr();
+            try {
+                store.removeItem('sl_barrier');
+                store.setItem('sl_barrierlog', JSON.stringify(loadBarrierLog().filter(e => e.date !== t)));
+            } catch (e) {}
             barrierDraft = {};
             renderTimeline();
         }
@@ -3435,6 +3512,7 @@
             document.getElementById("tabSport").addEventListener("click", () => activeSection("tabSport", "viewSport"));
             document.getElementById("tabBlood").addEventListener("click", () => { activeSection("tabBlood", "viewBlood"); renderBloodCards(); });
             document.getElementById("tabMonitor").addEventListener("click", () => { activeSection("tabMonitor", "viewMonitor"); renderMonitor(); });
+            document.getElementById("tabSleep").addEventListener("click", () => { activeSection("tabSleep", "viewSleep"); renderSleepAnalysis(); });
             document.getElementById("tabRecovery").addEventListener("click", () => { activeSection("tabRecovery", "viewRecovery"); renderRecoveryHub(); });
             document.getElementById("tabMyBody").addEventListener("click", () => { activeSection("tabMyBody", "viewMyBody"); renderMyBody(); });
             document.getElementById("navHome").addEventListener("click", showDashboard);
@@ -3568,7 +3646,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v31';
+const APP_VERSION = 'v32';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
