@@ -31,7 +31,7 @@
    einen verpassten Tag ab (Status bleibt); 1 Joker pro voller Woche verdient.
 2. ✅ **Monats-Aufstieg** *(live, v23)* – 28 disziplinierte Tage → nächste
    Stufe; wöchentliche Freischaltungen innerhalb Hard/Expert/Master.
-3. **SilberStaub** – verdiente Währung für Disziplin (später eintauschbar).
+3. ✅ **SilberStaub** *(live, v26)* – verdiente Währung für Disziplin (später eintauschbar).
 4. **FinancialMode Warrior/König** – zweite Achse: Warrior = günstige
    Rohstoff-Alternativen statt Marken-Produkte (nutzt Money-Daten).
 5. ✅ **Thermodynamik-Audit** *(live, v25)* – wöchentlicher Abgleich reales Gewicht vs.

@@ -669,7 +669,7 @@
         function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
         function defaultProgress() {
             return { stage: 'light', startDate: todayStr(), lastDate: todayStr(),
-                     disciplinedDays: 0, score: 60, jokers: 1, unlocked: ['day'], log: {} };
+                     disciplinedDays: 0, score: 60, jokers: 1, staub: 0, unlocked: ['day'], log: {} };
         }
         function loadProgress() {
             if (progress) return progress;
@@ -680,6 +680,7 @@
                     progress.log = progress.log || {};
                     progress.unlocked = progress.unlocked || ['day'];
                     if (typeof progress.jokers !== 'number') progress.jokers = 1;   // Migration v21→v22
+                    if (typeof progress.staub !== 'number') progress.staub = 0;     // Migration v25→v26
                     return progress;
                 }
             } catch (e) {}
@@ -731,13 +732,19 @@
                 log.done = true;
                 p.disciplinedDays += 1;
                 p.score = Math.min(100, p.score + 8);
-                // Volle Woche geschafft → Joker verdienen (Rolling Buffer, Cap 3).
-                let weekMsg = '';
-                if (p.disciplinedDays % 7 === 0 && p.jokers < 3) {
-                    p.jokers += 1;
-                    weekMsg = ` · 🃏 Joker verdient (${p.jokers}/3)`;
+                // SilberStaub verdienen: +10 pro Tag, +25 Wochen-Bonus.
+                p.staub = (p.staub || 0) + 10;
+                let weekMsg = ' · ✨ +10';
+                if (p.disciplinedDays % 7 === 0) {
+                    p.staub += 25;
+                    weekMsg = ' · ✨ +35 (Wochen-Bonus)';
+                    // Volle Woche → zusätzlich Joker verdienen (Rolling Buffer, Cap 3).
+                    if (p.jokers < 3) {
+                        p.jokers += 1;
+                        weekMsg += ` · 🃏 Joker (${p.jokers}/3)`;
+                    }
                 }
-                celebrate('🎉 Tag geschafft! +1 disziplinierter Tag' + weekMsg);
+                celebrate('🎉 Tag geschafft!' + weekMsg);
                 checkUnlocks();   // danach, damit Freischalt-/Aufstiegs-Toast sichtbar bleibt
                 saveProgress();
             }
@@ -754,11 +761,24 @@
             const target = stageForDays(p.disciplinedDays);
             if (STAGES.indexOf(target) > STAGES.indexOf(p.stage)) {
                 p.stage = target;
+                p.staub = (p.staub || 0) + 100;   // Aufstiegs-Bonus
                 applyMode(target);           // neue Stufe wird auch der aktive Modus
                 applyModeVisibility();       // Oberfläche (Werkzeuge, Tagestypen) sofort anpassen
                 refreshModeScreen();
-                celebrate(`👑 AUFSTIEG! Willkommen im ${STAGE_LABEL[target]} Mode`);
+                celebrate(`👑 AUFSTIEG! Willkommen im ${STAGE_LABEL[target]} Mode · ✨ +100`);
             }
+        }
+        // Joker-Schmiede: SilberStaub in einen Joker umwandeln (Cap 3 bleibt).
+        const JOKER_COST = 150;
+        function buyJoker() {
+            const p = loadProgress();
+            if (p.jokers >= 3) { celebrate('🃏 Joker-Lager voll (3/3) – erst einsetzen, dann schmieden'); return; }
+            if ((p.staub || 0) < JOKER_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen noch ${JOKER_COST - (p.staub || 0)}`); return; }
+            p.staub -= JOKER_COST;
+            p.jokers += 1;
+            saveProgress();
+            celebrate(`🃏 Joker geschmiedet! (${p.jokers}/3) · ✨ ${p.staub} übrig`);
+            renderDashboard();
         }
         function celebrate(msg) {
             let el = document.getElementById('celebrateToast');
@@ -797,6 +817,11 @@
             const cards = [];
             // Fortschritt / Disziplin-Status (immer ganz oben)
             cards.push({ open: 'day', cls: 'wide progress', html: progressCardHtml() });
+            // SilberStaub / Joker-Schmiede (Belohnungs-Kreislauf der Disziplin-Engine)
+            const pStaub = loadProgress();
+            cards.push({ action: buyJoker, cls: 'staub', html:
+                `<div class="dash-icon">✨</div><div class="dash-title">SilberStaub</div><div class="dash-big">${pStaub.staub}</div>
+                 <div class="dash-sub">Tippen: 🃏 Joker schmieden für ${JOKER_COST} ✨ (${pStaub.jokers}/3)</div>` });
             // Heute / Tagesplan (Woche 1 – immer offen, hier wird abgehakt)
             const blocks = getActiveTimeline();
             const doneCount = todayLog().checked.length;
@@ -870,6 +895,7 @@
                 el.className = 'dash-card' + (c.cls ? ' ' + c.cls : '');
                 el.innerHTML = c.html;
                 if (c.locked) el.addEventListener('click', () => celebrate('🔒 Erst freischalten – bleib dran!'));
+                else if (c.action) el.addEventListener('click', c.action);
                 else el.addEventListener('click', () => dashOpen(c.open));
                 grid.appendChild(el);
             });
@@ -3479,7 +3505,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v25';
+const APP_VERSION = 'v26';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
