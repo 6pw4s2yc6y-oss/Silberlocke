@@ -1,6 +1,6 @@
         import { suggestMeals, suggestTrainTime } from './modules/timeline.js';
         import { buildTargetsHtml } from './modules/ui.js';
-        import { computeTargets, GOAL_LABEL } from './modules/calculator.js';
+        import { computeTargets, GOAL_LABEL, thermoAudit } from './modules/calculator.js';
         import { loadData } from './modules/dataFetcher.js';
         import { store, initStorage } from './modules/storage.js';
 
@@ -1616,6 +1616,83 @@
             return { protein, carbs, fat, kcal };
         }
 
+        // ── GEWICHTS-LOG & THERMODYNAMIK-AUDIT ──────────────────────────────────────
+        // Wöchentliches Wiegen; der Audit (reine Logik → calculator.js) vergleicht
+        // die reale Kurve mit der kalkulierten Bilanz und schlägt Korrekturen vor.
+        let weightLog = null;
+        function loadWeightLog() {
+            if (weightLog) return weightLog;
+            try { const w = JSON.parse(store.getItem('sl_weightlog') || 'null'); weightLog = Array.isArray(w) ? w : []; }
+            catch (e) { weightLog = []; }
+            return weightLog;
+        }
+        function saveWeightLog() { try { store.setItem('sl_weightlog', JSON.stringify(weightLog)); } catch (e) {} }
+        function addWeightEntry() {
+            const inp = document.getElementById('weightInput');
+            if (!inp) return;
+            const kg = parseFloat(String(inp.value).replace(',', '.'));
+            if (!isFinite(kg) || kg < 30 || kg > 300) { celebrate('⚠️ Bitte ein realistisches Gewicht (30–300 kg) eingeben'); return; }
+            const log = loadWeightLog();
+            const t = todayStr();
+            const i = log.findIndex(e => e.date === t);
+            if (i >= 0) log[i].kg = kg; else log.push({ date: t, kg });
+            while (log.length > 30) log.shift();
+            saveWeightLog();
+            userProfile.weight = String(kg);   // BMI & Eiweiß-Ziel folgen dem echten Gewicht
+            saveProfile();
+            celebrate('⚖️ Gewicht gespeichert');
+            renderMyBody();
+            renderDailyTargets();
+        }
+        function applyAuditAdj(adj) {
+            const cur = parseFloat(userProfile.auditAdj) || 0;
+            userProfile.auditAdj = Math.max(-500, Math.min(500, Math.round(cur + adj)));
+            saveProfile();
+            celebrate(`🧮 kcal-Korrektur übernommen (${userProfile.auditAdj > 0 ? '+' : ''}${userProfile.auditAdj} kcal/Tag)`);
+            renderMyBody();
+            renderDailyTargets();
+        }
+        function resetAuditAdj() {
+            userProfile.auditAdj = 0;
+            saveProfile();
+            celebrate('🧮 kcal-Korrektur zurückgesetzt');
+            renderMyBody();
+            renderDailyTargets();
+        }
+        // Audit-Bereich für „Dein Körper" (Eingabe, Verlauf, Urteil).
+        function auditSectionHtml(t) {
+            const log = loadWeightLog();
+            const a = thermoAudit(log, t);
+            const fmtKg = n => (n > 0 ? '+' : '') + n.toFixed(2).replace('.', ',');
+            const chips = log.slice(-5).map(e =>
+                `<span class="weight-chip">${e.date.slice(8)}.${e.date.slice(5, 7)}. · ${String(e.kg).replace('.', ',')} kg</span>`).join('');
+            let auditHtml = '';
+            if (a.status === 'insufficient') {
+                auditHtml = `<div class="audit-box note">📊 Trag dein Gewicht <strong>1× pro Woche</strong> ein – ab zwei Messungen (mind. 5 Tage auseinander) prüft der Audit, ob deine Kalorien-Rechnung mit der Realität übereinstimmt.</div>`;
+            } else if (a.status === 'ok') {
+                auditHtml = `<div class="audit-box ok">✅ <strong>Audit bestanden:</strong> deine Kurve (${fmtKg(a.ratePerWeek)} kg/Woche) passt zur Kalkulation (Soll ${fmtKg(a.expectedPerWeek)}). Weiter so.</div>`;
+            } else if (a.status === 'extreme') {
+                auditHtml = `<div class="audit-box red">🚨 <strong>${fmtKg(a.ratePerWeek)} kg/Woche ist zu schnell.</strong> So starke Veränderungen bitte <strong>ärztlich abklären</strong> – keine automatische Korrektur.</div>`;
+            } else {
+                const over = a.status === 'over';
+                auditHtml = `<div class="audit-box warn">⚠️ <strong>Die Mathematik geht nicht auf:</strong> Ist ${fmtKg(a.ratePerWeek)} kg/Woche, kalkuliert ${fmtKg(a.expectedPerWeek)}. ${over
+                    ? 'Es kommt mehr Energie rein als gerechnet (ungetrackte Kalorien?).'
+                    : 'Du bekommst weniger Energie als gerechnet – bei ungewolltem Verlust ggf. ärztlich abklären.'}
+                    <button class="audit-apply" onclick="applyAuditAdj(${a.suggestedAdj})">Korrektur übernehmen: ${a.suggestedAdj > 0 ? '+' : ''}${a.suggestedAdj} kcal/Tag</button></div>`;
+            }
+            const adjLine = t.auditAdj ? `<div class="audit-adj">🧮 Aktive Korrektur: <strong>${t.auditAdj > 0 ? '+' : ''}${t.auditAdj} kcal/Tag</strong> (in den Ziel-Kalorien enthalten) <button class="audit-reset" onclick="resetAuditAdj()">Zurücksetzen</button></div>` : '';
+            return `
+                <div class="mybody-section-title">⚖️ Wochen-Gewicht & Thermodynamik-Audit</div>
+                <div class="weight-row">
+                    <input type="text" inputmode="decimal" id="weightInput" class="time-input weight-input" placeholder="z. B. 80,4" value="">
+                    <span class="weight-unit">kg</span>
+                    <button class="weight-save" onclick="addWeightEntry()">Speichern</button>
+                </div>
+                ${chips ? `<div class="weight-chips">${chips}</div>` : ''}
+                ${auditHtml}
+                ${adjLine}`;
+        }
+
         // „Dein Körper": berechnete Körperwerte (BMI, Grundumsatz, Verbrauch) +
         // aufgenommene Makros aus dem Plan/Stack und die Bilanz zum Bedarf.
         function renderMyBody() {
@@ -1654,8 +1731,10 @@
                     <div class="mybody-card"><div class="mybody-lbl">BMI</div><div class="mybody-val" style="color:${catColor}">${bmiStr}</div><span class="mybody-badge" style="background:${catColor}22;color:${catColor}">${cat}</span></div>
                     <div class="mybody-card"><div class="mybody-lbl">Grundumsatz</div><div class="mybody-val">${f(t.bmr)}</div><div class="mybody-unit">kcal in Ruhe (BMR)</div></div>
                     <div class="mybody-card"><div class="mybody-lbl">Verbrauch</div><div class="mybody-val">${f(t.maintenance)}</div><div class="mybody-unit">kcal Erhaltung (TDEE)</div></div>
-                    <div class="mybody-card"><div class="mybody-lbl">Ziel-Kalorien</div><div class="mybody-val" style="color:#a5b4fc">${f(t.tdee)}</div><div class="mybody-unit">${GOAL_LABEL[t.goal] || ''}</div></div>
+                    <div class="mybody-card"><div class="mybody-lbl">Ziel-Kalorien</div><div class="mybody-val" style="color:#a5b4fc">${f(t.tdee)}</div><div class="mybody-unit">${GOAL_LABEL[t.goal] || ''}${t.auditAdj ? ` · inkl. Audit ${t.auditAdj > 0 ? '+' : ''}${t.auditAdj}` : ''}</div></div>
                 </div>
+
+                ${auditSectionHtml(t)}
 
                 <div class="mybody-section-title">Eiweiß-Ziel</div>
                 <div class="mybody-bar-card">
@@ -3391,6 +3470,7 @@ Object.assign(window, {
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
+    addWeightEntry, applyAuditAdj, resetAuditAdj,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3399,7 +3479,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v24';
+const APP_VERSION = 'v25';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

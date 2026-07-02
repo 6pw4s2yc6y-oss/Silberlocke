@@ -34,7 +34,7 @@
 3. **SilberStaub** – verdiente Währung für Disziplin (später eintauschbar).
 4. **FinancialMode Warrior/König** – zweite Achse: Warrior = günstige
    Rohstoff-Alternativen statt Marken-Produkte (nutzt Money-Daten).
-5. **Thermodynamik-Audit** – wöchentlicher Abgleich reales Gewicht vs.
+5. ✅ **Thermodynamik-Audit** *(live, v25)* – wöchentlicher Abgleich reales Gewicht vs.
    kalkulierte kcal; bei Diskrepanz kcal drosseln / Hinweis (kein „Tribunal"
    ohne Arzt – nur Empfehlung + Arzt-Verweis).
 6. ✅ **Pre-Workout-Barriere** *(live, v24)* – vor dem Training kurze Abfrage:

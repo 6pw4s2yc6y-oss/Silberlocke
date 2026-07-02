@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { computeTargets } from '../js/modules/calculator.js';
+import { computeTargets, thermoAudit } from '../js/modules/calculator.js';
 
 test('männlich, 30 J, 180 cm, 80 kg, aktiv, halten → Mifflin-St-Jeor', () => {
     const t = computeTargets({ age: '30', height: '180', weight: '80', gender: 'm', activity: 'aktiv', goal: 'halten' });
@@ -55,4 +55,61 @@ test('fehlendes Ziel/Aktivität landet in assumptions', () => {
     const t = computeTargets({ age: '30', height: '180', weight: '80', gender: 'm' });
     assert.ok(t.assumptions.includes('Aktivität'));
     assert.ok(t.assumptions.includes('Ziel'));
+});
+
+// ── Thermodynamik-Audit ──────────────────────────────────────────────────────
+const PROF = { age: '30', height: '180', weight: '80', gender: 'm', activity: 'aktiv', goal: 'halten' };
+
+test('auditAdj verschiebt TDEE und wird auf ±500 begrenzt', () => {
+    const base = computeTargets(PROF);
+    assert.equal(computeTargets({ ...PROF, auditAdj: '-250' }).tdee, base.tdee - 250);
+    assert.equal(computeTargets({ ...PROF, auditAdj: '-900' }).tdee, base.tdee - 500);  // Clamp
+    assert.equal(computeTargets({ ...PROF, auditAdj: '900' }).tdee, base.tdee + 500);   // Clamp
+    assert.equal(computeTargets({ ...PROF, auditAdj: 'quatsch' }).tdee, base.tdee);     // ungültig → 0
+});
+
+test('Audit: zu wenige Daten → insufficient', () => {
+    const t = computeTargets(PROF);
+    assert.equal(thermoAudit([], t).status, 'insufficient');
+    assert.equal(thermoAudit([{ date: '2026-07-01', kg: 80 }], t).status, 'insufficient');
+    // 2 Messungen, aber nur 3 Tage auseinander
+    assert.equal(thermoAudit([{ date: '2026-07-01', kg: 80 }, { date: '2026-07-04', kg: 80.2 }], t).status, 'insufficient');
+});
+
+test('Audit: stabile Kurve bei „halten" → ok', () => {
+    const t = computeTargets(PROF);
+    const a = thermoAudit([{ date: '2026-06-24', kg: 80 }, { date: '2026-07-01', kg: 80.1 }], t);
+    assert.equal(a.status, 'ok');
+    assert.equal(a.suggestedAdj, 0);
+});
+
+test('Audit: Zunahme trotz „halten" → over mit negativem kcal-Vorschlag', () => {
+    const t = computeTargets(PROF);
+    const a = thermoAudit([{ date: '2026-06-24', kg: 80 }, { date: '2026-07-01', kg: 80.8 }], t);
+    assert.equal(a.status, 'over');            // +0,8 kg/Woche bei Soll 0
+    assert.ok(a.suggestedAdj < 0);
+    assert.ok(a.suggestedAdj >= -400);          // pro Übernahme gedeckelt
+    assert.ok(a.suggestedAdj % 50 === 0);       // auf 50er gerundet (−0-sicher)
+});
+
+test('Audit: Verlust schneller als kalkuliert → under mit positivem Vorschlag', () => {
+    const t = computeTargets({ ...PROF, goal: 'abnehmen' });
+    // Soll bei −20 %: ≈ −0,5 kg/Woche · Ist: −1,4 kg/Woche → deutlich zu schnell
+    const a = thermoAudit([{ date: '2026-06-24', kg: 80 }, { date: '2026-07-01', kg: 78.6 }], t);
+    assert.equal(a.status, 'under');
+    assert.ok(a.suggestedAdj > 0);
+});
+
+test('Audit: > 1,5 kg/Woche → extreme (keine Auto-Korrektur)', () => {
+    const t = computeTargets(PROF);
+    const a = thermoAudit([{ date: '2026-06-24', kg: 80 }, { date: '2026-07-01', kg: 83 }], t);
+    assert.equal(a.status, 'extreme');
+    assert.equal(a.suggestedAdj, 0);
+});
+
+test('Audit: Aufbau-Ziel mit passender Zunahme → ok', () => {
+    const t = computeTargets({ ...PROF, goal: 'aufbauen' });
+    // Soll bei +15 %: ≈ +0,38 kg/Woche · Ist: +0,4 → passt
+    const a = thermoAudit([{ date: '2026-06-24', kg: 80 }, { date: '2026-07-01', kg: 80.4 }], t);
+    assert.equal(a.status, 'ok');
 });
