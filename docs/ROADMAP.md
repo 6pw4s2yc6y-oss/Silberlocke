@@ -32,7 +32,7 @@
 2. ✅ **Monats-Aufstieg** *(live, v23)* – 28 disziplinierte Tage → nächste
    Stufe; wöchentliche Freischaltungen innerhalb Hard/Expert/Master.
 3. ✅ **SilberStaub** *(live, v26)* – verdiente Währung für Disziplin (später eintauschbar).
-4. **FinancialMode Warrior/König** – zweite Achse: Warrior = günstige
+4. ✅ **FinancialMode Warrior/König** *(live, v30)* – zweite Achse: Warrior = günstige
    Rohstoff-Alternativen statt Marken-Produkte (nutzt Money-Daten).
 5. ✅ **Thermodynamik-Audit** *(live, v25)* – wöchentlicher Abgleich reales Gewicht vs.
    kalkulierte kcal; bei Diskrepanz kcal drosseln / Hinweis (kein „Tribunal"

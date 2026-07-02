@@ -58,6 +58,8 @@ if (Array.isArray(products)) products.forEach((p, i) => {
     }
     if (p.affiliateUrl != null && !/^https:\/\//.test(p.affiliateUrl))
         fail(`${at}: "affiliateUrl" muss mit https:// beginnen`);
+    if (p.warriorAlt != null && (typeof p.warriorAlt !== 'string' || !p.warriorAlt.trim()))
+        fail(`${at}: "warriorAlt" muss ein nicht-leerer String sein`);
 });
 
 // ── timeline_config ─────────────────────────────────────────────────────────

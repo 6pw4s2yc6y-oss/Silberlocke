@@ -769,6 +769,18 @@
                 celebrate(`👑 AUFSTIEG! Willkommen im ${STAGE_LABEL[target]} Mode · ✨ +100`);
             }
         }
+        // ── FINANZ-MODUS (zweite Achse): König = Marken, Warrior = Budget ──────────
+        // Warrior blendet bei geeigneten Produkten ehrliche Rohstoff-Alternativen ein
+        // (Datenfeld warriorAlt in products.json). Standard: König.
+        const isWarrior = () => { try { return store.getItem('sl_finmode') === 'warrior'; } catch (e) { return false; } };
+        function toggleFinMode() {
+            const w = isWarrior();
+            try { store.setItem('sl_finmode', w ? 'king' : 'warrior'); } catch (e) {}
+            celebrate(w ? '👑 König-Modus: volle Marken-Empfehlungen' : '⚔️ Warrior-Modus: günstige Alternativen aktiv');
+            renderDashboard();
+            renderTimeline();
+        }
+
         // Joker-Schmiede: SilberStaub in einen Joker umwandeln (Cap 3 bleibt).
         const JOKER_COST = 150;
         function buyJoker() {
@@ -823,6 +835,11 @@
             cards.push({ action: buyJoker, cls: 'staub', html:
                 `<div class="dash-icon">✨</div><div class="dash-title">SilberStaub</div><div class="dash-big">${pStaub.staub}</div>
                  <div class="dash-sub">Tippen: 🃏 Joker schmieden für ${JOKER_COST} ✨ (${pStaub.jokers}/3)</div>` });
+            // Finanz-Modus (zweite Achse) – Antippen wechselt König ⇄ Warrior
+            const warrior = isWarrior();
+            cards.push({ action: toggleFinMode, cls: 'fin', html:
+                `<div class="dash-icon">${warrior ? '⚔️' : '👑'}</div><div class="dash-title">Finanz: ${warrior ? 'Warrior' : 'König'}</div>
+                 <div class="dash-sub">${warrior ? 'Budget-Alternativen werden im Plan angezeigt' : 'Marken-Empfehlungen · Tippen für Spar-Modus'}</div>` });
             // Heute / Tagesplan (Woche 1 – immer offen, hier wird abgehakt)
             const blocks = getActiveTimeline();
             const doneCount = todayLog().checked.length;
@@ -861,7 +878,7 @@
                     const inc = moneyData.income.reduce((s, e) => s + (e.amount || 0), 0);
                     const cost = moneyData.costs.reduce((s, e) => s + (e.monthly || 0), 0);
                     cards.push({ open: 'tabMoney', html:
-                        `<div class="dash-icon">💶</div><div class="dash-title">Money</div><div class="dash-big">${eur(inc - cost)}</div><div class="dash-sub">frei / Monat</div>` });
+                        `<div class="dash-icon">💶</div><div class="dash-title">Money</div><div class="dash-big">${eur(inc - cost)}</div><div class="dash-sub">frei / Monat${(inc - cost) < 0 && !warrior ? ' · ⚔️ Warrior empfohlen' : ''}</div>` });
                 }
             }
             // Blutwerte (ab Expert, Freischaltung Tag 56)
@@ -2498,6 +2515,7 @@
                     const style = PRIO_STYLE[prio];
                     const stackAmt = (stackPlanActive && myStack[pid]) ? `${myStack[pid].amount} ${parseServing(p.serving).unit}` : null;
                     const recBadge = (stackPlanActive && RECOMMENDED_IDS.has(pid)) ? '<span class="rec-badge">empfohlen</span>' : '';
+                    const warriorTip = (isWarrior() && p.warriorAlt) ? `<div class="warrior-tip">⚔️ ${p.warriorAlt}</div>` : '';
 
                     if (light) {
                         return `
@@ -2513,6 +2531,7 @@
                                     </div>
                                 </div>
                                 <div class="light-serving">Menge: <strong>${stackAmt || p.serving}</strong></div>
+                                ${warriorTip}
                             </div>
                         `;
                     }
@@ -2533,6 +2552,7 @@
                                 </div>
                             </div>
                             ${noteHtml}
+                            ${warriorTip}
                         </div>
                     `;
                 }).join('');
@@ -2666,6 +2686,9 @@
         // No-Bullshit-Rating (Wirkung getrennt von Geschmack), Shop-Link.
         function smartFieldsHtml(p) {
             let html = '';
+            if (isWarrior() && p.warriorAlt) {
+                html += `<div class="warrior-tip">⚔️ <strong>Warrior-Alternative:</strong> ${p.warriorAlt}</div>`;
+            }
             const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
             if (sold && p.smartReplacementId) {
                 const r = getProductById(p.smartReplacementId);
@@ -3530,7 +3553,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v29';
+const APP_VERSION = 'v30';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
