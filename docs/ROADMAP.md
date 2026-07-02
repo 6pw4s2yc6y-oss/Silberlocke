@@ -45,8 +45,9 @@
    `rezepturAenderungWarning`, `smartReplacementId` (Ersatz bei Ausverkauf).
 8. **Studien-Datenbank** (`data/studies/`) – Belege per `studyIds` verlinkt.
 9. **Schlaf-Analyse** (Master-Inhalt) – Trends aus Schlafdauer/-qualität.
-10. **Recht-Basics** – Impressum & Datenschutzerklärung (vor jeglicher
-    Nutzerdaten-Erweiterung Pflicht).
+10. ✅ **Recht-Basics** *(live, v27)* – Impressum & Datenschutzerklärung als
+    Seiten + Footer-Links. ⚠️ Impressum enthält noch Platzhalter – echte
+    Betreiber-Daten (Name/Anschrift/E-Mail) müssen ergänzt werden.
 
 ## Phase 3 – Braucht Backend, Konten & Rechtsprüfung (später)
 

@@ -3505,7 +3505,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v26';
+const APP_VERSION = 'v27';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
