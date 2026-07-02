@@ -39,7 +39,8 @@
     "takeWith": "Direkt nach Training + Dextrose für anabolen Effekt",
     "competes": "Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig",
     "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille)",
-    "loeslichkeit": "Sehr gut – Instant, fast klar, kein Klumpen"
+    "loeslichkeit": "Sehr gut – Instant, fast klar, kein Klumpen",
+    "smartReplacementId": "p1"
   },
   {
     "id": "p3",
@@ -73,7 +74,8 @@
     "takeWith": "Post-workout oder tagsüber als leichte Quelle",
     "competes": "Siehe Clear Whey Kirsche",
     "geschmack": "Süßer Apfel – mild-fruchtig, erfrischend",
-    "loeslichkeit": "Sehr gut – klar, limonadenartig, ideal mit kaltem Wasser"
+    "loeslichkeit": "Sehr gut – klar, limonadenartig, ideal mit kaltem Wasser",
+    "smartReplacementId": "p3"
   },
   {
     "id": "p5",
@@ -275,7 +277,8 @@
     "competes": "Nicht vor dem Schlafen; nicht bei Low-Carb",
     "geschmack": "Süß (reine Glukose)",
     "loeslichkeit": "Sehr gut – löst sich sofort in Wasser auf",
-    "ingredients": "100% Dextrose (Traubenzucker)"
+    "ingredients": "100% Dextrose (Traubenzucker)",
+    "smartReplacementId": "p9"
   },
   {
     "id": "p11",
@@ -345,7 +348,8 @@
         "amount": "25,0 g",
         "nrv": null
       }
-    ]
+    ],
+    "smartReplacementId": "p9"
   },
   {
     "id": "p12",
@@ -428,7 +432,8 @@
         "amount": "5,0 g",
         "nrv": null
       }
-    ]
+    ],
+    "smartReplacementId": "p44"
   },
   {
     "id": "p15",

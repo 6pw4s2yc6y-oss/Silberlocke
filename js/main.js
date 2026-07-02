@@ -2652,6 +2652,7 @@
                             <span class="db-card-arrow"></span>
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
+                            ${smartFieldsHtml(p)}
                             ${macroHtml}
                             ${buildNutrientsHtml(p)}
                             ${detailsRowsHtml}
@@ -2659,6 +2660,28 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        // Smart-Produkt-Felder: Ersatz bei Ausverkauf, Rezeptur-Warnung,
+        // No-Bullshit-Rating (Wirkung getrennt von Geschmack), Shop-Link.
+        function smartFieldsHtml(p) {
+            let html = '';
+            const sold = PRODUCT_BADGES[p.id] && PRODUCT_BADGES[p.id].type === 'soldout';
+            if (sold && p.smartReplacementId) {
+                const r = getProductById(p.smartReplacementId);
+                if (r) html += `<button class="smart-replace" onclick="openProductOverlay('${r.id}')">🔄 <strong>Ersatz-Empfehlung:</strong> ${r.icon} ${r.name} – gleiche Funktion, verfügbar. Antippen für Details.</button>`;
+            }
+            if (p.rezepturAenderungWarning) {
+                html += `<div class="smart-warn">⚠️ <strong>Rezeptur geändert:</strong> Zusammensetzung wurde vom Hersteller angepasst – Etikett/Nährwerte vor dem Kauf prüfen.</div>`;
+            }
+            if (p.noBullshit && (p.noBullshit.effect || p.noBullshit.taste)) {
+                const stars = n => '★'.repeat(Math.round(n)) + '☆'.repeat(5 - Math.round(n));
+                html += `<div class="smart-rating">🎯 No-Bullshit-Rating: ${p.noBullshit.effect ? `Wirkung <span class="stars">${stars(p.noBullshit.effect)}</span>` : ''}${p.noBullshit.effect && p.noBullshit.taste ? ' · ' : ''}${p.noBullshit.taste ? `Geschmack <span class="stars">${stars(p.noBullshit.taste)}</span>` : ''}</div>`;
+            }
+            if (p.affiliateUrl) {
+                html += `<a class="smart-shop" href="${p.affiliateUrl}" target="_blank" rel="noopener noreferrer sponsored">🛒 Zum Shop ↗ <span class="smart-shop-note">(Affiliate-Link)</span></a>`;
+            }
+            return html;
         }
 
         function buildNutrientsHtml(p) {
@@ -2719,7 +2742,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>`;
+                    </div>` + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -2753,7 +2776,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = macroHtml + buildNutrientsHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -3507,7 +3530,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v28';
+const APP_VERSION = 'v29';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

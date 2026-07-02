@@ -41,6 +41,24 @@ else products.forEach((p, i) => {
         productIds.add(p.id);
     }
 });
+// Optionale Smart-Felder (Zweitpass, da smartReplacementId auf spätere IDs zeigen kann)
+if (Array.isArray(products)) products.forEach((p, i) => {
+    const at = `products[${i}] (${p.id})`;
+    if (p.smartReplacementId != null) {
+        if (!productIds.has(p.smartReplacementId)) fail(`${at}: smartReplacementId "${p.smartReplacementId}" existiert nicht`);
+        if (p.smartReplacementId === p.id) fail(`${at}: smartReplacementId zeigt auf sich selbst`);
+    }
+    if (p.rezepturAenderungWarning != null && typeof p.rezepturAenderungWarning !== 'boolean')
+        fail(`${at}: "rezepturAenderungWarning" muss boolean sein`);
+    if (p.noBullshit != null) {
+        ['effect', 'taste'].forEach(k => {
+            const v = p.noBullshit[k];
+            if (v != null && (typeof v !== 'number' || v < 1 || v > 5)) fail(`${at}: noBullshit.${k} muss 1–5 sein`);
+        });
+    }
+    if (p.affiliateUrl != null && !/^https:\/\//.test(p.affiliateUrl))
+        fail(`${at}: "affiliateUrl" muss mit https:// beginnen`);
+});
 
 // ── timeline_config ─────────────────────────────────────────────────────────
 if (!Array.isArray(timeline)) fail('timeline_config.json: muss ein Array sein');

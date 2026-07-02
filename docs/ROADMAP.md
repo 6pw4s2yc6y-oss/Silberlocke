@@ -40,7 +40,7 @@
 6. ✅ **Pre-Workout-Barriere** *(live, v24)* – vor dem Training kurze Abfrage:
    Schlafqualität, Schmerzlevel, Muskelkater, ZNS-Zustand → Training ok /
    angepasst / gesperrt.
-7. **Produkt-Felder erweitern** (`data/supplements/products.json`):
+7. ✅ **Produkt-Felder** *(live, v29 – Schema komplett, Ratings/Affiliate-Werte liefert der Betreiber)* (`data/supplements/products.json`):
    `noBullshitRating` (Geschmack getrennt von Wirkung), `affiliateUrl`,
    `rezepturAenderungWarning`, `smartReplacementId` (Ersatz bei Ausverkauf).
 8. **Studien-Datenbank** (`data/studies/`) – Belege per `studyIds` verlinkt.
