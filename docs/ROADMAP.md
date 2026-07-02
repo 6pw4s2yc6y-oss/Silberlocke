@@ -1,70 +1,118 @@
-# SILBERLOCKE – Produkt-Roadmap
+# SILBERLOCKE – Master-Roadmap (110-Punkte-Archiv)
 
-> Nordstern: **Alles in einer Seite** – ein unbestechliches Disziplin- und
-> Gesundheits-System. Vier Stufen (Light → Hard → Expert → Master), die man
-> sich durch disziplinierte Tage **verdient**; jede Woche schaltet eine
-> Funktion frei.
+> Nordstern: das vollständige **110-Punkte-Archiv** des Betreibers (Stand Juli 2026) –
+> ein unbestechliches Lebens-Betriebssystem. Erst Fitness/Disziplin, dann erweitern.
+> Vier verdiente Stufen (Light → Hard → Expert → Master), radikale Gleichheit,
+> Wahrheit vor Komfort.
 >
-> Arbeitsprinzipien: iterativ (ein Schritt nach dem anderen) · Daten strikt
-> getrennt von Logik (`data/` vs. `js/`) · jede Woche etwas Sichtbares
-> liefern · **kein Big-Bang-Rewrite** – ein Tech-Umstieg (z. B. Next.js/
-> TypeScript + Backend) wird erst entschieden, wenn Accounts/Team-Features
-> ihn wirklich erzwingen, und dann schrittweise migriert.
+> Arbeitsprinzipien: iterativ · Daten getrennt von Logik (`data/` vs `js/`) ·
+> jede Woche liefern · jede Version zählt hoch (Badge unten rechts) ·
+> **kein Big-Bang-Rewrite** (Punkt 96 bewusst geparkt, bis Backend-Features ihn erzwingen).
 
-## ✅ Live (v1–v21)
+**Legende:** ✅ live · 🟡 teil-live · 🔨 jetzt baubar (ohne Backend) ·
+🔵 Phase 3 (braucht Backend/Konten/Externe/Recht) · ⚠️ nur mit Schutz-Auflagen ·
+🅿️ bewusst geparkt · ❓ Bedeutung mit Betreiber klären
 
-- Tagesplan getaktet ab Aufwach-/Schlafzeit, Zeitblöcke (App-Fatigue-Schutz)
-- Produkt-DB (55), Mein Stack, Nährstoffe/NRV, Body-Atlas, Sportpläne, Money
-- RecoveryMode (Verletzungen, Erste Hilfe, Seelisches, Notruf)
-- Blutwerte-Analyse & Überwachungs-Protokoll (Expert)
-- kcal/Eiweiß-Bedarf (Mifflin-St-Jeor, Ziele Abnehmen/Halten/Performance/Aufbauen)
-- Wochenplan (Mo–So, selbst-anwendend), mehrere Trainingseinheiten (1–3/Tag)
-- Schlaf-Limit 6–9 h (unter 6 h: Training gesperrt)
-- Tab „Dein Körper" (BMI, BMR, TDEE, Makro-Bilanz)
-- **Disziplin-Engine Phase 1:** Abhaken pro Block, disziplinierte Tage,
-  Status 0–100, wöchentliche Freischaltung (7/14/21 Tage), Stufen gesperrt
-- PWA offline, Update-Banner, sichtbare Versionsnummer
+## I. Fundament & Identität
+1 ✅ Name SILBERLOCKE · 2 🔨 18-Punkte-Manifest (als Seite/Daten) · 3 ✅ Werkbank-Design ·
+4 ✅ Radikale Gleichheit (jeder startet Light) · 5 🔨 Identitäts-Onboarding-Frage ·
+6 ✅ Stealth-Entwicklung · 7 🔵 silberlocke.me + YouTube-Launch · 8 ✅ Kern kostenlos ·
+9 🔵 Spenden-Modell · 10 🔵 Legacy-Profile (Backend)
 
-## Phase 2 – Jetzt (in der laufenden App baubar)
+## II. System-Architektur
+11 ✅ Zwei-Achsen-System · 12 🟡 Light (Block-Abhaken ✓; 4-h-Grob-Fenster offen) ·
+13 🟡 Hard (Gramm im Stack ✓) · 14 🟡 Expert (Analytik ✓; harte Degradierung offen) ·
+15 ✅ Master nicht kaufbar, nur erspielbar · 16 🟡 Warrior (Alternativen ✓) ·
+17 🔨 King-Synergien/Premium-Stacks · 18 🟡 Schnell-Onboarding (Treibstoff-Puffer offen) ·
+19 ✅ Progressive Disclosure (7/14/21/…-Tage-Fahrplan) · 20 🔨 Gatekeeper >90 % beim Aufstieg
 
-1. ✅ **Joker-System** *(live, v22)* – Puffer mit Cap bei 3: ein Joker fängt
-   einen verpassten Tag ab (Status bleibt); 1 Joker pro voller Woche verdient.
-2. ✅ **Monats-Aufstieg** *(live, v23)* – 28 disziplinierte Tage → nächste
-   Stufe; wöchentliche Freischaltungen innerhalb Hard/Expert/Master.
-3. ✅ **SilberStaub** *(live, v26)* – verdiente Währung für Disziplin (später eintauschbar).
-4. ✅ **FinancialMode Warrior/König** *(live, v30)* – zweite Achse: Warrior = günstige
-   Rohstoff-Alternativen statt Marken-Produkte (nutzt Money-Daten).
-5. ✅ **Thermodynamik-Audit** *(live, v25)* – wöchentlicher Abgleich reales Gewicht vs.
-   kalkulierte kcal; bei Diskrepanz kcal drosseln / Hinweis (kein „Tribunal"
-   ohne Arzt – nur Empfehlung + Arzt-Verweis).
-6. ✅ **Pre-Workout-Barriere** *(live, v24)* – vor dem Training kurze Abfrage:
-   Schlafqualität, Schmerzlevel, Muskelkater, ZNS-Zustand → Training ok /
-   angepasst / gesperrt.
-7. ✅ **Produkt-Felder** *(live, v29 – Schema komplett, Ratings/Affiliate-Werte liefert der Betreiber)* (`data/supplements/products.json`):
-   `noBullshitRating` (Geschmack getrennt von Wirkung), `affiliateUrl`,
-   `rezepturAenderungWarning`, `smartReplacementId` (Ersatz bei Ausverkauf).
-8. ✅ **Studien-Datenbank** *(live, v31)* (`data/studies/`) – 7 echte Kern-Referenzen (ISSN/IOC/Meta-Analysen), per `studyIds` an Produkte verlinkt, ab Hard sichtbar.
-9. ✅ **Schlaf-Analyse** *(live, v32)* – Master-Werkzeug (Tag 84): Dauer vs. 7–9-h-Empfehlung, Qualitäts-Verlauf aus der Barriere (30 Tage), Schlaf-↔-Disziplin-Korrelation.
-10. ✅ **Recht-Basics** *(live, v27)* – Impressum & Datenschutzerklärung als
-    Seiten + Footer-Links. ⚠️ Impressum enthält noch Platzhalter – echte
-    Betreiber-Daten (Name/Anschrift/E-Mail) müssen ergänzt werden.
+## III. Disziplin & Truth-Engine
+21 🟡 Truth-Engine (Score-Entzug ✓) · 22 🔵 Integritäts-Audit (echt nur serverseitig) ·
+23 ✅ Disziplin-Balken (Loss Aversion) · 24 🟡 24-h-Schreibschutz (Tag schließt um Mitternacht) ·
+25 🔨 Training-Steuer (Pflicht-Zusatz-Cardio) · 26 🔨⚠️ Degradierungs-Automatik (Regeln sauber definieren) ·
+27 ❓ „Pro Woche 70"-Logik (Bedeutung klären) · 28 🔨 Therapie-Verträge (lokal als Selbstverpflichtung)
 
-## Phase 3 – Braucht Backend, Konten & Rechtsprüfung (später)
+## IV. Gamification & Squads
+29 ✅ SilberStaub · 30 ✅ Startpolster (1 Joker, Score 60) · 31 🔨 „Liebloses Essen"-Cheat-Tag (Staub) ·
+32 🔨 Pre-Booking (Urlaub/Family freikaufen) · 33 ✅ Rolling-Joker (Cap 3; pro Woche statt Monat) ·
+34 🔨 Body-IQ-Quizzes · 35 🔨 Profil-Medaillen · 36–45 🔵 Arena/Squads/Duelle/Likes/Matching (alles Backend)
 
-- **Accounts & Sync** (z. B. Supabase + RLS) → erst dann Tech-Migration prüfen
-- **Team-Squads / anonyme Arenen** (4 Mitglieder, Team-Karma, Sektoren wie
-  Raucher-Entzug)
-- **Open Banking** (Trash-Ausgaben-Analyse, Budget-Zonen GREEN/YELLOW/RED)
-  → hohe DSGVO-/PSD2-Hürden
-- **AuditCamera** (flüchtiger Live-Beweis, Zero-Retention; Expert/Master mit
-  Küchenwaage) → Kamera-Rechte, Datenschutz-by-Design
-- **Hardware-Beweise** (Watt-Tracking Rennrad, Wearables)
-- **Medizinische Eskalation** – automatische kcal-Drosselung bei Befund ist
-  live-fähig (RecoveryMode+), alles Weitere **nur mit ärztlicher Begleitung**
+## V. Training & Überlastungsschutz
+46 🟡 Clash Detection (Schlaf-Sperre + Barriere ✓) · 47 ✅ Wochenplan-Baukasten ·
+48 🔨 Einheiten-Vorbereitung · 49 🔨 Material-/Spalten-Berechnung · 50 🔨 Rennrad-Pläne (als Daten) ·
+51 🔵 Watt-Tracking (Hardware) · 52 🟡 Hypertrophie (Pläne ✓; Volumen-Tracking offen) ·
+53 🟡 Überlastungsschutz (Schlaf + Barriere) · 54 ✅ Pre-Workout-Schranke ·
+55 🅿️ In-Training Scroll-Sperre (UX prüfen) · 56 🔵 Wetter/Geo (externe API)
+
+## VI. Chronobiologie & Ernährung
+57 🟡 Tages-Taktung (ab individueller Aufwachzeit statt fix 10:00 – bewusste Verbesserung) ·
+58 🟡 Standard-Mahlzeiten (Slots ✓; Rezept-Routinen offen) ·
+59 🟡 Wochen-Wiegen → Neuberechnung (Audit mit manueller Übernahme; Auto nur mit Schutzgrenzen) ·
+60 🔵 Apple Watch / Health Connect · 61 🅿️ iPhone-Alarme (Web-Grenze; PWA-Notifications prüfen) ·
+62 🔨 Gebets-/Halal-Modus (als Daten) · 63 🟡 Sleep Mode (Analyse + Tipps ✓; Blaulicht-Anleitung offen) ·
+64 🔨 Hydrations-/Elektrolyt-Schnellzugriff
+
+## VII. Medizin & Recovery
+65 🟡 Deep-Recovery (RecoveryMode + Tagestyp) · 66 ✅ Befunde/Überweisungen eintragen ·
+67 🔵 Doctor-ID/Portal-Sync · 68 🔨 Faire Rekonvaleszenz (Krankheit: Schlaf+Wasser = Tages-Wertung) ·
+69 🔵 Squad-Genesungsnachrichten · 70 🔨 Wiederaufbau-Plan nach Krankheit ·
+71 🟡 Blutwerte (✓) × Stack-Korrelation (ausbaubar)
+
+## VIII. Produkt-Datenbank & Transparenz
+72 ✅ Genauigkeit statt Marketing · 73 🅿️ Hersteller-Abfragen (manuell durch Betreiber) ·
+74 🔨 Split-Screen der Wahrheit · 75 ✅ Fakten getrennt von Meinung (NRV isoliert) ·
+76 ✅ Keine Wirkversprechen (Disclaimer) · 77 🟡 No-Bullshit-Rating (Schema ✓, Werte fehlen) ·
+78 🟡 Kennzeichnung Studie vs. Meinung · 79 🟡 Rezeptur-Warnung (Schema ✓) ·
+80 🔨 MHD-/Alt-Rezeptur-Warnung · 81 ✅ Makro-Block-Bündelung (Zeitblöcke) ·
+82 🔨 Efficiency-Filter (Überdosierungs-Warnung, z. B. 20 000 % B12) · 83 ✅ Smart-Replacement ·
+84 🔵 Externe Reviews (API/Recht)
+
+## IX. Finanzen & Affiliate
+85 🔵 Open Banking (FinAPI/Tink) · 86 🔵 Trash-Ausgaben-Analyse · 87 🟡 Survival-Zonen
+(Warrior manuell + Empfehlung bei Minus ✓; Auto nur mit Banking) · 88 🔵 „Disziplin = Geld" ·
+89 🔵 Predictive Finance · 90 🟡 Kontextuelles Affiliate (Schema ✓, Links fehlen) ·
+91 ✅ Wissenschaft als Basis (Studien-DB) · 92 ✅ Gatekeeper-Integrität (Prinzip verankert) ·
+93 🔨 Transparenz bei fehlenden Links · 94 ✅ Kooperationen ohne Bewertungs-Einfluss (Prinzip) ·
+95 🟡 Savings-Insight (Alternativen ✓; €/100 g-Rechnung braucht Preisdaten)
+
+## X. Technik, UI & Schutz
+96 🅿️ Next.js-Umbau (geparkt bis Backend nötig; dann schrittweise) · 97 ✅ Modulare Architektur ·
+98 ✅ PWA auf GitHub Pages · 99 ✅ Dark-Mode-Design (Lila/Grün/Rot) · 100 🔨 Themes/Vibes ·
+101 🔨 Tipp des Tages · 102 🔵⚠️ Lokaler Foto-Tresor (sensibel, Datenschutz-by-Design) ·
+103 🔵 Backend-Kapselung (Supabase RLS) · 104 🅿️ Obfuscation (geringer Nutzen; Code ist MIT) ·
+105 🟡 Recht (Impressum-Platzhalter ✓; Betreiberdaten, AGB, DPMA offen)
+
+## XI. Anti-Schummel-Mechanismen
+106 🔵⚠️ Audit-Kamera (Zero-Retention; Kamera-Rechte + DSGVO) · 107 🔵⚠️ Waagen-Pflicht-Foto ·
+108 🔨 Confession Loop (Beichte → Neuberechnung + Zusatz-Sport statt Degradierung) ·
+109 🟡⚠️ Thermodynamik-Audit – **live mit Schutzgrenzen** (±500-kcal-Deckel, >1,5 kg/Woche →
+Arzt-Verweis statt weiterer Kürzung). Eine unbegrenzte Kürzungs-Spirale wird aus
+Gesundheitsschutz-Gründen **nicht** gebaut – bei echten medizinischen Ursachen
+(Schilddrüse, Wassereinlagerungen, Essstörung) wäre sie gefährlich. ·
+110 🔨⚠️ System-Tribunal – als **Einfrieren + Arzt-Verweis** bei mathematischem Widerspruch
+umsetzbar; Ton respektvoll („bitte medizinisch abklären"), kein beschämender Rauswurf –
+gleiche Wirkung, ohne Haftungs-/Ethik-Risiko.
+
+## Versionshistorie (Auszug)
+v22 Joker · v23 Monats-Aufstieg (4 Stufen) · v24 Pre-Workout-Barriere ·
+v25 Thermodynamik-Audit · v26 SilberStaub + Joker-Schmiede · v27 Recht-Basics ·
+v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
+v31 Studien-DB · v32 Schlaf-Analyse
+
+## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
+1. **#108 + #25** Confession Loop + Training-Steuer (Kern der Truth-Engine, lokal machbar)
+2. **#31 + #32** SilberStaub-Shop erweitern: Cheat-Tag & Pre-Booking
+3. **#20** Gatekeeper: Aufstieg zusätzlich an Disziplin-Status ≥ 90 % knüpfen
+4. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
+5. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
+
+## Phase 3 (erst mit Backend + Rechtsprüfung)
+Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →
+Kamera-Beweise (106/107) → Health-Integrationen (60, 67) → dann Tech-Migration (96).
+Voraussetzungen: echte Betreiberdaten im Impressum (Büro-Adresse geplant), AGB,
+DSGVO-Konzept (Gesundheits- + ggf. Finanzdaten!), Kostenplan.
 
 ## Technik-Schulden (laufend abbauen)
-
-- `js/main.js` (~3.200 Zeilen) weiter in Module zerlegen (Muster: `week`,
-  `progress`, `body` als Kandidaten)
+- `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body)
 - E2E-Tests (Playwright) in die CI aufnehmen
 - Versionsnummer (APP_VERSION/CACHE_VERSION) bei jedem Deploy +1
