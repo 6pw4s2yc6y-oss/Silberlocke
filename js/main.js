@@ -48,6 +48,7 @@
         // isRelativeTosleep: true bedeutet, dass offsetMinutes VOR der Schlafzeit berechnet wird
         // Nur verfügbare Produkte – ausverkaufte (p2,p4,p5,p6,p10,p11,p14,p25,p27,p31,p54,p55) & verbotene (p15) entfernt
         let TIMELINE_CONFIG = [];
+        let STUDIES = [];   // Studien-/Beleg-Datenbank (data/studies/studies.json)
 
         const CRITICAL = [
           { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
@@ -2704,6 +2705,19 @@
             if (p.affiliateUrl) {
                 html += `<a class="smart-shop" href="${p.affiliateUrl}" target="_blank" rel="noopener noreferrer sponsored">🛒 Zum Shop ↗ <span class="smart-shop-note">(Affiliate-Link)</span></a>`;
             }
+            // Studienlage (ab Hard – Light bleibt bewusst einfach)
+            if (!isLight() && Array.isArray(p.studyIds) && p.studyIds.length && STUDIES.length) {
+                const items = p.studyIds
+                    .map(sid => STUDIES.find(s => s.id === sid))
+                    .filter(Boolean)
+                    .map(s => `<div class="study-item">
+                        <div class="study-head"><span class="study-badge ${s.evidence}">${s.evidence === 'stark' ? 'Starke Evidenz' : s.evidence === 'moderat' ? 'Moderate Evidenz' : 'Begrenzte Evidenz'}</span></div>
+                        <div class="study-title">${s.title}</div>
+                        <div class="study-finding">${s.finding}</div>
+                        <a class="study-link" href="${s.url}" target="_blank" rel="noopener noreferrer">${s.source} ↗</a>
+                    </div>`).join('');
+                if (items) html += `<div class="study-box"><div class="study-box-title">📚 Studienlage</div>${items}</div>`;
+            }
             return html;
         }
 
@@ -3398,6 +3412,7 @@
                 EMERGENCY       = data.emergency;
                 INJURIES        = data.injuries;
                 MENTAL          = data.mental;
+                STUDIES         = data.studies || [];
                 // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
@@ -3553,7 +3568,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v30';
+const APP_VERSION = 'v31';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

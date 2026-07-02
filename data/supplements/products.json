@@ -23,7 +23,11 @@
         "nrv": 18
       }
     ],
-    "warriorAlt": "Whey-Konzentrat im Großbeutel oder Magerquark/Skyr (~12 g Protein pro 100 g) – gleicher Baustoff, Bruchteil des Preises."
+    "warriorAlt": "Whey-Konzentrat im Großbeutel oder Magerquark/Skyr (~12 g Protein pro 100 g) – gleicher Baustoff, Bruchteil des Preises.",
+    "studyIds": [
+      "morton2018",
+      "jaeger2017"
+    ]
   },
   {
     "id": "p2",
@@ -41,7 +45,11 @@
     "competes": "Nicht mit Fett/Ballaststoffen kombinieren; kein Casein gleichzeitig",
     "geschmack": "Verschiedene Geschmacksrichtungen (z.B. Schokolade, Vanille)",
     "loeslichkeit": "Sehr gut – Instant, fast klar, kein Klumpen",
-    "smartReplacementId": "p1"
+    "smartReplacementId": "p1",
+    "studyIds": [
+      "morton2018",
+      "jaeger2017"
+    ]
   },
   {
     "id": "p3",
@@ -406,6 +414,9 @@
         "amount": "0,75 µg",
         "nrv": 30
       }
+    ],
+    "studyIds": [
+      "kreider2017"
     ]
   },
   {
@@ -1849,7 +1860,10 @@
         "nrv": null
       }
     ],
-    "warriorAlt": "Speisegelatine (= Kollagen) + Vitamin-C-Quelle ~60 min vor Belastung – klassisches Budget-Protokoll."
+    "warriorAlt": "Speisegelatine (= Kollagen) + Vitamin-C-Quelle ~60 min vor Belastung – klassisches Budget-Protokoll.",
+    "studyIds": [
+      "shaw2017"
+    ]
   },
   {
     "id": "p39",
@@ -2200,7 +2214,10 @@
         "nrv": null
       }
     ],
-    "warriorAlt": "Espresso/Kaffee (~80 mg Koffein pro Tasse) + Kreatin pur – der Kern der Booster-Wirkung, deutlich günstiger."
+    "warriorAlt": "Espresso/Kaffee (~80 mg Koffein pro Tasse) + Kreatin pur – der Kern der Booster-Wirkung, deutlich günstiger.",
+    "studyIds": [
+      "maughan2018"
+    ]
   },
   {
     "id": "p44",
@@ -2526,7 +2543,10 @@
         "nrv": null
       }
     ],
-    "warriorAlt": "Espresso/Kaffee + Kreatin pur decken Koffein- und Kraft-Effekt günstig ab."
+    "warriorAlt": "Espresso/Kaffee + Kreatin pur decken Koffein- und Kraft-Effekt günstig ab.",
+    "studyIds": [
+      "maughan2018"
+    ]
   },
   {
     "id": "p47",

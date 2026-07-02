@@ -1,0 +1,65 @@
+[
+    {
+        "id": "morton2018",
+        "title": "Protein-Supplementierung & Muskelaufbau (Meta-Analyse, 49 Studien)",
+        "source": "Morton et al., British Journal of Sports Medicine, 2018",
+        "year": 2018,
+        "finding": "Protein-Supplementierung steigert Muskelmasse und Kraft im Krafttraining. Der Zusatznutzen plateaut bei etwa 1,6 g Protein pro kg Körpergewicht/Tag (obere Schätzgrenze ~2,2 g/kg).",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Morton+2018+protein+supplementation+meta-analysis+resistance"
+    },
+    {
+        "id": "jaeger2017",
+        "title": "ISSN-Positionspapier: Protein & Training",
+        "source": "Jäger et al., Journal of the International Society of Sports Nutrition, 2017",
+        "year": 2017,
+        "finding": "Für Trainierende werden 1,4–2,0 g Protein pro kg Körpergewicht/Tag empfohlen; die Tagesgesamtmenge ist wichtiger als das exakte Timing.",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=J%C3%A4ger+2017+ISSN+position+stand+protein+exercise"
+    },
+    {
+        "id": "kreider2017",
+        "title": "ISSN-Positionspapier: Kreatin",
+        "source": "Kreider et al., Journal of the International Society of Sports Nutrition, 2017",
+        "year": 2017,
+        "finding": "Kreatin-Monohydrat (3–5 g/Tag) ist das am besten untersuchte Supplement: wirksam für Kraft/Leistung und bei gesunden Personen sicher in der Langzeitanwendung.",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Kreider+2017+ISSN+position+stand+creatine"
+    },
+    {
+        "id": "mifflin1990",
+        "title": "Mifflin-St-Jeor-Formel für den Grundumsatz",
+        "source": "Mifflin et al., American Journal of Clinical Nutrition, 1990",
+        "year": 1990,
+        "finding": "Validierte Gleichung zur Schätzung des Ruhe-Energieverbrauchs aus Gewicht, Größe, Alter und Geschlecht – die Grundlage der BMR-Berechnung in dieser App.",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Mifflin+1990+resting+energy+expenditure+predictive+equation"
+    },
+    {
+        "id": "shaw2017",
+        "title": "Gelatine + Vitamin C vor Belastung & Kollagensynthese",
+        "source": "Shaw et al., American Journal of Clinical Nutrition, 2017",
+        "year": 2017,
+        "finding": "Gelatine mit Vitamin C ca. 60 Minuten vor kurzer Belastung erhöhte Marker der Kollagensynthese – Basis des Kollagen-Timings (kleine Studie, moderate Evidenz).",
+        "evidence": "moderat",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Shaw+2017+vitamin+C+enriched+gelatin+collagen+synthesis"
+    },
+    {
+        "id": "maughan2018",
+        "title": "IOC-Konsens: Nahrungsergänzung im Leistungssport",
+        "source": "Maughan et al., British Journal of Sports Medicine, 2018",
+        "year": 2018,
+        "finding": "Nur wenige Supplemente haben starke Leistungs-Evidenz (u. a. Koffein, Kreatin, Protein). Qualität und mögliche Verunreinigungen von Produkten sind zu beachten.",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Maughan+2018+IOC+consensus+dietary+supplements+athlete"
+    },
+    {
+        "id": "hirshkowitz2015",
+        "title": "Schlafdauer-Empfehlung der National Sleep Foundation",
+        "source": "Hirshkowitz et al., Sleep Health, 2015",
+        "year": 2015,
+        "finding": "Für Erwachsene (18–64) werden 7–9 Stunden Schlaf empfohlen – die wissenschaftliche Grundlage des Schlaf-Limits in dieser App.",
+        "evidence": "stark",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/?term=Hirshkowitz+2015+National+Sleep+Foundation+sleep+duration+recommendations"
+    }
+]

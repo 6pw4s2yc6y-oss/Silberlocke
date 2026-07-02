@@ -43,7 +43,7 @@
 7. ✅ **Produkt-Felder** *(live, v29 – Schema komplett, Ratings/Affiliate-Werte liefert der Betreiber)* (`data/supplements/products.json`):
    `noBullshitRating` (Geschmack getrennt von Wirkung), `affiliateUrl`,
    `rezepturAenderungWarning`, `smartReplacementId` (Ersatz bei Ausverkauf).
-8. **Studien-Datenbank** (`data/studies/`) – Belege per `studyIds` verlinkt.
+8. ✅ **Studien-Datenbank** *(live, v31)* (`data/studies/`) – 7 echte Kern-Referenzen (ISSN/IOC/Meta-Analysen), per `studyIds` an Produkte verlinkt, ab Hard sichtbar.
 9. **Schlaf-Analyse** (Master-Inhalt) – Trends aus Schlafdauer/-qualität.
 10. ✅ **Recht-Basics** *(live, v27)* – Impressum & Datenschutzerklärung als
     Seiten + Footer-Links. ⚠️ Impressum enthält noch Platzhalter – echte

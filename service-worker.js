@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'silberlocke-v30';
+const CACHE_VERSION = 'silberlocke-v31';
 const APP_SHELL = [
     './',
     './index.html',
@@ -27,6 +27,7 @@ const APP_SHELL = [
     './data/health/injuries.json',
     './data/health/mental.json',
     './data/app/daytypes.json',
+    './data/studies/studies.json',
     './manifest.json',
     './icons/icon-192.png',
     './icons/icon-512.png',

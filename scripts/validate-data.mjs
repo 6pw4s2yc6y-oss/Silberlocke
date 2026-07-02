@@ -24,6 +24,7 @@ const emergency = load('health/emergency.json');
 const injuries = load('health/injuries.json');
 const mental = load('health/mental.json');
 const daytypes = load('app/daytypes.json');
+const studies = load('studies/studies.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -41,6 +42,20 @@ else products.forEach((p, i) => {
         productIds.add(p.id);
     }
 });
+// ── studies ─────────────────────────────────────────────────────────────────
+const studyIds = new Set();
+if (!Array.isArray(studies)) fail('studies.json: muss ein Array sein');
+else studies.forEach((s, i) => {
+    const at = `studies[${i}]`;
+    ['id', 'title', 'source', 'finding', 'url'].forEach(k => {
+        if (typeof s[k] !== 'string' || !s[k]) fail(`${at}: "${k}" fehlt oder kein String`);
+    });
+    if (typeof s.year !== 'number') fail(`${at}: "year" muss eine Zahl sein`);
+    if (!['stark', 'moderat', 'begrenzt'].includes(s.evidence)) fail(`${at}: "evidence" muss stark|moderat|begrenzt sein`);
+    if (s.url && !/^https:\/\//.test(s.url)) fail(`${at}: "url" muss mit https:// beginnen`);
+    if (s.id) { if (studyIds.has(s.id)) fail(`${at}: doppelte id "${s.id}"`); studyIds.add(s.id); }
+});
+
 // Optionale Smart-Felder (Zweitpass, da smartReplacementId auf spätere IDs zeigen kann)
 if (Array.isArray(products)) products.forEach((p, i) => {
     const at = `products[${i}] (${p.id})`;
@@ -60,6 +75,10 @@ if (Array.isArray(products)) products.forEach((p, i) => {
         fail(`${at}: "affiliateUrl" muss mit https:// beginnen`);
     if (p.warriorAlt != null && (typeof p.warriorAlt !== 'string' || !p.warriorAlt.trim()))
         fail(`${at}: "warriorAlt" muss ein nicht-leerer String sein`);
+    if (p.studyIds != null) {
+        if (!Array.isArray(p.studyIds) || p.studyIds.length === 0) fail(`${at}: "studyIds" muss ein nicht-leeres Array sein`);
+        else p.studyIds.forEach(sid => { if (!studyIds.has(sid)) fail(`${at}: studyId "${sid}" existiert nicht in studies.json`); });
+    }
 });
 
 // ── timeline_config ─────────────────────────────────────────────────────────
