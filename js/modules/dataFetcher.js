@@ -20,6 +20,7 @@ const FILES = {
     tips:            'app/tips.json',
     quiz:            'app/quiz.json',
     manifest:        'app/manifest.json',
+    truthsplit:      'app/truthsplit.json',
 };
 
 async function fetchJson(file) {

@@ -28,6 +28,7 @@ const studies = load('studies/studies.json');
 const tips = load('app/tips.json');
 const quiz = load('app/quiz.json');
 const manifest = load('app/manifest.json');
+const truthsplit = load('app/truthsplit.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -76,7 +77,7 @@ if (Array.isArray(products)) products.forEach((p, i) => {
     }
     if (p.affiliateUrl != null && !/^https:\/\//.test(p.affiliateUrl))
         fail(`${at}: "affiliateUrl" muss mit https:// beginnen`);
-    ['mhdWarnung', 'pseudoRabatt'].forEach(k => {
+    ['mhdWarnung', 'pseudoRabatt', 'marketingClaim', 'realityCheck'].forEach(k => {
         if (p[k] != null && (typeof p[k] !== 'string' || !p[k].trim())) fail(`${at}: "${k}" muss ein nicht-leerer String sein`);
     });
     if (p.warriorAlt != null && (typeof p.warriorAlt !== 'string' || !p.warriorAlt.trim()))
@@ -123,6 +124,23 @@ else manifest.forEach((p, i) => {
     if (typeof p.n !== 'number' || p.n < 1) fail(`${at}: "n" muss eine positive Zahl sein`);
     else { if (maniNums.has(p.n)) fail(`${at}: doppelte Nummer "${p.n}"`); maniNums.add(p.n); }
 });
+
+// ── truthsplit (Split-Screen der Wahrheit je Kategorie) ──────────────────────
+if (!truthsplit || typeof truthsplit !== 'object' || Array.isArray(truthsplit)) {
+    fail('truthsplit.json: muss ein Objekt (Kategorie → {hype, real}) sein');
+} else {
+    for (const [cat, v] of Object.entries(truthsplit)) {
+        ['hype', 'real'].forEach(k => {
+            if (!v || typeof v[k] !== 'string' || !v[k].trim()) fail(`truthsplit["${cat}"]: "${k}" fehlt oder ist kein String`);
+        });
+    }
+    // Jede Produkt-Kategorie sollte abgedeckt sein (sonst kein Split-Screen).
+    if (Array.isArray(products)) {
+        [...new Set(products.map(p => p.cat))].forEach(cat => {
+            if (!truthsplit[cat]) fail(`truthsplit.json: Kategorie "${cat}" fehlt (aus products.json)`);
+        });
+    }
+}
 
 // ── timeline_config ─────────────────────────────────────────────────────────
 if (!Array.isArray(timeline)) fail('timeline_config.json: muss ein Array sein');
@@ -285,4 +303,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen, ${tips.length} Tipps, ${quiz.length} Quizfragen, ${manifest.length} Manifest-Punkte.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen, ${tips.length} Tipps, ${quiz.length} Quizfragen, ${manifest.length} Manifest-Punkte, ${Object.keys(truthsplit).length} Wahrheits-Splits.`);

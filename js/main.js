@@ -52,6 +52,7 @@
         let TIPS = [];      // Tipp des Tages (data/app/tips.json)
         let QUIZ = [];      // Body-IQ-Quiz (data/app/quiz.json)
         let MANIFEST = [];  // 18-Punkte-Manifest (data/app/manifest.json)
+        let TRUTHSPLIT = {}; // Split-Screen der Wahrheit je Kategorie (data/app/truthsplit.json)
 
         const CRITICAL = [
           { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
@@ -3295,6 +3296,20 @@
                 : `<div class="kauf-line">💸 <strong>Rabatt-Check:</strong> Prozente sagen nichts. „−50 %" ist oft nur ein überhöhter UVP – vergleiche den Preis pro 100 g / pro Portion, nicht die Prozentzahl.</div>`;
             return `<div class="kauf-box"><div class="kauf-title">🛒 Kauf-Wahrheit</div>${mhd}${rabatt}</div>`;
         }
+        // ── SPLIT-SCREEN DER WAHRHEIT (#74): Werbe-Sprache vs. harte Realität ───────
+        // Links der generische Marketing-Archetyp der Kategorie (KEINER Marke
+        // zugeschrieben), rechts die ehrliche STΛTUS-Einordnung. Betreiber kann pro
+        // Produkt konkret überschreiben (marketingClaim / realityCheck).
+        function buildSplitScreenHtml(p) {
+            const cat = TRUTHSPLIT[p.cat] || {};
+            const hype = p.marketingClaim || cat.hype;
+            const real = p.realityCheck || cat.real;
+            if (!hype || !real) return '';
+            return `<div class="split-box">
+                <div class="split-col hype"><div class="split-head">📣 Was die Werbung sagt</div><div class="split-text">${hype}</div></div>
+                <div class="split-col real"><div class="split-head">🧭 STΛTUS-Realität</div><div class="split-text">${real}</div></div>
+            </div>`;
+        }
 
         function toggleTimelineCard(id) {
             const card = document.getElementById(`tc-${id}`);
@@ -3341,7 +3356,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
+                    </div>` + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3375,7 +3390,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -3997,6 +4012,7 @@
                 TIPS            = data.tips || [];
                 QUIZ            = data.quiz || [];
                 MANIFEST        = data.manifest || [];
+                TRUTHSPLIT      = data.truthsplit || {};
                 // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
@@ -4157,7 +4173,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v49';
+const APP_VERSION = 'v50';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

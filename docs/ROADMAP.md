@@ -75,7 +75,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 82 ✅ Efficiency-Filter (Überdosis-Warnung ab 500/1000 % NRV, v37) ·
 83 ✅ Smart-Replacement (Ersatzvorschlag bei ausverkauften Produkten) ·
 77 🟡 No-Bullshit-Geschmackstester (Schema live, Werte fehlen) · 78 🟡 Codes Studie vs. User-Erfahrung ·
-79 🟡 Rezeptur-Warnflagge (Schema live) · 74 🔨 Split-Screen Marketing-Dose vs. STΛTUS-Realität ·
+79 🟡 Rezeptur-Warnflagge (Schema live) · 74 ✅ Split-Screen der Wahrheit (Werbe-Archetyp je Kategorie vs. STΛTUS-Realität, pro Produkt überschreibbar; v50) ·
 80 ✅ Pseudo-Rabatt-/MHD-Entlarvung („Kauf-Wahrheit" im Overlay: MHD-sensibel je Wirkstofftyp + Rabatt-Check; optionale Betreiber-Felder; v49) · 121 🔨 Molekülverbindungen (z. B. Bisglycinat vs. Oxid, als Daten) ·
 123 🔨⚠️ Disclaimer-Labels für Medikamenten-Interaktionen · 73 🅿️ Herstellerdaten manuell einholen
 
@@ -185,4 +185,5 @@ v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking) ·
 v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet) ·
 v47 Wasser-/Elektrolyt-Schnellzugriff (#64) ·
 v48 „Brennende Batterie" (fühlbarer Tages-Fortschritt beim Abhaken, #113) ·
-v49 Kauf-Wahrheit (MHD-Sensibilität & Pseudo-Rabatt-Check, #80)
+v49 Kauf-Wahrheit (MHD-Sensibilität & Pseudo-Rabatt-Check, #80) ·
+v50 Split-Screen der Wahrheit (Werbe-Sprache vs. Realität, #74)

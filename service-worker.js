@@ -2,7 +2,7 @@
 // App-Shell-Caching für Offline-Fähigkeit. Bei Inhaltsänderungen CACHE_VERSION
 // hochzählen – alte Caches werden beim activate automatisch entfernt.
 
-const CACHE_VERSION = 'status-v49';
+const CACHE_VERSION = 'status-v50';
 const APP_SHELL = [
     './',
     './index.html',
@@ -31,6 +31,7 @@ const APP_SHELL = [
     './data/app/tips.json',
     './data/app/quiz.json',
     './data/app/manifest.json',
+    './data/app/truthsplit.json',
     './manifest.json',
     './icons/icon-192.png',
     './icons/icon-512.png',

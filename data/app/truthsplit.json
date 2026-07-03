@@ -1,0 +1,54 @@
+{
+  "Pre-Workout": {
+    "hype": "„Explosiver Fokus, brutaler Pump, Beast-Mode entfesselt!“",
+    "real": "Belegt wirken v. a. Koffein (Wachheit) und Citrullin (Durchblutung). Das Kribbeln vom Beta-Alanin ist ein Gefühl, keine Mehrleistung. Vieles andere ist oft unterdosiert."
+  },
+  "Protein": {
+    "hype": "„Premium-Anabol-Matrix für maximalen Muskelaufbau!“",
+    "real": "Eiweiß deckt schlicht deinen Tagesbedarf – die „Matrix“ ist meist normales Whey oder Casein. Quark, Eier oder Linsen leisten dasselbe, oft für weniger Geld."
+  },
+  "Gainer & Carbs": {
+    "hype": "„Masse-Fuel für kompromisslosen Zuwachs!“",
+    "real": "Vor allem Zucker/Maltodextrin + etwas Eiweiß = viele schnelle Kalorien. Praktisch bei Untergewicht, aber kein Muskel-Zauber – Reis und Haferflocken tun es auch."
+  },
+  "Aminosäuren": {
+    "hype": "„Anti-Katabol! Schützt deine Muskeln vor dem Abbau!“",
+    "real": "Wer genug Eiweiß isst, braucht BCAA/EAA meist nicht – der Nutzen verschwindet neben einer normalen Proteinzufuhr. Sinnvoll fast nur beim Training nüchtern."
+  },
+  "Vitamine": {
+    "hype": "„Hochdosiert! 20.000 % für dein Immunsystem!“",
+    "real": "Über dem Bedarf bringt „mehr“ keinen Zusatznutzen – wasserlösliche Vitamine scheidest du aus. Sinnvoll bei echtem Mangel (z. B. Vitamin D im Winter), nicht als Gießkanne."
+  },
+  "Mineralien": {
+    "hype": "„Der Schlüssel für Energie, Schlaf und Regeneration!“",
+    "real": "Magnesium & Co. helfen bei nachgewiesenem Mangel. Die Form entscheidet mehr als die Dosis (Bisglycinat > Oxid). Kein Ersatz für Schlaf und Essen."
+  },
+  "Omega & Öle": {
+    "hype": "„Flüssiges Gold für Herz, Hirn und Gelenke!“",
+    "real": "EPA/DHA sind sinnvoll, wenn du wenig Fisch isst. Entscheidend sind die reinen EPA/DHA-Milligramm und Frische – ranziges Öl schadet mehr als es nützt."
+  },
+  "Darm & Verdauung": {
+    "hype": "„Reset für deinen Darm – Milliarden lebende Kulturen!“",
+    "real": "Die Stamm-Auswahl zählt, nicht die Milliarden-Zahl auf der Dose. Wirkung ist stammspezifisch und oft vorübergehend. Ballaststoffe aus Essen füttern deine Flora zuverlässiger."
+  },
+  "Kollagen & Gelenke": {
+    "hype": "„Baut Knorpel neu auf, strafft Haut von innen!“",
+    "real": "Die Studienlage ist gemischt und moderat. Kollagen ist am Ende Eiweiß – ausreichend Protein plus Vitamin C liefert die Bausteine ohnehin."
+  },
+  "Adaptogene": {
+    "hype": "„Uraltes Geheimnis gegen Stress – deine innere Balance!“",
+    "real": "Für einiges (z. B. Ashwagandha) gibt es moderate Belege bei Stress. Kein Wundermittel, Wirkung individuell – und kein Ersatz für Ursachen-Arbeit am Stress."
+  },
+  "Performance": {
+    "hype": "„Die legale Abkürzung zu mehr Kraft und Leistung!“",
+    "real": "Nur wenige Stoffe sind stark belegt (Creatin, Koffein). Der Löwenanteil der Leistung kommt aus Training, Schlaf und Essen – Supplemente sind die Kirsche, nicht der Kuchen."
+  },
+  "Herz & Lunge": {
+    "hype": "„Schützt dein Herz, boostet deine Ausdauer!“",
+    "real": "Einzelne Stoffe haben moderate Belege. „Schutz“ ist kein Freifahrtschein – Blutdruck, Nichtrauchen, Ausdauertraining und Schlaf wirken um Größenordnungen stärker."
+  },
+  "Schlaf & Erholung": {
+    "hype": "„Knockout-Formel für tiefen Schlaf – sofort!“",
+    "real": "Magnesium/Glycin können leicht helfen, Melatonin v. a. gegen Jetlag. Am stärksten wirkt Schlafhygiene: feste Zeiten, dunkel, kein Bildschirm und Koffein-Stopp am Nachmittag."
+  }
+}
