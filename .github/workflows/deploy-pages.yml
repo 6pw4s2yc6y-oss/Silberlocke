@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry.outputs.page_url || steps.deployment_retry2.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
       - name: Pages konfigurieren (aktiviert Pages, falls noch nicht aktiv)
@@ -31,6 +31,20 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
+      # GitHub Pages liefert gelegentlich „Deployment failed, try again later"
+      # (transienter Backend-Fehler). Erster Versuch darf scheitern, dann wird
+      # automatisch ein zweiter/dritter Versuch gestartet – so geht ein Push auf
+      # main zuverlässig live, ohne manuelles Nachtreten.
       - name: Deployen
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Deployen (2. Versuch bei transientem Pages-Fehler)
+        id: deployment_retry
+        if: steps.deployment.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Deployen (3. Versuch bei transientem Pages-Fehler)
+        id: deployment_retry2
+        if: steps.deployment.outcome == 'failure' && steps.deployment_retry.outcome == 'failure'
         uses: actions/deploy-pages@v4
