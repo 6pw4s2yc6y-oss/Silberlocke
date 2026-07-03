@@ -1079,6 +1079,25 @@
                 <div class="prog-next">${nextLine}</div>`;
         }
 
+        // ── HYDRATION / ELEKTROLYTE (#64): Schnellzugriff, Tages-Tool ───────────────
+        // Wasser wird pro Tag im Log gezählt (setzt sich um Mitternacht von selbst
+        // zurück). Ziel: 8 Gläser (≈ 2 L), an Trainingstagen +2. Elektrolyt-Hinweis
+        // kontextabhängig – reines Wasser reicht meist, beim Schwitzen nicht.
+        const GLASS_ML = 250;
+        let hydrationOpen = false;
+        function toggleHydration() { hydrationOpen = !hydrationOpen; renderDashboard(); }
+        function isTrainingToday() { const wk = loadWeek(); const ti = todayIdx(); return !!(wk[ti] && wk[ti].train); }
+        function waterGoalGlasses() { return 8 + (isTrainingToday() ? 2 : 0); }
+        function todayWaterCount() { return todayLog().water || 0; }
+        function addWater(n) {
+            const log = todayLog();
+            const goal = waterGoalGlasses();
+            const before = log.water || 0;
+            log.water = Math.max(0, before + n);
+            saveProgress();
+            if (n > 0 && before < goal && log.water >= goal) celebrate('💧 Tagesziel Wasser erreicht – stark!');
+            renderDashboard();
+        }
         // Baut das Karten-Dashboard – ein Register, das je Modul eine Karte liefert.
         // Neue (Lebens-)Module docken später einfach als weitere Karte an.
         function renderDashboard() {
@@ -1125,6 +1144,23 @@
             cards.push({ open: 'day', cls: 'wide', html:
                 `<div class="dash-icon">🗓</div><div class="dash-title">Heute · ${DAYTYPE_LABELS[currentDayType] || ''}</div>
                  <div class="dash-sub">${doneCount}/${blocks.length} abgehakt · zum Abhaken tippen</div>` });
+            // Wasser & Elektrolyte (#64) – Schnellzugriff, Tages-Tool
+            const wNow = todayWaterCount(), wGoal = waterGoalGlasses();
+            cards.push({ action: toggleHydration, cls: 'hydro', html:
+                `<div class="dash-icon">💧</div><div class="dash-title">Wasser</div><div class="dash-big">${wNow}/${wGoal}</div>
+                 <div class="dash-sub">Gläser (≈ ${(wNow * GLASS_ML / 1000).toLocaleString('de-DE')} L) · tippen ${hydrationOpen ? '▲' : '▼'}</div>` });
+            if (hydrationOpen) {
+                cards.push({ htmlOnly: true, cls: 'wide hydropanel', html: `
+                    <div class="dash-title">💧 Wasser & Elektrolyte</div>
+                    <div class="hydro-row">
+                        <button class="hydro-btn" onclick="addWater(-1)">−1</button>
+                        <div class="hydro-count">${wNow} / ${wGoal} Gläser · ${(wNow * GLASS_ML / 1000).toLocaleString('de-DE')} L</div>
+                        <button class="hydro-btn add" onclick="addWater(1)">+1 Glas · 250 ml</button>
+                    </div>
+                    <div class="shop-note">${isTrainingToday()
+                        ? '🧂 <strong>Trainingstag:</strong> beim Schwitzen Natrium + etwas Kalium zufügen – nicht nur reines Wasser.'
+                        : '🧂 Elektrolyte zählen v. a. bei langem/intensivem Schwitzen; sonst reicht Wasser. Durst ist ein spätes Signal – über den Tag verteilt trinken.'}</div>` });
+            }
             // Dein Körper (Woche 2)
             const t = computeTargets(userProfile);
             const _num = v => parseFloat(String(v || '').replace(',', '.'));
@@ -4087,7 +4123,7 @@ Object.assign(window, {
     setBloodValue, setSportChoice, showAboutMe, showProfil, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
-    answerQuiz, quizNext, setIdentity,
+    answerQuiz, quizNext, setIdentity, addWater,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -4096,7 +4132,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v46';
+const APP_VERSION = 'v47';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

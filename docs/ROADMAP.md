@@ -56,7 +56,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 34 ✅ Body-IQ-Quiz (v40, 15 Fragen, nicht farmbar) · 99 ✅ Dark-Mode (Lila/Grün/Rot) ·
 101 ✅ Tipp des Tages (v38, tagesrotierend) · 57 🟡 Dynamische Einnahmefenster (ab individueller Aufwachzeit) ·
 58 🟡 Standard-Mahlzeiten (Slots live, Rezept-Routinen offen) · 63 🟡 Sleep Mode (Analyse live, Blaulicht-Anleitung offen) ·
-62 🔨 Beten/Halal-Modus (Gebetszeiten, als Daten) · 64 🔨 Wasser-/Elektrolyt-Schnellzugriff ·
+62 🔨 Beten/Halal-Modus (Gebetszeiten, als Daten) · 64 ✅ Wasser-/Elektrolyt-Schnellzugriff (Glas-Zähler, Ziel +2 an Trainingstagen, Elektrolyt-Hinweis; v47) ·
 100 🔨 Themes/Vibes · 113 🔨 „Brennende Batterie" (Statusbalken-Animation beim Tracken) ·
 61 🅿️ „Aleman Trink-Timer" (native Alarme – PWA-Limits) · 127 🔵 Financial-Hub (Open-Banking) ·
 128 🔵 Medical-Terminal (verschlüsseltes Befund-Archiv)
@@ -182,4 +182,5 @@ v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest �
 v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung ·
 v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust) ·
 v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking) ·
-v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet)
+v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet) ·
+v47 Wasser-/Elektrolyt-Schnellzugriff (#64)
