@@ -50,6 +50,7 @@
         let TIMELINE_CONFIG = [];
         let STUDIES = [];   // Studien-/Beleg-Datenbank (data/studies/studies.json)
         let TIPS = [];      // Tipp des Tages (data/app/tips.json)
+        let QUIZ = [];      // Body-IQ-Quiz (data/app/quiz.json)
 
         const CRITICAL = [
           { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
@@ -677,7 +678,8 @@
         function todayStr() { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
         function defaultProgress() {
             return { stage: 'light', startDate: todayStr(), lastDate: todayStr(),
-                     disciplinedDays: 0, score: 60, jokers: 1, staub: 0, unlocked: ['day'], log: {} };
+                     disciplinedDays: 0, score: 60, jokers: 1, staub: 0, unlocked: ['day'], log: {},
+                     prebooked: [], lastCheat: '', quizCorrect: [] };
         }
         function loadProgress() {
             if (progress) return progress;
@@ -692,6 +694,7 @@
                     if (!STAGES.includes(progress.stage)) progress.stage = 'light'; // korrupten Stand heilen
                     if (!Array.isArray(progress.prebooked)) progress.prebooked = [];    // Migration v34→v35
                     if (typeof progress.lastCheat !== 'string') progress.lastCheat = '';
+                    if (!Array.isArray(progress.quizCorrect)) progress.quizCorrect = []; // Migration →v40 (Body-IQ)
                     return progress;
                 }
             } catch (e) {}
@@ -819,6 +822,9 @@
         function toggleStaubShop() { staubShopOpen = !staubShopOpen; renderDashboard(); }
         let medalsOpen = false;
         function toggleMedals() { medalsOpen = !medalsOpen; renderDashboard(); }
+        let quizOpen = false;
+        let quizFeedback = null;   // { qid, chosen, correct } – zeigt Auflösung nach dem Antworten
+        function toggleQuiz() { quizOpen = !quizOpen; quizFeedback = null; renderDashboard(); }
         const CHEAT_COST = 250, PREBOOK_COST = 200;
         // 🍕 „Liebloses Essen": heute frei essen ohne Beichte/Steuer – max. 1×/Woche.
         function buyCheatDay() {
@@ -925,6 +931,58 @@
                 <div class="medal-grid">${items}</div>
                 <div class="shop-note">Medaillen sind nicht kaufbar – nur verdienbar. Jeder startet bei null.</div>`;
         }
+        // ── BODY-IQ-QUIZ (#34): Wissen im Wahrheits-Ton, nicht farmbar ──────────────
+        // Jede Frage belohnt SilberStaub genau EINMAL (erste richtige Antwort wird per
+        // qid gemerkt). Falsch = kein Staub, keine Strafe, dafür die Auflösung – die
+        // Frage kommt später wieder. Body-IQ = korrekt beantwortete / alle Fragen.
+        const QUIZ_REWARD = 5;
+        function bodyIqPct() { const p = loadProgress(); return QUIZ.length ? Math.round((p.quizCorrect || []).length / QUIZ.length * 100) : 0; }
+        function nextQuizQuestion() { const done = new Set(loadProgress().quizCorrect || []); return QUIZ.find(q => !done.has(q.id)) || null; }
+        function answerQuiz(qid, idx) {
+            const q = QUIZ.find(x => x.id === qid);
+            if (!q) return;
+            const p = loadProgress();
+            const correct = idx === q.correct;
+            if (correct && !(p.quizCorrect || []).includes(qid)) {
+                if (!Array.isArray(p.quizCorrect)) p.quizCorrect = [];
+                p.quizCorrect.push(qid);
+                p.staub = (p.staub || 0) + QUIZ_REWARD;
+                saveProgress();
+                celebrate(`🧠 Richtig! +${QUIZ_REWARD} ✨ · Body-IQ ${bodyIqPct()}%`);
+            }
+            quizFeedback = { qid, chosen: idx, correct };
+            renderDashboard();
+        }
+        function quizNext() { quizFeedback = null; renderDashboard(); }
+        function quizPanelHtml() {
+            const pct = bodyIqPct();
+            const head = `<div class="dash-title">🧠 Body-IQ · ${pct}%</div>`;
+            // Auflösung anzeigen, wenn gerade geantwortet wurde.
+            if (quizFeedback) {
+                const q = QUIZ.find(x => x.id === quizFeedback.qid);
+                if (q) {
+                    const opts = q.options.map((o, i) => {
+                        let cls = 'quiz-opt';
+                        if (i === q.correct) cls += ' right';
+                        else if (i === quizFeedback.chosen) cls += ' wrong';
+                        return `<div class="${cls}">${o}${i === q.correct ? ' ✓' : (i === quizFeedback.chosen ? ' ✗' : '')}</div>`;
+                    }).join('');
+                    return `${head}
+                        <div class="quiz-q">${q.q}</div>
+                        <div class="quiz-opts">${opts}</div>
+                        <div class="quiz-explain">${quizFeedback.correct ? '✅ Richtig. ' : '❌ Nicht ganz. '}${q.explain}</div>
+                        <button class="shop-item quiz-next" onclick="quizNext()">Weiter →</button>`;
+                }
+            }
+            const q = nextQuizQuestion();
+            if (!q) return `${head}<div class="quiz-done">🏆 Alle ${QUIZ.length} Fragen gemeistert – Body-IQ 100 %. Wissen ist verdient, nicht gekauft.</div>`;
+            const opts = q.options.map((o, i) => `<button class="quiz-opt btn" onclick="answerQuiz('${q.id}', ${i})">${o}</button>`).join('');
+            return `${head}
+                <div class="quiz-cat">${q.cat}</div>
+                <div class="quiz-q">${q.q}</div>
+                <div class="quiz-opts">${opts}</div>
+                <div class="shop-note">Richtig beantwortet: +${QUIZ_REWARD} ✨ (einmal pro Frage). Falsch kostet nichts – du bekommst die Auflösung.</div>`;
+        }
         // Fortschritts-Karte (Übersicht): Status-Balken + Weg zur nächsten Freischaltung.
         function progressCardHtml() {
             const p = loadProgress();
@@ -978,6 +1036,13 @@
                 `<div class="dash-icon">🏅</div><div class="dash-title">Medaillen</div><div class="dash-big">${earnedMedalCount()}/${MEDALS.length}</div>
                  <div class="dash-sub">Tippen: ${medalsOpen ? 'schließen ▲' : 'ansehen ▼'}</div>` });
             if (medalsOpen) cards.push({ htmlOnly: true, cls: 'wide medalpanel', html: medalsPanelHtml() });
+            // Body-IQ-Quiz (#34) – Wissens-Check, verdient SilberStaub (einmal je Frage)
+            if (QUIZ.length) {
+                cards.push({ action: toggleQuiz, cls: 'quiz', html:
+                    `<div class="dash-icon">🧠</div><div class="dash-title">Body-IQ</div><div class="dash-big">${bodyIqPct()}%</div>
+                     <div class="dash-sub">Tippen: Quiz ${quizOpen ? 'schließen ▲' : 'starten ▼'}</div>` });
+                if (quizOpen) cards.push({ htmlOnly: true, cls: 'wide quizpanel', html: quizPanelHtml() });
+            }
             // Finanz-Modus (zweite Achse) – Antippen wechselt König ⇄ Warrior
             const warrior = isWarrior();
             cards.push({ action: toggleFinMode, cls: 'fin', html:
@@ -3772,6 +3837,7 @@
                 MENTAL          = data.mental;
                 STUDIES         = data.studies || [];
                 TIPS            = data.tips || [];
+                QUIZ            = data.quiz || [];
                 // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
@@ -3920,6 +3986,7 @@ Object.assign(window, {
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
+    answerQuiz, quizNext,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3928,7 +3995,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v39';
+const APP_VERSION = 'v40';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

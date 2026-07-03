@@ -18,6 +18,7 @@ const FILES = {
     daytypes:        'app/daytypes.json',
     studies:         'studies/studies.json',
     tips:            'app/tips.json',
+    quiz:            'app/quiz.json',
 };
 
 async function fetchJson(file) {
