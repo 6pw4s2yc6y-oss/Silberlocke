@@ -78,7 +78,7 @@
 ## X. Technik, UI & Schutz
 96 🅿️ Next.js-Umbau (geparkt bis Backend nötig; dann schrittweise) · 97 ✅ Modulare Architektur ·
 98 ✅ PWA auf GitHub Pages · 99 ✅ Dark-Mode-Design (Lila/Grün/Rot) · 100 🔨 Themes/Vibes ·
-101 🔨 Tipp des Tages · 102 🔵⚠️ Lokaler Foto-Tresor (sensibel, Datenschutz-by-Design) ·
+101 ✅ Tipp des Tages (30 Tipps, tagesdeterministisch/rotierend, für alle gleich; v38) · 102 🔵⚠️ Lokaler Foto-Tresor (sensibel, Datenschutz-by-Design) ·
 103 🔵 Backend-Kapselung (Supabase RLS) · 104 🅿️ Obfuscation (geringer Nutzen; Code ist MIT) ·
 105 🟡 Recht (Impressum-Platzhalter ✓; Betreiberdaten, AGB, DPMA offen)
 
@@ -100,10 +100,11 @@ v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
 v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
 v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) ·
 v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft) ·
-v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay)
+v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay) ·
+v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#101** Tipp des Tages · **#34** Body-IQ-Quiz · **#35** Profil-Medaillen
+1. **#34** Body-IQ-Quiz · **#35** Profil-Medaillen
 2. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
 3. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
 

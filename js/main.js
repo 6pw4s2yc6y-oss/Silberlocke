@@ -49,6 +49,7 @@
         // Nur verfügbare Produkte – ausverkaufte (p2,p4,p5,p6,p10,p11,p14,p25,p27,p31,p54,p55) & verbotene (p15) entfernt
         let TIMELINE_CONFIG = [];
         let STUDIES = [];   // Studien-/Beleg-Datenbank (data/studies/studies.json)
+        let TIPS = [];      // Tipp des Tages (data/app/tips.json)
 
         const CRITICAL = [
           { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
@@ -872,6 +873,25 @@
             clearTimeout(el._t);
             el._t = setTimeout(() => el.classList.remove('show'), 3200);
         }
+        // Tipp des Tages (#101): deterministisch nach Tag im Jahr – jeder sieht
+        // denselben Tipp (radikale Gleichheit), jeden Tag einen neuen, rotiert
+        // durch die Datenbank (data/app/tips.json). Werte in Daten, Logik im Code.
+        const TIP_ICON = { Disziplin: '🔥', Training: '🏋️', 'Ernährung': '🍽️', Schlaf: '😴', Regeneration: '💤', 'Supplement-Wahrheit': '🔬', Mindset: '🧠', Hydration: '💧' };
+        function tipOfDay() {
+            if (!TIPS.length) return null;
+            const now = new Date();
+            const start = new Date(now.getFullYear(), 0, 0);
+            const dayOfYear = Math.floor((now - start) / 86400000);
+            return TIPS[dayOfYear % TIPS.length];
+        }
+        function tipCardHtml() {
+            const t = tipOfDay();
+            if (!t) return '';
+            const icon = TIP_ICON[t.cat] || '💡';
+            return `<div class="dash-icon">💡</div><div class="dash-title">Tipp des Tages</div>
+                <div class="tip-cat">${icon} ${t.cat}</div>
+                <div class="tip-text">${t.text}</div>`;
+        }
         // Fortschritts-Karte (Übersicht): Status-Balken + Weg zur nächsten Freischaltung.
         function progressCardHtml() {
             const p = loadProgress();
@@ -991,6 +1011,9 @@
             if (gate('recovery')) cards.push({ locked: true, cls: 'locked wide', html: `<div class="dash-icon">🔒</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">${unlockCond('recovery')}</div>` });
             else cards.push({ open: 'tabRecovery', cls: 'emergency', html:
                 `<div class="dash-icon">💚</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">Verletzungen, Erste Hilfe, Seelisches &amp; Notruf</div>` });
+
+            // Tipp des Tages (#101) – motivierender Abschluss der Übersicht
+            if (TIPS.length) cards.push({ htmlOnly: true, cls: 'wide tip', html: tipCardHtml() });
 
             grid.innerHTML = '';
             cards.forEach(c => {
@@ -3710,6 +3733,7 @@
                 INJURIES        = data.injuries;
                 MENTAL          = data.mental;
                 STUDIES         = data.studies || [];
+                TIPS            = data.tips || [];
                 // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
@@ -3866,7 +3890,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v37';
+const APP_VERSION = 'v38';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

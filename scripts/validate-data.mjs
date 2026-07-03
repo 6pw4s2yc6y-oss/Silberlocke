@@ -25,6 +25,7 @@ const injuries = load('health/injuries.json');
 const mental = load('health/mental.json');
 const daytypes = load('app/daytypes.json');
 const studies = load('studies/studies.json');
+const tips = load('app/tips.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -79,6 +80,17 @@ if (Array.isArray(products)) products.forEach((p, i) => {
         if (!Array.isArray(p.studyIds) || p.studyIds.length === 0) fail(`${at}: "studyIds" muss ein nicht-leeres Array sein`);
         else p.studyIds.forEach(sid => { if (!studyIds.has(sid)) fail(`${at}: studyId "${sid}" existiert nicht in studies.json`); });
     }
+});
+
+// ── tips (Tipp des Tages) ────────────────────────────────────────────────────
+const tipIds = new Set();
+if (!Array.isArray(tips) || tips.length === 0) fail('tips.json: muss ein nicht-leeres Array sein');
+else tips.forEach((t, i) => {
+    const at = `tips[${i}]`;
+    ['id', 'cat', 'text'].forEach(k => {
+        if (typeof t[k] !== 'string' || !t[k].trim()) fail(`${at}: "${k}" fehlt oder ist kein String`);
+    });
+    if (t.id) { if (tipIds.has(t.id)) fail(`${at}: doppelte id "${t.id}"`); tipIds.add(t.id); }
 });
 
 // ── timeline_config ─────────────────────────────────────────────────────────
@@ -242,4 +254,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen, ${tips.length} Tipps.`);

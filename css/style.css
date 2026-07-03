@@ -1128,6 +1128,11 @@
         .eff-pct.extreme { color: #f87171; }
         .eff-note { font-size: 10.5px; line-height: 1.5; color: #a8a29e; }
 
+        /* TIPP DES TAGES (#101) */
+        .dash-card.tip { background: linear-gradient(135deg, #0d0b1f, #120f24); border: 1px solid #312a52; text-align: left; }
+        .tip-cat { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #a78bfa; margin: 2px 0 5px; }
+        .tip-text { font-size: 12.5px; line-height: 1.6; color: #cbd5e1; }
+
         /* DAILY NUTRIENTS SUMMARY BOX */
         .daily-nutr-box { background: #07070f; border: 1px solid #1e3a5f; border-radius: 13px; margin-top: 20px; overflow: hidden; }
         .daily-nutr-header { background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%); padding: 14px 16px; border-bottom: 1px solid #1e3a5f; }
