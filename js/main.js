@@ -3455,6 +3455,29 @@
                 ${syn.map(s => `<div class="syn-line">🤝 <strong>${s.n}</strong> – ${s.w}</div>`).join('')}
             </div>`;
         }
+        // ── HALAL / VEGAN-TRANSPARENZ (#62): tierische/bedenkliche Zutaten flaggen ──
+        // Erscheint nur bei betroffenen Produkten (Gelatine-Kapseln, Karmin). Bewusst
+        // OHNE „Alkohol" (Zuckeralkohole sind unbedenklich → sonst Fehlalarm).
+        const HALAL_FLAGS = [
+            { m: /gelatine|gelatin/i, t: 'Gelatine (tierischen Ursprungs – Rind/Schwein je nach Hersteller)' },
+            { m: /karmin|carmin|\be120\b/i, t: 'Karmin (E120, aus Schildläusen)' },
+            { m: /schweine|schwein\b|pork/i, t: 'Schweine-Bestandteile' },
+        ];
+        function halalConcerns(p) {
+            const ing = (typeof p.ingredients === 'string' ? p.ingredients : JSON.stringify(p.ingredients || '')).toLowerCase();
+            const out = [];
+            HALAL_FLAGS.forEach(f => { if (f.m.test(ing)) out.push(f.t); });
+            return out;
+        }
+        function buildHalalHtml(p) {
+            const c = halalConcerns(p);
+            if (!c.length) return '';
+            return `<div class="halal-box">
+                <div class="halal-title">🕌 Halal- / Vegan-Hinweis</div>
+                <div class="halal-line">Enthält: ${c.join(', ')}.</div>
+                <div class="halal-note">Für Halal, Vegan oder aus religiösen Gründen auf die Herkunfts-/Zertifizierungs-Angabe des Herstellers achten.</div>
+            </div>`;
+        }
 
         function toggleTimelineCard(id) {
             const card = document.getElementById(`tc-${id}`);
@@ -3501,7 +3524,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p) + smartFieldsHtml(p);
+                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + buildHalalHtml(p) + buildSynergyHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3535,7 +3558,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + buildHalalHtml(p) + buildSynergyHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -4327,7 +4350,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v56';
+const APP_VERSION = 'v57';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
