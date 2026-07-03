@@ -193,4 +193,6 @@ v53 Produktname aus dem Code gelöst (eine Konstante, Arbeitstitel VΛAΛV) ·
 v54 Pulver-/Wasser-Berechnung pro Einheit (#49) ·
 v55 Clash-Detection Trainings- vs. Ruhetag (#122) ·
 v56 König-Synergien (#17) ·
-v57 Halal-/Vegan-Transparenz (#62)
+v57 Halal-/Vegan-Transparenz (#62) ·
+v58 Fix: neue Blöcke auch in den Produkt-Datenbank-Karten ·
+v59 Produkt-Detail aufgeräumt (klappbare Abschnitte; Sicherheit bleibt oben offen)

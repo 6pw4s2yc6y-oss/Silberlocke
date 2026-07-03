@@ -3277,14 +3277,12 @@
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
                             ${buildMedInteractionHtml(p)}
-                            ${buildSplitScreenHtml(p)}
-                            ${smartFieldsHtml(p)}
-                            ${macroHtml}
-                            ${buildNutrientsHtml(p)}
-                            ${buildKaufCheckHtml(p)}
+                            ${efficiencyWarningHtml(p)}
                             ${buildHalalHtml(p)}
-                            ${buildSynergyHtml(p)}
-                            ${detailsRowsHtml}
+                            ${smartFieldsHtml(p)}
+                            ${pdSection('🔍 Wahrheit, Kauf-Check &amp; Synergien', buildSplitScreenHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p), true)}
+                            ${pdSection('🔢 Nährwerte &amp; Mikronährstoffe', macroHtml + buildNutrientsHtml(p), false)}
+                            ${pdSection('💊 Einnahme &amp; Details', detailsRowsHtml, false)}
                         </div>
                     </div>
                 `;
@@ -3369,7 +3367,13 @@
                     return `<tr class="${isSub ? 'micro-sub' : ''}"><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`;
                 }).join('')}</table>
                 ${hasNrv ? `<div style="font-size:9px;color:#475569;margin-top:6px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011</div>` : ''}
-            </div>${efficiencyWarningHtml(p)}`;
+            </div>`;
+        }
+        // Klappbarer Detail-Abschnitt (native <details>) – bündelt die vielen Info-
+        // Blöcke, damit das Produkt-Detail nicht als Info-Lawine erscheint.
+        function pdSection(title, inner, open) {
+            if (!inner || !inner.trim()) return '';
+            return `<details class="pd-section"${open ? ' open' : ''}><summary class="pd-summary">${title}</summary><div class="pd-body">${inner}</div></details>`;
         }
         // ── KAUF-WAHRHEIT (#80): MHD-Sensibilität & Pseudo-Rabatt-Check ─────────────
         // MHD-sensibel = Wirkstoff verliert faktisch mit der Zeit an Potenz
@@ -3529,7 +3533,8 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + buildHalalHtml(p) + buildSynergyHtml(p) + smartFieldsHtml(p);
+                    </div>` + buildMedInteractionHtml(p) + efficiencyWarningHtml(p) + buildHalalHtml(p) + smartFieldsHtml(p)
+                    + pdSection('🔍 Wahrheit &amp; Kauf-Check', buildSplitScreenHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p), false);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3563,7 +3568,11 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + buildHalalHtml(p) + buildSynergyHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML =
+                buildMedInteractionHtml(p) + efficiencyWarningHtml(p) + buildHalalHtml(p) + smartFieldsHtml(p)
+                + pdSection('🔍 Wahrheit, Kauf-Check &amp; Synergien', buildSplitScreenHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p), true)
+                + pdSection('🔢 Nährwerte &amp; Mikronährstoffe', macroHtml + buildNutrientsHtml(p), false)
+                + pdSection('💊 Einnahme &amp; Details', rowsHtml, false);
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -4355,7 +4364,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v58';
+const APP_VERSION = 'v59';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
