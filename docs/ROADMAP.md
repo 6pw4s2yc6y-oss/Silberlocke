@@ -64,7 +64,7 @@
 76 ✅ Keine Wirkversprechen (Disclaimer) · 77 🟡 No-Bullshit-Rating (Schema ✓, Werte fehlen) ·
 78 🟡 Kennzeichnung Studie vs. Meinung · 79 🟡 Rezeptur-Warnung (Schema ✓) ·
 80 🔨 MHD-/Alt-Rezeptur-Warnung · 81 ✅ Makro-Block-Bündelung (Zeitblöcke) ·
-82 🔨 Efficiency-Filter (Überdosierungs-Warnung, z. B. 20 000 % B12) · 83 ✅ Smart-Replacement ·
+82 ✅ Efficiency-Filter (Überdosierungs-Warnung ab 500 %/1000 % NRV, ehrlich zu wasser- vs. fettlöslich; v37) · 83 ✅ Smart-Replacement ·
 84 🔵 Externe Reviews (API/Recht)
 
 ## IX. Finanzen & Affiliate
@@ -99,10 +99,11 @@ v25 Thermodynamik-Audit · v26 SilberStaub + Joker-Schmiede · v27 Recht-Basics 
 v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
 v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
 v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) ·
-v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft)
+v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft) ·
+v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
+1. **#101** Tipp des Tages · **#34** Body-IQ-Quiz · **#35** Profil-Medaillen
 2. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
 3. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
 

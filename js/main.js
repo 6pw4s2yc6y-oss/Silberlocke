@@ -2988,6 +2988,36 @@
             return html;
         }
 
+        // ── EFFIZIENZ-FILTER (#82): Überdosierungs-Warnung ──────────────────────────
+        // „Mehr" ist bei Mikronährstoffen selten „besser". Liegt ein Nährstoff weit
+        // über dem Bezugswert (NRV), sagen wir das ehrlich – über dem Marketing:
+        // wasserlösliche Vitamine (B, C) scheidet der Körper bei Überschuss aus,
+        // fettlösliche (A, D, E, K) können sich anreichern. Werte aus den Daten (nrv).
+        const EFF_EXTREME = 1000;   // ab hier: deutliche Warnung (z. B. 20 000 % B12)
+        const EFF_HIGH    = 500;    // ab hier: Effizienz-Hinweis
+        const FAT_SOLUBLE = /Vitamin\s*[ADEK]\b/i;
+        function efficiencyFlags(p) {
+            return (p.nutrients || [])
+                .filter(n => typeof n.nrv === 'number' && n.nrv >= EFF_HIGH)
+                .map(n => ({ label: n.label, nrv: n.nrv, fat: FAT_SOLUBLE.test(n.label), extreme: n.nrv >= EFF_EXTREME }))
+                .sort((a, b) => b.nrv - a.nrv);
+        }
+        function efficiencyWarningHtml(p) {
+            const flags = efficiencyFlags(p);
+            if (!flags.length) return '';
+            const anyExtreme = flags.some(f => f.extreme);
+            const rows = flags.map(f =>
+                `<div class="eff-row"><span class="eff-nutr">${f.label}</span><span class="eff-pct${f.extreme ? ' extreme' : ''}">${f.nrv.toLocaleString('de-DE')} %</span></div>`).join('');
+            const parts = [];
+            if (flags.some(f => !f.fat)) parts.push('Wasserlösliche Vitamine (B, C) scheidet der Körper bei Überschuss weitgehend ungenutzt aus – der Extra-Anteil bringt keinen Zusatznutzen.');
+            if (flags.some(f => f.fat))  parts.push('Fettlösliche Vitamine (A, D, E, K) können sich anreichern – auf Obergrenzen (UL) achten und keine weiteren Quellen stapeln.');
+            const lead = anyExtreme ? '⚠️ Effizienz-Warnung: extreme Überdosierung' : '💡 Effizienz-Hinweis: deutlich über Bedarf';
+            return `<div class="eff-box${anyExtreme ? ' extreme' : ''}">
+                <div class="eff-title">${lead}</div>
+                <div class="eff-rows">${rows}</div>
+                <div class="eff-note">${parts.join(' ')} Mehr ist hier nicht besser.</div>
+            </div>`;
+        }
         function buildNutrientsHtml(p) {
             if (!p.nutrients || p.nutrients.length === 0) return '';
             const hasNrv = p.nutrients.some(n => n.nrv !== null);
@@ -2998,7 +3028,7 @@
                     return `<tr class="${isSub ? 'micro-sub' : ''}"><td>${n.label}</td><td>${n.amount}${n.nrv !== null ? `<span class="micro-nrv">${n.nrv}%</span>` : ''}</td></tr>`;
                 }).join('')}</table>
                 ${hasNrv ? `<div style="font-size:9px;color:#475569;margin-top:6px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011</div>` : ''}
-            </div>`;
+            </div>${efficiencyWarningHtml(p)}`;
         }
 
         function toggleTimelineCard(id) {
@@ -3046,7 +3076,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + smartFieldsHtml(p);
+                    </div>` + efficiencyWarningHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3836,7 +3866,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v36';
+const APP_VERSION = 'v37';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

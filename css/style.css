@@ -1116,6 +1116,18 @@
         .micro-sub td:first-child { padding-left: 12px; color: #64748b; font-size: 10px; }
         .micro-sub td:last-child { color: #94a3b8; font-size: 10px; font-weight: 500; }
 
+        /* EFFIZIENZ-FILTER (#82): Überdosierungs-Warnung */
+        .eff-box { background: #171204; border: 1px solid #92400e; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+        .eff-box.extreme { background: #1a0505; border-color: #7f1d1d; }
+        .eff-title { font-size: 12px; font-weight: 700; color: #fcd34d; margin-bottom: 6px; }
+        .eff-box.extreme .eff-title { color: #f87171; }
+        .eff-rows { display: flex; flex-direction: column; gap: 3px; margin-bottom: 7px; }
+        .eff-row { display: flex; justify-content: space-between; align-items: baseline; font-size: 11px; }
+        .eff-nutr { color: #cbd5e1; }
+        .eff-pct { font-weight: 700; color: #fbbf24; white-space: nowrap; }
+        .eff-pct.extreme { color: #f87171; }
+        .eff-note { font-size: 10.5px; line-height: 1.5; color: #a8a29e; }
+
         /* DAILY NUTRIENTS SUMMARY BOX */
         .daily-nutr-box { background: #07070f; border: 1px solid #1e3a5f; border-radius: 13px; margin-top: 20px; overflow: hidden; }
         .daily-nutr-header { background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%); padding: 14px 16px; border-bottom: 1px solid #1e3a5f; }
