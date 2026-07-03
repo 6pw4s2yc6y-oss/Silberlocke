@@ -35,7 +35,7 @@
 ## IV. Gamification & Squads
 29 ✅ SilberStaub · 30 ✅ Startpolster (1 Joker, Score 60) · 31 ✅ „Liebloses Essen"-Cheat-Tag (Staub-Shop, 250 ✨, 1×/Woche) ·
 32 ✅ Pre-Booking (Urlaub/Family freikaufen, 200 ✨/Tag; freigekaufte Tage entschuldigen Abwesenheit, zählen aber NIE als Fortschritt) · 33 ✅ Rolling-Joker (Cap 3; pro Woche statt Monat) ·
-34 🔨 Body-IQ-Quizzes · 35 🔨 Profil-Medaillen · 36–45 🔵 Arena/Squads/Duelle/Likes/Matching (alles Backend)
+34 🔨 Body-IQ-Quizzes · 35 ✅ Profil-Medaillen (10 verdiente Meilensteine, nur erspielbar; v39) · 36–45 🔵 Arena/Squads/Duelle/Likes/Matching (alles Backend)
 
 ## V. Training & Überlastungsschutz
 46 🟡 Clash Detection (Schlaf-Sperre + Barriere ✓) · 47 ✅ Wochenplan-Baukasten ·
@@ -101,12 +101,13 @@ v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
 v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) ·
 v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft) ·
 v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay) ·
-v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht)
+v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht) ·
+v39 Profil-Medaillen (verdiente Meilensteine auf der Übersicht)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#34** Body-IQ-Quiz · **#35** Profil-Medaillen
-2. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
-3. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
+1. **#34** Body-IQ-Quiz · **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
+2. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
+3. **#100** Themes/Vibes · **#17** King-Synergien/Premium-Stacks
 
 ## Phase 3 (erst mit Backend + Rechtsprüfung)
 Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →

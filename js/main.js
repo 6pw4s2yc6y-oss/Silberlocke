@@ -817,6 +817,8 @@
         // nicht als disziplinierte Tage – Aufstieg bleibt unkaufbar, Archiv #15).
         let staubShopOpen = false;
         function toggleStaubShop() { staubShopOpen = !staubShopOpen; renderDashboard(); }
+        let medalsOpen = false;
+        function toggleMedals() { medalsOpen = !medalsOpen; renderDashboard(); }
         const CHEAT_COST = 250, PREBOOK_COST = 200;
         // 🍕 „Liebloses Essen": heute frei essen ohne Beichte/Steuer – max. 1×/Woche.
         function buyCheatDay() {
@@ -892,6 +894,37 @@
                 <div class="tip-cat">${icon} ${t.cat}</div>
                 <div class="tip-text">${t.text}</div>`;
         }
+        // Profil-Medaillen (#35): sichtbare Belohnung der VERDIENTEN Reise.
+        // Bewusst nur aus echter Disziplin abgeleitet (disziplinierte Tage, Stufe,
+        // Status) – nicht aus SilberStaub, denn Staub ist ausgebbar und wäre damit
+        // kaufbar. Medaillen kann man nur verdienen (radikale Gleichheit, Archiv #15).
+        const MEDALS = [
+            { id: 'start',   icon: '🌱', name: 'Erster Schritt', need: '1 disziplinierter Tag',   earned: p => p.disciplinedDays >= 1 },
+            { id: 'week1',   icon: '🔥', name: 'Woche Eins',      need: '7 disziplinierte Tage',   earned: p => p.disciplinedDays >= 7 },
+            { id: 'week2',   icon: '💪', name: 'Durchhalter',     need: '14 disziplinierte Tage',  earned: p => p.disciplinedDays >= 14 },
+            { id: 'hard',    icon: '⚔️', name: 'Hard Mode',       need: 'Stufe Hard erreicht',     earned: p => STAGES.indexOf(p.stage) >= 1 },
+            { id: 'month1',  icon: '🎖️', name: 'Erster Monat',    need: '28 disziplinierte Tage',  earned: p => p.disciplinedDays >= 28 },
+            { id: 'clean',   icon: '💯', name: 'Makellos',        need: 'Disziplin-Status 100 %',  earned: p => p.score >= 100 },
+            { id: 'expert',  icon: '🧠', name: 'Expert Mode',     need: 'Stufe Expert erreicht',   earned: p => STAGES.indexOf(p.stage) >= 2 },
+            { id: 'fifty',   icon: '🛡️', name: 'Unbestechlich',   need: '50 disziplinierte Tage',  earned: p => p.disciplinedDays >= 50 },
+            { id: 'master',  icon: '👑', name: 'Master',          need: 'Stufe Master erreicht',   earned: p => p.stage === 'master' },
+            { id: 'hundred', icon: '🏔️', name: 'Hundert',         need: '100 disziplinierte Tage', earned: p => p.disciplinedDays >= 100 },
+        ];
+        function earnedMedalCount() { const p = loadProgress(); return MEDALS.filter(m => m.earned(p)).length; }
+        function medalsPanelHtml() {
+            const p = loadProgress();
+            const items = MEDALS.map(m => {
+                const has = m.earned(p);
+                return `<div class="medal${has ? ' earned' : ' locked'}">
+                    <div class="medal-icon">${has ? m.icon : '🔒'}</div>
+                    <div class="medal-name">${m.name}</div>
+                    <div class="medal-need">${has ? 'verdient' : m.need}</div>
+                </div>`;
+            }).join('');
+            return `<div class="dash-title">🏅 Medaillen · ${earnedMedalCount()}/${MEDALS.length}</div>
+                <div class="medal-grid">${items}</div>
+                <div class="shop-note">Medaillen sind nicht kaufbar – nur verdienbar. Jeder startet bei null.</div>`;
+        }
         // Fortschritts-Karte (Übersicht): Status-Balken + Weg zur nächsten Freischaltung.
         function progressCardHtml() {
             const p = loadProgress();
@@ -940,6 +973,11 @@
                     ${futurePre.length ? `<div class="shop-note">🏖️ Freigekauft: ${futurePre.map(ds => ds.slice(8) + '.' + ds.slice(5, 7) + '.').join(', ')}</div>` : ''}
                     <div class="shop-note">Schutz ist kaufbar – Fortschritt nie: freigekaufte Tage zählen nicht als disziplinierte Tage.</div>` });
             }
+            // Profil-Medaillen (#35) – verdiente Meilensteine, aufklappbar
+            cards.push({ action: toggleMedals, cls: 'medals', html:
+                `<div class="dash-icon">🏅</div><div class="dash-title">Medaillen</div><div class="dash-big">${earnedMedalCount()}/${MEDALS.length}</div>
+                 <div class="dash-sub">Tippen: ${medalsOpen ? 'schließen ▲' : 'ansehen ▼'}</div>` });
+            if (medalsOpen) cards.push({ htmlOnly: true, cls: 'wide medalpanel', html: medalsPanelHtml() });
             // Finanz-Modus (zweite Achse) – Antippen wechselt König ⇄ Warrior
             const warrior = isWarrior();
             cards.push({ action: toggleFinMode, cls: 'fin', html:
@@ -3890,7 +3928,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v38';
+const APP_VERSION = 'v39';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
