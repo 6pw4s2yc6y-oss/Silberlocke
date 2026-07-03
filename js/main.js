@@ -2993,12 +2993,22 @@
             todayBlockIds = sortedBlocks.map(b => b.id);
             evaluateDay();
 
+            // „Brennende Batterie" (#113): fühlbarer Tages-Fortschritt. Füllt sich mit
+            // jedem abgehakten Block, glüht und flammt bei jedem Render kurz auf.
+            const dbDone = sortedBlocks.filter(b => todayLog().checked.includes(b.id)).length;
+            const dbTotal = sortedBlocks.length;
+            const dbPct = dbTotal ? Math.round(dbDone / dbTotal * 100) : 0;
+            const dayBattery = `<div class="day-battery">
+                <div class="day-battery-track"><div class="day-battery-fill${dbDone ? ' lit' : ''}" style="width:${dbPct}%"></div></div>
+                <div class="day-battery-label">🔥 ${dbDone}/${dbTotal} Blöcke${dbPct === 100 ? ' · Tag komplett – aufgeladen!' : dbDone ? '' : ' · leg los'}</div>
+            </div>`;
+
             if (stackPlanActive && sortedBlocks.length === 0) {
                 container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
                 return;
             }
 
-            container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + dayBattery + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -4132,7 +4142,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v47';
+const APP_VERSION = 'v48';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

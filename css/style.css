@@ -223,7 +223,17 @@
         /* FORTSCHRITT / DISZIPLIN-ENGINE */
         .dash-card.progress { background: linear-gradient(135deg, #2a1560 0%, #120a30 100%); border-color: #7c3aed; }
         .prog-status { height: 9px; background: #0c0c1e; border-radius: 999px; overflow: hidden; margin: 8px 0 6px; }
-        .prog-status-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #22c55e); border-radius: 999px; transition: width .4s; }
+        .prog-status-fill { height: 100%; background: linear-gradient(90deg, #f59e0b, #22c55e, #f59e0b); background-size: 200% 100%; border-radius: 999px; transition: width .4s; animation: emberFlow 3.5s linear infinite; }
+
+        /* „BRENNENDE BATTERIE" (#113) – fühlbarer Tages-Fortschritt beim Abhaken */
+        .day-battery { margin: 4px 2px 14px; }
+        .day-battery-track { height: 15px; background: #0a0a14; border: 1px solid #1f2937; border-radius: 9px; overflow: hidden; }
+        .day-battery-fill { height: 100%; border-radius: 8px; background: linear-gradient(90deg, #7c2d12, #f59e0b, #fde68a, #f59e0b); background-size: 250% 100%; transition: width .5s ease; animation: emberFlow 2s linear infinite, batteryFlare .7s ease-out; }
+        .day-battery-fill.lit { box-shadow: 0 0 10px rgba(245, 158, 11, .55); }
+        .day-battery-label { font-size: 11px; color: #fbbf24; font-weight: 700; margin-top: 5px; }
+        @keyframes emberFlow { 0% { background-position: 0% 0; } 100% { background-position: 200% 0; } }
+        @keyframes batteryFlare { 0% { filter: brightness(2.2); } 100% { filter: brightness(1); } }
+        @media (prefers-reduced-motion: reduce) { .prog-status-fill, .day-battery-fill { animation: none; } }
         .prog-next { font-size: 11.5px; font-weight: 700; color: #c4b5fd; margin-top: 4px; }
         .dash-card.locked { opacity: .68; filter: grayscale(.4); border-style: dashed; }
         .dash-card.staub { border-color: #b4830b; background: linear-gradient(145deg, #171204 0%, #06060e 100%); }

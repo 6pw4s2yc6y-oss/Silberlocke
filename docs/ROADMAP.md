@@ -57,7 +57,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 101 ✅ Tipp des Tages (v38, tagesrotierend) · 57 🟡 Dynamische Einnahmefenster (ab individueller Aufwachzeit) ·
 58 🟡 Standard-Mahlzeiten (Slots live, Rezept-Routinen offen) · 63 🟡 Sleep Mode (Analyse live, Blaulicht-Anleitung offen) ·
 62 🔨 Beten/Halal-Modus (Gebetszeiten, als Daten) · 64 ✅ Wasser-/Elektrolyt-Schnellzugriff (Glas-Zähler, Ziel +2 an Trainingstagen, Elektrolyt-Hinweis; v47) ·
-100 🔨 Themes/Vibes · 113 🔨 „Brennende Batterie" (Statusbalken-Animation beim Tracken) ·
+100 🔨 Themes/Vibes · 113 ✅ „Brennende Batterie" (Tages-Batterie in der Tagesansicht + Glut-Balken, flammt beim Abhaken auf; v48) ·
 61 🅿️ „Aleman Trink-Timer" (native Alarme – PWA-Limits) · 127 🔵 Financial-Hub (Open-Banking) ·
 128 🔵 Medical-Terminal (verschlüsseltes Befund-Archiv)
 
@@ -183,4 +183,5 @@ v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung 
 v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust) ·
 v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking) ·
 v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet) ·
-v47 Wasser-/Elektrolyt-Schnellzugriff (#64)
+v47 Wasser-/Elektrolyt-Schnellzugriff (#64) ·
+v48 „Brennende Batterie" (fühlbarer Tages-Fortschritt beim Abhaken, #113)
