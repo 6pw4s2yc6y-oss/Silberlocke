@@ -1156,6 +1156,12 @@
         .split-text { font-size: 11px; line-height: 1.5; color: #cbd5e1; }
         @media (max-width: 360px) { .split-box { grid-template-columns: 1fr; } }
 
+        /* MEDIKAMENTEN-WECHSELWIRKUNG (#123) */
+        .med-box { background: #1a0505; border: 1px solid #b91c1c; border-radius: 8px; padding: 11px 13px; margin-top: 8px; }
+        .med-title { font-size: 12px; font-weight: 800; color: #fca5a5; margin-bottom: 7px; }
+        .med-line { font-size: 11px; line-height: 1.5; color: #e2e8f0; margin-top: 4px; }
+        .med-note { font-size: 10px; line-height: 1.5; color: #fca5a5; margin-top: 8px; font-weight: 600; }
+
         /* TIPP DES TAGES (#101) */
         .dash-card.tip { background: linear-gradient(135deg, #0d0b1f, #120f24); border: 1px solid #312a52; text-align: left; }
         .tip-cat { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #a78bfa; margin: 2px 0 5px; }

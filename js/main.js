@@ -3310,6 +3310,35 @@
                 <div class="split-col real"><div class="split-head">🧭 STΛTUS-Realität</div><div class="split-text">${real}</div></div>
             </div>`;
         }
+        // ── MEDIKAMENTEN-WECHSELWIRKUNG (#123): Sicherheits-Labels ──────────────────
+        // Nur gut belegte Wechselwirkungen, faktisch aus Kategorie/Inhalt abgeleitet.
+        // Immer mit „ärztlich abklären"-Netz. Betreiber kann pro Produkt konkret
+        // ergänzen (medInteraktion). Kein medizinischer Rat – nur ein Warnhinweis.
+        function medInteractions(p) {
+            const out = [];
+            const cat = p.cat || '';
+            const hay = ((p.name || '') + ' ' + (p.nutrients || []).map(n => n.label || '').join(' ') + ' ' + JSON.stringify(p.ingredients || '')).toLowerCase();
+            if (cat === 'Omega & Öle' && /omega|fischöl|epa|dha/.test(hay) || /omega-?3|fischöl|\bepa\b|\bdha\b/.test(hay))
+                out.push('Blutverdünner (Marcumar/ASS): Omega-3 kann die Blutungsneigung leicht erhöhen – bei Gerinnungshemmern ärztlich abklären.');
+            if (/vitamin k\b|vitamin k1|vitamin k2|menachinon|phyllochinon/.test(hay))
+                out.push('Vitamin-K-Antagonisten (Marcumar/Warfarin): Vitamin K wirkt der Blutverdünnung entgegen – Zufuhr konstant halten, INR mit dem Arzt abstimmen.');
+            if (cat === 'Mineralien')
+                out.push('Schilddrüsen-Medikament (L-Thyroxin) & bestimmte Antibiotika: Mineralien binden im Darm und mindern die Aufnahme – mind. 2–4 h Abstand einhalten.');
+            if (/ashwagandha|withania/.test(hay))
+                out.push('Schilddrüsen-, Beruhigungs- & Immunsuppressiva: Ashwagandha kann deren Wirkung verstärken – bei Medikation ärztlich abklären.');
+            if (/melatonin/.test(hay))
+                out.push('Beruhigungs-/Schlafmittel & Blutverdünner: Melatonin kann deren Wirkung verstärken – Vorsicht bei Kombination.');
+            return out;
+        }
+        function buildMedInteractionHtml(p) {
+            const items = p.medInteraktion ? [p.medInteraktion] : medInteractions(p);
+            if (!items.length) return '';
+            return `<div class="med-box">
+                <div class="med-title">⚠️ Mögliche Medikamenten-Wechselwirkung</div>
+                ${items.map(t => `<div class="med-line">• ${t}</div>`).join('')}
+                <div class="med-note">Kein medizinischer Rat. Wenn du Medikamente nimmst oder erkrankt bist: vor der Einnahme mit Arzt oder Apotheker abklären.</div>
+            </div>`;
+        }
 
         function toggleTimelineCard(id) {
             const card = document.getElementById(`tc-${id}`);
@@ -3356,7 +3385,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
+                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3390,7 +3419,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -4173,7 +4202,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v50';
+const APP_VERSION = 'v51';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
