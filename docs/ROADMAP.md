@@ -64,7 +64,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ## Sprint 4 · Trainings-Matrix & Leistungssteuerung
 47 ✅ Wochenplan-Baukasten · 54 ✅ Pre-Workout-Schranke (ZNS/Schlaf) ·
 46 🟡 Clash Detection (Schlaf-Sperre + Barriere live) · 52 🟡 Hypertrophie (Pläne live, Volumen-Tracking offen) ·
-53 🟡 Überlastungs-Bremse (Schlaf + Barriere) · 48 🔨 Einheiten-Vorbereitung (nächstes Workout visualisieren) ·
+53 🟡 Überlastungs-Bremse (Schlaf + Barriere) · 48 ✅ Einheiten-Vorbereitung (nächste Einheit: Zeitpunkt + Plan-Fokus/Übungen + Vorbereitungs-Checkliste; v52) ·
 49 🔨 Pulver-/Wasser-Berechnung pro Einheit · 50 🔨 Rennrad-Pläne (als Daten) ·
 122 🔨 Clash-Detection unterscheidet Trainings- vs. Ruhetag · 55 🅿️ Satzpausen-App-Sperre (Social-Media-Block) ·
 51 🔵 Watt-Tracking (Hardware) · 56 🔵 Wetter/Geo (Hydration) · 60 🔵 Apple Health / Health Connect
@@ -187,4 +187,5 @@ v47 Wasser-/Elektrolyt-Schnellzugriff (#64) ·
 v48 „Brennende Batterie" (fühlbarer Tages-Fortschritt beim Abhaken, #113) ·
 v49 Kauf-Wahrheit (MHD-Sensibilität & Pseudo-Rabatt-Check, #80) ·
 v50 Split-Screen der Wahrheit (Werbe-Sprache vs. Realität, #74) ·
-v51 Medikamenten-Wechselwirkungs-Disclaimer (#123)
+v51 Medikamenten-Wechselwirkungs-Disclaimer (#123) ·
+v52 Einheiten-Vorbereitung (#48)

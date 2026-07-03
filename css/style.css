@@ -1162,6 +1162,17 @@
         .med-line { font-size: 11px; line-height: 1.5; color: #e2e8f0; margin-top: 4px; }
         .med-note { font-size: 10px; line-height: 1.5; color: #fca5a5; margin-top: 8px; font-weight: 600; }
 
+        /* EINHEITEN-VORBEREITUNG (#48) */
+        .dash-card.nextunit { border-color: #334155; }
+        .dash-card.nextunit:hover { border-color: #22c55e; }
+        .nu-focus { background: #04121e; border: 1px solid #0c4a6e; border-radius: 8px; padding: 10px 12px; margin: 8px 0; }
+        .nu-focus-title { font-size: 12px; font-weight: 700; color: #7dd3fc; margin-bottom: 6px; }
+        .nu-ex { font-size: 11.5px; color: #cbd5e1; margin-top: 3px; }
+        .nu-ex-set { color: #94a3b8; font-weight: 600; margin-left: 4px; }
+        .nu-more { font-size: 10.5px; color: #64748b; margin-top: 4px; }
+        .nu-check-title { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: #4ade80; margin: 8px 0 4px; }
+        .nu-check { font-size: 11.5px; line-height: 1.6; color: #cbd5e1; }
+
         /* TIPP DES TAGES (#101) */
         .dash-card.tip { background: linear-gradient(135deg, #0d0b1f, #120f24); border: 1px solid #312a52; text-align: left; }
         .tip-cat { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #a78bfa; margin: 2px 0 5px; }

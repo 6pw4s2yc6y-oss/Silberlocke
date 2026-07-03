@@ -1099,6 +1099,39 @@
             if (n > 0 && before < goal && log.water >= goal) celebrate('💧 Tagesziel Wasser erreicht – stark!');
             renderDashboard();
         }
+        // ── EINHEITEN-VORBEREITUNG (#48): die nächste Einheit sichtbar machen ───────
+        let nextUnitOpen = false;
+        function toggleNextUnit() { nextUnitOpen = !nextUnitOpen; renderDashboard(); }
+        function nextTrainingUnit() {
+            const wk = loadWeek(); const ti = todayIdx();
+            for (let offset = 0; offset < 7; offset++) {
+                const idx = (ti + offset) % 7;
+                if (wk[idx] && wk[idx].train) {
+                    let sessionIdx = 0; for (let j = 0; j < idx; j++) if (wk[j].train) sessionIdx++;
+                    return { idx, offset, time: (wk[idx].time || ''), sessionIdx };
+                }
+            }
+            return null;
+        }
+        function nextUnitLabel(u) { return u.offset === 0 ? 'heute' : u.offset === 1 ? 'morgen' : WEEKDAYS_FULL[u.idx]; }
+        function nextUnitPanelHtml(u) {
+            const plan = SPORT_DATA[selectedSportMode];
+            let focus = '';
+            if (plan && Array.isArray(plan.days) && plan.days.length) {
+                const day = plan.days[u.sessionIdx % plan.days.length];
+                const exs = (day.exercises || []).slice(0, 3).map(e => `<div class="nu-ex">• ${e.name} <span class="nu-ex-set">${e.sets}</span></div>`).join('');
+                const more = (day.exercises || []).length > 3 ? `<div class="nu-more">+ ${day.exercises.length - 3} weitere Übungen</div>` : '';
+                focus = `<div class="nu-focus"><div class="nu-focus-title">${plan.icon || '🏋️'} ${plan.title} · ${day.day}</div>${exs}${more}</div>`;
+            }
+            return `<div class="dash-title">🏋️ Nächste Einheit · ${nextUnitLabel(u)}${u.time ? ' · ' + u.time : ''}</div>
+                ${focus}
+                <div class="nu-check-title">Vorbereitung</div>
+                <div class="nu-check">🛌 Vorher 7+ h Schlaf einplanen</div>
+                <div class="nu-check">☕ Koffein ~30–45 min vorher (nicht zu spät am Tag)</div>
+                <div class="nu-check">💧 Wasser & Elektrolyte auffüllen</div>
+                <div class="nu-check">🎒 Kleidung/Equipment am Vorabend bereitlegen</div>
+                <div class="nu-check">🎯 Ein konkretes Ziel für die Einheit setzen</div>`;
+        }
         // Baut das Karten-Dashboard – ein Register, das je Modul eine Karte liefert.
         // Neue (Lebens-)Module docken später einfach als weitere Karte an.
         function renderDashboard() {
@@ -1184,6 +1217,16 @@
                 `<div class="dash-icon">📅</div><div class="dash-title">Diese Woche</div>
                  <div class="dash-sub">${trainDays} Trainingstage · heute ${wk[ti].train ? 'Training' : 'Pause'}</div>
                  <div class="dash-chips">${weekChips}</div>` });
+            // Nächste Einheit vorbereiten (#48) – nur wenn es Trainingstage gibt
+            if (!gate('week')) {
+                const nu = nextTrainingUnit();
+                if (nu) {
+                    cards.push({ action: toggleNextUnit, cls: 'nextunit', html:
+                        `<div class="dash-icon">🏋️</div><div class="dash-title">Nächste Einheit</div>
+                         <div class="dash-sub">${nextUnitLabel(nu)}${nu.time ? ' · ' + nu.time : ''} · tippen ${nextUnitOpen ? '▲' : '▼'}</div>` });
+                    if (nextUnitOpen) cards.push({ htmlOnly: true, cls: 'wide nextunitpanel', html: nextUnitPanelHtml(nu) });
+                }
+            }
             // Mein Stack (ab Hard, Freischaltung Tag 28)
             if (m !== 'light') {
                 if (gate('stack')) cards.push({ locked: true, cls: 'locked', html: `<div class="dash-icon">🔒</div><div class="dash-title">Mein Stack</div><div class="dash-sub">${unlockCond('stack')}</div>` });
@@ -4202,7 +4245,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v51';
+const APP_VERSION = 'v52';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
