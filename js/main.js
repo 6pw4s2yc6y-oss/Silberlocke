@@ -2998,6 +2998,16 @@
             const identityLine = identityStmt ? `<div class="identity-banner">🧭 <strong>${identityStmt}</strong></div>` : '';
             const personalBanner = `<div class="personal-banner">📋 Getaktet aus <strong>deinen Angaben</strong>: ⏰ ${globalWakeTimeStr}–${globalSleepTimeStr}${globalTrainTimes.length ? ` · 🏋️ ${globalTrainTimes.join(' & ')}` : ''}${goalShort ? ` · 🎯 ${goalShort}` : ''} <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>` + identityLine;
 
+            // Clash-Detection (#122): Widerspruch zwischen Wochenplan (Training/Pause)
+            // und dem aktuell gewählten Tagestyp – klar anzeigen, Ein-Tipp-Lösung.
+            const weekTrainToday = !!(loadWeek()[todayIdx()] || {}).train;
+            let clashBanner = "";
+            if (weekTrainToday && currentDayType === 'rest') {
+                clashBanner = `<div class="clash-banner">🔀 <strong>Widerspruch:</strong> Dein Wochenplan sieht heute <strong>Training</strong> vor – aktiv ist der Ruhetag-Plan. <button class="clash-fix" onclick="selectDayType('training')">→ Auf Trainingstag</button></div>`;
+            } else if (!weekTrainToday && currentDayType === 'training') {
+                clashBanner = `<div class="clash-banner">🔀 <strong>Widerspruch:</strong> Dein Wochenplan sieht heute <strong>Pause</strong> vor – aktiv ist der Trainingsplan. <button class="clash-fix" onclick="selectDayType('rest')">→ Auf Ruhetag</button></div>`;
+            }
+
             // 🍕 Cheat-Tag / 🏖️ freigekaufter Tag sichtbar machen
             const pDay = loadProgress();
             const cheatBanner = todayLog().cheatDay
@@ -3080,11 +3090,11 @@
             </div>`;
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
+                container.innerHTML = personalBanner + clashBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
                 return;
             }
 
-            container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + dayBattery + stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = personalBanner + clashBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + dayBattery + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -4286,7 +4296,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v54';
+const APP_VERSION = 'v55';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
