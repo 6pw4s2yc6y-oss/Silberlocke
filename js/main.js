@@ -1120,6 +1120,23 @@
             return null;
         }
         function nextUnitLabel(u) { return u.offset === 0 ? 'heute' : u.offset === 1 ? 'morgen' : WEEKDAYS_FULL[u.idx]; }
+        // Pulver-/Wasser-Berechnung (#49): summiert die Workout-Pulver aus dem Stack
+        // und empfiehlt die Wassermenge für den Shaker.
+        const MIX_CATS = new Set(['Pre-Workout', 'Aminosäuren', 'Gainer & Carbs', 'Performance']);
+        function workoutMix() {
+            const items = []; let totalG = 0;
+            Object.keys(myStack).forEach(pid => {
+                const p = getProductById(pid); if (!p || !MIX_CATS.has(p.cat)) return;
+                const srv = parseServing(p.serving);
+                if (srv.unit !== 'g') return;   // nur Pulver
+                const amt = (myStack[pid] && myStack[pid].amount != null) ? myStack[pid].amount : srv.num;
+                if (!amt) return;
+                totalG += amt; items.push({ name: p.name, g: amt });
+            });
+            if (!items.length) return null;
+            const water = totalG <= 20 ? 500 : totalG <= 40 ? 750 : 1000;
+            return { items, totalG, water };
+        }
         function nextUnitPanelHtml(u) {
             const plan = SPORT_DATA[selectedSportMode];
             let focus = '';
@@ -1129,8 +1146,17 @@
                 const more = (day.exercises || []).length > 3 ? `<div class="nu-more">+ ${day.exercises.length - 3} weitere Übungen</div>` : '';
                 focus = `<div class="nu-focus"><div class="nu-focus-title">${plan.icon || '🏋️'} ${plan.title} · ${day.day}</div>${exs}${more}</div>`;
             }
+            // Pulver-/Wasser-Mix (#49) aus dem Stack
+            const mix = workoutMix();
+            const mixHtml = mix ? `<div class="nu-mix">
+                <div class="nu-mix-title">🥤 Mix für die Einheit</div>
+                ${mix.items.map(i => `<div class="nu-mix-row"><span>${i.name}</span><span>${fmtDe(i.g)} g</span></div>`).join('')}
+                <div class="nu-mix-total">Gesamt ${fmtDe(mix.totalG)} g Pulver · ~${mix.water} ml Wasser</div>
+                <div class="nu-more">Wassermenge nach Geschmack &amp; Verträglichkeit anpassen.</div>
+            </div>` : '';
             return `<div class="dash-title">🏋️ Nächste Einheit · ${nextUnitLabel(u)}${u.time ? ' · ' + u.time : ''}</div>
                 ${focus}
+                ${mixHtml}
                 <div class="nu-check-title">Vorbereitung</div>
                 <div class="nu-check">🛌 Vorher 7+ h Schlaf einplanen</div>
                 <div class="nu-check">☕ Koffein ~30–45 min vorher (nicht zu spät am Tag)</div>
@@ -4260,7 +4286,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v53';
+const APP_VERSION = 'v54';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
