@@ -637,6 +637,10 @@
         const STAGES = ['light', 'hard', 'expert', 'master'];
         const STAGE_LABEL = { light: 'Light', hard: 'Hard', expert: 'Expert', master: 'Master' };
         const DAYS_PER_STAGE = 28;
+        // Gatekeeper (#20): Zeit allein reicht nicht – der Aufstieg braucht auch
+        // einen sauberen Disziplin-Status. Wer die Tage hat, aber unter dieser
+        // Schwelle liegt, wartet an der Schwelle, bis er sich hochgearbeitet hat.
+        const GATEKEEPER_SCORE = 90;
         // Freischalt-Fahrplan über ALLE Stufen: Feature-Key → ab wie vielen
         // disziplinierten Tagen (durchgehend gezählt). Tag 28/56/84 = Aufstieg.
         const UNLOCK_SCHEDULE = [
@@ -775,14 +779,24 @@
                 }
             });
             // AUFSTIEG: 28 disziplinierte Tage pro Stufe – Light → Hard → Expert → Master.
+            // GATEKEEPER (#20): zusätzlich muss der Disziplin-Status ≥ 90 % sein.
+            // Genug Tage, aber Status zu niedrig → Aufstieg wird gehalten, bis
+            // sauber nachgearbeitet ist. Zeit allein kauft die Stufe nicht.
             const target = stageForDays(p.disciplinedDays);
             if (STAGES.indexOf(target) > STAGES.indexOf(p.stage)) {
-                p.stage = target;
-                p.staub = (p.staub || 0) + 100;   // Aufstiegs-Bonus
-                applyMode(target);           // neue Stufe wird auch der aktive Modus
-                applyModeVisibility();       // Oberfläche (Werkzeuge, Tagestypen) sofort anpassen
-                refreshModeScreen();
-                celebrate(`👑 AUFSTIEG! Willkommen im ${STAGE_LABEL[target]} Mode · ✨ +100`);
+                if (p.score >= GATEKEEPER_SCORE) {
+                    p.stage = target;
+                    p.staub = (p.staub || 0) + 100;   // Aufstiegs-Bonus
+                    p.gatePending = '';               // Schwelle passiert
+                    applyMode(target);           // neue Stufe wird auch der aktive Modus
+                    applyModeVisibility();       // Oberfläche (Werkzeuge, Tagestypen) sofort anpassen
+                    refreshModeScreen();
+                    celebrate(`👑 AUFSTIEG! Willkommen im ${STAGE_LABEL[target]} Mode · ✨ +100`);
+                } else if (p.gatePending !== target) {
+                    // Einmalig melden, dass der Aufstieg jetzt am Status hängt.
+                    p.gatePending = target;
+                    celebrate(`🚧 Aufstieg bereit – aber Disziplin-Status ${p.score}% (< ${GATEKEEPER_SCORE}%). Zieh sauber durch, dann steigst du in ${STAGE_LABEL[target]} auf.`);
+                }
             }
         }
         // ── FINANZ-MODUS (zweite Achse): König = Marken, Warrior = Budget ──────────
@@ -864,9 +878,14 @@
             const nu = nextUnlock();
             const left = nu ? Math.max(1, nu.day - p.disciplinedDays) : 0;
             const masterLeft = Math.max(1, STAGES.indexOf('master') * DAYS_PER_STAGE - p.disciplinedDays);
-            const nextLine = nu
-                ? `${left} disziplinierte${left === 1 ? 'r' : ''} Tag${left === 1 ? '' : 'e'} bis „${nu.label}" ${nu.icon}`
-                : (p.stage === 'master' ? '👑 Master – alles freigeschaltet' : `${masterLeft} Tage bis 👑 Master Mode`);
+            // Gatekeeper (#20): Aufstieg reif, aber Status < 90 % → das sichtbar machen.
+            const ascendTarget = stageForDays(p.disciplinedDays);
+            const gateHeld = STAGES.indexOf(ascendTarget) > STAGES.indexOf(p.stage) && p.score < GATEKEEPER_SCORE;
+            const nextLine = gateHeld
+                ? `🚧 Aufstieg bereit – erst Status ≥ ${GATEKEEPER_SCORE}% (aktuell ${p.score}%) für ${STAGE_LABEL[ascendTarget]}`
+                : nu
+                    ? `${left} disziplinierte${left === 1 ? 'r' : ''} Tag${left === 1 ? '' : 'e'} bis „${nu.label}" ${nu.icon}`
+                    : (p.stage === 'master' ? '👑 Master – alles freigeschaltet' : `${masterLeft} Tage bis 👑 Master Mode`);
             return `<div class="dash-icon">🔥</div><div class="dash-title">Dein Fortschritt · ${STAGE_LABEL[p.stage]} Mode</div>
                 <div class="prog-status"><div class="prog-status-fill" style="width:${p.score}%"></div></div>
                 <div class="dash-sub">Disziplin-Status ${p.score}% · ${p.disciplinedDays} disziplinierte Tage · 🃏 ${p.jokers}/3 Joker</div>
@@ -3817,7 +3836,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v35';
+const APP_VERSION = 'v36';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

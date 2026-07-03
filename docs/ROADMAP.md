@@ -24,7 +24,7 @@
 13 🟡 Hard (Gramm im Stack ✓) · 14 🟡 Expert (Analytik ✓; harte Degradierung offen) ·
 15 ✅ Master nicht kaufbar, nur erspielbar · 16 🟡 Warrior (Alternativen ✓) ·
 17 🔨 King-Synergien/Premium-Stacks · 18 🟡 Schnell-Onboarding (Treibstoff-Puffer offen) ·
-19 ✅ Progressive Disclosure (7/14/21/…-Tage-Fahrplan) · 20 🔨 Gatekeeper >90 % beim Aufstieg
+19 ✅ Progressive Disclosure (7/14/21/…-Tage-Fahrplan) · 20 ✅ Gatekeeper: Aufstieg braucht Tage **und** Disziplin-Status ≥ 90 % (v36)
 
 ## III. Disziplin & Truth-Engine
 21 🟡 Truth-Engine (Score-Entzug ✓) · 22 🔵 Integritäts-Audit (echt nur serverseitig) ·
@@ -98,13 +98,13 @@ v22 Joker · v23 Monats-Aufstieg (4 Stufen) · v24 Pre-Workout-Barriere ·
 v25 Thermodynamik-Audit · v26 SilberStaub + Joker-Schmiede · v27 Recht-Basics ·
 v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
 v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
-v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking)
+v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) ·
+v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#20** Gatekeeper: Aufstieg zusätzlich an Disziplin-Status ≥ 90 % knüpfen
-2. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
-3. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
-4. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
+1. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
+2. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
+3. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
 
 ## Phase 3 (erst mit Backend + Rechtsprüfung)
 Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →
