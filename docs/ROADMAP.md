@@ -1,131 +1,182 @@
-# SILBERLOCKE – Master-Roadmap (110-Punkte-Archiv)
+# STΛTUS – Master-Roadmap (fusioniert, 128+ Punkte)
 
-> Nordstern: das vollständige **110-Punkte-Archiv** des Betreibers (Stand Juli 2026) –
-> ein unbestechliches Lebens-Betriebssystem. Erst Fitness/Disziplin, dann erweitern.
-> Vier verdiente Stufen (Light → Hard → Expert → Master), radikale Gleichheit,
-> Wahrheit vor Komfort.
+> Fusion aus der **Sprint-Logik & den 128 STΛTUS-Punkten** und der **ungeschönten
+> technischen Realität** des Codes (Vanilla JS/HTML/CSS, PWA auf GitHub Pages).
+> Kein Wunschzettel – ein Arbeitsdokument mit **echtem Status, Stand v43**.
 >
-> Arbeitsprinzipien: iterativ · Daten getrennt von Logik (`data/` vs `js/`) ·
-> jede Woche liefern · jede Version zählt hoch (Badge unten rechts) ·
-> **kein Big-Bang-Rewrite** (Punkt 96 bewusst geparkt, bis Backend-Features ihn erzwingen).
+> Nordstern: ein unbestechliches Lebens-Betriebssystem. Erst Fitness/Disziplin,
+> dann erweitern. Vier verdiente Stufen (Light → Hard → Expert → Master),
+> radikale Gleichheit, Wahrheit vor Komfort. Daten getrennt von Logik
+> (`data/` vs `js/`), jede Woche liefern, jede Version zählt hoch.
 
-**Legende:** ✅ live · 🟡 teil-live · 🔨 jetzt baubar (ohne Backend) ·
-🔵 Phase 3 (braucht Backend/Konten/Externe/Recht) · ⚠️ nur mit Schutz-Auflagen ·
-🅿️ bewusst geparkt · ❓ Bedeutung mit Betreiber klären
+## ⚠️ Realitäts-Abgleich (Stand v43 – bitte lesen)
+Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code ist:
 
-## I. Fundament & Identität
-1 ✅ Name SILBERLOCKE · 2 ✅ 18-Punkte-Manifest (auf der Übersicht, Inhalte in Daten; v41) · 3 ✅ Werkbank-Design ·
-4 ✅ Radikale Gleichheit (jeder startet Light) ·
-5 ✅ Identitäts-Onboarding-Frage (letzter Schritt „Wer willst du werden?", Erinnerung im Tagesplan-Banner; v42) ·
-6 ✅ Stealth-Entwicklung · 7 🔵 silberlocke.me + YouTube-Launch · 8 ✅ Kern kostenlos ·
-9 🔵 Spenden-Modell · 10 🔵 Legacy-Profile (Backend)
+1. **Marke:** Im Code heißt alles noch **SILBERLOCKE** (17 Stellen: Titel, PWA-Manifest,
+   Service-Worker) und die Währung **„SilberStaub"** (13 Stellen). Der Rebrand auf
+   **STΛTUS / „Punkte"** ist **noch nicht** umgesetzt → Punkt (1) & (29-Name) stehen
+   auf 🔨, nicht ✅. Eigener Sprint nötig (siehe „Deine Vorschläge").
+2. **Betreiber-Vorschau aktiv:** `PREVIEW_UNLOCK_ALL = true` (js/main.js, Z. 300)
+   hebelt aktuell die Verdien-Logik aus – **alles ist offen**, App startet in Master.
+   Bewusst für die Test-/Kontrollphase. **Vor Launch auf `false`** (eine Zeile), sonst
+   sind (4) radikale Gleichheit & (19) Progressive Disclosure faktisch umgangen.
+3. **Identitäts-Onboarding (5)** ist seit **v42 live** – in der eingereichten Liste
+   noch als 🔨 geführt. Hier auf ✅ korrigiert (Fixed-Choice-Buttons, kein Freitext →
+   aktuell **keine** Input-Sanitization nötig; erst bei Freitext-Eingabe relevant).
+4. Neue Punkte **111–128** und **WinterArc (129–132)** existieren im Code noch nicht –
+   realistischer Status unten (meist 🔨 Frontend oder 🔵 Backend).
 
-## II. System-Architektur
-11 ✅ Zwei-Achsen-System · 12 ✅ Light als Routine-Tracker *(v34: einfache Aufgaben statt fremder Produkte, eigener Trainings-Block, Personalisierungs-Banner)* ·
-13 🟡 Hard (Gramm im Stack ✓) · 14 🟡 Expert (Analytik ✓; harte Degradierung offen) ·
-15 ✅ Master nicht kaufbar, nur erspielbar · 16 🟡 Warrior (Alternativen ✓) ·
-17 🔨 King-Synergien/Premium-Stacks · 18 🟡 Schnell-Onboarding (Treibstoff-Puffer offen) ·
-19 ✅ Progressive Disclosure (7/14/21/…-Tage-Fahrplan) · 20 ✅ Gatekeeper: Aufstieg braucht Tage **und** Disziplin-Status ≥ 90 % (v36)
+**Legende:** ✅ live (im Code) · 🟡 teil-live (Struktur steht, Feinschliff/Inhalte fehlen) ·
+🔨 jetzt baubar (Frontend-Only, ohne Backend) · 🔵 Phase 3 (Backend/DB/Recht/Externe) ·
+⚠️ nur mit Schutz-Auflagen · 🅿️ bewusst geparkt · ❓ mit Betreiber klären
 
-## III. Disziplin & Truth-Engine
-21 🟡 Truth-Engine (Score-Entzug ✓) · 22 🔵 Integritäts-Audit (echt nur serverseitig) ·
-23 ✅ Disziplin-Balken (Loss Aversion) · 24 ✅ 24-h-Schreibschutz (Tag schließt um Mitternacht; seit v33 zählt JEDER verpasste Tag – Joker pro Tag, dann −5) ·
-25 ✅ Training-Steuer *(live, v33)* · 26 🔨⚠️ Degradierungs-Automatik (Regeln sauber definieren) ·
-27 ❓ „Pro Woche 70"-Logik (Bedeutung klären) · 28 🔨 Therapie-Verträge (lokal als Selbstverpflichtung)
+---
 
-## IV. Gamification & Squads
-29 ✅ SilberStaub · 30 ✅ Startpolster (1 Joker, Score 60) · 31 ✅ „Liebloses Essen"-Cheat-Tag (Staub-Shop, 250 ✨, 1×/Woche) ·
-32 ✅ Pre-Booking (Urlaub/Family freikaufen, 200 ✨/Tag; freigekaufte Tage entschuldigen Abwesenheit, zählen aber NIE als Fortschritt) · 33 ✅ Rolling-Joker (Cap 3; pro Woche statt Monat) ·
-34 ✅ Body-IQ-Quizzes (15 Fragen, Wahrheits-Ton, +5 ✨ je Frage – nicht farmbar; v40) · 35 ✅ Profil-Medaillen (10 verdiente Meilensteine, nur erspielbar; v39) · 36–45 🔵 Arena/Squads/Duelle/Likes/Matching (alles Backend)
+## Sprint 1 · Fundament, Architektur & Identität
+1 🔨 **STΛTUS als Markenname** (ersetzt SILBERLOCKE) – *im Code noch nicht umgesetzt* ·
+2 ✅ 18-Punkte-Manifest in der Übersicht (v41) · 3 ✅ Ablenkungsfreie Werkbank ·
+4 ✅⚠️ Radikale Gleichheit (jeder startet Light) – *aktuell durch Vorschau-Schalter offen* ·
+6 ✅ Stealth-Entwicklung · 8 ✅ Tracking-Kern 100 % kostenlos ·
+97 ✅ Modulare Architektur (`js/`-Logik getrennt von `data/`) · 98 ✅ PWA auf GitHub Pages (offline, atomare Versions-Pakete) ·
+105 🟡 Recht (Impressum-Platzhalter live; Betreiberdaten, AGB, DPMA-Marke offen) ·
+7 🔵 Launch via YouTube + STΛTUS-Domain · 96 🅿️ Next.js/React-Umbau (geparkt bis Backend zwingt) ·
+103 🔵 Backend-Kapselung der Straf-Logik (Supabase/RLS) · 104 🅿️ Obfuscation/Cloudflare-Blocker
 
-## V. Training & Überlastungsschutz
-46 🟡 Clash Detection (Schlaf-Sperre + Barriere ✓) · 47 ✅ Wochenplan-Baukasten ·
-48 🔨 Einheiten-Vorbereitung · 49 🔨 Material-/Spalten-Berechnung · 50 🔨 Rennrad-Pläne (als Daten) ·
-51 🔵 Watt-Tracking (Hardware) · 52 🟡 Hypertrophie (Pläne ✓; Volumen-Tracking offen) ·
-53 🟡 Überlastungsschutz (Schlaf + Barriere) · 54 ✅ Pre-Workout-Schranke ·
-55 🅿️ In-Training Scroll-Sperre (UX prüfen) · 56 🔵 Wetter/Geo (externe API)
+## Sprint 2 · Onboarding & Phase Zero (Der Türsteher)
+11 ✅ Zwei-Achsen-Matrix (Erfahrungs- × Budget-Modus) · 18 🟡 3-Schritt-Setup baut das Dashboard (Treibstoff-Puffer offen) ·
+5 ✅ Identitäts-Onboarding „Wer willst du werden?" (v42, letzter Schritt + Tages-Banner) ·
+114 🔨 „Dicke-Plan" (Phase Zero): 1. Monat für Übergewichtige, straffrei ·
+115 🔨 „Ektomorph-Plan": Untergewichtige, Fokus Magendehnung/Volumen ·
+116 🔨 „Schatten-Tracking": im 1. Monat keine kcal-Zahlen (Baseline statt Zahlen-Fixierung) ·
+45 🔵 Vergleichs-Matching (identische Veteranen-Profile)
 
-## VI. Chronobiologie & Ernährung
-57 🟡 Tages-Taktung (ab individueller Aufwachzeit statt fix 10:00 – bewusste Verbesserung) ·
-58 🟡 Standard-Mahlzeiten (Slots ✓; Rezept-Routinen offen) ·
-59 🟡 Wochen-Wiegen → Neuberechnung (Audit mit manueller Übernahme; Auto nur mit Schutzgrenzen) ·
-60 🔵 Apple Watch / Health Connect · 61 🅿️ iPhone-Alarme (Web-Grenze; PWA-Notifications prüfen) ·
-62 🔨 Gebets-/Halal-Modus (als Daten) · 63 🟡 Sleep Mode (Analyse + Tipps ✓; Blaulicht-Anleitung offen) ·
-64 🔨 Hydrations-/Elektrolyt-Schnellzugriff
+## Sprint 3 · Chronobiologie, UI & tägliche Werkbank
+19 ✅⚠️ Progressive Disclosure (7/14/21/28-Tage-Fahrplan) – *aktuell durch Vorschau offen* ·
+34 ✅ Body-IQ-Quiz (v40, 15 Fragen, nicht farmbar) · 99 ✅ Dark-Mode (Lila/Grün/Rot) ·
+101 ✅ Tipp des Tages (v38, tagesrotierend) · 57 🟡 Dynamische Einnahmefenster (ab individueller Aufwachzeit) ·
+58 🟡 Standard-Mahlzeiten (Slots live, Rezept-Routinen offen) · 63 🟡 Sleep Mode (Analyse live, Blaulicht-Anleitung offen) ·
+62 🔨 Beten/Halal-Modus (Gebetszeiten, als Daten) · 64 🔨 Wasser-/Elektrolyt-Schnellzugriff ·
+100 🔨 Themes/Vibes · 113 🔨 „Brennende Batterie" (Statusbalken-Animation beim Tracken) ·
+61 🅿️ „Aleman Trink-Timer" (native Alarme – PWA-Limits) · 127 🔵 Financial-Hub (Open-Banking) ·
+128 🔵 Medical-Terminal (verschlüsseltes Befund-Archiv)
 
-## VII. Medizin & Recovery
-65 🟡 Deep-Recovery (RecoveryMode + Tagestyp) · 66 ✅ Befunde/Überweisungen eintragen ·
-67 🔵 Doctor-ID/Portal-Sync · 68 🔨 Faire Rekonvaleszenz (Krankheit: Schlaf+Wasser = Tages-Wertung) ·
-69 🔵 Squad-Genesungsnachrichten · 70 🔨 Wiederaufbau-Plan nach Krankheit ·
-71 🟡 Blutwerte (✓) × Stack-Korrelation (ausbaubar)
+## Sprint 4 · Trainings-Matrix & Leistungssteuerung
+47 ✅ Wochenplan-Baukasten · 54 ✅ Pre-Workout-Schranke (ZNS/Schlaf) ·
+46 🟡 Clash Detection (Schlaf-Sperre + Barriere live) · 52 🟡 Hypertrophie (Pläne live, Volumen-Tracking offen) ·
+53 🟡 Überlastungs-Bremse (Schlaf + Barriere) · 48 🔨 Einheiten-Vorbereitung (nächstes Workout visualisieren) ·
+49 🔨 Pulver-/Wasser-Berechnung pro Einheit · 50 🔨 Rennrad-Pläne (als Daten) ·
+122 🔨 Clash-Detection unterscheidet Trainings- vs. Ruhetag · 55 🅿️ Satzpausen-App-Sperre (Social-Media-Block) ·
+51 🔵 Watt-Tracking (Hardware) · 56 🔵 Wetter/Geo (Hydration) · 60 🔵 Apple Health / Health Connect
 
-## VIII. Produkt-Datenbank & Transparenz
-72 ✅ Genauigkeit statt Marketing · 73 🅿️ Hersteller-Abfragen (manuell durch Betreiber) ·
-74 🔨 Split-Screen der Wahrheit · 75 ✅ Fakten getrennt von Meinung (NRV isoliert) ·
-76 ✅ Keine Wirkversprechen (Disclaimer) · 77 🟡 No-Bullshit-Rating (Schema ✓, Werte fehlen) ·
-78 🟡 Kennzeichnung Studie vs. Meinung · 79 🟡 Rezeptur-Warnung (Schema ✓) ·
-80 🔨 MHD-/Alt-Rezeptur-Warnung · 81 ✅ Makro-Block-Bündelung (Zeitblöcke) ·
-82 ✅ Efficiency-Filter (Überdosierungs-Warnung ab 500 %/1000 % NRV, ehrlich zu wasser- vs. fettlöslich; v37) · 83 ✅ Smart-Replacement ·
-84 🔵 Externe Reviews (API/Recht)
+## Sprint 5 · Supplement-Datenbank & Science
+72 ✅ Datenbank nach Fakten statt Marketing · 75 ✅ Studie strikt getrennt von Meinung (NRV isoliert) ·
+76 ✅ Harte Disclaimer statt Wirkversprechen · 81 ✅ Makro-Block-Bündelung (Zeitblöcke) ·
+82 ✅ Efficiency-Filter (Überdosis-Warnung ab 500/1000 % NRV, v37) ·
+83 ✅ Smart-Replacement (Ersatzvorschlag bei ausverkauften Produkten) ·
+77 🟡 No-Bullshit-Geschmackstester (Schema live, Werte fehlen) · 78 🟡 Codes Studie vs. User-Erfahrung ·
+79 🟡 Rezeptur-Warnflagge (Schema live) · 74 🔨 Split-Screen Marketing-Dose vs. STΛTUS-Realität ·
+80 🔨 Pseudo-Rabatt-/MHD-Entlarvung · 121 🔨 Molekülverbindungen (z. B. Bisglycinat vs. Oxid, als Daten) ·
+123 🔨⚠️ Disclaimer-Labels für Medikamenten-Interaktionen · 73 🅿️ Herstellerdaten manuell einholen
 
-## IX. Finanzen & Affiliate
-85 🔵 Open Banking (FinAPI/Tink) · 86 🔵 Trash-Ausgaben-Analyse · 87 🟡 Survival-Zonen
-(Warrior manuell + Empfehlung bei Minus ✓; Auto nur mit Banking) · 88 🔵 „Disziplin = Geld" ·
-89 🔵 Predictive Finance · 90 🟡 Kontextuelles Affiliate (Schema ✓, Links fehlen) ·
-91 ✅ Wissenschaft als Basis (Studien-DB) · 92 ✅ Gatekeeper-Integrität (Prinzip verankert) ·
-93 🔨 Transparenz bei fehlenden Links · 94 ✅ Kooperationen ohne Bewertungs-Einfluss (Prinzip) ·
-95 🟡 Savings-Insight (Alternativen ✓; €/100 g-Rechnung braucht Preisdaten)
+## Sprint 6 · Gamification, Strafen & Tabu-Börse
+12 ✅ Light Mode (Routine-Tracker, v34) · 20 ✅ Gatekeeper (Aufstieg ab Disziplin ≥ 90 %, v36) ·
+23 ✅ Disziplin-Balken (Loss Aversion) · 24 ✅ 24-h-Schreibschutz (jeder verpasste Tag zählt, v33) ·
+25 ✅ Training-Steuer (Pflicht-Zusatz bei Lücken, v33) · 29 ✅ Punkte („SilberStaub", nur durch Tracking) ·
+30 ✅ Startpolster (1 Joker, Score 60) · 31 ✅ „Liebloses Essen"-Cheat-Tag im Shop (v35) ·
+32 ✅ Pre-Booking für planbare Ausfälle (v35) · 33 ✅ Rolling-Joker (Cap 3/Woche, v35) ·
+13 🟡 Hard Mode (Gramm-Tracking) · 14 🟡 Expert Mode (Timing, Mikronährstoffe) · 21 🟡 Truth-Engine (Score-Entzug) ·
+26 🔨⚠️ Degradierungs-Automatik (Regeln sauber definieren) · 28 🔨 Therapie-Verträge (lokal) ·
+111 🔨 Tabu-Börse (Sünden-Produkte mit Punkten freischalten) · 112 🔨 Schatten-Kompensation (kcal-Ausgleich für Tabus) ·
+27 ❓ „Pro Woche 70"-Logik (Bedeutung klären)
 
-## X. Technik, UI & Schutz
-96 🅿️ Next.js-Umbau (geparkt bis Backend nötig; dann schrittweise) · 97 ✅ Modulare Architektur ·
-98 ✅ PWA auf GitHub Pages · 99 ✅ Dark-Mode-Design (Lila/Grün/Rot) · 100 🔨 Themes/Vibes ·
-101 ✅ Tipp des Tages (30 Tipps, tagesdeterministisch/rotierend, für alle gleich; v38) · 102 🔵⚠️ Lokaler Foto-Tresor (sensibel, Datenschutz-by-Design) ·
-103 🔵 Backend-Kapselung (Supabase RLS) · 104 🅿️ Obfuscation (geringer Nutzen; Code ist MIT) ·
-105 🟡 Recht (Impressum-Platzhalter ✓; Betreiberdaten, AGB, DPMA offen)
+## Sprint 7 · Hardware-Locks & Anti-Schummel-Eskalation
+108 ✅ Confession Loop (Beichte → Pflicht-Cardio statt Degradierung, v33) ·
+59 🟡 Wochen-Wiegen/Truth-Check (manuell live; Auto nur mit Schutzgrenzen) ·
+109 🟡⚠️ Thermodynamik-Audit (±500-kcal-Deckel, >1,5 kg/Woche → Arzt-Verweis) ·
+110 🔨⚠️ System-Tribunal (Einfrieren + Arzt-Verweis bei math. Widerspruch, respektvoll) ·
+22 🔵 Integritäts-Audit (echt nur serverseitig) · 102 🔵⚠️ Foto-Tresor (verschlüsselt) ·
+106 🔵⚠️ Audit-Kamera (Zero-Retention) · 107 🔵⚠️ Waagen-Pflicht-Foto (Elite)
 
-## XI. Anti-Schummel-Mechanismen
-106 🔵⚠️ Audit-Kamera (Zero-Retention; Kamera-Rechte + DSGVO) · 107 🔵⚠️ Waagen-Pflicht-Foto ·
-108 ✅ Confession Loop *(live, v33 – Beichte kostet keinen Status, erzeugt Pflicht-Cardio-Block für morgen, stapelbar bis 60 Min)* ·
-109 🟡⚠️ Thermodynamik-Audit – **live mit Schutzgrenzen** (±500-kcal-Deckel, >1,5 kg/Woche →
-Arzt-Verweis statt weiterer Kürzung). Eine unbegrenzte Kürzungs-Spirale wird aus
-Gesundheitsschutz-Gründen **nicht** gebaut – bei echten medizinischen Ursachen
-(Schilddrüse, Wassereinlagerungen, Essstörung) wäre sie gefährlich. ·
-110 🔨⚠️ System-Tribunal – als **Einfrieren + Arzt-Verweis** bei mathematischem Widerspruch
-umsetzbar; Ton respektvoll („bitte medizinisch abklären"), kein beschämender Rauswurf –
-gleiche Wirkung, ohne Haftungs-/Ethik-Risiko.
+## Sprint 8 · Soziale Arena & Squads (alles Phase 3/Backend)
+35 ✅ Profil-Medaillen (v39, lokal – später serverseitig) ·
+36 🔵 STΛTUS-Arena (4er-Squads) · 37 🔵 Team-Karma · 38 🔵 Demokratischer Team-Ausschluss ·
+39 🔵 Boost für fehlerfreie Squads · 40 🔵 Serien-Ranking · 41 🔵 Fleiß-Leaderboard ·
+42 🔵 1-vs-1-Disziplin-Duelle · 43 🔵 „Likes" für harte Workouts · 44 🔵 Support-Punkte
 
-## Versionshistorie (Auszug)
-v22 Joker · v23 Monats-Aufstieg (4 Stufen) · v24 Pre-Workout-Barriere ·
-v25 Thermodynamik-Audit · v26 SilberStaub + Joker-Schmiede · v27 Recht-Basics ·
-v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
-v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
-v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) ·
-v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft) ·
-v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay) ·
-v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht) ·
-v39 Profil-Medaillen (verdiente Meilensteine auf der Übersicht) ·
-v40 Body-IQ-Quiz (Wissens-Check, verdient SilberStaub – nicht farmbar) ·
-v41 Manifest (18 Grundsätze auf der Übersicht) ·
-v42 Identitäts-Frage im Onboarding + Betreiber-Vorschau (alle Stufen ansehen) ·
-v43 Betreiber-Vorschau als Standard (PREVIEW_UNLOCK_ALL – alles offen, App startet in Master)
+## Sprint 9 · E-Commerce, Open Banking & Monetarisierung
+**Budget-Achse (zweite Achse zu #11):**
+16 🟡 Warrior-Modus (günstige Basis-Rohstoffe, Alternativen live) · 17 🔨 King-Modus (Premium-Stacks/Synergien)
+**A. Finanz-Transparenz & Banking**
+85 🔵 Open Banking (FinAPI/Tink) · 86 🔵 Trash-Ausgaben-Analyse · 87 🟡 Survival-Automatik (manuell live) ·
+88 🔵 Schmerz-Analyse (Fast-Food-Geld vs. Supplement) · 89 🔵 Predictive Finance (Jahresvorrat)
+**B. Affiliate-Strategie (Wissenschaft vor Profit)**
+90 🟡 Kontextuelles Affiliate (Schema live) · 91 ✅ Wissenschaftliche Basis (Studien-DB) ·
+92 ✅ Gatekeeper-Integrität (Link-Entfernung bei Qualitätsverlust – Prinzip) · 93 🔨 Transparenz-Label (Top-Produkt ohne Link) ·
+94 ✅ Neutralitäts-Garantie (Kooperationen ändern Bewertung nie) · 95 🟡 Savings-Insight (Alternativen live, €/100 g offen)
+**C. Physische Trophäen (getrennt vom digitalen Punkte-Shop, nur für Absolventen)**
+117 🔵 Physische Trophäen (Selbstkostenpreis) + Gravur-Upgrades als einzige Monetarisierung ·
+118 🔵 Material-Ehre (Spezifikations-Zettel) · 124 🔵 „Stille Münze" (Geschenk in Bestellungen) ·
+125 🔵 Strava-Apex-Filter · 126 🔵 Laser-Gravur GPS-Route in Acryl · 84 🔵 Externe Reviews (Amazon/Google)
 
-## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#5** Identitäts-Frage im Onboarding · **#64** Hydrations-/Elektrolyt-Schnellzugriff
-2. **#80** MHD-/Alt-Rezeptur-Warnung · **#100** Themes/Vibes
-3. **#17** King-Synergien/Premium-Stacks · **#35→** Medaillen-Detail/Teilen
+## Sprint 10 · Recovery, Master Mode & Endgame
+15 ✅ Master Mode (nicht wählbar, nur erspielbar) · 66 ✅ Manuelles Drosseln bei Befunden (Gewebereparatur) ·
+65 🟡 Deep-Recovery (RecoveryMode + Tagestyp) · 71 🟡 Blutwerte × Stack-Korrelation ·
+68 🔨 Faire Rekonvaleszenz (Krankheit: Schlaf+Wasser = Tages-Wertung) · 70 🔨 Wiedereinstiegs-Plan nach Krankheit ·
+119 🔨 „STΛTUS-Paradoxon" (Perfektions-Falle macht Mikromanagement obsolet) ·
+120 🔨 „Eternity Mode" (Endgame: Entlassung in die straffreie Freiheit) ·
+9 🔵 Spendenmodell (Absolventen) · 10 🔵 Legacy-Profile · 67 🔵 Doctor-ID-Sync · 69 🔵 Squad-Genesungsnachrichten
 
-## Phase 3 (erst mit Backend + Rechtsprüfung)
+## Sprint 11 · WinterArc – Inspiration, Events & Newsletter (NEU)
+> Menschen aus der Routine holen, Neues wagen – sachlich, nicht aufdringlich.
+129 🔨 Lokaler „Inspirations-Impuls" (wie Tipp des Tages, aber Aktivitäten/Sportarten, saisonal, als Daten – Frontend-Teaser sofort baubar) ·
+130 🔵 Lokale Events/Veranstaltungen anzeigen (Event-API/Partner) ·
+131 🔵 Aktivitäten direkt buchbar (Provision bei Buchung, neutral & transparent) ·
+132 🔵 Newsletter (Qualität statt Spam; braucht E-Mail-Infra + DSGVO-Consent)
+
+---
+
+## Deine Vorschläge (meine Empfehlungen, priorisiert)
+1. **Rebrand als eigener, sauberer Sprint (1 + 29-Name):** SILBERLOCKE → STΛTUS,
+   „SilberStaub" → „Punkte". Betrifft ~30 Stellen (Titel, `manifest.json`,
+   Service-Worker-Cache-Name, alle UI-Strings, Icons). **Riskant, wenn hastig** –
+   ich mache es kontrolliert in einer Version mit Browser-Verifikation. *Sag „Rebrand",
+   dann ziehe ich das durch.* (Aktuell bewusst NICHT angefasst, um nichts zu zerschießen.)
+2. **Launch-Sicherung:** `PREVIEW_UNLOCK_ALL = false` gehört auf die Launch-Checkliste.
+   Für die Testphase bleibt es `true` (du kontrollierst alles).
+3. **Nächster Frontend-Sprint mit hohem Wert:** **Sprint 2 · Phase Zero (114–116)** –
+   Dicke-/Ektomorph-Plan + Schatten-Tracking. Reines Frontend, stark auf Marke/Ethos,
+   spricht echte Einsteiger an.
+4. **Aufräumen vor dem Zubauen:** Die Übersicht platzt (Fortschritt, Staub-Shop,
+   Medaillen, Body-IQ, Manifest, Finanz, Heute, Körper, Woche, Recovery, Tipp…).
+   Empfehlung: Identität (Manifest/Medaillen/Body-IQ/Identitäts-Statement) in einen
+   eigenen **„Profil/Ich"-Tab** auslagern → Übersicht bleibt handlungsfokussiert.
+5. **WinterArc leichtgewichtig starten (129):** Ein lokaler saisonaler Inspirations-Impuls
+   (Daten-getrieben, wie der Tipp) geht sofort – die Event-/Buchungs-/Newsletter-Teile
+   (130–132) sind ehrlich Phase 3 (APIs, Partner, DSGVO).
+6. **Zu „image_5.png / kaputtes Formular #5":** Punkt 5 ist **fertig & live (v42)** und
+   nutzt Auswahl-Buttons (kein Freitext → keine Injection-Fläche). Ich sehe das Bild
+   nicht – wenn dort etwas kaputt aussieht, schick mir kurz, was genau (Screenshot/Text),
+   dann fixe ich gezielt.
+
+## Phase-3-Schwelle (erst dann Backend/Next.js)
 Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →
-Kamera-Beweise (106/107) → Health-Integrationen (60, 67) → dann Tech-Migration (96).
-Voraussetzungen: echte Betreiberdaten im Impressum (Büro-Adresse geplant), AGB,
-DSGVO-Konzept (Gesundheits- + ggf. Finanzdaten!), Kostenplan.
+Kamera-Beweise (106/107) → Health-Integrationen (60, 67, 127, 128) →
+Events/Newsletter (130–132) → dann Tech-Migration (96).
+Voraussetzungen: echte Betreiberdaten im Impressum, AGB, DSGVO-Konzept
+(Gesundheits- + ggf. Finanzdaten!), Kostenplan.
 
 ## Technik-Schulden (laufend abbauen)
-- ⚠️ **Vor öffentlichem Launch:** `PREVIEW_UNLOCK_ALL` (oben in `js/main.js`) auf
-  `false` setzen. Aktuell (Bau-/Testphase) ist ALLES freigeschaltet – keine
-  gesperrten Stufen/Funktionen, App startet in Master – damit der Betreiber alles
-  kontrollieren kann. Mit `true` umgeht jeder Nutzer die Verdien-Logik.
-- Übersicht wird voll: Identität (Manifest/Medaillen/Body-IQ) evtl. in eigenen „Profil"-Bereich auslagern
-- `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body)
-- E2E-Tests (Playwright) in die CI aufnehmen
-- Versionsnummer (APP_VERSION/CACHE_VERSION) bei jedem Deploy +1
+- ⚠️ **Vor Launch:** `PREVIEW_UNLOCK_ALL` (js/main.js) auf `false` – hebelt sonst die Verdien-Logik für jeden aus.
+- **Rebrand** SILBERLOCKE→STΛTUS / SilberStaub→Punkte (siehe Vorschlag 1).
+- Übersicht in „Profil/Ich"-Bereich entlasten (Vorschlag 4).
+- `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body).
+- E2E-Tests (Playwright) in die CI aufnehmen.
+- APP_VERSION/CACHE_VERSION bei jedem Deploy +1.
+
+## Versionshistorie (Auszug)
+v22 Joker · v24 Pre-Workout-Barriere · v25 Thermodynamik-Audit · v26 SilberStaub ·
+v27 Recht-Basics · v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
+v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer · v34 Light-Routine-Tracker ·
+v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficiency-Filter ·
+v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest ·
+v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung
