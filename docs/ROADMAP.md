@@ -106,7 +106,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 
 ## Sprint 9 · E-Commerce, Open Banking & Monetarisierung
 **Budget-Achse (zweite Achse zu #11):**
-16 🟡 Warrior-Modus (günstige Basis-Rohstoffe, Alternativen live) · 17 🔨 King-Modus (Premium-Stacks/Synergien)
+16 🟡 Warrior-Modus (günstige Basis-Rohstoffe, Alternativen live) · 17 ✅ König-Modus (Synergien im Overlay: belegte Kombis, Gegenstück zu Warrior; v56)
 **A. Finanz-Transparenz & Banking**
 85 🔵 Open Banking (FinAPI/Tink) · 86 🔵 Trash-Ausgaben-Analyse · 87 🟡 Survival-Automatik (manuell live) ·
 88 🔵 Schmerz-Analyse (Fast-Food-Geld vs. Supplement) · 89 🔵 Predictive Finance (Jahresvorrat)
@@ -191,4 +191,5 @@ v51 Medikamenten-Wechselwirkungs-Disclaimer (#123) ·
 v52 Einheiten-Vorbereitung (#48) ·
 v53 Produktname aus dem Code gelöst (eine Konstante, Arbeitstitel VΛAΛV) ·
 v54 Pulver-/Wasser-Berechnung pro Einheit (#49) ·
-v55 Clash-Detection Trainings- vs. Ruhetag (#122)
+v55 Clash-Detection Trainings- vs. Ruhetag (#122) ·
+v56 König-Synergien (#17)

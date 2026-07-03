@@ -3424,6 +3424,37 @@
                 <div class="med-note">Kein medizinischer Rat. Wenn du Medikamente nimmst oder erkrankt bist: vor der Einnahme mit Arzt oder Apotheker abklären.</div>
             </div>`;
         }
+        // ── KÖNIG-SYNERGIEN (#17): belegte Wirkstoff-Kombinationen ─────────────────
+        // Gegenstück zum Warrior-Modus (Spar-Alternativen): im König-Modus zeigt das
+        // Overlay, womit ein Produkt sinnvoll kombiniert wird. Faktisch, science-basiert.
+        const SYNERGY_RULES = [
+            { m: /creatin/i,                              p: [{ n: 'Kohlenhydrate', w: 'verbessern die Creatin-Aufnahme in die Muskelzelle' }] },
+            { m: /omega|fischöl|\bepa\b|\bdha\b/i,        p: [{ n: 'Vitamin D', w: 'beide fettlöslich – zusammen mit einer fetthaltigen Mahlzeit einnehmen' }] },
+            { m: /magnesium/i,                            p: [{ n: 'Vitamin B6', w: 'unterstützt die Verwertung von Magnesium' }] },
+            { m: /eisen/i,                                p: [{ n: 'Vitamin C', w: 'steigert die Aufnahme von Eisen deutlich' }] },
+            { m: /vitamin d\b|vitamin d3|cholecalciferol/i, p: [{ n: 'Vitamin K2', w: 'lenkt das Kalzium in die Knochen statt in die Gefäße' }] },
+            { m: /vitamin k2|menachinon/i,                p: [{ n: 'Vitamin D3', w: 'D3 erhöht die Kalzium-Aufnahme, K2 lenkt es richtig' }] },
+            { m: /curcum|kurkuma/i,                       p: [{ n: 'Piperin (schwarzer Pfeffer)', w: 'erhöht die Bioverfügbarkeit von Curcumin stark' }] },
+            { m: /koffein|caffein|pre-?workout/i,         p: [{ n: 'L-Theanin', w: 'glättet die Koffein-Wirkung – Fokus ohne Zittern' }] },
+            { m: /\bzink\b/i,                             p: [{ n: 'Vitamin C', w: 'gängige Immun-Kombination' }] },
+        ];
+        function productSynergies(p) {
+            // Nur Name + Kategorie (Haupt-Wirkstoff) – NICHT Spuren-Nährstoffe, sonst
+            // triggert z. B. Whey mit Spuren-Eisen fälschlich eine Eisen-Synergie.
+            const hay = ((p.name || '') + ' ' + (p.cat || '')).toLowerCase();
+            const seen = new Set(); const out = [];
+            SYNERGY_RULES.forEach(r => { if (r.m.test(hay)) r.p.forEach(x => { if (!seen.has(x.n)) { seen.add(x.n); out.push(x); } }); });
+            return out;
+        }
+        function buildSynergyHtml(p) {
+            if (isWarrior()) return '';   // Warrior zeigt Spar-Alternativen, nicht Synergien
+            const syn = productSynergies(p);
+            if (!syn.length) return '';
+            return `<div class="syn-box">
+                <div class="syn-title">👑 König-Synergien</div>
+                ${syn.map(s => `<div class="syn-line">🤝 <strong>${s.n}</strong> – ${s.w}</div>`).join('')}
+            </div>`;
+        }
 
         function toggleTimelineCard(id) {
             const card = document.getElementById(`tc-${id}`);
@@ -3470,7 +3501,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
+                    </div>` + buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3504,7 +3535,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = buildMedInteractionHtml(p) + buildSplitScreenHtml(p) + smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + buildSynergyHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -4296,7 +4327,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v55';
+const APP_VERSION = 'v56';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

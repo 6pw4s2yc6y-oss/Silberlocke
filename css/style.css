@@ -1165,6 +1165,12 @@
         .med-line { font-size: 11px; line-height: 1.5; color: #e2e8f0; margin-top: 4px; }
         .med-note { font-size: 10px; line-height: 1.5; color: #fca5a5; margin-top: 8px; font-weight: 600; }
 
+        /* KÖNIG-SYNERGIEN (#17) */
+        .syn-box { background: #14100a; border: 1px solid #a16207; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+        .syn-title { font-size: 12px; font-weight: 800; color: #fcd34d; margin-bottom: 6px; }
+        .syn-line { font-size: 11px; line-height: 1.55; color: #e2e8f0; margin-top: 4px; }
+        .syn-line strong { color: #fde68a; }
+
         /* EINHEITEN-VORBEREITUNG (#48) */
         .dash-card.nextunit { border-color: #334155; }
         .dash-card.nextunit:hover { border-color: #22c55e; }
