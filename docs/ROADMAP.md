@@ -14,7 +14,7 @@
 🅿️ bewusst geparkt · ❓ Bedeutung mit Betreiber klären
 
 ## I. Fundament & Identität
-1 ✅ Name SILBERLOCKE · 2 🔨 18-Punkte-Manifest (als Seite/Daten) · 3 ✅ Werkbank-Design ·
+1 ✅ Name SILBERLOCKE · 2 ✅ 18-Punkte-Manifest (auf der Übersicht, Inhalte in Daten; v41) · 3 ✅ Werkbank-Design ·
 4 ✅ Radikale Gleichheit (jeder startet Light) · 5 🔨 Identitäts-Onboarding-Frage ·
 6 ✅ Stealth-Entwicklung · 7 🔵 silberlocke.me + YouTube-Launch · 8 ✅ Kern kostenlos ·
 9 🔵 Spenden-Modell · 10 🔵 Legacy-Profile (Backend)
@@ -103,12 +103,13 @@ v36 Gatekeeper (Aufstieg an Disziplin-Status ≥ 90 % geknüpft) ·
 v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay) ·
 v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht) ·
 v39 Profil-Medaillen (verdiente Meilensteine auf der Übersicht) ·
-v40 Body-IQ-Quiz (Wissens-Check, verdient SilberStaub – nicht farmbar)
+v40 Body-IQ-Quiz (Wissens-Check, verdient SilberStaub – nicht farmbar) ·
+v41 Manifest (18 Grundsätze auf der Übersicht)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-1. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
-2. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
-3. **#100** Themes/Vibes · **#17** King-Synergien/Premium-Stacks
+1. **#5** Identitäts-Frage im Onboarding · **#64** Hydrations-/Elektrolyt-Schnellzugriff
+2. **#80** MHD-/Alt-Rezeptur-Warnung · **#100** Themes/Vibes
+3. **#17** King-Synergien/Premium-Stacks · **#35→** Medaillen-Detail/Teilen
 
 ## Phase 3 (erst mit Backend + Rechtsprüfung)
 Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →

@@ -19,6 +19,7 @@ const FILES = {
     studies:         'studies/studies.json',
     tips:            'app/tips.json',
     quiz:            'app/quiz.json',
+    manifest:        'app/manifest.json',
 };
 
 async function fetchJson(file) {

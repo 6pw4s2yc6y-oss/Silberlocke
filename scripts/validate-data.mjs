@@ -27,6 +27,7 @@ const daytypes = load('app/daytypes.json');
 const studies = load('studies/studies.json');
 const tips = load('app/tips.json');
 const quiz = load('app/quiz.json');
+const manifest = load('app/manifest.json');
 
 // ── products ────────────────────────────────────────────────────────────────
 const productIds = new Set();
@@ -106,6 +107,18 @@ else quiz.forEach((q, i) => {
     else q.options.forEach((o, oi) => { if (typeof o !== 'string' || !o.trim()) fail(`${at}.options[${oi}]: leer/kein String`); });
     if (typeof q.correct !== 'number' || q.correct < 0 || q.correct > 3) fail(`${at}: "correct" muss 0–3 sein`);
     if (q.id) { if (quizIds.has(q.id)) fail(`${at}: doppelte id "${q.id}"`); quizIds.add(q.id); }
+});
+
+// ── manifest (18 Grundsätze) ─────────────────────────────────────────────────
+const maniNums = new Set();
+if (!Array.isArray(manifest) || manifest.length === 0) fail('manifest.json: muss ein nicht-leeres Array sein');
+else manifest.forEach((p, i) => {
+    const at = `manifest[${i}]`;
+    ['title', 'text'].forEach(k => {
+        if (typeof p[k] !== 'string' || !p[k].trim()) fail(`${at}: "${k}" fehlt oder ist kein String`);
+    });
+    if (typeof p.n !== 'number' || p.n < 1) fail(`${at}: "n" muss eine positive Zahl sein`);
+    else { if (maniNums.has(p.n)) fail(`${at}: doppelte Nummer "${p.n}"`); maniNums.add(p.n); }
 });
 
 // ── timeline_config ─────────────────────────────────────────────────────────
@@ -269,4 +282,4 @@ if (errors.length) {
     errors.forEach(e => console.error('  - ' + e));
     process.exit(1);
 }
-console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen, ${tips.length} Tipps, ${quiz.length} Quizfragen.`);
+console.log(`✅ Daten gültig: ${products.length} Produkte, ${timeline.length} Timeline-Blöcke, ${nutr.length} Nährstoffe, ${Object.keys(sport).length} Sportpläne, ${Object.keys(body).length} Körperzonen, ${blood.length} Blutwerte, ${monitoring.checklist.length} Monitoring-Punkte, ${emergency.numbers.length} Notrufnummern, ${injuries.length} Verletzungen, ${tips.length} Tipps, ${quiz.length} Quizfragen, ${manifest.length} Manifest-Punkte.`);

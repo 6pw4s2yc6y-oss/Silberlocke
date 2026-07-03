@@ -51,6 +51,7 @@
         let STUDIES = [];   // Studien-/Beleg-Datenbank (data/studies/studies.json)
         let TIPS = [];      // Tipp des Tages (data/app/tips.json)
         let QUIZ = [];      // Body-IQ-Quiz (data/app/quiz.json)
+        let MANIFEST = [];  // 18-Punkte-Manifest (data/app/manifest.json)
 
         const CRITICAL = [
           { bad:true,  text:"Mineralien-Transporter-Konflikt: Zink & Eisen teilen DMT1/SLC11A2, Calcium nutzt TRPV6-Kanäle, Magnesium TRPM6/7 – trotz unterschiedlicher Transporter hemmen sie sich gegenseitig bei gleichzeitiger Einnahme (geteilte Resorptionskapazität im Darm). Niemals gleichzeitig, mind. 2h Abstand!" },
@@ -825,6 +826,8 @@
         let quizOpen = false;
         let quizFeedback = null;   // { qid, chosen, correct } – zeigt Auflösung nach dem Antworten
         function toggleQuiz() { quizOpen = !quizOpen; quizFeedback = null; renderDashboard(); }
+        let manifestOpen = false;
+        function toggleManifest() { manifestOpen = !manifestOpen; renderDashboard(); }
         const CHEAT_COST = 250, PREBOOK_COST = 200;
         // 🍕 „Liebloses Essen": heute frei essen ohne Beichte/Steuer – max. 1×/Woche.
         function buyCheatDay() {
@@ -983,6 +986,19 @@
                 <div class="quiz-opts">${opts}</div>
                 <div class="shop-note">Richtig beantwortet: +${QUIZ_REWARD} ✨ (einmal pro Frage). Falsch kostet nichts – du bekommst die Auflösung.</div>`;
         }
+        // ── MANIFEST (#2): die 18 Grundsätze – die Seele von SILBERLOCKE ─────────────
+        // Inhalte in Daten (data/app/manifest.json), damit der Betreiber die
+        // Formulierungen jederzeit anpassen kann, ohne Code anzufassen.
+        function manifestPanelHtml() {
+            const items = MANIFEST.map(p =>
+                `<div class="mani-point">
+                    <div class="mani-num">${String(p.n).padStart(2, '0')}</div>
+                    <div class="mani-body"><div class="mani-title">${p.title}</div><div class="mani-text">${p.text}</div></div>
+                </div>`).join('');
+            return `<div class="dash-title">📜 Das Manifest · ${MANIFEST.length} Grundsätze</div>
+                <div class="mani-list">${items}</div>
+                <div class="shop-note">Diese Grundsätze sind der Maßstab – für dich und für das System. Unbestechlich.</div>`;
+        }
         // Fortschritts-Karte (Übersicht): Status-Balken + Weg zur nächsten Freischaltung.
         function progressCardHtml() {
             const p = loadProgress();
@@ -1115,6 +1131,13 @@
             else cards.push({ open: 'tabRecovery', cls: 'emergency', html:
                 `<div class="dash-icon">💚</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">Verletzungen, Erste Hilfe, Seelisches &amp; Notruf</div>` });
 
+            // Das Manifest (#2) – die Grundsätze, aufklappbar
+            if (MANIFEST.length) {
+                cards.push({ action: toggleManifest, cls: 'wide manifest', html:
+                    `<div class="dash-icon">📜</div><div class="dash-title">Das Manifest</div>
+                     <div class="dash-sub">Die ${MANIFEST.length} Grundsätze von SILBERLOCKE · Tippen: ${manifestOpen ? 'schließen ▲' : 'lesen ▼'}</div>` });
+                if (manifestOpen) cards.push({ htmlOnly: true, cls: 'wide manipanel', html: manifestPanelHtml() });
+            }
             // Tipp des Tages (#101) – motivierender Abschluss der Übersicht
             if (TIPS.length) cards.push({ htmlOnly: true, cls: 'wide tip', html: tipCardHtml() });
 
@@ -3838,6 +3861,7 @@
                 STUDIES         = data.studies || [];
                 TIPS            = data.tips || [];
                 QUIZ            = data.quiz || [];
+                MANIFEST        = data.manifest || [];
                 // Tagestyp-Texte aus data/app/daytypes.json in die Lookup-Maps übernehmen
                 // (Daten liegen in JSON, der Code hält nur die Referenzen).
                 Object.entries(data.daytypes || {}).forEach(([type, d]) => {
@@ -3995,7 +4019,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v40';
+const APP_VERSION = 'v41';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
