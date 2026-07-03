@@ -887,13 +887,7 @@
         // nicht als disziplinierte Tage – Aufstieg bleibt unkaufbar, Archiv #15).
         let staubShopOpen = false;
         function toggleStaubShop() { staubShopOpen = !staubShopOpen; renderDashboard(); }
-        let medalsOpen = false;
-        function toggleMedals() { medalsOpen = !medalsOpen; renderDashboard(); }
-        let quizOpen = false;
-        let quizFeedback = null;   // { qid, chosen, correct } – zeigt Auflösung nach dem Antworten
-        function toggleQuiz() { quizOpen = !quizOpen; quizFeedback = null; renderDashboard(); }
-        let manifestOpen = false;
-        function toggleManifest() { manifestOpen = !manifestOpen; renderDashboard(); }
+        let quizFeedback = null;   // { qid, chosen, correct } – zeigt Auflösung nach dem Antworten (Profil)
         const CHEAT_COST = 250, PREBOOK_COST = 200;
         // 🍕 „Liebloses Essen": heute frei essen ohne Beichte/Steuer – max. 1×/Woche.
         function buyCheatDay() {
@@ -1020,9 +1014,9 @@
                 celebrate(`🧠 Richtig! +${QUIZ_REWARD} ✨ · Body-IQ ${bodyIqPct()}%`);
             }
             quizFeedback = { qid, chosen: idx, correct };
-            renderDashboard();
+            renderProfil();   // Quiz lebt jetzt im Profil-Bereich
         }
-        function quizNext() { quizFeedback = null; renderDashboard(); }
+        function quizNext() { quizFeedback = null; renderProfil(); }
         function quizPanelHtml() {
             const pct = bodyIqPct();
             const head = `<div class="dash-title">🧠 Body-IQ · ${pct}%</div>`;
@@ -1115,18 +1109,11 @@
                     ${futurePre.length ? `<div class="shop-note">🏖️ Freigekauft: ${futurePre.map(ds => ds.slice(8) + '.' + ds.slice(5, 7) + '.').join(', ')}</div>` : ''}
                     <div class="shop-note">Schutz ist kaufbar – Fortschritt nie: freigekaufte Tage zählen nicht als disziplinierte Tage.</div>` });
             }
-            // Profil-Medaillen (#35) – verdiente Meilensteine, aufklappbar
-            cards.push({ action: toggleMedals, cls: 'medals', html:
-                `<div class="dash-icon">🏅</div><div class="dash-title">Medaillen</div><div class="dash-big">${earnedMedalCount()}/${MEDALS.length}</div>
-                 <div class="dash-sub">Tippen: ${medalsOpen ? 'schließen ▲' : 'ansehen ▼'}</div>` });
-            if (medalsOpen) cards.push({ htmlOnly: true, cls: 'wide medalpanel', html: medalsPanelHtml() });
-            // Body-IQ-Quiz (#34) – Wissens-Check, verdient SilberStaub (einmal je Frage)
-            if (QUIZ.length) {
-                cards.push({ action: toggleQuiz, cls: 'quiz', html:
-                    `<div class="dash-icon">🧠</div><div class="dash-title">Body-IQ</div><div class="dash-big">${bodyIqPct()}%</div>
-                     <div class="dash-sub">Tippen: Quiz ${quizOpen ? 'schließen ▲' : 'starten ▼'}</div>` });
-                if (quizOpen) cards.push({ htmlOnly: true, cls: 'wide quizpanel', html: quizPanelHtml() });
-            }
+            // Profil/Ich (#35 Medaillen · #34 Body-IQ · #2 Manifest gebündelt) –
+            // entlastet die Übersicht: Identität & Reflexion leben im „Profil".
+            cards.push({ action: showProfil, cls: 'profil', html:
+                `<div class="dash-icon">🧭</div><div class="dash-title">Profil</div>
+                 <div class="dash-sub">🏅 ${earnedMedalCount()}/${MEDALS.length} · 🧠 Body-IQ ${bodyIqPct()}% · 📜 Manifest</div>` });
             // Finanz-Modus (zweite Achse) – Antippen wechselt König ⇄ Warrior
             const warrior = isWarrior();
             cards.push({ action: toggleFinMode, cls: 'fin', html:
@@ -1202,13 +1189,7 @@
             else cards.push({ open: 'tabRecovery', cls: 'emergency', html:
                 `<div class="dash-icon">💚</div><div class="dash-title">RecoveryMode</div><div class="dash-sub">Verletzungen, Erste Hilfe, Seelisches &amp; Notruf</div>` });
 
-            // Das Manifest (#2) – die Grundsätze, aufklappbar
-            if (MANIFEST.length) {
-                cards.push({ action: toggleManifest, cls: 'wide manifest', html:
-                    `<div class="dash-icon">📜</div><div class="dash-title">Das Manifest</div>
-                     <div class="dash-sub">Die ${MANIFEST.length} Grundsätze von STΛTUS · Tippen: ${manifestOpen ? 'schließen ▲' : 'lesen ▼'}</div>` });
-                if (manifestOpen) cards.push({ htmlOnly: true, cls: 'wide manipanel', html: manifestPanelHtml() });
-            }
+            // (Manifest & Medaillen & Body-IQ leben jetzt im Profil-Bereich → showProfil)
             // Tipp des Tages (#101) – motivierender Abschluss der Übersicht
             if (TIPS.length) cards.push({ htmlOnly: true, cls: 'wide tip', html: tipCardHtml() });
 
@@ -3485,17 +3466,36 @@
             document.getElementById('atlasDetail').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function showAboutMe() {
+        // Profil/Ich-Bereich: bündelt Identität, Medaillen, Body-IQ & Manifest –
+        // entlastet die Übersicht (die bleibt handlungsfokussiert).
+        function renderProfil() {
+            const box = document.getElementById('profilContent');
+            if (!box) return;
+            const p = loadProgress();
+            const idStmt = IDENTITY_STATEMENTS[loadIdentity()] || '';
+            box.innerHTML =
+                `<div class="profil-hero">
+                    <div class="profil-title">🧭 Dein Profil · ${STAGE_LABEL[p.stage]} Mode</div>
+                    ${idStmt ? `<div class="identity-banner">🧭 <strong>${idStmt}</strong> <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>`
+                             : `<div class="profil-hint">Noch keine Identität gewählt. <button class="personal-edit" onclick="restartOnboarding()">jetzt wählen</button></div>`}
+                </div>
+                <div class="dash-card wide medalpanel">${medalsPanelHtml()}</div>
+                ${QUIZ.length ? `<div class="dash-card wide quizpanel">${quizPanelHtml()}</div>` : ''}
+                <div class="dash-card wide manipanel">${manifestPanelHtml()}</div>`;
+        }
+        function showProfil() {
             document.getElementById('viewAboutMe').style.display = 'flex';
             document.querySelectorAll('#mainApp .view-section').forEach(v => v.classList.remove("active"));
             document.querySelectorAll('.tab-bar .tab-btn').forEach(b => b.classList.remove("active"));
             document.getElementById("timelinePanels").style.display = "none";
+            setNavHomeActive(false); setNavDayActive(false); setNavBodyActive(false); closeTools();
+            renderProfil();
+            window.scrollTo(0, 0);
         }
+        const showAboutMe = showProfil;   // Header „Profil" nutzt denselben Hub
         function hideAboutMe() {
             document.getElementById('viewAboutMe').style.display = 'none';
-            document.getElementById("tabTimeline").classList.add("active");
-            document.getElementById("viewTimeline").classList.add("active");
-            document.getElementById("timelinePanels").style.display = "block";
+            showDashboard();   // zurück zur Übersicht (von dort kam man)
         }
 
         function collapseBodyDisclaimer() {
@@ -4084,7 +4084,7 @@ Object.assign(window, {
     onSetupTimesChanged, addTrainTime, removeTrainTime, setTrainTimeAt, toggleTrainFlex, uncheckTrainFlex,
     removeCost, removeIncome, renderOnboardProducts, restartOnboarding, selectDayType,
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
-    setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
+    setBloodValue, setSportChoice, showAboutMe, showProfil, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
     answerQuiz, quizNext, setIdentity,
@@ -4096,7 +4096,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v45';
+const APP_VERSION = 'v46';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

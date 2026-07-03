@@ -1165,6 +1165,13 @@
         .pz-note { font-size: 10.5px; color: #6ee7b7; font-weight: 600; }
         .dash-card.shadow .dash-big { letter-spacing: 3px; color: #64748b; }
 
+        /* PROFIL / ICH-BEREICH */
+        .dash-card.profil { background: linear-gradient(135deg, #0d0b1f, #131024); border: 1px solid #312a52; }
+        .profil-hero { margin-bottom: 14px; }
+        .profil-title { font-size: 17px; font-weight: 800; color: #e2e8f0; margin-bottom: 8px; }
+        .profil-hint { font-size: 12px; color: #94a3b8; background: #0d0b1f; border: 1px solid #312a52; border-radius: 10px; padding: 10px 13px; }
+        #profilContent .dash-card { display: block; width: 100%; margin-bottom: 12px; text-align: left; cursor: default; }
+
         /* MANIFEST (#2) */
         .dash-card.manifest { background: linear-gradient(135deg, #0d0b1f, #131024); border: 1px solid #312a52; }
         .mani-list { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 6px; }

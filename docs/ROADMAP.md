@@ -168,7 +168,7 @@ Voraussetzungen: echte Betreiberdaten im Impressum, AGB, DSGVO-Konzept
 ## Technik-Schulden (laufend abbauen)
 - ⚠️ **Vor Launch:** `PREVIEW_UNLOCK_ALL` (js/main.js) auf `false` – hebelt sonst die Verdien-Logik für jeden aus.
 - ✅ Rebrand SILBERLOCKE→STΛTUS / SilberStaub→Punkte erledigt (v44). Rest: neue Icons/OG-Image im STΛTUS-Look.
-- Übersicht in „Profil/Ich"-Bereich entlasten (Vorschlag 4).
+- ✅ Übersicht in „Profil/Ich"-Bereich entlastet (v46): Medaillen/Body-IQ/Manifest/Identität dorthin ausgelagert.
 - `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body).
 - E2E-Tests (Playwright) in die CI aufnehmen.
 - APP_VERSION/CACHE_VERSION bei jedem Deploy +1.
@@ -181,4 +181,5 @@ v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficien
 v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest ·
 v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung ·
 v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust) ·
-v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking)
+v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking) ·
+v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet)
