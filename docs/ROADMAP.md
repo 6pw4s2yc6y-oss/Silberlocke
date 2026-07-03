@@ -1,6 +1,6 @@
-# STΛTUS – Master-Roadmap (fusioniert, 128+ Punkte)
+# VΛAΛV – Master-Roadmap (fusioniert, 128+ Punkte)
 
-> Fusion aus der **Sprint-Logik & den 128 STΛTUS-Punkten** und der **ungeschönten
+> Fusion aus der **Sprint-Logik & den 128 VΛAΛV-Punkten** und der **ungeschönten
 > technischen Realität** des Codes (Vanilla JS/HTML/CSS, PWA auf GitHub Pages).
 > Kein Wunschzettel – ein Arbeitsdokument mit **echtem Status, Stand v43**.
 >
@@ -12,7 +12,7 @@
 ## ⚠️ Realitäts-Abgleich (Stand v43 – bitte lesen)
 Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code ist:
 
-1. **Marke:** ✅ **erledigt (v44).** Rebrand SILBERLOCKE → **STΛTUS** und Währung
+1. **Marke:** ✅ **erledigt (v44).** Rebrand SILBERLOCKE → **VΛAΛV** und Währung
    „SilberStaub" → **„Punkte"** in allen sichtbaren Strings + PWA-Manifest umgesetzt.
    Interne `sl_`-Speicher-Keys und Variablennamen bewusst unangetastet → **keine
    Nutzerdaten verloren** (Punktestand bleibt erhalten). Nur die GitHub-Pages-URL
@@ -34,13 +34,13 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ---
 
 ## Sprint 1 · Fundament, Architektur & Identität
-1 ✅ **STΛTUS als Markenname** (ersetzt SILBERLOCKE, v44 – inkl. Währung „Punkte" statt SilberStaub) ·
+1 ✅ **VΛAΛV als Markenname** (ersetzt SILBERLOCKE, v44 – inkl. Währung „Punkte" statt SilberStaub) ·
 2 ✅ 18-Punkte-Manifest in der Übersicht (v41) · 3 ✅ Ablenkungsfreie Werkbank ·
 4 ✅⚠️ Radikale Gleichheit (jeder startet Light) – *aktuell durch Vorschau-Schalter offen* ·
 6 ✅ Stealth-Entwicklung · 8 ✅ Tracking-Kern 100 % kostenlos ·
 97 ✅ Modulare Architektur (`js/`-Logik getrennt von `data/`) · 98 ✅ PWA auf GitHub Pages (offline, atomare Versions-Pakete) ·
 105 🟡 Recht (Impressum-Platzhalter live; Betreiberdaten, AGB, DPMA-Marke offen) ·
-7 🔵 Launch via YouTube + STΛTUS-Domain · 96 🅿️ Next.js/React-Umbau (geparkt bis Backend zwingt) ·
+7 🔵 Launch via YouTube + VΛAΛV-Domain · 96 🅿️ Next.js/React-Umbau (geparkt bis Backend zwingt) ·
 103 🔵 Backend-Kapselung der Straf-Logik (Supabase/RLS) · 104 🅿️ Obfuscation/Cloudflare-Blocker
 
 ## Sprint 2 · Onboarding & Phase Zero (Der Türsteher)
@@ -75,7 +75,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 82 ✅ Efficiency-Filter (Überdosis-Warnung ab 500/1000 % NRV, v37) ·
 83 ✅ Smart-Replacement (Ersatzvorschlag bei ausverkauften Produkten) ·
 77 🟡 No-Bullshit-Geschmackstester (Schema live, Werte fehlen) · 78 🟡 Codes Studie vs. User-Erfahrung ·
-79 🟡 Rezeptur-Warnflagge (Schema live) · 74 ✅ Split-Screen der Wahrheit (Werbe-Archetyp je Kategorie vs. STΛTUS-Realität, pro Produkt überschreibbar; v50) ·
+79 🟡 Rezeptur-Warnflagge (Schema live) · 74 ✅ Split-Screen der Wahrheit (Werbe-Archetyp je Kategorie vs. VΛAΛV-Realität, pro Produkt überschreibbar; v50) ·
 80 ✅ Pseudo-Rabatt-/MHD-Entlarvung („Kauf-Wahrheit" im Overlay: MHD-sensibel je Wirkstofftyp + Rabatt-Check; optionale Betreiber-Felder; v49) · 121 🔨 Molekülverbindungen (z. B. Bisglycinat vs. Oxid, als Daten) ·
 123 ✅⚠️ Disclaimer-Labels für Medikamenten-Interaktionen (nur gut belegte, faktisch aus Kategorie/Inhalt; immer „Arzt/Apotheker"; v51) · 73 🅿️ Herstellerdaten manuell einholen
 
@@ -100,7 +100,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 
 ## Sprint 8 · Soziale Arena & Squads (alles Phase 3/Backend)
 35 ✅ Profil-Medaillen (v39, lokal – später serverseitig) ·
-36 🔵 STΛTUS-Arena (4er-Squads) · 37 🔵 Team-Karma · 38 🔵 Demokratischer Team-Ausschluss ·
+36 🔵 VΛAΛV-Arena (4er-Squads) · 37 🔵 Team-Karma · 38 🔵 Demokratischer Team-Ausschluss ·
 39 🔵 Boost für fehlerfreie Squads · 40 🔵 Serien-Ranking · 41 🔵 Fleiß-Leaderboard ·
 42 🔵 1-vs-1-Disziplin-Duelle · 43 🔵 „Likes" für harte Workouts · 44 🔵 Support-Punkte
 
@@ -123,7 +123,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 15 ✅ Master Mode (nicht wählbar, nur erspielbar) · 66 ✅ Manuelles Drosseln bei Befunden (Gewebereparatur) ·
 65 🟡 Deep-Recovery (RecoveryMode + Tagestyp) · 71 🟡 Blutwerte × Stack-Korrelation ·
 68 🔨 Faire Rekonvaleszenz (Krankheit: Schlaf+Wasser = Tages-Wertung) · 70 🔨 Wiedereinstiegs-Plan nach Krankheit ·
-119 🔨 „STΛTUS-Paradoxon" (Perfektions-Falle macht Mikromanagement obsolet) ·
+119 🔨 „VΛAΛV-Paradoxon" (Perfektions-Falle macht Mikromanagement obsolet) ·
 120 🔨 „Eternity Mode" (Endgame: Entlassung in die straffreie Freiheit) ·
 9 🔵 Spendenmodell (Absolventen) · 10 🔵 Legacy-Profile · 67 🔵 Doctor-ID-Sync · 69 🔵 Squad-Genesungsnachrichten
 
@@ -137,7 +137,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ---
 
 ## Deine Vorschläge (meine Empfehlungen, priorisiert)
-1. ✅ **Rebrand erledigt (v44):** SILBERLOCKE → STΛTUS, „SilberStaub" → „Punkte"
+1. ✅ **Rebrand erledigt (v44):** SILBERLOCKE → VΛAΛV, „SilberStaub" → „Punkte"
    in allen sichtbaren Strings + PWA-Manifest + Cache-Name (`status-v44`). Interne
    Keys/Variablen unangetastet → keine Nutzerdaten verloren. *Offen:* Icons/OG-Image
    tragen noch das alte Logo; GitHub-Repo/URL heißt weiter „Silberlocke" (optional umbenennbar).
@@ -167,7 +167,7 @@ Voraussetzungen: echte Betreiberdaten im Impressum, AGB, DSGVO-Konzept
 
 ## Technik-Schulden (laufend abbauen)
 - ⚠️ **Vor Launch:** `PREVIEW_UNLOCK_ALL` (js/main.js) auf `false` – hebelt sonst die Verdien-Logik für jeden aus.
-- ✅ Rebrand SILBERLOCKE→STΛTUS / SilberStaub→Punkte erledigt (v44). Rest: neue Icons/OG-Image im STΛTUS-Look.
+- ✅ Rebrand SILBERLOCKE→VΛAΛV / SilberStaub→Punkte erledigt (v44). Rest: neue Icons/OG-Image im VΛAΛV-Look.
 - ✅ Übersicht in „Profil/Ich"-Bereich entlastet (v46): Medaillen/Body-IQ/Manifest/Identität dorthin ausgelagert.
 - `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body).
 - E2E-Tests (Playwright) in die CI aufnehmen.
@@ -180,7 +180,7 @@ v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
 v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficiency-Filter ·
 v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest ·
 v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung ·
-v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust) ·
+v44 Rebrand SILBERLOCKE → VΛAΛV (Marke + Währung „Punkte", ohne Datenverlust) ·
 v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking) ·
 v46 Profil/Ich-Bereich (Medaillen · Body-IQ · Manifest · Identität gebündelt; Übersicht entlastet) ·
 v47 Wasser-/Elektrolyt-Schnellzugriff (#64) ·

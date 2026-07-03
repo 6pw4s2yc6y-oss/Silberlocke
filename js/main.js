@@ -300,6 +300,12 @@
         // LAUNCH auf false setzen (eine Zeile) – sonst umgeht jeder die Verdien-Logik.
         const PREVIEW_UNLOCK_ALL = true;
 
+        // ⚠️ ARBEITSTITEL / PLATZHALTER – der Produktname ist NICHT fest im Code
+        // verteilt, sondern lebt NUR hier. Zum Umbenennen: nur diese eine Zeile
+        // ändern (markenrechtlich final zu klären). Feature-Texte/Daten nutzen
+        // KEINEN Markennamen, damit nichts festgeschrieben ist.
+        const APP_NAME = 'VΛAΛV';
+
         // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
         let appMode = 'light';   // Default = Light Mode (für die breite Masse)
         // Drei Stufen: Light (Masse) · Hard (ambitioniert) · Expert (volle Kontrolle).
@@ -3341,7 +3347,7 @@
         }
         // ── SPLIT-SCREEN DER WAHRHEIT (#74): Werbe-Sprache vs. harte Realität ───────
         // Links der generische Marketing-Archetyp der Kategorie (KEINER Marke
-        // zugeschrieben), rechts die ehrliche STΛTUS-Einordnung. Betreiber kann pro
+        // zugeschrieben), rechts die ehrliche Einordnung. Betreiber kann pro
         // Produkt konkret überschreiben (marketingClaim / realityCheck).
         function buildSplitScreenHtml(p) {
             const cat = TRUTHSPLIT[p.cat] || {};
@@ -3350,7 +3356,7 @@
             if (!hype || !real) return '';
             return `<div class="split-box">
                 <div class="split-col hype"><div class="split-head">📣 Was die Werbung sagt</div><div class="split-text">${hype}</div></div>
-                <div class="split-col real"><div class="split-head">🧭 STΛTUS-Realität</div><div class="split-text">${real}</div></div>
+                <div class="split-col real"><div class="split-head">🧭 Die Realität</div><div class="split-text">${real}</div></div>
             </div>`;
         }
         // ── MEDIKAMENTEN-WECHSELWIRKUNG (#123): Sicherheits-Labels ──────────────────
@@ -4063,7 +4069,16 @@
                 <ul class="emerg-list ok">${factsHtml}</ul>`;
         }
 
+        // Produktnamen aus der EINEN Konstante in die statische UI schreiben –
+        // so ist der Name nirgends im Markup festgeschrieben.
+        function applyBrand() {
+            try {
+                document.title = APP_NAME + ' – Supplement-Tagesplan nach Schlaf- & Trainingsrhythmus';
+                document.querySelectorAll('.setup-title, .brand-sub').forEach(el => { el.textContent = APP_NAME; });
+            } catch (e) {}
+        }
         document.addEventListener("DOMContentLoaded", async () => {
+            applyBrand();
             // Persistenz-Cache füllen (IndexedDB laden + Migration), bevor gelesen wird.
             await initStorage();
             // Statische Datensätze asynchron laden (PRODUCTS, TIMELINE_CONFIG, …) und
@@ -4245,11 +4260,11 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v52';
+const APP_VERSION = 'v53';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
-    const label = 'STΛTUS ' + APP_VERSION;
+    const label = APP_NAME + ' ' + APP_VERSION;
     badge.textContent = label;
     badge.addEventListener('click', async () => {
         if (!('serviceWorker' in navigator)) return;
