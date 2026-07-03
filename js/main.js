@@ -685,6 +685,8 @@
                     if (typeof progress.jokers !== 'number') progress.jokers = 1;   // Migration v21→v22
                     if (typeof progress.staub !== 'number') progress.staub = 0;     // Migration v25→v26
                     if (!STAGES.includes(progress.stage)) progress.stage = 'light'; // korrupten Stand heilen
+                    if (!Array.isArray(progress.prebooked)) progress.prebooked = [];    // Migration v34→v35
+                    if (typeof progress.lastCheat !== 'string') progress.lastCheat = '';
                     return progress;
                 }
             } catch (e) {}
@@ -705,9 +707,11 @@
                 while (d < end && missed < 30) {
                     const ds = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
                     const entry = p.log[ds];
-                    if (!entry || !entry.done) missed++;
+                    const excused = (p.prebooked || []).includes(ds);   // 🏖️ freigekauft
+                    if (!excused && (!entry || !entry.done)) missed++;
                     d.setDate(d.getDate() + 1);
                 }
+                p.prebooked = (p.prebooked || []).filter(ds => ds >= t);   // Vergangenes aufräumen
                 let jokersUsed = 0, penalty = 0;
                 for (let i = 0; i < missed; i++) {
                     if (p.jokers > 0) { p.jokers -= 1; jokersUsed++; }
@@ -793,6 +797,46 @@
             renderTimeline();
         }
 
+        // ── STAUB-SHOP (#31/#32): Ausgeben von SilberStaub ──────────────────────────
+        // Grundsatz: Schutz ist kaufbar, FORTSCHRITT nie (freigekaufte Tage zählen
+        // nicht als disziplinierte Tage – Aufstieg bleibt unkaufbar, Archiv #15).
+        let staubShopOpen = false;
+        function toggleStaubShop() { staubShopOpen = !staubShopOpen; renderDashboard(); }
+        const CHEAT_COST = 250, PREBOOK_COST = 200;
+        // 🍕 „Liebloses Essen": heute frei essen ohne Beichte/Steuer – max. 1×/Woche.
+        function buyCheatDay() {
+            const p = loadProgress();
+            if (todayLog().cheatDay) { celebrate('🍕 Heute ist bereits Cheat-Tag'); return; }
+            if (p.lastCheat) {
+                const days = Math.round((new Date(todayStr()) - new Date(p.lastCheat)) / 864e5);
+                if (days < 7) { celebrate(`🍕 Streng limitiert: nächster Cheat-Tag erst in ${7 - days} Tag${7 - days === 1 ? '' : 'en'}`); return; }
+            }
+            if ((p.staub || 0) < CHEAT_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen ${CHEAT_COST - (p.staub || 0)}`); return; }
+            p.staub -= CHEAT_COST;
+            p.lastCheat = todayStr();
+            todayLog().cheatDay = true;
+            saveProgress();
+            celebrate(`🍕 Cheat-Tag gekauft – heute Essen frei, Routine bleibt! · ✨ ${p.staub} übrig`);
+            renderDashboard();
+            renderTimeline();
+        }
+        // 🏖️ Pre-Booking: nächsten freien Zukunfts-Tag freikaufen (Urlaub/Stress).
+        function buyPrebook() {
+            const p = loadProgress();
+            const future = (p.prebooked || []).filter(ds => ds > todayStr());
+            if (future.length >= 7) { celebrate('🏖️ Maximal 7 Tage im Voraus freikaufbar'); return; }
+            if ((p.staub || 0) < PREBOOK_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen ${PREBOOK_COST - (p.staub || 0)}`); return; }
+            let day = 1;
+            while (p.prebooked.includes(dateStrOffset(day))) day++;
+            const ds = dateStrOffset(day);
+            p.staub -= PREBOOK_COST;
+            p.prebooked.push(ds);
+            p.prebooked.sort();
+            saveProgress();
+            celebrate(`🏖️ ${ds.slice(8)}.${ds.slice(5, 7)}. freigekauft – zählt nicht gegen dich (aber auch nicht als Fortschritt) · ✨ ${p.staub}`);
+            renderDashboard();
+        }
+
         // Joker-Schmiede: SilberStaub in einen Joker umwandeln (Cap 3 bleibt).
         const JOKER_COST = 150;
         function buyJoker() {
@@ -844,9 +888,19 @@
             cards.push({ open: 'day', cls: 'wide progress', html: progressCardHtml() });
             // SilberStaub / Joker-Schmiede (Belohnungs-Kreislauf der Disziplin-Engine)
             const pStaub = loadProgress();
-            cards.push({ action: buyJoker, cls: 'staub', html:
+            cards.push({ action: toggleStaubShop, cls: 'staub', html:
                 `<div class="dash-icon">✨</div><div class="dash-title">SilberStaub</div><div class="dash-big">${pStaub.staub}</div>
-                 <div class="dash-sub">Tippen: 🃏 Joker schmieden für ${JOKER_COST} ✨ (${pStaub.jokers}/3)</div>` });
+                 <div class="dash-sub">Tippen: Staub-Shop ${staubShopOpen ? 'schließen ▲' : 'öffnen ▼'} · 🃏 ${pStaub.jokers}/3</div>` });
+            if (staubShopOpen) {
+                const futurePre = (pStaub.prebooked || []).filter(ds => ds > todayStr());
+                cards.push({ htmlOnly: true, cls: 'wide shop', html: `
+                    <div class="dash-title">✨ Staub-Shop</div>
+                    <button class="shop-item" onclick="buyJoker()">🃏 Joker schmieden <span class="shop-price">${JOKER_COST} ✨</span></button>
+                    <button class="shop-item" onclick="buyCheatDay()">🍕 „Liebloses Essen" – heute frei essen (1×/Woche) <span class="shop-price">${CHEAT_COST} ✨</span></button>
+                    <button class="shop-item" onclick="buyPrebook()">🏖️ Tag freikaufen – Stress/Urlaub (ab morgen) <span class="shop-price">${PREBOOK_COST} ✨</span></button>
+                    ${futurePre.length ? `<div class="shop-note">🏖️ Freigekauft: ${futurePre.map(ds => ds.slice(8) + '.' + ds.slice(5, 7) + '.').join(', ')}</div>` : ''}
+                    <div class="shop-note">Schutz ist kaufbar – Fortschritt nie: freigekaufte Tage zählen nicht als disziplinierte Tage.</div>` });
+            }
             // Finanz-Modus (zweite Achse) – Antippen wechselt König ⇄ Warrior
             const warrior = isWarrior();
             cards.push({ action: toggleFinMode, cls: 'fin', html:
@@ -921,10 +975,11 @@
 
             grid.innerHTML = '';
             cards.forEach(c => {
-                const el = document.createElement('button');
+                const el = document.createElement(c.htmlOnly ? 'div' : 'button');
                 el.className = 'dash-card' + (c.cls ? ' ' + c.cls : '');
                 el.innerHTML = c.html;
-                if (c.locked) el.addEventListener('click', () => celebrate('🔒 Erst freischalten – bleib dran!'));
+                if (c.htmlOnly) { /* eigene innere Buttons */ }
+                else if (c.locked) el.addEventListener('click', () => celebrate('🔒 Erst freischalten – bleib dran!'));
                 else if (c.action) el.addEventListener('click', c.action);
                 else el.addEventListener('click', () => dashOpen(c.open));
                 grid.appendChild(el);
@@ -2608,8 +2663,12 @@
             const goalShort = (GOAL_LABEL[userProfile.goal] || '').split(' ·')[0];
             const personalBanner = `<div class="personal-banner">📋 Getaktet aus <strong>deinen Angaben</strong>: ⏰ ${globalWakeTimeStr}–${globalSleepTimeStr}${globalTrainTimes.length ? ` · 🏋️ ${globalTrainTimes.join(' & ')}` : ''}${goalShort ? ` · 🎯 ${goalShort}` : ''} <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>`;
 
-            // Gesundheits-Sperre: unter 6 h Schlaf keine Trainingsbelastung – Pre-/Post-
-            // Workout-Blöcke (inkl. weiterer Einheiten) entfernen, Rest bleibt im Plan.
+            // 🍕 Cheat-Tag / 🏖️ freigekaufter Tag sichtbar machen
+            const pDay = loadProgress();
+            const cheatBanner = todayLog().cheatDay
+                ? `<div class="cheat-banner">🍕 <strong>Cheat-Tag aktiv:</strong> Essen heute frei – keine Beichte, keine Steuer. Deine Routine-Blöcke zählen trotzdem.</div>` : '';
+            const prebookBanner = (pDay.prebooked || []).includes(todayStr())
+                ? `<div class="prebook-banner">🏖️ <strong>Freigekaufter Tag:</strong> heute zählt nichts gegen dich – Status &amp; Joker geschützt. Abhaken bleibt freiwillig (zählt weiter als Fortschritt).</div>` : '';
             let sleepBanner = "";
             if (sleepHrs < 6) {
                 activeBlocks = activeBlocks.filter(b => !/^t4|^t6|^tTrain/.test(b.id));
@@ -2676,11 +2735,11 @@
             evaluateDay();
 
             if (stackPlanActive && sortedBlocks.length === 0) {
-                container.innerHTML = personalBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
+                container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + '<div class="stack-empty" style="padding:20px 4px;">Dein Stack ist leer oder die Produkte passen nicht in diesen Tagestyp. Füge im Tab „Mein Stack" Produkte hinzu.</div>' + buildDailyNutrientsBox() + confessHtml();
                 return;
             }
 
-            container.innerHTML = personalBanner + sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
+            container.innerHTML = personalBanner + cheatBanner + prebookBanner + sleepBanner + barrierBanner + stackBanner + sortedBlocks.map((block, idx) => {
                 const isLast = idx === sortedBlocks.length - 1;
                 const lineHtml = !isLast ? `<div class="timeline-line"></div>` : "";
 
@@ -3749,7 +3808,7 @@ Object.assign(window, {
     selectMode, selectSportMode, selectZone, setBudgetVal, setMealCount, setProfileChoice,
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
-    addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess,
+    addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -3758,7 +3817,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v34';
+const APP_VERSION = 'v35';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

@@ -33,8 +33,8 @@
 27 ❓ „Pro Woche 70"-Logik (Bedeutung klären) · 28 🔨 Therapie-Verträge (lokal als Selbstverpflichtung)
 
 ## IV. Gamification & Squads
-29 ✅ SilberStaub · 30 ✅ Startpolster (1 Joker, Score 60) · 31 🔨 „Liebloses Essen"-Cheat-Tag (Staub) ·
-32 🔨 Pre-Booking (Urlaub/Family freikaufen) · 33 ✅ Rolling-Joker (Cap 3; pro Woche statt Monat) ·
+29 ✅ SilberStaub · 30 ✅ Startpolster (1 Joker, Score 60) · 31 ✅ „Liebloses Essen"-Cheat-Tag (Staub-Shop, 250 ✨, 1×/Woche) ·
+32 ✅ Pre-Booking (Urlaub/Family freikaufen, 200 ✨/Tag; freigekaufte Tage entschuldigen Abwesenheit, zählen aber NIE als Fortschritt) · 33 ✅ Rolling-Joker (Cap 3; pro Woche statt Monat) ·
 34 🔨 Body-IQ-Quizzes · 35 🔨 Profil-Medaillen · 36–45 🔵 Arena/Squads/Duelle/Likes/Matching (alles Backend)
 
 ## V. Training & Überlastungsschutz
@@ -97,13 +97,14 @@ gleiche Wirkung, ohne Haftungs-/Ethik-Risiko.
 v22 Joker · v23 Monats-Aufstieg (4 Stufen) · v24 Pre-Workout-Barriere ·
 v25 Thermodynamik-Audit · v26 SilberStaub + Joker-Schmiede · v27 Recht-Basics ·
 v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v30 Warrior/König ·
-v31 Studien-DB · v32 Schlaf-Analyse
+v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
+v34 Light-Routine-Tracker · v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
-2. **#31 + #32** SilberStaub-Shop erweitern: Cheat-Tag & Pre-Booking
-3. **#20** Gatekeeper: Aufstieg zusätzlich an Disziplin-Status ≥ 90 % knüpfen
-4. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
-5. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
+1. **#20** Gatekeeper: Aufstieg zusätzlich an Disziplin-Status ≥ 90 % knüpfen
+2. **#101** Tipp des Tages · **#82** Efficiency-Filter · **#34** Body-IQ-Quiz
+3. **#2** Manifest-Seite · **#5** Identitäts-Frage im Onboarding
+4. **#80** MHD-/Alt-Rezeptur-Warnung · **#64** Hydrations-/Elektrolyt-Schnellzugriff
 
 ## Phase 3 (erst mit Backend + Rechtsprüfung)
 Konten/Sync (103) → Squads/Arena (36–45, 69) → Open Banking (85–89) →
