@@ -12,10 +12,11 @@
 ## ⚠️ Realitäts-Abgleich (Stand v43 – bitte lesen)
 Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code ist:
 
-1. **Marke:** Im Code heißt alles noch **SILBERLOCKE** (17 Stellen: Titel, PWA-Manifest,
-   Service-Worker) und die Währung **„SilberStaub"** (13 Stellen). Der Rebrand auf
-   **STΛTUS / „Punkte"** ist **noch nicht** umgesetzt → Punkt (1) & (29-Name) stehen
-   auf 🔨, nicht ✅. Eigener Sprint nötig (siehe „Deine Vorschläge").
+1. **Marke:** ✅ **erledigt (v44).** Rebrand SILBERLOCKE → **STΛTUS** und Währung
+   „SilberStaub" → **„Punkte"** in allen sichtbaren Strings + PWA-Manifest umgesetzt.
+   Interne `sl_`-Speicher-Keys und Variablennamen bewusst unangetastet → **keine
+   Nutzerdaten verloren** (Punktestand bleibt erhalten). Nur die GitHub-Pages-URL
+   trägt noch den Repo-Namen „Silberlocke" (Pfad, kein Anzeigetext).
 2. **Betreiber-Vorschau aktiv:** `PREVIEW_UNLOCK_ALL = true` (js/main.js, Z. 300)
    hebelt aktuell die Verdien-Logik aus – **alles ist offen**, App startet in Master.
    Bewusst für die Test-/Kontrollphase. **Vor Launch auf `false`** (eine Zeile), sonst
@@ -33,7 +34,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ---
 
 ## Sprint 1 · Fundament, Architektur & Identität
-1 🔨 **STΛTUS als Markenname** (ersetzt SILBERLOCKE) – *im Code noch nicht umgesetzt* ·
+1 ✅ **STΛTUS als Markenname** (ersetzt SILBERLOCKE, v44 – inkl. Währung „Punkte" statt SilberStaub) ·
 2 ✅ 18-Punkte-Manifest in der Übersicht (v41) · 3 ✅ Ablenkungsfreie Werkbank ·
 4 ✅⚠️ Radikale Gleichheit (jeder startet Light) – *aktuell durch Vorschau-Schalter offen* ·
 6 ✅ Stealth-Entwicklung · 8 ✅ Tracking-Kern 100 % kostenlos ·
@@ -136,11 +137,10 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ---
 
 ## Deine Vorschläge (meine Empfehlungen, priorisiert)
-1. **Rebrand als eigener, sauberer Sprint (1 + 29-Name):** SILBERLOCKE → STΛTUS,
-   „SilberStaub" → „Punkte". Betrifft ~30 Stellen (Titel, `manifest.json`,
-   Service-Worker-Cache-Name, alle UI-Strings, Icons). **Riskant, wenn hastig** –
-   ich mache es kontrolliert in einer Version mit Browser-Verifikation. *Sag „Rebrand",
-   dann ziehe ich das durch.* (Aktuell bewusst NICHT angefasst, um nichts zu zerschießen.)
+1. ✅ **Rebrand erledigt (v44):** SILBERLOCKE → STΛTUS, „SilberStaub" → „Punkte"
+   in allen sichtbaren Strings + PWA-Manifest + Cache-Name (`status-v44`). Interne
+   Keys/Variablen unangetastet → keine Nutzerdaten verloren. *Offen:* Icons/OG-Image
+   tragen noch das alte Logo; GitHub-Repo/URL heißt weiter „Silberlocke" (optional umbenennbar).
 2. **Launch-Sicherung:** `PREVIEW_UNLOCK_ALL = false` gehört auf die Launch-Checkliste.
    Für die Testphase bleibt es `true` (du kontrollierst alles).
 3. **Nächster Frontend-Sprint mit hohem Wert:** **Sprint 2 · Phase Zero (114–116)** –
@@ -167,7 +167,7 @@ Voraussetzungen: echte Betreiberdaten im Impressum, AGB, DSGVO-Konzept
 
 ## Technik-Schulden (laufend abbauen)
 - ⚠️ **Vor Launch:** `PREVIEW_UNLOCK_ALL` (js/main.js) auf `false` – hebelt sonst die Verdien-Logik für jeden aus.
-- **Rebrand** SILBERLOCKE→STΛTUS / SilberStaub→Punkte (siehe Vorschlag 1).
+- ✅ Rebrand SILBERLOCKE→STΛTUS / SilberStaub→Punkte erledigt (v44). Rest: neue Icons/OG-Image im STΛTUS-Look.
 - Übersicht in „Profil/Ich"-Bereich entlasten (Vorschlag 4).
 - `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body).
 - E2E-Tests (Playwright) in die CI aufnehmen.
@@ -179,4 +179,5 @@ v27 Recht-Basics · v28 atomare Versions-Pakete · v29 Smart-Produkt-Felder · v
 v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer · v34 Light-Routine-Tracker ·
 v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficiency-Filter ·
 v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest ·
-v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung
+v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung ·
+v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust)

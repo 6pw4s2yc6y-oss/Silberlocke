@@ -865,7 +865,7 @@
                 const days = Math.round((new Date(todayStr()) - new Date(p.lastCheat)) / 864e5);
                 if (days < 7) { celebrate(`🍕 Streng limitiert: nächster Cheat-Tag erst in ${7 - days} Tag${7 - days === 1 ? '' : 'en'}`); return; }
             }
-            if ((p.staub || 0) < CHEAT_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen ${CHEAT_COST - (p.staub || 0)}`); return; }
+            if ((p.staub || 0) < CHEAT_COST) { celebrate(`✨ Zu wenig Punkte – dir fehlen ${CHEAT_COST - (p.staub || 0)}`); return; }
             p.staub -= CHEAT_COST;
             p.lastCheat = todayStr();
             todayLog().cheatDay = true;
@@ -879,7 +879,7 @@
             const p = loadProgress();
             const future = (p.prebooked || []).filter(ds => ds > todayStr());
             if (future.length >= 7) { celebrate('🏖️ Maximal 7 Tage im Voraus freikaufbar'); return; }
-            if ((p.staub || 0) < PREBOOK_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen ${PREBOOK_COST - (p.staub || 0)}`); return; }
+            if ((p.staub || 0) < PREBOOK_COST) { celebrate(`✨ Zu wenig Punkte – dir fehlen ${PREBOOK_COST - (p.staub || 0)}`); return; }
             let day = 1;
             while (p.prebooked.includes(dateStrOffset(day))) day++;
             const ds = dateStrOffset(day);
@@ -896,7 +896,7 @@
         function buyJoker() {
             const p = loadProgress();
             if (p.jokers >= 3) { celebrate('🃏 Joker-Lager voll (3/3) – erst einsetzen, dann schmieden'); return; }
-            if ((p.staub || 0) < JOKER_COST) { celebrate(`✨ Zu wenig SilberStaub – dir fehlen noch ${JOKER_COST - (p.staub || 0)}`); return; }
+            if ((p.staub || 0) < JOKER_COST) { celebrate(`✨ Zu wenig Punkte – dir fehlen noch ${JOKER_COST - (p.staub || 0)}`); return; }
             p.staub -= JOKER_COST;
             p.jokers += 1;
             saveProgress();
@@ -1063,12 +1063,12 @@
             // SilberStaub / Joker-Schmiede (Belohnungs-Kreislauf der Disziplin-Engine)
             const pStaub = loadProgress();
             cards.push({ action: toggleStaubShop, cls: 'staub', html:
-                `<div class="dash-icon">✨</div><div class="dash-title">SilberStaub</div><div class="dash-big">${pStaub.staub}</div>
-                 <div class="dash-sub">Tippen: Staub-Shop ${staubShopOpen ? 'schließen ▲' : 'öffnen ▼'} · 🃏 ${pStaub.jokers}/3</div>` });
+                `<div class="dash-icon">✨</div><div class="dash-title">Punkte</div><div class="dash-big">${pStaub.staub}</div>
+                 <div class="dash-sub">Tippen: Punkte-Shop ${staubShopOpen ? 'schließen ▲' : 'öffnen ▼'} · 🃏 ${pStaub.jokers}/3</div>` });
             if (staubShopOpen) {
                 const futurePre = (pStaub.prebooked || []).filter(ds => ds > todayStr());
                 cards.push({ htmlOnly: true, cls: 'wide shop', html: `
-                    <div class="dash-title">✨ Staub-Shop</div>
+                    <div class="dash-title">✨ Punkte-Shop</div>
                     <button class="shop-item" onclick="buyJoker()">🃏 Joker schmieden <span class="shop-price">${JOKER_COST} ✨</span></button>
                     <button class="shop-item" onclick="buyCheatDay()">🍕 „Liebloses Essen" – heute frei essen (1×/Woche) <span class="shop-price">${CHEAT_COST} ✨</span></button>
                     <button class="shop-item" onclick="buyPrebook()">🏖️ Tag freikaufen – Stress/Urlaub (ab morgen) <span class="shop-price">${PREBOOK_COST} ✨</span></button>
@@ -1163,7 +1163,7 @@
             if (MANIFEST.length) {
                 cards.push({ action: toggleManifest, cls: 'wide manifest', html:
                     `<div class="dash-icon">📜</div><div class="dash-title">Das Manifest</div>
-                     <div class="dash-sub">Die ${MANIFEST.length} Grundsätze von SILBERLOCKE · Tippen: ${manifestOpen ? 'schließen ▲' : 'lesen ▼'}</div>` });
+                     <div class="dash-sub">Die ${MANIFEST.length} Grundsätze von STΛTUS · Tippen: ${manifestOpen ? 'schließen ▲' : 'lesen ▼'}</div>` });
                 if (manifestOpen) cards.push({ htmlOnly: true, cls: 'wide manipanel', html: manifestPanelHtml() });
             }
             // Tipp des Tages (#101) – motivierender Abschluss der Übersicht
@@ -4053,11 +4053,11 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v43';
+const APP_VERSION = 'v44';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
-    const label = 'Silberlocke ' + APP_VERSION;
+    const label = 'STΛTUS ' + APP_VERSION;
     badge.textContent = label;
     badge.addEventListener('click', async () => {
         if (!('serviceWorker' in navigator)) return;
