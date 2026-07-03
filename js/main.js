@@ -316,13 +316,13 @@
         const ONBOARD_FLOW = {
             // Light: kompakte Profil-/Zielabfrage (für die kcal-/Eiweiß-Berechnung)
             // VOR den Uhrzeiten – Aktivität nutzt einen Standardwert (bleibt schlank).
-            light:  ['modeScreen', 'stepProfile', 'stepGoal', 'setupScreen'],
-            hard:   ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
-            expert: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
-            master: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts'],
+            light:  ['modeScreen', 'stepProfile', 'stepGoal', 'setupScreen', 'stepIdentity'],
+            hard:   ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts', 'stepIdentity'],
+            expert: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts', 'stepIdentity'],
+            master: ['modeScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'setupScreen', 'stepProducts', 'stepIdentity'],
         };
-        const ALL_ONBOARD = ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts'];
-        const SCREEN_TITLE = { modeScreen: 'Modus', setupScreen: 'Uhrzeiten', stepProfile: 'Über dich', stepActivity: 'Aktivität', stepGoal: 'Ziel', stepSport: 'Sport & Training', stepProducts: 'Deine Produkte' };
+        const ALL_ONBOARD = ['modeScreen', 'setupScreen', 'stepProfile', 'stepActivity', 'stepGoal', 'stepSport', 'stepProducts', 'stepIdentity'];
+        const SCREEN_TITLE = { modeScreen: 'Modus', setupScreen: 'Uhrzeiten', stepProfile: 'Über dich', stepActivity: 'Aktivität', stepGoal: 'Ziel', stepSport: 'Sport & Training', stepProducts: 'Deine Produkte', stepIdentity: 'Identität' };
         let onboardFlow = ONBOARD_FLOW.light;   // wird gesetzt, sobald der Modus gewählt ist
         let onboardIdx = 0;
 
@@ -378,6 +378,13 @@
             if (id === 'stepActivity' || id === 'stepGoal') renderOnboardTargets();
             if (id === 'stepSport') renderOnboardSportPlans();
             if (id === 'stepProducts') renderOnboardProducts();
+            if (id === 'stepIdentity') {
+                const cur = loadIdentity();
+                const box = document.getElementById('identityChoice');
+                if (box) box.querySelectorAll('.onboard-opt').forEach(b => {
+                    b.classList.toggle('active', !!cur && b.getAttribute('onclick').includes("'" + cur + "'"));
+                });
+            }
         }
         function nextStep() { goStep(onboardIdx + 1); }
         function prevStep() { goStep(onboardIdx - 1); }
@@ -456,6 +463,20 @@
             selectedSportMode = mode;
             try { store.setItem('sl_sport', mode); } catch (e) {}
             btn.parentElement.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+        // Identitäts-Frage (#5): die gewählte Identität als Selbstverpflichtung.
+        const IDENTITY_STATEMENTS = {
+            disziplin:     'Ich bin jemand, der tut, was zu tun ist – auch ohne Lust.',
+            ehrlich:       'Ich bin jemand, der sich nicht belügt – auch wenn die Wahrheit wehtut.',
+            bestaendig:    'Ich bin jemand, der dranbleibt, wenn andere aufgeben.',
+            unbestechlich: 'Ich bin jemand, den kein Shortcut und keine Ausrede kauft.',
+        };
+        function loadIdentity() { try { return store.getItem('sl_identity') || ''; } catch (e) { return ''; } }
+        function setIdentity(id, btn) {
+            try { store.setItem('sl_identity', id); } catch (e) {}
+            const parent = btn.parentElement;
+            parent.querySelectorAll('.onboard-opt').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
         }
         function finishOnboarding() { enterApp(); }
@@ -1168,6 +1189,19 @@
             } else {
                 enterApp();
             }
+        }
+        // Betreiber-Vorschau: alle Stufen & Funktionen zum Ansehen freischalten.
+        // Bewusst als „Vorschau" gekennzeichnet – nicht als verdienter Fortschritt.
+        // Vor dem öffentlichen Launch entfernen oder verstecken (Roadmap-Hinweis).
+        function previewUnlockAll() {
+            const p = loadProgress();
+            p.stage = 'master';
+            p.unlocked = ['day', ...UNLOCK_SCHEDULE.map(u => u.key)];
+            saveProgress();
+            applyMode('master');
+            inOnboarding = false;
+            celebrate('🔓 Betreiber-Vorschau: alle Stufen & Funktionen freigeschaltet');
+            enterApp();
         }
         // Gesperrte Stufe angetippt → freundlicher Hinweis (Weg sichtbar machen).
         function modeLocked(name, when) {
@@ -2829,7 +2863,10 @@
 
             // Sichtbarer Beweis der Personalisierung: der Plan kommt aus den Angaben.
             const goalShort = (GOAL_LABEL[userProfile.goal] || '').split(' ·')[0];
-            const personalBanner = `<div class="personal-banner">📋 Getaktet aus <strong>deinen Angaben</strong>: ⏰ ${globalWakeTimeStr}–${globalSleepTimeStr}${globalTrainTimes.length ? ` · 🏋️ ${globalTrainTimes.join(' & ')}` : ''}${goalShort ? ` · 🎯 ${goalShort}` : ''} <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>`;
+            // Identität (#5) als tägliche Erinnerung an die Selbstverpflichtung.
+            const identityStmt = IDENTITY_STATEMENTS[loadIdentity()] || '';
+            const identityLine = identityStmt ? `<div class="identity-banner">🧭 <strong>${identityStmt}</strong></div>` : '';
+            const personalBanner = `<div class="personal-banner">📋 Getaktet aus <strong>deinen Angaben</strong>: ⏰ ${globalWakeTimeStr}–${globalSleepTimeStr}${globalTrainTimes.length ? ` · 🏋️ ${globalTrainTimes.join(' & ')}` : ''}${goalShort ? ` · 🎯 ${goalShort}` : ''} <button class="personal-edit" onclick="restartOnboarding()">ändern</button></div>` + identityLine;
 
             // 🍕 Cheat-Tag / 🏖️ freigekaufter Tag sichtbar machen
             const pDay = loadProgress();
@@ -4010,7 +4047,7 @@ Object.assign(window, {
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
-    answerQuiz, quizNext,
+    answerQuiz, quizNext, setIdentity, previewUnlockAll,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -4019,7 +4056,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v41';
+const APP_VERSION = 'v42';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

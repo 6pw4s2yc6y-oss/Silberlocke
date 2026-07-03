@@ -191,6 +191,7 @@
         .shop-note { font-size: 10.5px; color: #64748b; line-height: 1.5; margin-top: 7px; }
         .cheat-banner { font-size: 12px; line-height: 1.5; color: #fde68a; background: #1a1000; border: 1px solid #92400e; border-radius: 10px; padding: 11px 13px; margin: 4px 2px 12px; }
         .prebook-banner { font-size: 12px; line-height: 1.5; color: #bae6fd; background: #071a2a; border: 1px solid #0c4a6e; border-radius: 10px; padding: 11px 13px; margin: 4px 2px 12px; }
+        .identity-banner { font-size: 12px; line-height: 1.5; color: #c4b5fd; background: #0d0b1f; border: 1px solid #312a52; border-radius: 10px; padding: 10px 13px; margin: 4px 2px 12px; }
         .dash-card.fin { border-color: #334155; }
         .dash-card.fin:hover { border-color: #f59e0b; }
 
@@ -389,6 +390,12 @@
         .mode-back-btn:hover { color: #94a3b8; }
         .onboard-nav { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
         .onboard-nav .mode-back-btn { margin-top: 6px; }
+        .preview-unlock-btn {
+            display: block; width: 100%; margin-top: 10px; padding: 9px;
+            background: #0d0b1f; border: 1px dashed #312a52; border-radius: 8px;
+            color: #7c6bb0; font-size: 11px; font-weight: 600; cursor: pointer;
+        }
+        .preview-unlock-btn:hover { color: #a78bfa; border-color: #a78bfa; }
 
         /* ── ONBOARDING-ASSISTENT ──────────────────────────────────────────── */
         .onboard-screen {

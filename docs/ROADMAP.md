@@ -15,7 +15,8 @@
 
 ## I. Fundament & Identität
 1 ✅ Name SILBERLOCKE · 2 ✅ 18-Punkte-Manifest (auf der Übersicht, Inhalte in Daten; v41) · 3 ✅ Werkbank-Design ·
-4 ✅ Radikale Gleichheit (jeder startet Light) · 5 🔨 Identitäts-Onboarding-Frage ·
+4 ✅ Radikale Gleichheit (jeder startet Light) ·
+5 ✅ Identitäts-Onboarding-Frage (letzter Schritt „Wer willst du werden?", Erinnerung im Tagesplan-Banner; v42) ·
 6 ✅ Stealth-Entwicklung · 7 🔵 silberlocke.me + YouTube-Launch · 8 ✅ Kern kostenlos ·
 9 🔵 Spenden-Modell · 10 🔵 Legacy-Profile (Backend)
 
@@ -104,7 +105,8 @@ v37 Efficiency-Filter (Überdosierungs-Warnung im Produkt-Overlay) ·
 v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht) ·
 v39 Profil-Medaillen (verdiente Meilensteine auf der Übersicht) ·
 v40 Body-IQ-Quiz (Wissens-Check, verdient SilberStaub – nicht farmbar) ·
-v41 Manifest (18 Grundsätze auf der Übersicht)
+v41 Manifest (18 Grundsätze auf der Übersicht) ·
+v42 Identitäts-Frage im Onboarding + Betreiber-Vorschau (alle Stufen ansehen)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
 1. **#5** Identitäts-Frage im Onboarding · **#64** Hydrations-/Elektrolyt-Schnellzugriff
@@ -118,6 +120,10 @@ Voraussetzungen: echte Betreiberdaten im Impressum (Büro-Adresse geplant), AGB,
 DSGVO-Konzept (Gesundheits- + ggf. Finanzdaten!), Kostenplan.
 
 ## Technik-Schulden (laufend abbauen)
+- ⚠️ **Vor öffentlichem Launch:** „Betreiber-Vorschau"-Button (`previewUnlockAll`,
+  Modus-Screen) entfernen oder hinter einen Schlüssel/URL-Parameter legen –
+  schaltet aktuell für JEDEN alle Stufen frei und umgeht die Verdien-Logik.
+- Übersicht wird voll: Identität (Manifest/Medaillen/Body-IQ) evtl. in eigenen „Profil"-Bereich auslagern
 - `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body)
 - E2E-Tests (Playwright) in die CI aufnehmen
 - Versionsnummer (APP_VERSION/CACHE_VERSION) bei jedem Deploy +1

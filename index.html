@@ -194,6 +194,29 @@
         </div>
     </div>
 
+    <!-- IDENTITÄTS-FRAGE (#5): letzter Schritt vor dem Start -->
+    <div id="stepIdentity" class="onboard-screen">
+        <div class="setup-card">
+            <button class="onboard-back-top" onclick="prevStep()" aria-label="Zurück">&#8592;</button>
+            <div class="onboard-progress">Identität</div>
+            <div class="setup-title" style="font-size:24px;">Wer willst du werden?</div>
+            <div class="setup-subtitle">Identität schlägt Ziele. Nicht „ich will etwas erreichen" – sondern „so bin ich".</div>
+            <div class="onboard-field">
+                <div class="onboard-choice onboard-choice-col" id="identityChoice">
+                    <button class="onboard-opt" onclick="setIdentity('disziplin',this)">🔥 Der/die Disziplinierte <span class="onboard-opt-sub">Ich bin jemand, der tut, was zu tun ist – auch ohne Lust.</span></button>
+                    <button class="onboard-opt" onclick="setIdentity('ehrlich',this)">🪞 Der/die Ehrliche <span class="onboard-opt-sub">Ich bin jemand, der sich nicht belügt – auch wenn die Wahrheit wehtut.</span></button>
+                    <button class="onboard-opt" onclick="setIdentity('bestaendig',this)">🧱 Der/die Beständige <span class="onboard-opt-sub">Ich bin jemand, der dranbleibt, wenn andere aufgeben.</span></button>
+                    <button class="onboard-opt" onclick="setIdentity('unbestechlich',this)">🛡️ Der/die Unbestechliche <span class="onboard-opt-sub">Ich bin jemand, den kein Shortcut und keine Ausrede kauft.</span></button>
+                </div>
+            </div>
+            <button class="start-btn" onclick="finishOnboarding()">Los geht's →</button>
+            <div class="onboard-nav">
+                <button class="mode-back-btn" onclick="prevStep()">&#8592; Zurück</button>
+                <button class="mode-back-btn" onclick="finishOnboarding()">Überspringen →</button>
+            </div>
+        </div>
+    </div>
+
     <div id="modeScreen">
         <div class="setup-card">
             <button class="onboard-back-top" onclick="modeBack()" aria-label="Zurück">&#8592;</button>
@@ -220,6 +243,7 @@
                 </button>
             </div>
             <button class="mode-back-btn" onclick="modeBack()">&#8592; Zurück</button>
+            <button class="preview-unlock-btn" onclick="previewUnlockAll()">👁️ Alles ansehen · Betreiber-Vorschau</button>
         </div>
     </div>
 
