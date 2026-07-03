@@ -46,9 +46,9 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 ## Sprint 2 · Onboarding & Phase Zero (Der Türsteher)
 11 ✅ Zwei-Achsen-Matrix (Erfahrungs- × Budget-Modus) · 18 🟡 3-Schritt-Setup baut das Dashboard (Treibstoff-Puffer offen) ·
 5 ✅ Identitäts-Onboarding „Wer willst du werden?" (v42, letzter Schritt + Tages-Banner) ·
-114 🔨 „Dicke-Plan" (Phase Zero): 1. Monat für Übergewichtige, straffrei ·
-115 🔨 „Ektomorph-Plan": Untergewichtige, Fokus Magendehnung/Volumen ·
-116 🔨 „Schatten-Tracking": im 1. Monat keine kcal-Zahlen (Baseline statt Zahlen-Fixierung) ·
+114 ✅ „Dicke-Plan" (Phase Zero, v45): 1. Monat straffrei, sanfter Gewohnheits-Fokus (BMI ≥ 30) ·
+115 ✅ „Ektomorph-Plan" (v45): Aufbau-Start bei BMI < 18,5 (regelmäßig & genug essen) ·
+116 ✅ „Schatten-Tracking" (v45): erste 28 disziplinierte Tage ohne kcal-Zahlen (Baseline statt Fixierung) ·
 45 🔵 Vergleichs-Matching (identische Veteranen-Profile)
 
 ## Sprint 3 · Chronobiologie, UI & tägliche Werkbank
@@ -180,4 +180,5 @@ v31 Studien-DB · v32 Schlaf-Analyse · v33 Confession Loop + Training-Steuer ·
 v35 SilberStaub-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficiency-Filter ·
 v38 Tipp des Tages · v39 Profil-Medaillen · v40 Body-IQ-Quiz · v41 Manifest ·
 v42 Identitäts-Frage · v43 Betreiber-Vorschau (alles offen) + Deploy-Härtung ·
-v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust)
+v44 Rebrand SILBERLOCKE → STΛTUS (Marke + Währung „Punkte", ohne Datenverlust) ·
+v45 Phase Zero (straffreier 1. Monat, Dicke-/Aufbau-Plan, Schatten-Tracking)

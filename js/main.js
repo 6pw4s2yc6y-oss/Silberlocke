@@ -357,6 +357,12 @@
         function renderDailyTargets() {
             const box = document.getElementById('dailyTargets');
             if (!box) return;
+            // Schatten-Tracking (#116): im ersten Monat bewusst KEINE kcal-Zahlen –
+            // erst Baseline & Gewohnheit, statt Zahlen-Fixierung.
+            if (phaseZero().active) {
+                box.innerHTML = `<div class="targets-locked">🌑 <strong>Schatten-Tracking läuft.</strong> Im ersten Monat zeigen wir bewusst keine kcal-Zahlen – wir ermitteln erst deine Baseline. Konzentrier dich aufs Abhaken, nicht aufs Rechnen.</div>`;
+                return;
+            }
             // Die Zahlen (kcal/Eiweiß) sind die Belohnung für Woche 2.
             if (!isUnlocked('body')) {
                 box.innerHTML = `<div class="targets-locked">🔒 <strong>Deine Angaben sind gespeichert.</strong> Die daraus berechneten Zahlen (kcal &amp; Eiweiß-Bedarf) schaltest du in <strong>Woche 2</strong> frei – bleib dran.</div>`;
@@ -731,6 +737,32 @@
             return progress;
         }
         function saveProgress() { try { store.setItem('sl_progress', JSON.stringify(progress)); } catch (e) {} }
+        // ── PHASE ZERO (#114/#115/#116): der sanfte erste Monat ─────────────────────
+        // Die ersten 28 disziplinierten Tage sind straffrei (Gewohnheit vor Zahlen).
+        // „Schatten-Tracking": kcal bleiben verborgen (Baseline statt Zahlen-Fixierung).
+        // Typ aus dem BMI: sehr hoch → sanfter Dicke-Plan, sehr niedrig → Aufbau-Plan.
+        function phaseZero() {
+            const p = loadProgress();
+            const active = (p.disciplinedDays || 0) < DAYS_PER_STAGE;   // erster Monat
+            const num = v => parseFloat(String(v || '').replace(',', '.'));
+            const h = num(userProfile.height), w = num(userProfile.weight);
+            const bmi = (h && w) ? w / Math.pow(h / 100, 2) : null;
+            let type = 'normal';
+            if (bmi != null) { if (bmi >= 30) type = 'dick'; else if (bmi < 18.5) type = 'ekto'; }
+            return { active, type, bmi };
+        }
+        function phaseZeroCardHtml() {
+            const pz = phaseZero();
+            const left = Math.max(1, DAYS_PER_STAGE - (loadProgress().disciplinedDays || 0));
+            const body = {
+                dick: 'Sanfter Start – <strong>kein Zählen, keine Strafen</strong>. Bau diesen Monat nur die Gewohnheit auf: jeden Tag deine Blöcke abhaken. Nicht abnehmen ist das Ziel, sondern <strong>auftauchen</strong>. Der Rest kommt von selbst.',
+                ekto: 'Aufbau-Start – <strong>kein Kaloriendruck</strong>. Fokus: regelmäßig und <strong>genug</strong> essen, den Magen an größere Portionen gewöhnen. Erst die Routine, dann die Zahlen.',
+                normal: 'Dein erster Monat baut die <strong>Baseline</strong>. Keine kcal-Zahlen, keine Strafen – nur die Gewohnheit. Halte durch, dann schalten sich die Zahlen frei.',
+            }[pz.type];
+            return `<div class="dash-icon">🌱</div><div class="dash-title">Phase Zero${pz.type === 'dick' ? ' · Sanfter Start' : pz.type === 'ekto' ? ' · Aufbau' : ''}</div>
+                <div class="pz-text">${body}</div>
+                <div class="pz-note">Noch ${left} disziplinierte${left === 1 ? 'r' : ''} Tag${left === 1 ? '' : 'e'} bis zum Ende von Phase Zero.</div>`;
+        }
         // Beim Öffnen an neuem Tag: war der letzte aktive Tag nicht diszipliniert → Status sanft senken.
         function reconcileProgress() {
             const p = loadProgress();
@@ -749,14 +781,20 @@
                     d.setDate(d.getDate() + 1);
                 }
                 p.prebooked = (p.prebooked || []).filter(ds => ds >= t);   // Vergangenes aufräumen
-                let jokersUsed = 0, penalty = 0;
-                for (let i = 0; i < missed; i++) {
-                    if (p.jokers > 0) { p.jokers -= 1; jokersUsed++; }
-                    else penalty += 5;
+                // Phase Zero (#114): der erste Monat ist straffrei – verpasste Tage
+                // kosten weder Joker noch Status, sie zählen nur nicht als diszipliniert.
+                if (phaseZero().active) {
+                    if (missed) celebrate(`🌱 Phase Zero: ${missed} Tag${missed === 1 ? '' : 'e'} verpasst – straffrei. Bau einfach heute weiter.`);
+                } else {
+                    let jokersUsed = 0, penalty = 0;
+                    for (let i = 0; i < missed; i++) {
+                        if (p.jokers > 0) { p.jokers -= 1; jokersUsed++; }
+                        else penalty += 5;
+                    }
+                    if (penalty) p.score = Math.max(0, p.score - penalty);
+                    if (jokersUsed && penalty) celebrate(`🃏 ${jokersUsed} Joker eingesetzt · Status −${penalty}% für ${missed} verpasste Tage`);
+                    else if (jokersUsed) celebrate(`🃏 ${jokersUsed} Joker eingesetzt – Status gerettet (${p.jokers}/3 übrig)`);
                 }
-                if (penalty) p.score = Math.max(0, p.score - penalty);
-                if (jokersUsed && penalty) celebrate(`🃏 ${jokersUsed} Joker eingesetzt · Status −${penalty}% für ${missed} verpasste Tage`);
-                else if (jokersUsed) celebrate(`🃏 ${jokersUsed} Joker eingesetzt – Status gerettet (${p.jokers}/3 übrig)`);
                 p.lastDate = t;
             }
             checkUnlocks();   // Freischaltungen immer mit den disziplinierten Tagen abgleichen
@@ -1060,6 +1098,8 @@
             const cards = [];
             // Fortschritt / Disziplin-Status (immer ganz oben)
             cards.push({ open: 'day', cls: 'wide progress', html: progressCardHtml() });
+            // Phase Zero (#114/#115): sanfter erster Monat – Kontext & Beruhigung
+            if (phaseZero().active) cards.push({ htmlOnly: true, cls: 'wide phasezero', html: phaseZeroCardHtml() });
             // SilberStaub / Joker-Schmiede (Belohnungs-Kreislauf der Disziplin-Engine)
             const pStaub = loadProgress();
             cards.push({ action: toggleStaubShop, cls: 'staub', html:
@@ -1103,7 +1143,10 @@
             const _num = v => parseFloat(String(v || '').replace(',', '.'));
             const _h = _num(userProfile.height), _w = _num(userProfile.weight);
             const bmiStr = (t && _h && _w) ? (_w / Math.pow(_h / 100, 2)).toFixed(1).replace('.', ',') : null;
-            if (gate('body')) cards.push({ locked: true, cls: 'locked', html: `<div class="dash-icon">🔒</div><div class="dash-title">Dein Körper</div><div class="dash-sub">${unlockCond('body')}</div>` });
+            const pz = phaseZero();
+            if (pz.active) cards.push({ open: 'tabMyBody', cls: 'shadow', html:
+                `<div class="dash-icon">🌑</div><div class="dash-title">Dein Körper</div><div class="dash-big">···</div><div class="dash-sub">Schatten-Tracking · Zahlen kommen nach Phase Zero</div>` });
+            else if (gate('body')) cards.push({ locked: true, cls: 'locked', html: `<div class="dash-icon">🔒</div><div class="dash-title">Dein Körper</div><div class="dash-sub">${unlockCond('body')}</div>` });
             else cards.push({ open: 'tabMyBody', html: t
                 ? `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-big">${t.tdee.toLocaleString('de-DE')}</div><div class="dash-sub">kcal Bedarf${bmiStr ? ` · BMI ${bmiStr}` : ''} · ${t.proteinMin}–${t.proteinMax} g Eiweiß</div>`
                 : `<div class="dash-icon">🫀</div><div class="dash-title">Dein Körper</div><div class="dash-sub">Profil ausfüllen für BMI, kcal &amp; Eiweiß</div>` });
@@ -4053,7 +4096,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v44';
+const APP_VERSION = 'v45';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

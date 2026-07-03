@@ -1159,6 +1159,12 @@
         .quiz-next { margin-top: 2px; }
         .quiz-done { font-size: 13px; line-height: 1.6; color: #86efac; padding: 6px 2px; }
 
+        /* PHASE ZERO (#114/#115/#116) */
+        .dash-card.phasezero { background: linear-gradient(135deg, #071206, #0a1a0c); border: 1px solid #1f5130; text-align: left; }
+        .pz-text { font-size: 12.5px; line-height: 1.6; color: #cbd5e1; margin: 6px 0 6px; }
+        .pz-note { font-size: 10.5px; color: #6ee7b7; font-weight: 600; }
+        .dash-card.shadow .dash-big { letter-spacing: 3px; color: #64748b; }
+
         /* MANIFEST (#2) */
         .dash-card.manifest { background: linear-gradient(135deg, #0d0b1f, #131024); border: 1px solid #312a52; }
         .mani-list { display: flex; flex-direction: column; gap: 10px; margin: 10px 0 6px; }
