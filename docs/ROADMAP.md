@@ -106,7 +106,8 @@ v38 Tipp des Tages (rotierende Wissens-/Disziplin-Tipps auf der Übersicht) ·
 v39 Profil-Medaillen (verdiente Meilensteine auf der Übersicht) ·
 v40 Body-IQ-Quiz (Wissens-Check, verdient SilberStaub – nicht farmbar) ·
 v41 Manifest (18 Grundsätze auf der Übersicht) ·
-v42 Identitäts-Frage im Onboarding + Betreiber-Vorschau (alle Stufen ansehen)
+v42 Identitäts-Frage im Onboarding + Betreiber-Vorschau (alle Stufen ansehen) ·
+v43 Betreiber-Vorschau als Standard (PREVIEW_UNLOCK_ALL – alles offen, App startet in Master)
 
 ## Nächste baubare Schritte (ohne Backend, Vorschlagsreihenfolge)
 1. **#5** Identitäts-Frage im Onboarding · **#64** Hydrations-/Elektrolyt-Schnellzugriff
@@ -120,9 +121,10 @@ Voraussetzungen: echte Betreiberdaten im Impressum (Büro-Adresse geplant), AGB,
 DSGVO-Konzept (Gesundheits- + ggf. Finanzdaten!), Kostenplan.
 
 ## Technik-Schulden (laufend abbauen)
-- ⚠️ **Vor öffentlichem Launch:** „Betreiber-Vorschau"-Button (`previewUnlockAll`,
-  Modus-Screen) entfernen oder hinter einen Schlüssel/URL-Parameter legen –
-  schaltet aktuell für JEDEN alle Stufen frei und umgeht die Verdien-Logik.
+- ⚠️ **Vor öffentlichem Launch:** `PREVIEW_UNLOCK_ALL` (oben in `js/main.js`) auf
+  `false` setzen. Aktuell (Bau-/Testphase) ist ALLES freigeschaltet – keine
+  gesperrten Stufen/Funktionen, App startet in Master – damit der Betreiber alles
+  kontrollieren kann. Mit `true` umgeht jeder Nutzer die Verdien-Logik.
 - Übersicht wird voll: Identität (Manifest/Medaillen/Body-IQ) evtl. in eigenen „Profil"-Bereich auslagern
 - `js/main.js` weiter in Module zerlegen (Kandidaten: progress, week, body)
 - E2E-Tests (Playwright) in die CI aufnehmen

@@ -292,6 +292,13 @@
             else enterApp();
         }
 
+        // ⚠️ BETREIBER-VORSCHAU (temporär, Bau-/Testphase): Wenn true, ist ALLES von
+        // Anfang an freigeschaltet – keine gesperrten Stufen, keine gesperrten
+        // Funktionen, jede Karte sichtbar. So kann der Betreiber die ganze App
+        // kontrollieren, ohne 28/56/84 Tage zu simulieren. VOR DEM ÖFFENTLICHEN
+        // LAUNCH auf false setzen (eine Zeile) – sonst umgeht jeder die Verdien-Logik.
+        const PREVIEW_UNLOCK_ALL = true;
+
         // ── ONBOARDING-ASSISTENT (6 Schritte) ──────────────────────────────────────
         let appMode = 'light';   // Default = Light Mode (für die breite Masse)
         // Drei Stufen: Light (Masse) · Hard (ambitioniert) · Expert (volle Kontrolle).
@@ -755,7 +762,7 @@
             checkUnlocks();   // Freischaltungen immer mit den disziplinierten Tagen abgleichen
             saveProgress();
         }
-        function isUnlocked(key) { return (loadProgress().unlocked || []).includes(key); }
+        function isUnlocked(key) { if (PREVIEW_UNLOCK_ALL) return true; return (loadProgress().unlocked || []).includes(key); }
         function nextUnlock() { const p = loadProgress(); return UNLOCK_SCHEDULE.find(u => !p.unlocked.includes(u.key)); }
         function todayLog() { const p = loadProgress(); const t = todayStr(); if (!p.log[t]) p.log[t] = { checked: [], done: false }; return p.log[t]; }
         function isBlockDone(id) { return todayLog().checked.includes(id); }
@@ -1178,7 +1185,7 @@
             // Fortschritts-System: wählbar sind nur verdiente Stufen (≤ aktuelle Stufe).
             // Light (Index 0) ist IMMER wählbar – auch bei korruptem Speicherstand.
             const p = loadProgress();
-            if (STAGES.indexOf(mode) > Math.max(0, STAGES.indexOf(p.stage))) {
+            if (!PREVIEW_UNLOCK_ALL && STAGES.indexOf(mode) > Math.max(0, STAGES.indexOf(p.stage))) {
                 modeLocked(STAGE_LABEL[mode] || mode, `${STAGES.indexOf(mode) * DAYS_PER_STAGE} disziplinierten Tagen`);
                 return;
             }
@@ -1189,19 +1196,6 @@
             } else {
                 enterApp();
             }
-        }
-        // Betreiber-Vorschau: alle Stufen & Funktionen zum Ansehen freischalten.
-        // Bewusst als „Vorschau" gekennzeichnet – nicht als verdienter Fortschritt.
-        // Vor dem öffentlichen Launch entfernen oder verstecken (Roadmap-Hinweis).
-        function previewUnlockAll() {
-            const p = loadProgress();
-            p.stage = 'master';
-            p.unlocked = ['day', ...UNLOCK_SCHEDULE.map(u => u.key)];
-            saveProgress();
-            applyMode('master');
-            inOnboarding = false;
-            celebrate('🔓 Betreiber-Vorschau: alle Stufen & Funktionen freigeschaltet');
-            enterApp();
         }
         // Gesperrte Stufe angetippt → freundlicher Hinweis (Weg sichtbar machen).
         function modeLocked(name, when) {
@@ -1215,7 +1209,7 @@
             ['hard', 'expert', 'master'].forEach(stage => {
                 const btn = document.querySelector('.mode-btn.mode-' + stage);
                 if (!btn) return;
-                const locked = STAGES.indexOf(stage) > earned;
+                const locked = !PREVIEW_UNLOCK_ALL && STAGES.indexOf(stage) > earned;
                 btn.classList.toggle('locked', locked);
                 const name = btn.querySelector('.mode-name');
                 if (name) name.textContent = `${locked ? '🔒' : MODE_ICON[stage]} ${STAGE_LABEL[stage]} Mode`;
@@ -4023,8 +4017,11 @@
                     document.getElementById("displaySleepTime").innerText = savedSleep;
                     // Gespeicherter Modus wird auf die VERDIENTE Stufe begrenzt –
                     // die Reise beginnt in Light; höhere Stufen erspielt man sich.
+                    // Betreiber-Vorschau: standardmäßig direkt in Master starten,
+                    // damit alle Funktionen sichtbar sind (Modus bleibt frei wählbar).
                     const prog0 = loadProgress();
-                    const effMode = (STAGES.indexOf(savedMode) > STAGES.indexOf(prog0.stage)) ? prog0.stage : savedMode;
+                    const effMode = PREVIEW_UNLOCK_ALL ? 'master'
+                        : ((STAGES.indexOf(savedMode) > STAGES.indexOf(prog0.stage)) ? prog0.stage : savedMode);
                     applyMode(effMode);
                     enterApp();
                 } else {
@@ -4047,7 +4044,7 @@ Object.assign(window, {
     setBloodValue, setSportChoice, showAboutMe, skipStep, stackAdd, stackRemove, stackResetAmounts,
     setWeekDay, setWeekTime, toggleBlockDone, modeLocked, setBarrierAnswer, resetBarrier,
     addWeightEntry, applyAuditAdj, resetAuditAdj, toggleConfess, confess, buyJoker, buyCheatDay, buyPrebook,
-    answerQuiz, quizNext, setIdentity, previewUnlockAll,
+    answerQuiz, quizNext, setIdentity,
     stackSetAmount, stackStep, stackToggle, startApp, startEmptyPlan, toggleDailyNutrBox,
     toggleDailySection, toggleMealAuto, toggleNutrCard, toggleProductCard, toggleSportCard,
     toggleStackBrowse, toggleStackGen, toggleTimelineCard, toggleTopPanel
@@ -4056,7 +4053,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v42';
+const APP_VERSION = 'v43';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
