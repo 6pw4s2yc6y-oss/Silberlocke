@@ -76,6 +76,9 @@ if (Array.isArray(products)) products.forEach((p, i) => {
     }
     if (p.affiliateUrl != null && !/^https:\/\//.test(p.affiliateUrl))
         fail(`${at}: "affiliateUrl" muss mit https:// beginnen`);
+    ['mhdWarnung', 'pseudoRabatt'].forEach(k => {
+        if (p[k] != null && (typeof p[k] !== 'string' || !p[k].trim())) fail(`${at}: "${k}" muss ein nicht-leerer String sein`);
+    });
     if (p.warriorAlt != null && (typeof p.warriorAlt !== 'string' || !p.warriorAlt.trim()))
         fail(`${at}: "warriorAlt" muss ein nicht-leerer String sein`);
     if (p.studyIds != null) {

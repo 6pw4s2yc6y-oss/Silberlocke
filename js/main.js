@@ -3280,6 +3280,21 @@
                 ${hasNrv ? `<div style="font-size:9px;color:#475569;margin-top:6px;">% der Nährstoffbezugswerte (EU) Nr. 1169/2011</div>` : ''}
             </div>${efficiencyWarningHtml(p)}`;
         }
+        // ── KAUF-WAHRHEIT (#80): MHD-Sensibilität & Pseudo-Rabatt-Check ─────────────
+        // MHD-sensibel = Wirkstoff verliert faktisch mit der Zeit an Potenz
+        // (Vitamine, Öle oxidieren, Probiotika sterben ab). Optional kann der
+        // Betreiber pro Produkt konkrete Warnungen (mhdWarnung/pseudoRabatt) setzen.
+        const MHD_SENSITIVE_CATS = new Set(['Vitamine', 'Omega & Öle', 'Darm & Verdauung']);
+        function isMhdSensitive(p) { return MHD_SENSITIVE_CATS.has(p.cat) || /probio|vitamin|omega|fischöl|folsäure|b12|q10/i.test(p.name || ''); }
+        function buildKaufCheckHtml(p) {
+            const mhd = p.mhdWarnung
+                ? `<div class="kauf-line">⏳ <strong>MHD:</strong> ${p.mhdWarnung}</div>`
+                : (isMhdSensitive(p) ? `<div class="kauf-line">⏳ <strong>MHD-sensibel:</strong> Der Wirkstoff verliert mit der Zeit an Potenz. Stark reduzierte Restware kurz vor Ablauf ist selten ein echtes Schnäppchen – aufs Mindesthaltbarkeitsdatum achten.</div>` : '');
+            const rabatt = p.pseudoRabatt
+                ? `<div class="kauf-line">💸 <strong>Rabatt:</strong> ${p.pseudoRabatt}</div>`
+                : `<div class="kauf-line">💸 <strong>Rabatt-Check:</strong> Prozente sagen nichts. „−50 %" ist oft nur ein überhöhter UVP – vergleiche den Preis pro 100 g / pro Portion, nicht die Prozentzahl.</div>`;
+            return `<div class="kauf-box"><div class="kauf-title">🛒 Kauf-Wahrheit</div>${mhd}${rabatt}</div>`;
+        }
 
         function toggleTimelineCard(id) {
             const card = document.getElementById(`tc-${id}`);
@@ -3326,7 +3341,7 @@
                     <div class="info-row" style="--row-color:#38bdf8">
                         <div class="info-row-title" style="--row-color:#38bdf8">Menge</div>
                         <div class="info-row-val">${p.serving}</div>
-                    </div>` + efficiencyWarningHtml(p) + smartFieldsHtml(p);
+                    </div>` + efficiencyWarningHtml(p) + buildKaufCheckHtml(p) + smartFieldsHtml(p);
                 document.getElementById("productOverlay").style.display = "flex";
                 return;
             }
@@ -3360,7 +3375,7 @@
                 </div>
             `).join('');
 
-            document.getElementById("ovDetails").innerHTML = smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + rowsHtml;
+            document.getElementById("ovDetails").innerHTML = smartFieldsHtml(p) + macroHtml + buildNutrientsHtml(p) + buildKaufCheckHtml(p) + rowsHtml;
             document.getElementById("productOverlay").style.display = "flex";
         }
 
@@ -4142,7 +4157,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v48';
+const APP_VERSION = 'v49';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

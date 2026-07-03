@@ -1139,6 +1139,12 @@
         .eff-pct.extreme { color: #f87171; }
         .eff-note { font-size: 10.5px; line-height: 1.5; color: #a8a29e; }
 
+        /* KAUF-WAHRHEIT (#80): MHD & Pseudo-Rabatt */
+        .kauf-box { background: #0a0f1a; border: 1px solid #1e3a5f; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+        .kauf-title { font-size: 12px; font-weight: 700; color: #7dd3fc; margin-bottom: 6px; }
+        .kauf-line { font-size: 10.5px; line-height: 1.55; color: #a8a29e; margin-top: 5px; }
+        .kauf-line strong { color: #cbd5e1; }
+
         /* TIPP DES TAGES (#101) */
         .dash-card.tip { background: linear-gradient(135deg, #0d0b1f, #120f24); border: 1px solid #312a52; text-align: left; }
         .tip-cat { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #a78bfa; margin: 2px 0 5px; }
