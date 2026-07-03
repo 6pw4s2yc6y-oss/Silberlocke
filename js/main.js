@@ -3276,9 +3276,14 @@
                             <span class="db-card-arrow"></span>
                         </button>
                         <div class="db-card-content" id="dbcc-${p.id}">
+                            ${buildMedInteractionHtml(p)}
+                            ${buildSplitScreenHtml(p)}
                             ${smartFieldsHtml(p)}
                             ${macroHtml}
                             ${buildNutrientsHtml(p)}
+                            ${buildKaufCheckHtml(p)}
+                            ${buildHalalHtml(p)}
+                            ${buildSynergyHtml(p)}
                             ${detailsRowsHtml}
                         </div>
                     </div>
@@ -4350,7 +4355,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v57';
+const APP_VERSION = 'v58';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
