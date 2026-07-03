@@ -3464,27 +3464,36 @@
                 ${syn.map(s => `<div class="syn-line">🤝 <strong>${s.n}</strong> – ${s.w}</div>`).join('')}
             </div>`;
         }
-        // ── HALAL / VEGAN-TRANSPARENZ (#62): tierische/bedenkliche Zutaten flaggen ──
-        // Erscheint nur bei betroffenen Produkten (Gelatine-Kapseln, Karmin). Bewusst
-        // OHNE „Alkohol" (Zuckeralkohole sind unbedenklich → sonst Fehlalarm).
+        // ── HALAL / VEGAN-CHECK (#62): immer sichtbarer Status je Produkt ──────────
+        // „bad" = klar bedenklich (Schwein/Karmin), „warn" = Quelle prüfen (Gelatine/
+        // Kollagen/tierisch), sonst grün. Bewusst OHNE „Alkohol" (Zuckeralkohole).
         const HALAL_FLAGS = [
-            { m: /gelatine|gelatin/i, t: 'Gelatine (tierischen Ursprungs – Rind/Schwein je nach Hersteller)' },
-            { m: /karmin|carmin|\be120\b/i, t: 'Karmin (E120, aus Schildläusen)' },
-            { m: /schweine|schwein\b|pork/i, t: 'Schweine-Bestandteile' },
+            { m: /schweine|schwein\b|pork/i, lvl: 'bad',  t: 'Schweine-Bestandteile' },
+            { m: /karmin|carmin|\be120\b/i,  lvl: 'bad',  t: 'Karmin (E120, aus Schildläusen)' },
+            { m: /gelatine|gelatin/i,        lvl: 'warn', t: 'Gelatine (tierisch – Rind/Schwein je nach Hersteller)' },
+            { m: /kollagen|collagen/i,       lvl: 'warn', t: 'Kollagen (tierischen Ursprungs)' },
+            { m: /molke|molken|whey|casein|kasein|milch|laktose|lactose|\bei\b|eiklar|honig/i, lvl: 'info', t: 'tierische Bestandteile (nicht vegan)' },
         ];
         function halalConcerns(p) {
-            const ing = (typeof p.ingredients === 'string' ? p.ingredients : JSON.stringify(p.ingredients || '')).toLowerCase();
-            const out = [];
-            HALAL_FLAGS.forEach(f => { if (f.m.test(ing)) out.push(f.t); });
-            return out;
+            const ing = (typeof p.ingredients === 'string' ? p.ingredients : JSON.stringify(p.ingredients || '')).toLowerCase() + ' ' + (p.name || '').toLowerCase();
+            return HALAL_FLAGS.filter(f => f.m.test(ing));
         }
         function buildHalalHtml(p) {
             const c = halalConcerns(p);
-            if (!c.length) return '';
-            return `<div class="halal-box">
-                <div class="halal-title">🕌 Halal- / Vegan-Hinweis</div>
-                <div class="halal-line">Enthält: ${c.join(', ')}.</div>
-                <div class="halal-note">Für Halal, Vegan oder aus religiösen Gründen auf die Herkunfts-/Zertifizierungs-Angabe des Herstellers achten.</div>
+            if (!c.length) {
+                return `<div class="halal-box ok">
+                    <div class="halal-title">🕌 Halal-/Vegan-Check: unauffällig</div>
+                    <div class="halal-note">Keine bedenklichen tierischen Zutaten erkannt (automatische Prüfung) – im Zweifel Herstellerangabe beachten.</div>
+                </div>`;
+            }
+            const bad = c.some(x => x.lvl === 'bad');
+            const warn = c.some(x => x.lvl === 'warn');
+            const cls = bad ? ' bad' : warn ? '' : ' info';
+            const head = bad ? 'bedenklich' : warn ? 'bitte Quelle prüfen' : 'nicht vegan';
+            return `<div class="halal-box${cls}">
+                <div class="halal-title">🕌 Halal-/Vegan-Check: ${head}</div>
+                ${c.map(x => `<div class="halal-line">• ${x.t}</div>`).join('')}
+                <div class="halal-note">Für Halal/Vegan auf die Herkunfts-/Zertifizierungs-Angabe des Herstellers achten.</div>
             </div>`;
         }
 
@@ -4364,7 +4373,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v59';
+const APP_VERSION = 'v60';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;

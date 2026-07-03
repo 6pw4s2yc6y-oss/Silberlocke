@@ -56,7 +56,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 34 ✅ Body-IQ-Quiz (v40, 15 Fragen, nicht farmbar) · 99 ✅ Dark-Mode (Lila/Grün/Rot) ·
 101 ✅ Tipp des Tages (v38, tagesrotierend) · 57 🟡 Dynamische Einnahmefenster (ab individueller Aufwachzeit) ·
 58 🟡 Standard-Mahlzeiten (Slots live, Rezept-Routinen offen) · 63 🟡 Sleep Mode (Analyse live, Blaulicht-Anleitung offen) ·
-62 🟡 Halal-/Vegan-Transparenz (flaggt Gelatine/Karmin je Produkt; v57) · Gebetszeiten offen · 64 ✅ Wasser-/Elektrolyt-Schnellzugriff (Glas-Zähler, Ziel +2 an Trainingstagen, Elektrolyt-Hinweis; v47) ·
+62 🟡 Halal-/Vegan-Check bei JEDEM Produkt (Status grün/gelb/rot/grau; v60) · Gebetszeiten offen · 64 ✅ Wasser-/Elektrolyt-Schnellzugriff (Glas-Zähler, Ziel +2 an Trainingstagen, Elektrolyt-Hinweis; v47) ·
 100 🔨 Themes/Vibes · 113 ✅ „Brennende Batterie" (Tages-Batterie in der Tagesansicht + Glut-Balken, flammt beim Abhaken auf; v48) ·
 61 🅿️ „Aleman Trink-Timer" (native Alarme – PWA-Limits) · 127 🔵 Financial-Hub (Open-Banking) ·
 128 🔵 Medical-Terminal (verschlüsseltes Befund-Archiv)

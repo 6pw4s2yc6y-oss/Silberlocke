@@ -1171,11 +1171,17 @@
         .syn-line { font-size: 11px; line-height: 1.55; color: #e2e8f0; margin-top: 4px; }
         .syn-line strong { color: #fde68a; }
 
-        /* HALAL / VEGAN-TRANSPARENZ (#62) */
-        .halal-box { background: #08130d; border: 1px solid #15803d; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
-        .halal-title { font-size: 12px; font-weight: 800; color: #86efac; margin-bottom: 5px; }
-        .halal-line { font-size: 11.5px; line-height: 1.5; color: #e2e8f0; }
-        .halal-note { font-size: 10px; line-height: 1.5; color: #93c5a3; margin-top: 6px; }
+        /* HALAL / VEGAN-CHECK (#62) – Status: gelb=prüfen · grün=ok · rot=bedenklich · grau=nicht vegan */
+        .halal-box { background: #171204; border: 1px solid #92400e; border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+        .halal-title { font-size: 12px; font-weight: 800; color: #fcd34d; margin-bottom: 5px; }
+        .halal-box.ok { background: #08130d; border-color: #15803d; }
+        .halal-box.ok .halal-title { color: #86efac; }
+        .halal-box.bad { background: #1a0505; border-color: #b91c1c; }
+        .halal-box.bad .halal-title { color: #fca5a5; }
+        .halal-box.info { background: #0c0c14; border-color: #334155; }
+        .halal-box.info .halal-title { color: #cbd5e1; }
+        .halal-line { font-size: 11.5px; line-height: 1.5; color: #e2e8f0; margin-top: 3px; }
+        .halal-note { font-size: 10px; line-height: 1.5; color: #94a3b8; margin-top: 6px; }
 
         /* KLAPPBARE PRODUKT-ABSCHNITTE (Aufräumen) */
         .pd-section { background: #07070f; border: 1px solid #1e293b; border-radius: 10px; margin-top: 8px; overflow: hidden; }
