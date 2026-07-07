@@ -275,12 +275,35 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ---
 
-## AKTUELLER STATUS (Handoff-Loop, Stand 2026-07-07)
+## AKTUELLER STATUS (Handoff-Loop, Stand 2026-07-07, Session 2)
 
-- **Dieses Repository (`Silberlocke`)** enthält die Vanilla-JS-PWA – die **Legacy-Blaupause** gemäß Regel 5. Aktueller Stand: **v61** (nicht v60): nach der v60-Blaupause kam noch der Inspirations-Impuls (#129 alt / Dashboard-Karte) hinzu. Referenz-Status der PWA: `docs/ROADMAP.md`.
-- **Hinweis Status-Abgleich:** Die ✅/🔨-Markierungen in Abschnitt 7 spiegeln Stand v41. In der PWA sind inzwischen zusätzlich live (Auszug): 5, 17, 48, 49, 62 (Halal-Check ohne Gebetszeiten), 64, 74, 80, 113 (als CSS-Batterie), 114–116, 122, 123. Für die React-Native-Migration gilt: Logik dieser Punkte aus dem PWA-Code extrahieren, nicht neu erfinden.
-- **Die neuen Repositories `vaaav-mobile` und `vaaav-backend` existieren noch nicht** – Anlage ist der erste Schritt von Abschnitt 5 (TODO 1).
+- **TODO 1–9 sind als UI-Prototyp GEBAUT** und warten auf die visuelle Freigabe
+  (System-Stopp, TODO 10 – aktiv). Umfang: Expo-Projekt (SDK 57, TypeScript),
+  zentrale `src/theme/theme.ts` (Design-Matrix, 4 Level, Neomorphismus- &
+  Liquid-Glass-Token, Typografie Inter/Mono), **VΛAΛV Core Bar** im
+  Default-State (reanimated: Treibstoff-Füllung, Licht-Sweep, Λ-Morphing-Anker,
+  3D-Glasgravur), **Master-Screen** (Atomuhr sekundengenau, 4 Premium-Cards
+  Übersicht/Dein Tag/Dein Körper/Werkzeuge mit Lucide-Icons, Mock-Daten),
+  GitHub Action `eas-update.yml` (Push auf main → EAS Update, Test via Expo Go).
+  Verifiziert: `tsc --noEmit` sauber, Web-Export läuft ohne JS-Fehler, Screenshot
+  an Betreiber übergeben.
+- **Staging statt Ziel-Repo:** Der Code liegt vorübergehend unter
+  `migration/vaaav-mobile/` in DIESEM Repo, weil das Ziel-Repo `vaaav-mobile`
+  noch nicht existiert und die GitHub-Integration keine Repos anlegen darf
+  (403). Nach Anlage: Inhalt 1:1 verschieben, Staging-Ordner löschen.
+- **Dieses Repository (`Silberlocke`)** = Legacy-Blaupause (Regel 5), Stand
+  **v61**. Status-Abgleich: Die ✅/🔨-Marker in Abschnitt 7 spiegeln v41; in der
+  PWA sind zusätzlich live (Auszug): 5, 17, 48, 49, 62 (ohne Gebetszeiten), 64,
+  74, 80, 113, 114–116, 122, 123 – Logik von dort extrahieren.
 
 ## AKTUELLES TODO (Handoff-Loop)
 
-Unverändert Abschnitt 5, Punkte 1–10. Nächster konkreter Schritt: `vaaav-mobile` (Expo React Native) initialisieren inkl. GitHub Action für Expo EAS Update, dann `theme.ts` + Core Bar (Default-State).
+1. **Betreiber:** Repo `vaaav-mobile` auf GitHub anlegen (privat, leer) →
+   danach Staging-Inhalt dorthin verschieben.
+2. **Betreiber:** expo.dev-Konto: Projekt „vaaav-mobile" anlegen; im GitHub-Repo
+   Secret `EXPO_TOKEN` + Variable `EXPO_PROJECT_ID` setzen (Anleitung:
+   `migration/vaaav-mobile/README.md`).
+3. **Betreiber:** Visuelle Freigabe des Master-Screens erteilen oder Änderungen
+   nennen (System-Stopp, TODO 10).
+4. **Nach Freigabe:** Context-/Action-/Recovery-State der Core Bar; danach
+   Logik-Extraktion aus der v61-Blaupause (calculator/timeline zuerst).
