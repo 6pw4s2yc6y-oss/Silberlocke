@@ -1,5 +1,11 @@
 # VΛAΛV – Master-Roadmap (fusioniert, 128+ Punkte)
 
+> ⚠️ **ABGELÖST (2026-07-07):** Das maßgebliche Arbeitsdokument ist jetzt
+> **[`docs/MASTER_HANDOFF.md`](MASTER_HANDOFF.md)** („MASTER HANDOFF & ROADMAP: VΛAΛV3",
+> React Native/Expo + Next.js + Supabase). Diese Datei bleibt als ehrliche
+> Status-Referenz der Vanilla-JS-PWA (v61) erhalten – sie dokumentiert, welche
+> Logik gemäß Handoff-Regel 5 („Legacy-Code respektieren") 1:1 zu migrieren ist.
+
 > Fusion aus der **Sprint-Logik & den 128 VΛAΛV-Punkten** und der **ungeschönten
 > technischen Realität** des Codes (Vanilla JS/HTML/CSS, PWA auf GitHub Pages).
 > Kein Wunschzettel – ein Arbeitsdokument mit **echtem Status, Stand v43**.
