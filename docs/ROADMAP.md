@@ -129,7 +129,7 @@ Damit die Roadmap ehrlich bleibt, hier die Punkte, an denen Anspruch ≠ Code is
 
 ## Sprint 11 · WinterArc – Inspiration, Events & Newsletter (NEU)
 > Menschen aus der Routine holen, Neues wagen – sachlich, nicht aufdringlich.
-129 🔨 Lokaler „Inspirations-Impuls" (wie Tipp des Tages, aber Aktivitäten/Sportarten, saisonal, als Daten – Frontend-Teaser sofort baubar) ·
+129 ✅ Lokaler „Inspirations-Impuls" (v61): saisonale Aktivitäts-/Sportarten-Anregung als Übersichts-Karte – Daten in `data/app/inspiration.json` (30 Impulse, 4 Jahreszeiten + ganzjährig), tagesrotierend wie der Tipp ·
 130 🔵 Lokale Events/Veranstaltungen anzeigen (Event-API/Partner) ·
 131 🔵 Aktivitäten direkt buchbar (Provision bei Buchung, neutral & transparent) ·
 132 🔵 Newsletter (Qualität statt Spam; braucht E-Mail-Infra + DSGVO-Consent)
@@ -195,4 +195,6 @@ v55 Clash-Detection Trainings- vs. Ruhetag (#122) ·
 v56 König-Synergien (#17) ·
 v57 Halal-/Vegan-Transparenz (#62) ·
 v58 Fix: neue Blöcke auch in den Produkt-Datenbank-Karten ·
-v59 Produkt-Detail aufgeräumt (klappbare Abschnitte; Sicherheit bleibt oben offen)
+v59 Produkt-Detail aufgeräumt (klappbare Abschnitte; Sicherheit bleibt oben offen) ·
+v60 Halal-/Vegan-Check bei JEDEM Produkt sichtbar (#62) ·
+v61 Inspirations-Impuls (#129, WinterArc – saisonale Aktivitäts-Anregung)
