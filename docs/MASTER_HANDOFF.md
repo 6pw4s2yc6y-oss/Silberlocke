@@ -287,10 +287,10 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
   GitHub Action `eas-update.yml` (Push auf main → EAS Update, Test via Expo Go).
   Verifiziert: `tsc --noEmit` sauber, Web-Export läuft ohne JS-Fehler, Screenshot
   an Betreiber übergeben.
-- **Staging statt Ziel-Repo:** Der Code liegt vorübergehend unter
-  `migration/vaaav-mobile/` in DIESEM Repo, weil das Ziel-Repo `vaaav-mobile`
-  noch nicht existiert und die GitHub-Integration keine Repos anlegen darf
-  (403). Nach Anlage: Inhalt 1:1 verschieben, Staging-Ordner löschen.
+- **Repo-Trennung vollzogen:** `vaaav-mobile` existiert und enthält den
+  Prototyp auf `main` (Initial-Commit; EAS-Workflow aktiv, sobald
+  `EXPO_TOKEN`/`EXPO_PROJECT_ID` gesetzt sind). Das Staging-Verzeichnis
+  `migration/` in diesem Repo wurde wieder entfernt.
 - **Dieses Repository (`Silberlocke`)** = Legacy-Blaupause (Regel 5), Stand
   **v61**. Status-Abgleich: Die ✅/🔨-Marker in Abschnitt 7 spiegeln v41; in der
   PWA sind zusätzlich live (Auszug): 5, 17, 48, 49, 62 (ohne Gebetszeiten), 64,
@@ -298,12 +298,11 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ## AKTUELLES TODO (Handoff-Loop)
 
-1. **Betreiber:** Repo `vaaav-mobile` auf GitHub anlegen (privat, leer) →
-   danach Staging-Inhalt dorthin verschieben.
+1. ✅ Repo `vaaav-mobile` angelegt; Prototyp auf `main` importiert.
 2. **Betreiber:** expo.dev-Konto: Projekt „vaaav-mobile" anlegen; im GitHub-Repo
-   Secret `EXPO_TOKEN` + Variable `EXPO_PROJECT_ID` setzen (Anleitung:
-   `migration/vaaav-mobile/README.md`).
+   `vaaav-mobile` Secret `EXPO_TOKEN` + Variable `EXPO_PROJECT_ID` setzen
+   (Anleitung: README des Repos) → erst dann publiziert der EAS-Workflow.
 3. **Betreiber:** Visuelle Freigabe des Master-Screens erteilen oder Änderungen
-   nennen (System-Stopp, TODO 10).
+   nennen (System-Stopp, TODO 10) – idealerweise nach echtem Blick in Expo Go.
 4. **Nach Freigabe:** Context-/Action-/Recovery-State der Core Bar; danach
    Logik-Extraktion aus der v61-Blaupause (calculator/timeline zuerst).
