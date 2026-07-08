@@ -320,9 +320,15 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    Blaupausen-Tests portiert und grün; CI-Workflow (Typecheck + Tests)
    aktiv. Master-Screen-Karte „Dein Bedarf" rechnet live über den echten
    Rechner (Profil noch Mock).
-5. **Nächste Schritte:** (a) Onboarding-Screens (Profil/Ziel/Zeiten,
-   Mock-frei bis auf Persistenz) → speist den Rechner mit echten Daten;
-   (b) „Dein Tag"-Screen mit Timeline-Blöcken aus `data/app/timeline_config.json`
-   + Produkten (Daten-Extraktion aus der Blaupause); (c) Persistenz-Schicht
-   (AsyncStorage, Pendant zu storage.js); (d) Core-Bar-Zustände
-   Context/Action/Recovery.
+5. ✅ **Navigation & erste Bereichs-Screens:** RootNavigator (leichter
+   Screen-Wechsler, Framework-Wechsel später trivial); Core Bar lebt als
+   persistenter Organismus darüber, **Λ-Anker morpht beim Screen-Wechsel**
+   (Context-State). Screens: „Dein Tag" (Timeline live aus
+   suggestMeals/suggestTrainTime), „Dein Körper" (Gewicht + Thermo-Audit
+   live), „Werkzeuge" (Register der 9 Blaupausen-Module mit
+   Migrations-Status). Interaktion per Playwright verifiziert.
+6. **Nächste Schritte:** (a) Onboarding-Screens (Profil/Ziel/Zeiten) →
+   speist Rechner/Timeline mit echten Daten; (b) Persistenz-Schicht
+   (AsyncStorage, Pendant zu storage.js); (c) „Dein Tag" mit echten
+   Timeline-Blöcken/Produkten aus `data/` (Daten-Extraktion);
+   (d) Core-Bar-Zustände Action/Recovery.
