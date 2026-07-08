@@ -470,7 +470,28 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     persistent in sl_stack. Commits für Manual-QA-Tests: weekly-planner-stack-e2e.mjs
     (Checklisten-Template, für zukünftige Detox/EAS-Integration). Typecheck sauber,
     alle 65 Tests weiterhin grün.
-23. **Nächste Schritte:** (a) Mahlzeit-Tracking zur Aktivierung von Recovery-Credit-Logik;
-    (b) Trainings-Progressions-Tracker (Sätze/Gewicht pro Trainingstag dokumentierbar);
-    (c) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
-    (d) Detox-Framework für native RN E2E-Automation (zukünftige Sessions).
+23. ✅ **Meal Tracking Integration mit Recovery-Credit:** mealtracking.ts implementiert
+    calculateBlockKcal (Summe aus Produkten im Block) und isMealBlock (Frühstück,
+    Mittagessen, Snack, Mahlzeit-Einnahme). DayScreen zeigt kcal-Totale neben
+    Mahlzeit-Blöcken (z.B. „1800 kcal"). Beim Block-Abhaken: wenn isMeal && inRecovery
+    && blockKcal > 0 → automatisch addRecoveryCredit(blockKcal). Umsetzung des
+    Konzepts „thermodynamisches Recovery-Fenster": Nutzer trackt Mahlzeiten →
+    kcal werden automatisch gegen Regenerationsschuld verrechnet. Toast-Feedback
+    zeigt Fortschritt. Typecheck sauber, alle 65 Tests grün. Commit 0890e19.
+24. **Trainings-Progressions-Tracker (Sätze/Gewicht pro Trainingstag):** Neue Datei
+    `src/logic/tracking.ts` mit Schnittstellen `ExerciseSet`, `LoggedExercise`,
+    `TrainingLog`. Funktionen `parseSetsString()` (extrahiert „5×3" → 5),
+    `initializeExerciseSets()` (generiert Array leerer Sets), Persistierungs-Keys.
+    DayScreen erweitert: Erkennt Training-Blöcke (label.includes('training')),
+    lädt aktuellen Wochenplan aus `sl_weekplan`, berechnet aktuellen Wochentag,
+    mappet zu entsprechendem TrainingDay. Neue State: `expandedExerciseBlock`,
+    `exerciseSetValues`. Beim Antippen eines Training-Blocks: expandierbar Button
+    zeigt Chevron-Icon. Expanded-Ansicht zeigt alle Übungen des Tages mit
+    Eingabefelder für Wiederholungen + Gewicht pro Satz (z.B. „5×3" → 5 Reihen
+    mit „reps × kg" Input). Inline-Validierung, Speicherung momentan in State
+    (Basis für async TrainingLog-Persistierung in Point 24b). Typecheck sauber,
+    alle 65 Tests grün. Commit 6dfcce4.
+25. **Nächste Schritte:** (a) TrainingLog-Persistierung (AsyncStorage mit
+    sl_training_log_YYYY-MM-DD); (b) weitere Werkzeuge-Module (Nahrung, Money,
+    Blutwerte, RecoveryMode); (c) Detox-Framework für native RN E2E-Automation;
+    (d) Onboarding-Flow Verbesserungen (Fokus-Matrix, Zielpriorisierung).
