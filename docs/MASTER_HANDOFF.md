@@ -299,11 +299,11 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 ## AKTUELLES TODO (Handoff-Loop)
 
 1. ✅ Repo `vaaav-mobile` angelegt; Prototyp auf `main` importiert.
-2. ✅ EAS eingerichtet: Expo-Projekt existiert (ID `523fcb3c-…` fest in
-   app.json), Secret `EXPO_TOKEN` gesetzt, Workflow ausgelöst.
-   ⚠️ Sicherheits-Nachtrag: Der Token wurde im Chat geteilt → nach
-   erfolgreichem Test auf expo.dev neuen Token erzeugen, Secret-Wert
-   aktualisieren, alten Token löschen.
+2. ✅ EAS-Pipeline GRÜN (Lauf #4): Expo-Projekt-ID `523fcb3c-…` + slug
+   `vaaav-mobile-` fest in app.json, Secret `EXPO_TOKEN` gesetzt. Jeder Push
+   auf `main` publiziert jetzt automatisch; Test via Expo Go (QR auf expo.dev).
+   ⚠️ Sicherheits-Nachtrag: Der Token wurde im Chat geteilt → neuen Token
+   erzeugen, Secret-Wert aktualisieren, alten Token löschen.
 3. **Betreiber:** Visuelle Freigabe des Master-Screens erteilen oder Änderungen
    nennen (System-Stopp, TODO 10) – idealerweise nach echtem Blick in Expo Go
    (QR-Code im expo.dev-Projekt, App „Expo Go" aus dem Store).
