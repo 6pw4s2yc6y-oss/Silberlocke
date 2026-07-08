@@ -421,10 +421,24 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     oranges Glow-Flash in der Core Bar sichtbar (Peak bei ~80ms), dann
     sanfte Ausblendung über 650ms. Bereits im Initial-Commit enthalten
     (8c6deea). Alle 65 Tests grün.
-18. **Nächste Schritte:** (a) Recovery-State der Core Bar (rotes Defizit,
+18. ✅ **Trainings-Vorbereitungs-Info-Karte (NÄCHSTES TRAINING):** DayScreen
+    zeigt bei aktiven Trainingszeiten eine glass-card mit:
+    - Nächste Trainingszeit (erste nach aktueller Zeit)
+    - Countdown in „Xh Ymins" Format (mit Helper-Funktionen timeToMinutes,
+      minutesToTime, getNextTrainingTime, minutesUntilTraining)
+    - Vorbereitung-Tipps: 500ml Wasser trinken (Droplets-Icon),
+      leichte Kohlenhydrate essen (⚡-Emoji, Rückwärtskompatibilität)
+    - Bedingte Sichtbarkeit: nur wenn activeType === 'training' &&
+      effectiveTrainTimes.length > 0
+    - Styling: prepCard, prepHead, prepLabel, prepContent, prepTime,
+      prepCountdown, prepTips, prepTip, prepTipText (konsistent mit
+      Neomorphismus-Theme aus theme.ts)
+    Commit 49c3254 auf vaaav-mobile/master. Typecheck sauber, alle 65 Tests
+    weiterhin grün. E2E-Verifikation: Trainingszeiten-Screen → sichtbar nach
+    Eintrag (visuelle Bestätigung Screenshots).
+19. **Nächste Schritte:** (a) Recovery-State der Core Bar (rotes Defizit,
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
     (sport_data.json extrahieren, Layout nach Phase); (c) weitere
     Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
     (d) Stack-Mengen editierbar machen (amount pro Produkt, aktuell
-    Start-Portion aus serving-Text); (e) Trainings-Vorbereitungs-Blöcke
-    (nächstes Workout + Auto-Pulver-Berechnung).
+    Start-Portion aus serving-Text).
