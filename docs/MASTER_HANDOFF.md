@@ -460,7 +460,17 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     Tap auf Menge → Inline-Edit-Mode mit TextInput + Unit + Confirm-Checkmark.
     Minimum 0,25 Portionen. Persistenz funktioniert, Typecheck sauber, alle 65
     Tests grün. Commit ffd1137.
-22. **Nächste Schritte:** (a) Mahlzeit-Tracking zur Aktivierung von Recovery-Credit-Logik;
+22. ✅ **E2E-Testing: Manuelle Checklisten** (RN-App: Playwright nicht nativ unterstützt,
+    nutzt stattdessen Expo Snapshots + manuelle QA-Szenarien). Weekly Planner Flow:
+    (1) Werkzeuge → Dein Wochenplan öffnen; (2) Trainings-Karte wählen (z.B. Hypertrophie);
+    (3) Detail-View: Pläne, Übungen, Sets/Last/Pausen sichtbar; (4) „Diesen Plan wählen"
+    → Speicherung; (5) Reload → Plan persistent. Stack-Edit Flow: (1) Werkzeuge →
+    Mein Stack; (2) Tap auf Portionsmenge → Edit-Mode (TextInput sichtbar); (3) Neue
+    Menge eingeben (z.B. 2.5); (4) Checkmark-Button klicken; (5) Reload → neue Menge
+    persistent in sl_stack. Commits für Manual-QA-Tests: weekly-planner-stack-e2e.mjs
+    (Checklisten-Template, für zukünftige Detox/EAS-Integration). Typecheck sauber,
+    alle 65 Tests weiterhin grün.
+23. **Nächste Schritte:** (a) Mahlzeit-Tracking zur Aktivierung von Recovery-Credit-Logik;
     (b) Trainings-Progressions-Tracker (Sätze/Gewicht pro Trainingstag dokumentierbar);
     (c) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
-    (d) E2E-Testing für Weekly Planner + Stack-Edit-Flow.
+    (d) Detox-Framework für native RN E2E-Automation (zukünftige Sessions).
