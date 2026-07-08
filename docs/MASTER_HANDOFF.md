@@ -544,7 +544,29 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     für fokussierte Feature-Tests mit 5-Tage-Stufen und 3x Punkt-Multiplikator.
     Commit 08d4efe auf vaaav-mobile/master.
 
-## 8. AKTUELLER STATUS (Stand: 2026-07-08, 20:45)
+30. ✅ **KRITISCHER FIX – Deploy-Pipeline repariert (Tester war blockiert):**
+    Ursache für „stecke im Light Mode": Die lokale Arbeitskopie von
+    `vaaav-mobile` hatte ihre GitHub-Verbindung verloren – **17 Commits
+    (Points 16–29) waren nie gepusht**, GitHub `main` stand noch bei
+    „Mein Stack" (0ca2ac3). Behoben in 3 Schritten:
+    (a) Force-Push des vollständigen Stands nach `main` (3d7ce39, vom
+    Betreiber freigegeben; alte Historie war Datei-Teilmenge, kein Verlust).
+    (b) CI-Fix 63f4906: Workflow verlangte Repo-Variable EXPO_PROJECT_ID
+    hart – jetzt Fallback auf die fest in app.json hinterlegte projectId
+    (523fcb3c-…), Inject-Skript entsprechend tolerant.
+    (c) CI-Fix 7b51e15: Hermes brach mit „private properties are not
+    supported" ab – frühere npm-Update-Versuche hatten SDK-57-Pakete in die
+    Lockfile gezogen. package-lock.json auf sauberen SDK-54-Stand (8c6deea)
+    zurückgesetzt, Detox vorerst aus devDependencies entfernt (e2e/-Konfig
+    bleibt für spätere saubere Installation). **EAS-Lauf #20 grün** –
+    Update live auf Expo.
+31. ✅ **DEV: Alles sofort frei + Modus-Schalter:** normalizeProgress schaltet
+    ALLE 11 Features frei (heilt bestehende Spielstände ohne Storage-Reset).
+    Neu: DisciplineContext.setStage() + DEV-Panel in ToolsScreen mit 4 Chips
+    (Light/Hard/Expert/Master) – Modus per Tap sofort wechseln & persistiert.
+    Kein Warten auf 5 Tage mehr nötig. Commit 3d7ce39.
+
+## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
 **Projektzustand:** Alle 5 Haupt-Werkzeug-Module (Points 24–28) implementiert und 
 integriert. DEV-Mode aktiv mit:
