@@ -376,9 +376,20 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     kennt den neuen Screen `produkte` inkl. Core-Bar-Kontext-Icon.
     E2E verifiziert (Filter + Detail-Aufklappen); Typecheck sauber,
     alle 59 Tests weiterhin grün.
-14. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+14. ✅ **Mein Stack (zweites migriertes Werkzeuge-Modul):** Produkt-
+    Auswahl per „+"-Button direkt in der Produkt-Datenbank
+    (`sl_stack`, persistiert); `applyStackFilter()` 1:1 aus
+    `renderTimeline` extrahiert (Blaupause js/main.js Z. 2296–2366 &
+    3073–3099) – „Tagesplan aus meinem Stack generieren" reduziert
+    „Dein Tag" auf die eigenen Produkte (Blöcke ohne Treffer fallen
+    weg außer Training-/Strafblöcke; Produkte ohne festes Zeitfenster
+    landen im „Frei wählbar"-Sammelblock). „Voller Plan" beendet den
+    Modus. 6 neue Tests (65 gesamt, grün); E2E-Flow (Auswahl → Plan
+    generieren → gefilterter Tagesplan → Ausstieg) verifiziert.
+15. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
-    (sport_data.json extrahieren); (c) „Mein Stack" (Nutzer wählt
-    Produkte aus der Datenbank aus, speist den Tagesplan); (d) reale
-    Trainingszeiten-Eingabe (statt nur Empfehlung); (e) weitere
-    Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode).
+    (sport_data.json extrahieren); (c) reale Trainingszeiten-Eingabe
+    (statt nur Empfehlung, inkl. Mehrfach-Einheiten aus dem UI);
+    (d) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
+    RecoveryMode); (e) Stack-Mengen editierbar machen (amount pro
+    Produkt, aktuell Start-Portion aus serving-Text).
