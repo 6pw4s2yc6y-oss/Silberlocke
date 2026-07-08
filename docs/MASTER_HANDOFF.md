@@ -353,8 +353,15 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    echtem Stufen-Fortschritt + Action-Pulse („Brennende Batterie"),
    Master-Screen mit echten Werten. 15 neue Tests (47 gesamt, grün);
    E2E inkl. Reload-Persistenz verifiziert.
-10. **Nächste Schritte:** (a) weitere Tagestypen (recovery/carb/keto/
-    autophagy/water – Builder-Konstanten liegen bereit) + Tagestyp
-    persistieren; (b) Recovery-State der Core Bar (Defizit nur durch
-    aktive Disziplin füllbar); (c) Punkte-Shop (Cheat-Tag, Pre-Booking,
-    Joker-Schmiede aus der Blaupause); (d) Wochenplan.
+10. ✅ **Punkte-Shop:** buyCheatDay/buyPrebook/buyJoker 1:1 (Kosten
+    250/200/150, Wochen-Sperre, max. 7 Pre-Bookings, Joker-Cap 3);
+    ShopScreen mit Guthaben + Status; Master-Karte „Disziplin & Shop".
+    Der Verdien-Loop ist geschlossen. 7 neue Tests (54 gesamt, grün);
+    E2E inkl. Reload verifiziert.
+11. **Betreiber-Arbeitsmodus (dauerhaft):** eigenständig weiterarbeiten
+    ohne Rückfragen; Annahmen begründet treffen; Rückfragen nur bei
+    irreversiblen Entscheidungen. (Auch in beiden CLAUDE.md verankert.)
+12. **Nächste Schritte:** (a) weitere Tagestypen (recovery/carb/keto/
+    autophagy/water) + Tagestyp persistieren; (b) Recovery-State der
+    Core Bar; (c) Wochenplan-Baukasten; (d) Cheat-Tag-Wirkung in den
+    Tagesplan einweben (Essen frei, Routine bleibt).

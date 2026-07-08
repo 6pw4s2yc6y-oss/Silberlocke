@@ -17,6 +17,12 @@ Konzepte nur bei messbarem Mehrwert ändern (Konsistenz wahren). Präzise,
 wiederholungsfrei, maximaler Informationswert pro Nachricht. Qualität vor
 Geschwindigkeit, ohne Perfektionismus – Zielhorizont ~6 Monate bis Launch.
 
+## Arbeitsmodus
+
+Der Betreiber hat dauerhaft angewiesen: **eigenständig weiterarbeiten, ohne
+Rückfragen** – Annahmen begründet treffen, liefern, im Handoff dokumentieren.
+Rückfragen nur bei destruktiven/irreversiblen Entscheidungen.
+
 ## Projekt in einem Satz
 
 VΛAΛV: kompromisslose Werkbank für physische und mentale Disziplin.
