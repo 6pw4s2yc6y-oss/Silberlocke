@@ -327,8 +327,14 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    suggestMeals/suggestTrainTime), „Dein Körper" (Gewicht + Thermo-Audit
    live), „Werkzeuge" (Register der 9 Blaupausen-Module mit
    Migrations-Status). Interaktion per Playwright verifiziert.
-6. **Nächste Schritte:** (a) Onboarding-Screens (Profil/Ziel/Zeiten) →
-   speist Rechner/Timeline mit echten Daten; (b) Persistenz-Schicht
-   (AsyncStorage, Pendant zu storage.js); (c) „Dein Tag" mit echten
-   Timeline-Blöcken/Produkten aus `data/` (Daten-Extraktion);
-   (d) Core-Bar-Zustände Action/Recovery.
+6. ✅ **Onboarding (Türsteher):** 3 Schritte (Über dich → Aktivität & Ziel →
+   Tagesrhythmus) mit Fixed-Choice-Buttons, Live-Bedarfs-Vorschau und
+   Trainingszeit-Empfehlung; Ergebnis speist Rechner + Timeline über den
+   Session-State (`src/state/ProfileContext.tsx`, React-Context – bewusst
+   kein Redux). E2E verifiziert (Eingaben → exakt korrekte kcal/Eiweiß).
+   ⚠️ Erscheint bei jedem App-Start neu, bis die Persistenz-Schicht kommt.
+7. **Nächste Schritte:** (a) **Persistenz-Schicht** (AsyncStorage, Pendant
+   zu storage.js) – Onboarding-Ergebnis + Eingaben überleben den Neustart;
+   (b) „Dein Tag" mit echten Timeline-Blöcken/Produkten aus `data/`
+   (Daten-Extraktion); (c) Disziplin-Kern (Score/Punkte/Joker aus der
+   Blaupause); (d) Core-Bar-Zustände Action/Recovery.
