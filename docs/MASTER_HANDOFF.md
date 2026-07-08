@@ -386,10 +386,25 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     landen im „Frei wählbar"-Sammelblock). „Voller Plan" beendet den
     Modus. 6 neue Tests (65 gesamt, grün); E2E-Flow (Auswahl → Plan
     generieren → gefilterter Tagesplan → Ausstieg) verifiziert.
-15. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+15. ✅ **Trainingszeiten-Eingabe (reale Mehrfach-Einheiten):** DayScreen
+    zeigt „TRAININGSZEIT(EN)" mit editierbar TextInput-Chips (HH:MM
+    Format, 1:1 `sl_train` Speicherung kommagetrennt wie Blaupause).
+    Funktionen: + „Einheit"-Button zum Hinzufügen, X-Button zum Löschen,
+    isValidTime()-Filter für effectiveTrainTimes (nur valide Zeiten an
+    buildSchedule übergeben). Empfehlung (suggestTrainTime) als Vorbelegung
+    bei leerer Speicherung. Multiple Units generieren je eigene
+    Pre-Workout/Post-Workout-Blöcke; leere Trainingszeiten supprimieren
+    diese Blöcke (flexible/kein fester Termin). Storage-Key `sl_train`,
+    Persistenz AsyncStorage. E2E verifiziert: add/edit/remove-Flow,
+    Reload-Persistenz, Validierung (orange Alert auf ungültige Input),
+    Label-Pluralisierung. Commit 8c6deea auf vaaav-mobile/master
+    (49 Files, 15.8 kLoc gesamtes RN-Projekt). Typecheck sauber, alle
+    65 Tests weiterhin grün.
+16. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
-    (sport_data.json extrahieren); (c) reale Trainingszeiten-Eingabe
-    (statt nur Empfehlung, inkl. Mehrfach-Einheiten aus dem UI);
-    (d) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
-    RecoveryMode); (e) Stack-Mengen editierbar machen (amount pro
-    Produkt, aktuell Start-Portion aus serving-Text).
+    (sport_data.json extrahieren); (c) weitere Werkzeuge-Module (Nahrung,
+    Money, Blutwerte, RecoveryMode); (d) Stack-Mengen editierbar machen
+    (amount pro Produkt, aktuell Start-Portion aus serving-Text);
+    (e) Trainings-Vorbereitungs-Blöcke (nächstes Workout + Auto-Pulver-
+    Berechnung pro Einheit); (f) Klick-Interaktion: Blocks im Tagesplan
+    abhakbar (Disziplin-Kern triggert Toast + Score/Punkte).
