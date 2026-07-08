@@ -333,8 +333,13 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    Session-State (`src/state/ProfileContext.tsx`, React-Context – bewusst
    kein Redux). E2E verifiziert (Eingaben → exakt korrekte kcal/Eiweiß).
    ⚠️ Erscheint bei jedem App-Start neu, bis die Persistenz-Schicht kommt.
-7. **Nächste Schritte:** (a) **Persistenz-Schicht** (AsyncStorage, Pendant
-   zu storage.js) – Onboarding-Ergebnis + Eingaben überleben den Neustart;
-   (b) „Dein Tag" mit echten Timeline-Blöcken/Produkten aus `data/`
-   (Daten-Extraktion); (c) Disziplin-Kern (Score/Punkte/Joker aus der
-   Blaupause); (d) Core-Bar-Zustände Action/Recovery.
+7. ✅ **Persistenz-Schicht:** `src/state/storage.ts` nach dem
+   Blaupausen-Muster (Sync-Cache über AsyncStorage, `sl_`-Keys).
+   Bestandsnutzer starten direkt in der Werkbank; Reset über
+   Werkzeuge → „Profil & Onboarding zurücksetzen". E2E verifiziert
+   (Reload behält Werte, Reset erzwingt Türsteher).
+8. **Nächste Schritte:** (a) „Dein Tag" mit echten Timeline-Blöcken +
+   Produkten aus `data/` (Daten-Extraktion: products.json,
+   timeline_config.json, daytypes.json); (b) Disziplin-Kern
+   (Score/Punkte/Joker/Abhaken aus der Blaupause) + Core-Bar
+   Action-State; (c) Tagestypen-Wahl; (d) Recovery-State.
