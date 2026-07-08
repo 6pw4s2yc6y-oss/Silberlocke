@@ -338,8 +338,15 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    Bestandsnutzer starten direkt in der Werkbank; Reset über
    Werkzeuge → „Profil & Onboarding zurücksetzen". E2E verifiziert
    (Reload behält Werte, Reset erzwingt Türsteher).
-8. **Nächste Schritte:** (a) „Dein Tag" mit echten Timeline-Blöcken +
-   Produkten aus `data/` (Daten-Extraktion: products.json,
-   timeline_config.json, daytypes.json); (b) Disziplin-Kern
-   (Score/Punkte/Joker/Abhaken aus der Blaupause) + Core-Bar
-   Action-State; (c) Tagestypen-Wahl; (d) Recovery-State.
+8. ✅ **Echter Tagesplan:** Blaupausen-Daten extrahiert (products.json,
+   timeline_config.json, daytypes.json → `src/data/`, unverändert) und
+   `src/logic/dayplan.ts` 1:1 portiert (16h-Skalierung, Trainings-Takt,
+   Mehrfach-Einheiten + Koffein-Warnungen, <6h-Schlaf-Sperre, Rest-Tag
+   ohne Pre-Workout/schnelle Carbs). „Dein Tag" zeigt den echten
+   Einnahme-/Trainingsplan mit Prioritäten; Tagestyp Training/Frei
+   umschaltbar. 9 neue Tests (32 gesamt, grün).
+9. **Nächste Schritte:** (a) **Disziplin-Kern**: Abhaken der Blöcke,
+   Score/Punkte/Joker aus der Blaupause (progress-Logik in main.js),
+   Core-Bar Action-State („Brennende Batterie"); (b) weitere Tagestypen
+   (recovery/carb/keto/autophagy/water – Konstanten liegen bereit);
+   (c) Recovery-State der Core Bar.
