@@ -517,7 +517,18 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     Eintragen. Datum-unabhängig (nicht getaktet). RootNavigator um 'money'-Screen
     erweitert. ToolsScreen markiert Money als 'migriert' (LIVE). Typecheck
     sauber, alle 65 Tests grün. Commit d19588c.
-28. **Nächste Schritte:** (a) RecoveryMode-Details (erweiterte Rehydration,
-    Sleep-Tracking, Schuld-Analyse); (b) Detox-Framework für native RN
-    E2E-Automation; (c) Onboarding-Flow Verbesserungen (Fokus-Matrix);
-    (d) Blutwerte-Modul (Laborwert-Tracking mit Referenzbereich).
+28. **RecoveryMode-Modul (Rehydration & Sleep Tracking):** Neue Screen
+    `RecoveryModeScreen.tsx`. Zeigt Recovery-Schuld-Fortschritt mit visuellem
+    Progress-Bar (%) und Kcal-Metriken. Rehydration-Tracking: Wasser-Input mit
+    Quick-Buttons (+250/500/1000ml) und manueller Eingabe. Sleep-Tracking:
+    Stunden-Input + Quality-Chip (poor/fair/good/excellent mit Emojis).
+    Notiz-Feld für Körpergefühl/Muskelkater-Tracking. Persisted unter
+    `sl_recovery_log` als RecoverySession[]. Info-Karte zeigt Status, wenn
+    RecoveryMode inaktiv. Exit-Button triggert triggerRecovery(0).
+    RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
+    RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
+    Commit 69c9fcd.
+29. **Nächste Schritte:** (a) Detox-Framework für native RN E2E-Automation;
+    (b) Onboarding-Flow Verbesserungen (Fokus-Matrix, Prioritäts-Logik);
+    (c) Blutwerte-Modul (Laborwert-Tracking mit Referenzbereich);
+    (d) Analytics & Dashboard-Verbesserungen (Weekly Review, Progress Charts).
