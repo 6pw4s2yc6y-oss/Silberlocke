@@ -410,11 +410,21 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     E2E verifiziert: Vormittag-Block klicken → Check + Strikethrough +
     Counter-Update + Toast-Message + nach Reload Block noch erledigt.
     Commit 034f852. Alle 65 Tests grün, Typecheck sauber.
-17. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+17. ✅ **Action-Pulse der Core Bar (Brennende Batterie):** Beim Block-Abhaken
+    triggert DisciplineContext einen actionPulse-Zähler-Increment.
+    RootNavigator erhält den Zähler via `useDiscipline()` und leitet ihn
+    direkt an CoreBar. Dort löst der Zählerwechsel die Flash-Animation aus:
+    Reanimated-Easing 0→1 über 160ms (sharp rise mit quad-easing), dann
+    1→0 über 650ms (smooth cubic decay). Visuelles Ergebnis: hell-orange
+    Neon-Puls über die gesamte Bar, VΛAΛV-Gravur beleuchtet sich von innen,
+    hohe Kontrast-Belohnung. E2E verifiziert: Block klicken → sofortiges
+    oranges Glow-Flash in der Core Bar sichtbar (Peak bei ~80ms), dann
+    sanfte Ausblendung über 650ms. Bereits im Initial-Commit enthalten
+    (8c6deea). Alle 65 Tests grün.
+18. **Nächste Schritte:** (a) Recovery-State der Core Bar (rotes Defizit,
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
-    (sport_data.json extrahieren); (c) weitere Werkzeuge-Module (Nahrung,
-    Money, Blutwerte, RecoveryMode); (d) Stack-Mengen editierbar machen
-    (amount pro Produkt, aktuell Start-Portion aus serving-Text);
-    (e) Trainings-Vorbereitungs-Blöcke (nächstes Workout + Auto-Pulver-
-    Berechnung pro Einheit); (f) Action-Pulse der Core Bar (Brennende
-    Batterie beim Abhaken, pulsierendes Glow).
+    (sport_data.json extrahieren, Layout nach Phase); (c) weitere
+    Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
+    (d) Stack-Mengen editierbar machen (amount pro Produkt, aktuell
+    Start-Portion aus serving-Text); (e) Trainings-Vorbereitungs-Blöcke
+    (nächstes Workout + Auto-Pulver-Berechnung).
