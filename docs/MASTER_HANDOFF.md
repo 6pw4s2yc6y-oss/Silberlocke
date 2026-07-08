@@ -361,7 +361,15 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 11. **Betreiber-Arbeitsmodus (dauerhaft):** eigenständig weiterarbeiten
     ohne Rückfragen; Annahmen begründet treffen; Rückfragen nur bei
     irreversiblen Entscheidungen. (Auch in beiden CLAUDE.md verankert.)
-12. **Nächste Schritte:** (a) weitere Tagestypen (recovery/carb/keto/
-    autophagy/water) + Tagestyp persistieren; (b) Recovery-State der
-    Core Bar; (c) Wochenplan-Baukasten; (d) Cheat-Tag-Wirkung in den
-    Tagesplan einweben (Essen frei, Routine bleibt).
+12. ✅ **Alle 7 Tagestypen:** Recovery (Heilungs-Stack ins Frühstück,
+    kein Pre-Workout/Booster), Carb-Loading (Extra-Carbs in 3 Mahlzeiten),
+    Keto (≤10 g Carbs), Autophagie (kalorienfrei), Wasserfasten (nur
+    Elektrolyte) – Builder 1:1; Verfügbarkeit nach verdienter Stufe
+    (Light 2 · Hard 5 · Expert+ 7), Labels aus daytypes.json, Wahl
+    persistiert (sl_daytype). Cheat-Tag-Banner im Tagesplan. 5 neue
+    Tests (59 gesamt, grün); E2E verifiziert.
+13. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+    füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
+    (sport_data.json extrahieren); (c) „Mein Stack"/Produkt-Datenbank
+    als erstes Werkzeuge-Modul; (d) reale Trainingszeiten-Eingabe
+    (statt nur Empfehlung).
