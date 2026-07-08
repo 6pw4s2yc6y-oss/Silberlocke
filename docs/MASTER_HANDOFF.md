@@ -400,11 +400,21 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     Label-Pluralisierung. Commit 8c6deea auf vaaav-mobile/master
     (49 Files, 15.8 kLoc gesamtes RN-Projekt). Typecheck sauber, alle
     65 Tests weiterhin grün.
-16. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+16. ✅ **Block-Interaktionen (Abhaken mit Disziplin-Feedback):** Blocks in
+    DayScreen sind nun interaktiv: Klick → `toggleBlock()` aus
+    DisciplineContext → liefert DisciplineEvent[] → Toast-Komponente zeigt
+    Meldung (3,2 s mit Reanimated-Animation). Visuelle Feedback: Checkmark
+    in Circle, Text strikethrough, Block-Opacity 0.62, Border-Farbe
+    wechselt zu „ready" (grün), Zähler von X/Y aktualisiert (z. B. 0/10 →
+    1/10 abgehakt). Persistence über sl_progress (AsyncStorage).
+    E2E verifiziert: Vormittag-Block klicken → Check + Strikethrough +
+    Counter-Update + Toast-Message + nach Reload Block noch erledigt.
+    Commit 034f852. Alle 65 Tests grün, Typecheck sauber.
+17. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
     (sport_data.json extrahieren); (c) weitere Werkzeuge-Module (Nahrung,
     Money, Blutwerte, RecoveryMode); (d) Stack-Mengen editierbar machen
     (amount pro Produkt, aktuell Start-Portion aus serving-Text);
     (e) Trainings-Vorbereitungs-Blöcke (nächstes Workout + Auto-Pulver-
-    Berechnung pro Einheit); (f) Klick-Interaktion: Blocks im Tagesplan
-    abhakbar (Disziplin-Kern triggert Toast + Score/Punkte).
+    Berechnung pro Einheit); (f) Action-Pulse der Core Bar (Brennende
+    Batterie beim Abhaken, pulsierendes Glow).
