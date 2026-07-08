@@ -299,9 +299,14 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 ## AKTUELLES TODO (Handoff-Loop)
 
 1. ✅ Repo `vaaav-mobile` angelegt; Prototyp auf `main` importiert.
-2. ✅ EAS-Pipeline GRÜN (Lauf #4): Expo-Projekt-ID `523fcb3c-…` + slug
+2. ✅ EAS-Pipeline GRÜN (Lauf #6): Expo-Projekt-ID `523fcb3c-…` + slug
    `vaaav-mobile-` fest in app.json, Secret `EXPO_TOKEN` gesetzt. Jeder Push
-   auf `main` publiziert jetzt automatisch; Test via Expo Go (QR auf expo.dev).
+   auf `main` publiziert automatisch; Test via Expo Go (QR auf expo.dev).
+   ⚠️ **Projekt ist bewusst auf Expo SDK 54 gepinnt** (expo 54.0.35, RN 0.81.5,
+   reanimated 4.1.1): Die iOS-Expo-Go im App Store (54.0.2) unterstützt nur
+   SDK 54 – SDK 56/57 lieferten „Project is incompatible". Erst upgraden, wenn
+   Expo eine neuere Expo-Go-Version für iOS ausliefert (oder auf EAS
+   Development Builds umgestellt wird).
    ⚠️ Sicherheits-Nachtrag: Der Token wurde im Chat geteilt → neuen Token
    erzeugen, Secret-Wert aktualisieren, alten Token löschen.
 3. **Betreiber:** Visuelle Freigabe des Master-Screens erteilen oder Änderungen
