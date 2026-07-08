@@ -309,8 +309,20 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    Development Builds umgestellt wird).
    ⚠️ Sicherheits-Nachtrag: Der Token wurde im Chat geteilt → neuen Token
    erzeugen, Secret-Wert aktualisieren, alten Token löschen.
-3. **Betreiber:** Visuelle Freigabe des Master-Screens erteilen oder Änderungen
-   nennen (System-Stopp, TODO 10) – idealerweise nach echtem Blick in Expo Go
-   (QR-Code im expo.dev-Projekt, App „Expo Go" aus dem Store).
-4. **Nach Freigabe:** Context-/Action-/Recovery-State der Core Bar; danach
-   Logik-Extraktion aus der v61-Blaupause (calculator/timeline zuerst).
+3. **System-Stopp (TODO 10) per Betreiber-Entscheid ans PROJEKTENDE
+   verschoben:** Design, Tabs und Visuals werden am Schluss gesamthaft
+   reviewt. Bis dahin: Features/Logik weiterbauen; alle visuellen Werte
+   bleiben zentral in `theme.ts` (Regel 2), damit der finale Visual-Pass
+   die Logik nicht berührt.
+4. ✅ **Logik-Kern extrahiert (Regel 6):** `src/logic/calculator.ts`
+   (Bedarf + Thermodynamik-Audit) und `src/logic/timeline.ts`
+   (Zeitfenster-Mathematik) 1:1 aus der v61-Blaupause; alle 23
+   Blaupausen-Tests portiert und grün; CI-Workflow (Typecheck + Tests)
+   aktiv. Master-Screen-Karte „Dein Bedarf" rechnet live über den echten
+   Rechner (Profil noch Mock).
+5. **Nächste Schritte:** (a) Onboarding-Screens (Profil/Ziel/Zeiten,
+   Mock-frei bis auf Persistenz) → speist den Rechner mit echten Daten;
+   (b) „Dein Tag"-Screen mit Timeline-Blöcken aus `data/app/timeline_config.json`
+   + Produkten (Daten-Extraktion aus der Blaupause); (c) Persistenz-Schicht
+   (AsyncStorage, Pendant zu storage.js); (d) Core-Bar-Zustände
+   Context/Action/Recovery.
