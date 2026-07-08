@@ -508,6 +508,16 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     optimal level, Interaktionen, Toxizität). RootNavigator um 'nahrung'-Screen
     erweitert. ToolsScreen markiert Nahrung als 'migriert' (LIVE). Typecheck
     sauber, alle 65 Tests grün. Commit 3bb456c.
-27. **Nächste Schritte:** (a) Money-Modul (Ausgaben-Tracking); (b) RecoveryMode-
-    Details (erweiterte Rehydration, Sleep-Tracking); (c) Detox-Framework für
-    native RN E2E-Automation; (d) Onboarding-Flow Verbesserungen (Fokus-Matrix).
+27. **Money-Modul (Expense & Budget Tracking):** Neue Screen `MoneyScreen.tsx`.
+    Persistiert unter `sl_money`. MoneyData-Typ: income[] (name, amount),
+    costs[] (name, monthly, debt), budget (supps, food). Funktionen: addIncome(),
+    addCost(), removeIncome(), removeCost(). Berechnungen: totalIncome,
+    totalMonthly, totalDebt, available (income - monthly). Summaries zeigen
+    große Cards mit EUR-Formatierung. Liste mit Add-Reihen für flexibles
+    Eintragen. Datum-unabhängig (nicht getaktet). RootNavigator um 'money'-Screen
+    erweitert. ToolsScreen markiert Money als 'migriert' (LIVE). Typecheck
+    sauber, alle 65 Tests grün. Commit d19588c.
+28. **Nächste Schritte:** (a) RecoveryMode-Details (erweiterte Rehydration,
+    Sleep-Tracking, Schuld-Analyse); (b) Detox-Framework für native RN
+    E2E-Automation; (c) Onboarding-Flow Verbesserungen (Fokus-Matrix);
+    (d) Blutwerte-Modul (Laborwert-Tracking mit Referenzbereich).
