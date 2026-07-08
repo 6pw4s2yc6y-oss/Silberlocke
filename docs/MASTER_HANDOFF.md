@@ -491,7 +491,23 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     mit „reps × kg" Input). Inline-Validierung, Speicherung momentan in State
     (Basis für async TrainingLog-Persistierung in Point 24b). Typecheck sauber,
     alle 65 Tests grün. Commit 6dfcce4.
-25. **Nächste Schritte:** (a) TrainingLog-Persistierung (AsyncStorage mit
-    sl_training_log_YYYY-MM-DD); (b) weitere Werkzeuge-Module (Nahrung, Money,
-    Blutwerte, RecoveryMode); (c) Detox-Framework für native RN E2E-Automation;
-    (d) Onboarding-Flow Verbesserungen (Fokus-Matrix, Zielpriorisierung).
+25. **TrainingLog-Persistierung:** Erweitert `tracking.ts` um `formatDate()` (→
+    „YYYY-MM-DD"), `buildTrainingLog()` (konstruiert TrainingLog-Objekt).
+    DayScreen.handleBlockToggle() extrahiert nach Training-Block-Completion die
+    geloggten Übungen (exerciseSetValues), parst reps/weight zu Numbers, erstellt
+    LoggedExercise[]-Array mit completed-Flag (reps > 0), speichert
+    TrainingLog unter `sl_training_log_${date}` in AsyncStorage. Nach Speichern:
+    exerciseSetValues löschen, expandedExerciseBlock zurücksetzen. Persisted
+    Logs können später im Analyse/Stats-Modul abgerufen werden. Typecheck sauber,
+    alle 65 Tests grün. Commits: b676bdf (training-log persistence).
+26. **Nahrung (Nutrition) Modul:** Neue Screen `NutritionScreen.tsx` mit
+    Such-Interface für Vitamin/Mineral-Datenbank. NutritionItem-Typ mit: id, cat
+    (Vitamin/Mineral), icon, name, bodyFunction, takeWith, competes (⚠️ rote
+    Warntexte), dose, optimal, toxic. Suche filtert nach name/category/funktion.
+    Detail-View zeigt expandierte Sektionen pro Nährstoff (Körperfunktion, Dosis,
+    optimal level, Interaktionen, Toxizität). RootNavigator um 'nahrung'-Screen
+    erweitert. ToolsScreen markiert Nahrung als 'migriert' (LIVE). Typecheck
+    sauber, alle 65 Tests grün. Commit 3bb456c.
+27. **Nächste Schritte:** (a) Money-Modul (Ausgaben-Tracking); (b) RecoveryMode-
+    Details (erweiterte Rehydration, Sleep-Tracking); (c) Detox-Framework für
+    native RN E2E-Automation; (d) Onboarding-Flow Verbesserungen (Fokus-Matrix).
