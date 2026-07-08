@@ -445,8 +445,17 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     recovery state an CoreBar (bei Aktivität morpht nextLabel zu „RECOVERY").
     ToolsScreen hat Demo-Button zum Testen. Typecheck sauber, alle 65 Tests
     grün. Commit 741a711.
-20. **Nächste Schritte:** (a) Wochenplan-Baukasten (sport_data.json extrahieren,
-    Layout nach Phase); (b) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
-    RecoveryMode); (c) Stack-Mengen editierbar machen (amount pro Produkt,
-    aktuell Start-Portion aus serving-Text); (d) Mahlzeit-Tracking zur Aktivierung
-    von Recovery-Credit-Logik.
+20. ✅ **Wochenplan-Baukasten (Weekly Plan):** Alle 12 Trainings-Fokus-Typen aus
+    sport_data.json (Maximalkraft, Hypertrophie, Ganzkörper, Kondition, Intervall,
+    Technik, Explosiv, Functional, Hybrid, Wettkampf, GLA, Kausd). Stage-gated
+    Verfügbarkeit: Light (3 Pläne) → Hard (6) → Expert (8) → Master (12).
+    WeeklyPlanScreen zeigt Übersicht aller verfügbaren Trainings mit Farbcodierung;
+    Klick → detaillierte Ansicht mit 4 Tagen à jeweils mehrere Übungen (Sets, Load,
+    Rest-Pausen, Tipps). Persistenz (sl_weekplan). RootNavigator + ToolsScreen
+    integriert, Wochenplan als „migriert" gekennzeichnet. Typecheck sauber, alle
+    65 Tests grün. Commit 0faa91d.
+21. **Nächste Schritte:** (a) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
+    RecoveryMode); (b) Stack-Mengen editierbar machen (amount pro Produkt,
+    aktuell Start-Portion aus serving-Text); (c) Mahlzeit-Tracking zur Aktivierung
+    von Recovery-Credit-Logik; (d) Trainings-Progressions-Tracker (Sätze/Gewicht
+    pro Trainingstag dokumentierbar).
