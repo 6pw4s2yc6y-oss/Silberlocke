@@ -436,9 +436,17 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     Commit 49c3254 auf vaaav-mobile/master. Typecheck sauber, alle 65 Tests
     weiterhin grün. E2E-Verifikation: Trainingszeiten-Screen → sichtbar nach
     Eintrag (visuelle Bestätigung Screenshots).
-19. **Nächste Schritte:** (a) Recovery-State der Core Bar (rotes Defizit,
-    füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
-    (sport_data.json extrahieren, Layout nach Phase); (c) weitere
-    Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
-    (d) Stack-Mengen editierbar machen (amount pro Produkt, aktuell
-    Start-Portion aus serving-Text).
+19. ✅ **Recovery-State der Core Bar (rotes Defizit):** Core Bar zeigt roten
+    Deficit-Modus, wenn recoveryDebt > 0. Fortschritt-Bar füllt sich nicht
+    passiv (nur aktiv durch Tracking). ProgressState trägt recoveryDebt und
+    recoveryRecovered (Schuld & Getilgtes); isInRecovery() und recoveryProgress()
+    prüfen/berechnen Status. DisciplineContext bietet triggerRecovery(debtKcal)
+    und addRecoveryCredit(kcal) zur Auslösung/Rückzahlung. RootNavigator leitet
+    recovery state an CoreBar (bei Aktivität morpht nextLabel zu „RECOVERY").
+    ToolsScreen hat Demo-Button zum Testen. Typecheck sauber, alle 65 Tests
+    grün. Commit 741a711.
+20. **Nächste Schritte:** (a) Wochenplan-Baukasten (sport_data.json extrahieren,
+    Layout nach Phase); (b) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
+    RecoveryMode); (c) Stack-Mengen editierbar machen (amount pro Produkt,
+    aktuell Start-Portion aus serving-Text); (d) Mahlzeit-Tracking zur Aktivierung
+    von Recovery-Credit-Logik.
