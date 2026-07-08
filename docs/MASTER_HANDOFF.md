@@ -528,7 +528,70 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
-29. **Nächste Schritte:** (a) Detox-Framework für native RN E2E-Automation;
-    (b) Onboarding-Flow Verbesserungen (Fokus-Matrix, Prioritäts-Logik);
-    (c) Blutwerte-Modul (Laborwert-Tracking mit Referenzbereich);
-    (d) Analytics & Dashboard-Verbesserungen (Weekly Review, Progress Charts).
+29. ✅ **Test-Suite Stabilisierung in DEV Mode:** Alle verbleibenden 3 Testfehler 
+    behoben. Das Problem: defaultProgress() gab nur ['day'] in unlocked zurück, aber
+    die DEV-Konfiguration mit all day-0 UNLOCK_SCHEDULE-Einträgen erforderte, dass
+    alle Features sofort freigegeben sind. Lösungsansätze:
+    - `defaultProgress()` berechnet jetzt dynamisch alle day-0 Features und gibt sie
+      in unlocked zurück
+    - Test 31 (Startpolster): Erwartet jetzt multi-feature unlock statt exaktes 
+      ['day']-Array
+    - Test 37 (Gatekeeper): Initiale Score von 70→60, damit 60+25=85 < 90 (verhindert
+      Stage-Aufstieg und triggert korrekt gatePending statt ascend)
+    - Test 39 (Phase Zero): disciplinedDays 5→4, damit phaseZeroActive() true bleibt
+      (< DAYS_PER_STAGE = 5)
+    Resultat: **Alle 65 Tests grün.** Typecheck sauber. DEV-Mode vollständig stabil
+    für fokussierte Feature-Tests mit 5-Tage-Stufen und 3x Punkt-Multiplikator.
+    Commit 08d4efe auf vaaav-mobile/master.
+
+## 8. AKTUELLER STATUS (Stand: 2026-07-08, 20:45)
+
+**Projektzustand:** Alle 5 Haupt-Werkzeug-Module (Points 24–28) implementiert und 
+integriert. DEV-Mode aktiv mit:
+- DAYS_PER_STAGE = 5 (schnelle Stage-Tests)
+- Alle Features ab day 0 verfügbar (all 11 tools immediately)
+- Score +25/Tag, Staub +30/Tag (+75 Wochenbonus) = 3x Multiplikator für Core Bar Tests
+- **Testabdeckung: 65/65 Tests grün** (discipline, nutrition, money, recovery, tracking logic)
+
+**Einzeilige Zusammenfassung der Komponenten:**
+- DayScreen: Trainings-Verfolgung mit expandierbaren Übungs-Eingaben, Recovery-Auto-Credit
+- WeeklyPlanScreen: 12 Stage-gated Trainingspläne (alle in DEV verfügbar)
+- ToolsScreen: Zentrale Hub für 11 Tools inkl. Nahrung, Money, RecoveryMode
+- CoreBar: Standard-State (Fortschritt), Context-Morphing, Action-Pulse, Recovery-Deficit
+- DisciplineContext: ProgressState + asyncStorage (sl_progress) mit allen Events
+
+**Kritische Test-Dependencies gelöst:**
+- defaultProgress() erzeugt jetzt korrekt pre-unlocked Features (day-0 Schedule)
+- evaluateDay() mit DEV-Point-Werten auch für Score-Schwellenwert-Tests kalibriert
+- Phase Zero Logik konsistent für sub-DAYS_PER_STAGE Szenarien
+
+## 9. AKTUELLES TODO (Nächste Prioritäten)
+
+1. **Point 29(a) – Detox-Framework für E2E-Automation:**
+   - Setup: npm install detox detox-cli
+   - Konfiguration: detox.config.js + e2e/ Test-Suite
+   - Fokus: RN-native Automation vs. Playwright (für Web-Testing n. a.)
+   - Szenarien: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove
+   - Target: 5–10 kritische User-Flows (kein vollständiger E2E-Coverage)
+
+2. **Point 29(b) – Onboarding-Flow Optimierungen:**
+   - Fokus-Matrix UI: Visualisierung der Prioritäts-Auswahl
+   - Goal-Ranking: Drag-and-Drop für Ziel-Neusortierung
+   - Auto-Setup: Automatische Modul-Freischaltung basierend auf Fokus-Selektion
+   - Tipps-Vertiefung: Hinweise auf Core-Features während Onboarding
+
+3. **Point 29(c) – Blutwerte-Modul (Laborwert-Tracking):**
+   - Schema: id, testName, value, unit, date, referenceRange, status (normal/low/high)
+   - UI: Suchbare Test-Datenbank, Trend-Grafik (zeitliche Entwicklung)
+   - Validierung: Automatische Vergleiche gegen Referenzbereiche
+   - Alerts: Rote Markierungen für kritische Werte
+
+4. **Point 29(d) – Analytics & Dashboard-Verbesserungen:**
+   - Weekly Review: Zusammenfassung disziplinierte Tage, Punkte, Highlights
+   - Progress Charts: Neon-Graphen für Score/Staub-Entwicklung
+   - Atomuhr-Visualisierung: Prozentuale Verteilung durchgezogene vs. verlorene Tage
+   - Streak-Tracking: Längste aktuelle Serie, automatisches Milestone-Unlock
+
+**Nächste Session fokussiert sich auf Point 29(a) (Detox-Setup) und Point 29(b) 
+(Onboarding UI) als höchste Prioritäten, da sie direkte User-Experience-Verbesserungen 
+sind.**
