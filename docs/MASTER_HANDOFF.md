@@ -368,8 +368,17 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     (Light 2 · Hard 5 · Expert+ 7), Labels aus daytypes.json, Wahl
     persistiert (sl_daytype). Cheat-Tag-Banner im Tagesplan. 5 neue
     Tests (59 gesamt, grün); E2E verifiziert.
-13. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
+13. ✅ **Produkt-Datenbank (erstes migriertes Werkzeuge-Modul):** Alle
+    55 Produkte aus `products.json` durchsuchbar/aufklappbar (Kategorie-
+    Filter, Makros, Funktion, Einnahme, Konflikte, Aufnahme), ausverkaufte/
+    verbotene Produkte sichtbar gedimmt (PRODUCT_BADGES). „Werkzeuge"
+    unterscheidet jetzt ehrlich LIVE vs. Blaupause v61; RootNavigator
+    kennt den neuen Screen `produkte` inkl. Core-Bar-Kontext-Icon.
+    E2E verifiziert (Filter + Detail-Aufklappen); Typecheck sauber,
+    alle 59 Tests weiterhin grün.
+14. **Nächste Schritte:** (a) Recovery-State der Core Bar (Defizit
     füllt sich nur durch aktive Disziplin); (b) Wochenplan-Baukasten
-    (sport_data.json extrahieren); (c) „Mein Stack"/Produkt-Datenbank
-    als erstes Werkzeuge-Modul; (d) reale Trainingszeiten-Eingabe
-    (statt nur Empfehlung).
+    (sport_data.json extrahieren); (c) „Mein Stack" (Nutzer wählt
+    Produkte aus der Datenbank aus, speist den Tagesplan); (d) reale
+    Trainingszeiten-Eingabe (statt nur Empfehlung); (e) weitere
+    Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode).
