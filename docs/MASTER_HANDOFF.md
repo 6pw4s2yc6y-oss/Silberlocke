@@ -345,8 +345,16 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
    ohne Pre-Workout/schnelle Carbs). „Dein Tag" zeigt den echten
    Einnahme-/Trainingsplan mit Prioritäten; Tagestyp Training/Frei
    umschaltbar. 9 neue Tests (32 gesamt, grün).
-9. **Nächste Schritte:** (a) **Disziplin-Kern**: Abhaken der Blöcke,
-   Score/Punkte/Joker aus der Blaupause (progress-Logik in main.js),
-   Core-Bar Action-State („Brennende Batterie"); (b) weitere Tagestypen
-   (recovery/carb/keto/autophagy/water – Konstanten liegen bereit);
-   (c) Recovery-State der Core Bar.
+9. ✅ **Disziplin-Kern:** `src/logic/discipline.ts` 1:1 aus der Blaupause
+   (Abhaken → disziplinierte Tage, Score +8/Cap 100, Punkte +10/+25,
+   Joker-Rolling-Buffer Cap 3, Freischalt-Fahrplan, Gatekeeper-Aufstieg
+   ≥90 %, verpasste Tage Joker→−5, Phase Zero straffrei). sl_progress-
+   Format identisch zur PWA. UI: Blöcke abhakbar, Toasts, Core Bar mit
+   echtem Stufen-Fortschritt + Action-Pulse („Brennende Batterie"),
+   Master-Screen mit echten Werten. 15 neue Tests (47 gesamt, grün);
+   E2E inkl. Reload-Persistenz verifiziert.
+10. **Nächste Schritte:** (a) weitere Tagestypen (recovery/carb/keto/
+    autophagy/water – Builder-Konstanten liegen bereit) + Tagestyp
+    persistieren; (b) Recovery-State der Core Bar (Defizit nur durch
+    aktive Disziplin füllbar); (c) Punkte-Shop (Cheat-Tag, Pre-Booking,
+    Joker-Schmiede aus der Blaupause); (d) Wochenplan.
