@@ -454,8 +454,13 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
     Rest-Pausen, Tipps). Persistenz (sl_weekplan). RootNavigator + ToolsScreen
     integriert, Wochenplan als „migriert" gekennzeichnet. Typecheck sauber, alle
     65 Tests grün. Commit 0faa91d.
-21. **Nächste Schritte:** (a) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte,
-    RecoveryMode); (b) Stack-Mengen editierbar machen (amount pro Produkt,
-    aktuell Start-Portion aus serving-Text); (c) Mahlzeit-Tracking zur Aktivierung
-    von Recovery-Credit-Logik; (d) Trainings-Progressions-Tracker (Sätze/Gewicht
-    pro Trainingstag dokumentierbar).
+21. ✅ **Editable Stack-Mengen (Portion-Anpassung):** Jedes Produkt im Stack
+    hat eine editierbare Portionsmenge (Einheiten). StackContext.updateAmount()
+    speichert neue Portionen zu sl_stack. StackScreen zeigt Menge neben Kategorie;
+    Tap auf Menge → Inline-Edit-Mode mit TextInput + Unit + Confirm-Checkmark.
+    Minimum 0,25 Portionen. Persistenz funktioniert, Typecheck sauber, alle 65
+    Tests grün. Commit ffd1137.
+22. **Nächste Schritte:** (a) Mahlzeit-Tracking zur Aktivierung von Recovery-Credit-Logik;
+    (b) Trainings-Progressions-Tracker (Sätze/Gewicht pro Trainingstag dokumentierbar);
+    (c) weitere Werkzeuge-Module (Nahrung, Money, Blutwerte, RecoveryMode);
+    (d) E2E-Testing für Weekly Planner + Stack-Edit-Flow.
