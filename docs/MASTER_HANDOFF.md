@@ -121,7 +121,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 
 - (11) ✅📱 Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus (RN: Stage-System × Finanz-Modus König/Warrior, Karte in der Übersicht, warriorAlt im Produkt-Detail).
 - (18) 🟡📱 Interaktives Setup generiert das Dashboard (RN: OnboardingFlow, Basis-Version).
-- (5) 🔨 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung.
+- (5) ✅📱 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung. **(RN FERTIG als Identitäts-Frage: Selbstbild-Wahl statt Ziel-Wahl, Commit 98a3034 – PWA-Code realisiert dies als IDENTITY_STATEMENTS-Auswahl, nicht als Test/Prüfung)**
 - (🆕) 📱 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an. **(RN: neuer Onboarding-Schritt + eigenständiger FocusScreen; Verknüpfung mit Trainingsplänen/Hybrid-Routing folgt später)**
 - (114) 🔨 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen).
 - (115) 🔨 Der „Ektomorph-Plan" für Untergewichtige (Fokus auf Magendehnung).
@@ -551,6 +551,21 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29y. ✅ **Identitäts-Frage (#5): Selbstverpflichtung im Onboarding + tägliche
+    Erinnerung:** 1:1 aus der v61-Blaupause migriert (`js/main.js`
+    `IDENTITY_STATEMENTS`/`loadIdentity()`/`setIdentity()`). „Identität
+    schlägt Ziele" (siehe `tips.json` t23): der Nutzer wählt im Onboarding
+    eine von vier Selbstbild-Aussagen (diszipliniert/ehrlich/beständig/
+    unbestechlich) statt nur ein Ziel. `src/logic/identity.ts`:
+    `IDENTITY_OPTIONS`, `identityStatement()`. Neuer Onboarding-Schritt 4
+    „Identität" zwischen Fokus-Matrix und Tagesrhythmus, persistiert unter
+    `sl_identity` (gleicher Storage-Key wie die Blaupause, direkter
+    `store`-Zugriff wie bei `sl_daytype`/`sl_train`). Tägliche
+    Erinnerungs-Banner oben in `DayScreen.tsx` (Compass-Icon statt Emoji,
+    Regel 4). 2 neue Tests, **169/169 Tests grün**, Typecheck sauber.
+    Commit 98a3034. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29x. ✅ **Inspirations-Impuls: saisonale Aktivitäts-Anregung (WinterArc):**
     1:1 aus der v61-Blaupause migriert (`js/main.js`
     `inspirationOfDay()`/`inspoCardHtml()`). Gleiches Prinzip wie der
@@ -1001,9 +1016,10 @@ Medikamenten-Wechselwirkung #123 + Halal-/Vegan-Check #62 (29v), sowie
 Kauf-Wahrheit #80 + Split-Screen der Wahrheit #74 + König-Synergien #17
 (29w) – alles generisch/kategorie-basiert, kein selbst erfundener
 Content. Inspirations-Impuls (29x, WinterArc) reklassifiziert von
-Phase-3/Backend auf ✅ – rein clientseitig lösbar. **Testabdeckung:
-167/167 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
-main: `f5eefcc` (EAS-Update bestätigt erfolgreich).
+Phase-3/Backend auf ✅ – rein clientseitig lösbar. Identitäts-Frage (29y,
+Roadmap #5) als neuer Onboarding-Schritt + tägliche Erinnerung ergänzt.
+**Testabdeckung: 169/169 Tests grün**, Typecheck sauber. Aktueller Commit
+`vaaav-mobile` main: `98a3034` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
