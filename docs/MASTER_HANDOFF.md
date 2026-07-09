@@ -551,6 +551,21 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29t. ✅ **ProductsScreen: Ersatz-Empfehlung für ausverkaufte Produkte
+    verdrahtet:** 1:1 aus der v61-Blaupause migriert (`js/main.js`
+    `smartFieldsHtml()` – Ersatz-Empfehlungs-Zweig). `smartReplacementId`
+    stand bereits in 5 migrierten Produkten (p2, p4, p10, p11, p14 – alle
+    korrekt als soldout in `PRODUCT_BADGES` markiert), wurde aber nie im
+    UI angezeigt – toter Datenpunkt, gefunden beim selben Blaupausen-
+    Codepfad, der auch `warriorAlt` enthält. Bei aufgeklappter
+    Detail-Ansicht eines ausverkauften Produkts mit `smartReplacementId`
+    erscheint jetzt eine „Ersatz-Empfehlung"-Box (gleiches Muster wie die
+    Warrior-Alternative), Tippen öffnet direkt das Ersatzprodukt. 1 neuer
+    Daten-Integritätstest (jedes `smartReplacementId` ist soldout und
+    zeigt auf ein existierendes Produkt), **150/150 Tests grün**,
+    Typecheck sauber. Commit 307d5d5. EAS-Update bestätigt erfolgreich
+    (beide Workflow-Runs `completed`/`success`).
+
 29s. ✅ **Trash-Ausgaben-Analyse: verschwendetes Geld bewusst machen (Roadmap
     #85):** Keine PWA-Blaupause dafür (Neuentwicklung). Manuelle Erfassung
     von Impuls-Käufen/Fast-Food/unnötigen Ausgaben im Money-Hub – bewusst
@@ -910,9 +925,11 @@ statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
 war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
 #146) zählt reale Trainings-Logs statt Schätzwert. Hydration-Schnellzugriff
 (29r, Roadmap #64) 1:1 aus der Blaupause migriert. Trash-Ausgaben-Analyse
-(29s, Roadmap #85) macht verschwendetes Geld bewusst. **Testabdeckung:
-149/149 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
-main: `e5cd83c` (EAS-Update bestätigt erfolgreich).
+(29s, Roadmap #85) macht verschwendetes Geld bewusst. Ersatz-Empfehlung
+für ausverkaufte Produkte (29t) nachgerüstet – weiterer toter Datenpunkt
+aus der Migration. **Testabdeckung: 150/150 Tests grün**, Typecheck
+sauber. Aktueller Commit `vaaav-mobile` main: `307d5d5` (EAS-Update
+bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
