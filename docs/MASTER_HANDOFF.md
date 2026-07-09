@@ -551,6 +551,32 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ae. ✅ **Körper-Atlas (Body-Atlas) migriert – Datei-Lücke vollständig
+    geschlossen:** Fünfte und letzte der zuvor unmigrierten Legacy-
+    Datendateien (`body_zones.json`, 28 Körperzonen, 133 Nährstoffmängel
+    mit Ursache+Fix). 1:1 aus der v61-Blaupause (`js/main.js`
+    selectZone()). Die Blaupause löst dies über eine antippbare SVG-
+    Körper-Silhouette (Vorder-/Rückansicht) – bewusste Vereinfachung in
+    RN: gleicher Inhalt und gleicher Antipp-Flow („Zone antippen →
+    Mängel & Ursachen sehen"), aber als Zonen-Grid (28 Chips, Lucide-
+    Icons statt Emoji, Regel 4) + Detailansicht statt Silhouetten-
+    Grafik. Medizinischer Disclaimer 1:1 aus `index.html` übernommen
+    („Hypothesen, keine Diagnosen", Bluttest-Hinweis Ferritin/Holo-TC/
+    25-OH-D3/Vollblut-Mg). Neuer `src/logic/bodyAtlas.ts` (Typen),
+    `src/screens/BodyAtlasScreen.tsx`. RootNavigator um ScreenId
+    `'atlas'` erweitert. Neuer ToolsScreen-Eintrag „Körper-Atlas"
+    (LIVE). 3 neue Datenintegritäts-Tests, **190/190 Tests grün**,
+    Typecheck sauber. Commit b36bffb. EAS-Update bestätigt erfolgreich
+    (beide Workflow-Runs `completed`/`success`, Run-IDs
+    29045082138/29045082143).
+
+    **Damit ist die 1:1-Migrationslückensuche der fünf zuvor
+    unmigrierten Legacy-Datendateien vollständig abgeschlossen**
+    (monitoring→29ac, injuries/mental/emergency→29ad, body_zones→29ae).
+    Offenes größeres Grafik-Thema für eine kommende Session: die
+    Silhouetten-Darstellung selbst (SVG-Körperfigur mit Hotspots) ist
+    bewusst nicht 1:1 nachgebaut worden.
+
 29ad. ✅ **Verletzungen & Erste Hilfe (Injury-Hub) migriert:** Schließt drei
     weitere der zuvor unmigrierten Legacy-Datendateien (`injuries.json`,
     `mental.json`, `emergency.json`). In der v61-Blaupause Teil des
@@ -1142,18 +1168,23 @@ unmigrierten Legacy-Datendateien (`monitoring.json`) – Check-Checkliste
 Verletzungen & Erste Hilfe (29ad) schließt drei weitere
 (`injuries.json`, `mental.json`, `emergency.json`) über einen neuen
 eigenständigen Injury-Hub-Screen (Verletzungen/Seelisches/Notruf).
-**Testabdeckung: 187/187 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `fa90ea4` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29044352455/29044352575).
+Körper-Atlas (29ae) schließt die fünfte und letzte Datei
+(`body_zones.json`, 28 Zonen/133 Mängel) als Zonen-Grid + Detailansicht
+(Silhouetten-Grafik bewusst nicht 1:1 nachgebaut). **Die
+1:1-Migrationslückensuche der fünf zuvor unmigrierten Legacy-
+Datendateien ist damit vollständig abgeschlossen.**
+**Testabdeckung: 190/190 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `b36bffb` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29045082138/29045082143).
 
 **Offener, größer angelegter Folgepunkt:** Clash-Detection (#122) braucht
 zuerst ein fehlendes wöchentliches Trainings-/Ruhetag-Kalender-Feature
 (`sl_week`-Äquivalent, getrennt von der Trainingsprogramm-Auswahl) –
 kein Quick-Fix, siehe 29ab.
 
-**Verbleibend aus der Datei-Lücke:** nur noch `body_zones.json`
-(Körper-Atlas, siehe 29ad) – größeres eigenständiges UI-Thema, eigene
-Session.
+**Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
+Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
+siehe 29ae. Eigene Design-Entscheidung nötig, kein Quick-Fix.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -1186,13 +1217,11 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
 reine Priorisierungsfrage):
-- **Körper-Atlas (`body_zones.json`, letzte verbleibende unmigrierte
-  Legacy-Datendatei, siehe 29ad)** – Mangelerscheinungen pro Körperzone,
-  in der Blaupause als SVG-Körper-Silhouette mit klickbaren Hotspots
-  (Vorder-/Rückseite) gelöst. An den Unlock „Nahrung & Körper-Atlas"
-  (Woche 5) gekoppelt, 1262 Zeilen Daten. Größeres eigenständiges
-  UI-Thema (Silhouette/Hotspot-Grafik statt reiner Listen-Screen) –
-  braucht eigene Design-Entscheidung, kein Quick-Fix.
+- **Körper-Atlas-Silhouette** (SVG-Körperfigur mit klickbaren Hotspots,
+  Vorder-/Rückseite, siehe 29ae) – Inhalt (28 Zonen/133 Mängel) ist
+  bereits live als Zonen-Grid + Detailansicht; die eigentliche
+  Silhouetten-Grafik aus der Blaupause wurde bewusst nicht 1:1
+  nachgebaut. Eigene Design-Entscheidung nötig, kein Quick-Fix.
 - **Clash-Detection (#122)** – braucht zuerst das wöchentliche Trainings-/
   Ruhetag-Kalender-Feature (`sl_week`-Äquivalent), siehe 29ab.
 - **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
