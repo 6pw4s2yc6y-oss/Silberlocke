@@ -96,10 +96,11 @@ Baukasten (12 Typen), Trainings-Tracker (Sätze/Gewicht), Produkt-DB, Mein
 Stack, Nahrung, Money, RecoveryMode, Theme-System.
 
 **Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:**
-Zwei-Achsen-Onboarding-Matrix, Training-Steuer, Ehrlichkeits-Kompensation,
-Profil-Medaillen, E-Commerce/Affiliate-Logik (Smart-Replacement,
-Link-Regeln), Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest,
-Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter.)*
+Training-Steuer, Ehrlichkeits-Kompensation, Profil-Medaillen,
+E-Commerce/Affiliate-Logik (Smart-Replacement, Link-Regeln),
+Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest, Body-IQ-Quiz,
+Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter,
+Zwei-Achsen-Matrix/Finanz-Modus.)*
 
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
@@ -118,7 +119,7 @@ Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter.)*
 
 ### Sprint 2: Onboarding & Phase Zero (Der Türsteher)
 
-- (11) ✅ Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus. **(nur PWA – RN-Onboarding hat bisher nur Basis-Profil: Alter/Größe/Gewicht/Zeiten)**
+- (11) ✅📱 Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus (RN: Stage-System × Finanz-Modus König/Warrior, Karte in der Übersicht, warriorAlt im Produkt-Detail).
 - (18) 🟡📱 Interaktives Setup generiert das Dashboard (RN: OnboardingFlow, Basis-Version).
 - (5) 🔨 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung.
 - (🆕) 🔨 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an.
@@ -610,6 +611,13 @@ Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter.)*
     Vitamin D3/K2 (PWA-\b-Bug, sicherheitsrelevant). 5 neue Tests inkl.
     referentieller Integrität products↔studies → **76/76 grün**, Typecheck
     sauber. Commit 5f97cb5 auf vaaav-mobile/main.
+34. ✅ **Migration Zwei-Achsen-Matrix (Roadmap #11):** Finanz-Modus als zweite
+    Achse migriert. ProfileContext trägt finMode ('king'/'warrior',
+    persistiert unter sl_finmode wie in der PWA). MasterScreen: breite
+    Finanz-Karte (Krone/Schwerter), Tippen wechselt sofort. ProductsScreen:
+    Warrior-Modus blendet pro Produkt die ehrliche Rohstoff-Alternative ein
+    (warriorAlt, Datenfeld war bereits da). Erste Achse = bestehendes
+    Stage-System → Matrix komplett. 76/76 Tests grün. Commit 86366cf.
 
 ## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
@@ -635,8 +643,8 @@ integriert. DEV-Mode aktiv mit:
 ## 9. AKTUELLES TODO (Nächste Prioritäten)
 
 0. **Migrations-Restliste (aus dem Roadmap-Audit), in dieser Reihenfolge:**
-   ~~(a) Studien/Disclaimer/Efficiency-Filter (75/76/82)~~ ✅ erledigt
-   (Commit 5f97cb5); (b) Zwei-Achsen-Onboarding-Matrix (11);
+   ~~(a) Studien/Disclaimer/Efficiency-Filter (75/76/82)~~ ✅ 5f97cb5;
+   ~~(b) Zwei-Achsen-Onboarding-Matrix (11)~~ ✅ 86366cf;
    (c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108);
    (d) Profil-Medaillen (35); (e) Befund-Drosselung (66);
    (f) E-Commerce/Affiliate-Logik (83/91/92).
