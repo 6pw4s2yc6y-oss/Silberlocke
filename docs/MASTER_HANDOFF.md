@@ -551,6 +551,22 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29k. ✅ **Design: Werkbank- und Tribunal-Palette verfeinert (Level 2/3):**
+    Fünfter Design-Schritt – gleiche Politur wie bei Master (Commit
+    cbc7a05), diesmal für die zwei Level ohne Moodboard-Referenz: nach
+    bestem Urteil konsistent zur neuen Glas-Optik statt unverändert dem
+    alten flachen Anthrazit. workbench (Hard/Expert): warmer,
+    texturierter Anthrazit-Ton (#141210/#1D1A17) statt kühlem
+    Nah-Schwarz, warmes Off-White statt reinem Hellgrau; Neon-Akzente
+    (Orange/Grün/Lila) unverändert als etablierte Marken-Signatur.
+    tribunal: Glas-Tiefe angehoben, accentCalm entsättigt für mehr
+    Kontrast – Grundfarben (Rot/Burgunder) blieben, trafen die
+    Design-Matrix-Vorgabe bereits. Ergebnis: die drei dunklen Level haben
+    jetzt je eine eigene Farbtemperatur (warm/rot-gesättigt/kühl-blau)
+    statt austauschbarem Einheits-Anthrazit. Typecheck sauber, 120/120
+    Tests grün. Commit a3cf0a1. **Damit ist der Design-Umbau (alle 4
+    Level) inhaltlich abgeschlossen.**
+
 29j. ✅ **Fokus-Matrix-Ausbau: Adaptives Hybrid-Routing (Sprint 4):**
     Funktionale Fortsetzung der Fokus-Matrix (Commit 34edded) –
     „deckelt die App die ZNS-Belastung auf dem Rad, damit der primäre
