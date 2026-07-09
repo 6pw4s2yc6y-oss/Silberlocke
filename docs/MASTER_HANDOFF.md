@@ -271,7 +271,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (15) ✅📱 Master Mode: Nur durch fehlerfreie Langzeit-Quest erreichbar (RN: Stage-System; per DEV-Schalter direkt testbar).
 - (66) ✅📱 Manuelles Drosseln bei eingepflegten Befunden (RN: „Meine Befunde"-Archiv, lokal, mit Drossel-Hinweis).
 - (65) 🟡 Deep-Recovery Modus schaltet auf Heilung um.
-- (71) 🟡 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht ab.
+- (71) ✅📱 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht ab (RN: BloodworkScreen, 18 Marker, Status-Ampel, PED-Monitoring-Filter).
 - (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
 - (70) 🔨 App generiert schonenden Wiedereinstiegs-Plan nach Krankheit.
 - (119) 🔨 „VΛAΛV-Paradoxon": Die Perfektions-Falle.
@@ -551,6 +551,17 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29c. ✅ **Point 29(c) – Blutwerte-Modul (Roadmap #71):** Laborwert-Tracking
+    mit Referenzbereich 1:1 aus der Blaupause migriert. 18 Marker
+    (Blutbild, Hormone, Organe, Stoffwechsel, Vitamine & Mineralien,
+    PED-Monitoring-Flag). `src/logic/bloodwork.ts`: Status-Ampel
+    (niedrig/im Bereich/hoch, Komma-Dezimaltrenner), Referenz-Formatierung,
+    Kategorie-Filter inkl. PED-Monitoring, Dashboard-Summary. BloodworkScreen
+    zeigt pro Marker Referenz + Status + Eingabe + Erklärung + verknüpfte
+    Nährstoffe aus der Produkt-DB; rechtlicher Hinweis (kein medizinischer
+    Rat, Werte bleiben lokal unter sl_blood). ToolsScreen: „Blutwerte" jetzt
+    LIVE. 9 neue Tests → **98/98 grün**, Typecheck sauber. Commit 13b5032.
+
 29. ✅ **Test-Suite Stabilisierung in DEV Mode:** Alle verbleibenden 3 Testfehler 
     behoben. Das Problem: defaultProgress() gab nur ['day'] in unlocked zurück, aber
     die DEV-Konfiguration mit all day-0 UNLOCK_SCHEDULE-Einträgen erforderte, dass
@@ -683,11 +694,9 @@ integriert. DEV-Mode aktiv mit:
    - Auto-Setup: Automatische Modul-Freischaltung basierend auf Fokus-Selektion
    - Tipps-Vertiefung: Hinweise auf Core-Features während Onboarding
 
-3. **Point 29(c) – Blutwerte-Modul (Laborwert-Tracking):**
-   - Schema: id, testName, value, unit, date, referenceRange, status (normal/low/high)
-   - UI: Suchbare Test-Datenbank, Trend-Grafik (zeitliche Entwicklung)
-   - Validierung: Automatische Vergleiche gegen Referenzbereiche
-   - Alerts: Rote Markierungen für kritische Werte
+3. ~~Point 29(c) – Blutwerte-Modul~~ ✅ erledigt (Commit 13b5032, siehe
+   Punkt 29c oben). Offen für eine spätere Session: Trend-Grafik über die
+   Zeit (aktuell nur Momentan-Wert pro Marker, keine Historie).
 
 4. **Point 29(d) – Analytics & Dashboard-Verbesserungen:**
    - Weekly Review: Zusammenfassung disziplinierte Tage, Punkte, Highlights
