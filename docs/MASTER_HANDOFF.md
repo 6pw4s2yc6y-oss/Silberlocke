@@ -551,6 +551,35 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ac. ✅ **Überwachungs-Protokoll (Monitoring) migriert:** Vierte der vier
+    zuvor unmigrierten Legacy-Datendateien (`body_zones.json`,
+    `emergency.json`, `injuries.json`, `mental.json`, `monitoring.json` –
+    gefunden per Abgleich RN `src/data/*.json` vs. PWA `data/**/*.json`).
+    `monitoring.json` zuerst gewählt, weil bereits ein `UNLOCK_SCHEDULE`-Key
+    (`monitor`) und ein ToolsScreen-Eintrag („Überwachung", Status
+    „Blaupause v61") dafür existierten. 1:1 aus der v61-Blaupause migriert
+    (`js/main.js` `renderMonitor()`/`toggleMonitorItem()`,
+    `data/health/monitoring.json`, 9 Checklist-Items + 7 Warnsignale).
+    Neuer `src/logic/monitoring.ts` (`filterMonitorItems()`,
+    `toggleMonitorItem()`) + `src/screens/MonitoringScreen.tsx`:
+    Gruppenfilter (Alle/Steroide/Insulin/Peptide), Checkliste mit
+    Toggle-Log (`sl_monitor`, zeigt Datum des letzten Abhakens),
+    Warnsignal-Liste mit Notfall-/Arzt-Eskalationsstufen (rote Hervorhebung
+    bei „notfall"). Checklist-Items mit `marker`-Feld verlinken direkt in
+    die Blutwerte-Analyse (alle 8 Marker-IDs gegen `bloodmarkers.json`
+    geprüft). Durchgängiger Disclaimer: kein medizinischer Rat, reine
+    Harm-Reduction-Checkliste. RootNavigator um neue ScreenId
+    `'ueberwachung'` erweitert (Stethoscope-Icon, Regel 4). ToolsScreen-
+    Eintrag „Überwachung" von „Blaupause v61" auf „migriert" (LIVE)
+    gesetzt. 7 neue Tests (Datenintegrität inkl. Marker-Existenzprüfung,
+    Filter, Toggle), **179/179 Tests grün**, Typecheck sauber. Commit
+    b13e7a6. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29043458734/29043458622).
+
+    **Verbleibend aus der Datei-Lücke:** `body_zones.json`,
+    `emergency.json`, `injuries.json`, `mental.json` – noch nicht auf
+    Screen-Zuordnung/Scope untersucht.
+
 29ab. ✅ **WeeklyPlanScreen: Emoji-Icons aus sport_data.json durch Lucide
     ersetzt (Regel 4):** Datengetriebener Emoji-Verstoß, den der statische
     Source-Code-Scan der letzten Bereinigung (Commit 66d0a43) nicht
@@ -1080,13 +1109,21 @@ Schatten-Tracking (29z, Roadmap #116) schließt die letzte Lücke der
 bereits vorbereiteten Phase-Zero-Logik. Phase-Zero-Karte (29aa, Roadmap
 #114/#115) rundet Phase Zero komplett ab. WeeklyPlanScreen-Emoji-Fix
 (29ab) schließt eine datengetriebene Regel-4-Lücke aus sport_data.json.
-**Testabdeckung: 172/172 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `699ada3` (EAS-Update bestätigt erfolgreich).
+Überwachungs-Protokoll (29ac) migriert die vierte von fünf zuvor
+unmigrierten Legacy-Datendateien (`monitoring.json`) – Check-Checkliste
++ Warnsignale fürs PED-Monitoring, verlinkt in die Blutwerte-Analyse.
+**Testabdeckung: 179/179 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `b13e7a6` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29043458734/29043458622).
 
 **Offener, größer angelegter Folgepunkt:** Clash-Detection (#122) braucht
 zuerst ein fehlendes wöchentliches Trainings-/Ruhetag-Kalender-Feature
 (`sl_week`-Äquivalent, getrennt von der Trainingsprogramm-Auswahl) –
 kein Quick-Fix, siehe 29ab.
+
+**Verbleibend aus der Datei-Lücke (29ac):** `body_zones.json`,
+`emergency.json`, `injuries.json`, `mental.json` – noch nicht auf
+Screen-Zuordnung/Scope untersucht.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -1119,6 +1156,12 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
 reine Priorisierungsfrage):
+- **Verbleibende unmigrierte Legacy-Datendateien** (`body_zones.json`,
+  `emergency.json`, `injuries.json`, `mental.json`, siehe 29ac) – Scope/
+  Screen-Zuordnung noch nicht untersucht, nächster natürlicher Kandidat
+  für die 1:1-Migrationslücken-Suche.
+- **Clash-Detection (#122)** – braucht zuerst das wöchentliche Trainings-/
+  Ruhetag-Kalender-Feature (`sl_week`-Äquivalent), siehe 29ab.
 - **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
   stehen, siehe 29a) – braucht echtes Gerät/Simulator, in dieser
   Remote-Umgebung nicht möglich.
