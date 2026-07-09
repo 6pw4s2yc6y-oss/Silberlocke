@@ -97,10 +97,9 @@ Stack, Nahrung, Money, RecoveryMode, Theme-System.
 
 **Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:**
 Zwei-Achsen-Onboarding-Matrix, Training-Steuer, Ehrlichkeits-Kompensation,
-Profil-Medaillen, Studien/Disclaimer/Efficiency-Filter in der Produkt-DB,
-E-Commerce/Affiliate-Logik (Smart-Replacement, Link-Regeln),
-Befund-Drosselung. *(Manifest, Body-IQ-Quiz und Tipp des Tages: am
-2026-07-08 migriert → 📱.)*
+Profil-Medaillen, E-Commerce/Affiliate-Logik (Smart-Replacement,
+Link-Regeln), Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest,
+Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter.)*
 
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
@@ -179,10 +178,10 @@ Befund-Drosselung. *(Manifest, Body-IQ-Quiz und Tipp des Tages: am
 ### Sprint 5: Supplement-Datenbank & Science (Die Wirkstoff-Wahrheit)
 
 - (72) ✅📱 Datenbank bewertet unbestechlich nach Fakten (RN: Produkt-DB migriert, ProductsScreen).
-- (75) ✅ Wissenschaftliche Studien-Werte strikt von User-Meinungen getrennt. **(nur PWA – RN offen)**
-- (76) ✅ Harte rechtliche Disclaimer statt Wirkversprechen. **(nur PWA – RN offen)**
+- (75) ✅📱 Wissenschaftliche Studien-Werte strikt von User-Meinungen getrennt (RN: Studienlage-Box mit Evidenz-Badge im Produkt-Detail).
+- (76) ✅📱 Harte rechtliche Disclaimer statt Wirkversprechen (RN: rechtlicher Footer in der Produkt-DB).
 - (81) ✅📱 UX-Makro-Block-Bündelung (RN: Stack-Tagesplan mit Zeitfenster-Blöcken).
-- (82) ✅ Efficiency Filter warnt vor überdosierten Vitaminen. **(nur PWA – RN: Toxizitäts-Infos im Nahrung-Modul vorhanden, aktiver Filter offen)**
+- (82) ✅📱 Efficiency Filter warnt vor überdosierten Vitaminen (RN: Warn-Box ab 500 %, extrem ab 1000 % NRV; D3/K2-Regex-Fix ggü. Blaupause).
 - (77) 🟡 „No-Bullshit" Geschmackstester.
 - (78) 🟡 Farbliche Codes für Studie vs. User-Erfahrung.
 - (79) 🟡 Warnflagge bei verschlechterten Rezepturen.
@@ -600,6 +599,17 @@ Befund-Drosselung. *(Manifest, Body-IQ-Quiz und Tipp des Tages: am
     erweitert. DisciplineContext.answerQuiz persistiert + Action-Pulse +
     Toast. 6 neue Tests → **71/71 grün**, Typecheck sauber.
     Commit ac164cf auf vaaav-mobile/main (EAS-Update automatisch).
+33. ✅ **Migration Wirkstoff-Wahrheit (Roadmap #75, #76, #82):** Studienlage,
+    rechtlicher Disclaimer und Effizienz-Filter in die RN-Produkt-DB migriert.
+    studies.json (7 Belege) unverändert übernommen; `src/logic/supplements.ts`
+    mit efficiencyFlags (500/1000 %-NRV-Schwellen), efficiencyNotes und
+    studiesForProduct. ProductsScreen-Detail zeigt jetzt: Effizienz-Warn-Box
+    (rot/orange), Mikronährstoff-Tabelle mit % NRV + EU-1169/2011-Fußnote,
+    Studienlage mit Evidenz-Badge/Befund/PubMed-Link, Disclaimer-Footer.
+    Bewusste Blaupausen-Korrektur: FAT_SOLUBLE-Regex erkennt jetzt auch
+    Vitamin D3/K2 (PWA-\b-Bug, sicherheitsrelevant). 5 neue Tests inkl.
+    referentieller Integrität products↔studies → **76/76 grün**, Typecheck
+    sauber. Commit 5f97cb5 auf vaaav-mobile/main.
 
 ## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
@@ -625,10 +635,11 @@ integriert. DEV-Mode aktiv mit:
 ## 9. AKTUELLES TODO (Nächste Prioritäten)
 
 0. **Migrations-Restliste (aus dem Roadmap-Audit), in dieser Reihenfolge:**
-   (a) Studien/Disclaimer/Efficiency-Filter in der Produkt-DB (75/76/82);
-   (b) Zwei-Achsen-Onboarding-Matrix (11); (c) Training-Steuer (25) +
-   Ehrlichkeits-Kompensation (108); (d) Profil-Medaillen (35);
-   (e) Befund-Drosselung (66); (f) E-Commerce/Affiliate-Logik (83/91/92).
+   ~~(a) Studien/Disclaimer/Efficiency-Filter (75/76/82)~~ ✅ erledigt
+   (Commit 5f97cb5); (b) Zwei-Achsen-Onboarding-Matrix (11);
+   (c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108);
+   (d) Profil-Medaillen (35); (e) Befund-Drosselung (66);
+   (f) E-Commerce/Affiliate-Logik (83/91/92).
 
 1. **Point 29(a) – Detox-Framework für E2E-Automation:**
    - Setup: npm install detox detox-cli
