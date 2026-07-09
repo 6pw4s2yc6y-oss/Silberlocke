@@ -551,6 +551,20 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29p. ✅ **Money: Budget aufteilen (Supplements/Nahrung → Sparen) verdrahtet:**
+    1:1 aus der v61-Blaupause migriert (`js/main.js` `renderMoneyBudget()`/
+    `updateSavings()`). Das `budget`-Feld (`supps`/`food`) stand bereits im
+    RN-Datenmodell (`MoneyData`), war aber nie im UI angebunden – bei der
+    Sichtung von MoneyScreen für die Emoji-Bereinigung (29o) aufgefallen.
+    `src/logic/money.ts`: `budgetConsumption()`/`budgetSavings()` als reine,
+    testbare Funktionen. Neue „Budget aufteilen"-Sektion nach der
+    Fixkosten-/Schulden-Übersicht: zwei Eingaben (Supplements/Nahrung pro
+    Monat), berechnet „Verfügbar" minus Budget-Konsum = „Zum Sparen übrig"
+    (grün/rot je nach Vorzeichen). Icons statt der Emoji-Variante aus der
+    Blaupause (Regel 4). 4 neue Tests, **141/141 Tests grün**, Typecheck
+    sauber. Commit 90b65d3. EAS-Update bestätigt erfolgreich (beide
+    Workflow-Runs `completed`/`success`).
+
 29o. ✅ **Nährstoff-Enzyklopädie voll migriert + Emoji-Bereinigung im RN-UI
     (Regel 4):** Zwei Funde bei der Sichtung des Pulver-/Wasser-Mix-Screens.
     (1) `NutritionScreen.tsx` zeigte nur 5 hartcodierte Beispiel-Einträge
@@ -851,9 +865,10 @@ Nutzer-Modus. Blutwerte-Trend-Grafik (29m) schließt die letzte offene
 Analytics-Lücke. Pulver-/Wasser-Mix (29n, Roadmap #49) 1:1 aus der
 Blaupause migriert. Nährstoff-Enzyklopädie (29o) jetzt vollständig (29
 statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
-(Regel 4). **Testabdeckung: 139/139 Tests grün**, Typecheck sauber.
-Aktueller Commit `vaaav-mobile` main: `66d0a43` (EAS-Update bestätigt
-erfolgreich).
+(Regel 4). Money-Budget-Aufteilung (29p) nachgerüstet – totes Datenfeld
+war seit der Migration nie ans UI angebunden. **Testabdeckung: 141/141
+Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
+`90b65d3` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
