@@ -122,7 +122,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (11) ✅📱 Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus (RN: Stage-System × Finanz-Modus König/Warrior, Karte in der Übersicht, warriorAlt im Produkt-Detail).
 - (18) 🟡📱 Interaktives Setup generiert das Dashboard (RN: OnboardingFlow, Basis-Version).
 - (5) 🔨 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung.
-- (🆕) 🔨 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an.
+- (🆕) 📱 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an. **(RN: neuer Onboarding-Schritt + eigenständiger FocusScreen; Verknüpfung mit Trainingsplänen/Hybrid-Routing folgt später)**
 - (114) 🔨 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen).
 - (115) 🔨 Der „Ektomorph-Plan" für Untergewichtige (Fokus auf Magendehnung).
 - (116) 🔨 „Schatten-Tracking": Verwehrt im ersten Monat Kcal-Zahlen zur Baseline-Ermittlung.
@@ -551,6 +551,19 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29b. ✅ **Point 29(b) – Onboarding-Fokus-Matrix (Sprint 2, Hybrid-Profiling):**
+    Neue Ziel-Hierarchie-Abfrage, keine PWA-Blaupause dafür (Neuentwicklung).
+    `src/logic/focus.ts`: 6 Optionen (Hypertrophie, Kraft, Ausdauer,
+    Abnehmen, Gesundheit, Functional), Sekundärziel darf nie = Primärziel
+    sein. ProfileContext: focus/secondaryFocus persistiert (sl_focus,
+    sl_focus_secondary), jederzeit änderbar. OnboardingFlow: neuer Schritt
+    3 (jetzt 4 Schritte). FocusScreen: eigenständig editierbar für
+    Bestandsnutzer (wichtig fürs Testen ohne Onboarding-Reset).
+    MasterScreen: neue Fokus-Matrix-Karte. Bewusst nicht gebaut: adaptives
+    Hybrid-Routing (Volumen-Deckelung) – reine Datenerfassung als
+    Grundlage. 3 neue Tests → **107/107 grün**, Typecheck sauber.
+    Commit 34edded.
+
 29d. ✅ **Point 29(d) – Analytics & Wochenrückblick:** Reine Auswertung des
     echten sl_progress-Logs, keine PWA-Blaupause dafür (Neuentwicklung).
     `src/logic/analytics.ts`: weekGrid (7-Tage-Raster), streakInfo
@@ -699,11 +712,10 @@ integriert. DEV-Mode aktiv mit:
    - Szenarien: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove
    - Target: 5–10 kritische User-Flows (kein vollständiger E2E-Coverage)
 
-2. **Point 29(b) – Onboarding-Flow Optimierungen:**
-   - Fokus-Matrix UI: Visualisierung der Prioritäts-Auswahl
-   - Goal-Ranking: Drag-and-Drop für Ziel-Neusortierung
-   - Auto-Setup: Automatische Modul-Freischaltung basierend auf Fokus-Selektion
-   - Tipps-Vertiefung: Hinweise auf Core-Features während Onboarding
+2. ~~Point 29(b) – Onboarding-Fokus-Matrix~~ ✅ erledigt (Commit 34edded,
+   siehe Punkt 29b oben). Offen für später: Goal-Ranking (Drag-and-Drop),
+   Auto-Setup (Modul-Freischaltung nach Fokus), adaptives Hybrid-Routing
+   (Volumen-Deckelung zwischen Primär-/Sekundärziel in den Trainingsplänen).
 
 3. ~~Point 29(c) – Blutwerte-Modul~~ ✅ erledigt (Commit 13b5032, siehe
    Punkt 29c oben). Offen für eine spätere Session: Trend-Grafik über die
@@ -716,6 +728,11 @@ integriert. DEV-Mode aktiv mit:
    aktuellen Stand, keine Snapshots). Für eine spätere Session: Score-Historie
    im evaluateDay() mitschreiben, dann Chart nachrüsten.
 
-**Nächste Session fokussiert sich auf Point 29(a) (Detox-Setup) und Point 29(b) 
-(Onboarding UI) als höchste Prioritäten, da sie direkte User-Experience-Verbesserungen 
-sind.**
+**Point 29(a–d) ist damit komplett abgearbeitet.** (a) Detox-Framework steht
+(Config + 8 Test-Szenarien), tatsächlicher Build/Lauf gegen ein Gerät/einen
+Simulator steht noch aus – das ist der einzige offene Rest aus 29(a).
+Nächste sinnvolle Schwerpunkte für eine kommende Session:
+- Detox tatsächlich bauen & laufen lassen (EAS-Build oder lokal via `eas build`)
+- Goal-Ranking/Auto-Setup/Hybrid-Routing als Fokus-Matrix-Ausbau
+- Score/Staub-Verlaufsgraphen (braucht History-Tracking in evaluateDay())
+- E-Commerce/Affiliate-Logik, sobald Phase 3 (Backend/Recht) ansteht
