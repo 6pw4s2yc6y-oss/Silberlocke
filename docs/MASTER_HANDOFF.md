@@ -255,7 +255,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (117) 🔨 Trophäen-Basis: Physische Trophäen (zum Selbstkostenpreis) + Gravur-Upgrades als einzige Monetarisierung.
 - (118) 🔨 Material-Ehre: Beilage eines Spezifikations-Zettels in der Acryl-Box.
 - (124) 🔨 Die „Stille Münze": Physische VΛAΛV-Münze als Geschenk.
-- (85) 🔨 Trash-Ausgaben-Analyse (Manuelle Eingabe).
+- (85) ✅📱 Trash-Ausgaben-Analyse (Manuelle Eingabe). **(RN FERTIG: Trash-Sektion in MoneyScreen, Commit e5cd83c)**
 - (125) 🔨 Apex-Leistungen (Manuelle Übertragung von Highlight-Daten ins System).
 - (🆕) 🔨 Hintergrund-Vorratstracker (Inventory Engine): Ein unsichtbarer Supplement- und Ernährungsrechner, der basierend auf dem täglich getrackten Konsum (z. B. 100 g Haferflocken, 40 g Eiweißpulver) exakt den physischen Füllstand der Dosen und Vorräte zu Hause berechnet.
 - (🆕) 🔨 Zero-Stock Warnsystem: Die App meldet sich proaktiv, kurz bevor ein essenzielles Produkt leer ist, um Ausfälle in der Ernährung logistisch zu verhindern.
@@ -551,6 +551,19 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29s. ✅ **Trash-Ausgaben-Analyse: verschwendetes Geld bewusst machen (Roadmap
+    #85):** Keine PWA-Blaupause dafür (Neuentwicklung). Manuelle Erfassung
+    von Impuls-Käufen/Fast-Food/unnötigen Ausgaben im Money-Hub – bewusst
+    getrennt von den Fixkosten (variabel/vermeidbar statt fest verplant),
+    fließt NICHT in „Verfügbar nach Fixkosten" ein. Reine Awareness-
+    Kennzahl, analog zur Atomuhr („Tage verschwendet"). `src/logic/money.ts`:
+    `TrashItem`, `totalTrash()`, `trashThisMonth()` (Filter auf
+    Kalendermonat). Neue „Trash-Ausgaben"-Sektion in `MoneyScreen.tsx` mit
+    Monats-/Gesamt-Summe, Liste + Add-Row, rot/danger-Farbcode. 4 neue
+    Tests, **149/149 Tests grün**, Typecheck sauber. Commit e5cd83c.
+    EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29r. ✅ **Hydration-Schnellzugriff: Wasser/Elektrolyte-Zähler (Roadmap #64):**
     1:1 aus der v61-Blaupause migriert (`js/main.js` `addWater()`/
     `waterGoalGlasses()`). Gläser à 250ml, Tagesziel 8 (an Trainingstagen
@@ -896,9 +909,10 @@ statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
 (Regel 4). Money-Budget-Aufteilung (29p) nachgerüstet – totes Datenfeld
 war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
 #146) zählt reale Trainings-Logs statt Schätzwert. Hydration-Schnellzugriff
-(29r, Roadmap #64) 1:1 aus der Blaupause migriert. **Testabdeckung:
-147/147 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
-main: `483a8f2` (EAS-Update bestätigt erfolgreich).
+(29r, Roadmap #64) 1:1 aus der Blaupause migriert. Trash-Ausgaben-Analyse
+(29s, Roadmap #85) macht verschwendetes Geld bewusst. **Testabdeckung:
+149/149 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
+main: `e5cd83c` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
