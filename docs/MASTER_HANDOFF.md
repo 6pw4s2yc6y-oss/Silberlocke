@@ -551,6 +551,31 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ab. ✅ **WeeklyPlanScreen: Emoji-Icons aus sport_data.json durch Lucide
+    ersetzt (Regel 4):** Datengetriebener Emoji-Verstoß, den der statische
+    Source-Code-Scan der letzten Bereinigung (Commit 66d0a43) nicht
+    erfassen konnte: `sport_data.json` trägt pro Trainings-Fokus ein
+    `icon`-Feld mit rohen Emoji-Zeichen, die `WeeklyPlanScreen.tsx` an
+    drei Stellen direkt als Text gerendert hat (aktuelle Plan-Karte,
+    Auswahl-Grid, Detail-Header). `TRAINING_ICON`-Map (Trainings-Key →
+    Lucide-Icon, z. B. maxkraft/ganzkoerper → Dumbbell, gla → Bike,
+    kondition → Swords) + `TrainingIcon`-Komponente ersetzen alle drei
+    Renderings; das Datenfeld selbst bleibt unverändert, wird nur nicht
+    mehr direkt gerendert. **172/172 Tests weiterhin grün**, Typecheck
+    sauber. Commit 699ada3. EAS-Update bestätigt erfolgreich (beide
+    Workflow-Runs `completed`/`success`).
+
+    **Offener Folgepunkt (kein Quick-Fix):** Bei der Untersuchung von
+    Clash-Detection (#122, Wochenplan/Training vs. gewählter Tagestyp)
+    zeigte sich, dass die PWA dafür ein separates, per Wochentag
+    gepflegtes Trainings-/Ruhetag-Kalender-Feature (`sl_week`) nutzt –
+    getrennt von der reinen Trainingsprogramm-Auswahl (`sl_weekplan`),
+    die RN bereits hat. Dieses Kalender-Feature fehlt in RN komplett und
+    müsste zuerst gebaut werden (neue UI in `WeeklyPlanScreen.tsx` zum
+    Setzen von Trainings-/Ruhetagen pro Wochentag + Persistenz), bevor
+    die Clash-Detection-Banner in `DayScreen.tsx` sinnvoll sind. Eigenes,
+    größer angelegtes Thema für eine kommende Session.
+
 29aa. ✅ **Phase-Zero-Karte: Dicke-Plan (#114) + Ektomorph-Plan (#115):** 1:1
     aus der v61-Blaupause migriert (`js/main.js` `phaseZero()`/
     `phaseZeroCardHtml()`). Die Blaupause realisiert #114/#115 nicht als
@@ -1053,9 +1078,15 @@ Phase-3/Backend auf ✅ – rein clientseitig lösbar. Identitäts-Frage (29y,
 Roadmap #5) als neuer Onboarding-Schritt + tägliche Erinnerung ergänzt.
 Schatten-Tracking (29z, Roadmap #116) schließt die letzte Lücke der
 bereits vorbereiteten Phase-Zero-Logik. Phase-Zero-Karte (29aa, Roadmap
-#114/#115) rundet Phase Zero komplett ab. **Testabdeckung: 172/172 Tests
-grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
-`e1a718f` (EAS-Update bestätigt erfolgreich).
+#114/#115) rundet Phase Zero komplett ab. WeeklyPlanScreen-Emoji-Fix
+(29ab) schließt eine datengetriebene Regel-4-Lücke aus sport_data.json.
+**Testabdeckung: 172/172 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `699ada3` (EAS-Update bestätigt erfolgreich).
+
+**Offener, größer angelegter Folgepunkt:** Clash-Detection (#122) braucht
+zuerst ein fehlendes wöchentliches Trainings-/Ruhetag-Kalender-Feature
+(`sl_week`-Äquivalent, getrennt von der Trainingsprogramm-Auswahl) –
+kein Quick-Fix, siehe 29ab.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
