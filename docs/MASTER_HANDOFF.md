@@ -71,7 +71,14 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Legende & Entwicklungs-Realität
 
-- ✅ **Live:** In v41 auf Vanilla JS/HTML/CSS-Basis bereits integriert.
+> ⚠️ **Audit 2026-07-08:** Die ✅-Haken stammten aus der alten Vanilla-JS-PWA
+> (v61) und bedeuteten NICHT, dass das Feature in der neuen Expo/RN-App
+> existiert. Jeder Haken wurde gegen den `vaaav-mobile`-Code geprüft:
+> **📱 = in der neuen Expo-App verifiziert vorhanden. ✅ ohne 📱 = nur in
+> der alten PWA – Migration noch offen.**
+
+- ✅ **PWA-Live:** In der Vanilla-JS-PWA (v61-Blaupause) integriert.
+- 📱 **RN-Live:** In der neuen Expo/React-Native-App umgesetzt (Code-verifiziert).
 - 🟡 **Teil-Live:** Grundstruktur steht, Inhalte/Feinschliff fehlen.
 - 🔨 **Jetzt baubar:** Nächste Sprints im aktuellen Setup.
 - 🔵 **Phase 3:** Zwingend Backend/Datenbank/Recht erforderlich.
@@ -79,15 +86,30 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 - 🅿️ **Geparkt:** Bewusst verschoben, bis die Systemgrenzen es erzwingen.
 - 🆕 **Neue Integration:** Zusätzliche Features aus dem WinterArc/Status-Update.
 
+### RN-Migrations-Bilanz (Audit 2026-07-08)
+
+**In der Expo-App LIVE (📱):** Disziplin-Kern komplett (Stages, Gatekeeper,
+Phase Zero, Joker, 24h-Lock, Punkte), Punkte-Shop (Cheat/Pre-Booking/Joker),
+Core Bar (Default + Action-Pulse + Recovery-State), Atomuhr, Dashboard,
+Onboarding (Basis), Tagesplan/Timeline-Logik mit Schlaf-Sperre, Wochenplan-
+Baukasten (12 Typen), Trainings-Tracker (Sätze/Gewicht), Produkt-DB, Mein
+Stack, Nahrung, Money, RecoveryMode, Theme-System.
+
+**Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:** 18-Punkte-Manifest,
+Zwei-Achsen-Onboarding-Matrix, Body-IQ-Quizzes, Insights-Widget,
+Training-Steuer, Ehrlichkeits-Kompensation, Profil-Medaillen, Studien/
+Disclaimer/Efficiency-Filter in der Produkt-DB, E-Commerce/Affiliate-Logik
+(Smart-Replacement, Link-Regeln), Befund-Drosselung.
+
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
-- (1) ✅ VΛAΛV als neuer, sauberer Markenname etabliert.
-- (2) ✅ Das 18-Punkte-Manifest ist fest in der Übersicht verankert.
-- (3) ✅ Die App fungiert als ablenkungsfreie, minimalistische Werkbank.
-- (4) ✅ Radikale Gleichheit: Keine kaufbaren VIP-Vorteile, jeder startet gleich.
-- (6) ✅ Die Entwicklung erfolgt komplett im Stealth-Modus.
-- (8) ✅ Die grundlegende Tracking-Werkbank bleibt zwingend 100 % kostenlos.
-- (97) ✅ Eine modulare Architektur trennt Vanilla-JS-Logik von Daten.
+- (1) ✅📱 VΛAΛV als neuer, sauberer Markenname etabliert.
+- (2) ✅ Das 18-Punkte-Manifest ist fest in der Übersicht verankert. **(nur PWA – RN offen)**
+- (3) ✅📱 Die App fungiert als ablenkungsfreie, minimalistische Werkbank.
+- (4) ✅📱 Radikale Gleichheit: Keine kaufbaren VIP-Vorteile, jeder startet gleich.
+- (6) ✅📱 Die Entwicklung erfolgt komplett im Stealth-Modus.
+- (8) ✅📱 Die grundlegende Tracking-Werkbank bleibt zwingend 100 % kostenlos.
+- (97) ✅📱 Eine modulare Architektur trennt Logik von Daten (RN: `src/logic` vs. `src/data`).
 - (105) 🟡 Juristische Absicherung (Impressum-Platzhalter live; AGB, DPMA-Marke offen).
 - (96) 🅿️ Architektonischer Framework-Sprung auf Next.js/React (**AKTUELL IN ARBEIT**).
 - (7) 🔵 Der offizielle Startschuss via YouTube.
@@ -96,8 +118,8 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 2: Onboarding & Phase Zero (Der Türsteher)
 
-- (11) ✅ Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus.
-- (18) 🟡 Interaktives 3-Schritte-Setup generiert das Dashboard.
+- (11) ✅ Zwei-Achsen-Matrix kreuzt Erfahrungsmodus mit Budgetmodus. **(nur PWA – RN-Onboarding hat bisher nur Basis-Profil: Alter/Größe/Gewicht/Zeiten)**
+- (18) 🟡📱 Interaktives Setup generiert das Dashboard (RN: OnboardingFlow, Basis-Version).
 - (5) 🔨 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung.
 - (🆕) 🔨 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an.
 - (114) 🔨 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen).
@@ -108,38 +130,38 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 3: Chronobiologie, UI & Tägliche Werkbank (Die Dashboards)
 
-- (19) ✅ Progressive Disclosure: Komplexe Funktionen wochenweise freigeschaltet.
-- (34) ✅ „Body-IQ" Quizzes erziehen zum Biologie-Experten.
-- (99) ✅ Design-Matrix aktiviert (Neomorphismus, Liquid Glass).
-- (101) ✅ Dashboard-Widget mit tageswechselnden Optimierungs-Insights.
-- (57) 🟡 Dynamische Einnahmefenster basierend auf 10:00 Uhr Tages-Taktung.
-- (58) 🟡 Basis-Routinen als Standard-Mahlzeiten-Logik.
+- (19) ✅📱 Progressive Disclosure: Freischalt-Fahrplan (RN: UNLOCK_SCHEDULE; aktuell DEV-Override → alles ab Tag 0).
+- (34) ✅ „Body-IQ" Quizzes erziehen zum Biologie-Experten. **(nur PWA – RN hat nur das Datenfeld, kein Quiz-UI)**
+- (99) ✅📱 Design-Matrix aktiviert (RN: zentrale `theme.ts`, Neomorphismus, Liquid Glass).
+- (101) ✅ Dashboard-Widget mit tageswechselnden Optimierungs-Insights. **(nur PWA – RN offen)**
+- (57) 🟡📱 Dynamische Einnahmefenster (RN: dayplan/timeline 1:1 migriert, Tests grün).
+- (58) 🟡📱 Basis-Routinen als Standard-Mahlzeiten-Logik (RN: Timeline-Logik migriert).
 - (63) 🟡 Circadianer Sleep Mode.
 - (62) 🔨 Beten/Halal-Modus integriert Gebetszeiten.
 - (64) 🔨 Schnellzugriff-Button für Wasser und Elektrolyte.
 - (100) 🔨 Anpassbare Gaming-Themen (Vibes gemäß Design-Matrix).
-- (113) 🔨 „Brennende Batterie": Echtzeit-Animation in der VΛAΛV Core Bar beim Tracken.
-- (🆕) 🔨 VΛAΛV Atomuhr (Startseite): Ein unbestechlicher, fortlaufender Counter. Visualisiert auf die Sekunde genau die Lebenszeit-Bilanz: „Tage durchgezogen" vs. „Tage verschwendet".
+- (113) 📱 „Brennende Batterie": Echtzeit-Animation in der Core Bar beim Tracken. **(RN FERTIG: Action-Pulse, Reanimated)**
+- (🆕) 📱 VΛAΛV Atomuhr (Startseite): „Tage durchgezogen" vs. „Tage verschwendet". **(RN FERTIG: AtomClock.tsx + lifeBalance)**
 - (🆕) 🔨 Tags Zähler: „Tatsächlich durchgezogene Trainings" vs. Ausfälle.
 - (🆕) 🔨 Resilienz-Engine (Mindset-Support): Wenn der Algorithmus ein „Tief" (z. B. verpasstes Training, verfallener Disziplin-Score) erkennt, aktiviert VΛAΛV automatisch den „Resilienz-Modus".
 - (🆕) 🔨 Universelle Weisheits-Datenbank: Blendet bei echtem Bedarf ausgewählte Koran-Verse ein, die universelle Prinzipien von Geduld (Sabr), Standhaftigkeit und innerer Reinigung lehren.
 - (🆕) 🔨 Neutrales Wording: Verse werden als „Prinzipien der Stärke" betitelt. Sie erscheinen Trigger-basiert nur bei negativen Tagebuch-Einträgen oder Disziplin-Lücken. Begleitet von einem haptischen Grounding (Herzschlag-Vibration).
-- (127) 🔨 Financial-Hub (Manuelle Eingabe der Ausgaben).
+- (127) 📱 Financial-Hub (Manuelle Eingabe). **(RN FERTIG: Money-Modul – Einnahmen, Fixkosten, Schulden, Bilanz)**
 - (128) 🔵 Medical-Terminal als hochsicheres Archiv für Befunde.
 - (🆕) (130) 🔨 Datenbasiertes Budget-Planning: Sobald über den Financial-Hub ausreichend manuelle Ausgabendaten gesammelt wurden, erstellt die App automatisch proaktive Budget-Pläne und Limits.
 - (61) 🅿️ Rigoroser „Aleman Trink-Timer" via native Smartphone-Alarme.
 
 ### Sprint 4: Trainings-Matrix & Leistungssteuerung (Die Mechanik)
 
-- (47) ✅ Autarker Wochenplan-Baukasten für Trainingszyklen.
-- (54) ✅ Zwingende Pre-Workout-Schranke bei ZNS-Ermüdung/Schlafmangel.
-- (46) 🟡 „All-in-One Clash Detection" (Schlaf-Sperre live).
+- (47) ✅📱 Autarker Wochenplan-Baukasten (RN: WeeklyPlanScreen, 12 Trainings-Typen).
+- (54) ✅📱 Zwingende Pre-Workout-Schranke bei Schlafmangel (RN: <6h-Schlaf-Sperre in dayplan.ts).
+- (46) 🟡📱 „All-in-One Clash Detection" (RN: Schlaf-Sperre live).
 - (52) 🟡 Hypertrophie-Fokus.
 - (53) 🟡 Systemische Ego-Bremsen drosseln Training bei Überlastung.
-- (🆕) 🔨 Thermodynamisches Recovery-Fenster: Visualisierung der Regenerationsschuld nach extremen Belastungen. Das UI schaltet in den roten Defizit-Modus. Dieser füllt sich nicht passiv durch Zeit, sondern nur aktiv: Die berechneten Kcal für die Gewebereparatur und Energiebereitstellung müssen zu 100 % getrackt werden, bevor die App auf „Grün" (Einsatzbereit) springt.
+- (🆕) 📱 Thermodynamisches Recovery-Fenster: Rote Defizit-Core-Bar, füllt sich nur aktiv durch getrackte Kcal. **(RN FERTIG: Recovery-State + Mahlzeiten-Auto-Credit + RecoveryMode-Screen)**
 - (🆕) 🔨 Adaptives Hybrid-Routing: Basierend auf der Onboarding-Fokus-Matrix berechnet die App das Volumen cross-funktional. Ist Radsport nur das Hobby, deckelt die App die ZNS-Belastung auf dem Rad, damit der primäre Bodybuilding-Plan nicht sabotiert wird (und vice versa).
 - (🆕) 🔨 Mikrozyklen-Spezifizierung (Stimulus-Fokus): Zwingende Abfrage des aktuellen Trainingsreizes: Kraftausdauer, Hypertrophie oder reine Muskelausdauer. Das UI und die Pläne passen sich entsprechend an; physiologisch widersprüchliche Belastungsmuster werden blockiert.
-- (48) 🔨 „Geplante Einheit Vorbereitung" visualisiert das nächste Workout.
+- (48) 📱 „Geplante Einheit Vorbereitung" visualisiert das nächste Workout. **(RN FERTIG: Prep-Karte mit Countdown im DayScreen)**
 - (49) 🔨 Automatische Berechnung von Pulver/Wasser pro Trainingseinheit.
 - (50) 🔨 Rennrad-Fokus mit spezialisierten Trainingsplänen.
 - (🆕) 🔨 „Pro-Peloton" Benchmark (Tour de France): Vergleicht die manuell getrackten Leistungswerte (FTP, Watt/kg, Höhenmeter, Dauer) ungeschönt mit den absoluten Anforderungen eines Tour-de-France-Profis. Visualisiert als prozentualer Reality-Check den Abstand zur Weltklasse.
@@ -155,11 +177,11 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 5: Supplement-Datenbank & Science (Die Wirkstoff-Wahrheit)
 
-- (72) ✅ Datenbank bewertet unbestechlich nach Fakten.
-- (75) ✅ Wissenschaftliche Studien-Werte sind strikt von User-Meinungen getrennt.
-- (76) ✅ Harte rechtliche Disclaimer statt Wirkversprechen.
-- (81) ✅ UX-Makro-Block-Bündelung (z. B. Morgen-Stack).
-- (82) ✅ Efficiency Filter warnt vor überdosierten Vitaminen.
+- (72) ✅📱 Datenbank bewertet unbestechlich nach Fakten (RN: Produkt-DB migriert, ProductsScreen).
+- (75) ✅ Wissenschaftliche Studien-Werte strikt von User-Meinungen getrennt. **(nur PWA – RN offen)**
+- (76) ✅ Harte rechtliche Disclaimer statt Wirkversprechen. **(nur PWA – RN offen)**
+- (81) ✅📱 UX-Makro-Block-Bündelung (RN: Stack-Tagesplan mit Zeitfenster-Blöcken).
+- (82) ✅ Efficiency Filter warnt vor überdosierten Vitaminen. **(nur PWA – RN: Toxizitäts-Infos im Nahrung-Modul vorhanden, aktiver Filter offen)**
 - (77) 🟡 „No-Bullshit" Geschmackstester.
 - (78) 🟡 Farbliche Codes für Studie vs. User-Erfahrung.
 - (79) 🟡 Warnflagge bei verschlechterten Rezepturen.
@@ -171,16 +193,16 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 6: Gamification, Strafen & Tabu-Börse (Das Punkte-System)
 
-- (12) ✅ Light Mode: Einsteigerstufe mit Zeit-Toleranz.
-- (20) ✅ Gatekeeper-Algorithmus: Aufstieg erfordert >90 % Disziplin-Score.
-- (23) ✅ Animierter Disziplin-Balken triggert Verlustaversion.
-- (24) ✅ 24-h-Schreibschutz-Lock (Fehlende Tage = Null-Runde).
-- (25) ✅ „Training-Steuer" verhängt Pflicht-Zusatz-Workouts bei Lücken.
-- (29) ✅ Punkte nur durch Tracking verdienbar.
-- (30) ✅ Starterpaket an Punkten schützt Anfänger.
-- (31) ✅ „Liebloses Essen" (Cheat-Tage) im Shop freischaltbar.
-- (32) ✅ Strategisches Pre-Booking für vorhersehbare Ausfälle.
-- (33) ✅ Mathematisches Jokersystem (Cap 3 pro Woche).
+- (12) ✅📱 Light Mode: Einsteigerstufe mit Zeit-Toleranz (RN: Stage-System komplett).
+- (20) ✅📱 Gatekeeper-Algorithmus: Aufstieg erfordert ≥90 % Disziplin-Score (RN: 1:1 migriert + Tests).
+- (23) ✅📱 Animierter Disziplin-Balken triggert Verlustaversion (RN: Core Bar, Reanimated).
+- (24) ✅📱 24-h-Schreibschutz-Lock (RN: reconcileProgress – Joker, dann −5 Score/Tag).
+- (25) ✅ „Training-Steuer" verhängt Pflicht-Zusatz-Workouts bei Lücken. **(nur PWA – RN offen)**
+- (29) ✅📱 Punkte nur durch Tracking verdienbar.
+- (30) ✅📱 Starterpaket an Punkten schützt Anfänger (RN: Score 60 + 1 Joker).
+- (31) ✅📱 „Liebloses Essen" (Cheat-Tage) im Shop freischaltbar (RN: ShopScreen).
+- (32) ✅📱 Strategisches Pre-Booking für vorhersehbare Ausfälle (RN: ShopScreen).
+- (33) ✅📱 Mathematisches Jokersystem (Cap 3) (RN: Joker-Schmiede + Wochen-Joker).
 - (13) 🟡 Hard Mode: Exaktes Gramm-Tracking.
 - (14) 🟡 Expert Mode: Minutengenaues Timing.
 - (21) 🟡 Truth-Engine entzieht Betrügern Punkte.
@@ -195,7 +217,7 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 7: Hardware-Locks & Anti-Schummel-Eskalation (Das Tribunal)
 
-- (108) ✅ Ehrlichkeits-Kompensation führt zu Pflicht-Cardio statt Degradierung.
+- (108) ✅ Ehrlichkeits-Kompensation führt zu Pflicht-Cardio statt Degradierung. **(nur PWA – RN offen)**
 - (59) 🟡 Wöchentlicher „Truth-Check" auf der Waage.
 - (109) 🟡⚠️ Thermodynamik-Audit entlarvt Lügen.
 - (110) 🔨⚠️ System-Tribunal: Einfrieren der App + Arzt-Verweis bei mathematischem Kollaps.
@@ -206,7 +228,7 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 8: Die Soziale Arena & Squads (Multiplayer-Modus)
 
-- (35) ✅ Sichtbare, seltene Profil-Medaillen für Meilensteine.
+- (35) ✅ Sichtbare, seltene Profil-Medaillen für Meilensteine. **(nur PWA – RN offen)**
 - (36) 🔵 „VΛAΛV-Arena" bildet 4er-Arbeits-Squads.
 - (37) 🔵 „Team-Karma": Schummeln eines Mitglieds senkt Squad-Punkte.
 - (38) 🔵 Demokratischer Team-Ausschluss für Saboteure.
@@ -219,10 +241,10 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 9: E-Commerce & Monetarisierung (Das Geschäft)
 
-- (83) ✅ Smart-Replacement bei ausverkauften Produkten.
-- (91) ✅ Affiliate-Links zwingend mit wissenschaftlichen Studien unterfüttert.
-- (92) ✅ Automatische Link-Entfernung bei Qualitätsverlust.
-- (94) ✅ Firmenkooperationen verändern niemals die harte Nährwert-Bewertung.
+- (83) ✅ Smart-Replacement bei ausverkauften Produkten. **(nur PWA – RN offen)**
+- (91) ✅ Affiliate-Links zwingend mit wissenschaftlichen Studien unterfüttert. **(nur PWA – RN offen)**
+- (92) ✅ Automatische Link-Entfernung bei Qualitätsverlust. **(nur PWA – RN offen)**
+- (94) ✅ Firmenkooperationen verändern niemals die harte Nährwert-Bewertung. **(Grundsatz; RN-E-Commerce noch nicht migriert)**
 - (16) 🟡 Budget-Stufe „Warrior" fokussiert auf günstige Basis-Rohstoffe.
 - (87) 🟡 Survival-Automatik streicht Luxus-Supplements bei Geldmangel.
 - (90) 🟡 Kontextuelles Affiliate.
@@ -245,8 +267,8 @@ Die App passt ihr UI-Design dynamisch an den aktuellen Modus des Nutzers an.
 
 ### Sprint 10: Biohacking-Recovery & Master Mode (Der Abschluss)
 
-- (15) ✅ Master Mode: Nur durch fehlerfreie Langzeit-Quest erreichbar.
-- (66) ✅ Manuelles Drosseln bei eingepflegten Befunden.
+- (15) ✅📱 Master Mode: Nur durch fehlerfreie Langzeit-Quest erreichbar (RN: Stage-System; per DEV-Schalter direkt testbar).
+- (66) ✅ Manuelles Drosseln bei eingepflegten Befunden. **(nur PWA – RN offen)**
 - (65) 🟡 Deep-Recovery Modus schaltet auf Heilung um.
 - (71) 🟡 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht ab.
 - (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
