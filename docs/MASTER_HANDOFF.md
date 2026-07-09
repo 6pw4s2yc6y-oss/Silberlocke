@@ -551,6 +551,40 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ai. ✅ **Anpassbare Vibes (#100): Design-Matrix-Level manuell wählbar –
+    RN FERTIG, 🆕 kein PWA-Vorbild:** Nächster Punkt aus dem zuvor
+    angebotenen Kandidaten-Menü (nach Recovery-Ausbau). Die vierstufige
+    Design-Matrix selbst ist eine RN-Erfindung dieser Migration (29g–29k)
+    – die PWA hat keinerlei Theme-Umschaltung. Nutzer kann jetzt optional
+    ein Design-Level (Phase Zero/Werkbank/Tribunal/Master) fest wählen,
+    unabhängig vom Fortschritt-Stage; „Automatisch" (Default) fällt auf
+    das bisherige Stage-abgeleitete Verhalten zurück. `theme.ts`: neue
+    `DESIGN_LEVELS`/`DESIGN_LEVEL_LABEL`. `ThemeContext.tsx`: neue
+    `useThemePreference()` (`preference`/`setPreference`), persistiert
+    unter `sl_theme_override`; `ThemeProvider` berechnet das aktive Level
+    als `preference || stageLevel` – `ThemeOverride` (Tabu-Börse) bleibt
+    unverändert vorrangig, da es den Context weiter unten im Baum
+    überschreibt. `ToolsScreen`: neue „Dein Vibe"-Box (Sparkles-Icon,
+    Regel 4) mit 5 Chips, bewusst getrennt von der DEV-Stage-Testleiste
+    (echtes Nutzer-Feature statt Debug-Tool). Kein Unit-Test möglich:
+    `theme.ts` importiert `Platform` aus `react-native`, läuft nicht
+    unter dem reinen `node --test`-Setup (wie der Rest des Theme-Moduls
+    auch bisher ungetestet blieb). Typecheck sauber, **220/220 Tests
+    weiterhin grün** (unverändert). Commit 57098ba. EAS-Update bestätigt
+    erfolgreich (beide Workflow-Runs `completed`/`success`, Run-IDs
+    29048131376/29048131385).
+
+    **Roadmap #100 damit als RN FERTIG markiert.**
+
+    **Bei der Kandidaten-Prüfung zurückgestellt (nicht verworfen):**
+    Molekülverbindungen (#121) und Affiliate-Transparenz (#93) – beide
+    zugehörigen Felder (`noBullshit`, `affiliateUrl`) sind in allen 55
+    Produkten der Blaupause leer (0/55), keine reale Datenbasis vorhanden.
+    **Betreiber-Klarstellung:** Affiliate-Links und Nährwerte für alle
+    Produkte kommen später, mit wissenschaftlicher Studienlage hinterlegt
+    (kein erfundener Content, Rule 6 bleibt gewahrt) – eingeplant für eine
+    kommende Session, **vor** Detox-Build (#4, siehe AKTUELLES TODO).
+
 29ah. ✅ **RecoveryMode: normale Regenerationsphase nach akuter Kcal-Schuld
     (🆕 kein PWA-Vorbild):** Direkte Betreiber-Klarstellung im Anschluss an
     29ag: RecoveryMode (nach intensiver Einheit, >100 km/3h+) hat zwei
@@ -1280,13 +1314,22 @@ FERTIG.** RecoveryMode-Regenerationsphase (29ah, 🆕 kein PWA-Vorbild,
 direkte Betreiber-Klarstellung) ergänzt eine normale Erholungsphase
 zwischen abbezahlter akuter Kcal-Schuld und „einsatzbereit" – RecoveryMode
 hat damit zwei klar getrennte Phasen (akut → Regeneration → bereit).
-**Testabdeckung: 220/220 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `9d50dfa` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29047496496/29047496565).
+Anpassbare Vibes (29ai, Roadmap #100) macht die Design-Matrix-Level
+manuell wählbar, unabhängig vom Fortschritt – **Roadmap #100 damit RN
+FERTIG.**
+**Testabdeckung: 220/220 Tests grün** (unverändert, `theme.ts` nicht
+unit-testbar), Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
+`57098ba` (EAS-Update bestätigt erfolgreich, Run-IDs
+29048131376/29048131385).
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
 siehe 29ae. Vom Betreiber bestätigt: bleibt so, kein weiterer Bedarf.
+
+**Eingeplant, vor Detox-Build (#4):** Molekülverbindungen (#121) +
+Affiliate-Transparenz (#93) + Nährwerte für alle Produkte – kommen mit
+hinterlegter wissenschaftlicher Studienlage (Betreiber-Klarstellung,
+siehe 29ai). Noch nicht begonnen.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -1322,6 +1365,9 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
   (29ae) ist eine bewusst akzeptierte, gute Lösung. Kein Nachbau der
   SVG-Hotspot-Silhouette aus der Blaupause geplant.
 - **Clash-Detection (#122) ist fertig** – siehe 29af.
+- **Recovery-Ausbau (#68/#70) ist fertig** – siehe 29ag.
+- **RecoveryMode-Regenerationsphase ist fertig** – siehe 29ah.
+- **Anpassbare Vibes (#100) ist fertig** – siehe 29ai.
 - **Goal-Ranking (Drag-and-Drop)** vorerst zurückgestellt/nicht priorisiert.
 
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
@@ -1330,8 +1376,17 @@ reine Priorisierungsfrage):
   aktuell ohne sichtbaren Effekt, da DEV-Mode bereits alles freischaltet.
 - **E-Commerce/Affiliate-Logik**, sobald Phase 3 (Backend/Recht) ansteht.
 
-**Ganz am Ende, wenn alle anderen Punkte fertig sind (voraussichtlich in
-ein paar Wochen) erneut ansprechen:**
+**Eingeplant, VOR Detox-Build (#4) dranzunehmen (Betreiber-Klarstellung
+2026-07-09):**
+- **Molekülverbindungen (#121)** + **Affiliate-Transparenz (#93)** +
+  **Nährwerte für alle Produkte** – bisher zurückgestellt, weil die
+  zugehörigen Blaupause-Felder (`noBullshit`, `affiliateUrl`) in allen 55
+  Produkten leer sind. Kommen mit hinterlegter wissenschaftlicher
+  Studienlage (kein erfundener Content, Rule 6). Noch nicht begonnen –
+  nächster inhaltlicher Fokus vor Detox-Build.
+
+**Danach, ganz am Ende, wenn alle anderen Punkte fertig sind
+(voraussichtlich in ein paar Wochen) erneut ansprechen:**
 - **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
   stehen, siehe 29a) – braucht echtes Gerät/Simulator, in dieser
   Remote-Umgebung nicht möglich. Zur Klarstellung: Detox ist ein
