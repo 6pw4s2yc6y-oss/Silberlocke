@@ -551,6 +551,33 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ad. ✅ **Verletzungen & Erste Hilfe (Injury-Hub) migriert:** Schließt drei
+    weitere der zuvor unmigrierten Legacy-Datendateien (`injuries.json`,
+    `mental.json`, `emergency.json`). In der v61-Blaupause Teil des
+    `RECOVERY_TABS`-Hubs (`js/main.js` injuriesHtml()/mindHtml()/
+    emergencyHtml(), Tabs injuries/findings/mind/emergency) – "findings"
+    ist in RN bereits separat als FindingsScreen live, "recovery" ist
+    bereits mit dem neuen Thermodynamischen Recovery-Fenster (Kcal-Schuld)
+    belegt (29 🆕), daher hier als eigenständiger neuer Screen
+    `InjuryHubScreen.tsx` mit 3 Tabs: Verletzungen (7 Verletzungsbilder,
+    Kategorie-Filter, aufklappbare Karten mit Symptomen/Sofortmaßnahmen/
+    Heilung/Arzt-Warnsignalen, Verlinkung zu passenden Recovery-Produkten
+    aus `getProductById()`), Seelisches (5 Mindset-Karten + Krisen-Hotline
+    Telefonseelsorge), Notruf (5 Notrufnummern mit Tel-Links, PECH-Regel-
+    Sofortmaßnahmen, Warnsignale, Fakten). Neuer `src/logic/injuryHub.ts`
+    (`injuryCategories()`, `filterInjuries()`). RootNavigator um neue
+    ScreenId `'ersthilfe'` erweitert (Bandage-Icon, Regel 4). Neuer
+    ToolsScreen-Eintrag „Verletzungen & Erste Hilfe" (LIVE). 8 neue Tests
+    (Datenintegrität inkl. Produkt-ID-Existenzprüfung gegen
+    `products.json`, Filter), **187/187 Tests grün**, Typecheck sauber.
+    Commit fa90ea4. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29044352455/29044352575).
+
+    **Verbleibend aus der Datei-Lücke:** nur noch `body_zones.json`
+    (Körper-Atlas) – laut Blaupause an den Unlock „Nahrung & Körper-Atlas"
+    (Woche 5) gekoppelt, größeres eigenständiges UI-Thema (SVG-Körper-
+    Silhouette mit Hotspots pro Zone, 1262 Zeilen Daten), eigene Session.
+
 29ac. ✅ **Überwachungs-Protokoll (Monitoring) migriert:** Vierte der vier
     zuvor unmigrierten Legacy-Datendateien (`body_zones.json`,
     `emergency.json`, `injuries.json`, `mental.json`, `monitoring.json` –
@@ -1112,18 +1139,21 @@ bereits vorbereiteten Phase-Zero-Logik. Phase-Zero-Karte (29aa, Roadmap
 Überwachungs-Protokoll (29ac) migriert die vierte von fünf zuvor
 unmigrierten Legacy-Datendateien (`monitoring.json`) – Check-Checkliste
 + Warnsignale fürs PED-Monitoring, verlinkt in die Blutwerte-Analyse.
-**Testabdeckung: 179/179 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `b13e7a6` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29043458734/29043458622).
+Verletzungen & Erste Hilfe (29ad) schließt drei weitere
+(`injuries.json`, `mental.json`, `emergency.json`) über einen neuen
+eigenständigen Injury-Hub-Screen (Verletzungen/Seelisches/Notruf).
+**Testabdeckung: 187/187 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `fa90ea4` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29044352455/29044352575).
 
 **Offener, größer angelegter Folgepunkt:** Clash-Detection (#122) braucht
 zuerst ein fehlendes wöchentliches Trainings-/Ruhetag-Kalender-Feature
 (`sl_week`-Äquivalent, getrennt von der Trainingsprogramm-Auswahl) –
 kein Quick-Fix, siehe 29ab.
 
-**Verbleibend aus der Datei-Lücke (29ac):** `body_zones.json`,
-`emergency.json`, `injuries.json`, `mental.json` – noch nicht auf
-Screen-Zuordnung/Scope untersucht.
+**Verbleibend aus der Datei-Lücke:** nur noch `body_zones.json`
+(Körper-Atlas, siehe 29ad) – größeres eigenständiges UI-Thema, eigene
+Session.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -1156,10 +1186,13 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
 reine Priorisierungsfrage):
-- **Verbleibende unmigrierte Legacy-Datendateien** (`body_zones.json`,
-  `emergency.json`, `injuries.json`, `mental.json`, siehe 29ac) – Scope/
-  Screen-Zuordnung noch nicht untersucht, nächster natürlicher Kandidat
-  für die 1:1-Migrationslücken-Suche.
+- **Körper-Atlas (`body_zones.json`, letzte verbleibende unmigrierte
+  Legacy-Datendatei, siehe 29ad)** – Mangelerscheinungen pro Körperzone,
+  in der Blaupause als SVG-Körper-Silhouette mit klickbaren Hotspots
+  (Vorder-/Rückseite) gelöst. An den Unlock „Nahrung & Körper-Atlas"
+  (Woche 5) gekoppelt, 1262 Zeilen Daten. Größeres eigenständiges
+  UI-Thema (Silhouette/Hotspot-Grafik statt reiner Listen-Screen) –
+  braucht eigene Design-Entscheidung, kein Quick-Fix.
 - **Clash-Detection (#122)** – braucht zuerst das wöchentliche Trainings-/
   Ruhetag-Kalender-Feature (`sl_week`-Äquivalent), siehe 29ab.
 - **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
