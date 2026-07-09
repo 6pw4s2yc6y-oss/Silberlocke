@@ -551,6 +551,24 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29l. ✅ **Tabu-Börse (#111): Sünden-Produkte mit Punkten freischalten,
+    Anti-Stockpiling:** Neues Feature aus der Roadmap. Nutzer können mit
+    verdienten Punkten (`staub`) sechs „verbotene" Genuss-/Cheat-Produkte
+    freischalten (Schokolade, Chips, Pizza, Eis, Fast-Food-Menü, Softdrink).
+    Anti-Stockpiling-Regel: dasselbe Produkt erst nach 7 Tagen Cooldown
+    erneut kaufbar (Kauf-Log `tabuLog` auf `ProgressState`) – verhindert
+    Vorratskauf, jeder Kauf bleibt bewusster Einzel-Konsum.
+    `src/logic/tabuBoerse.ts` folgt dem etablierten ShopResult-Pattern aus
+    `discipline.ts` (buyCheatDay/buyPrebook/buyJoker). Neue
+    `ThemeOverride`-Komponente in `ThemeContext.tsx` erzwingt für die
+    Tabu-Börse IMMER den Tribunal-Look (Level 3) unabhängig vom aktuellen
+    Nutzer-Modus (Design-Matrix, Abschnitt 6) – gibt der in 29k
+    verfeinerten Tribunal-Palette ihre erste funktionale Verwendung im
+    Code. Navigations-Einstieg über eine neue Karte im Punkte-Shop
+    (ShopScreen → RootNavigator `onOpen`). 9 neue Tests, **129/129 Tests
+    grün**, Typecheck sauber. Commit 2871b5c. EAS-Update bestätigt
+    erfolgreich (beide Workflow-Runs `completed`/`success`).
+
 29k. ✅ **Design: Werkbank- und Tribunal-Palette verfeinert (Level 2/3):**
     Fünfter Design-Schritt – gleiche Politur wie bei Master (Commit
     cbc7a05), diesmal für die zwei Level ohne Moodboard-Referenz: nach
@@ -778,26 +796,31 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     Commit 9922e0c. **Damit ist die Migrations-Restliste bis auf die
     bewusst zurückgestellte E-Commerce/Affiliate-Logik (Phase 3) leer.**
 
-## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
+## 8. AKTUELLER STATUS (Stand: 2026-07-09)
 
-**Projektzustand:** Alle 5 Haupt-Werkzeug-Module (Points 24–28) implementiert und 
-integriert. DEV-Mode aktiv mit:
-- DAYS_PER_STAGE = 5 (schnelle Stage-Tests)
-- Alle Features ab day 0 verfügbar (all 11 tools immediately)
-- Score +25/Tag, Staub +30/Tag (+75 Wochenbonus) = 3x Multiplikator für Core Bar Tests
-- **Testabdeckung: 65/65 Tests grün** (discipline, nutrition, money, recovery, tracking logic)
+**Projektzustand:** Design-Umbau (alle 4 Design-Matrix-Level: Phase Zero,
+Werkbank, Tribunal, Master) inhaltlich abgeschlossen (29g–29k). Fokus-Matrix
+inkl. adaptivem Hybrid-Routing fertig (29b/29j). Tabu-Börse (#111) neu
+implementiert und live (29l) – erste funktionale Nutzung des
+Tribunal-Looks (Level 3) über eine feste `ThemeOverride`, unabhängig vom
+Nutzer-Modus. **Testabdeckung: 129/129 Tests grün**, Typecheck sauber.
+Aktueller Commit `vaaav-mobile` main: `2871b5c` (EAS-Update bestätigt
+erfolgreich).
+
+**Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
+nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
+behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
+(Commit 34dc8be, siehe 29f).
 
 **Einzeilige Zusammenfassung der Komponenten:**
 - DayScreen: Trainings-Verfolgung mit expandierbaren Übungs-Eingaben, Recovery-Auto-Credit
-- WeeklyPlanScreen: 12 Stage-gated Trainingspläne (alle in DEV verfügbar)
-- ToolsScreen: Zentrale Hub für 11 Tools inkl. Nahrung, Money, RecoveryMode
+- WeeklyPlanScreen: 12 Stage-gated Trainingspläne + Hybrid-Routing-Badges (CNS-Last)
+- ToolsScreen: Zentrale Hub für alle Tools inkl. Nahrung, Money, RecoveryMode
+- ShopScreen: Punkte-Shop (Cheat-Tag/Pre-Booking/Joker) + Einstieg zur Tabu-Börse
+- TabuScreen: Tabu-Börse (#111), erzwingt Tribunal-Look (Level 3) via ThemeOverride
 - CoreBar: Standard-State (Fortschritt), Context-Morphing, Action-Pulse, Recovery-Deficit
+- ThemeContext: dynamisches Theme pro Nutzer-Modus (Stage → Design-Level) + ThemeOverride
 - DisciplineContext: ProgressState + asyncStorage (sl_progress) mit allen Events
-
-**Kritische Test-Dependencies gelöst:**
-- defaultProgress() erzeugt jetzt korrekt pre-unlocked Features (day-0 Schedule)
-- evaluateDay() mit DEV-Point-Werten auch für Score-Schwellenwert-Tests kalibriert
-- Phase Zero Logik konsistent für sub-DAYS_PER_STAGE Szenarien
 
 ## 9. AKTUELLES TODO (Nächste Prioritäten)
 
@@ -807,35 +830,19 @@ integriert. DEV-Mode aktiv mit:
    ~~(c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108)~~ ✅ 7fbc815;
    ~~(d) Profil-Medaillen (35)~~ ✅ bca5ac1;
    ~~(e) Befund-Drosselung (66)~~ ✅ 9922e0c;
+   ~~(f2) Tabu-Börse (111)~~ ✅ 2871b5c (siehe Punkt 29l oben);
    (f) E-Commerce/Affiliate-Logik (83/91/92) – bewusst zurückgestellt:
    hängt an echten Shop-/Affiliate-Links (Phase 3, Backend/Recht).
 
-1. **Point 29(a) – Detox-Framework für E2E-Automation:**
-   - Setup: npm install detox detox-cli
-   - Konfiguration: detox.config.js + e2e/ Test-Suite
-   - Fokus: RN-native Automation vs. Playwright (für Web-Testing n. a.)
-   - Szenarien: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove
-   - Target: 5–10 kritische User-Flows (kein vollständiger E2E-Coverage)
-
-2. ~~Point 29(b) – Onboarding-Fokus-Matrix~~ ✅ erledigt (Commit 34edded).
-   ~~Adaptives Hybrid-Routing~~ ✅ erledigt (Commit 73bd536, siehe Punkt
-   29j oben). Offen für später: Goal-Ranking (Drag-and-Drop-Neusortierung),
-   Auto-Setup (automatische Modul-Freischaltung nach Fokus-Selektion).
-
-3. ~~Point 29(c) – Blutwerte-Modul~~ ✅ erledigt (Commit 13b5032, siehe
-   Punkt 29c oben). Offen für eine spätere Session: Trend-Grafik über die
-   Zeit (aktuell nur Momentan-Wert pro Marker, keine Historie).
-
-4. ~~Point 29(d) – Analytics & Dashboard~~ ✅ erledigt (Commit 0ba68ad,
-   siehe Punkt 29d oben: Wochenrückblick, Streaks, Erfolgsquote, nächster
-   Meilenstein). ~~Score/Staub-Verlaufsgraphen~~ ✅ nachgerüstet (Commit
-   5449ebc, siehe Punkt 29e oben).
-
-**Point 29(a–d) + die Verlaufsgraphen-Lücke sind damit komplett
-abgearbeitet.** (a) Detox-Framework steht (Config + 8 Test-Szenarien),
-tatsächlicher Build/Lauf gegen ein Gerät/einen Simulator steht noch aus –
-das ist der einzige offene Rest aus 29(a). Nächste sinnvolle Schwerpunkte
-für eine kommende Session:
-- Detox tatsächlich bauen & laufen lassen (EAS-Build oder lokal via `eas build`)
-- Goal-Ranking/Auto-Setup/Hybrid-Routing als Fokus-Matrix-Ausbau
-- E-Commerce/Affiliate-Logik, sobald Phase 3 (Backend/Recht) ansteht
+**Offene Punkte für eine kommende Session** (kein blockierender Rest,
+reine Priorisierungsfrage):
+- **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
+  stehen, siehe 29a) – braucht echtes Gerät/Simulator, in dieser
+  Remote-Umgebung nicht möglich.
+- **Goal-Ranking** (Drag-and-Drop-Neusortierung der Fokus-Matrix-Ziele) –
+  bräuchte neue Dependency (z. B. `react-native-draggable-flatlist`).
+- **Auto-Setup** (automatische Modul-Freischaltung nach Fokus-Selektion) –
+  aktuell ohne sichtbaren Effekt, da DEV-Mode bereits alles freischaltet.
+- **Blutwerte-Trend-Grafik** über die Zeit (aktuell nur Momentan-Wert,
+  keine Historie, siehe 29c).
+- **E-Commerce/Affiliate-Logik**, sobald Phase 3 (Backend/Recht) ansteht.
