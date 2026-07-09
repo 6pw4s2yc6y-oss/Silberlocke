@@ -551,6 +551,17 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29d. ✅ **Point 29(d) – Analytics & Wochenrückblick:** Reine Auswertung des
+    echten sl_progress-Logs, keine PWA-Blaupause dafür (Neuentwicklung).
+    `src/logic/analytics.ts`: weekGrid (7-Tage-Raster), streakInfo
+    (aktuelle Serie bricht bei Lücke, heute darf noch offen sein; längste
+    Serie über den gesamten Verlauf), completionRate (nur Vergangenheit/
+    heute), nextMedal (nächster erreichbarer Meilenstein aus medals.ts).
+    AnalyticsScreen: 7-Tage-Punktraster, Serie-Karten, Atomuhr-Bilanz,
+    Status-Zeile, nächste Medaille. MasterScreen: neue
+    „Wochenrückblick"-Karte (Erfolgsquote % + Serie). 6 neue Tests →
+    **104/104 grün**, Typecheck sauber. Commit 0ba68ad.
+
 29c. ✅ **Point 29(c) – Blutwerte-Modul (Roadmap #71):** Laborwert-Tracking
     mit Referenzbereich 1:1 aus der Blaupause migriert. 18 Marker
     (Blutbild, Hormone, Organe, Stoffwechsel, Vitamine & Mineralien,
@@ -698,11 +709,12 @@ integriert. DEV-Mode aktiv mit:
    Punkt 29c oben). Offen für eine spätere Session: Trend-Grafik über die
    Zeit (aktuell nur Momentan-Wert pro Marker, keine Historie).
 
-4. **Point 29(d) – Analytics & Dashboard-Verbesserungen:**
-   - Weekly Review: Zusammenfassung disziplinierte Tage, Punkte, Highlights
-   - Progress Charts: Neon-Graphen für Score/Staub-Entwicklung
-   - Atomuhr-Visualisierung: Prozentuale Verteilung durchgezogene vs. verlorene Tage
-   - Streak-Tracking: Längste aktuelle Serie, automatisches Milestone-Unlock
+4. ~~Point 29(d) – Analytics & Dashboard~~ ✅ erledigt (Commit 0ba68ad,
+   siehe Punkt 29d oben: Wochenrückblick, Streaks, Erfolgsquote, nächster
+   Meilenstein). Bewusst NICHT gebaut: Score/Staub-Verlaufsgraphen – dafür
+   fehlt historische Datenerfassung (sl_progress speichert nur den
+   aktuellen Stand, keine Snapshots). Für eine spätere Session: Score-Historie
+   im evaluateDay() mitschreiben, dann Chart nachrüsten.
 
 **Nächste Session fokussiert sich auf Point 29(a) (Detox-Setup) und Point 29(b) 
 (Onboarding UI) als höchste Prioritäten, da sie direkte User-Experience-Verbesserungen 
