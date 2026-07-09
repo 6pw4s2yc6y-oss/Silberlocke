@@ -125,7 +125,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) 📱 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an. **(RN: neuer Onboarding-Schritt + eigenständiger FocusScreen; Verknüpfung mit Trainingsplänen/Hybrid-Routing folgt später)**
 - (114) 🔨 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen).
 - (115) 🔨 Der „Ektomorph-Plan" für Untergewichtige (Fokus auf Magendehnung).
-- (116) 🔨 „Schatten-Tracking": Verwehrt im ersten Monat Kcal-Zahlen zur Baseline-Ermittlung.
+- (116) ✅📱 „Schatten-Tracking": Verwehrt im ersten Monat Kcal-Zahlen zur Baseline-Ermittlung. **(RN FERTIG: "Dein Bedarf"-Karte in MasterScreen, Commit 2ec8218)**
 - (45) 🔵 Vergleichs-Matching schlägt Neulingen identische Veteranen-Profile vor.
 - (🆕) 🔵 Prognose-Engine: Berechnet ungeschönt, wo der Nutzer körperlich/gesundheitlich in 10 Jahren ist.
 
@@ -551,6 +551,22 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29z. ✅ **Schatten-Tracking (#116): keine kcal-Zahlen im ersten Monat:** 1:1
+    aus der v61-Blaupause migriert (`js/main.js` `renderDailyTargets()`).
+    Im ersten Monat (Phase Zero) zeigte die „Dein Bedarf"-Karte in der
+    Übersicht bereits kcal-/Eiweiß-Zahlen an, obwohl `phaseZeroActive()`
+    dafür extra gebaut wurde (Kommentar in `discipline.ts` referenzierte
+    bereits „#114/#116" – nur die #114-Straffreiheit war verdrahtet, die
+    #116-Zahlen-Sperre nicht). Bewusst keine Fixierung auf Zahlen im
+    ersten Monat: erst Baseline und Abhak-Gewohnheit, dann die Zahlen als
+    Belohnung. `MasterScreen.tsx`: „Dein Bedarf"-Karte zeigt während
+    `phaseZeroActive()` statt kcal/Eiweiß eine „Schatten-Tracking läuft"-
+    Meldung (Moon-Icon statt Emoji, Regel 4). Keine neue Logik-Funktion
+    nötig (`phaseZeroActive()` existierte bereits und ist getestet) –
+    **169/169 Tests weiterhin grün**, Typecheck sauber. Commit 2ec8218.
+    EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29y. ✅ **Identitäts-Frage (#5): Selbstverpflichtung im Onboarding + tägliche
     Erinnerung:** 1:1 aus der v61-Blaupause migriert (`js/main.js`
     `IDENTITY_STATEMENTS`/`loadIdentity()`/`setIdentity()`). „Identität
@@ -1018,8 +1034,10 @@ Kauf-Wahrheit #80 + Split-Screen der Wahrheit #74 + König-Synergien #17
 Content. Inspirations-Impuls (29x, WinterArc) reklassifiziert von
 Phase-3/Backend auf ✅ – rein clientseitig lösbar. Identitäts-Frage (29y,
 Roadmap #5) als neuer Onboarding-Schritt + tägliche Erinnerung ergänzt.
-**Testabdeckung: 169/169 Tests grün**, Typecheck sauber. Aktueller Commit
-`vaaav-mobile` main: `98a3034` (EAS-Update bestätigt erfolgreich).
+Schatten-Tracking (29z, Roadmap #116) schließt die letzte Lücke der
+bereits vorbereiteten Phase-Zero-Logik. **Testabdeckung: 169/169 Tests
+grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
+`2ec8218` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
