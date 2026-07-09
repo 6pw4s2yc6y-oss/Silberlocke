@@ -95,16 +95,17 @@ Onboarding (Basis), Tagesplan/Timeline-Logik mit Schlaf-Sperre, Wochenplan-
 Baukasten (12 Typen), Trainings-Tracker (Sätze/Gewicht), Produkt-DB, Mein
 Stack, Nahrung, Money, RecoveryMode, Theme-System.
 
-**Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:** 18-Punkte-Manifest,
-Zwei-Achsen-Onboarding-Matrix, Body-IQ-Quizzes, Insights-Widget,
-Training-Steuer, Ehrlichkeits-Kompensation, Profil-Medaillen, Studien/
-Disclaimer/Efficiency-Filter in der Produkt-DB, E-Commerce/Affiliate-Logik
-(Smart-Replacement, Link-Regeln), Befund-Drosselung.
+**Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:**
+Zwei-Achsen-Onboarding-Matrix, Training-Steuer, Ehrlichkeits-Kompensation,
+Profil-Medaillen, Studien/Disclaimer/Efficiency-Filter in der Produkt-DB,
+E-Commerce/Affiliate-Logik (Smart-Replacement, Link-Regeln),
+Befund-Drosselung. *(Manifest, Body-IQ-Quiz und Tipp des Tages: am
+2026-07-08 migriert → 📱.)*
 
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
 - (1) ✅📱 VΛAΛV als neuer, sauberer Markenname etabliert.
-- (2) ✅ Das 18-Punkte-Manifest ist fest in der Übersicht verankert. **(nur PWA – RN offen)**
+- (2) ✅📱 Das 18-Punkte-Manifest ist fest in der Übersicht verankert (RN: ManifestScreen + Karte in der Übersicht).
 - (3) ✅📱 Die App fungiert als ablenkungsfreie, minimalistische Werkbank.
 - (4) ✅📱 Radikale Gleichheit: Keine kaufbaren VIP-Vorteile, jeder startet gleich.
 - (6) ✅📱 Die Entwicklung erfolgt komplett im Stealth-Modus.
@@ -131,9 +132,9 @@ Disclaimer/Efficiency-Filter in der Produkt-DB, E-Commerce/Affiliate-Logik
 ### Sprint 3: Chronobiologie, UI & Tägliche Werkbank (Die Dashboards)
 
 - (19) ✅📱 Progressive Disclosure: Freischalt-Fahrplan (RN: UNLOCK_SCHEDULE; aktuell DEV-Override → alles ab Tag 0).
-- (34) ✅ „Body-IQ" Quizzes erziehen zum Biologie-Experten. **(nur PWA – RN hat nur das Datenfeld, kein Quiz-UI)**
+- (34) ✅📱 „Body-IQ" Quizzes erziehen zum Biologie-Experten (RN: QuizScreen, +5 Punkte/Frage, Auflösung).
 - (99) ✅📱 Design-Matrix aktiviert (RN: zentrale `theme.ts`, Neomorphismus, Liquid Glass).
-- (101) ✅ Dashboard-Widget mit tageswechselnden Optimierungs-Insights. **(nur PWA – RN offen)**
+- (101) ✅📱 Dashboard-Widget mit tageswechselnden Optimierungs-Insights (RN: Tipp-des-Tages-Karte, deterministisch nach Jahrestag).
 - (57) 🟡📱 Dynamische Einnahmefenster (RN: dayplan/timeline 1:1 migriert, Tests grün).
 - (58) 🟡📱 Basis-Routinen als Standard-Mahlzeiten-Logik (RN: Timeline-Logik migriert).
 - (63) 🟡 Circadianer Sleep Mode.
@@ -587,6 +588,18 @@ Disclaimer/Efficiency-Filter in der Produkt-DB, E-Commerce/Affiliate-Logik
     Neu: DisciplineContext.setStage() + DEV-Panel in ToolsScreen mit 4 Chips
     (Light/Hard/Expert/Master) – Modus per Tap sofort wechseln & persistiert.
     Kein Warten auf 5 Tage mehr nötig. Commit 3d7ce39.
+32. ✅ **Migration Wissens-Module (Roadmap #2, #34, #101):** Manifest,
+    Body-IQ-Quiz und Tipp des Tages 1:1 aus der Blaupause migriert.
+    Daten unverändert übernommen (manifest/quiz/tips.json). Neue Logik
+    `src/logic/knowledge.ts` (tipOfDay deterministisch nach Jahrestag;
+    answerQuiz: +5 Punkte einmal pro Frage, falsch = nur Auflösung; Daten
+    als Parameter nach dayplan-Konvention) + typisierter Loader
+    `src/data/knowledge.ts`. UI: QuizScreen (Frage→Auflösung, grün/rot,
+    Fortschrittsbalken, 100%-Karte), ManifestScreen (18 Grundsätze),
+    MasterScreen um Tipp-des-Tages-Karte + Body-IQ-/Manifest-Karten
+    erweitert. DisciplineContext.answerQuiz persistiert + Action-Pulse +
+    Toast. 6 neue Tests → **71/71 grün**, Typecheck sauber.
+    Commit ac164cf auf vaaav-mobile/main (EAS-Update automatisch).
 
 ## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
@@ -610,6 +623,12 @@ integriert. DEV-Mode aktiv mit:
 - Phase Zero Logik konsistent für sub-DAYS_PER_STAGE Szenarien
 
 ## 9. AKTUELLES TODO (Nächste Prioritäten)
+
+0. **Migrations-Restliste (aus dem Roadmap-Audit), in dieser Reihenfolge:**
+   (a) Studien/Disclaimer/Efficiency-Filter in der Produkt-DB (75/76/82);
+   (b) Zwei-Achsen-Onboarding-Matrix (11); (c) Training-Steuer (25) +
+   Ehrlichkeits-Kompensation (108); (d) Profil-Medaillen (35);
+   (e) Befund-Drosselung (66); (f) E-Commerce/Affiliate-Logik (83/91/92).
 
 1. **Point 29(a) – Detox-Framework für E2E-Automation:**
    - Setup: npm install detox detox-cli
