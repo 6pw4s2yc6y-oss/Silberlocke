@@ -551,6 +551,19 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29u. ✅ **ProductsScreen: Geschmack/Löslichkeit/Zutaten nachgerüstet:** 1:1
+    aus der v61-Blaupause migriert (`js/main.js` Produkt-Detail-Rows:
+    Funktion, Absorption, Einnahme, Konflikte, Geschmack, Löslichkeit,
+    Zutaten). Drei der sieben Detail-Felder waren in der migrierten
+    `products.json` für praktisch jedes Produkt vorhanden (`geschmack`
+    55/55, `loeslichkeit` 55/55, `ingredients` 49/55), wurden aber nie im
+    UI angezeigt – derselbe Muster-Fehler wie `smartReplacementId` (29t):
+    beim Migrieren wurde die Datenstruktur 1:1 übernommen, aber nicht
+    jedes Feld ans UI angebunden. 1 neuer Daten-Integritätstest sichert
+    die Abdeckung ab. **151/151 Tests grün**, Typecheck sauber. Commit
+    8b6d310. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29t. ✅ **ProductsScreen: Ersatz-Empfehlung für ausverkaufte Produkte
     verdrahtet:** 1:1 aus der v61-Blaupause migriert (`js/main.js`
     `smartFieldsHtml()` – Ersatz-Empfehlungs-Zweig). `smartReplacementId`
@@ -926,10 +939,11 @@ war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
 #146) zählt reale Trainings-Logs statt Schätzwert. Hydration-Schnellzugriff
 (29r, Roadmap #64) 1:1 aus der Blaupause migriert. Trash-Ausgaben-Analyse
 (29s, Roadmap #85) macht verschwendetes Geld bewusst. Ersatz-Empfehlung
-für ausverkaufte Produkte (29t) nachgerüstet – weiterer toter Datenpunkt
-aus der Migration. **Testabdeckung: 150/150 Tests grün**, Typecheck
-sauber. Aktueller Commit `vaaav-mobile` main: `307d5d5` (EAS-Update
-bestätigt erfolgreich).
+für ausverkaufte Produkte (29t) sowie Geschmack/Löslichkeit/Zutaten (29u)
+nachgerüstet – weitere tote Datenpunkte aus der Produkt-Migration
+gefunden und geschlossen. **Testabdeckung: 151/151 Tests grün**,
+Typecheck sauber. Aktueller Commit `vaaav-mobile` main: `8b6d310`
+(EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
