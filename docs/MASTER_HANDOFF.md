@@ -551,6 +551,45 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ag. ✅ **Recovery-Ausbau (#68/#70): Krankheits-Tag als Workout-Ersatz +
+    schonender Wiedereinstieg – RN FERTIG, 🆕 kein PWA-Vorbild:** Nach
+    Abschluss der 1:1-Migrationslückensuche vom Betreiber als nächster
+    Fokus gewählt (Auswahl unter mehreren vorgeschlagenen Kandidaten).
+    Verzahnt mit dem bereits vorhandenen `dayType 'recovery'`
+    („Verletzung/Recovery", Fokus Gewebeheilung) und der Hydration-Logik
+    (#64). **(#68)** Lückenloses Schlafen+Trinken zählt als Workout: an
+    einem Krankheits-Tag zählt der Tag als disziplinierter Tag, sobald
+    das Wasserziel erreicht UND „ausreichend geschlafen" bestätigt ist –
+    auch ohne komplettes Block-Abhaken. `evaluateDay()` bekommt einen
+    optionalen `altComplete`-Parameter (Default `false`, bestehende
+    Aufrufe unverändert). Neue `sickDayReady()`/`evaluateSickDay()`/
+    `toggleSleptWell()` in `discipline.ts`, neue `DayLog`-Felder
+    `sleptWell`/`sick`. **(#70)** Schonender Wiedereinstiegs-Plan: nach
+    einer Krankheits-Serie (1–2 Tage → 1 Taper-Tag, 3–4 → 2 Tage, 5+ →
+    3 Tage) zeigt DayScreen einen Info-Banner mit empfohlenem Volumen
+    (~50% bis ~90%, steigend über die Taper-Tage) – rein informativ,
+    keine harte Trainings-Sperre. `lastSickStreak()`/`reentryPlan()` in
+    `discipline.ts`. DisciplineContext: `toggleSleptWell()`,
+    `markSickDay()` (stempelt täglich, ob heute ein Krankheits-Tag ist),
+    `reentry` (abgeleiteter `ReentryPlan | null`). DayScreen: Krankheits-
+    Tag-Karte (Moon-Icon, Regel 4) bei `dayType 'recovery'`,
+    Wiedereinstiegs-Banner sobald aktiv. 12 neue Tests (sickDayReady,
+    evaluateSickDay, lastSickStreak inkl. unterbrochener Serien,
+    reentryPlan-Matrix), **212/212 Tests grün**, Typecheck sauber. Commit
+    61480fd. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29047008174/29047008157).
+
+    **Roadmap #68 und #70 damit als RN FERTIG markiert** (🆕 neu
+    entworfener Mechanismus, keine PWA-Blaupause vorhanden).
+
+    **Direkter Folgepunkt (Betreiber-Klarstellung):** RecoveryMode (Kcal-
+    Schuld nach intensiver Einheit) und der Krankheits-`dayType`
+    „Recovery" sind zwei bewusst unterschiedliche Konzepte, die nur den
+    Namen teilen. Betreiber wies zusätzlich darauf hin, dass RecoveryMode
+    nach dem Abbezahlen der akuten Schuld nicht direkt auf „einsatzbereit"
+    springen sollte, sondern eine normale Regenerationsphase folgt – siehe
+    nächster Punkt 29ah.
+
 29af. ✅ **Clash-Detection (#122): Wochenkalender + Widerspruchs-Banner –
     RN FERTIG:** Baut das zuvor komplett fehlende `sl_week`-Äquivalent
     (Trainings-/Ruhetag-Kalender pro Wochentag) 1:1 aus der v61-Blaupause
@@ -1204,10 +1243,18 @@ Datendateien ist damit vollständig abgeschlossen.** Clash-Detection
 (29af, Roadmap #122) baut den zuvor fehlenden `sl_week`-Wochenkalender
 (Training/Pause pro Wochentag) nach und zeigt einen Widerspruchs-Banner
 mit Ein-Tipp-Fix, wenn Wochenplan und manuell gewählter Tagestyp
-auseinanderlaufen – **Roadmap #122 damit RN FERTIG.**
-**Testabdeckung: 200/200 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `8a73f22` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29045979892/29045979850).
+auseinanderlaufen – **Roadmap #122 damit RN FERTIG.** Recovery-Ausbau
+(29ag, Roadmap #68/#70, 🆕 kein PWA-Vorbild) macht lückenloses
+Schlafen+Trinken zum Workout-Ersatz an Krankheits-Tagen und zeigt einen
+schonenden Wiedereinstiegs-Plan danach – **Roadmap #68/#70 damit RN
+FERTIG.**
+**Testabdeckung: 212/212 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `61480fd` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29047008174/29047008157).
+
+**In Arbeit:** RecoveryMode-Regenerationsphase (normale Erholung nach
+abbezahlter akuter Kcal-Schuld, Betreiber-Klarstellung) – Commit gepusht,
+EAS-Bestätigung ausstehend, siehe nächste Session-Notiz.
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
