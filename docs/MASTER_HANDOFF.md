@@ -551,6 +551,30 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29h. ✅ **Design: Dynamisches Theme pro Nutzer-Modus (ThemeContext):** Zweiter
+    Schritt des Design-Umbaus – „später bekommt jeder Modus sein eigenes
+    Design" ist jetzt technisch möglich. Vorher: `theme.ts` war ein
+    statisches Objekt (`activeLevel` fest verdrahtet), alle 27 Dateien
+    importierten `theme.colors.X` als Modul-Konstante – ein Level-Wechsel
+    wäre nie sichtbar geworden (StyleSheet.create() liest Werte nur
+    einmal beim Modul-Laden). Jetzt: `theme.ts` exportiert `buildTheme
+    (level)` als Fabrik; neuer `src/theme/ThemeContext.tsx` berechnet das
+    Level aus `progress.stage` (Light→Phase Zero, Hard/Expert→Werkbank,
+    Master→Eternity; Tribunal bleibt vorerst ungebunden – Tabu-Börse noch
+    nicht implementiert) und stellt `useTheme()` bereit. Alle 28 Screens/
+    Komponenten umgestellt: `useTheme()`-Hook statt statischem Import,
+    `StyleSheet.create()` in `makeStyles(theme)` gekapselt und per
+    `useMemo` neu berechnet. Modul-weite Sonderfälle einzeln behoben
+    (Icon-Farb-Maps in RootNavigator/ToolsScreen/BloodworkScreen,
+    Default-Parameter in PremiumCard/MorphAnchor, Sub-Komponenten in
+    OnboardingFlow/ProductsScreen). **Ergebnis: Der DEV-Modus-Schalter
+    (Light/Hard/Expert/Master) in Werkzeuge wechselt jetzt live das
+    komplette visuelle Erscheinungsbild der App.** Palette-WERTE für
+    Hard/Expert/Master bewusst unverändert gelassen (aus früherer Session,
+    weiterhin sinnvoll) – dieser Schritt war reine Architektur; Feinschliff
+    der einzelnen Paletten kann bei Bedarf folgen. Typecheck sauber,
+    112/112 Tests grün. Commit c23e12f.
+
 29f. ✅ **Fix: Core Bar animierte nicht auf Geräten mit „Bewegung reduzieren":**
     react-native-reanimated respektiert standardmäßig die iOS-Bedienungshilfe
     (ReduceMotion.System) – bei aktivierter Einstellung springen
@@ -579,11 +603,8 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     weiße Icons auf hellem Grund). Geprüft: keine weiteren hardcodierten
     Farben außerhalb theme.ts betroffen. Typecheck sauber, 112/112 Tests
     grün. Commit 5459d1c.
-    **TODO nächste Session:** activeLevel dynamisch je Nutzer-Modus
-    (Level 2 Hard/Expert, Level 3 Tribunal, Level 4 Master individuell
-    gestalten) – braucht vermutlich einen ThemeContext statt der
-    statischen Export-Konstante, da 27 Dateien `theme` heute als
-    statischen Import nutzen.
+    ~~TODO: activeLevel dynamisch je Nutzer-Modus~~ ✅ erledigt, siehe
+    Punkt 29h weiter unten (Commit c23e12f, ThemeContext).
 
 29e. ✅ **Score/Punkte-Verlaufsgraphen (schließt die 29d-Lücke):** sl_progress
     speicherte bisher nur den aktuellen Stand, keine Snapshots. Jetzt:
