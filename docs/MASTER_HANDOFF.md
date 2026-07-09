@@ -139,7 +139,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (58) 🟡📱 Basis-Routinen als Standard-Mahlzeiten-Logik (RN: Timeline-Logik migriert).
 - (63) 🟡 Circadianer Sleep Mode.
 - (62) 🔨 Beten/Halal-Modus integriert Gebetszeiten.
-- (64) 🔨 Schnellzugriff-Button für Wasser und Elektrolyte.
+- (64) ✅📱 Schnellzugriff-Button für Wasser und Elektrolyte. **(RN FERTIG: Zähler-Zeile in DayScreen, Commit 483a8f2)**
 - (100) 🔨 Anpassbare Gaming-Themen (Vibes gemäß Design-Matrix).
 - (113) 📱 „Brennende Batterie": Echtzeit-Animation in der Core Bar beim Tracken. **(RN FERTIG: Action-Pulse, Reanimated)**
 - (🆕) 📱 VΛAΛV Atomuhr (Startseite): „Tage durchgezogen" vs. „Tage verschwendet". **(RN FERTIG: AtomClock.tsx + lifeBalance)**
@@ -551,6 +551,18 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29r. ✅ **Hydration-Schnellzugriff: Wasser/Elektrolyte-Zähler (Roadmap #64):**
+    1:1 aus der v61-Blaupause migriert (`js/main.js` `addWater()`/
+    `waterGoalGlasses()`). Gläser à 250ml, Tagesziel 8 (an Trainingstagen
+    +2), setzt sich mit dem Tageswechsel von selbst zurück (Log-Eintrag
+    ist pro Datum). `src/logic/discipline.ts`: `DayLog.water` (neues
+    optionales Feld), `GLASS_ML`, `waterGoalGlasses()`, `todayWaterCount()`,
+    `addWater()` – feuert ein Event genau beim Erreichen des Tagesziels.
+    Kompakte Zähler-Zeile oben in `DayScreen.tsx` („Dein Tag"): Glas-Icon,
+    Zählstand + ml, +/− Buttons. 5 neue Tests, **147/147 Tests grün**,
+    Typecheck sauber. Commit 483a8f2. EAS-Update bestätigt erfolgreich
+    (beide Workflow-Runs `completed`/`success`).
+
 29q. ✅ **Tags-Zähler: tatsächlich getrackte Trainings-Einheiten (Roadmap
     #146):** Neue Stat-Karte im Wochenrückblick (`AnalyticsScreen`) neben
     Serie/längste Serie: zählt reale `sl_training_log_`-Einträge statt
@@ -883,9 +895,10 @@ Blaupause migriert. Nährstoff-Enzyklopädie (29o) jetzt vollständig (29
 statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
 (Regel 4). Money-Budget-Aufteilung (29p) nachgerüstet – totes Datenfeld
 war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
-#146) zählt reale Trainings-Logs statt Schätzwert. **Testabdeckung:
-144/144 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
-main: `6073063` (EAS-Update bestätigt erfolgreich).
+#146) zählt reale Trainings-Logs statt Schätzwert. Hydration-Schnellzugriff
+(29r, Roadmap #64) 1:1 aus der Blaupause migriert. **Testabdeckung:
+147/147 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
+main: `483a8f2` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
