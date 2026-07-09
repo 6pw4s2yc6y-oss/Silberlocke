@@ -285,7 +285,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 ### Sprint 11: The WinterArc & Columbus Mode (Offline Events & Trips) 🆕
 
 - (🆕) 🔵 Columbus Mode: Entdeckung und Freischaltung physischer Gebiete und Events.
-- (🆕) 🔵 Neue Aktivitäten entdecken: App inspiriert, den Alltag zu verlassen.
+- (🆕) ✅📱 Neue Aktivitäten entdecken: App inspiriert, den Alltag zu verlassen. **(RN FERTIG als Inspirations-Impuls: rein clientseitig mit statischen, saisonalen Daten – kein Backend nötig, Commit f5eefcc. Von 🔵 auf ✅ umklassifiziert, siehe 29x)**
 - (🆕) 🔵 Freizeit-Integration: Anzeige von lokalen Events, Hobbys direkt buchbar.
 - (🆕) 🔵 Individueller Columbus-Foto-Tresor: Integration von privaten Fotos zur persönlichen Erlebnis-Dokumentation.
 - (🆕) 🔵 Ethisches Geschäftsmodell: Buchung über Partner mit neutraler Provision. Maximale Transparenz.
@@ -551,6 +551,22 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29x. ✅ **Inspirations-Impuls: saisonale Aktivitäts-Anregung (WinterArc):**
+    1:1 aus der v61-Blaupause migriert (`js/main.js`
+    `inspirationOfDay()`/`inspoCardHtml()`). Gleiches Prinzip wie der
+    Tipp des Tages (#101, bereits migriert): deterministisch nach Tag im
+    Jahr rotiert (radikale Gleichheit), aber saisonal gefiltert (Winter/
+    Frühling/Sommer/Herbst + ganzjährige Impulse). Der Handoff führte
+    „Neue Aktivitäten entdecken" bisher als Phase-3/Backend-Punkt (Sprint
+    11 WinterArc/Columbus Mode) – die PWA-Blaupause zeigt aber, dass diese
+    konkrete Realisierung rein clientseitig mit statischen Daten
+    funktioniert, kein Backend nötig. `src/data/inspiration.json` (30
+    Einträge, 6 pro Saison), `inspirationOfDay()`/`SEASON_LABEL` in
+    `knowledge.ts`, neue Karte in `MasterScreen.tsx` direkt unter dem
+    Tipp des Tages. 5 neue Tests, **167/167 Tests grün**, Typecheck
+    sauber. Commit f5eefcc. EAS-Update bestätigt erfolgreich (beide
+    Workflow-Runs `completed`/`success`).
+
 29w. ✅ **Kauf-Wahrheit (#80) + Split-Screen der Wahrheit (#74) + König-
     Synergien (#17):** 1:1 aus der v61-Blaupause migriert
     (`buildKaufCheckHtml()`/`buildSplitScreenHtml()`/`productSynergies()`).
@@ -984,9 +1000,10 @@ bereits fertige, regelbasierte PWA-Logik gefunden und migriert:
 Medikamenten-Wechselwirkung #123 + Halal-/Vegan-Check #62 (29v), sowie
 Kauf-Wahrheit #80 + Split-Screen der Wahrheit #74 + König-Synergien #17
 (29w) – alles generisch/kategorie-basiert, kein selbst erfundener
-Content. **Testabdeckung: 164/164 Tests grün**, Typecheck sauber.
-Aktueller Commit `vaaav-mobile` main: `083d030` (EAS-Update bestätigt
-erfolgreich).
+Content. Inspirations-Impuls (29x, WinterArc) reklassifiziert von
+Phase-3/Backend auf ✅ – rein clientseitig lösbar. **Testabdeckung:
+167/167 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
+main: `f5eefcc` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
