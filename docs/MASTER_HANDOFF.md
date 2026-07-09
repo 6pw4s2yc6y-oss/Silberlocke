@@ -551,6 +551,20 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29m. ✅ **Blutwerte-Trend-Grafik (schließt Lücke aus #71):** Bisher zeigte
+    die Blutwerte-Analyse nur den Momentanwert pro Marker, keine Historie.
+    Neu: `src/logic/bloodwork.ts` bekommt `saveBloodSnapshot()` (Upsert pro
+    Tag, Cap bei 24 Messungen – analog zum HISTORY_LIMIT-Pattern aus
+    `discipline.ts`) und `markerTrend()` (numerische Verlaufspunkte pro
+    Marker, überspringt leere/ungültige Werte). `BloodworkScreen.tsx`:
+    Button „Momentaufnahme sichern" oben, pro Marker-Karte ab 2 Messungen
+    ein Mini-Balkendiagramm (gleiches Muster wie der Score-Verlauf in
+    `AnalyticsScreen`, 29e) + Delta-Anzeige (↑/↓/→) zur letzten Messung.
+    Reine Auswertung, kein neuer Datenpunkt für Referenzwerte/Ampel-Logik.
+    13 neue Tests, **133/133 Tests grün**, Typecheck sauber. Commit
+    6093981. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29l. ✅ **Tabu-Börse (#111): Sünden-Produkte mit Punkten freischalten,
     Anti-Stockpiling:** Neues Feature aus der Roadmap. Nutzer können mit
     verdienten Punkten (`staub`) sechs „verbotene" Genuss-/Cheat-Produkte
@@ -803,8 +817,9 @@ Werkbank, Tribunal, Master) inhaltlich abgeschlossen (29g–29k). Fokus-Matrix
 inkl. adaptivem Hybrid-Routing fertig (29b/29j). Tabu-Börse (#111) neu
 implementiert und live (29l) – erste funktionale Nutzung des
 Tribunal-Looks (Level 3) über eine feste `ThemeOverride`, unabhängig vom
-Nutzer-Modus. **Testabdeckung: 129/129 Tests grün**, Typecheck sauber.
-Aktueller Commit `vaaav-mobile` main: `2871b5c` (EAS-Update bestätigt
+Nutzer-Modus. Blutwerte-Trend-Grafik (29m) schließt die letzte offene
+Analytics-Lücke. **Testabdeckung: 133/133 Tests grün**, Typecheck sauber.
+Aktueller Commit `vaaav-mobile` main: `6093981` (EAS-Update bestätigt
 erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
@@ -831,6 +846,7 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
    ~~(d) Profil-Medaillen (35)~~ ✅ bca5ac1;
    ~~(e) Befund-Drosselung (66)~~ ✅ 9922e0c;
    ~~(f2) Tabu-Börse (111)~~ ✅ 2871b5c (siehe Punkt 29l oben);
+   ~~(f3) Blutwerte-Trend-Grafik~~ ✅ 6093981 (siehe Punkt 29m oben);
    (f) E-Commerce/Affiliate-Logik (83/91/92) – bewusst zurückgestellt:
    hängt an echten Shop-/Affiliate-Links (Phase 3, Backend/Recht).
 
@@ -843,6 +859,4 @@ reine Priorisierungsfrage):
   bräuchte neue Dependency (z. B. `react-native-draggable-flatlist`).
 - **Auto-Setup** (automatische Modul-Freischaltung nach Fokus-Selektion) –
   aktuell ohne sichtbaren Effekt, da DEV-Mode bereits alles freischaltet.
-- **Blutwerte-Trend-Grafik** über die Zeit (aktuell nur Momentan-Wert,
-  keine Historie, siehe 29c).
 - **E-Commerce/Affiliate-Logik**, sobald Phase 3 (Backend/Recht) ansteht.
