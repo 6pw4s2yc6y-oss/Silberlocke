@@ -96,10 +96,11 @@ Baukasten (12 Typen), Trainings-Tracker (Sätze/Gewicht), Produkt-DB, Mein
 Stack, Nahrung, Money, RecoveryMode, Theme-System.
 
 **Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:**
-Profil-Medaillen, E-Commerce/Affiliate-Logik (Smart-Replacement,
-Link-Regeln), Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest,
-Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter,
-Zwei-Achsen-Matrix/Finanz-Modus, Training-Steuer/Confession Loop.)*
+Nur noch die E-Commerce/Affiliate-Logik (Smart-Replacement, Link-Regeln
+83/91/92) – bewusst zurückgestellt bis Phase 3 (echte Shop-Links, Recht).
+*(Am 2026-07-08 migriert → 📱: Manifest, Body-IQ-Quiz, Tipp des Tages,
+Studienlage, Disclaimer, Effizienz-Filter, Zwei-Achsen-Matrix/Finanz-Modus,
+Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
@@ -228,7 +229,7 @@ Zwei-Achsen-Matrix/Finanz-Modus, Training-Steuer/Confession Loop.)*
 
 ### Sprint 8: Die Soziale Arena & Squads (Multiplayer-Modus)
 
-- (35) ✅ Sichtbare, seltene Profil-Medaillen für Meilensteine. **(nur PWA – RN offen)**
+- (35) ✅📱 Sichtbare, seltene Profil-Medaillen für Meilensteine (RN: MedalsScreen, 10 Medaillen, nur verdienbar).
 - (36) 🔵 „VΛAΛV-Arena" bildet 4er-Arbeits-Squads.
 - (37) 🔵 „Team-Karma": Schummeln eines Mitglieds senkt Squad-Punkte.
 - (38) 🔵 Demokratischer Team-Ausschluss für Saboteure.
@@ -268,7 +269,7 @@ Zwei-Achsen-Matrix/Finanz-Modus, Training-Steuer/Confession Loop.)*
 ### Sprint 10: Biohacking-Recovery & Master Mode (Der Abschluss)
 
 - (15) ✅📱 Master Mode: Nur durch fehlerfreie Langzeit-Quest erreichbar (RN: Stage-System; per DEV-Schalter direkt testbar).
-- (66) ✅ Manuelles Drosseln bei eingepflegten Befunden. **(nur PWA – RN offen)**
+- (66) ✅📱 Manuelles Drosseln bei eingepflegten Befunden (RN: „Meine Befunde"-Archiv, lokal, mit Drossel-Hinweis).
 - (65) 🟡 Deep-Recovery Modus schaltet auf Heilung um.
 - (71) 🟡 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht ab.
 - (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
@@ -624,6 +625,18 @@ Zwei-Achsen-Matrix/Finanz-Modus, Training-Steuer/Confession Loop.)*
     Button + Panel; fällige Steuer erscheint als Pflicht-Block in der
     Tagesmitte und zählt zum disziplinierten Tag. 5 neue Tests →
     **81/81 grün**, Typecheck sauber. Commit 7fbc815.
+36. ✅ **Migration Profil-Medaillen (Roadmap #35):** 10 Medaillen 1:1
+    (Tage 1/7/14/28/50/100, Stufen Hard/Expert/Master, Status 100 %) –
+    bewusst nie aus Punkten (ausgebbar = kaufbar). MedalsScreen mit
+    3er-Grid (Lucide-Icons, Schloss für gesperrte), Medaillen-Karte in
+    der Übersicht. Commit bca5ac1.
+37. ✅ **Migration Meine Befunde (Roadmap #66):** Lokales Befund-Archiv
+    (sl_findings, Datum/Arzt/Diagnose/Überweisung/Notizen, nichts wird
+    gesendet) als neues Tool „Meine Befunde" (LIVE) mit Hinweis auf
+    manuelles Drosseln via Tagestyp Recovery/RecoveryMode. Zusammen mit
+    Punkt 36: 8 neue Tests → **89/89 grün**, Typecheck sauber.
+    Commit 9922e0c. **Damit ist die Migrations-Restliste bis auf die
+    bewusst zurückgestellte E-Commerce/Affiliate-Logik (Phase 3) leer.**
 
 ## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
@@ -652,8 +665,10 @@ integriert. DEV-Mode aktiv mit:
    ~~(a) Studien/Disclaimer/Efficiency-Filter (75/76/82)~~ ✅ 5f97cb5;
    ~~(b) Zwei-Achsen-Onboarding-Matrix (11)~~ ✅ 86366cf;
    ~~(c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108)~~ ✅ 7fbc815;
-   (d) Profil-Medaillen (35); (e) Befund-Drosselung (66);
-   (f) E-Commerce/Affiliate-Logik (83/91/92).
+   ~~(d) Profil-Medaillen (35)~~ ✅ bca5ac1;
+   ~~(e) Befund-Drosselung (66)~~ ✅ 9922e0c;
+   (f) E-Commerce/Affiliate-Logik (83/91/92) – bewusst zurückgestellt:
+   hängt an echten Shop-/Affiliate-Links (Phase 3, Backend/Recht).
 
 1. **Point 29(a) – Detox-Framework für E2E-Automation:**
    - Setup: npm install detox detox-cli
