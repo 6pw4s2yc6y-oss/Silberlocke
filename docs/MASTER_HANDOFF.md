@@ -138,7 +138,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (57) 🟡📱 Dynamische Einnahmefenster (RN: dayplan/timeline 1:1 migriert, Tests grün).
 - (58) 🟡📱 Basis-Routinen als Standard-Mahlzeiten-Logik (RN: Timeline-Logik migriert).
 - (63) 🟡 Circadianer Sleep Mode.
-- (62) 🔨 Beten/Halal-Modus integriert Gebetszeiten.
+- (62) 🟡📱 Beten/Halal-Modus integriert Gebetszeiten. **(RN TEILWEISE: Halal-/Vegan-Ingredients-Check live, Commit e543a2d – Gebetszeiten-Integration offen, braucht Geolocation/native API)**
 - (64) ✅📱 Schnellzugriff-Button für Wasser und Elektrolyte. **(RN FERTIG: Zähler-Zeile in DayScreen, Commit 483a8f2)**
 - (100) 🔨 Anpassbare Gaming-Themen (Vibes gemäß Design-Matrix).
 - (113) 📱 „Brennende Batterie": Echtzeit-Animation in der Core Bar beim Tracken. **(RN FERTIG: Action-Pulse, Reanimated)**
@@ -186,10 +186,10 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (77) 🟡 „No-Bullshit" Geschmackstester.
 - (78) 🟡 Farbliche Codes für Studie vs. User-Erfahrung.
 - (79) 🟡 Warnflagge bei verschlechterten Rezepturen.
-- (74) 🔨 Split-Screen vergleicht Marketing-Dose mit harter VΛAΛV-Realität.
-- (80) 🔨 Entlarvung von Pseudo-Rabatten und nahendem MHD.
+- (74) ✅📱 Split-Screen vergleicht Marketing-Dose mit harter VΛAΛV-Realität. **(RN FERTIG: SplitScreenBox, Commit 083d030)**
+- (80) ✅📱 Entlarvung von Pseudo-Rabatten und nahendem MHD. **(RN FERTIG: KaufCheckBox, Commit 083d030)**
 - (121) 🔨 Erweiterung um spezifische Molekülverbindungen (z. B. Bisglycinat vs. Oxid).
-- (123) 🔨 Harte Disclaimer-Labels für Interaktionen mit Medikamenten.
+- (123) ✅📱 Harte Disclaimer-Labels für Interaktionen mit Medikamenten. **(RN FERTIG: MedInteractionBox, Commit e543a2d)**
 - (73) 🅿️ Produktdaten werden offiziell bei Herstellern eingeholt.
 
 ### Sprint 6: Gamification, Strafen & Tabu-Börse (Das Punkte-System)
@@ -250,7 +250,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (87) 🟡 Survival-Automatik streicht Luxus-Supplements bei Geldmangel.
 - (90) 🟡 Kontextuelles Affiliate.
 - (95) 🟡 „Savings Insight" entlarvt Marken-Aufschläge.
-- (17) 🔨 Budget-Stufe „King" schaltet Premium-Stacks frei.
+- (17) ✅📱 Budget-Stufe „King" schaltet Premium-Stacks frei. **(RN FERTIG als König-Synergien: belegte Wirkstoff-Kombinationen im König-Modus, SynergyBox, Commit 083d030 – PWA-Code taggt diese Realisierung explizit als #17)**
 - (93) 🔨 Transparente Kommunikation bei Top-Produkten ohne Affiliate-Link.
 - (117) 🔨 Trophäen-Basis: Physische Trophäen (zum Selbstkostenpreis) + Gravur-Upgrades als einzige Monetarisierung.
 - (118) 🔨 Material-Ehre: Beilage eines Spezifikations-Zettels in der Acryl-Box.
@@ -551,6 +551,43 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29w. ✅ **Kauf-Wahrheit (#80) + Split-Screen der Wahrheit (#74) + König-
+    Synergien (#17):** 1:1 aus der v61-Blaupause migriert
+    (`buildKaufCheckHtml()`/`buildSplitScreenHtml()`/`productSynergies()`).
+    Alle drei generisch/kategorie-basiert, kein per-Produkt erfundener
+    Inhalt – dieselbe Fund-Situation wie 29v. `src/data/truthsplit.json`
+    (13 Kategorien Marketing-Archetyp vs. ehrliche Realität, deckt alle
+    Produkt-Kategorien ab, testabgesichert). `src/logic/supplements.ts`:
+    `isMhdSensitive()`/`kaufCheck()` (MHD-Sensibilität + genereller
+    Pseudo-Rabatt-Hinweis), `splitScreen()` (Kategorie-Fallback, per
+    Produkt überschreibbar), `productSynergies()` (9 belegte
+    Wirkstoff-Kombinationen, prüft nur Name/Kategorie gegen
+    Spuren-Nährstoff-Fehltreffer). `ProductsScreen.tsx`: `SplitScreenBox`
+    (zweispaltig Hype/Realität), `KaufCheckBox`, `SynergyBox` (nur im
+    König-Modus, Gegenstück zur Warrior-Alternative). 11 neue Tests,
+    **164/164 Tests grün**, Typecheck sauber. Commit 083d030. EAS-Update
+    bestätigt erfolgreich (beide Workflow-Runs `completed`/`success`).
+
+29v. ✅ **Medikamenten-Wechselwirkung (#123) + Halal-/Vegan-Check (#62)
+    verdrahtet:** 1:1 aus der v61-Blaupause migriert
+    (`medInteractions()`/`halalConcerns()`/`buildHalalHtml()`). Beide
+    zuvor als „riskant zu erfinden" eingestuft und übersprungen – beim
+    genaueren Lesen der Blaupause zeigte sich: der Inhalt existiert
+    bereits (regelbasiert, faktenbasiert, mit Arzt-Verweis), es war nur
+    nie ins RN-UI verdrahtet. Kein selbst erfundener medizinischer Rat,
+    reine Migration bestehender Regeln. `medInteractions()`: 5 gut
+    belegte Wechselwirkungs-Regeln (Omega-3, Vitamin K, Mineralien-
+    Kategorie, Ashwagandha, Melatonin), immer mit „ärztlich abklären"-
+    Hinweis. Abweichung von der Blaupause dokumentiert: der erste
+    Omega-3-Check hatte dort einen durch JS-Operatorpräzedenz (`&&`
+    bindet stärker als `||`) unerreichbaren toten Kategorie-Zweig – hier
+    auf die tatsächliche Bedingung reduziert (identisches Verhalten).
+    `halalConcerns()`/`halalStatus()`: Ingredients-Scanner (bad/warn/
+    info), immer sichtbarer Status pro Produkt. Zwei neue Warn-/Info-
+    Boxen in `ProductsScreen.tsx`. 10 neue Tests, **157/157 Tests grün**,
+    Typecheck sauber. Commit e543a2d. EAS-Update bestätigt erfolgreich
+    (beide Workflow-Runs `completed`/`success`).
+
 29u. ✅ **ProductsScreen: Geschmack/Löslichkeit/Zutaten nachgerüstet:** 1:1
     aus der v61-Blaupause migriert (`js/main.js` Produkt-Detail-Rows:
     Funktion, Absorption, Einnahme, Konflikte, Geschmack, Löslichkeit,
@@ -941,9 +978,15 @@ war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
 (29s, Roadmap #85) macht verschwendetes Geld bewusst. Ersatz-Empfehlung
 für ausverkaufte Produkte (29t) sowie Geschmack/Löslichkeit/Zutaten (29u)
 nachgerüstet – weitere tote Datenpunkte aus der Produkt-Migration
-gefunden und geschlossen. **Testabdeckung: 151/151 Tests grün**,
-Typecheck sauber. Aktueller Commit `vaaav-mobile` main: `8b6d310`
-(EAS-Update bestätigt erfolgreich).
+gefunden und geschlossen. Bei tieferer Blaupausen-Sichtung fünf weitere,
+zuvor als „zu riskant zum Erfinden" übersprungene Roadmap-Punkte als
+bereits fertige, regelbasierte PWA-Logik gefunden und migriert:
+Medikamenten-Wechselwirkung #123 + Halal-/Vegan-Check #62 (29v), sowie
+Kauf-Wahrheit #80 + Split-Screen der Wahrheit #74 + König-Synergien #17
+(29w) – alles generisch/kategorie-basiert, kein selbst erfundener
+Content. **Testabdeckung: 164/164 Tests grün**, Typecheck sauber.
+Aktueller Commit `vaaav-mobile` main: `083d030` (EAS-Update bestätigt
+erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
