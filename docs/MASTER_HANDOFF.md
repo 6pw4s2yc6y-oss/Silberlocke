@@ -551,6 +551,15 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29e. ✅ **Score/Punkte-Verlaufsgraphen (schließt die 29d-Lücke):** sl_progress
+    speicherte bisher nur den aktuellen Stand, keine Snapshots. Jetzt:
+    ProgressState.history (ScoreSnapshot[]), evaluateDay() schreibt NACH
+    dem Gatekeeper-Aufstiegsbonus einen Schnappschuss pro disziplinierten
+    Tag, Cap bei HISTORY_LIMIT=90. analytics.scoreHistory(p, limit).
+    AnalyticsScreen: neuer „Score-Verlauf"-Abschnitt, einfaches
+    Balkendiagramm (Views, kein SVG) über die letzten 14 Tage. 7 neue
+    Tests → **112/112 grün**, Typecheck sauber. Commit 5449ebc.
+
 29b. ✅ **Point 29(b) – Onboarding-Fokus-Matrix (Sprint 2, Hybrid-Profiling):**
     Neue Ziel-Hierarchie-Abfrage, keine PWA-Blaupause dafür (Neuentwicklung).
     `src/logic/focus.ts`: 6 Optionen (Hypertrophie, Kraft, Ausdauer,
@@ -723,16 +732,14 @@ integriert. DEV-Mode aktiv mit:
 
 4. ~~Point 29(d) – Analytics & Dashboard~~ ✅ erledigt (Commit 0ba68ad,
    siehe Punkt 29d oben: Wochenrückblick, Streaks, Erfolgsquote, nächster
-   Meilenstein). Bewusst NICHT gebaut: Score/Staub-Verlaufsgraphen – dafür
-   fehlt historische Datenerfassung (sl_progress speichert nur den
-   aktuellen Stand, keine Snapshots). Für eine spätere Session: Score-Historie
-   im evaluateDay() mitschreiben, dann Chart nachrüsten.
+   Meilenstein). ~~Score/Staub-Verlaufsgraphen~~ ✅ nachgerüstet (Commit
+   5449ebc, siehe Punkt 29e oben).
 
-**Point 29(a–d) ist damit komplett abgearbeitet.** (a) Detox-Framework steht
-(Config + 8 Test-Szenarien), tatsächlicher Build/Lauf gegen ein Gerät/einen
-Simulator steht noch aus – das ist der einzige offene Rest aus 29(a).
-Nächste sinnvolle Schwerpunkte für eine kommende Session:
+**Point 29(a–d) + die Verlaufsgraphen-Lücke sind damit komplett
+abgearbeitet.** (a) Detox-Framework steht (Config + 8 Test-Szenarien),
+tatsächlicher Build/Lauf gegen ein Gerät/einen Simulator steht noch aus –
+das ist der einzige offene Rest aus 29(a). Nächste sinnvolle Schwerpunkte
+für eine kommende Session:
 - Detox tatsächlich bauen & laufen lassen (EAS-Build oder lokal via `eas build`)
 - Goal-Ranking/Auto-Setup/Hybrid-Routing als Fokus-Matrix-Ausbau
-- Score/Staub-Verlaufsgraphen (braucht History-Tracking in evaluateDay())
 - E-Commerce/Affiliate-Logik, sobald Phase 3 (Backend/Recht) ansteht
