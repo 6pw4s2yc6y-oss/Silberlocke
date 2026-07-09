@@ -143,7 +143,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (100) 🔨 Anpassbare Gaming-Themen (Vibes gemäß Design-Matrix).
 - (113) 📱 „Brennende Batterie": Echtzeit-Animation in der Core Bar beim Tracken. **(RN FERTIG: Action-Pulse, Reanimated)**
 - (🆕) 📱 VΛAΛV Atomuhr (Startseite): „Tage durchgezogen" vs. „Tage verschwendet". **(RN FERTIG: AtomClock.tsx + lifeBalance)**
-- (🆕) 🔨 Tags Zähler: „Tatsächlich durchgezogene Trainings" vs. Ausfälle.
+- (🆕) ✅📱 Tags Zähler: „Tatsächlich durchgezogene Trainings" (Ausfälle-Gegenstück bewusst ausgelassen, siehe 29q). **(RN FERTIG: Stat-Karte in AnalyticsScreen, Commit 6073063)**
 - (🆕) 🔨 Resilienz-Engine (Mindset-Support): Wenn der Algorithmus ein „Tief" (z. B. verpasstes Training, verfallener Disziplin-Score) erkennt, aktiviert VΛAΛV automatisch den „Resilienz-Modus".
 - (🆕) 🔨 Universelle Weisheits-Datenbank: Blendet bei echtem Bedarf ausgewählte Koran-Verse ein, die universelle Prinzipien von Geduld (Sabr), Standhaftigkeit und innerer Reinigung lehren.
 - (🆕) 🔨 Neutrales Wording: Verse werden als „Prinzipien der Stärke" betitelt. Sie erscheinen Trigger-basiert nur bei negativen Tagebuch-Einträgen oder Disziplin-Lücken. Begleitet von einem haptischen Grounding (Herzschlag-Vibration).
@@ -551,6 +551,22 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29q. ✅ **Tags-Zähler: tatsächlich getrackte Trainings-Einheiten (Roadmap
+    #146):** Neue Stat-Karte im Wochenrückblick (`AnalyticsScreen`) neben
+    Serie/längste Serie: zählt reale `sl_training_log_`-Einträge statt
+    eines geschätzten Werts – jede tatsächlich getrackte Trainings-Einheit
+    (`DayScreen` → `buildTrainingLog`) zählt genau einmal. `store.keys()`
+    (neu in `storage.ts`) legt die im Cache gehaltenen Keys offen;
+    `countTrainingLogs()` (`tracking.ts`) filtert exakt auf das
+    `sl_training_log_YYYY-MM-DD`-Muster, damit der nie befüllte, tote Key
+    `sl_training_logs_index` nicht mitgezählt wird. Bewusst kein
+    „Ausfälle"-Gegenstück gebaut: dafür fehlt eine historische
+    Tagestyp-Aufzeichnung (`sl_daytype` ist aktuell nur ein globaler
+    „heute"-Wert, keine Historie) – wäre Rätselraten statt echter Daten.
+    3 neue Tests, **144/144 Tests grün**, Typecheck sauber. Commit
+    6073063. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29p. ✅ **Money: Budget aufteilen (Supplements/Nahrung → Sparen) verdrahtet:**
     1:1 aus der v61-Blaupause migriert (`js/main.js` `renderMoneyBudget()`/
     `updateSavings()`). Das `budget`-Feld (`supps`/`food`) stand bereits im
@@ -866,9 +882,10 @@ Analytics-Lücke. Pulver-/Wasser-Mix (29n, Roadmap #49) 1:1 aus der
 Blaupause migriert. Nährstoff-Enzyklopädie (29o) jetzt vollständig (29
 statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
 (Regel 4). Money-Budget-Aufteilung (29p) nachgerüstet – totes Datenfeld
-war seit der Migration nie ans UI angebunden. **Testabdeckung: 141/141
-Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
-`90b65d3` (EAS-Update bestätigt erfolgreich).
+war seit der Migration nie ans UI angebunden. Tags-Zähler (29q, Roadmap
+#146) zählt reale Trainings-Logs statt Schätzwert. **Testabdeckung:
+144/144 Tests grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile`
+main: `6073063` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
