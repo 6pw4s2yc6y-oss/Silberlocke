@@ -551,6 +551,40 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29f. ✅ **Fix: Core Bar animierte nicht auf Geräten mit „Bewegung reduzieren":**
+    react-native-reanimated respektiert standardmäßig die iOS-Bedienungshilfe
+    (ReduceMotion.System) – bei aktivierter Einstellung springen
+    withTiming/withRepeat sofort zum Endwert statt zu animieren. Core Bar
+    ist Marken-/Identitätselement (Abschnitt 4), kein optionaler Schmuck:
+    CoreBar.tsx (Treibstoff, Sweep, Action-Puls) und MorphAnchor.tsx
+    (Λ ⇄ Kontext-Icon) erzwingen jetzt `reduceMotion: ReduceMotion.Never`.
+    Andere Animationen (Toast) respektieren die Einstellung weiterhin
+    bewusst. Typecheck sauber, 112/112 Tests grün. Commit 34dc8be.
+
+29g. ✅ **Design: App-weites Liquid-Glass-Klinisch-Clean-Theme (erster Pass):**
+    Betreiber-Moodboard (2026-07-09, Ice Blue/Frost White/Silver/Pearl/
+    Champagne) umgesetzt. Entscheidung im Dialog: erstmal EIN einheitliches
+    Design app-weit (Level 1/phaseZero, hell), eigenständige Designs pro
+    Modus (Level 2–4 individuell) folgen später. `theme.ts`: palettes.
+    phaseZero auf Moodboard-Palette aktualisiert (Frost White Hintergrund,
+    Silver-Flächen, warmes Orange als Akzent – Markenkontinuität zum
+    bisherigen Neon-Orange). `activeLevel` von 'workbench' auf 'phaseZero'
+    – propagiert automatisch über alle 27 Screens (Single Source of Truth).
+    `neomorph`/`glass.tint`/`glass.innerEdge`/`engraving` leiten sich jetzt
+    vom aktiven Level ab (isLightLevel-Helper) statt hart auf dunkel zu
+    stehen – bereitet den späteren Schritt „jeder Modus eigenes Level"
+    vor (dann muss activeLevel nur noch dynamisch statt konstant werden).
+    Neue helle Engraving-Variante für die Core-Bar-Gravur. App.tsx:
+    StatusBar-Style kommt aus `theme.statusBarStyle` (sonst unsichtbare
+    weiße Icons auf hellem Grund). Geprüft: keine weiteren hardcodierten
+    Farben außerhalb theme.ts betroffen. Typecheck sauber, 112/112 Tests
+    grün. Commit 5459d1c.
+    **TODO nächste Session:** activeLevel dynamisch je Nutzer-Modus
+    (Level 2 Hard/Expert, Level 3 Tribunal, Level 4 Master individuell
+    gestalten) – braucht vermutlich einen ThemeContext statt der
+    statischen Export-Konstante, da 27 Dateien `theme` heute als
+    statischen Import nutzen.
+
 29e. ✅ **Score/Punkte-Verlaufsgraphen (schließt die 29d-Lücke):** sl_progress
     speicherte bisher nur den aktuellen Stand, keine Snapshots. Jetzt:
     ProgressState.history (ScoreSnapshot[]), evaluateDay() schreibt NACH
