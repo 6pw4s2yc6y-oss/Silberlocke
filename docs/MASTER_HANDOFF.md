@@ -96,11 +96,10 @@ Baukasten (12 Typen), Trainings-Tracker (Sätze/Gewicht), Produkt-DB, Mein
 Stack, Nahrung, Money, RecoveryMode, Theme-System.
 
 **Nur in der alten PWA (✅ ohne 📱) – noch zu migrieren:**
-Training-Steuer, Ehrlichkeits-Kompensation, Profil-Medaillen,
-E-Commerce/Affiliate-Logik (Smart-Replacement, Link-Regeln),
-Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest, Body-IQ-Quiz,
-Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter,
-Zwei-Achsen-Matrix/Finanz-Modus.)*
+Profil-Medaillen, E-Commerce/Affiliate-Logik (Smart-Replacement,
+Link-Regeln), Befund-Drosselung. *(Am 2026-07-08 migriert → 📱: Manifest,
+Body-IQ-Quiz, Tipp des Tages, Studienlage, Disclaimer, Effizienz-Filter,
+Zwei-Achsen-Matrix/Finanz-Modus, Training-Steuer/Confession Loop.)*
 
 ### Sprint 1: Fundament, Architektur & Identität (Das Set-up)
 
@@ -198,7 +197,7 @@ Zwei-Achsen-Matrix/Finanz-Modus.)*
 - (20) ✅📱 Gatekeeper-Algorithmus: Aufstieg erfordert ≥90 % Disziplin-Score (RN: 1:1 migriert + Tests).
 - (23) ✅📱 Animierter Disziplin-Balken triggert Verlustaversion (RN: Core Bar, Reanimated).
 - (24) ✅📱 24-h-Schreibschutz-Lock (RN: reconcileProgress – Joker, dann −5 Score/Tag).
-- (25) ✅ „Training-Steuer" verhängt Pflicht-Zusatz-Workouts bei Lücken. **(nur PWA – RN offen)**
+- (25) ✅📱 „Training-Steuer" verhängt Pflicht-Zusatz-Workouts (RN: Pflicht-Block aus der Beichte, stapelt bis 60 Min).
 - (29) ✅📱 Punkte nur durch Tracking verdienbar.
 - (30) ✅📱 Starterpaket an Punkten schützt Anfänger (RN: Score 60 + 1 Joker).
 - (31) ✅📱 „Liebloses Essen" (Cheat-Tage) im Shop freischaltbar (RN: ShopScreen).
@@ -218,7 +217,7 @@ Zwei-Achsen-Matrix/Finanz-Modus.)*
 
 ### Sprint 7: Hardware-Locks & Anti-Schummel-Eskalation (Das Tribunal)
 
-- (108) ✅ Ehrlichkeits-Kompensation führt zu Pflicht-Cardio statt Degradierung. **(nur PWA – RN offen)**
+- (108) ✅📱 Ehrlichkeits-Kompensation führt zu Pflicht-Cardio statt Degradierung (RN: Beicht-Panel im DayScreen, kein Status-Verlust).
 - (59) 🟡 Wöchentlicher „Truth-Check" auf der Waage.
 - (109) 🟡⚠️ Thermodynamik-Audit entlarvt Lügen.
 - (110) 🔨⚠️ System-Tribunal: Einfrieren der App + Arzt-Verweis bei mathematischem Kollaps.
@@ -618,6 +617,13 @@ Zwei-Achsen-Matrix/Finanz-Modus.)*
     Warrior-Modus blendet pro Produkt die ehrliche Rohstoff-Alternative ein
     (warriorAlt, Datenfeld war bereits da). Erste Achse = bestehendes
     Stage-System → Matrix komplett. 76/76 Tests grün. Commit 86366cf.
+35. ✅ **Migration Confession Loop (Roadmap #25 + #108):** Ehrlichkeit statt
+    Strafe 1:1 migriert. `src/logic/confession.ts`: Beichte (snack 10 /
+    meal 20 / skip 15 Min) erzeugt Training-Steuer für MORGEN, stapelt bis
+    Cap 60 Min, Keys sl_penalty/sl_confessions wie PWA. DayScreen: Beicht-
+    Button + Panel; fällige Steuer erscheint als Pflicht-Block in der
+    Tagesmitte und zählt zum disziplinierten Tag. 5 neue Tests →
+    **81/81 grün**, Typecheck sauber. Commit 7fbc815.
 
 ## 8. AKTUELLER STATUS (Stand: 2026-07-08, 21:30)
 
@@ -645,7 +651,7 @@ integriert. DEV-Mode aktiv mit:
 0. **Migrations-Restliste (aus dem Roadmap-Audit), in dieser Reihenfolge:**
    ~~(a) Studien/Disclaimer/Efficiency-Filter (75/76/82)~~ ✅ 5f97cb5;
    ~~(b) Zwei-Achsen-Onboarding-Matrix (11)~~ ✅ 86366cf;
-   (c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108);
+   ~~(c) Training-Steuer (25) + Ehrlichkeits-Kompensation (108)~~ ✅ 7fbc815;
    (d) Profil-Medaillen (35); (e) Befund-Drosselung (66);
    (f) E-Commerce/Affiliate-Logik (83/91/92).
 
