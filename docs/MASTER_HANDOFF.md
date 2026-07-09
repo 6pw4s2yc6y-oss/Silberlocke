@@ -551,6 +551,20 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29j. ✅ **Fokus-Matrix-Ausbau: Adaptives Hybrid-Routing (Sprint 4):**
+    Funktionale Fortsetzung der Fokus-Matrix (Commit 34edded) –
+    „deckelt die App die ZNS-Belastung auf dem Rad, damit der primäre
+    Bodybuilding-Plan nicht sabotiert wird". `src/logic/hybridRouting.ts`:
+    FOCUS_TRAINING_KEYS ordnet allen 6 Fokus-Typen passende der 12
+    Trainings-Pläne zu, CNS_LOAD stuft jeden Plan nach ZNS-Belastung ein.
+    hybridAdvice() liefert primär/sekundärGedeckelt (Warnung bei hoher
+    Last)/sekundär/neutral – reine Empfehlung, keine Sperre.
+    WeeklyPlanScreen: Eck-Badges auf den Trainings-Karten, Warn-/Info-Box
+    in der Detailansicht. 8 neue Tests → **120/120 grün**, Typecheck
+    sauber. Commit 73bd536. Offen für später: Goal-Ranking (Drag-and-Drop),
+    Auto-Setup (Modul-Freischaltung nach Fokus) – Detox-Build/-Lauf bleibt
+    der einzige offene Rest aus Point 29(a), braucht echtes Gerät/Simulator.
+
 29i. ✅ **Design: Master-Palette an dunkles Moodboard-Referenzbild
     angeglichen:** Dritter Design-Schritt. Level 4 (Master/Eternity)
     inhaltlich verfeinert (das dunkle Moodboard war explizit „MASTER
@@ -787,10 +801,10 @@ integriert. DEV-Mode aktiv mit:
    - Szenarien: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove
    - Target: 5–10 kritische User-Flows (kein vollständiger E2E-Coverage)
 
-2. ~~Point 29(b) – Onboarding-Fokus-Matrix~~ ✅ erledigt (Commit 34edded,
-   siehe Punkt 29b oben). Offen für später: Goal-Ranking (Drag-and-Drop),
-   Auto-Setup (Modul-Freischaltung nach Fokus), adaptives Hybrid-Routing
-   (Volumen-Deckelung zwischen Primär-/Sekundärziel in den Trainingsplänen).
+2. ~~Point 29(b) – Onboarding-Fokus-Matrix~~ ✅ erledigt (Commit 34edded).
+   ~~Adaptives Hybrid-Routing~~ ✅ erledigt (Commit 73bd536, siehe Punkt
+   29j oben). Offen für später: Goal-Ranking (Drag-and-Drop-Neusortierung),
+   Auto-Setup (automatische Modul-Freischaltung nach Fokus-Selektion).
 
 3. ~~Point 29(c) – Blutwerte-Modul~~ ✅ erledigt (Commit 13b5032, siehe
    Punkt 29c oben). Offen für eine spätere Session: Trend-Grafik über die
