@@ -163,7 +163,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) 🔨 Adaptives Hybrid-Routing: Basierend auf der Onboarding-Fokus-Matrix berechnet die App das Volumen cross-funktional. Ist Radsport nur das Hobby, deckelt die App die ZNS-Belastung auf dem Rad, damit der primäre Bodybuilding-Plan nicht sabotiert wird (und vice versa).
 - (🆕) 🔨 Mikrozyklen-Spezifizierung (Stimulus-Fokus): Zwingende Abfrage des aktuellen Trainingsreizes: Kraftausdauer, Hypertrophie oder reine Muskelausdauer. Das UI und die Pläne passen sich entsprechend an; physiologisch widersprüchliche Belastungsmuster werden blockiert.
 - (48) 📱 „Geplante Einheit Vorbereitung" visualisiert das nächste Workout. **(RN FERTIG: Prep-Karte mit Countdown im DayScreen)**
-- (49) 🔨 Automatische Berechnung von Pulver/Wasser pro Trainingseinheit.
+- (49) ✅📱 Automatische Berechnung von Pulver/Wasser pro Trainingseinheit. **(RN FERTIG: workoutMix() in dayplan.ts, Mix-Block in der Trainings-Prep-Karte, Commit 48dad9b)**
 - (50) 🔨 Rennrad-Fokus mit spezialisierten Trainingsplänen.
 - (🆕) 🔨 „Pro-Peloton" Benchmark (Tour de France): Vergleicht die manuell getrackten Leistungswerte (FTP, Watt/kg, Höhenmeter, Dauer) ungeschönt mit den absoluten Anforderungen eines Tour-de-France-Profis. Visualisiert als prozentualer Reality-Check den Abstand zur Weltklasse.
 - (🆕) 🔵 Dedizierter Fahrrad-Bereich: Spezieller Bereich innerhalb des Columbus Modes für Ausfahrten.
@@ -551,6 +551,20 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29n. ✅ **Pulver-/Wasser-Mix für die nächste Einheit (Roadmap #49):** 1:1 aus
+    der v61-Blaupause migriert (`js/main.js` `workoutMix()`/`parseServing()`).
+    `src/logic/dayplan.ts` bekommt `servingUnit()` (1:1 Einheitenerkennung
+    aus dem serving-String) und `workoutMix()`: summiert die Pre-Workout/
+    Aminosäuren/Gainer & Carbs/Performance-Pulver aus „Mein Stack" (nur
+    Produkte mit Gramm-Portion) und empfiehlt eine Wassermenge für den
+    Shaker (500/750/1000ml je nach Gesamtmenge). Neuer Mix-Block in der
+    bestehenden Trainings-Prep-Karte (`DayScreen.tsx`, Punkt 48), erscheint
+    nur wenn der Stack passende Pulver enthält. Nebenbei behoben: eine
+    verbliebene Emoji-Verletzung in derselben Karte (Blitz-Symbol → Zap-Icon,
+    Regel 4). 7 neue Tests, **137/137 Tests grün**, Typecheck sauber.
+    Commit 48dad9b. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`).
+
 29m. ✅ **Blutwerte-Trend-Grafik (schließt Lücke aus #71):** Bisher zeigte
     die Blutwerte-Analyse nur den Momentanwert pro Marker, keine Historie.
     Neu: `src/logic/bloodwork.ts` bekommt `saveBloodSnapshot()` (Upsert pro
@@ -818,9 +832,10 @@ inkl. adaptivem Hybrid-Routing fertig (29b/29j). Tabu-Börse (#111) neu
 implementiert und live (29l) – erste funktionale Nutzung des
 Tribunal-Looks (Level 3) über eine feste `ThemeOverride`, unabhängig vom
 Nutzer-Modus. Blutwerte-Trend-Grafik (29m) schließt die letzte offene
-Analytics-Lücke. **Testabdeckung: 133/133 Tests grün**, Typecheck sauber.
-Aktueller Commit `vaaav-mobile` main: `6093981` (EAS-Update bestätigt
-erfolgreich).
+Analytics-Lücke. Pulver-/Wasser-Mix (29n, Roadmap #49) 1:1 aus der
+Blaupause migriert. **Testabdeckung: 137/137 Tests grün**, Typecheck
+sauber. Aktueller Commit `vaaav-mobile` main: `48dad9b` (EAS-Update
+bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -847,6 +862,7 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
    ~~(e) Befund-Drosselung (66)~~ ✅ 9922e0c;
    ~~(f2) Tabu-Börse (111)~~ ✅ 2871b5c (siehe Punkt 29l oben);
    ~~(f3) Blutwerte-Trend-Grafik~~ ✅ 6093981 (siehe Punkt 29m oben);
+   ~~(f4) Pulver-/Wasser-Mix (49)~~ ✅ 48dad9b (siehe Punkt 29n oben);
    (f) E-Commerce/Affiliate-Logik (83/91/92) – bewusst zurückgestellt:
    hängt an echten Shop-/Affiliate-Links (Phase 3, Backend/Recht).
 
