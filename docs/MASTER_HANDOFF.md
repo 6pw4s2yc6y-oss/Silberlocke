@@ -123,8 +123,8 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (18) 🟡📱 Interaktives Setup generiert das Dashboard (RN: OnboardingFlow, Basis-Version).
 - (5) ✅📱 Identitäts-Onboarding prüft die mentale Bereitschaft zur Unterordnung. **(RN FERTIG als Identitäts-Frage: Selbstbild-Wahl statt Ziel-Wahl, Commit 98a3034 – PWA-Code realisiert dies als IDENTITY_STATEMENTS-Auswahl, nicht als Test/Prüfung)**
 - (🆕) 📱 Fokus-Matrix (Hybrid-Profiling): Präzise Abfrage der Ziel-Hierarchie. Der Nutzer definiert klar sein Primärziel (z. B. Bodybuilding/Hypertrophie) und sein Sekundärziel (z. B. Hobby-Rennrad) – oder umgekehrt. Die App passt sich dieser Identität an. **(RN: neuer Onboarding-Schritt + eigenständiger FocusScreen; Verknüpfung mit Trainingsplänen/Hybrid-Routing folgt später)**
-- (114) 🔨 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen).
-- (115) 🔨 Der „Ektomorph-Plan" für Untergewichtige (Fokus auf Magendehnung).
+- (114) ✅📱 Der „Dicke-Plan" (Phase Zero) für Übergewichtige im ersten Monat (ohne Strafen). **(RN FERTIG: BMI-Textvariante der Phase-Zero-Karte, Commit e1a718f)**
+- (115) ✅📱 Der „Ektomorph-Plan" für Untergewichtige (Fokus auf Magendehnung). **(RN FERTIG: BMI-Textvariante der Phase-Zero-Karte, Commit e1a718f)**
 - (116) ✅📱 „Schatten-Tracking": Verwehrt im ersten Monat Kcal-Zahlen zur Baseline-Ermittlung. **(RN FERTIG: "Dein Bedarf"-Karte in MasterScreen, Commit 2ec8218)**
 - (45) 🔵 Vergleichs-Matching schlägt Neulingen identische Veteranen-Profile vor.
 - (🆕) 🔵 Prognose-Engine: Berechnet ungeschönt, wo der Nutzer körperlich/gesundheitlich in 10 Jahren ist.
@@ -551,6 +551,23 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29aa. ✅ **Phase-Zero-Karte: Dicke-Plan (#114) + Ektomorph-Plan (#115):** 1:1
+    aus der v61-Blaupause migriert (`js/main.js` `phaseZero()`/
+    `phaseZeroCardHtml()`). Die Blaupause realisiert #114/#115 nicht als
+    separate Trainingspläne, sondern als BMI-basierte Textvariante
+    derselben Phase-Zero-Karte: BMI ≥30 → sanfter „kein Zählen, keine
+    Strafen"-Text (Dicke-Plan), BMI <18.5 → „kein Kaloriendruck,
+    regelmäßig und genug essen"-Text (Ektomorph-Plan/Aufbau), sonst der
+    normale Baseline-Text. Ergänzt die bereits vorhandene Zahlen-Sperre
+    (Schatten-Tracking, 29z) um die inhaltliche Botschaft der Phase-Zero-
+    Karte selbst. `src/logic/calculator.ts`: `phaseZeroBmi()` (BMI aus
+    Profil-Größe/Gewicht), `PHASE_ZERO_TEXT` (Titel + Body pro Typ).
+    Neue Karte direkt unter der Atomuhr in `MasterScreen.tsx`, sichtbar
+    während `phaseZeroActive()` (Sprout-Icon statt Emoji, Regel 4), zeigt
+    Restzeit bis Phase-Zero-Ende. 5 neue Tests, **172/172 Tests grün**,
+    Typecheck sauber. Commit e1a718f. EAS-Update bestätigt erfolgreich
+    (beide Workflow-Runs `completed`/`success`).
+
 29z. ✅ **Schatten-Tracking (#116): keine kcal-Zahlen im ersten Monat:** 1:1
     aus der v61-Blaupause migriert (`js/main.js` `renderDailyTargets()`).
     Im ersten Monat (Phase Zero) zeigte die „Dein Bedarf"-Karte in der
@@ -1035,9 +1052,10 @@ Content. Inspirations-Impuls (29x, WinterArc) reklassifiziert von
 Phase-3/Backend auf ✅ – rein clientseitig lösbar. Identitäts-Frage (29y,
 Roadmap #5) als neuer Onboarding-Schritt + tägliche Erinnerung ergänzt.
 Schatten-Tracking (29z, Roadmap #116) schließt die letzte Lücke der
-bereits vorbereiteten Phase-Zero-Logik. **Testabdeckung: 169/169 Tests
+bereits vorbereiteten Phase-Zero-Logik. Phase-Zero-Karte (29aa, Roadmap
+#114/#115) rundet Phase Zero komplett ab. **Testabdeckung: 172/172 Tests
 grün**, Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
-`2ec8218` (EAS-Update bestätigt erfolgreich).
+`e1a718f` (EAS-Update bestätigt erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
