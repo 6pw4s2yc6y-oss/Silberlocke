@@ -170,7 +170,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) 🔨 Geräte-Inventar (Gear-Setup): Einmaliges Anlegen des Equipments (Radcomputer, Powermeter, Beleuchtung).
 - (🆕) 🔨 Pre-Tour Gear Checklist: Interaktive Vorbereitungs-Liste (Schläuche, CO2, Nutrition), die am Vorabend einer Tour getriggert wird.
 - (🆕) 🔨 Charge-Check (Elektronik-Status): „Auf laden"-Checkliste für alle Geräte. Erinnert rechtzeitig daran, Radcomputer und elektronische Schaltung ans Netz zu hängen.
-- (122) 🔨 Clash-Detection unterscheidet exakt zwischen Trainings- und Ruhetag.
+- (122) ✅📱 Clash-Detection unterscheidet exakt zwischen Trainings- und Ruhetag (RN: Wochenkalender `sl_week` + Widerspruchs-Banner in DayScreen, siehe 29af).
 - (51) 🔨 Watt-Tracking (Manuelle Eingabe der Metriken).
 - (60) 🔨 Schlaf- & Gesundheits-Metriken (Manuelle Übertragung).
 - (55) 🅿️ App-Sperre in den Satzpausen (Blockiert Social Media).
@@ -551,6 +551,34 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29af. ✅ **Clash-Detection (#122): Wochenkalender + Widerspruchs-Banner –
+    RN FERTIG:** Baut das zuvor komplett fehlende `sl_week`-Äquivalent
+    (Trainings-/Ruhetag-Kalender pro Wochentag) 1:1 aus der v61-Blaupause
+    nach (`js/main.js` loadWeek()/saveWeek()/defaultWeek()/todayIdx()) und
+    schließt damit den in 29ab dokumentierten offenen Folgepunkt ab
+    (RN hatte bisher nur `sl_weekplan` = Trainings-PROGRAMM-Auswahl, nicht
+    die Trainings-/Ruhetag-Zuordnung pro Wochentag selbst). Neuer
+    `src/logic/weekPlan.ts`: `WeekPlan`-Typen, `defaultWeekPlan()` (Mo/Di/
+    Do/Fr Training, Mi/Sa/So Pause), `parseWeekPlan()`,
+    `setWeekDayTrain/Time()`, `weekTrainCount()`, `detectClash()` (1:1
+    clashBanner-Logik: nur exakte training/rest-Widersprüche lösen einen
+    Clash aus, andere Tagestypen wie carb/keto bewusst nicht, wie im
+    Original). `WeeklyPlanScreen.tsx`: neue Sektion „Dein
+    Trainingsrhythmus" über dem bestehenden Trainingsplan-Grid – 7
+    Wochentag-Zeilen mit Training/Pause-Toggle + optionalem Uhrzeit-
+    Override, heutiger Tag markiert, persistiert unter `sl_week`.
+    `DayScreen.tsx`: Widerspruchs-Banner (Shuffle-Icon statt Emoji,
+    Regel 4), wenn der Wochenplan für heute vom manuell gewählten
+    Tagestyp abweicht – Ein-Tipp-Fix-Button wechselt direkt auf den vom
+    Wochenplan vorgesehenen Typ (1:1 Original-Wortlaut „Widerspruch: Dein
+    Wochenplan sieht heute Training/Pause vor..."). 10 neue Tests
+    (Default-Plan, Parsing/Fallback, Immutability, todayWeekIdx, Clash-
+    Matrix), **200/200 Tests grün**, Typecheck sauber. Commit 8a73f22.
+    EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29045979892/29045979850).
+
+    **Roadmap #122 damit als RN FERTIG markiert.**
+
 29ae. ✅ **Körper-Atlas (Body-Atlas) migriert – Datei-Lücke vollständig
     geschlossen:** Fünfte und letzte der zuvor unmigrierten Legacy-
     Datendateien (`body_zones.json`, 28 Körperzonen, 133 Nährstoffmängel
@@ -1172,19 +1200,18 @@ Körper-Atlas (29ae) schließt die fünfte und letzte Datei
 (`body_zones.json`, 28 Zonen/133 Mängel) als Zonen-Grid + Detailansicht
 (Silhouetten-Grafik bewusst nicht 1:1 nachgebaut). **Die
 1:1-Migrationslückensuche der fünf zuvor unmigrierten Legacy-
-Datendateien ist damit vollständig abgeschlossen.**
-**Testabdeckung: 190/190 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `b36bffb` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29045082138/29045082143).
-
-**Offener, größer angelegter Folgepunkt:** Clash-Detection (#122) braucht
-zuerst ein fehlendes wöchentliches Trainings-/Ruhetag-Kalender-Feature
-(`sl_week`-Äquivalent, getrennt von der Trainingsprogramm-Auswahl) –
-kein Quick-Fix, siehe 29ab.
+Datendateien ist damit vollständig abgeschlossen.** Clash-Detection
+(29af, Roadmap #122) baut den zuvor fehlenden `sl_week`-Wochenkalender
+(Training/Pause pro Wochentag) nach und zeigt einen Widerspruchs-Banner
+mit Ein-Tipp-Fix, wenn Wochenplan und manuell gewählter Tagestyp
+auseinanderlaufen – **Roadmap #122 damit RN FERTIG.**
+**Testabdeckung: 200/200 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `8a73f22` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29045979892/29045979850).
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
-siehe 29ae. Eigene Design-Entscheidung nötig, kein Quick-Fix.
+siehe 29ae. Vom Betreiber bestätigt: bleibt so, kein weiterer Bedarf.
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
@@ -1215,20 +1242,25 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
    (f) E-Commerce/Affiliate-Logik (83/91/92) – bewusst zurückgestellt:
    hängt an echten Shop-/Affiliate-Links (Phase 3, Backend/Recht).
 
+**Vom Betreiber entschieden/abgehakt (2026-07-09):**
+- **Körper-Atlas-Silhouette bleibt wie sie ist** – Zonen-Grid + Detailansicht
+  (29ae) ist eine bewusst akzeptierte, gute Lösung. Kein Nachbau der
+  SVG-Hotspot-Silhouette aus der Blaupause geplant.
+- **Clash-Detection (#122) ist fertig** – siehe 29af.
+- **Goal-Ranking (Drag-and-Drop)** vorerst zurückgestellt/nicht priorisiert.
+
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
 reine Priorisierungsfrage):
-- **Körper-Atlas-Silhouette** (SVG-Körperfigur mit klickbaren Hotspots,
-  Vorder-/Rückseite, siehe 29ae) – Inhalt (28 Zonen/133 Mängel) ist
-  bereits live als Zonen-Grid + Detailansicht; die eigentliche
-  Silhouetten-Grafik aus der Blaupause wurde bewusst nicht 1:1
-  nachgebaut. Eigene Design-Entscheidung nötig, kein Quick-Fix.
-- **Clash-Detection (#122)** – braucht zuerst das wöchentliche Trainings-/
-  Ruhetag-Kalender-Feature (`sl_week`-Äquivalent), siehe 29ab.
-- **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
-  stehen, siehe 29a) – braucht echtes Gerät/Simulator, in dieser
-  Remote-Umgebung nicht möglich.
-- **Goal-Ranking** (Drag-and-Drop-Neusortierung der Fokus-Matrix-Ziele) –
-  bräuchte neue Dependency (z. B. `react-native-draggable-flatlist`).
 - **Auto-Setup** (automatische Modul-Freischaltung nach Fokus-Selektion) –
   aktuell ohne sichtbaren Effekt, da DEV-Mode bereits alles freischaltet.
 - **E-Commerce/Affiliate-Logik**, sobald Phase 3 (Backend/Recht) ansteht.
+
+**Ganz am Ende, wenn alle anderen Punkte fertig sind (voraussichtlich in
+ein paar Wochen) erneut ansprechen:**
+- **Detox-Build tatsächlich laufen lassen** (Config + 8 Test-Szenarien
+  stehen, siehe 29a) – braucht echtes Gerät/Simulator, in dieser
+  Remote-Umgebung nicht möglich. Zur Klarstellung: Detox ist ein
+  E2E-UI-Testframework für React Native (wie Playwright, aber für native
+  Mobile-Apps – automatisiert Taps auf einem echten Gerät/Simulator),
+  **kein** Health-/Strava-Datenimport. Die App bleibt bei manueller
+  Dateneingabe, keine Drittanbieter-Anbindung geplant.
