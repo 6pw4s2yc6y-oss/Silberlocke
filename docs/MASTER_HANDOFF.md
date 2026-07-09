@@ -551,6 +551,22 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29o. ✅ **Nährstoff-Enzyklopädie voll migriert + Emoji-Bereinigung im RN-UI
+    (Regel 4):** Zwei Funde bei der Sichtung des Pulver-/Wasser-Mix-Screens.
+    (1) `NutritionScreen.tsx` zeigte nur 5 hartcodierte Beispiel-Einträge
+    statt der vollen Blaupause – jetzt 1:1 aus `data/nutrition/nutr_data.json`
+    migriert (`src/data/nutrition.json`, 29 Vitamine/Mineralien/Wasser
+    komplett mit Körperfunktion, Dosis, Interaktionen, Toxizität). (2)
+    Verbliebene Emoji-Verletzungen gegen Lucide-Icons getauscht in
+    NutritionScreen (Kategorie-Icons Pill/Gem/Droplets – das Datenfeld
+    selbst bleibt 1:1 erhalten), RecoveryModeScreen (Schlafqualitäts-Chips
+    CloudRain/Meh/Smile/Sparkles), WeeklyPlanScreen (Lightbulb/Check),
+    MoneyScreen (Wallet/Receipt/CircleCheck/TriangleAlert), StackScreen
+    (Check) und ToolsScreen; zwei Recovery-Toast-Meldungen in
+    `DisciplineContext.tsx` bereinigt. 3 neue Tests, **139/139 Tests
+    grün**, Typecheck sauber. Commit 66d0a43. EAS-Update bestätigt
+    erfolgreich (beide Workflow-Runs `completed`/`success`).
+
 29n. ✅ **Pulver-/Wasser-Mix für die nächste Einheit (Roadmap #49):** 1:1 aus
     der v61-Blaupause migriert (`js/main.js` `workoutMix()`/`parseServing()`).
     `src/logic/dayplan.ts` bekommt `servingUnit()` (1:1 Einheitenerkennung
@@ -833,9 +849,11 @@ implementiert und live (29l) – erste funktionale Nutzung des
 Tribunal-Looks (Level 3) über eine feste `ThemeOverride`, unabhängig vom
 Nutzer-Modus. Blutwerte-Trend-Grafik (29m) schließt die letzte offene
 Analytics-Lücke. Pulver-/Wasser-Mix (29n, Roadmap #49) 1:1 aus der
-Blaupause migriert. **Testabdeckung: 137/137 Tests grün**, Typecheck
-sauber. Aktueller Commit `vaaav-mobile` main: `48dad9b` (EAS-Update
-bestätigt erfolgreich).
+Blaupause migriert. Nährstoff-Enzyklopädie (29o) jetzt vollständig (29
+statt 5 Einträge) + verbliebene Emoji-Verstöße im RN-UI bereinigt
+(Regel 4). **Testabdeckung: 139/139 Tests grün**, Typecheck sauber.
+Aktueller Commit `vaaav-mobile` main: `66d0a43` (EAS-Update bestätigt
+erfolgreich).
 
 **Kritischer Fix dieser Session-Reihe:** Core Bar animierte auf iPhone
 nicht (iOS „Bewegung reduzieren" wurde von Reanimated respektiert) –
