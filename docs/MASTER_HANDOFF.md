@@ -551,6 +551,35 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ah. ✅ **RecoveryMode: normale Regenerationsphase nach akuter Kcal-Schuld
+    (🆕 kein PWA-Vorbild):** Direkte Betreiber-Klarstellung im Anschluss an
+    29ag: RecoveryMode (nach intensiver Einheit, >100 km/3h+) hat zwei
+    Phasen – erst die akute Kcal-/Flüssigkeits-Schuld schnell abbezahlen,
+    danach folgt eine definierte normale Regenerationsphase, bevor wieder
+    voll „einsatzbereit" gilt. Bisher sprang die App direkt von „Schuld
+    abbezahlt" auf „einsatzbereit". `discipline.ts`: `addRecoveryCredit()`
+    aus dem DisciplineContext in eine reine Logikfunktion verschoben
+    (Konsistenz mit dem Rest des Disziplin-Kerns – war zuvor als einzige
+    Ausnahme inline im Context implementiert). Bei voller Rückzahlung wird
+    `recoveryPhaseUntil` gesetzt (`REGEN_PHASE_DAYS` = 2 Tage). Neue
+    `inRegenPhase()`/`regenPhaseDaysLeft()` – akute Schuld hat immer
+    Vorrang vor der Regenerationsphase. DisciplineContext: neues
+    `regenPhase { active, daysLeft }`. `RecoveryModeScreen`: eigene Karte
+    während der Regenerationsphase (Leaf-Icon statt Emoji, Regel 4) mit
+    verbleibenden Tagen und Hinweis auf moderate Intensität, getrennt von
+    der akuten Schuld-Ansicht und der generischen „inaktiv"-Karte. 8 neue
+    Tests (Teilzahlung, volle Rückzahlung, Fenstergrenzen, Vorrang-Regel),
+    **220/220 Tests grün**, Typecheck sauber. Commit 9d50dfa. EAS-Update
+    bestätigt erfolgreich (beide Workflow-Runs `completed`/`success`,
+    Run-IDs 29047496496/29047496565).
+
+    **Zwei bewusst unterschiedliche Konzepte, die den Namen „Recovery"
+    teilen:** RecoveryMode (Kcal-Schuld nach intensiver Einheit, akut →
+    Regenerationsphase → einsatzbereit) und der Krankheits-`dayType`
+    „Recovery" (Verletzung/Genesung, siehe 29ag) – keine Verwechslungs-
+    gefahr im Code (getrennte State-Felder), aber begrifflich zwei
+    getrennte Baustellen.
+
 29ag. ✅ **Recovery-Ausbau (#68/#70): Krankheits-Tag als Workout-Ersatz +
     schonender Wiedereinstieg – RN FERTIG, 🆕 kein PWA-Vorbild:** Nach
     Abschluss der 1:1-Migrationslückensuche vom Betreiber als nächster
@@ -1247,14 +1276,13 @@ auseinanderlaufen – **Roadmap #122 damit RN FERTIG.** Recovery-Ausbau
 (29ag, Roadmap #68/#70, 🆕 kein PWA-Vorbild) macht lückenloses
 Schlafen+Trinken zum Workout-Ersatz an Krankheits-Tagen und zeigt einen
 schonenden Wiedereinstiegs-Plan danach – **Roadmap #68/#70 damit RN
-FERTIG.**
-**Testabdeckung: 212/212 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `61480fd` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29047008174/29047008157).
-
-**In Arbeit:** RecoveryMode-Regenerationsphase (normale Erholung nach
-abbezahlter akuter Kcal-Schuld, Betreiber-Klarstellung) – Commit gepusht,
-EAS-Bestätigung ausstehend, siehe nächste Session-Notiz.
+FERTIG.** RecoveryMode-Regenerationsphase (29ah, 🆕 kein PWA-Vorbild,
+direkte Betreiber-Klarstellung) ergänzt eine normale Erholungsphase
+zwischen abbezahlter akuter Kcal-Schuld und „einsatzbereit" – RecoveryMode
+hat damit zwei klar getrennte Phasen (akut → Regeneration → bereit).
+**Testabdeckung: 220/220 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `9d50dfa` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29047496496/29047496565).
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
