@@ -551,6 +551,17 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29i. ✅ **Design: Master-Palette an dunkles Moodboard-Referenzbild
+    angeglichen:** Dritter Design-Schritt. Level 4 (Master/Eternity)
+    inhaltlich verfeinert (das dunkle Moodboard war explizit „MASTER
+    MODE" beschriftet): tiefes Anthrazit-Blau (#12141A/#1B1E26) statt
+    reinem Schwarz, Pearl/Silber-Textfarben, accentAlt/accentCalm auf
+    dieselbe Ice-Blue/Teal-Familie wie Level 1 (dunkler getont) für
+    Marken-Kontinuität über Hell/Dunkel. Titan-Gold-Akzent unverändert.
+    Level 2/3 (Hard/Expert, Tribunal) bewusst unangetastet – keine
+    Moodboard-Referenz dafür, Änderung wäre Rätselraten. Typecheck
+    sauber, 112/112 Tests grün. Commit cbc7a05.
+
 29h. ✅ **Design: Dynamisches Theme pro Nutzer-Modus (ThemeContext):** Zweiter
     Schritt des Design-Umbaus – „später bekommt jeder Modus sein eigenes
     Design" ist jetzt technisch möglich. Vorher: `theme.ts` war ein
