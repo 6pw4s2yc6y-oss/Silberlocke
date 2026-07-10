@@ -1,9 +1,9 @@
 # VΛAΛV – Master-Roadmap (fusioniert, 128+ Punkte)
 
-> ⚠️ **HINWEIS (2026-07-10):** Führendes Arbeitsdokument ist ab jetzt `/MASTER_HANDOFF.md`
-> (Repo-Root). Diese Datei bleibt als historische Status-Referenz der Vanilla-JS-PWA
-> erhalten und wird nicht mehr fortgeschrieben. Achtung: Die IDs 129–132 wurden im
-> Master-Handoff neu vergeben (WinterArc/Columbus ist dort 154–164).
+> ⚠️ **HINWEIS (2026-07-10):** Führendes Arbeitsdokument ist ab jetzt `docs/MASTER_HANDOFF.md`
+> (genau der Pfad, auf den `vaaav-mobile` verweist). Diese Datei bleibt als historische
+> Status-Referenz der Vanilla-JS-PWA erhalten und wird nicht mehr fortgeschrieben.
+> Achtung: Die IDs 129–132 wurden im Master-Handoff neu vergeben (WinterArc/Columbus ist dort 154–164).
 
 > Fusion aus der **Sprint-Logik & den 128 VΛAΛV-Punkten** und der **ungeschönten
 > technischen Realität** des Codes (Vanilla JS/HTML/CSS, PWA auf GitHub Pages).

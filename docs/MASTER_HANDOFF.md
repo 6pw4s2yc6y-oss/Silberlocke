@@ -1,6 +1,6 @@
 # MASTER HANDOFF & ROADMAP: VΛAΛV
 
-> **Maßgebliches Arbeitsdokument.** Ersetzt `docs/ROADMAP.md` als führende Roadmap (die alte Datei bleibt als Status-Referenz der Vanilla-JS-PWA erhalten). Finalisiert am 2026-07-10 nach vollständigem Code-Audit. Gemäß Regel 4 (Handoff-Loop) aktualisiere dieses Dokument am Ende jeder Coding-Session und pushe es ins Remote-Repository.
+> **Maßgebliches Arbeitsdokument** (`docs/MASTER_HANDOFF.md` im `Silberlocke`-Repo — genau der Pfad, auf den `vaaav-mobile`/`README.md` und `vaaav-mobile`/`CLAUDE.md` verweisen). Ersetzt `docs/ROADMAP.md` als führende Roadmap (die alte Datei bleibt als Status-Referenz der Vanilla-JS-PWA erhalten). Finalisiert am 2026-07-10 nach direktem Code-Audit **beider** Repos. Gemäß Regel 4 (Handoff-Loop) aktualisiere dieses Dokument am Ende jeder Coding-Session und pushe es.
 >
 > Jedes Feature besitzt eine feste ID (1–171) — verweise darauf per „Claude, lass uns heute Feature X bauen".
 
@@ -10,9 +10,10 @@
 
 Dieses Kapitel trennt unbestechlich, was **im Code verifiziert** ist, von dem, was **nur behauptet** wurde. Übernimm keinen Status als „erledigt", der hier nicht bestätigt ist.
 
-### 0.1 Repo-Realität
-*   **Dieses Repository (`Silberlocke`)** ist die **Vanilla-JS-PWA (v60)** — die Blaupause. 50 Commits, CI grün (Syntax-Check, Daten-Validierung, **23/23 Unit-Tests** in `tests/calculator.test.mjs` und `tests/timeline.test.mjs`). Logik-Module: `js/modules/calculator.js`, `timeline.js`, `storage.js`, `ui.js`, `dataFetcher.js`; Daten strikt getrennt in `data/` (app, health, nutrition, studies, supplements, training).
-*   **`vaaav-mobile` und `vaaav-backend`** sind aus dieser Session **nicht erreichbar**. Sämtliche React-Native-Statusangaben (Abschnitt 7B) sind daher **unverifiziert** und gelten erst als erledigt, wenn sie in einer `vaaav-mobile`-Session gegen den Code geprüft wurden.
+### 0.1 Repo-Realität (beide Repos am 2026-07-10 direkt gegen den Code auditiert)
+*   **`Silberlocke`** ist die **Vanilla-JS-PWA (v60)** — die Blaupause. 50 Commits, CI grün (Syntax-Check, Daten-Validierung, **23/23 Unit-Tests** in `tests/calculator.test.mjs` und `tests/timeline.test.mjs`). Logik-Module: `js/modules/calculator.js`, `timeline.js`, `storage.js`, `ui.js`, `dataFetcher.js`; Daten strikt getrennt in `data/` (app, health, nutrition, studies, supplements, training).
+*   **`vaaav-mobile`** ist das **aktive Entwicklungs-Repo** (Expo SDK 54/57, React Native 0.81, TypeScript, react-native-reanimated 4). Am 2026-07-10 geklont und geprüft: **271/271 Logik-Tests grün** (`npm test`, 37 Test-Dateien), **~30 Logik-Module** in `src/logic/`, **27 Screens** in `src/screens/`, Core Bar + Theme-Kontext + Onboarding vorhanden. Stand: HEAD-Commit „Sprint 12". **Der reale Fortschritt liegt weit über dem alten Session-2-Statusblock** (siehe 0.3). CI (`.github/workflows/ci.yml`): Typecheck + Logik-Tests bei jedem Push; Auto-Publish via `eas-update.yml`.
+*   **`vaaav-backend`** existiert **noch nicht** (nicht im Repo-Bestand). Alle Backend-/Next.js-Punkte bleiben Phase-3-Parkplatz, bis das Repo angelegt wird.
 
 ### 0.2 Korrigierte Status (Entwurf war veralteter als der Code — Positiv-Befunde)
 Folgende Punkte führte der Entwurf als 🔨 „baubar", sie sind in der PWA jedoch **bereits live** (per Commit + Versionshistorie verifiziert):
@@ -32,15 +33,17 @@ Folgende Punkte führte der Entwurf als 🔨 „baubar", sie sind in der PWA jed
 | (17) | Budget-Stufe „King" (Synergien) | ✅ v56 |
 | (62) | Halal-Modus | 🟡 Halal-/Vegan-Check bei jedem Produkt live (v57/v60); Gebetszeiten offen |
 
-### 0.3 Nicht verifizierbare Behauptungen (offen lassen, bis geprüft)
-*   **Session-2-Status `vaaav-mobile`:** Die Commits `5f97cb5`, `86366cf`, `7fbc815`, `bca5ac1`, `9922e0c`, `34edded`, `73bd536`, `13b5032`, `0ba68ad`, `5449ebc` existieren **nicht** in diesem Repository. Die Angabe „65/65 Tests grün" ist hier nicht nachvollziehbar (real hier: 23/23). **Behandle Abschnitt 7B als Arbeits-Hypothese, nicht als Fakt.** Verifiziere sie als ersten Schritt der nächsten `vaaav-mobile`-Session.
-*   **`security-audit.yml`:** Existiert in **keinem** geprüften Repository. Die Pipeline (Abschnitt 9, Teil 3D) ist Referenz-Code, kein erledigter Punkt. Aktiviere sie ab dem ersten Commit in `vaaav-mobile` und `vaaav-backend`.
+### 0.3 Verifikation des alten Session-2-Statusblocks (am 2026-07-10 aufgelöst)
+*   **Der frühere „Session 2 / 65 Tests / 5 Module"-Status ist überholt — zugunsten der Realität.** Der direkte Klon von `vaaav-mobile` zeigt einen **weit fortgeschritteneren** Stand: 271/271 Tests grün (statt 65), ~30 Logik-Module (statt 5), 27 Screens, HEAD bei „Sprint 12". Die einzelnen Commit-Hashes des alten Blocks (`5f97cb5` u. a.) waren aus dem Squash-/History-Verlauf nicht mehr auflösbar, sind aber gegenstandslos: die zugehörigen Features existieren als Module **und Tests** im Code (u. a. `discipline.ts`, `supplements.ts`, `money.ts`, `focus.ts`, `hybridRouting.ts`, `bloodwork.ts`, `analytics.ts`, `medals.ts`, `findings.ts`). Abschnitt 7 spiegelt jetzt diesen verifizierten Stand.
+*   **`security-audit.yml`:** Existiert in **keinem** Repo. `vaaav-mobile` fährt aktuell nur `ci.yml` (Typecheck + Tests). Die dedizierte Security-Pipeline (Abschnitt 9, Teil 3D) ist Referenz-Code, kein erledigter Punkt — lege sie in `vaaav-mobile` an (Gitleaks + npm audit; Semgrep p/react, p/typescript) und in `vaaav-backend`, sobald dieses existiert.
 
 ### 0.4 Aktive Technik-Schulden (Launch-Blocker)
-*   ⚠️ **`PREVIEW_UNLOCK_ALL = true`** (`js/main.js:301`) hebelt die komplette Verdien-Logik aus (radikale Gleichheit #4 und Progressive Disclosure #19 sind faktisch offen). Bewusst für die Betreiber-Testphase. **Setze den Schalter vor Launch zwingend auf `false`.**
+*   ⚠️ **`vaaav-mobile`: `DAYS_PER_STAGE = 5`** (`src/logic/discipline.ts:18`, Kommentar „DEV: reduziert für schnellere Stage-Tests") verkürzt die Aufstiegs-Zyklen künstlich. **Setze den Wert vor Launch auf den echten Produktionswert** (Blaupausen-Taktung), sonst ist Progressive Disclosure (#19) ausgehebelt.
+*   ⚠️ **`Silberlocke` (PWA): `PREVIEW_UNLOCK_ALL = true`** (`js/main.js:301`) hebelt die komplette Verdien-Logik aus (radikale Gleichheit #4 und Progressive Disclosure #19 faktisch offen). Bewusst für die Betreiber-Testphase. **Vor Launch zwingend auf `false`.**
 *   `js/main.js` (~4.400 Zeilen) weiter in Module zerlegen (Kandidaten: progress, week, body).
 *   Icons/OG-Image tragen noch den alten Look; GitHub-Pages-URL trägt noch den Repo-Namen „Silberlocke" (Pfad, kein Anzeigetext).
 *   Recht (105): Impressum-Platzhalter live; echte Betreiberdaten, AGB, DPMA-Marke offen.
+*   **Doku-Drift:** `vaaav-mobile/README.md` beschreibt noch „UI-Prototyp, System-Stopp aktiv" — das ist überholt (271 Tests, 27 Screens). Beim nächsten `vaaav-mobile`-Commit die Status-Zeile der README nachziehen.
 
 ### 0.5 Bereinigte ID-Kollision
 Die alte `docs/ROADMAP.md` nutzte 129–132 für WinterArc. **Verbindlich ab jetzt:** (129) = Voraussichtliche Einkaufskalkulation (Sprint 9); WinterArc/Columbus belegt die IDs (154)–(164).
@@ -312,24 +315,29 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   Versionshistorie (Auszug): v33 Confession Loop + Training-Steuer · v35 Punkte-Shop (Cheat-Tag + Pre-Booking) · v36 Gatekeeper · v37 Efficiency-Filter · v40 Body-IQ · v41 Manifest · v42 Identitäts-Frage · v44 Rebrand VΛAΛV · v45 Phase Zero · v46 Profil/Ich-Bereich · v47 Wasser/Elektrolyte · v48 Brennende Batterie · v49 Kauf-Wahrheit · v50 Split-Screen · v51 Medikamenten-Disclaimer · v52 Einheiten-Vorbereitung · v54 Pulver/Wasser · v55 Clash-Detection · v56 König-Synergien · v57–v60 Halal-/Vegan-Transparenz + Produkt-Detail-Refactor.
 *   ⚠️ Betreiber-Vorschau aktiv: `PREVIEW_UNLOCK_ALL = true` (`js/main.js:301`) — vor Launch auf `false`.
 
-### 7B. UNVERIFIZIERT: React-Native-Migration (`vaaav-mobile`, Session-2-Angabe)
-> ⚠️ **Prüfe diesen Block als ersten Schritt der nächsten `vaaav-mobile`-Session gegen den Code (Commits + Testlauf). Erst dann abhaken.** Die genannten Commits und „65/65 Tests" sind aus dem Blaupausen-Repo nicht nachvollziehbar (siehe 0.3). Zur Kontinuität hier der überlieferte Stand:
+### 7B. VERIFIZIERT: React-Native-App (`vaaav-mobile`, direkt gegen den Code, 2026-07-10)
+> Repo am 2026-07-10 geklont, `npm test` ausgeführt: **271/271 Logik-Tests grün** (37 Test-Dateien). HEAD-Commit „Sprint 12". Der frühere „Session 2 / 65 Tests"-Block ist damit überholt — der reale Stand ist deutlich weiter.
 
-*   Behauptet: Alle 5 Haupt-Werkzeug-Module implementiert und integriert. DEV-Mode aktiv (DAYS_PER_STAGE = 5, alle 11 Tools ab Tag 0, Score +25/Tag, Staub +30/Tag, +75 Wochenbonus = 3×-Multiplikator für Core-Bar-Tests). Testabdeckung 65/65 (discipline, nutrition, money, recovery, tracking).
-*   Behauptete Architektur-Meilensteine: Repo `vaaav-mobile` angelegt, Prototyp auf `main` · EAS-Pipeline grün (Lauf #6, CI-Fix Lauf #20), Expo SDK 54 gepinnt · `calculator.ts`/`timeline.ts` 1:1 aus der Blaupause portiert · RootNavigator + Core-Bar-Morphing (Λ-Anker) · Onboarding (3 Schritte, Live-Bedarfs-Vorschau, E2E verifiziert) · `storage.ts` via AsyncStorage (`sl_`-Keys) · `dayplan.ts` 1:1 portiert (<6h-Schlaf-Sperre) · Disziplin-Kern & Punkte-Shop portiert · alle 7 Tagestypen (Recovery, Carb-Loading, Keto, Autophagie, Wasserfasten …) · Trainings-Progressions-Tracker (Reps × Gewicht, Inline-Validierung, `sl_training_log`) · App-weites Liquid-Glass-Theme mit ThemeContext (Light/Hard/Expert/Master).
-*   Behauptete Migrations-Restliste: (a) Studien/Disclaimer/Efficiency-Filter (75/76/82) ✅ `5f97cb5` · (b) Zwei-Achsen-Matrix (11) ✅ `86366cf` · (c) Training-Steuer (25) + Confession Loop (108) ✅ `7fbc815` · (d) Profil-Medaillen (35) ✅ `bca5ac1` · (e) Befund-Drosselung (66) ✅ `9922e0c` · Fokus-Matrix ✅ `34edded` · Hybrid-Routing ✅ `73bd536` · Blutwerte-Modul ✅ `13b5032` · Analytics-Dashboard ✅ `0ba68ad` · Verlaufsgraphen ✅ `5449ebc` · (f) E-Commerce/Affiliate (83/91/92) bewusst zurückgestellt (Phase 3).
+*   **Fundament:** Expo SDK 54/57, React Native 0.81, TypeScript, react-native-reanimated 4. `App.tsx` (Fonts/SafeArea/StatusBar), `src/navigation/RootNavigator.tsx`, `src/theme/theme.ts` als Single Source of Truth (Design-Matrix, Neomorphismus, Liquid Glass). CI (`ci.yml`): Typecheck + Logik-Tests; Auto-Publish (`eas-update.yml`).
+*   **Core Bar & Marke:** `src/components/core-bar/` — `CoreBar.tsx`, `MorphAnchor.tsx` (Λ-Anker), `GlassEngraving.tsx` (3D-Glasgravur). Plus `AtomClock.tsx` (Atomuhr #134), `PremiumCard.tsx` (Neomorph/Glas), `Toast.tsx`, `ScreenShell.tsx`.
+*   **Logik-Kern (`src/logic/`, ~30 Module, alle mit Tests):** `calculator.ts`, `timeline.ts`, `dayplan.ts`, `dayArchitecture.ts`, `discipline.ts`, `tracking.ts`, `weekPlan.ts`, `sportplan.ts`, `macroPlanning.ts`, `mealtracking.ts`, `nutrition`, `supplements.ts`, `money.ts`, `medals.ts`, `confession.ts`, `identity.ts`, `focus.ts`, `hybridRouting.ts`, `bloodwork.ts`, `findings.ts`, `analytics.ts`, `monitoring.ts`, `injuryHub.ts`, `tabuBoerse.ts`, `ramadanMode.ts`, `arcMode.ts`, `bodyAtlas.ts`, `drivetrain.ts`, `gearing.ts`, `knowledge.ts`.
+*   **Screens (`src/screens/`, 27):** u. a. `MasterScreen`, `DayScreen`, `DayArchitectureScreen`, `WeeklyPlanScreen`, `ToolsScreen`, `NutritionScreen`, `StackScreen`, `ProductsScreen`, `ShopScreen`, `TabuScreen`, `MoneyScreen`, `BloodworkScreen`, `FindingsScreen`, `BodyAtlasScreen`, `BodyScreen`, `RecoveryModeScreen`, `RamadanModeScreen`, `MonitoringScreen`, `InjuryHubScreen`, `AnalyticsScreen`, `MedalsScreen`, `ManifestScreen`, `QuizScreen`, `FocusScreen`, `GearingScreen`, `DrivetrainScreen`, `onboarding/OnboardingFlow`.
+*   **State (`src/state/`):** `DisciplineContext`, `ProfileContext`, `StackContext`, `ArcModeContext`, `storage.ts` (AsyncStorage, `sl_`-Keys). Theme-Wechsel via `ThemeContext` (Light/Hard/Expert/Master).
+*   **E2E:** Detox ist konfiguriert (`.detoxrc.json`, `e2e/firstTest.e2e.js`, `weekly-planner-stack-e2e.mjs`) — **noch nicht auf einem Gerät/Build ausgeführt** (siehe TODO 3).
+*   ⚠️ **DEV-Flag offen:** `DAYS_PER_STAGE = 5` (`src/logic/discipline.ts:18`) — vor Launch auf den Produktionswert setzen (siehe 0.4).
+*   **Migrations-Restliste — Stand:** Studien/Disclaimer/Efficiency (75/76/82), Zwei-Achsen-Matrix (11), Training-Steuer (25) + Confession Loop (108), Profil-Medaillen (35), Befund-Drosselung (66), Fokus-Matrix (132), Hybrid-Routing (140), Blutwerte-Modul, Analytics-Dashboard **sind als Module + Tests im Code vorhanden**. Offen: E-Commerce/Affiliate (83/91/92, Phase 3), Detox-Lauf auf Gerät, `security-audit.yml`.
 
 ---
 
 ## 8. AKTUELLES TODO (Nächste Prioritäten — Befehlsform)
 
-1.  **Verifiziere Abschnitt 7B im `vaaav-mobile`-Repo:** Prüfe die genannten Commits, lasse die Test-Suite laufen (Soll: 65/65 grün), gleiche die Migrations-Restliste ab. Korrigiere dieses Dokument entsprechend.
-2.  **Aktiviere die Security-Pipeline:** Lege `.github/workflows/security-audit.yml` (Abschnitt 9, Teil 3D) in `vaaav-mobile` und `vaaav-backend` an — vor jedem weiteren Feature-Commit.
-3.  **Baue das Detox-Framework für E2E-Automation tatsächlich und lasse es laufen** (nicht nur konfigurieren): `npm install detox detox-cli`, `detox.config.js` + `e2e/`-Suite. Szenarien: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove. Ziel: 5–10 kritische User-Flows (kein Vollständigkeits-Coverage). Build via `eas build`.
-4.  **Setze den Fokus-Matrix-Ausbau fort:** Goal-Ranking (Drag-and-Drop-Neusortierung) und Auto-Setup (automatische Modul-Freischaltung nach Fokus-Selektion).
-5.  **Rüste die Trend-Grafik für Blutwerte über die Zeit nach** (Blutwerte-Modul).
-6.  **PWA-Pflege (dieses Repo):** Setze `PREVIEW_UNLOCK_ALL = false` auf die Launch-Checkliste. Zerlege `js/main.js` weiter in Module. Zähle `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hoch.
-7.  **E-Commerce/Affiliate-Logik (83/91/92) erst, wenn Phase 3 (Backend/Recht) ansteht.** Finale-Parkplatz respektieren.
+1.  **Aktiviere die Security-Pipeline in `vaaav-mobile`:** Lege `.github/workflows/security-audit.yml` (Abschnitt 9, Teil 3D) an — Gitleaks + `npm audit --audit-level=high` + Semgrep (`p/javascript p/typescript p/react p/secrets`). Höchste Wirkung, minimaler Aufwand, blockiert Leaks/CVEs ab sofort.
+2.  **Führe die Detox-E2E-Suite tatsächlich auf einem Build aus** (Konfiguration + Tests liegen bereits: `.detoxrc.json`, `e2e/`): `npm run test:e2e:build:ios` bzw. `:android`, dann `npm run test:e2e`. Szenarien absichern: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove. Build via EAS.
+3.  **Ziehe die `vaaav-mobile/README.md`-Statuszeile nach** („UI-Prototyp" → realer Stand: 271 Tests, 27 Screens) beim nächsten Mobile-Commit.
+4.  **Baue die nächsten 🔨-Features** (kein Backend nötig): Fokus-Matrix-Ausbau (Goal-Ranking per Drag-and-Drop, Auto-Setup), Trend-Grafik für Blutwerte über die Zeit, Tabu-Börse (#111/#147), Wissens-Feed (#171), Wallpaper-Bar (#149).
+5.  **Setze vor Launch die DEV-Flags zurück:** `DAYS_PER_STAGE` (mobile) auf Produktionswert, `PREVIEW_UNLOCK_ALL = false` (PWA).
+6.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
+7.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
 
 ---
 
