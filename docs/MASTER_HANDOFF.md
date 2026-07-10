@@ -646,17 +646,19 @@ Der Shop für physische Artefakte ist ein geschlossenes System — sichtbar auss
 
 Das digitale Coin Book sammelt **freischaltbare Blumen-Assets** als Erfolgs-Trophäen (verknüpft mit #35 Medaillen und den physischen Coins #163). 51 Blumen in vier Tiers, jede an ein Level der Design-Matrix gekoppelt — der Look steigt mit dem Rang.
 
-*   **Katalog (verifiziert, `vaaav-mobile` PR #6):** `src/logic/coinBook.ts` — 51 Blumen (`COIN_FLOWERS`), vier Tiers (`COIN_TIERS`), Prompt-Generator `flowerPrompt()`. 8 Tests, 304/304 grün.
+*   **Katalog (verifiziert, `vaaav-mobile` PR #6):** `src/logic/coinBook.ts` — 51 Blumen (`COIN_FLOWERS`), vier Tiers (`COIN_TIERS`), Prompt-Generator `flowerPrompt()`.
 *   **Die vier Tiers:**
     *   **Tier I – Basis** → Design-Level `phaseZero`: Liquid Glass, halbtransparentes Frostglas, kühles Blau (15 Blumen).
     *   **Tier II – Konstanz** → `workbench`: glühendes Laser-Leder, „Veteranen-Narbe" in Feuer-Orange/Rot (14).
     *   **Tier III – High Performance** → `master`: mechanisches Titan mit Gold-Akzenten, Iris-Mechanik (16).
     *   **Tier IV – Prestige & Legacy** → `legacy` (jenseits der 4 UI-Level): massives Gold + Obsidian, majestätisch; „Bibble" ist das Saphir-Easter-Egg (6).
 *   **Generierungs-Workflow (First-Principles, wartbar):** Der Betreiber-Prompt-Pack bestand aus 51 fast identischen Midjourney-Prompts. **Verbindlich ab jetzt:** Pflege **eine Vorlage pro Tier** (im Code) statt Einzel-Prompts — `flowerPrompt(flower)` erzeugt den stil-konsistenten Prompt. Das garantiert einen kohärenten Asset-Pack ohne Style-Drift. Aster/Rose reproduzieren den Original-Wortlaut wortgetreu (Test-abgesichert).
-*   **Offene Entscheidungen (bewusst nicht geraten):**
-    1.  **Blume → Erfolg-Mapping** ist undefiniert (welche Blume schaltet welcher Meilenstein frei). Naheliegend: pro Stage-Aufstieg / Medaille die nächste Blume des passenden Tiers.
-    2.  **Bild-Pipeline:** Keine 8k-Renders ins Repo. Generieren → auf ~512 px komprimieren → lazy-load. Erst 4 Hero-Blumen (1/Tier) validieren, bevor alle 51 produziert werden. Bis dahin rendert die App prozedurale Platzhalter aus der Tier-Palette (wie die Wallpaper-Bar #149).
-    3.  **Coin-Book-Screen** kommt, sobald Mapping + Hero-Assets stehen.
+*   **Blume → Erfolg-Mapping ✅ (`vaaav-mobile` PR #7):** eine Blume je **7 disziplinierte Tage** (Lifetime-Zähler `disciplinedDays`, nie dekrementierbar), in Katalog-Reihenfolge Tier I → IV (`unlockedFlowerCount`/`coinBookProgress`). 51 × 7 = 357 Tage — Tier IV (Gold) wird bewusst erst nach ~11 Monaten echter Disziplin komplett. Radikale Gleichheit, nicht käuflich.
+*   **Coin-Book-Screen ✅ (`vaaav-mobile` PR #7):** Fortschrittsbalken, nächste Blume + Resttage, vier Tier-Sektionen im Grid. Prozedurale `LinearGradient`-Platzhalter live aus der Tier-Palette (`theme.ts`) — dieselbe Strategie wie die Wallpaper-Bar (#149), keine externen Bild-Assets nötig. 12 Coin-Book-Tests gesamt, alle grün.
+*   **Offen (bewusst nicht geraten):**
+    1.  **Bild-Pipeline:** Keine 8k-Renders ins Repo. Generieren → auf ~512 px komprimieren → lazy-load; erst 4 Hero-Blumen (1/Tier) validieren, bevor alle 51 produziert werden. `imageAsset` bleibt leer, bis reale Renders vorliegen.
+    2.  **Backend-Härtung:** Sobald Phase 3 (Backend) ansteht, gehört `disciplinedDays` serverseitig verifiziert wie jede andere Prestige-Berechnung (Zero-Trust-Frontend-Regel) — aktuell rein clientseitig (Phase-1-Architektur).
+    3.  Verknüpfung mit Medaillen (#35) / physischen Coins (#163) als zusätzliche Trigger-Quelle — aktuell ausschließlich zeit-/disziplinbasiert.
 
 ---
 
