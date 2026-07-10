@@ -18,6 +18,7 @@ const FILES = {
     daytypes:        'app/daytypes.json',
     studies:         'studies/studies.json',
     tips:            'app/tips.json',
+    inspiration:     'app/inspiration.json',
     quiz:            'app/quiz.json',
     manifest:        'app/manifest.json',
     truthsplit:      'app/truthsplit.json',

@@ -26,6 +26,7 @@ const mental = load('health/mental.json');
 const daytypes = load('app/daytypes.json');
 const studies = load('studies/studies.json');
 const tips = load('app/tips.json');
+const inspiration = load('app/inspiration.json');
 const quiz = load('app/quiz.json');
 const manifest = load('app/manifest.json');
 const truthsplit = load('app/truthsplit.json');
@@ -98,6 +99,26 @@ else tips.forEach((t, i) => {
     });
     if (t.id) { if (tipIds.has(t.id)) fail(`${at}: doppelte id "${t.id}"`); tipIds.add(t.id); }
 });
+
+// ── inspiration (Inspirations-Impuls #129) ──────────────────────────────────
+const SEASONS = new Set(['winter', 'fruehling', 'sommer', 'herbst', 'ganzjaehrig']);
+const inspoIds = new Set();
+if (!Array.isArray(inspiration) || inspiration.length === 0) fail('inspiration.json: muss ein nicht-leeres Array sein');
+else {
+    inspiration.forEach((t, i) => {
+        const at = `inspiration[${i}]`;
+        ['id', 'season', 'cat', 'title', 'text'].forEach(k => {
+            if (typeof t[k] !== 'string' || !t[k].trim()) fail(`${at}: "${k}" fehlt oder ist kein String`);
+        });
+        if (t.season && !SEASONS.has(t.season)) fail(`${at}: unbekannte season "${t.season}" (erlaubt: ${[...SEASONS].join(', ')})`);
+        if (t.id) { if (inspoIds.has(t.id)) fail(`${at}: doppelte id "${t.id}"`); inspoIds.add(t.id); }
+    });
+    // Jede Jahreszeit braucht mind. einen Impuls – sonst wäre die Karte monatelang leer.
+    ['winter', 'fruehling', 'sommer', 'herbst'].forEach(s => {
+        if (!inspiration.some(t => t.season === s || t.season === 'ganzjaehrig'))
+            fail(`inspiration.json: keine Impulse für Saison "${s}" (auch kein ganzjähriger)`);
+    });
+}
 
 // ── quiz (Body-IQ) ────────────────────────────────────────────────────────────
 const quizIds = new Set();

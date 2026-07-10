@@ -50,6 +50,7 @@
         let TIMELINE_CONFIG = [];
         let STUDIES = [];   // Studien-/Beleg-Datenbank (data/studies/studies.json)
         let TIPS = [];      // Tipp des Tages (data/app/tips.json)
+        let INSPIRATION = []; // Inspirations-Impuls (#129, data/app/inspiration.json)
         let QUIZ = [];      // Body-IQ-Quiz (data/app/quiz.json)
         let MANIFEST = [];  // 18-Punkte-Manifest (data/app/manifest.json)
         let TRUTHSPLIT = {}; // Split-Screen der Wahrheit je Kategorie (data/app/truthsplit.json)
@@ -970,6 +971,30 @@
                 <div class="tip-cat">${icon} ${t.cat}</div>
                 <div class="tip-text">${t.text}</div>`;
         }
+        // Inspirations-Impuls (#129, WinterArc): wie der Tipp des Tages, aber
+        // Aktivitäten & Sportarten – saisonal gefiltert (plus ganzjährige Impulse),
+        // deterministisch nach Tag im Jahr rotiert (radikale Gleichheit). Sachlich
+        // anregen, nicht aufdringlich; Daten in data/app/inspiration.json.
+        const SEASON_BY_MONTH = ['winter', 'winter', 'fruehling', 'fruehling', 'fruehling', 'sommer', 'sommer', 'sommer', 'herbst', 'herbst', 'herbst', 'winter'];
+        const SEASON_LABEL = { winter: '❄️ Winter', fruehling: '🌱 Frühling', sommer: '☀️ Sommer', herbst: '🍂 Herbst', ganzjaehrig: '🔁 Ganzjährig' };
+        function inspirationOfDay() {
+            if (!INSPIRATION.length) return null;
+            const now = new Date();
+            const season = SEASON_BY_MONTH[now.getMonth()];
+            const pool = INSPIRATION.filter(i => i.season === season || i.season === 'ganzjaehrig');
+            if (!pool.length) return null;
+            const start = new Date(now.getFullYear(), 0, 0);
+            const dayOfYear = Math.floor((now - start) / 86400000);
+            return pool[dayOfYear % pool.length];
+        }
+        function inspoCardHtml() {
+            const i = inspirationOfDay();
+            if (!i) return '';
+            return `<div class="dash-icon">🧭</div><div class="dash-title">Inspirations-Impuls</div>
+                <div class="tip-cat">${SEASON_LABEL[i.season] || ''} · ${i.cat}</div>
+                <div class="inspo-title">${i.title}</div>
+                <div class="tip-text">${i.text}</div>`;
+        }
         // Profil-Medaillen (#35): sichtbare Belohnung der VERDIENTEN Reise.
         // Bewusst nur aus echter Disziplin abgeleitet (disziplinierte Tage, Stufe,
         // Status) – nicht aus SilberStaub, denn Staub ist ausgebbar und wäre damit
@@ -1304,6 +1329,8 @@
             // (Manifest & Medaillen & Body-IQ leben jetzt im Profil-Bereich → showProfil)
             // Tipp des Tages (#101) – motivierender Abschluss der Übersicht
             if (TIPS.length) cards.push({ htmlOnly: true, cls: 'wide tip', html: tipCardHtml() });
+            // Inspirations-Impuls (#129) – saisonale Aktivitäts-Anregung (WinterArc)
+            if (inspirationOfDay()) cards.push({ htmlOnly: true, cls: 'wide inspo', html: inspoCardHtml() });
 
             grid.innerHTML = '';
             cards.forEach(c => {
@@ -4210,6 +4237,7 @@
                 MENTAL          = data.mental;
                 STUDIES         = data.studies || [];
                 TIPS            = data.tips || [];
+                INSPIRATION     = data.inspiration || [];
                 QUIZ            = data.quiz || [];
                 MANIFEST        = data.manifest || [];
                 TRUTHSPLIT      = data.truthsplit || {};
@@ -4373,7 +4401,7 @@ Object.assign(window, {
 // ── VERSION ─────────────────────────────────────────────────────────────────
 // Sichtbare Versionsnummer (oben rechts). Bei jedem Deploy zusammen mit der
 // CACHE_VERSION im service-worker.js hochzählen.
-const APP_VERSION = 'v60';
+const APP_VERSION = 'v61';
 (function initVersionBadge() {
     const badge = document.getElementById('versionBadge');
     if (!badge) return;
