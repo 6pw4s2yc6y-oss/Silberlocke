@@ -309,7 +309,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) ✅📱 Recovery Mode „Post-Intensiv": Regenerations-Protokoll für die Stunden/Tage nach extremer Belastung. **(RN FERTIG – deckt sich mit dem bereits gebauten RecoveryMode (Kcal-Schuld nach intensiver Einheit) + der neuen Regenerationsphase danach, siehe 29ah. Keine weitere Arbeit nötig.)**
 
 **Next-Day-Prep & Performance-Planung:**
-- (🆕) 🔨 Tages-Architektur: Arbeitszeiten/feste Blocker eintragen, daraus verfügbare Trainings-/Regenerationsfenster berechnen. Jetzt baubar, reine lokale Kalenderlogik.
+- (🆕) ✅📱 Tages-Architektur: Arbeitszeiten/feste Blocker eintragen, daraus verfügbare Trainings-/Regenerationsfenster berechnen. **(RN FERTIG – neuer DayArchitectureScreen berechnet freie Fenster im Wachfenster abzüglich fester Blocker, siehe 29ao.)**
 - (🆕) 🔨 Makro-Planung: Eiweißbedarf & Nährstoffe im Voraus auf die geplante Belastung des Folgetags abstimmen. Jetzt baubar – kann an die bereits vorhandene Trainingsplan-/dayType-Logik andocken.
 
 **Dynamische Events & Kulturelle Modi:**
@@ -317,7 +317,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) 🔨 Globale Events: generische Infrastruktur für weitere saisonale/sportliche/app-interne Challenges. Lokale Basis-Infrastruktur jetzt baubar; echte GLOBAL-synchronisierte Events (serverseitig, alle Nutzer gemeinsam) wären Phase 3.
 
 **UI & Progress-System:**
-- (🆕) 🔨 Arc Mode: isolierter, fokussierter Interface-Status (reduziertes UI für Deep-Work/Training). Jetzt baubar als reiner UI-State.
+- (🆕) ✅📱 Arc Mode: isolierter, fokussierter Interface-Status (reduziertes UI für Deep-Work/Training). **(RN FERTIG – blendet in Dein Tag alle Zusatzkarten/Banner aus, zeigt nur den nächsten offenen Block, siehe 29an.)**
 - (🆕) ✅📱 Freischaltbare Themes: exklusive Hintergründe/Materialien fürs Dashboard, freigeschaltet durch Nutzung/Meilensteine. **(RN FERTIG – Vibe-Wahl an Freischalt-Bedingungen gekoppelt: Tribunal nach erstem Tabu-Börse-Kauf, Master nach erstem echten Master-Aufstieg, bleibt danach dauerhaft frei, siehe 29am.)**
 
 ---
@@ -575,6 +575,50 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ao. ✅ **Tages-Architektur – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10):** Arbeitszeiten/feste Blocker
+    eintragen → verfügbare Trainings-/Regenerationsfenster im Wachfenster
+    berechnen. Neue, rein lokale Kalenderlogik `src/logic/dayArchitecture.ts`:
+    `freeWindows(wake, sleep, blockers)` normalisiert Blocker relativ zum
+    Wachfenster (auch über Mitternacht hinweg, z. B. Spätschicht-Rhythmus),
+    clippt sie auf das Fenster, führt Überlappungen zusammen und liefert
+    die Lücken dazwischen; `largestWindow()` findet das größte freie
+    Fenster als Trainings-/Regenerations-Kandidat. Neuer Screen
+    `DayArchitectureScreen.tsx` (ScreenId `architektur`, Route in
+    `RootNavigator.tsx`, Zeile in `ToolsScreen.tsx`): Blocker-Liste
+    (Bezeichnung/Start/Ende, löschbar), Anzeige aller freien Fenster +
+    hervorgehobenes größtes Fenster. Persistiert unter
+    `sl_day_architecture`, nutzt `day.wake`/`day.sleep` aus
+    `ProfileContext`. 7 neue Tests (leeres Wachfenster, Blocker in der
+    Mitte, überlappende Blocker, Blocker außerhalb des Fensters,
+    Mitternacht-Wachfenster, größtes Fenster, leere Liste).
+    **250/250 Tests grün**, Typecheck sauber. Commit `46b638e`.
+
+    **Sprint-12-Punkt „Tages-Architektur" damit RN FERTIG.**
+
+29an. ✅ **Arc Mode – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10):** Isolierter, fokussierter
+    Interface-Status für Deep-Work/Training – rein kosmetischer UI-State,
+    kein Freischalt-Mechanismus nötig (jeder darf jederzeit fokussieren).
+    Neuer `ArcModeContext.tsx` (in `App.tsx` eingehängt) persistiert einen
+    globalen An/Aus-Schalter (`sl_arc_mode`), unabhängig von Fortschritt/
+    Stage. `ToolsScreen`: neue Arc-Mode-Box (Focus-Icon, Regel 4) zum
+    Umschalten. `DayScreen`: im aktiven Zustand blendet ein Banner
+    (Minimize2-Icon) den nächsten offenen Block ein und alle Zusatzkarten/
+    Banner (Identität, Clash, Wiedereinstieg, Stack, Tagestyp-Wähler,
+    Trainingszeiten-Eingabe, Nächstes-Training-Karte, Cheat-Tag, Schatten-
+    Kompensation, Beicht-Loop, Footer) werden ausgeblendet – nur die
+    Block-Checkliste (weiterhin voll funktionsfähig) sowie die
+    Krankheits-/Hydration-Karten bleiben sichtbar. Neue Logik
+    `src/logic/arcMode.ts`: `nextOpenBlock()` ermittelt den ersten noch
+    offenen Block aus der bereits zeitlich sortierten Blockliste – die
+    einzige testbare Bausteinfunktion, 4 neue Tests. **243/243 Tests
+    grün**, Typecheck sauber. Commit `40ff06e`. EAS-Update bestätigt
+    erfolgreich (beide Workflow-Runs `completed`/`success`, Run-IDs
+    29074623204/29074623293).
+
+    **Sprint-12-Punkt „Arc Mode" damit RN FERTIG.**
+
 29am. ✅ **Freischaltbare Themes – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
     Betreiber-Ideenpaket 2026-07-10):** Direkte Erweiterung der bereits
     gebauten Anpassbaren Vibes (#100, 29ai) um echte Freischalt-Bedingungen –
@@ -1476,9 +1520,15 @@ wurde als Roadmap-Abschnitt dokumentiert und nach Baubarkeit sortiert;
 Freischaltbare Themes (29am) macht als erster der 7 „sofort baubar"-Punkte
 die Vibe-Wahl (#100, 29ai) zu einer echten Errungenschaft statt frei
 wählbar von Anfang an – **Sprint-12-Punkt „Freischaltbare Themes" damit RN
+FERTIG.** Arc Mode (29an) ergänzt einen isolierten Fokus-Status für
+Deep-Work/Training (rein kosmetischer UI-State, blendet in Dein Tag alle
+Zusatzkarten/Banner aus) – **Sprint-12-Punkt „Arc Mode" damit RN FERTIG.**
+Tages-Architektur (29ao) berechnet aus Arbeitszeiten/festen Blockern die
+verfügbaren Trainings-/Regenerationsfenster im Wachfenster (neuer
+DayArchitectureScreen) – **Sprint-12-Punkt „Tages-Architektur" damit RN
 FERTIG.**
-**Testabdeckung: 239/239 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `8ce5b1a`. Infrastruktur: `vaaav-mobile`-Remote
+**Testabdeckung: 250/250 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `46b638e`. Infrastruktur: `vaaav-mobile`-Remote
 mit Betreiber-Freigabe auf `https://github.com` umgestellt (lokaler
 Push-Proxy dauerhaft ausgefallen, siehe 29ak).
 
@@ -1534,8 +1584,8 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 der „sofort baubar"-Liste, Betreiber-Anweisung „Weiter machen mit
 baubarenpunkte":**
 - ~~Freischaltbare Themes~~ ✅ 8ce5b1a (siehe 29am oben).
-- Arc Mode (isolierter/reduzierter UI-Fokus-Status) – offen.
-- Tages-Architektur (Arbeitszeiten/Blocker → Trainingsfenster-Berechnung) – offen.
+- ~~Arc Mode~~ ✅ 40ff06e (siehe 29an oben).
+- ~~Tages-Architektur~~ ✅ 46b638e (siehe 29ao oben).
 - Makro-Planung (Eiweißbedarf im Voraus auf Folgetags-Belastung abstimmen) – offen.
 - Ramadan Mode (Datumsdatei-basierte Fasten-Anpassung) – offen.
 - Antriebs-Management (manuelles km-Tracking, Ketten-/Wartungsschwelle) – offen.
