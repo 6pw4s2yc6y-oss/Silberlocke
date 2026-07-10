@@ -551,6 +551,32 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29aj. ✅ **Degradierungs-Automatik (#26): Status 0 → Rückstufung auf Light
+    Mode – RN FERTIG, 🆕 kein PWA-Vorbild (Roadmap-Punkt war nur ein
+    Ein-Zeiler ohne Blaupausen-Logik):** Betreiber-Vorgabe: fällt der
+    Disziplin-Status auf 0, wird der Nutzer auf Light Mode zurückgestuft.
+    `disciplinedDays`, Punkte-Historie und Freischaltungen bleiben
+    vollständig erhalten – nur der Stage-Fortschritt wird eingefroren, der
+    Nutzer muss sich neu hocharbeiten (Score erholt sich normal über
+    `evaluateDay()`, +25/Tag). Neues `stageResetAt`-Feld
+    (`disciplinedDays`-Stand bei der letzten Degradierung); neue
+    `effectiveStageDays()` = `disciplinedDays − stageResetAt` treibt jetzt
+    die Stage-Berechnung in `checkUnlocks()` statt des rohen Lifetime-
+    Zählers – verhindert, dass der Gatekeeper sofort wieder auf die alte
+    Stage hochzieht. Neue `checkDegradation()` (No-op bei Light/darunter
+    oder Score > 0), in `reconcileProgress()` direkt nach der Score-
+    Penalty-Berechnung eingehängt. Degradierungs-Nachricht läuft über den
+    bestehenden `DisciplineEvent`/Toast-Mechanismus (kein neues UI nötig).
+    Bewusst NICHT re-getriggert: `phaseZeroActive()` bleibt am rohen
+    Lifetime-Zähler (kein erneuter „erster Monat straffrei" nach einer
+    Degradierung). 8 neue Tests (No-op-Fälle, Rückstufung, kein Sofort-
+    Wiederaufstieg, echter Wiederaufstieg über neue Tage, Integration in
+    `reconcileProgress`), **228/228 Tests grün**, Typecheck sauber. Commit
+    dfb3235. EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29048869532/29048869551).
+
+    **Roadmap #26 damit als RN FERTIG markiert.**
+
 29ai. ✅ **Anpassbare Vibes (#100): Design-Matrix-Level manuell wählbar –
     RN FERTIG, 🆕 kein PWA-Vorbild:** Nächster Punkt aus dem zuvor
     angebotenen Kandidaten-Menü (nach Recovery-Ausbau). Die vierstufige
@@ -1316,11 +1342,18 @@ zwischen abbezahlter akuter Kcal-Schuld und „einsatzbereit" – RecoveryMode
 hat damit zwei klar getrennte Phasen (akut → Regeneration → bereit).
 Anpassbare Vibes (29ai, Roadmap #100) macht die Design-Matrix-Level
 manuell wählbar, unabhängig vom Fortschritt – **Roadmap #100 damit RN
-FERTIG.**
-**Testabdeckung: 220/220 Tests grün** (unverändert, `theme.ts` nicht
-unit-testbar), Typecheck sauber. Aktueller Commit `vaaav-mobile` main:
-`57098ba` (EAS-Update bestätigt erfolgreich, Run-IDs
-29048131376/29048131385).
+FERTIG.** Degradierungs-Automatik (29aj, Roadmap #26) stuft bei Status 0
+auf Light Mode zurück, Punkte/Historie bleiben erhalten – **Roadmap #26
+damit RN FERTIG.**
+**Testabdeckung: 228/228 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `dfb3235` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29048869532/29048869551).
+
+**In Arbeit:** Stage-Leiter-Erweiterung (Shadow vor Light, Middle
+zwischen Light und Hard) + Eternity Mode (zeitlich begrenzter Abo-/
+Perk-Zugang oberhalb Master, Betreiber-Vorgabe: 29€/Monat, 14 Tage
+Trial, Shop-Bestell-Perk) – Implementierung läuft, noch nicht
+committet/gepusht.
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
