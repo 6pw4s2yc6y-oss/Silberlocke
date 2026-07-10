@@ -152,11 +152,11 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (62) 🟡 Beten/Halal-Modus: Halal-/Vegan-Check bei JEDEM Produkt live (v57/v60); Gebetszeiten-Integration offen.
 *   (137) 🔨 Universelle Weisheits-Datenbank: binde Koran-Verse in Halal-Modus/Werkbank ein (Prinzipien von Geduld/Sabr, Standhaftigkeit, innerer Reinigung).
 *   (138) 🔨 Neutrales Wording: betitele Verse als „Prinzipien der Stärke". Zeige sie Trigger-basiert nur bei negativen Tagebuch-Einträgen oder Disziplin-Lücken, begleitet von haptischem Grounding (Herzschlag-Vibration).
-*   (100) 🔨 Anpassbare Gaming-Themen (Vibes gemäß Design-Matrix).
-*   (134) 🔨 VΛAΛV Atomuhr (Startseite): unbestechlicher Counter „Tage durchgezogen" vs. „Tage verschwendet".
+*   (100) ✅ Anpassbare Gaming-Themen (Vibes) in `vaaav-mobile`: manuelle Level-Wahl unabhängig vom Fortschritt + Freischalt-Logik (Tribunal ab erstem Tabu-Kauf, Master nach erstem Aufstieg, bleibt danach dauerhaft frei). (`ThemeContext.tsx`, ToolsScreen-Vibe-Box)
+*   (134) ✅ VΛAΛV Atomuhr in `vaaav-mobile`: live in `MasterScreen` (`AtomClock.tsx`).
 *   (135) 🔨 Tage-Zähler: „tatsächlich durchgezogene Trainings" vs. Ausfälle.
 *   (136) 🔨 Resilienz-Engine (Mindset-Support): aktiviere bei erkannten „Tiefs" automatisch den Resilienz-Modus.
-*   (130) 🔨 Datenbasiertes Budget-Planning: erstelle aus gesammelten Financial-Hub-Daten proaktive Budget-Pläne und Limits.
+*   (130) ✅ Datenbasiertes Budget-Planning in `vaaav-mobile` (PR #9): schlägt aus der Trash-Ausgaben-Historie ab 2 abgeschlossenen Monaten automatisch ein Sparziel-Limit vor (10 % unter dem historischen Schnitt). 7 Tests, 319/319 grün. (`trashBudgetPlan` in `money.ts`, MoneyScreen)
 *   (131) 🔨 Regressions-Frühwarnsystem (Muster- & Depressions-Tracking).
 *   (127) 🔨 Financial-Hub (Phase 1: manuelle Eingabe der Ausgaben; Open-Banking-Sync erst Phase 3, #85).
 *   (128) 🔵 Medical-Terminal als hochsicheres, verschlüsseltes Archiv für Befunde (siehe Abschnitt 19).
@@ -341,7 +341,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 7.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
 8.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
 9.  **Coin-Book-Hero-Assets:** 4 Hero-Blumen (1 je Tier) in Midjourney generieren, Stil-Kohärenz validieren, dann als `imageAsset` in `coinBook.ts` verlinken — erst danach die restlichen 47 produzieren.
-10. **Nächste offene Frontend-Punkte** (kein Backend nötig, siehe Sprint-Listen in Abschnitt 6): u. a. Themes/Vibes-Ausbau (#100), Universelle Weisheits-Datenbank (#137/#138), Resilienz-Engine (#136), Datenbasiertes Budget-Planning (#130). **Vor dem nächsten Feature: kurz den Code prüfen, ob es nicht schon existiert** (siehe Punkt 4 — zweimal war der Handoff hier veraltet).
+10. ~~**Themes/Vibes-Ausbau (#100)**~~ ✅ **war bereits gebaut** (Doku-Drift, siehe Sprint 3 oben — dritter Fund dieser Art in dieser Session nach Blutwert-Trend und Hybrid-Routing-Hinweistext). ~~**Datenbasiertes Budget-Planning (#130)**~~ ✅ (PR #9). **Echt offen:** Resilienz-Engine (#136) — mechanisch klar umrissen, nächster Kandidat. Universelle Weisheits-Datenbank (#137/#138) braucht reale Koran-Zitate — **bewusst nicht von der KI geraten/erfunden**, hier ist Betreiber-Input nötig (Quellenangabe, Auswahl der Verse), bevor Code entsteht. **Vor jedem weiteren Feature: kurz den Code prüfen, ob es nicht schon existiert** — inzwischen dreimal in dieser Session der Fall gewesen.
 
 ---
 
