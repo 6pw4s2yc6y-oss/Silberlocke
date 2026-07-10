@@ -158,7 +158,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (136) 🔨 Resilienz-Engine (Mindset-Support): aktiviere bei erkannten „Tiefs" automatisch den Resilienz-Modus.
 *   (130) ✅ Datenbasiertes Budget-Planning in `vaaav-mobile` (PR #9): schlägt aus der Trash-Ausgaben-Historie ab 2 abgeschlossenen Monaten automatisch ein Sparziel-Limit vor (10 % unter dem historischen Schnitt). 7 Tests, 319/319 grün. (`trashBudgetPlan` in `money.ts`, MoneyScreen)
 *   (131) 🔨 Regressions-Frühwarnsystem (Muster- & Depressions-Tracking).
-*   (127) 🔨 Financial-Hub (Phase 1: manuelle Eingabe der Ausgaben; Open-Banking-Sync erst Phase 3, #85).
+*   (127) ✅ Financial-Hub (Phase 1) in `vaaav-mobile`: manuelle Eingabe von Einkommen, Fixkosten, Schulden, Budget-Aufteilung. Open-Banking-Sync bleibt Phase 3 (#85). (MoneyScreen, `money.ts`)
 *   (128) 🔵 Medical-Terminal als hochsicheres, verschlüsseltes Archiv für Befunde (siehe Abschnitt 19).
 *   (61) 🅿️ Rigoroser „Aleman Trink-Timer" (native Alarme — PWA-Limits).
 
@@ -214,7 +214,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (13) 🟡 Hard Mode: exaktes Gramm-Tracking.
 *   (14) 🟡 Expert Mode: minutengenaues Timing.
 *   (21) 🟡 Truth-Engine entzieht Betrügern Punkte.
-*   (26) 🔨⚠️ Degradierungs-Automatik: stufe bei Verstößen zurück (Regeln sauber definieren; siehe Abschnitt 15).
+*   (26) ✅⚠️ Degradierungs-Automatik in `vaaav-mobile`: fällt der Disziplin-Status auf 0, Rückstufung auf Light Mode (Punkte/Freischaltungen bleiben erhalten, nur der Stage-Fortschritt startet neu). Identisch mit #169. (`checkDegradation` in `discipline.ts`)
 *   (28) 🔨 Verbindliche Therapie-Verträge blockieren Laster (lokal).
 *   (111) ✅ Tabu-Börse (Anti-Stockpiling) in `vaaav-mobile`: Sünden-Produkte legal mit Punkten freischalten, 7-Tage-Sperre pro Produkt. Eiserne Regel: **Nichts auf Vorrat.** (`tabuBoerse.ts`, TabuScreen)
 *   (112) ✅ Schatten-Kompensation in `vaaav-mobile`: stiller Kalorienausgleich für Tabu-Käufe (`shadowCompensationNote`).
@@ -267,7 +267,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (152) 🔨 Wöchentlicher Master-Bestellplan: bündle alle zur Neige gehenden Produkte zu einer fertigen Einkaufs-/Nachbestell-Liste.
 *   (166) 🔨 Individual Book: verkaufe personalisierte Erfolgs-Historien als gedrucktes Buch (siehe Abschnitt 17).
 *   (168) 🔨 Shop-Incentive: schalte bei Bestellung physischer Ware den „Eternity Mode" bis zur Lieferung frei.
-*   (169) 🔨 Disziplin-Fallback: stufe bei Scoring-Abfall automatisch auf Light Mode zurück.
+*   (169) ✅ Disziplin-Fallback — identisch mit #26 (`checkDegradation`), bereits live in `vaaav-mobile`.
 *   (84) 🔵 Verifizierte Amazon/Google-Bewertungen einbinden.
 *   (85) 🔵 Open-Banking-Schnittstelle (FinAPI/Tink).
 *   (86) 🔵 Trash-Ausgaben-Analyse (Lieferdienste = Disziplin-Schwäche).
@@ -285,7 +285,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
 *   (70) 🔨 Generiere einen schonenden Wiedereinstiegs-Plan nach Krankheit (algorithmischer Ramp-Up).
 *   (119) 🔨 „VΛAΛV-Paradoxon": die Perfektions-Falle — Mikromanagement wird obsolet.
-*   (120) 🔨 Eternity Mode (Endgame): entlasse den Nutzer in lebenslange, straffreie Freiheit.
+*   (120) ✅ Eternity Mode (Endgame) in `vaaav-mobile`: Grant/Revoke, Trial (14 Tage), Preis, Aktivierung nur ab Master Mode. (`grantEternity`/`isEternityActive` in `discipline.ts`, ToolsScreen)
 *   (170) 🔨 Recovery-Lock-Pacing: schalte Tools während des Recovery-Modus sukzessive frei.
 *   (153) 🔵⚠️ Ärztliches OK: zwingende Bestätigungsschranke nach dem Recovery-Mode.
 *   (9) 🔵 Freiwilliges Spendenmodell für Serverfinanzierung (exklusiv für Absolventen).
@@ -341,7 +341,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 7.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
 8.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
 9.  **Coin-Book-Hero-Assets:** 4 Hero-Blumen (1 je Tier) in Midjourney generieren, Stil-Kohärenz validieren, dann als `imageAsset` in `coinBook.ts` verlinken — erst danach die restlichen 47 produzieren.
-10. ~~**Themes/Vibes-Ausbau (#100)**~~ ✅ **war bereits gebaut** (Doku-Drift, siehe Sprint 3 oben — dritter Fund dieser Art in dieser Session nach Blutwert-Trend und Hybrid-Routing-Hinweistext). ~~**Datenbasiertes Budget-Planning (#130)**~~ ✅ (PR #9). **Echt offen:** Resilienz-Engine (#136) — mechanisch klar umrissen, nächster Kandidat. Universelle Weisheits-Datenbank (#137/#138) braucht reale Koran-Zitate — **bewusst nicht von der KI geraten/erfunden**, hier ist Betreiber-Input nötig (Quellenangabe, Auswahl der Verse), bevor Code entsteht. **Vor jedem weiteren Feature: kurz den Code prüfen, ob es nicht schon existiert** — inzwischen dreimal in dieser Session der Fall gewesen.
+10. ~~**Themes/Vibes-Ausbau (#100)**~~ ✅ war bereits gebaut. ~~**Budget-Planning (#130)**~~ ✅ (PR #9). ~~**Fokus-Matrix (#132)**~~ ✅ ~~**Hybrid-Routing (#140)**~~ ✅ ~~**Degradierung (#26/#169)**~~ ✅ ~~**Financial-Hub (#127)**~~ ✅ ~~**Eternity Endgame (#120)**~~ ✅ — alle bereits gebaut, war reine Doku-Drift (10 Korrekturen in dieser Session — siehe Kapitel 0.3 für den vollständigen Verlauf). **Echt offen, nächster Kandidat: Resilienz-Engine (#136).** Universelle Weisheits-Datenbank (#137/#138) braucht reale Koran-Zitate — **bewusst nicht von der KI geraten/erfunden**, hier ist Betreiber-Input nötig (Quellenangabe, Auswahl der Verse), bevor Code entsteht. **Vor jedem weiteren Feature: kurz den Code prüfen, ob es nicht schon existiert** — die Drift-Quote lag bei ~10 von 171 Punkten.
 
 ---
 
