@@ -275,7 +275,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
 - (70) 🔨 App generiert schonenden Wiedereinstiegs-Plan nach Krankheit.
 - (119) 🔨 „VΛAΛV-Paradoxon": Die Perfektions-Falle.
-- (120) 🔨 Eternity Mode: Entlässt den Nutzer in die lebenslange Freiheit.
+- (120) 🟡📱 Eternity Mode (RN TEILWEISE: neu definiert als Abo-/Perk-Zugang oberhalb Master – 29 €/Monat, 14 Tage Trial, Shop-Bestell-Perk; lokaler Zugangs-Mechanismus live, siehe 29ak. Echte Zahlungs-/Bestellabwicklung = Phase 3/Backend).
 - (🆕) 🔵⚠️ Ärztliches OK: Zwingende Bestätigungsschranke nach dem Recovery-Mode.
 - (9) 🔵 Freiwilliges Spendenmodell für Serverfinanzierung (exklusiv für Absolventen).
 - (10) 🔵 Erfolgreiche Absolventen geben „Legacy-Profile" frei.
@@ -551,6 +551,51 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29ak. ✅ **Stage-Leiter erweitert (Shadow+Middle) + Eternity Mode – 🆕
+    Betreiber-Vorgaben:** Zwei zusammenhängende Erweiterungen des
+    Stufen-Systems.
+    **(1) Neue Stufen Shadow und Middle:** `STAGES` jetzt
+    shadow → light → middle → hard → expert → master (6 statt 4,
+    Betreiber-Vorgabe: „Shadow vor Light, Middle zwischen Light und
+    Hard"). Rein additiv – bestehende Spielstände (light/hard/expert/
+    master) bleiben gültige Werte, kein Daten-Bruch. `defaultProgress()`
+    startet neue Nutzer jetzt bei `'shadow'` (matcht das vorhandene
+    Schatten-Tracking-/Phase-Zero-Konzept). **Dabei gefundener Bug in
+    `medals.ts`:** Stufen-Medaillen verglichen hartcodierte STAGES-
+    Indizes (>= 1 / >= 2) statt Namen – hätte mit den neuen Stufen falsche
+    Medaillen vergeben (Hard-Medaille bei Light usw.). Jetzt
+    `STAGES.indexOf`-Vergleich per Namen, robust gegen weitere
+    Erweiterungen; neue Light-/Middle-Medaillen ergänzt (12 statt 10).
+    `sportplan.ts`/`dayplan.ts` um shadow/middle-Einträge erweitert
+    (frühe Stufen bewusst mit demselben eingeschränkten Tagestyp-Satz
+    wie Light). **Zweiter gefundener Bug:** `checkDegradation()` (29aj)
+    prüfte nur `stage !== 'light'` – hätte mit Shadow fälschlich auch
+    von Shadow „degradiert"; jetzt Index-Vergleich.
+    **(2) Eternity Mode (Roadmap #120 – RN TEILWEISE):** Betreiber-
+    Vorgabe: kein Grind-Ziel, sondern zeitlich begrenzter Abo-/Perk-
+    Zugang OBERHALB von Master – 29 €/Monat, 14 Tage Trial, Shop-
+    Bestell-Perk (Zugang gratis bis Paket ankommt + 2 Wochen), fällt
+    nach Ablauf automatisch auf Master zurück. Neue `isEternityActive()`/
+    `grantEternity()`/`revokeEternity()` in `discipline.ts` – rein
+    datumsbasiert (`eternityUntil`), erfordert Master Mode, erneutes
+    Gewähren verlängert ab bestehendem Ablaufdatum (Shop-Perk während
+    laufendem Trial stapelt korrekt). ThemeContext: aktiver Eternity-
+    Zugang rendert Level 4 (Master/Eternity-Look). ToolsScreen: neue
+    „Eternity Mode"-Box mit Status + DEV-Trial-Buttons. **Bewusst NICHT
+    gebaut (Phase-3-Lücke):** echte Zahlungs-/Bestellabwicklung
+    (Stripe/IAP, Versand-Tracking) – hier nur der lokale Zugangs-
+    Mechanismus als Grundlage. 13 neue/angepasste Tests (Stage-Leiter,
+    Gatekeeper-Übergänge, Medaillen-Matrix, 5 Eternity-Tests),
+    **233/233 Tests grün**, Typecheck sauber. Commit c743186. EAS-Update
+    bestätigt erfolgreich (beide Workflow-Runs `completed`/`success`,
+    Run-IDs 29071161699/29071161721).
+
+    **Infrastruktur-Notiz:** Der lokale Git-Push-Proxy (127.0.0.1:41729)
+    für `vaaav-mobile` fiel dauerhaft aus; das Remote wurde mit
+    Betreiber-Freigabe auf `https://github.com/6pw4s2yc6y-oss/vaaav-mobile`
+    umgestellt (dieselbe Methode, mit der das Silberlocke-Repo bereits
+    pusht).
+
 29aj. ✅ **Degradierungs-Automatik (#26): Status 0 → Rückstufung auf Light
     Mode – RN FERTIG, 🆕 kein PWA-Vorbild (Roadmap-Punkt war nur ein
     Ein-Zeiler ohne Blaupausen-Logik):** Betreiber-Vorgabe: fällt der
@@ -1344,16 +1389,16 @@ Anpassbare Vibes (29ai, Roadmap #100) macht die Design-Matrix-Level
 manuell wählbar, unabhängig vom Fortschritt – **Roadmap #100 damit RN
 FERTIG.** Degradierungs-Automatik (29aj, Roadmap #26) stuft bei Status 0
 auf Light Mode zurück, Punkte/Historie bleiben erhalten – **Roadmap #26
-damit RN FERTIG.**
-**Testabdeckung: 228/228 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `dfb3235` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29048869532/29048869551).
-
-**In Arbeit:** Stage-Leiter-Erweiterung (Shadow vor Light, Middle
-zwischen Light und Hard) + Eternity Mode (zeitlich begrenzter Abo-/
-Perk-Zugang oberhalb Master, Betreiber-Vorgabe: 29€/Monat, 14 Tage
-Trial, Shop-Bestell-Perk) – Implementierung läuft, noch nicht
-committet/gepusht.
+damit RN FERTIG.** Stage-Leiter-Erweiterung + Eternity Mode (29ak,
+Betreiber-Vorgaben): Stufen jetzt Shadow → Light → Middle → Hard →
+Expert → Master; Eternity Mode als zeitlich begrenzter Abo-/Perk-Zugang
+oberhalb Master (29 €/Monat, 14 Tage Trial, Shop-Bestell-Perk) –
+**Roadmap #120 damit RN TEILWEISE** (echte Zahlungsabwicklung = Phase 3).
+**Testabdeckung: 233/233 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `c743186` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29071161699/29071161721). Infrastruktur: `vaaav-mobile`-Remote
+mit Betreiber-Freigabe auf `https://github.com` umgestellt (lokaler
+Push-Proxy dauerhaft ausgefallen, siehe 29ak).
 
 **Offenes Grafik-Thema:** Körper-Atlas-Silhouette (SVG-Körperfigur mit
 Hotspots, Vorder-/Rückansicht) – aktuell als Zonen-Grid vereinfacht,
