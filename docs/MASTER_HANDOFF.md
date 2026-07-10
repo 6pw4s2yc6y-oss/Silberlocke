@@ -286,7 +286,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (70) 🔨 Generiere einen schonenden Wiedereinstiegs-Plan nach Krankheit (algorithmischer Ramp-Up).
 *   (119) 🔨 „VΛAΛV-Paradoxon": die Perfektions-Falle — Mikromanagement wird obsolet.
 *   (120) ✅ Eternity Mode (Endgame) in `vaaav-mobile`: Grant/Revoke, Trial (14 Tage), Preis, Aktivierung nur ab Master Mode. (`grantEternity`/`isEternityActive` in `discipline.ts`, ToolsScreen)
-*   (170) 🔨 Recovery-Lock-Pacing: schalte Tools während des Recovery-Modus sukzessive frei.
+*   (170) ✅ Recovery-Lock-Pacing in `vaaav-mobile` (PR #13): akut krank → nur essenzielle Tools sichtbar; Wiedereinstiegsfenster → Freischaltung wächst linear mit dem Taper-Fortschritt (#70). 6 Tests, 344/344 grün. (`recoveryLockPacing.ts`, ToolsScreen)
 *   (153) 🔵⚠️ Ärztliches OK: zwingende Bestätigungsschranke nach dem Recovery-Mode.
 *   (9) 🔵 Freiwilliges Spendenmodell für Serverfinanzierung (exklusiv für Absolventen).
 *   (10) 🔵 Erfolgreiche Absolventen geben „Legacy-Profile" frei.
