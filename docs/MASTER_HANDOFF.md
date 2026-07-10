@@ -176,9 +176,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (140) ✅ Adaptives Hybrid-Routing in `vaaav-mobile`: ordnet Trainingspläne dem Primär-/Sekundärziel zu, warnt bei hoher ZNS-Belastung des Sekundärziels (deckelt nicht hart — „keine Bevormundung"). (`hybridRouting.ts`, live in WeeklyPlanScreen)
 *   (141) 🔨 Mikrozyklen-Spezifizierung (Stimulus-Fokus): frage den Trainingsreiz zwingend ab (Kraftausdauer, Hypertrophie, Muskelausdauer). Blockiere physiologisch widersprüchliche Belastungsmuster.
 *   (142) 🔨 „Pro-Peloton"-Benchmark (Tour de France): vergleiche manuell getrackte Leistungswerte (FTP, Watt/kg, Höhenmeter, Dauer) ungeschönt mit Profi-Anforderungen. Visualisiere den Abstand zur Weltklasse als prozentualen Reality-Check.
-*   (144) 🔨 Geräte-Inventar (Gear-Setup): lege Equipment einmalig an (Radcomputer, Powermeter, Beleuchtung).
-*   (145) 🔨 Pre-Tour Gear Checklist: triggere am Vorabend einer Tour eine interaktive Vorbereitungs-Liste (Schläuche, CO2, Nutrition).
-*   (146) 🔨 Charge-Check (Elektronik-Status): „Auflade"-Checkliste für alle Geräte (Radcomputer, elektronische Schaltung).
+*   (144) ✅ (145) ✅ (146) ✅ Ausrüstung in `vaaav-mobile` (PR #18): ein zusammenhängendes Modul. Geräte-Inventar (#144, einmalig anlegen, Kategorie Elektronik/Sonstiges) + feste Pre-Tour-Verbrauchsmaterial-Checkliste (#145: Schlauch, CO2/Pumpe, Nutrition, Wasser, Werkzeug) + dynamisch je elektronischem Gerät eine Auflade-Zeile (#146 Charge-Check) — eine Prep-Session statt drei getrennter Screens. Getrennt von `gearing.ts` (Übersetzungs-Setup, andere Bedeutung). Separater Speicher (`sl_gear`, `sl_pretour_checklist`), keine Punkte-Mechanik. 8 Tests, 379/379 grün. (`gearSetup.ts`, GearSetupScreen)
 *   (51) 🔨 Watt-Tracking (Phase 1: manuelle Eingabe; Hardware/BLE erst mit Ingestion Engine, Abschnitt 11).
 *   (60) 🔨 Schlaf-/Gesundheits-Metriken (Phase 1: manuelle Übertragung; Apple Health/Health Connect Sync erst Phase 3).
 *   (143) 🔵 Dedizierter Fahrrad-Bereich (innerhalb des Columbus Mode).
