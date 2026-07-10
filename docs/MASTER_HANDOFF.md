@@ -301,8 +301,8 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 **Equipment & Telemetrie („Pimp mein Bike"):**
 - (🆕) 🅿️ 3D-Fahrrad-Visualisierung: Interaktives 3D-Modell des Rennrads in der App-Übersicht. Geparkt – braucht eine neue 3D-Rendering-Abhängigkeit (z. B. React Three Fiber/expo-three) plus ein tatsächliches 3D-Asset (Modellierung/Lizenzierung), nicht nur Code.
 - (🆕) 🔵 Automatisches Verschleiß-Tracking: Abnutzung direkt aus Leistungsdaten berechnen, gekoppelt an Strava. Braucht Strava-OAuth/API-Integration – Backend/Phase 3.
-- (🆕) 🔨 Antriebs-Management: Ketten-/Antriebs-Verschleiß und Wartungsintervalle. Jetzt baubar als manuelle km-Eingabe (Rad-Kilometer aus Aktivitäten summieren, Wartungsschwelle daraus ableiten) – kein Strava nötig, konsistent mit der App-Philosophie „manuelle Dateneingabe" (siehe 29ai-Notiz zu Detox).
-- (🆕) 🔨 Übersetzungs-Setup: Digitale Abbildung der gewählten Gänge/Übersetzungen (Kettenblatt/Kassette → Entfaltung) zur Leistungsanalyse. Jetzt baubar, reine Eingabe+Rechenlogik.
+- (🆕) ✅📱 Antriebs-Management: Ketten-/Antriebs-Verschleiß und Wartungsintervalle. **(RN FERTIG – manuelle km-Eingabe, Verschleißstatus für Kette/Kassette, siehe 29ar.)**
+- (🆕) ✅📱 Übersetzungs-Setup: Digitale Abbildung der gewählten Gänge/Übersetzungen (Kettenblatt/Kassette → Entfaltung) zur Leistungsanalyse. **(RN FERTIG – Entfaltung/Geschwindigkeit je Gang berechnet, siehe 29as.)**
 
 **Recovery & System-Regeneration:**
 - (🆕) ✅📱 Recovery Mode „Krankheit": Pausiert Trainingsziele, schaltet Algorithmen auf Genesung, schützt Fortschritt/Streaks. **(RN FERTIG – deckt sich mit dem bereits gebauten Recovery-Ausbau #68/#70: Schlafen+Trinken als Workout-Ersatz an Krankheits-Tagen + schonender Wiedereinstiegs-Plan, siehe 29ag. Keine weitere Arbeit nötig, außer der Betreiber sieht eine inhaltliche Lücke zum hier beschriebenen Konzept.)**
@@ -310,10 +310,10 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 
 **Next-Day-Prep & Performance-Planung:**
 - (🆕) ✅📱 Tages-Architektur: Arbeitszeiten/feste Blocker eintragen, daraus verfügbare Trainings-/Regenerationsfenster berechnen. **(RN FERTIG – neuer DayArchitectureScreen berechnet freie Fenster im Wachfenster abzüglich fester Blocker, siehe 29ao.)**
-- (🆕) 🔨 Makro-Planung: Eiweißbedarf & Nährstoffe im Voraus auf die geplante Belastung des Folgetags abstimmen. Jetzt baubar – kann an die bereits vorhandene Trainingsplan-/dayType-Logik andocken.
+- (🆕) ✅📱 Makro-Planung: Eiweißbedarf & Nährstoffe im Voraus auf die geplante Belastung des Folgetags abstimmen. **(RN FERTIG – dockt an die Bedarfsberechnung + den Wochenplan an, siehe 29ap.)**
 
 **Dynamische Events & Kulturelle Modi:**
-- (🆕) 🔨 Ramadan Mode: Zeitlich begrenztes Event-Modul, einmalige diskrete Abfrage, passt Trainings-/Ernährungsfenster an die Fastenzeiten an. Jetzt baubar mit einer Datumsdatei (Ramadan-Zeiträume sind Jahre im Voraus bekannt, keine Live-Berechnung nötig).
+- (🆕) ✅📱 Ramadan Mode: Zeitlich begrenztes Event-Modul, einmalige diskrete Abfrage, passt Trainings-/Ernährungsfenster an die Fastenzeiten an. **(RN FERTIG – Datumstabelle 2025–2030 + Ess-/Trainingsfenster-Berechnung, siehe 29aq.)**
 - (🆕) 🔨 Globale Events: generische Infrastruktur für weitere saisonale/sportliche/app-interne Challenges. Lokale Basis-Infrastruktur jetzt baubar; echte GLOBAL-synchronisierte Events (serverseitig, alle Nutzer gemeinsam) wären Phase 3.
 
 **UI & Progress-System:**
@@ -575,6 +575,82 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29as. ✅ **Übersetzungs-Setup – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10, „Pimp mein Bike"):** Digitale
+    Abbildung der gewählten Kettenblatt/Kassette-Kombinationen zur
+    Leistungsanalyse. Reine Eingabe+Rechenlogik `src/logic/gearing.ts`
+    mit Standard-Fahrrad-Übersetzungsmathematik (keine erfundenen
+    Werte): `gearRatio()`, `development()` (Meter pro Pedalumdrehung,
+    Reifenumfang aus einer gängigen ETRTO/Sheldon-Brown-Richtwerttabelle),
+    `speedAtCadence()` (km/h bei gegebener Trittfrequenz). Neuer Screen
+    `GearingScreen.tsx` (ScreenId `uebersetzung`): Reifengrößen-Auswahl,
+    Trittfrequenz-Eingabe, Gang-Liste mit berechneter Entfaltung +
+    Geschwindigkeit pro Gang. Persistiert unter `sl_gearing`. 6 neue
+    Tests, u. a. Sanity-Check gegen einen bekannten Referenzwert
+    (50×17 bei 90 U/min ≈ 33 km/h). **271/271 Tests grün**, Typecheck
+    sauber. Commit `eda223a`.
+
+    **Sprint-12-Punkt „Übersetzungs-Setup" damit RN FERTIG – damit sind
+    alle 7 „sofort baubar"-Punkte aus Sprint 12 abgeschlossen.**
+
+29ar. ✅ **Antriebs-Management – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10, „Pimp mein Bike"):** Ketten-/
+    Kassetten-Verschleiß aus manuell geloggten Fahrten-km (kein Strava/
+    GPS nötig, konsistent mit der App-Philosophie manueller
+    Dateneingabe). `src/logic/drivetrain.ts`: `totalKm()` summiert
+    geloggte Fahrten, `wearStatus()` berechnet km seit letzter Wartung
+    relativ zu einem Intervall (gängige Faustregeln: Kette ~3000 km,
+    Kassette ~9000 km – keine erfundenen Werte). Neuer Screen
+    `DrivetrainScreen.tsx` (ScreenId `antrieb`): Fahrten-Log
+    (Datum+km, löschbar), Verschleißbalken für Kette/Kassette mit
+    „Als gewartet markieren"-Reset, Warnhinweis bei fälliger Wartung.
+    Persistiert unter `sl_drivetrain`. 6 neue Tests. **265/265 Tests
+    grün**, Typecheck sauber. Commit `bf2b6b0`.
+
+    **Sprint-12-Punkt „Antriebs-Management" damit RN FERTIG.**
+
+29aq. ✅ **Ramadan Mode – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10):** Zeitlich begrenztes Event-Modul,
+    per einmaliger diskreter Abfrage aktivierbar. Ramadan-Zeiträume sind
+    Jahre im Voraus bekannt, daher eine Datumstabelle statt
+    Live-Berechnung (`src/logic/ramadanMode.ts`, `RAMADAN_PERIODS`
+    2025–2030, öffentlich veröffentlichte ca. gregorianische
+    Umrechnungen – Mondsichtung kann ±1 Tag abweichen, im Screen als
+    Disclaimer sichtbar). `activeRamadanPeriod()` prüft ein Datum gegen
+    die Tabelle, `ramadanEatingWindow()`/`ramadanTrainingWindow()`
+    leiten aus Suhoor-Ende/Iftar das Ess- bzw. empfohlene
+    Trainingsfenster ab (30 Min vor bis 2h nach Iftar – Training kurz
+    vor dem Fastenbrechen statt nüchtern, gängige Sporternährungs-
+    Praxis). Neuer Screen `RamadanModeScreen.tsx` (ScreenId `ramadan`):
+    Opt-in-Schalter, Suhoor/Iftar-Eingabe, berechnetes Ess- und
+    Trainingsfenster – nur sichtbar wenn Opt-in aktiv UND heute in
+    einem bekannten Ramadan-Zeitraum liegt. Persistiert unter
+    `sl_ramadan_optin`/`sl_ramadan_suhoor`/`sl_ramadan_iftar`. 7 neue
+    Tests. **259/259 Tests grün**, Typecheck sauber. Commit `26763d9`.
+    EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29084931185/29084931202).
+
+    **Sprint-12-Punkt „Ramadan Mode" damit RN FERTIG.**
+
+29ap. ✅ **Makro-Planung – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10):** Präzise Vorausplanung des
+    Eiweißbedarfs, algorithmisch abgestimmt auf die geplante Belastung
+    des Folgetags. Dockt an die bereits vorhandene Bedarfsberechnung an
+    (`calculator.ts`, Morton et al. 2018/ISSN 2017 – Logik nicht neu
+    erfunden, nur eine algorithmische Positionierung im wissenschaftlich
+    hergeleiteten Bereich) sowie an den Wochenplan (`weekPlan.ts`): an
+    Trainingstagen morgen das obere Ende des Eiweiß-Bereichs
+    (`proteinMax`), an Ruhetagen das untere Ende (`proteinMin`). Neue
+    Funktion `nextDayProteinTarget()` in `src/logic/macroPlanning.ts`
+    (2 neue Tests). `BodyScreen.tsx`: neue Makro-Planung-Karte (Beef-Icon,
+    Regel 4) zeigt den Eiweiß-Zielwert für morgen samt Begründung,
+    ermittelt aus dem Wochenplan (`sl_week`) via `todayWeekIdx()+1`.
+    **252/252 Tests grün**, Typecheck sauber. Commit `1518e7d`.
+    EAS-Update bestätigt erfolgreich (beide Workflow-Runs
+    `completed`/`success`, Run-IDs 29084706400/29084706417).
+
+    **Sprint-12-Punkt „Makro-Planung" damit RN FERTIG.**
+
 29ao. ✅ **Tages-Architektur – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
     Betreiber-Ideenpaket 2026-07-10):** Arbeitszeiten/feste Blocker
     eintragen → verfügbare Trainings-/Regenerationsfenster im Wachfenster
@@ -1526,9 +1602,19 @@ Zusatzkarten/Banner aus) – **Sprint-12-Punkt „Arc Mode" damit RN FERTIG.**
 Tages-Architektur (29ao) berechnet aus Arbeitszeiten/festen Blockern die
 verfügbaren Trainings-/Regenerationsfenster im Wachfenster (neuer
 DayArchitectureScreen) – **Sprint-12-Punkt „Tages-Architektur" damit RN
-FERTIG.**
-**Testabdeckung: 250/250 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `46b638e`. Infrastruktur: `vaaav-mobile`-Remote
+FERTIG.** Makro-Planung (29ap) plant den Eiweißbedarf für morgen anhand
+des Wochenplans voraus – **RN FERTIG.** Ramadan Mode (29aq) passt Ess-
+und Trainingsfenster in der Fastenzeit an, per Opt-in und
+Datumstabelle – **RN FERTIG.** Antriebs-Management (29ar) trackt
+Ketten-/Kassetten-Verschleiß aus manuell geloggten Fahrten-km – **RN
+FERTIG.** Übersetzungs-Setup (29as) berechnet Entfaltung/Geschwindigkeit
+je Gang-Kombination – **RN FERTIG. Damit sind alle 7 „sofort
+baubar"-Punkte aus Sprint 12 (Betreiber-Ideenpaket 2026-07-10)
+abgeschlossen** – offen bleiben nur die 3 Phase-3/Infrastruktur-Punkte
+(3D-Visualisierung, Strava-Verschleiß-Tracking, global-synchronisierte
+Events) sowie die lokale Basis für Globale Events.
+**Testabdeckung: 271/271 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `eda223a`. Infrastruktur: `vaaav-mobile`-Remote
 mit Betreiber-Freigabe auf `https://github.com` umgestellt (lokaler
 Push-Proxy dauerhaft ausgefallen, siehe 29ak).
 
@@ -1580,16 +1666,16 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 - **Anpassbare Vibes (#100) ist fertig** – siehe 29ai.
 - **Goal-Ranking (Drag-and-Drop)** vorerst zurückgestellt/nicht priorisiert.
 
-**Sprint 12 (Betreiber-Ideenpaket 2026-07-10, Kap. 7) – laufende Abarbeitung
-der „sofort baubar"-Liste, Betreiber-Anweisung „Weiter machen mit
-baubarenpunkte":**
+**Sprint 12 (Betreiber-Ideenpaket 2026-07-10, Kap. 7) – Betreiber-Anweisung
+„Weiter machen mit baubarenpunkte" ABGESCHLOSSEN, alle 7 „sofort
+baubar"-Punkte fertig:**
 - ~~Freischaltbare Themes~~ ✅ 8ce5b1a (siehe 29am oben).
 - ~~Arc Mode~~ ✅ 40ff06e (siehe 29an oben).
 - ~~Tages-Architektur~~ ✅ 46b638e (siehe 29ao oben).
-- Makro-Planung (Eiweißbedarf im Voraus auf Folgetags-Belastung abstimmen) – offen.
-- Ramadan Mode (Datumsdatei-basierte Fasten-Anpassung) – offen.
-- Antriebs-Management (manuelles km-Tracking, Ketten-/Wartungsschwelle) – offen.
-- Übersetzungs-Setup (Kettenblatt/Kassette → Entfaltung, Rechenlogik) – offen.
+- ~~Makro-Planung~~ ✅ 1518e7d (siehe 29ap oben).
+- ~~Ramadan Mode~~ ✅ 26763d9 (siehe 29aq oben).
+- ~~Antriebs-Management~~ ✅ bf2b6b0 (siehe 29ar oben).
+- ~~Übersetzungs-Setup~~ ✅ eda223a (siehe 29as oben).
 - Die übrigen Sprint-12-Punkte (3D-Visualisierung 🅿️, Verschleiß-Tracking/
   Strava 🔵, global-synchronisierte Events 🔵) bleiben bewusst zurückgestellt
   (siehe Kap. 7, Sprint 12) – brauchen neue Infrastruktur (3D-Engine/Assets,
