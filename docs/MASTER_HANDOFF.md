@@ -261,10 +261,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (118) 🔨 Material-Ehre: lege einen Spezifikations-Zettel bei („Schmiedeguss, kratzeranfällig, ein ehrlicher Alltagsbegleiter").
 *   (124) 🔨 Die „Stille Münze": physische VΛAΛV-Münze als unangekündigtes Geschenk bei Bestellungen.
 *   (125) 🔨 Apex-Leistungen (Phase 1: manuelle Übertragung von Highlight-Daten; Strava-Sync erst Phase 3).
-*   (129) 🔨 Voraussichtliche Einkaufskalkulation: berechne aus Vorratstracker + historischen Preisen die exakten Kosten des nächsten Einkaufs im Voraus.
-*   (150) 🔨 Hintergrund-Vorratstracker (Inventory Engine): berechne aus dem täglich getrackten Konsum (z. B. 100 g Haferflocken, 40 g Eiweißpulver) den physischen Füllstand der Vorräte.
-*   (151) 🔨 Zero-Stock-Warnsystem: melde dich proaktiv, kurz bevor ein essenzielles Produkt leer ist.
-*   (152) 🔨 Wöchentlicher Master-Bestellplan: bündle alle zur Neige gehenden Produkte zu einer fertigen Einkaufs-/Nachbestell-Liste.
+*   (129) ✅ (150) ✅ (151) ✅ (152) ✅ Inventory Engine in `vaaav-mobile` (PR #16): ein zusammenhängendes Modul für alle vier Punkte. Vorratstracker berechnet den Füllstand aus einmalig eingetragener Packungsgröße/Preis/Tagesverbrauch (bewusst manuell statt automatischer Ableitung aus den Freitext-`serving`-Strings in `products.json`, die sich nicht zuverlässig parsen lassen) — Zero-Stock-Warnung ab 3 Tagen Restlaufzeit, wöchentlicher Master-Bestellplan bündelt alle knappen Produkte, Einkaufskalkulation summiert die zuletzt eingetragenen Preise. Separater Speicher (`sl_inventory`), keine Punkte-Mechanik. 10 Tests, 371/371 grün. (`inventory.ts`, InventoryScreen)
 *   (166) 🔨 Individual Book: verkaufe personalisierte Erfolgs-Historien als gedrucktes Buch (siehe Abschnitt 17).
 *   (168) 🔨 Shop-Incentive: schalte bei Bestellung physischer Ware den „Eternity Mode" bis zur Lieferung frei.
 *   (169) ✅ Disziplin-Fallback — identisch mit #26 (`checkDegradation`), bereits live in `vaaav-mobile`.
