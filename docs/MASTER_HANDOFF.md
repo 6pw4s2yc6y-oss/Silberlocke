@@ -296,6 +296,30 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (🆕) 🔵 „VΛAΛV Individual Book" & Physische Coins: Kommerzielle Option für Nutzer, eigene Notizen und Erfolge als hochwertiges Buch zu erwerben. Titan-Coins mit Laser-Gravur („Veteranen-Narbe") für den absolvierten WinterArc.
 - (🆕) 🔨 Biometrische Resilienz-Kopplung: Die Engine gleicht „Tiefs" mit physischen Daten (wenig Schlaf, harte Rad-Einheiten) ab. Ändert das Wording bei physischer Überlastung von „Push harder" zu „Erholung ist Teil des Prozesses".
 
+### Sprint 12: Equipment, Next-Day-Prep & Kulturelle Modi 🆕 (Betreiber-Ideenpaket 2026-07-10)
+
+**Equipment & Telemetrie („Pimp mein Bike"):**
+- (🆕) 🅿️ 3D-Fahrrad-Visualisierung: Interaktives 3D-Modell des Rennrads in der App-Übersicht. Geparkt – braucht eine neue 3D-Rendering-Abhängigkeit (z. B. React Three Fiber/expo-three) plus ein tatsächliches 3D-Asset (Modellierung/Lizenzierung), nicht nur Code.
+- (🆕) 🔵 Automatisches Verschleiß-Tracking: Abnutzung direkt aus Leistungsdaten berechnen, gekoppelt an Strava. Braucht Strava-OAuth/API-Integration – Backend/Phase 3.
+- (🆕) 🔨 Antriebs-Management: Ketten-/Antriebs-Verschleiß und Wartungsintervalle. Jetzt baubar als manuelle km-Eingabe (Rad-Kilometer aus Aktivitäten summieren, Wartungsschwelle daraus ableiten) – kein Strava nötig, konsistent mit der App-Philosophie „manuelle Dateneingabe" (siehe 29ai-Notiz zu Detox).
+- (🆕) 🔨 Übersetzungs-Setup: Digitale Abbildung der gewählten Gänge/Übersetzungen (Kettenblatt/Kassette → Entfaltung) zur Leistungsanalyse. Jetzt baubar, reine Eingabe+Rechenlogik.
+
+**Recovery & System-Regeneration:**
+- (🆕) ✅📱 Recovery Mode „Krankheit": Pausiert Trainingsziele, schaltet Algorithmen auf Genesung, schützt Fortschritt/Streaks. **(RN FERTIG – deckt sich mit dem bereits gebauten Recovery-Ausbau #68/#70: Schlafen+Trinken als Workout-Ersatz an Krankheits-Tagen + schonender Wiedereinstiegs-Plan, siehe 29ag. Keine weitere Arbeit nötig, außer der Betreiber sieht eine inhaltliche Lücke zum hier beschriebenen Konzept.)**
+- (🆕) ✅📱 Recovery Mode „Post-Intensiv": Regenerations-Protokoll für die Stunden/Tage nach extremer Belastung. **(RN FERTIG – deckt sich mit dem bereits gebauten RecoveryMode (Kcal-Schuld nach intensiver Einheit) + der neuen Regenerationsphase danach, siehe 29ah. Keine weitere Arbeit nötig.)**
+
+**Next-Day-Prep & Performance-Planung:**
+- (🆕) 🔨 Tages-Architektur: Arbeitszeiten/feste Blocker eintragen, daraus verfügbare Trainings-/Regenerationsfenster berechnen. Jetzt baubar, reine lokale Kalenderlogik.
+- (🆕) 🔨 Makro-Planung: Eiweißbedarf & Nährstoffe im Voraus auf die geplante Belastung des Folgetags abstimmen. Jetzt baubar – kann an die bereits vorhandene Trainingsplan-/dayType-Logik andocken.
+
+**Dynamische Events & Kulturelle Modi:**
+- (🆕) 🔨 Ramadan Mode: Zeitlich begrenztes Event-Modul, einmalige diskrete Abfrage, passt Trainings-/Ernährungsfenster an die Fastenzeiten an. Jetzt baubar mit einer Datumsdatei (Ramadan-Zeiträume sind Jahre im Voraus bekannt, keine Live-Berechnung nötig).
+- (🆕) 🔨 Globale Events: generische Infrastruktur für weitere saisonale/sportliche/app-interne Challenges. Lokale Basis-Infrastruktur jetzt baubar; echte GLOBAL-synchronisierte Events (serverseitig, alle Nutzer gemeinsam) wären Phase 3.
+
+**UI & Progress-System:**
+- (🆕) 🔨 Arc Mode: isolierter, fokussierter Interface-Status (reduziertes UI für Deep-Work/Training). Jetzt baubar als reiner UI-State.
+- (🆕) 🔨 Freischaltbare Themes: exklusive Hintergründe/Materialien fürs Dashboard, freigeschaltet durch Nutzung/Meilensteine. Jetzt baubar – direkte Erweiterung der bereits gebauten Anpassbaren Vibes (#100, 29ai) um Freischalt-Bedingungen (z. B. an Medaillen/Stufen gekoppelt).
+
 ---
 
 ## AKTUELLER STATUS (Handoff-Loop, Stand 2026-07-07, Session 2)
