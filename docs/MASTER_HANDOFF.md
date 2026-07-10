@@ -279,8 +279,8 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (66) ✅ Manuelles Drosseln bei eingepflegten Befunden.
 *   (65) 🟡 Deep-Recovery-Modus schaltet auf Heilung um.
 *   (71) 🟡 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht sie mit dem Stack ab.
-*   (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
-*   (70) 🔨 Generiere einen schonenden Wiedereinstiegs-Plan nach Krankheit (algorithmischer Ramp-Up).
+*   (68) ✅ Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit — bereits live in `vaaav-mobile` (Doku-Drift korrigiert): `sickDayReady`/`evaluateSickDay`/`toggleSleptWell` in `discipline.ts`, DayScreen verdrahtet.
+*   (70) ✅ Schonender Wiedereinstiegs-Plan nach Krankheit (algorithmischer Ramp-Up) — bereits live in `vaaav-mobile` (Doku-Drift korrigiert): `reentryPlan`/`lastSickStreak` in `discipline.ts`, DayScreen zeigt Tag-Index/Volumen-% an; baut außerdem schon Recovery-Lock-Pacing (#170) darauf auf.
 *   (119) ✅ „VΛAΛV-Paradoxon" in `vaaav-mobile` (PR #14): Copy/Messaging-Karte auf dem Master-Screen, freigeschaltet ab Master Mode (`p.stage === 'master'`) — erklärt, warum striktes Mikromanagement obsolet wird, sobald Disziplin zur Gewohnheit geworden ist. 4 Tests, 348/348 grün. (`paradox.ts`, MasterScreen)
 *   (120) ✅ Eternity Mode (Endgame) in `vaaav-mobile`: Grant/Revoke, Trial (14 Tage), Preis, Aktivierung nur ab Master Mode. (`grantEternity`/`isEternityActive` in `discipline.ts`, ToolsScreen)
 *   (170) ✅ Recovery-Lock-Pacing in `vaaav-mobile` (PR #13): akut krank → nur essenzielle Tools sichtbar; Wiedereinstiegsfenster → Freischaltung wächst linear mit dem Taper-Fortschritt (#70). 6 Tests, 344/344 grün. (`recoveryLockPacing.ts`, ToolsScreen)
