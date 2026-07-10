@@ -333,13 +333,15 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 ## 8. AKTUELLES TODO (Nächste Prioritäten — Befehlsform)
 
 1.  ~~**Security-Pipeline in `vaaav-mobile`**~~ ✅ **erledigt** (PR #1, 2026-07-10): Gitleaks (blockierend) + npm audit + Semgrep, alle grün. Nächster Feinschliff: nach ein paar sauberen Läufen `continue-on-error` bei audit/semgrep entfernen (scharf schalten).
-2.  **Führe die Detox-E2E-Suite tatsächlich auf einem Build aus** (Konfiguration + Tests liegen bereits: `.detoxrc.json`, `e2e/`): `npm run test:e2e:build:ios` bzw. `:android`, dann `npm run test:e2e`. Szenarien absichern: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove. Build via EAS.
-3.  **Ziehe die `vaaav-mobile/README.md`-Statuszeile nach** („UI-Prototyp" → realer Stand: 271 Tests, 27 Screens) beim nächsten Mobile-Commit.
-4.  **Baue die nächsten 🔨-Features** (kein Backend nötig): Fokus-Matrix-Ausbau (Goal-Ranking per Drag-and-Drop, Auto-Setup), Trend-Grafik für Blutwerte über die Zeit. ~~Tabu-Börse (#111/#112/#147)~~ ✅ (PR #3) · ~~Wissens-Feed (#171)~~ ✅ (PR #4) · ~~Wallpaper-Bar (#149)~~ ✅ (PR #5).
-7b. **Kamera-Roll-Export für die Wallpaper-Bar nachrüsten** (`expo-media-library`), sobald eine Session mit echtem Geräte-/Simulator-Zugriff verfügbar ist – neue native Module dürfen nicht ungetestet bleiben.
-5.  **Setze vor Launch die DEV-Flags zurück:** `DAYS_PER_STAGE` (mobile) auf Produktionswert, `PREVIEW_UNLOCK_ALL = false` (PWA).
-6.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
-7.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
+2.  **Führe die Detox-E2E-Suite tatsächlich auf einem Build aus** (Konfiguration + Tests liegen bereits: `.detoxrc.json`, `e2e/`): `npm run test:e2e:build:ios` bzw. `:android`, dann `npm run test:e2e`. Szenarien absichern: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove. Build via EAS. *(Braucht Geräte-/Simulator-Zugriff — in dieser Session nicht ausführbar.)*
+3.  ~~**Ziehe die `vaaav-mobile/README.md`-Statuszeile nach**~~ ✅ **erledigt** (PR #2).
+4.  ~~**Baue die nächsten 🔨-Features**~~ — alle erledigt: ~~Tabu-Börse (#111/#112/#147)~~ ✅ (PR #3) · ~~Wissens-Feed (#171)~~ ✅ (PR #4) · ~~Wallpaper-Bar (#149)~~ ✅ (PR #5) · ~~Coin-Book-Katalog + Screen (#35/#163)~~ ✅ (PR #6, #7). ~~Fokus-Matrix-Ausbau~~ ✅ **Auto-Setup** (PR #8, 2026-07-10): passende Werkzeuge werden im Werkzeuge-Tab hervorgehoben/priorisiert (Empfehlung, keine Sperre). **Goal-Ranking per Drag-and-Drop bewusst NICHT gebaut** — der einzige heutige Verbraucher (`hybridAdvice`) unterscheidet nur primär/sekundär, ein volles Ranking hätte keinen Abnehmer (Entscheidung in `focus.ts` dokumentiert; bei Bedarf nachrüstbar). ~~Trend-Grafik für Blutwerte~~ ✅ **war bereits gebaut** (Doku-Drift korrigiert — Logik + Balkendiagramm existierten schon in `BloodworkScreen`, PR #8 stellte es nur richtig).
+5.  **Kamera-Roll-Export für die Wallpaper-Bar nachrüsten** (`expo-media-library`), sobald eine Session mit echtem Geräte-/Simulator-Zugriff verfügbar ist – neue native Module dürfen nicht ungetestet bleiben.
+6.  **Setze vor Launch die DEV-Flags zurück:** `DAYS_PER_STAGE` (mobile) auf Produktionswert, `PREVIEW_UNLOCK_ALL = false` (PWA).
+7.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
+8.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
+9.  **Coin-Book-Hero-Assets:** 4 Hero-Blumen (1 je Tier) in Midjourney generieren, Stil-Kohärenz validieren, dann als `imageAsset` in `coinBook.ts` verlinken — erst danach die restlichen 47 produzieren.
+10. **Nächste offene Frontend-Punkte** (kein Backend nötig, siehe Sprint-Listen in Abschnitt 6): u. a. Themes/Vibes-Ausbau (#100), Universelle Weisheits-Datenbank (#137/#138), Resilienz-Engine (#136), Datenbasiertes Budget-Planning (#130). **Vor dem nächsten Feature: kurz den Code prüfen, ob es nicht schon existiert** (siehe Punkt 4 — zweimal war der Handoff hier veraltet).
 
 ---
 
