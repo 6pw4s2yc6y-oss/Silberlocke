@@ -215,7 +215,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (14) 🟡 Expert Mode: minutengenaues Timing.
 *   (21) 🟡 Truth-Engine entzieht Betrügern Punkte.
 *   (26) ✅⚠️ Degradierungs-Automatik in `vaaav-mobile`: fällt der Disziplin-Status auf 0, Rückstufung auf Light Mode (Punkte/Freischaltungen bleiben erhalten, nur der Stage-Fortschritt startet neu). Identisch mit #169. (`checkDegradation` in `discipline.ts`)
-*   (28) 🔨 Verbindliche Therapie-Verträge blockieren Laster (lokal).
+*   (28) ✅ Therapie-Verträge in `vaaav-mobile` (PR #15): verbindliche 14/30/90-Tage-Selbstbindung gegen ein einzelnes Tabu-Produkt, blockiert Käufe für die Laufzeit, keine vorzeitige Kündigung; Punkte-Belohnung (Tage × 2) erst nach vollem Durchhalten abholbar. Rein lokal. 13 Tests, 361/361 grün. (`therapyContracts.ts`, TabuScreen)
 *   (111) ✅ Tabu-Börse (Anti-Stockpiling) in `vaaav-mobile`: Sünden-Produkte legal mit Punkten freischalten, 7-Tage-Sperre pro Produkt. Eiserne Regel: **Nichts auf Vorrat.** (`tabuBoerse.ts`, TabuScreen)
 *   (112) ✅ Schatten-Kompensation in `vaaav-mobile`: stiller Kalorienausgleich für Tabu-Käufe (`shadowCompensationNote`).
 *   (147) ✅ Supermarkt-Walk-Tracking in `vaaav-mobile` (PR #3): jeder Tabu-Kauf erzeugt eine offene Fußweg-Schuld (FIFO), manuell als Micro-Workout/Willenskraft-Beweis bestätigt — ohne Punktevergabe (#29). 4 Tests, 275/275 grün.
