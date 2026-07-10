@@ -154,7 +154,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (138) 🔨 Neutrales Wording: betitele Verse als „Prinzipien der Stärke". Zeige sie Trigger-basiert nur bei negativen Tagebuch-Einträgen oder Disziplin-Lücken, begleitet von haptischem Grounding (Herzschlag-Vibration).
 *   (100) ✅ Anpassbare Gaming-Themen (Vibes) in `vaaav-mobile`: manuelle Level-Wahl unabhängig vom Fortschritt + Freischalt-Logik (Tribunal ab erstem Tabu-Kauf, Master nach erstem Aufstieg, bleibt danach dauerhaft frei). (`ThemeContext.tsx`, ToolsScreen-Vibe-Box)
 *   (134) ✅ VΛAΛV Atomuhr in `vaaav-mobile`: live in `MasterScreen` (`AtomClock.tsx`).
-*   (135) 🔨 Tage-Zähler: „tatsächlich durchgezogene Trainings" vs. Ausfälle.
+*   (135) ✅ Trainings-Bilanz in `vaaav-mobile` (PR #11): zählt nur echte Trainingstage laut Wochenplan (nicht den allgemeinen Tages-Streak), volle Zeitspanne seit Programmstart, Tag ohne Interaktion = Ausfall (keine Ausreden). 3 Tests, 331/331 grün. (`trainingTally` in `analytics.ts`, AnalyticsScreen)
 *   (136) ✅ Resilienz-Engine in `vaaav-mobile` (PR #10): erkennt „Tiefs" (frische Degradierung / gerissene Serie ≥5 Tage / niedriger Score) und zeigt eine unterstützende, nicht strafende Botschaft. 9 Tests, 328/328 grün. (`resilience.ts`, Karte in MasterScreen)
 *   (130) ✅ Datenbasiertes Budget-Planning in `vaaav-mobile` (PR #9): schlägt aus der Trash-Ausgaben-Historie ab 2 abgeschlossenen Monaten automatisch ein Sparziel-Limit vor (10 % unter dem historischen Schnitt). 7 Tests, 319/319 grün. (`trashBudgetPlan` in `money.ts`, MoneyScreen)
 *   (131) 🔨 Regressions-Frühwarnsystem (Muster- & Depressions-Tracking).
