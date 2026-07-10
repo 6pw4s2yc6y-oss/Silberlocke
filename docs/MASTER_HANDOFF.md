@@ -318,7 +318,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 
 **UI & Progress-System:**
 - (🆕) 🔨 Arc Mode: isolierter, fokussierter Interface-Status (reduziertes UI für Deep-Work/Training). Jetzt baubar als reiner UI-State.
-- (🆕) 🔨 Freischaltbare Themes: exklusive Hintergründe/Materialien fürs Dashboard, freigeschaltet durch Nutzung/Meilensteine. Jetzt baubar – direkte Erweiterung der bereits gebauten Anpassbaren Vibes (#100, 29ai) um Freischalt-Bedingungen (z. B. an Medaillen/Stufen gekoppelt).
+- (🆕) ✅📱 Freischaltbare Themes: exklusive Hintergründe/Materialien fürs Dashboard, freigeschaltet durch Nutzung/Meilensteine. **(RN FERTIG – Vibe-Wahl an Freischalt-Bedingungen gekoppelt: Tribunal nach erstem Tabu-Börse-Kauf, Master nach erstem echten Master-Aufstieg, bleibt danach dauerhaft frei, siehe 29am.)**
 
 ---
 
@@ -575,6 +575,36 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29am. ✅ **Freischaltbare Themes – RN FERTIG, 🆕 kein PWA-Vorbild (Sprint 12,
+    Betreiber-Ideenpaket 2026-07-10):** Direkte Erweiterung der bereits
+    gebauten Anpassbaren Vibes (#100, 29ai) um echte Freischalt-Bedingungen –
+    Vibe-Wahl ist jetzt eine Errungenschaft statt von Anfang an frei.
+    `discipline.ts`: neues Feld `ProgressState.highestStage` (höchste je
+    erreichte Stufe, sinkt nie – bleibt bei einer Degradierungs-Automatik
+    #26 unangetastet erhalten) + `recordHighestStage(p)`, verdrahtet in
+    `defaultProgress` (Seed `'shadow'`), `normalizeProgress` (Heilung
+    alter Spielstände) und `checkUnlocks`' Aufstiegs-Zweig (echter neuer
+    Aufstieg) sowie in `DisciplineContext`'s DEV-`setStage`.
+    `ThemeContext.tsx`: neue `unlockedDesignLevels(p)` – Phase Zero &
+    Werkbank immer frei (Basis-Looks), Tribunal erst nach dem ersten
+    Tabu-Börse-Kauf (`tabuLog.length > 0`), Master erst nach dem ersten
+    echten Master-Aufstieg (`highestStage` erreicht Master) – bleibt
+    danach dauerhaft frei. `ThemePreference` bekommt `unlocked: DesignLevel[]`;
+    `setPreference()` verweigert noch gesperrte Level; die Level-Auswahl
+    fällt automatisch auf das Stage-abgeleitete Level zurück, falls eine
+    gespeicherte Präferenz nicht mehr freigeschaltet ist. `ToolsScreen`:
+    gesperrte Vibe-Chips zeigen ein Lock-Icon (Lucide, Regel 4) + gedimmten/
+    gestrichelten Stil statt der normalen Auswahl, Hinweistext erklärt die
+    Freischalt-Bedingungen. `highestStage` bewusst nicht in `theme.test.ts`
+    getestet (`ThemeContext.tsx` importiert transitiv `react-native` über
+    `theme.ts` – unter `node --test` nicht ladbar, bekannte Einschränkung),
+    stattdessen 4 neue Tests für `recordHighestStage`/`defaultProgress` in
+    `tests/highestStage.test.ts` (hebt bei Aufstieg an, sinkt bei
+    Degradierung NICHT, bleibt bei gleicher Stage unverändert).
+    **239/239 Tests grün**, Typecheck sauber. Commit `8ce5b1a`.
+
+    **Sprint-12-Punkt „Freischaltbare Themes" damit RN FERTIG.**
+
 29al. ✅ **Schatten-Kompensation (#112): stiller Kalorienausgleich für
     Tabu-Käufe – RN FERTIG, 🆕 kein PWA-Vorbild (Roadmap-Punkt war nur ein
     Ein-Zeiler):** Verzahnt mit der bereits vorhandenen Tabu-Börse (#111).
@@ -1441,10 +1471,14 @@ oberhalb Master (29 €/Monat, 14 Tage Trial, Shop-Bestell-Perk) –
 **Roadmap #120 damit RN TEILWEISE** (echte Zahlungsabwicklung = Phase 3).
 Schatten-Kompensation (29al, Roadmap #112) webt einen stillen, nie
 strafenden Kalorienausgleich für Tabu-Käufe in den Tag ein – **Roadmap
-#112 damit RN FERTIG.**
-**Testabdeckung: 235/235 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `307dffd` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29071812084/29071812100). Infrastruktur: `vaaav-mobile`-Remote
+#112 damit RN FERTIG.** Ein neues Betreiber-Ideenpaket (Sprint 12, Kap. 7)
+wurde als Roadmap-Abschnitt dokumentiert und nach Baubarkeit sortiert;
+Freischaltbare Themes (29am) macht als erster der 7 „sofort baubar"-Punkte
+die Vibe-Wahl (#100, 29ai) zu einer echten Errungenschaft statt frei
+wählbar von Anfang an – **Sprint-12-Punkt „Freischaltbare Themes" damit RN
+FERTIG.**
+**Testabdeckung: 239/239 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `8ce5b1a`. Infrastruktur: `vaaav-mobile`-Remote
 mit Betreiber-Freigabe auf `https://github.com` umgestellt (lokaler
 Push-Proxy dauerhaft ausgefallen, siehe 29ak).
 
@@ -1496,11 +1530,41 @@ behoben via `ReduceMotion.Never` auf allen Core-Bar-/Λ-Anker-Animationen
 - **Anpassbare Vibes (#100) ist fertig** – siehe 29ai.
 - **Goal-Ranking (Drag-and-Drop)** vorerst zurückgestellt/nicht priorisiert.
 
+**Sprint 12 (Betreiber-Ideenpaket 2026-07-10, Kap. 7) – laufende Abarbeitung
+der „sofort baubar"-Liste, Betreiber-Anweisung „Weiter machen mit
+baubarenpunkte":**
+- ~~Freischaltbare Themes~~ ✅ 8ce5b1a (siehe 29am oben).
+- Arc Mode (isolierter/reduzierter UI-Fokus-Status) – offen.
+- Tages-Architektur (Arbeitszeiten/Blocker → Trainingsfenster-Berechnung) – offen.
+- Makro-Planung (Eiweißbedarf im Voraus auf Folgetags-Belastung abstimmen) – offen.
+- Ramadan Mode (Datumsdatei-basierte Fasten-Anpassung) – offen.
+- Antriebs-Management (manuelles km-Tracking, Ketten-/Wartungsschwelle) – offen.
+- Übersetzungs-Setup (Kettenblatt/Kassette → Entfaltung, Rechenlogik) – offen.
+- Die übrigen Sprint-12-Punkte (3D-Visualisierung 🅿️, Verschleiß-Tracking/
+  Strava 🔵, global-synchronisierte Events 🔵) bleiben bewusst zurückgestellt
+  (siehe Kap. 7, Sprint 12) – brauchen neue Infrastruktur (3D-Engine/Assets,
+  Strava-OAuth, Server-Sync), keine reine Code-Erweiterung.
+
+**Vom Betreiber entschieden/abgehakt (2026-07-09):**
+- **Körper-Atlas-Silhouette bleibt wie sie ist** – Zonen-Grid + Detailansicht
+  (29ae) ist eine bewusst akzeptierte, gute Lösung. Kein Nachbau der
+  SVG-Hotspot-Silhouette aus der Blaupause geplant.
+- **Clash-Detection (#122) ist fertig** – siehe 29af.
+- **Recovery-Ausbau (#68/#70) ist fertig** – siehe 29ag.
+- **RecoveryMode-Regenerationsphase ist fertig** – siehe 29ah.
+- **Anpassbare Vibes (#100) ist fertig** – siehe 29ai.
+- **Goal-Ranking (Drag-and-Drop)** vorerst zurückgestellt/nicht priorisiert.
+
 **Offene Punkte für eine kommende Session** (kein blockierender Rest,
 reine Priorisierungsfrage):
 - **Auto-Setup** (automatische Modul-Freischaltung nach Fokus-Selektion) –
   aktuell ohne sichtbaren Effekt, da DEV-Mode bereits alles freischaltet.
 - **E-Commerce/Affiliate-Logik**, sobald Phase 3 (Backend/Recht) ansteht.
+- **Detox-Build (#4)**: explizit auf „in ein paar Wochen" zurückgestellt,
+  erst wenn alle anderen Punkte fertig sind (Betreiber-Vorgabe). Davor
+  eingeplant: Molekülverbindungen (#121) + Affiliate-Transparenz (#93) +
+  Nährwerte für alle Produkte, sobald wissenschaftliche Studienlage
+  vorliegt (siehe oben, „Eingeplant, vor Detox-Build").
 
 **Eingeplant, VOR Detox-Build (#4) dranzunehmen (Betreiber-Klarstellung
 2026-07-09):**
