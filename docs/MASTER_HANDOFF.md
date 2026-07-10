@@ -216,9 +216,9 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (21) 🟡 Truth-Engine entzieht Betrügern Punkte.
 *   (26) 🔨⚠️ Degradierungs-Automatik: stufe bei Verstößen zurück (Regeln sauber definieren; siehe Abschnitt 15).
 *   (28) 🔨 Verbindliche Therapie-Verträge blockieren Laster (lokal).
-*   (111) 🔨 Tabu-Börse (Anti-Stockpiling): schalte Sünden-Produkte legal mit Punkten frei. Eiserne Regel: **Nichts darf zuhause auf Vorrat gelagert werden!**
-*   (112) 🔨 Schatten-Kompensation webt den Kalorienausgleich für Tabus in den Alltag ein.
-*   (147) 🔨 Supermarkt-Walk-Tracking: Wer aus der Tabu-Börse konsumiert, muss aktiv zum Supermarkt laufen. Tracke den Fußweg als Micro-Workout und Beweis aktiver Willenskraft.
+*   (111) ✅ Tabu-Börse (Anti-Stockpiling) in `vaaav-mobile`: Sünden-Produkte legal mit Punkten freischalten, 7-Tage-Sperre pro Produkt. Eiserne Regel: **Nichts auf Vorrat.** (`tabuBoerse.ts`, TabuScreen)
+*   (112) ✅ Schatten-Kompensation in `vaaav-mobile`: stiller Kalorienausgleich für Tabu-Käufe (`shadowCompensationNote`).
+*   (147) ✅ Supermarkt-Walk-Tracking in `vaaav-mobile` (PR #3): jeder Tabu-Kauf erzeugt eine offene Fußweg-Schuld (FIFO), manuell als Micro-Workout/Willenskraft-Beweis bestätigt — ohne Punktevergabe (#29). 4 Tests, 275/275 grün.
 *   (148) 🔨 Belohnungs-System für strukturierte Tagebuch-Einträge (Journaling; siehe Abschnitt 15).
 *   (149) 🔨 VΛAΛV Wallpaper-Bar: Wochen-Fortschrittsbalken schaltet am Wochenende exklusive Wallpapers frei (siehe Abschnitt 15).
 *   (171) 🔨 Wissens-Feed (Swipe-Quiz): TikTok-artiger Text-Scroll-Feed mit Ja/Nein-Fragen (max. 20/Tag).
@@ -335,7 +335,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 1.  ~~**Security-Pipeline in `vaaav-mobile`**~~ ✅ **erledigt** (PR #1, 2026-07-10): Gitleaks (blockierend) + npm audit + Semgrep, alle grün. Nächster Feinschliff: nach ein paar sauberen Läufen `continue-on-error` bei audit/semgrep entfernen (scharf schalten).
 2.  **Führe die Detox-E2E-Suite tatsächlich auf einem Build aus** (Konfiguration + Tests liegen bereits: `.detoxrc.json`, `e2e/`): `npm run test:e2e:build:ios` bzw. `:android`, dann `npm run test:e2e`. Szenarien absichern: DayScreen Block-Toggle, WeeklyPlan-Selektion, Money Add/Remove. Build via EAS.
 3.  **Ziehe die `vaaav-mobile/README.md`-Statuszeile nach** („UI-Prototyp" → realer Stand: 271 Tests, 27 Screens) beim nächsten Mobile-Commit.
-4.  **Baue die nächsten 🔨-Features** (kein Backend nötig): Fokus-Matrix-Ausbau (Goal-Ranking per Drag-and-Drop, Auto-Setup), Trend-Grafik für Blutwerte über die Zeit, Tabu-Börse (#111/#147), Wissens-Feed (#171), Wallpaper-Bar (#149).
+4.  **Baue die nächsten 🔨-Features** (kein Backend nötig): Fokus-Matrix-Ausbau (Goal-Ranking per Drag-and-Drop, Auto-Setup), Trend-Grafik für Blutwerte über die Zeit, Wissens-Feed (#171), Wallpaper-Bar (#149). ~~Tabu-Börse (#111/#112/#147)~~ ✅ erledigt (PR #3).
 5.  **Setze vor Launch die DEV-Flags zurück:** `DAYS_PER_STAGE` (mobile) auf Produktionswert, `PREVIEW_UNLOCK_ALL = false` (PWA).
 6.  **`vaaav-backend` anlegen**, sobald der erste echte Backend-Punkt ansteht (E-Commerce/Affiliate 83/91/92, Konten/Sync 103, Squads 36–45). Dann dort ebenfalls `security-audit.yml` als ersten Commit.
 7.  **PWA-Pflege (`Silberlocke`):** `js/main.js` weiter in Module zerlegen; `APP_VERSION`/`CACHE_VERSION` bei jedem Deploy hochzählen.
