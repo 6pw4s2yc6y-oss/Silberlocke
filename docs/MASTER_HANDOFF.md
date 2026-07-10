@@ -284,7 +284,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (71) 🟡 Master Mode analysiert manuell eingetragene Labor-Blutwerte und gleicht sie mit dem Stack ab.
 *   (68) 🔨 Lückenloses Schlafen/Trinken zählt als „Workout" bei Krankheit.
 *   (70) 🔨 Generiere einen schonenden Wiedereinstiegs-Plan nach Krankheit (algorithmischer Ramp-Up).
-*   (119) 🔨 „VΛAΛV-Paradoxon": die Perfektions-Falle — Mikromanagement wird obsolet.
+*   (119) ✅ „VΛAΛV-Paradoxon" in `vaaav-mobile` (PR #14): Copy/Messaging-Karte auf dem Master-Screen, freigeschaltet ab Master Mode (`p.stage === 'master'`) — erklärt, warum striktes Mikromanagement obsolet wird, sobald Disziplin zur Gewohnheit geworden ist. 4 Tests, 348/348 grün. (`paradox.ts`, MasterScreen)
 *   (120) ✅ Eternity Mode (Endgame) in `vaaav-mobile`: Grant/Revoke, Trial (14 Tage), Preis, Aktivierung nur ab Master Mode. (`grantEternity`/`isEternityActive` in `discipline.ts`, ToolsScreen)
 *   (170) ✅ Recovery-Lock-Pacing in `vaaav-mobile` (PR #13): akut krank → nur essenzielle Tools sichtbar; Wiedereinstiegsfenster → Freischaltung wächst linear mit dem Taper-Fortschritt (#70). 6 Tests, 344/344 grün. (`recoveryLockPacing.ts`, ToolsScreen)
 *   (153) 🔵⚠️ Ärztliches OK: zwingende Bestätigungsschranke nach dem Recovery-Mode.
