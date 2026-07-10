@@ -135,7 +135,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (115) ✅ „Ektomorph-Plan" für Untergewichtige — Fokus Magendehnung/Aufbau (v45).
 *   (116) ✅ „Schatten-Tracking": verwehrt im ersten Monat Kcal-Zahlen zur Baseline-Ermittlung (v45).
 *   (18) 🟡 Interaktives 3-Schritte-Setup generiert das Dashboard (Treibstoff-Puffer offen).
-*   (132) 🔨 Fokus-Matrix (Hybrid-Profiling): Primärziel (z. B. Bodybuilding) vs. Sekundärziel (z. B. Rennrad). Die App passt sich dieser Identität an.
+*   (132) ✅ Fokus-Matrix (Hybrid-Profiling) in `vaaav-mobile`: Primärziel vs. optionales Sekundärziel, jederzeit änderbar. (`focus.ts`, FocusScreen — Grundlage für #140 Hybrid-Routing und Auto-Setup)
 *   (45) 🔵 Vergleichs-Matching (identische Veteranen-Profile).
 *   (133) 🔵 Prognose-Engine: berechnet ungeschönt, wo der Nutzer in 10 Jahren steht (siehe Abschnitt 15).
 
@@ -173,7 +173,7 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (53) 🟡 Systemische Ego-Bremsen drosseln bei Überlastung.
 *   (50) 🔨 Rennrad-Fokus mit spezialisierten Plänen (als Daten).
 *   (139) 🔨 Thermodynamisches Recovery-Fenster: roter Defizit-Modus. Er füllt sich nicht passiv durch Zeit, sondern nur aktiv — tracke die berechneten Kcal für Gewebereparatur/Energie zu 100 %, bevor die App auf „Grün" springt.
-*   (140) 🔨 Adaptives Hybrid-Routing: berechne Volumen cross-funktional aus der Fokus-Matrix. Ist Radsport nur Hobby, deckle die ZNS-Belastung auf dem Rad, damit der primäre Bodybuilding-Plan nicht sabotiert wird (und umgekehrt).
+*   (140) ✅ Adaptives Hybrid-Routing in `vaaav-mobile`: ordnet Trainingspläne dem Primär-/Sekundärziel zu, warnt bei hoher ZNS-Belastung des Sekundärziels (deckelt nicht hart — „keine Bevormundung"). (`hybridRouting.ts`, live in WeeklyPlanScreen)
 *   (141) 🔨 Mikrozyklen-Spezifizierung (Stimulus-Fokus): frage den Trainingsreiz zwingend ab (Kraftausdauer, Hypertrophie, Muskelausdauer). Blockiere physiologisch widersprüchliche Belastungsmuster.
 *   (142) 🔨 „Pro-Peloton"-Benchmark (Tour de France): vergleiche manuell getrackte Leistungswerte (FTP, Watt/kg, Höhenmeter, Dauer) ungeschönt mit Profi-Anforderungen. Visualisiere den Abstand zur Weltklasse als prozentualen Reality-Check.
 *   (144) 🔨 Geräte-Inventar (Gear-Setup): lege Equipment einmalig an (Radcomputer, Powermeter, Beleuchtung).
