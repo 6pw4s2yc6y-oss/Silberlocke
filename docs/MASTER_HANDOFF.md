@@ -211,7 +211,7 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
 - (28) 🔨 Verbindliche Therapie-Verträge blockieren Laster (lokal).
 - (111) 🔨 Tabu-Börse (Anti-Stockpiling Regel): Sünden-Produkte legal mit Punkten freischalten. Die eiserne Regel: Nichts darf zuhause auf Vorrat gelagert werden!
 - (🆕) 🔨 Supermarkt-Walk-Tracking: Wer etwas aus der Tabu-Börse konsumiert, muss aktiv zum Supermarkt laufen. Der Fußweg wird getrackt und als Beweis aktiver Willenskraft gewertet.
-- (112) 🔨 Schatten-Kompensation webt Kalorienausgleich für Tabus in Alltag ein.
+- (112) ✅📱 Schatten-Kompensation webt Kalorienausgleich für Tabus in Alltag ein (RN: stiller, gestaffelter Hinweis in DayScreen ab 400 kcal, siehe 29al).
 - (🆕) 🔨 Belohnungs-System für strukturierte Tagebuch-Einträge.
 - (🆕) 🔨 VΛAΛV Wallpaper-Bar: Ein Fortschrittsbalken über die Woche. Erreicht man das Ziel, wird am Wochenende ein exklusives, ikonisches Smartphone-Wallpaper (Liquid Glass / Neomorphismus) freigeschaltet.
 - (27) ❓ Pacing-Mechanik: Alle 3 Tage bei erfolgreich absolviertem Tag ein neues Element / Tool freischalten, um den Nutzer nicht zu überfordern und durch den Überraschungseffekt die Motivation hochzuhalten.
@@ -551,6 +551,27 @@ Training-Steuer/Confession Loop, Profil-Medaillen, Meine Befunde.)*
     RootNavigator um 'recovery'-Screen erweitert. ToolsScreen markiert
     RecoveryMode als 'migriert' (LIVE). Typecheck sauber, alle 65 Tests grün.
     Commit 69c9fcd.
+29al. ✅ **Schatten-Kompensation (#112): stiller Kalorienausgleich für
+    Tabu-Käufe – RN FERTIG, 🆕 kein PWA-Vorbild (Roadmap-Punkt war nur ein
+    Ein-Zeiler):** Verzahnt mit der bereits vorhandenen Tabu-Börse (#111).
+    `TabuItem` bekommt eine kcal-Schätzung pro Produkt (grobe
+    Alltagswerte für die übliche Portionsgröße, keine erfundenen
+    Produktdaten – z. B. Pizza ~1200 kcal, Softdrink ~210 kcal).
+    `tabuBoerse.ts`: `todayTabuKcal()` summiert die Tabu-kcal des
+    aktuellen Tages, `shadowCompensationNote()` liefert einen
+    gestaffelten, nie strafenden Hinweistext – bewusst still (`null`)
+    unterhalb einer Bagatellgrenze (400 kcal), damit nicht bei jedem
+    Softdrink genervt wird (Schatten-Ethos: leise unterstützen statt
+    Druck machen). `DayScreen`: neue Banner-Sektion (Cookie-Icon statt
+    Emoji, Regel 4) direkt nach dem Cheat-Tag-Banner, nur sichtbar wenn
+    heute tatsächlich Tabu-Kalorien angefallen sind. 2 neue Tests
+    (Tages-Summierung inkl. Tages-Filter, Hinweistext-Stufen),
+    **235/235 Tests grün**, Typecheck sauber. Commit 307dffd. EAS-Update
+    bestätigt erfolgreich (beide Workflow-Runs `completed`/`success`,
+    Run-IDs 29071812084/29071812100).
+
+    **Roadmap #112 damit als RN FERTIG markiert.**
+
 29ak. ✅ **Stage-Leiter erweitert (Shadow+Middle) + Eternity Mode – 🆕
     Betreiber-Vorgaben:** Zwei zusammenhängende Erweiterungen des
     Stufen-Systems.
@@ -1394,9 +1415,12 @@ Betreiber-Vorgaben): Stufen jetzt Shadow → Light → Middle → Hard →
 Expert → Master; Eternity Mode als zeitlich begrenzter Abo-/Perk-Zugang
 oberhalb Master (29 €/Monat, 14 Tage Trial, Shop-Bestell-Perk) –
 **Roadmap #120 damit RN TEILWEISE** (echte Zahlungsabwicklung = Phase 3).
-**Testabdeckung: 233/233 Tests grün**, Typecheck sauber. Aktueller
-Commit `vaaav-mobile` main: `c743186` (EAS-Update bestätigt erfolgreich,
-Run-IDs 29071161699/29071161721). Infrastruktur: `vaaav-mobile`-Remote
+Schatten-Kompensation (29al, Roadmap #112) webt einen stillen, nie
+strafenden Kalorienausgleich für Tabu-Käufe in den Tag ein – **Roadmap
+#112 damit RN FERTIG.**
+**Testabdeckung: 235/235 Tests grün**, Typecheck sauber. Aktueller
+Commit `vaaav-mobile` main: `307dffd` (EAS-Update bestätigt erfolgreich,
+Run-IDs 29071812084/29071812100). Infrastruktur: `vaaav-mobile`-Remote
 mit Betreiber-Freigabe auf `https://github.com` umgestellt (lokaler
 Push-Proxy dauerhaft ausgefallen, siehe 29ak).
 
