@@ -642,6 +642,22 @@ Der Shop für physische Artefakte ist ein geschlossenes System — sichtbar auss
 *   **Individual Book (#163/#166):** Biete eigene Notizen, Daten und Erfolge als hochwertiges gedrucktes Buch an; Titan-Coins mit Laser-Gravur („Veteranen-Narbe") für den absolvierten WinterArc.
 *   **Eternity Mode als Abo (#167):** 19,99 €/Monat für vollen Zugriff — Apple-konform via IAP. **Shop-Incentive (#168):** Schalte bei Bestellung physischer Ware den Eternity Mode bis zur Lieferung frei. **Disziplin-Fallback (#169):** Stufe bei Scoring-Abfall automatisch auf Light Mode zurück.
 
+### 16b. Coin Book — Das Blumen-Achievement-System (Asset-Pack)
+
+Das digitale Coin Book sammelt **freischaltbare Blumen-Assets** als Erfolgs-Trophäen (verknüpft mit #35 Medaillen und den physischen Coins #163). 51 Blumen in vier Tiers, jede an ein Level der Design-Matrix gekoppelt — der Look steigt mit dem Rang.
+
+*   **Katalog (verifiziert, `vaaav-mobile` PR #6):** `src/logic/coinBook.ts` — 51 Blumen (`COIN_FLOWERS`), vier Tiers (`COIN_TIERS`), Prompt-Generator `flowerPrompt()`. 8 Tests, 304/304 grün.
+*   **Die vier Tiers:**
+    *   **Tier I – Basis** → Design-Level `phaseZero`: Liquid Glass, halbtransparentes Frostglas, kühles Blau (15 Blumen).
+    *   **Tier II – Konstanz** → `workbench`: glühendes Laser-Leder, „Veteranen-Narbe" in Feuer-Orange/Rot (14).
+    *   **Tier III – High Performance** → `master`: mechanisches Titan mit Gold-Akzenten, Iris-Mechanik (16).
+    *   **Tier IV – Prestige & Legacy** → `legacy` (jenseits der 4 UI-Level): massives Gold + Obsidian, majestätisch; „Bibble" ist das Saphir-Easter-Egg (6).
+*   **Generierungs-Workflow (First-Principles, wartbar):** Der Betreiber-Prompt-Pack bestand aus 51 fast identischen Midjourney-Prompts. **Verbindlich ab jetzt:** Pflege **eine Vorlage pro Tier** (im Code) statt Einzel-Prompts — `flowerPrompt(flower)` erzeugt den stil-konsistenten Prompt. Das garantiert einen kohärenten Asset-Pack ohne Style-Drift. Aster/Rose reproduzieren den Original-Wortlaut wortgetreu (Test-abgesichert).
+*   **Offene Entscheidungen (bewusst nicht geraten):**
+    1.  **Blume → Erfolg-Mapping** ist undefiniert (welche Blume schaltet welcher Meilenstein frei). Naheliegend: pro Stage-Aufstieg / Medaille die nächste Blume des passenden Tiers.
+    2.  **Bild-Pipeline:** Keine 8k-Renders ins Repo. Generieren → auf ~512 px komprimieren → lazy-load. Erst 4 Hero-Blumen (1/Tier) validieren, bevor alle 51 produziert werden. Bis dahin rendert die App prozedurale Platzhalter aus der Tier-Palette (wie die Wallpaper-Bar #149).
+    3.  **Coin-Book-Screen** kommt, sobald Mapping + Hero-Assets stehen.
+
 ---
 
 ## 17. COLUMBUS MODE & THE WINTERARC (Real-World-Integration)
