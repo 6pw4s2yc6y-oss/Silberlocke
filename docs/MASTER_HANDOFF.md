@@ -638,6 +638,17 @@ Der Shop für physische Artefakte ist ein geschlossenes System — sichtbar auss
 *   **Individual Book (#163/#166):** Biete eigene Notizen, Daten und Erfolge als hochwertiges gedrucktes Buch an; Titan-Coins mit Laser-Gravur („Veteranen-Narbe") für den absolvierten WinterArc.
 *   **Eternity Mode als Abo (#167):** 19,99 €/Monat für vollen Zugriff — Apple-konform via IAP. **Shop-Incentive (#168):** Schalte bei Bestellung physischer Ware den Eternity Mode bis zur Lieferung frei. **Disziplin-Fallback (#169):** Stufe bei Scoring-Abfall automatisch auf Light Mode zurück.
 
+### 16a. Monetarisierungs-Ideen 2026-07-11 (Betreiber-Input, geparkt — Phase 3)
+
+Alle vier Punkte brauchen `vaaav-backend` (Konten #103, Zahlung, B2B-Abrechnung) und reale Nutzerzahlen. Bewusst NICHT als hohle UI vorgebaut (Projektregel: keine Features ohne funktionierenden Unterbau).
+
+*   (172) 🔵 **Founder Pass:** limitierte Einmalzahlung (Lifetime-Zugang + Gründungs-Plakette + erste physische Medaille). Manifest-konform — verkauft Zugang, nie Aufstieg (gleiches Prinzip wie Eternity #120/#167). Erst mit Konten-System seriös (Lifetime auf rein lokalem Speicher wäre beim Gerätewechsel weg).
+*   (173) 🔵 **Charter-Partner Pre-Booking:** PRIVÉ-Werbe-Slots im Voraus an Gründungs-Marken verkaufen (Closed-User-Group-Deals, „Prestige-Privileg" statt Rabatt-Wording; exklusive Codes als Conversion-Tracking der Marke).
+*   (174) 🔵⚠️ **Slot-Segmentierung (2x2-Matrix Geschlecht × Budget): NUR mit expliziter Opt-in-Einwilligung, wenn überhaupt.** Kollidiert in der vorgeschlagenen Form („Nutzer merkt nichts") mit Manifest #7 („niemand handelt mit deiner Gesundheit, niemand verkauft dich weiter") und #93 (Transparenz). Bis auf Weiteres: ein ungeteilter, klar gekennzeichneter Slot für alle. Segmentierung frühestens ab großer Nutzerbasis UND nach expliziter Betreiber-Entscheidung zur Manifest-Verträglichkeit.
+*   (175) 🔵 **Coin-Book Pre-Order (Edition 0):** interne Kickstarter-Mechanik — erst produzieren, wenn das Geld eingesammelt ist. Gehört operativ zu Abschnitt 16/18.
+*   (176) 🔵 **Hall of Fame mit „Max M."-Anonymität:** monatliche Kürung, optional verlinkte Social-Kanäle ODER anonymes Layout (`is_public_influencer`-Flag). Privacy-by-Design passt zur App; braucht Community-Backend (#36–45).
+*   (177) 🅿️ **Manueller Blackout-Ride-Modus:** manuell (nicht automatisch) scharfgeschalteter OLED-Schwarz-Modus mit minimalen Live-Daten während der Fahrt. Idee gut („keine Bevormundung", haptischer Schalter) — aber Live-Watt/Puls brauchen die Ingestion Engine (Abschnitt 11, BLE-Sensorik). Geparkt bis dahin.
+
 ### 16b. Coin Book — Das Blumen-Achievement-System (Asset-Pack)
 
 Das digitale Coin Book sammelt **freischaltbare Blumen-Assets** als Erfolgs-Trophäen (verknüpft mit #35 Medaillen und den physischen Coins #163). 51 Blumen in vier Tiers, jede an ein Level der Design-Matrix gekoppelt — der Look steigt mit dem Rang.
