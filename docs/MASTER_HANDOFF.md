@@ -146,6 +146,10 @@ Passe das UI-Design dynamisch an den aktuellen Modus des Nutzers an:
 *   (101) ✅ Dashboard-Widget mit tageswechselnden Optimierungs-Insights (v38).
 *   (64) ✅ Schnellzugriff-Button für Wasser und Elektrolyte (v47).
 *   (113) ✅ „Brennende Batterie": Echtzeit-Animation beim Tracken (v48; in RN in die Core Bar überführen).
+*   (178) ✅ Accessibility-Grundausbau in `vaaav-mobile` (PR #23): VoiceOver/TalkBack-Rollen, Labels und Zustände auf allen zentralen Interaktionen (ScreenShell, PremiumCard, Toast-LiveRegion, Day/Tools/Tabu/Journal); globaler Dynamic-Type-Deckel `maxFontSizeMultiplier 1.5`. War davor komplett unversorgt (0 Props) — echter Launch-Blocker geschlossen. Konvention: jede neue Pressable bekommt Rolle+Label.
+*   (179) ✅ Kanten-Swipe-Navigation in `vaaav-mobile` (PR #24, Betreiber-Anweisung 2026-07-11): linke Kante nach rechts = zurück, rechte Kante nach links = vorwärts, mit echter Browser-semantischer History (`navHistory.ts`, 7 Tests, 415/415 grün); Zurück-Pfeil geht jetzt zum tatsächlich vorherigen Screen. PanResponder statt neuer Gesten-Library.
+*   (180) ✅ Shadow- & Eternity-Design-Level in `vaaav-mobile` (PR #25, Betreiber-Anweisung 2026-07-11): Shadow Mode = absolutes True Black (#000000) + knallweiße Schrift (Weiß als Akzent, monochrom-klinisch); Eternity = Erd-Palette (Tiefsee-Blau/Hellgrün/Atmosphären-Blau/Türkis) als eigener Vibe-Button, dauerhaft freigeschaltet ab erstem Eternity-Zugang. Light Mode unverändert; Design-Matrix damit 6 Level, alle farblich klar unterscheidbar.
+*   (181) ✅ Haptik in `vaaav-mobile` (PR #26, Betreiber-Anweisung 2026-07-11): `expo-haptics` — kurzer Tap-Impact bei jeder Eingabe, pulsierende Dreier-Sequenz beim Punkte-Verdienen/Meilenstein (bewusst NICHT beim Punkte-Ausgeben, #29-Ethos). Defensiv geladen (kein Crash auf Builds ohne das Modul). ⚠️ Vor dem nächsten Store-Release einmal EAS Build laufen lassen, damit das native Modul im Binary ist.
 *   (57) 🟡 Dynamische Einnahmefenster (Taktung ab individueller Aufwachzeit).
 *   (58) 🟡 Basis-Routinen als Standard-Mahlzeiten-Logik.
 *   (63) 🟡 Circadianer Sleep Mode.
